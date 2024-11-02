@@ -1,0 +1,12 @@
+---
+# As per https://technical-guidance.service.justice.gov.uk/documentation/standards/documenting-infrastructure-owners.html#mandatory
+business_unit: Platforms
+application: Analytical Platform
+is_production: true
+owner: analytical-platform@justice.gov.uk
+
+image:
+  repository: ghcr.io/ministryofjustice/analytical-platform-example
+  tag: 1.0.0
+
+compute_profile: general-on-demand-2vcpu-8gb

@@ -1,0 +1,10 @@
+from airflow import DAG
+from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesPodOperator
+
+default_args = {
+    'owner': '{{ owner }}',
+}
+
+task = KubernetesPodOperator(
+    affinity={{ affinity }}
+)
