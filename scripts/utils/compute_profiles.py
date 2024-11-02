@@ -25,38 +25,38 @@ def get_compute_profile(compute_profile="general-on-demand-2vcpu-8gb"):
             "requests_cpu": "2",
             "requests_memory": "8Gi",
             "limits_cpu": "2",
-            "limits_memory": "8Gi"
+            "limits_memory": "8Gi",
         },
         "-4vcpu-16gb": {
             "requests_cpu": "4",
             "requests_memory": "16Gi",
             "limits_cpu": "4",
-            "limits_memory": "16Gi"
+            "limits_memory": "16Gi",
         },
         "-8vcpu-32gb": {
             "requests_cpu": "8",
             "requests_memory": "32Gi",
             "limits_cpu": "8",
-            "limits_memory": "32Gi"
+            "limits_memory": "32Gi",
         },
         "-16vcpu-64gb": {
             "requests_cpu": "16",
             "requests_memory": "64Gi",
             "limits_cpu": "16",
-            "limits_memory": "64Gi"
+            "limits_memory": "64Gi",
         },
         "-32vcpu-128gb": {
             "requests_cpu": "32",
             "requests_memory": "128Gi",
             "limits_cpu": "32",
-            "limits_memory": "128Gi"
+            "limits_memory": "128Gi",
         },
         "-64vcpu-256gb": {
             "requests_cpu": "64",
             "requests_memory": "256Gi",
             "limits_cpu": "64",
-            "limits_memory": "256Gi"
-        }
+            "limits_memory": "256Gi",
+        },
     }
 
     for flavour in flavours.keys():
