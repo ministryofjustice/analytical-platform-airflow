@@ -1,8 +1,9 @@
 """Script to generate Airflow DAGs from YAML configuration files."""
 
-import os
 import glob
 import json
+import os
+
 import yaml
 from jinja2 import Environment, FileSystemLoader
 from utils.compute_profiles import get_compute_profile
