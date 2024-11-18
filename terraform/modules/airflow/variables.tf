@@ -13,3 +13,8 @@ variable "environment" {
 variable "configuration" {
   type = any
 }
+
+variable "kubernetes_namespace" {
+  type    = string
+  default = "jacobwoffenden-test"
+}

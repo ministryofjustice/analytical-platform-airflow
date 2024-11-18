@@ -1,10 +1,10 @@
-module "iam" {
+module "airflow" {
   for_each = {
     for f in fileset(path.module, "../configuration/environments/**/configuration.yaml") :
     join("/", slice(split("/", dirname(f)), 3, 6)) => f
   }
 
-  source = "./modules/iam"
+  source = "./modules/airflow"
 
   name          = format("%s", split("/", each.key)[2])
   project       = format("%s", split("/", each.key)[1])

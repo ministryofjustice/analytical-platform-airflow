@@ -1,5 +1,5 @@
-data "aws_iam_policy_document" "policy" {
-  count = length(local.iam_configuration) > 0 ? 1 : 0
+data "aws_iam_policy_document" "iam_policy" {
+  count = local.create && length(local.iam_configuration) > 0 ? 1 : 0
 
   /* Bedrock */
   dynamic "statement" {
@@ -159,13 +159,12 @@ data "aws_iam_policy_document" "policy" {
   }
 }
 
-module "policy" {
-  count = length(local.iam_configuration) > 0 ? 1 : 0
+module "iam_policy" {
+  count = local.create && length(local.iam_configuration) > 0 ? 1 : 0
 
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "5.48.0"
 
-  name   = var.name
-  path   = "/airflow/${var.environment}/${var.project}/"
-  policy = data.aws_iam_policy_document.policy[0].json
+  name   = "airflow-${var.project}-${var.name}"
+  policy = data.aws_iam_policy_document.iam_policy[0].json
 }
