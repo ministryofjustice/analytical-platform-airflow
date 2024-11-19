@@ -6,3 +6,21 @@
 
 > [!WARNING]
 > This repository is under development
+
+# Developing
+
+> [!TIP]
+> This repository includes a dev container with all the required tools and software version
+
+## aws-mwaa-local-runner
+
+> [!WARNING]
+> This functionality is experimental and not documented yet
+
+1. `git submodule update --init --recursive`
+
+1. `cd aws-mwaa-local-runner`
+
+1. `./mwaa-local-env build-image`
+
+1. `./mwaa-local-env start`
