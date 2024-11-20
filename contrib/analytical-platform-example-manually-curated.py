@@ -3,8 +3,9 @@ from datetime import datetime
 from airflow import DAG, AirflowException
 from airflow.decorators import task
 from airflow.models import Variable
-from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import \
-    KubernetesPodOperator
+from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import (
+    KubernetesPodOperator,
+)
 from kubernetes.client import models as k8s_models
 
 # TODO - Review eval() function, should be bool() instead, but bool("False") returns True - go figure...
