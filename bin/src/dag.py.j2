@@ -1,6 +1,7 @@
 from datetime import datetime
 
-from airflow import DAG, AirflowException
+from airflow import DAG
+from airflow.exceptions import AirflowException
 from airflow.decorators import task
 from airflow.models import Variable
 from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import (
@@ -14,14 +15,14 @@ maintenance_window_active = eval(
 )
 
 default_args = {
-    "owner": "analytical-platform@justice.gov.uk",
+    "owner": "{{ tags.owner }}",
     "depends_on_past": False,
     "email_on_failure": True,
     "start_date": datetime(2020, 1, 1),
 }
 
 dag = DAG(
-    dag_id="analytical-platform.example",
+    dag_id="{{ project }}.{{ workflow }}",
     max_active_tasks=1,
     schedule_interval=None,
     default_args=default_args,
@@ -29,8 +30,8 @@ dag = DAG(
 
 
 @task(
-    task_id="maintenance_window_check",
-    default_args={"owner": "analytical-platform@justice.gov.uk"},
+    task_id="maintenance-window-check",
+    default_args={"owner": "{{ tags.owner }}"},
 )
 def maintenance_window_check():
     print(maintenance_window_active)
@@ -46,15 +47,15 @@ maintenance_check = maintenance_window_check()
 
 task = KubernetesPodOperator(
     dag=dag,
-    task_id="analytical-platform-example",
+    task_id="{{ project }}-{{ workflow }}",
     namespace="airflow",
-    name="analytical-platform-example",
-    image="ghcr.io/ministryofjustice/analytical-platform-airflow-python-base:1.1.0",
-    cmds=["sleep", "60"],  # EXPERIMENTAL
+    name="{{ project }}-{{ workflow }}",
+    image="{{ image.repository }}:{{ image.tag }}",
     annotations={"karpenter.sh/do-not-disrupt": "true"},
     labels={
-        "airflow.compute.analytical-platform.service.justice.gov.uk/environment": "development",
-        "airflow.compute.analytical-platform.service.justice.gov.uk/project": "analytical-platform",
+        "airflow.compute.analytical-platform.service.justice.gov.uk/environment": "{{ environment }}",
+        "airflow.compute.analytical-platform.service.justice.gov.uk/project": "{{ project }}",
+        "airflow.compute.analytical-platform.service.justice.gov.uk/workflow": "{{ workflow }}",
     },
     affinity={
         "nodeAffinity": {
@@ -90,12 +91,12 @@ task = KubernetesPodOperator(
         # "allowPrivilegeEscalation": False,
         "privileged": False,
     },
-    # service_account_name="analytical-platform-example",
+    # This is dependent on some other work
+    # service_account_name="{{ project }}-{{ workflow }}",
     in_cluster=False,
     get_logs=True,
     startup_timeout_seconds=600,
     is_delete_operator_pod=True,
-    # This doesn't work when running locally
     config_file="/usr/local/airflow/dags/.kube/config",
 )
 

@@ -6,6 +6,10 @@ tags:
   is_production: false
   owner: analytical-platform@justice.gov.uk
 
+image:
+  repository: ghcr.io/ministryofjustice/analytical-platform-airflow-python-base
+  tag: 1.0.0
+
 iam:
   create: true
   # external_role: arn:aws:iam::123456789012:role/external-role # This won't work while create is true

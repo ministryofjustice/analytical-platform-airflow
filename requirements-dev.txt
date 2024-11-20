@@ -5,3 +5,5 @@ flake8==7.1.1
 isort==5.13.2
 mypy==1.9.0
 pylint==2.3.0
+Jinja2==3.1.4
+PyYAML==6.0.2

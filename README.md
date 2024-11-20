@@ -5,17 +5,21 @@
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/ministryofjustice/analytical-platform-cloud-development-environment-base)
 
 > [!WARNING]
-> This repository is under development
+> This is experimental
 
 ## Developing
 
 > [!TIP]
 > This repository includes a dev container with all the required tools and software version
 
-### aws-mwaa-local-runner
+### Rendering DAGs
+
+1. `python bin/dag_generator/main.py`
+
+### Locally Running MWAA
 
 > [!WARNING]
-> This functionality is experimental and not documented yet
+> This is experimental
 
 1. `git submodule update --init --recursive`
 
