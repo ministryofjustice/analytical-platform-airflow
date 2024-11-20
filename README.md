@@ -23,4 +23,12 @@
 
 1. `./mwaa-local-env build-image`
 
+1. `aws-sso exec --profile analytical-platform-compute-development:modernisation-platform-sandbox`
+
 1. `./mwaa-local-env start`
+
+Open <http://127.0.0.1:8080>
+
+  - Username: admin
+
+  - Password: test

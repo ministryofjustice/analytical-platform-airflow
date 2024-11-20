@@ -10,4 +10,9 @@ resource "kubernetes_service_account" "this" {
       "eks.amazonaws.com/role-arn" = try(module.iam_role[0].iam_role_arn, local.external_role)
     }
   }
+
+  /* development-aWrhyc0m adds this dynamically */
+  lifecycle {
+    ignore_changes = [image_pull_secret]
+  }
 }

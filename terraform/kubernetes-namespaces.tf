@@ -1,6 +1,5 @@
-/* THIS IS FOR TESTING ONLY */
-resource "kubernetes_namespace" "jacobwoffenden_test" {
+resource "kubernetes_namespace" "airflow" {
   metadata {
-    name = "jacobwoffenden-test"
+    name = "airflow"
   }
 }

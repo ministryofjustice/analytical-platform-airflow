@@ -16,5 +16,5 @@ variable "configuration" {
 
 variable "kubernetes_namespace" {
   type    = string
-  default = "jacobwoffenden-test"
+  default = "airflow"
 }
