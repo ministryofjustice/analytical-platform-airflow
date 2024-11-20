@@ -27,8 +27,7 @@
 
 1. `./mwaa-local-env start`
 
-Open <http://127.0.0.1:8080>
+Open <http://127.0.0.1:8080> and log in with:
 
-  - Username: admin
-
-  - Password: test
+* Username: admin
+* Password: test
