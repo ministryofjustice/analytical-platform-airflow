@@ -160,6 +160,9 @@ data "aws_iam_policy_document" "iam_policy" {
 }
 
 module "iam_policy" {
+  #checkov:skip=CKV_TF_1:Module registry does not support commit hashes for versions
+  #checkov:skip=CKV_TF_2:Module registry does not support tags for versions
+
   count = local.create && length(local.iam_configuration) > 0 ? 1 : 0
 
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
