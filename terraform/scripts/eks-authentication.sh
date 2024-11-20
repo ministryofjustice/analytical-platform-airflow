@@ -7,15 +7,15 @@ EKS_CLUSTER_NAME=${2}
 AWS_ROLE=${3:-GlobalGitHubActionAdmin}
 
 assumeRole=$(aws sts assume-role \
-  --role-arn arn:aws:iam::${AWS_ACCOUNT_ID}:role/${AWS_ROLE} \
+  --role-arn "arn:aws:iam::${AWS_ACCOUNT_ID}:role/${AWS_ROLE}" \
   --role-session-name analytical-platform-airflow)
 export assumeRole
 
-AWS_ACCESS_KEY_ID=$(echo ${assumeRole} | jq -r '.Credentials.AccessKeyId')
+AWS_ACCESS_KEY_ID=$(echo "${assumeRole}" | jq -r '.Credentials.AccessKeyId')
 export AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY=$(echo ${assumeRole} | jq -r '.Credentials.SecretAccessKey')
+AWS_SECRET_ACCESS_KEY=$(echo "${assumeRole}" | jq -r '.Credentials.SecretAccessKey')
 export AWS_SECRET_ACCESS_KEY
-AWS_SESSION_TOKEN=$(echo ${assumeRole} | jq -r '.Credentials.SessionToken')
+AWS_SESSION_TOKEN=$(echo "${assumeRole}" | jq -r '.Credentials.SessionToken')
 export AWS_SESSION_TOKEN
 
-aws eks get-token --cluster-name ${EKS_CLUSTER_NAME}
+aws eks get-token --cluster-name "${EKS_CLUSTER_NAME}"
