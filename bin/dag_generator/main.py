@@ -15,25 +15,26 @@ template = env.get_template("bin/src/dag.py.j2")
 for environment in ["development"]:
     print(f"Processing environment: {environment}")
 
-    for root, dirs, files in os.walk(f"configuration/environments/{environment}"):
+    for root, dirs, files in os.walk(f"environments/{environment}"):
         for file in glob.glob(os.path.join(root, "configuration.yaml")):
             print(f"\tProcessing configuration: {file}")
             folder = os.path.dirname(file)
             print(f"\t\tFolder: {folder}")
 
-            environment = folder.split("/")[2]
+            environment = folder.split("/")[1]
             print(f"\t\tEnvironment: {environment}")
 
-            project = folder.split("/")[3]
+            project = folder.split("/")[2]
             print(f"\t\tProject: {project}")
 
-            workflow = folder.split("/")[4]
+            workflow = folder.split("/")[3]
             print(f"\t\tWorkflow: {workflow}")
 
             # Load YAML file
             with open(file, "r", encoding="utf-8") as yaml_file:
                 config = yaml.safe_load(yaml_file)
 
+            # Update config with environment, project, and workflow
             config.update(
                 {"environment": environment, "project": project, "workflow": workflow}
             )

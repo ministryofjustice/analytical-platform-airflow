@@ -35,3 +35,15 @@ Open <http://127.0.0.1:8080> and log in with:
 
 * Username: admin
 * Password: test
+
+## Terraform
+
+1. `cd terraform`
+
+1. `aws-sso exec --profile analytical-platform-management-production:AdministratorAccess`
+
+1. `terraform init`
+
+1. `terraform plan`
+
+1. `terraform apply`
