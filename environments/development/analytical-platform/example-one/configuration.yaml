@@ -1,5 +1,4 @@
 ---
-# As per https://technical-guidance.service.justice.gov.uk/documentation/standards/documenting-infrastructure-owners.html#mandatory
 tags:
   business_unit: HQ
   application: Analytical Platform
@@ -8,7 +7,9 @@ tags:
 
 image:
   repository: ghcr.io/ministryofjustice/analytical-platform-airflow-python-base
-  tag: 1.0.0
+  tag: 1.3.0
+
+compute_profile: general-spot-1vcpu-4gb
 
 iam:
   create: true

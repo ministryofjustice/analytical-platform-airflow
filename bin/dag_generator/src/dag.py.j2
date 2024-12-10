@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from airflow import DAG
-from airflow.exceptions import AirflowException
+from airflow.exceptions import AirflowFailException
 from airflow.decorators import task
 from airflow.models import Variable
 from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import (
@@ -36,7 +36,7 @@ dag = DAG(
 def maintenance_window_check():
     print(maintenance_window_active)
     if maintenance_window_active:
-        raise AirflowException(
+        raise AirflowFailException(
             "There is an active maintenance window. Please try again later."
         )
     else:
@@ -51,6 +51,7 @@ task = KubernetesPodOperator(
     namespace="airflow",
     name="{{ project }}-{{ workflow }}",
     image="{{ image.repository }}:{{ image.tag }}",
+    cmds=["sleep", "300"],
     annotations={"karpenter.sh/do-not-disrupt": "true"},
     labels={
         "airflow.compute.analytical-platform.service.justice.gov.uk/environment": "{{ environment }}",
@@ -66,7 +67,7 @@ task = KubernetesPodOperator(
                             {
                                 "key": "compute.analytical-platform.service.justice.gov.uk/karpenter-node-pool",
                                 "operator": "In",
-                                "values": ["general-spot"],
+                                "values": ["{{ compute[0].karpenter_node_pool }}"],
                             }
                         ]
                     }
@@ -78,20 +79,22 @@ task = KubernetesPodOperator(
         {
             "key": "compute.analytical-platform.service.justice.gov.uk/karpenter-node-pool",
             "operator": "Equal",
-            "value": "general-spot",
+            "value": "{{ compute[0].karpenter_node_pool }}",
             "effect": "NoSchedule",
         }
     ],
     container_resources=k8s_models.V1ResourceRequirements(
-        requests={"cpu": 2, "memory": "8Gi"}, limits={"cpu": 2, "memory": "8Gi"}
+        requests={{ compute[0].container_resources.requests }},
+        limits={{ compute[0].container_resources.limits }},
     ),
     security_context={
         "runAsNonRoot": True,
         "runAsUser": 1000,
+        # This needs to go somewhere else
         # "allowPrivilegeEscalation": False,
         "privileged": False,
     },
-    # This is dependent on some other work
+    # Commented out while not using real IAM
     # service_account_name="{{ project }}-{{ workflow }}",
     in_cluster=False,
     get_logs=True,
