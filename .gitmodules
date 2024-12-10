@@ -1,0 +1,3 @@
+[submodule "aws-mwaa-local-runner"]
+	path = aws-mwaa-local-runner
+	url = git@github.com:ministryofjustice/aws-mwaa-local-runner.git
