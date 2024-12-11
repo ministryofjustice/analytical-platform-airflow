@@ -13,6 +13,15 @@
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
   "customizations": {
+    "codespaces": {
+      "repositories": {
+        "ministryofjustice/analytical-platform-airflow": {
+          "permissions": {
+            "contents": "write"
+          }
+        }
+      }
+    },
     "vscode": {
       "extensions": [
         "EditorConfig.EditorConfig",
