@@ -10,7 +10,8 @@ from compute_profiles import get_compute_profile
 
 # Load Jinja template
 env = Environment(loader=FileSystemLoader("."))
-template = env.get_template("bin/dag_generator/src/dag.py.j2")
+# template = env.get_template("bin/dag_generator/src/dag.py.j2")
+template = env.get_template("bin/dag_generator/src/dag.yml.j2")
 
 # Loop over environments
 for environment in ["development"]:
@@ -43,7 +44,7 @@ for environment in ["development"]:
             )
 
             # Get compute profile
-            compute_profile = get_compute_profile(compute_profile=config["compute_profile"])
+            compute_profile = get_compute_profile(compute_profile=config["dag"]["compute_profile"])
             config.update(
                 {
                     "compute": [
@@ -70,7 +71,7 @@ for environment in ["development"]:
 
             # Write the rendered DAG to a file
             with open(
-                f"dist/dags/{environment}/{project}/{workflow}/dag.py",
+                f"dist/dags/{environment}/{project}/{workflow}/dag.yml",
                 "w",
                 encoding="utf-8",
             ) as f:
