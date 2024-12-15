@@ -1,12 +1,64 @@
 {{ project }}.{{ workflow }}:
   default_args:
     owner: {{ tags.owner }}
-    retries: 1
-    start_date: '2024-01-01'
-  schedule_interval: '0 3 * * *'
-  catchup: False
-  description: 'this is an example dag!'
+    email: {{ tags.owner }}
+    retries: {{ dag.retries or 1 }}
+    depends_on_past: {{ dag.depends_on_past or false }}
+    email_on_failure: {{ dag.email_on_failure or false }}
+    start_date: {{ dag.start_date or '2024-01-01' }}
+  schedule_interval: {{ dag.schedule_interval or None }}
+  catchup: {{ dag.catchup or false }}
+  description: {{ dag.description or null }}
   tasks:
+    {%- if dag.tasks %}
+    {%- for task_name, task in dag.tasks.items() %}
+    {{ task_name }}:
+      operator: {{ task.operator }}
+      {%- if task.operator.endswith('KubernetesPodOperator') %}
+      image: {{ task.image | default(dag.image.repository + ':' + dag.image.tag) }}
+      container_resources: {{ compute[0].container_resources }}
+      config_file: "/usr/local/airflow/dags/.kube/config"
+      namespace: "airflow"
+      labels:
+        airflow.compute.analytical-platform.service.justice.gov.uk/environment: "development"
+        airflow.compute.analytical-platform.service.justice.gov.uk/project: "analytical-platform"
+        airflow.compute.analytical-platform.service.justice.gov.uk/workflow: "example-one"
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: compute.analytical-platform.service.justice.gov.uk/karpenter-node-pool
+                    operator: In
+                    values:
+                      - general-spot
+      tolerations:
+        - key: compute.analytical-platform.service.justice.gov.uk/karpenter-node-pool
+          operator: Equal
+          value: general-spot
+          effect: NoSchedule
+      security_context:
+        runAsNonRoot: true
+        runAsUser: 1000
+        privileged: false
+      in_cluster: false
+      get_logs: true
+      startup_timeout_seconds: 600
+      is_delete_operator_pod: true
+      annotations:
+        karpenter.sh/do-not-disrupt: "true"
+      {%- elif task.operator.endswith('BashOperator') %}
+      bash_command: {{ task.bash_command }}
+      {%- endif %}
+      {%- if task.dependencies %}
+      dependencies: {{ task.dependencies }}
+      {%- endif %}
+    {%- endfor %}
+    {%- else %}
     task_1:
-      operator: airflow.operators.bash_operator.BashOperator
-      bash_command: 'echo 1'
+      operator: airflow.providers.cncf.kubernetes.operators.kubernetes_pod.KubernetesPodOperator
+      image: {{ dag.image.repository }}:{{ dag.image.tag }}
+      container_resources: {{ compute[0].container_resources }}
+      config_file: "/usr/local/airflow/dags/.kube/config"
+      namespace: "airflow"
+    {%- endif %}
