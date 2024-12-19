@@ -1,12 +1,12 @@
 {{ project }}.{{ workflow }}:
   default_args:
     owner: {{ tags.owner }}
-    retries: 1
-    start_date: '2024-01-01'
-  schedule_interval: '0 3 * * *'
-  catchup: False
-  description: 'this is an example dag!'
+    retries: {{ dag.retries|default(1) }}
+    start_date: {{ dag.start_date }}
+  schedule_interval: {{ dag.schedule_interval }}
+  catchup: {{ dag.catchup|default(False) }}
+  is_paused_upon_creation: {{ dag.is_paused_upon_creation|default(False) }}
   tasks:
-    task_1:
-      operator: airflow.operators.bash_operator.BashOperator
+    {{ project }}_{{ workflow }}:
+      operator: analytical_platform.standard_operator
       bash_command: 'echo 1'

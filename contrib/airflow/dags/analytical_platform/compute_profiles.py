@@ -1,3 +1,6 @@
+from kubernetes.client import models as k8s_models
+
+
 def get_compute_profile(compute_profile="general-on-demand-2vcpu-8gb"):
     if compute_profile.startswith("general-on-demand"):
         karpenter_node_pool = "general-on-demand"
@@ -11,16 +14,13 @@ def get_compute_profile(compute_profile="general-on-demand-2vcpu-8gb"):
     elif compute_profile.startswith("gpu-spot"):
         karpenter_node_pool = "gpu-spot"
         gpu_enabled = True
+    elif compute_profile.startswith("airflow-high-memory"):
+        karpenter_node_pool = "airflow-high-memory"
+        gpu_enabled = False
     else:
         raise ValueError(f"Unknown compute_profile: {compute_profile}")
 
     flavours = {
-        "-1vcpu-4gb": {
-            "requests_cpu": "1",
-            "requests_memory": "4Gi",
-            "limits_cpu": "1",
-            "limits_memory": "4Gi"
-        },
         "-2vcpu-8gb": {
             "requests_cpu": "2",
             "requests_memory": "8Gi",
@@ -70,31 +70,56 @@ def get_compute_profile(compute_profile="general-on-demand-2vcpu-8gb"):
     else:
         raise ValueError(f"Unknown compute_profile: {compute_profile}")
 
+    affinity = {
+        "nodeAffinity": {
+            "requiredDuringSchedulingIgnoredDuringExecution": {
+                "nodeSelectorTerms": [
+                    {
+                        "matchExpressions": [
+                            {
+                                "key": "compute.analytical-platform.service.justice.gov.uk/karpenter-node-pool",
+                                "operator": "In",
+                                "values": [karpenter_node_pool],
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+
+    annotations = {"karpenter.sh/do-not-disrupt": "true"}
+
+    tolerations = [
+        {
+            "key": "compute.analytical-platform.service.justice.gov.uk/karpenter-node-pool",
+            "operator": "Equal",
+            "value": karpenter_node_pool,
+            "effect": "NoSchedule",
+        }
+    ]
+
     if gpu_enabled:
-        container_resources = {
-            "requests": {
-                "cpu": requests_cpu,
-                "memory": requests_memory
-            },
-            "limits": {
-                "cpu": limits_cpu,
-                "memory": limits_memory,
-                "nvidia.com/gpu": "1"
-            }
-        }
+        container_resources = k8s_models.V1ResourceRequirements(
+            requests={"cpu": requests_cpu, "memory": requests_memory},
+            limits={"cpu": limits_cpu, "memory": limits_memory, "nvidia.com/gpu": "1"},
+        )
     else:
-        container_resources = {
-            "requests": {
-                "cpu": requests_cpu,
-                "memory": requests_memory
-            },
-            "limits": {
-                "cpu": limits_cpu,
-                "memory": limits_memory
-            }
-        }
+        container_resources = k8s_models.V1ResourceRequirements(
+            requests={"cpu": requests_cpu, "memory": requests_memory},
+            limits={"cpu": limits_cpu, "memory": limits_memory},
+        )
+
+    security_context = {
+        "runAsNonRoot": True,
+        "allowPrivilegeEscalation": False,
+        "privileged": False,
+    }
 
     return {
-       "karpenter_node_pool": karpenter_node_pool,
-       "container_resources": container_resources
+        "affinity": affinity,
+        "annotations": annotations,
+        "tolerations": tolerations,
+        "container_resources": container_resources,
+        "security_context": security_context,
     }
