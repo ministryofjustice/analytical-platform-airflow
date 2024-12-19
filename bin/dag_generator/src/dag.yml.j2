@@ -1,0 +1,12 @@
+{{ project }}.{{ workflow }}:
+  default_args:
+    owner: {{ tags.owner }}
+    retries: {{ dag.retries|default(1) }}
+    start_date: {{ dag.start_date }}
+  schedule_interval: {{ dag.schedule_interval }}
+  catchup: {{ dag.catchup|default(False) }}
+  is_paused_upon_creation: {{ dag.is_paused_upon_creation|default(False) }}
+  tasks:
+    {{ project }}_{{ workflow }}:
+      operator: analytical_platform.standard_operator
+      bash_command: 'echo 1'
