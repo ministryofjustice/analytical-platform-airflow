@@ -1,9 +1,9 @@
 {{ project }}.{{ workflow }}:
   default_args:
     owner: {{ tags.owner }}
-    retries: {{ dag.retries|default(1) }}
-    start_date: {{ dag.start_date }}
-  schedule_interval: {{ dag.schedule_interval }}
+    retries: {{ dag.retries|default(0) }}
+    start_date: {{ dag.start_date|default("2024-01-01") }}
+  schedule_interval: {{ dag.schedule_interval|default(null) }}
   catchup: {{ dag.catchup|default(False) }}
   is_paused_upon_creation: {{ dag.is_paused_upon_creation|default(False) }}
   tasks:
