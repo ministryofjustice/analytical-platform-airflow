@@ -21,6 +21,12 @@ def get_compute_profile(compute_profile="general-on-demand-2vcpu-8gb"):
         raise ValueError(f"Unknown compute_profile: {compute_profile}")
 
     flavours = {
+        "-1vcpu-4gb": {
+            "requests_cpu": "1",
+            "requests_memory": "4Gi",
+            "limits_cpu": "1",
+            "limits_memory": "4Gi"
+        },
         "-2vcpu-8gb": {
             "requests_cpu": "2",
             "requests_memory": "8Gi",

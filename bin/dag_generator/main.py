@@ -5,8 +5,6 @@ import glob
 import json
 import yaml
 from jinja2 import Environment, FileSystemLoader
-from compute_profiles import get_compute_profile
-
 
 # Load Jinja template
 env = Environment(loader=FileSystemLoader("."))
@@ -41,16 +39,6 @@ for environment in ["development"]:
             # Update config with environment, project, and workflow
             config.update(
                 {"environment": environment, "project": project, "workflow": workflow}
-            )
-
-            # Get compute profile
-            compute_profile = get_compute_profile(compute_profile=config["dag"]["compute_profile"])
-            config.update(
-                {
-                    "compute": [
-                        compute_profile
-                    ]
-                }
             )
 
             # Print config
