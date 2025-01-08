@@ -1,7 +1,7 @@
 from kubernetes.client import models as k8s_models
 
 
-def get_compute_profile(compute_profile="general-on-demand-2vcpu-8gb"):
+def get_compute_profile(compute_profile="general-spot-1vcpu-4gb"):
     if compute_profile.startswith("general-on-demand"):
         karpenter_node_pool = "general-on-demand"
         gpu_enabled = False
@@ -76,34 +76,23 @@ def get_compute_profile(compute_profile="general-on-demand-2vcpu-8gb"):
     else:
         raise ValueError(f"Unknown compute_profile: {compute_profile}")
 
-    affinity = {
-        "nodeAffinity": {
-            "requiredDuringSchedulingIgnoredDuringExecution": {
-                "nodeSelectorTerms": [
-                    {
-                        "matchExpressions": [
-                            {
-                                "key": "compute.analytical-platform.service.justice.gov.uk/karpenter-node-pool",
-                                "operator": "In",
-                                "values": [karpenter_node_pool],
-                            }
+    affinity = k8s_models.V1Affinity(
+        node_affinity=k8s_models.V1NodeAffinity(
+            required_during_scheduling_ignored_during_execution=k8s_models.V1NodeSelector(
+                node_selector_terms=[
+                    k8s_models.V1NodeSelectorTerm(
+                        match_expressions=[
+                            k8s_models.V1NodeSelectorRequirement(
+                                key="compute.analytical-platform.service.justice.gov.uk/karpenter-node-pool",
+                                operator="In",
+                                values=[karpenter_node_pool],
+                            )
                         ]
-                    }
+                    )
                 ]
-            }
-        }
-    }
-
-    annotations = {"karpenter.sh/do-not-disrupt": "true"}
-
-    tolerations = [
-        {
-            "key": "compute.analytical-platform.service.justice.gov.uk/karpenter-node-pool",
-            "operator": "Equal",
-            "value": karpenter_node_pool,
-            "effect": "NoSchedule",
-        }
-    ]
+            )
+        )
+    )
 
     if gpu_enabled:
         container_resources = k8s_models.V1ResourceRequirements(
@@ -116,11 +105,23 @@ def get_compute_profile(compute_profile="general-on-demand-2vcpu-8gb"):
             limits={"cpu": limits_cpu, "memory": limits_memory},
         )
 
-    security_context = {
-        "runAsNonRoot": True,
-        "allowPrivilegeEscalation": False,
-        "privileged": False,
-    }
+    annotations = {"karpenter.sh/do-not-disrupt": "true"}
+
+    tolerations = [
+        k8s_models.V1Toleration(
+            key="compute.analytical-platform.service.justice.gov.uk/karpenter-node-pool",
+            operator="Equal",
+            value=karpenter_node_pool,
+            effect="NoSchedule",
+        )
+    ]
+
+    security_context = k8s_models.V1SecurityContext(
+        allow_privilege_escalation=False,
+        privileged=False,
+        run_as_non_root=True,
+        seccomp_profile=k8s_models.V1SeccompProfile(type="RuntimeDefault"),
+    )
 
     return {
         "affinity": affinity,

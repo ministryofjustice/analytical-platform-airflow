@@ -27,7 +27,7 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             # Pod Configuration
             name=name,
             image=image,
-            cmds=["sleep", "60"],
+            image_pull_policy="Always",
             labels={
                 "airflow.compute.analytical-platform.service.justice.gov.uk/environment": environment,
                 "airflow.compute.analytical-platform.service.justice.gov.uk/project": project,

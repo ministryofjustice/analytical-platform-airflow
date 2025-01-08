@@ -1,4 +1,4 @@
-{{ project }}.{{ workflow }}:
+{{ meta.project }}.{{ meta.workflow }}:
   default_args:
     owner: {{ tags.owner }}
     retries: {{ dag.retries|default(0) }}
@@ -7,12 +7,29 @@
   catchup: {{ dag.catchup|default(False) }}
   is_paused_upon_creation: {{ dag.is_paused_upon_creation|default(False) }}
   tasks:
+    {%- if dag.tasks %}
+    {%- for task_name, task in dag.tasks.items() %}
+    {{ task_name }}:
+      operator: analytical_platform.standard_operator.AnalyticalPlatformStandardOperator
+      name: {{ meta.project }}-{{ meta.workflow }}-{{ task_name }}
+      task_id: {{ meta.project }}-{{ meta.workflow }}-{{ task_name }}
+      compute_profile: {{ task.compute_profile or dag.compute_profile or "general-spot-1vcpu-4gb" }}
+      image: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/{{ dag.repository }}:{{ dag.tag }}
+      environment: {{ meta.environment }}
+      project: {{ meta.project }}
+      workflow: {{ meta.workflow }}
+      {%- if task.dependencies %}
+      dependencies: {{ task.dependencies }}
+      {%- endif %}
+    {%- endfor %}
+    {%- else %}
     main:
       operator: analytical_platform.standard_operator.AnalyticalPlatformStandardOperator
-      name: {{ project }}.{{ workflow }}
-      task_id: {{ project }}_{{ workflow }}
-      compute_profile: {{ dag.compute_profile }}
+      name: {{ meta.project }}.{{ meta.workflow }}
+      task_id: {{ meta.project }}-{{ meta.workflow }}
+      compute_profile: {{ dag.compute_profile|default("general-spot-1vcpu-4gb") }}
       image: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/{{ dag.repository }}:{{ dag.tag }}
-      environment: {{ environment }}
-      project: {{ project }}
-      workflow: {{ workflow }}
+      environment: {{ meta.environment }}
+      project: {{ meta.project }}
+      workflow: {{ meta.workflow }}
+    {%- endif %}

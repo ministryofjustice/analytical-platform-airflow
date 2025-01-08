@@ -38,7 +38,13 @@ for environment in ["development"]:
 
             # Update config with environment, project, and workflow
             config.update(
-                {"environment": environment, "project": project, "workflow": workflow}
+                {
+                    "meta": {
+                        "environment": environment,
+                        "project": project,
+                        "workflow": workflow
+                    }
+                }
             )
 
             # Print config
