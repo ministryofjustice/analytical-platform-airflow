@@ -8,3 +8,15 @@ dag:
   repository: ministryofjustice/analytical-platform-airflow-poc-workflow
   tag: 0.0.6
   compute_profile: general-spot-1vcpu-4gb
+  env_vars:
+    PHASE: "complete"
+    FOO: "bar"
+
+### NOT USED YET
+iam:
+  create: true
+  bedrock: true
+
+secrets:
+  - username # /airflow/secrets/${environemt}/${project}/${workflow}/${secret}
+  - password # /airflow/secrets/${environemt}/${project}/${workflow}/${secret}

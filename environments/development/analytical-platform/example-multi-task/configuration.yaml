@@ -10,14 +10,18 @@ dag:
   compute_profile: general-spot-1vcpu-4gb
   tasks:
     init:
-      command: init # dummy
+      env_vars:
+        PHASE: "init"
     phase-one:
-      command: phase-one # dummy
+      env_vars:
+        PHASE: "one"
       dependencies: [init]
     phase-two:
-      command: phase-two # dummy
+      env_vars:
+        PHASE: "two"
       dependencies: [phase-one]
     phase-three:
-      command: phase-three # dummy
+      env_vars:
+        PHASE: "three"
       compute_profile: gpu-spot-1vcpu-4gb
       dependencies: [phase-one,phase-two]
