@@ -44,3 +44,10 @@ jobs:
         id: generate_workflows
         run: |
           python scripts/workflow_generator/main.py
+
+      - name: Validate Workflows
+        id: validate_workflows
+        env:
+          PYTHONPATH: airflow
+        run: |
+          python scripts/workflow_validation/main.py
