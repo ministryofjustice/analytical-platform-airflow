@@ -25,10 +25,10 @@ jobs:
         environment:
           - development:
             account: 381491960855
-          - test:
-            account: 767397661611
-          - production:
-            account: 992382429243
+          # - test:
+          #   account: 767397661611
+          # - production:
+          #   account: 992382429243
     steps:
       - name: Checkout
         id: checkout
@@ -40,3 +40,24 @@ jobs:
         with:
           aws-region: eu-west-2
           role-to-assume: arn:aws:iam::${{ matrix.environment.account }}:role/github-actions-ministryofjustice-analytical-platform-airflow
+
+      - name: Set Up Python
+        id: setup_python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+        with:
+          python-version: 3.11
+
+      - name: Install Requirements
+        id: install_requirements
+        run: |
+          pip install --requirement requirements-dev.txt
+
+      - name: Generate Workflows
+        id: generate_workflows
+        run: |
+          python scripts/workflow_generator/main.py
+
+      - name: Deploy DAGs
+        id: deploy_dags
+        run: |
+          aws s3 sync dist/dags/${{ matrix.environment }} s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/${{ matrix.environment }} --delete
