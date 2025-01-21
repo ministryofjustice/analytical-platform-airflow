@@ -7,4 +7,3 @@ tags:
 dag:
   repository: ministryofjustice/analytical-platform-airflow-poc-workflow
   tag: 0.0.6
-  compute_profile: general-spot-1vcpu-4gb
