@@ -1,0 +1,29 @@
+{
+  "name": "analytical-platform-airflow",
+  "image": "ghcr.io/ministryofjustice/devcontainer-base:latest",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.11",
+      "installTools": false
+    },
+    "ghcr.io/ministryofjustice/devcontainer-feature/aws:1": {},
+    "ghcr.io/ministryofjustice/devcontainer-feature/kubernetes:1": {}
+  },
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "EditorConfig.EditorConfig",
+        "GitHub.vscode-github-actions",
+        "GitHub.vscode-pull-request-github",
+        "ms-python.python",
+        "ms-python.pylint",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-python.flake8",
+        "ms-python.autopep8"
+      ]
+    }
+  }
+}
