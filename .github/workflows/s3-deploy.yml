@@ -1,0 +1,42 @@
+---
+name: 🪣 S3 Deploy
+
+on:
+  # TEMP #######
+  pull_request:
+    branches:
+      - main
+  ###############
+  push:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  s3-deploy:
+    name: S3 Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      matrix:
+        environment:
+          - development:
+            account: 381491960855
+          - test:
+            account: 767397661611
+          - production:
+            account: 992382429243
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::${{ matrix.environment.account }}:role/github-actions-ministryofjustice-analytical-platform-airflow
