@@ -3,6 +3,7 @@
 import glob
 import json
 import os
+import sys
 
 import yaml
 from cerberus import Validator
@@ -32,3 +33,4 @@ for environment in ["development"]:
             else:
                 print(f"Configuration {file} is invalid")
                 print(json.dumps(v.errors, indent=4))
+                sys.exit(1)
