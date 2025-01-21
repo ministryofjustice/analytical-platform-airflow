@@ -8,3 +8,5 @@ env/
 *.code-workspace
 *.sha256
 terraform.tfstate
+dist/
+__pycache__/

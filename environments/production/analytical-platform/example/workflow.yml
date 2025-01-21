@@ -1,0 +1,9 @@
+---
+tags:
+  application: Analytical Platform
+  business_unit: HQ
+  owner: analytical-platform@justice.gov.uk
+
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-poc-workflow
+  tag: 0.0.6

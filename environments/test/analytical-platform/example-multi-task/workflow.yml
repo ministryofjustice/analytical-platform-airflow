@@ -1,0 +1,26 @@
+---
+tags:
+  application: Analytical Platform
+  business_unit: HQ
+  owner: analytical-platform@justice.gov.uk
+
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-poc-workflow
+  tag: 0.0.6
+  tasks:
+    init:
+      env_vars:
+        PHASE: "init"
+    phase-one:
+      env_vars:
+        PHASE: "one"
+      dependencies: [init]
+    phase-two:
+      env_vars:
+        PHASE: "two"
+      dependencies: [phase-one]
+    phase-three:
+      env_vars:
+        PHASE: "three"
+      compute_profile: gpu-spot-1vcpu-4gb
+      dependencies: [phase-one, phase-two]

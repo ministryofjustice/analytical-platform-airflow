@@ -1,0 +1,132 @@
+{
+  "tags": {
+    "type": "dict",
+    "schema": {
+      "application": { "type": "string", "required": true },
+      "business_unit": {
+        "type": "string",
+        "allowed": ["HQ", "Central", "Platforms"],
+        "required": true
+      },
+      "owner": {
+        "type": "string",
+        "regex": "^[a-zA-Z0-9_.+-]+@justice\\.gov\\.uk$",
+        "required": true
+      }
+    },
+    "required": true
+  },
+  "dag": {
+    "type": "dict",
+    "schema": {
+      "repository": {
+        "type": "string",
+        "regex": "^(ministryofjustice|moj-analytical-services)/[a-zA-Z0-9-_]+$",
+        "required": true
+      },
+      "tag": { "type": "string", "required": true },
+      "compute_profile": {
+        "type": "string",
+        "allowed": [
+          "general-on-demand-1vcpu-4gb",
+          "general-on-demand-2vcpu-8gb",
+          "general-on-demand-4vcpu-16gb",
+          "general-on-demand-8vcpu-32gb",
+          "general-on-demand-16vcpu-64gb",
+          "general-on-demand-32vcpu-128gb",
+          "general-on-demand-64vcpu-256gb",
+          "general-spot-1vcpu-4gb",
+          "general-spot-2vcpu-8gb",
+          "general-spot-4vcpu-16gb",
+          "general-spot-8vcpu-32gb",
+          "general-spot-16vcpu-64gb",
+          "general-spot-32vcpu-128gb",
+          "general-spot-64vcpu-256gb",
+          "gpu-on-demand-1vcpu-4gb",
+          "gpu-on-demand-2vcpu-8gb",
+          "gpu-on-demand-4vcpu-16gb",
+          "gpu-on-demand-8vcpu-32gb",
+          "gpu-on-demand-16vcpu-64gb",
+          "gpu-on-demand-32vcpu-128gb",
+          "gpu-on-demand-64vcpu-256gb",
+          "gpu-spot-1vcpu-4gb",
+          "gpu-spot-2vcpu-8gb",
+          "gpu-spot-4vcpu-16gb",
+          "gpu-spot-8vcpu-32gb",
+          "gpu-spot-16vcpu-64gb",
+          "gpu-spot-32vcpu-128gb",
+          "gpu-spot-64vcpu-256gb",
+          "airflow-high-memory-1vcpu-4gb",
+          "airflow-high-memory-2vcpu-8gb",
+          "airflow-high-memory-4vcpu-16gb",
+          "airflow-high-memory-8vcpu-32gb",
+          "airflow-high-memory-16vcpu-64gb",
+          "airflow-high-memory-32vcpu-128gb",
+          "airflow-high-memory-64vcpu-256gb"
+        ],
+        "required": false
+      },
+      "tasks": {
+        "type": "dict",
+        "required": false,
+        "keysrules": { "type": "string", "regex": "^[a-zA-Z0-9-_]+$" },
+        "valueschema": {
+          "type": "dict",
+          "schema": {
+            "env_vars": {
+              "type": "dict",
+              "required": false
+            },
+            "dependencies": {
+              "type": "list",
+              "schema": { "type": "string" },
+              "required": false
+            },
+            "compute_profile": {
+              "type": "string",
+              "allowed": [
+                "general-on-demand-1vcpu-4gb",
+                "general-on-demand-2vcpu-8gb",
+                "general-on-demand-4vcpu-16gb",
+                "general-on-demand-8vcpu-32gb",
+                "general-on-demand-16vcpu-64gb",
+                "general-on-demand-32vcpu-128gb",
+                "general-on-demand-64vcpu-256gb",
+                "general-spot-1vcpu-4gb",
+                "general-spot-2vcpu-8gb",
+                "general-spot-4vcpu-16gb",
+                "general-spot-8vcpu-32gb",
+                "general-spot-16vcpu-64gb",
+                "general-spot-32vcpu-128gb",
+                "general-spot-64vcpu-256gb",
+                "gpu-on-demand-1vcpu-4gb",
+                "gpu-on-demand-2vcpu-8gb",
+                "gpu-on-demand-4vcpu-16gb",
+                "gpu-on-demand-8vcpu-32gb",
+                "gpu-on-demand-16vcpu-64gb",
+                "gpu-on-demand-32vcpu-128gb",
+                "gpu-on-demand-64vcpu-256gb",
+                "gpu-spot-1vcpu-4gb",
+                "gpu-spot-2vcpu-8gb",
+                "gpu-spot-4vcpu-16gb",
+                "gpu-spot-8vcpu-32gb",
+                "gpu-spot-16vcpu-64gb",
+                "gpu-spot-32vcpu-128gb",
+                "gpu-spot-64vcpu-256gb",
+                "airflow-high-memory-1vcpu-4gb",
+                "airflow-high-memory-2vcpu-8gb",
+                "airflow-high-memory-4vcpu-16gb",
+                "airflow-high-memory-8vcpu-32gb",
+                "airflow-high-memory-16vcpu-64gb",
+                "airflow-high-memory-32vcpu-128gb",
+                "airflow-high-memory-64vcpu-256gb"
+              ],
+              "required": false
+            }
+          }
+        }
+      }
+    },
+    "required": true
+  }
+}
