@@ -26,10 +26,10 @@ jobs:
         include:
           - environment: development
             account: 381491960855
-          - environment: test
-            account: 767397661611
-          - environment: prod
-            account: 992382429243
+          # - environment: test
+          #   account: 767397661611
+          # - environment: prod
+          #   account: 992382429243
     steps:
       - name: Checkout
         id: checkout
@@ -62,3 +62,10 @@ jobs:
         id: deploy_dags
         run: |
           aws s3 sync dist/dags/${{ matrix.environment }} s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/${{ matrix.environment }} --delete
+
+      - name: Deploy Airflow Artefacts
+        id: deploy_airflow_artefacts
+        run: |
+          aws s3 sync airflow/analytical_platform s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/analytical_platform --delete
+          aws s3 cp airflow/.airflowignore s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/.airflowignore
+          aws s3 cp airflow/dag_factory.py s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/dag_factory.py

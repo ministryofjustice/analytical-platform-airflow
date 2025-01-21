@@ -43,11 +43,12 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             task_id=task_id,
             # Cluster configuration
             config_file="/usr/local/airflow/dags/.kube/config",
-            namespace="airflow",
+            namespace="mwaa",
             in_cluster=False,
             get_logs=True,
             startup_timeout_seconds=600,
             is_delete_operator_pod=True,
+            log_pod_spec_on_failure=True,
             # Pod Configuration
             name=name,
             image=image,
@@ -61,6 +62,7 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             affinity=compute_profile["affinity"],
             annotations=compute_profile["annotations"],
             container_resources=compute_profile["container_resources"],
+            container_security_context=compute_profile["container_security_context"],
             security_context=compute_profile["security_context"],
             tolerations=compute_profile["tolerations"],
             *args,

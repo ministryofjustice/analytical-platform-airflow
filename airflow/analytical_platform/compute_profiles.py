@@ -121,6 +121,15 @@ def get_compute_profile(compute_profile="general-spot-1vcpu-4gb"):
         privileged=False,
         run_as_non_root=True,
         seccomp_profile=k8s_models.V1SeccompProfile(type="RuntimeDefault"),
+        capabilities=k8s_models.V1Capabilities(drop=["ALL"]),
+    )
+
+    container_security_context = k8s_models.V1SecurityContext(
+        allow_privilege_escalation=False,
+        privileged=False,
+        run_as_non_root=True,
+        seccomp_profile=k8s_models.V1SeccompProfile(type="RuntimeDefault"),
+        capabilities=k8s_models.V1Capabilities(drop=["ALL"]),
     )
 
     return {
@@ -128,5 +137,6 @@ def get_compute_profile(compute_profile="general-spot-1vcpu-4gb"):
         "annotations": annotations,
         "tolerations": tolerations,
         "container_resources": container_resources,
+        "container_security_context": container_security_context,
         "security_context": security_context,
     }
