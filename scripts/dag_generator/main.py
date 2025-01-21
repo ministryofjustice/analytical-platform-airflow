@@ -1,8 +1,9 @@
 """Script to generate Airflow DAGs from YAML configuration files."""
 
-import os
 import glob
 import json
+import os
+
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
@@ -41,7 +42,7 @@ for environment in ["development"]:
                     "meta": {
                         "environment": environment,
                         "project": project,
-                        "workflow": workflow
+                        "workflow": workflow,
                     }
                 }
             )
@@ -59,8 +60,8 @@ for environment in ["development"]:
             print("=" * 100)
 
             # Ensure the directory exists
-            output_dir = f"dist/dags/{environment}/{project}/{workflow}"
-            os.makedirs(output_dir, exist_ok=True)
+            OUTPUT_DIR = f"dist/dags/{environment}/{project}/{workflow}"
+            os.makedirs(OUTPUT_DIR, exist_ok=True)
 
             # Write the rendered DAG to a file
             with open(
