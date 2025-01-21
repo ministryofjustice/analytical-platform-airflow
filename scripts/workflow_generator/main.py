@@ -12,7 +12,7 @@ env = Environment(loader=FileSystemLoader("."))
 template = env.get_template("scripts/workflow_generator/templates/workflow.yml.j2")
 
 # Loop over environments
-for environment in ["development"]:
+for environment in ["development", "test",  "production"]:
     print("=" * 100)
     print(f"Processing environment: {environment}")
 
