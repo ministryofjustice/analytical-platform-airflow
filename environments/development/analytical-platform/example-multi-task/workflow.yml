@@ -24,4 +24,4 @@ dag:
       env_vars:
         PHASE: "three"
       compute_profile: gpu-spot-1vcpu-4gb
-      dependencies: [phase-one,phase-two]
+      dependencies: [phase-one, phase-two]
