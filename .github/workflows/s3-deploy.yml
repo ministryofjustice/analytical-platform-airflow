@@ -22,13 +22,14 @@ jobs:
       id-token: write
     strategy:
       matrix:
-        environment:
-          - development:
+        environment: [development, test, prod]
+        include:
+          - environment: development
             account: 381491960855
-          # - test:
-          #   account: 767397661611
-          # - production:
-          #   account: 992382429243
+          - environment: test
+            account: 767397661611
+          - environment: prod
+            account: 992382429243
     steps:
       - name: Checkout
         id: checkout
@@ -39,7 +40,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
         with:
           aws-region: eu-west-2
-          role-to-assume: arn:aws:iam::${{ matrix.environment.account }}:role/github-actions-ministryofjustice-analytical-platform-airflow
+          role-to-assume: arn:aws:iam::${{ matrix.account }}:role/github-actions-ministryofjustice-analytical-platform-airflow
 
       - name: Set Up Python
         id: setup_python
