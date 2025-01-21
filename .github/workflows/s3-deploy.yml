@@ -2,16 +2,14 @@
 name: 🪣 S3 Deploy
 
 on:
-  # TEMP #######
-  pull_request:
-    branches:
-      - main
-  ###############
   push:
     branches:
       - main
 
 permissions: {}
+
+concurrency:
+  group: s3-deploy
 
 jobs:
   s3-deploy:
@@ -22,15 +20,14 @@ jobs:
       id-token: write
     strategy:
       matrix:
-        # environment: [development, test, production]
-        environment: [development]
+        environment: [development, test, production]
         include:
           - environment: development
             account: 381491960855
-          # - environment: test
-          #   account: 767397661611
-          # - environment: production
-          #   account: 992382429243
+          - environment: test
+            account: 767397661611
+          - environment: production
+            account: 992382429243
     steps:
       - name: Checkout
         id: checkout
