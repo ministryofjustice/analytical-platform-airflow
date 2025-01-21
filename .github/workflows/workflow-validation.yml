@@ -1,0 +1,41 @@
+---
+name: 🛂 Workflow Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - edited
+      - opened
+      - reopened
+      - synchronize
+
+permissions: {}
+
+jobs:
+  workflow-validation:
+    name: Workflow Validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Set Up Python
+        id: setup_python
+        uses: actions/setup-python@0b93645e9fea7318ecaed2b359559ac225c90a2b # v5.3.0
+        with:
+          python-version: 3.11
+
+      - name: Install Requirements
+        id: install_requirements
+        run: |
+          pip install --requirement requirements-dev.txt
+
+      - name: Generate Workflows
+        id: generate_workflows
+        run: |
+          python scripts/workflow_generator/main.py

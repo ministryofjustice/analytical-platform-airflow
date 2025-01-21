@@ -1,4 +1,4 @@
 .PHONY: dags
 
 dags:
-	python scripts/dag_generator/main.py
+	python scripts/workflow_generator/main.py

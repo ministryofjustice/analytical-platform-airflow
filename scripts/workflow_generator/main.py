@@ -9,7 +9,7 @@ from jinja2 import Environment, FileSystemLoader
 
 # Load Jinja template
 env = Environment(loader=FileSystemLoader("."))
-template = env.get_template("scripts/dag_generator/templates/workflow.yml.j2")
+template = env.get_template("scripts/workflow_generator/templates/workflow.yml.j2")
 
 # Loop over environments
 for environment in ["development"]:
