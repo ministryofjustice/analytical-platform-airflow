@@ -35,6 +35,11 @@ jobs:
         run: |
           pip install --requirement requirements-dev.txt
 
+      - name: Workflow Schema Validation
+        id: workflow_schema_validation
+        run: |
+          python scripts/workflow_schema_validation/main.py
+
       - name: Generate Workflows
         id: generate_workflows
         run: |

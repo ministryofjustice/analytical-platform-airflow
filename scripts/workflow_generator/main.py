@@ -17,7 +17,7 @@ for environment in ["development"]:
     print(f"Processing environment: {environment}")
 
     for root, dirs, files in os.walk(f"environments/{environment}"):
-        for file in glob.glob(os.path.join(root, "configuration.yml")):
+        for file in glob.glob(os.path.join(root, "workflow.yml")):
             print("=" * 100)
             print(f"Processing configuration: {file}")
             folder = os.path.dirname(file)

@@ -1,0 +1,32 @@
+{
+  "tags": {
+      "type": "dict",
+      "schema": {
+          "application": {"type": "string", "required": true},
+          "business_unit": {
+              "type": "string",
+              "allowed": ["HQ", "Central", "Platforms"],
+              "required": true
+          },
+          "owner": {
+              "type": "string",
+              "regex": "^[a-zA-Z0-9_.+-]+@justice\\.gov\\.uk$",
+              "required": true
+          }
+      },
+      "required": true
+  },
+  "dag": {
+      "type": "dict",
+      "schema": {
+          "repository": {
+              "type": "string",
+              "regex": "^(ministryofjustice|moj-analytical-services)/[a-zA-Z0-9-_]+$",
+              "required": true
+          },
+          "tag": {"type": "string", "required": true},
+          "compute_profile": {"type": "string", "required": true}
+      },
+      "required": true
+  }
+}
