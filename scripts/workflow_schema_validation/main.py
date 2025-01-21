@@ -15,7 +15,7 @@ with open(
     schema = json.load(schema_file)
 
 # Loop over environments
-for environment in ["development", "test",  "production"]:
+for environment in ["development", "test", "production"]:
     print("=" * 100)
     print(f"Processing environment: {environment}")
 

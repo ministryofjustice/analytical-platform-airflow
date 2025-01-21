@@ -8,7 +8,6 @@ from pathlib import Path
 import dagfactory
 from dagfactory.exceptions import DagFactoryConfigException
 
-
 # Loop over generated workflows
 for root, dirs, files in os.walk("dist/dags"):
     for file in glob.glob(os.path.join(root, "workflow.yml")):
