@@ -47,6 +47,11 @@ for environment in ["development", "test", "production"]:
                 }
             )
 
+            # Sanitise repository so it matches what is created in ECR
+            sanitised_repository = config["dag"]["repository"].lower().replace("_", "-")
+            print(f"Sanitised repository: {sanitised_repository}")
+            config["dag"]["repository"] = sanitised_repository
+
             # Print config
             pretty_config = json.dumps(config, indent=4)
             print("=" * 42 + " Configuration " + "=" * 43)
