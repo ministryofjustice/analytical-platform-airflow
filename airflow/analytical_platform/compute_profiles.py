@@ -14,9 +14,6 @@ def get_compute_profile(compute_profile="general-spot-1vcpu-4gb"):
     elif compute_profile.startswith("gpu-spot"):
         karpenter_node_pool = "gpu-spot"
         gpu_enabled = True
-    elif compute_profile.startswith("airflow-high-memory"):
-        karpenter_node_pool = "airflow-high-memory"
-        gpu_enabled = False
     else:
         raise ValueError(f"Unknown compute_profile: {compute_profile}")
 

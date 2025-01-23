@@ -1,9 +1,12 @@
-.PHONY: schema_validation dags workflow_validation
+.PHONY: clean schema_validation dags workflow_validation
+
+clean:
+	rm --force --recursive dist
 
 schema_validation:
 	python scripts/workflow_schema_validation/main.py
 
-dags:
+dags: clean
 	python scripts/workflow_generator/main.py
 
 workflow_validation: schema_validation dags
