@@ -64,3 +64,10 @@ jobs:
         shell: bash
         run: |
           terraform plan -out=${{ matrix.environment }}.tfplan -input=false
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        id: terraform_apply
+        shell: bash
+        run: |
+          terraform apply -auto-approve -input=false ${{ matrix.environment }}.tfplan
