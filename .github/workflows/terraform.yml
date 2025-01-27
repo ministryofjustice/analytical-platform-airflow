@@ -22,6 +22,7 @@ jobs:
       contents: read
       id-token: write
     strategy:
+      fail-fast: false
       matrix:
         environment: [development, test, production]
     defaults:
@@ -39,6 +40,13 @@ jobs:
       - name: Set Up Terraform
         id: install_terraform
         uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4.0.2
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::509399598587:role/analytical-platform-github-actions
 
       - name: Initialise Terraform
         id: initialise_terraform

@@ -2,4 +2,4 @@
 
 # Install dependencies
 pip install --upgrade pip
-pip install --requirement requirements-dev.txt
+pip install --requirement requirements.txt

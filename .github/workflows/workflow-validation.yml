@@ -30,7 +30,7 @@ jobs:
       - name: Install Requirements
         id: install_requirements
         run: |
-          pip install --requirement requirements-dev.txt
+          pip install --requirement requirements.txt
 
       - name: Workflow Schema Validation
         id: workflow_schema_validation
