@@ -32,6 +32,8 @@ jobs:
       - name: Checkout
         id: checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
 
       - name: Configure AWS Credentials
         id: configure_aws_credentials
@@ -48,21 +50,25 @@ jobs:
 
       - name: Install Requirements
         id: install_requirements
+        shell: bash
         run: |
           pip install --requirement requirements-dev.txt
 
       - name: Generate Workflows
         id: generate_workflows
+        shell: bash
         run: |
           python scripts/workflow_generator/main.py
 
       - name: Deploy DAGs
         id: deploy_dags
+        shell: bash
         run: |
           aws s3 sync dist/dags/${{ matrix.environment }} s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/${{ matrix.environment }} --delete
 
       - name: Deploy Airflow Artefacts
         id: deploy_airflow_artefacts
+        shell: bash
         run: |
           aws s3 sync airflow/analytical_platform s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/analytical_platform --delete
           aws s3 cp airflow/.airflowignore s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/.airflowignore
