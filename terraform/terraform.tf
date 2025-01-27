@@ -7,6 +7,9 @@ terraform {
     use_lockfile         = true
     workspace_key_prefix = "analytical-platform-airflow"
     key                  = "terraform.tfstate"
+    assume_role = {
+      role_arn = "arn:aws:iam::509399598587:role/analytical-platform-terraform"
+    }
   }
   required_providers {
     aws = {

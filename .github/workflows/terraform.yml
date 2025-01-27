@@ -51,7 +51,8 @@ jobs:
       - name: Initialise Terraform
         id: initialise_terraform
         shell: bash
-        run: terraform init -upgrade -input=false
+        run: |
+          terraform init -upgrade -input=false
 
       - name: Terraform Workspace
         id: terraform_workspace
