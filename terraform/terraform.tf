@@ -19,3 +19,19 @@ terraform {
   }
   required_version = "~> 1.10"
 }
+
+provider "aws" {
+  region = "eu-west-2"
+  assume_role {
+    role_arn = "arn:aws:iam::${var.account_ids["analytical-platform-data-production"]}:role/analytical-platform-infrastructure-access"
+  }
+  default_tags {
+    tags = merge(
+      var.tags,
+      {
+        environment   = terraform.workspace
+        is-production = terraform.workspace == "production" ? "true" : "false"
+      }
+    )
+  }
+}

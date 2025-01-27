@@ -24,7 +24,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [development, test, production]
+        # environment: [development, test, production]
+        environment: [development]
     defaults:
       run:
         working-directory: terraform
