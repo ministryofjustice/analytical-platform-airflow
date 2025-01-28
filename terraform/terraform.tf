@@ -16,8 +16,17 @@ terraform {
       source  = "hashicorp/aws"
       version = "5.84.0"
     }
+    kubernetes = {
+      source  = "hashicorp/kubernetes"
+      version = "2.35.1"
+    }
   }
   required_version = "~> 1.10"
+}
+
+provider "aws" {
+  alias  = "analytical-platform-common-production"
+  region = "eu-west-2"
 }
 
 provider "aws" {
@@ -33,5 +42,15 @@ provider "aws" {
         is-production = terraform.workspace == "production" ? "true" : "false"
       }
     )
+  }
+}
+
+provider "kubernetes" {
+  host                   = jsondecode(data.aws_secretsmanager_secret_version.analytical_platform_compute_cluster_data.secret_string)["analytical-platform-compute-${terraform.workspace}-api-endpoint"]
+  cluster_ca_certificate = base64decode(jsondecode(data.aws_secretsmanager_secret_version.analytical_platform_compute_cluster_data.secret_string)["analytical-platform-compute-${terraform.workspace}-certificate"])
+  exec {
+    api_version = "client.authentication.k8s.io/v1"
+    command     = "bash"
+    args        = ["scripts/eks-authentication.sh", "analytical-platform-compute-${terraform.workspace}"]
   }
 }
