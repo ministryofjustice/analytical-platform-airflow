@@ -4,8 +4,8 @@ terraform {
       source  = "hashicorp/aws"
       version = "~> 5.0"
       configuration_aliases = [
-        analytical-platform-data-production-eu-west-1,
-        analytical-platform-data-production-eu-west-2
+        aws.analytical-platform-data-production-eu-west-1,
+        aws.analytical-platform-data-production-eu-west-2
       ]
     }
     kubernetes = {
