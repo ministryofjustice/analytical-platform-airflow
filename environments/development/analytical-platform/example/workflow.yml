@@ -8,3 +8,6 @@ dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
   tag: 1.0.2
   compute_profile: gpu-spot-8vcpu-32gb
+
+iam:
+  bedrock: true
