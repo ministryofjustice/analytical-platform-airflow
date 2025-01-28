@@ -51,6 +51,7 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             log_pod_spec_on_failure=True,
             # Pod Configuration
             name=name,
+            service_account_name=f"{project}-{workflow}",
             image=image,
             image_pull_policy="Always",
             labels={

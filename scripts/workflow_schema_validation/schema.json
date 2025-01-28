@@ -114,5 +114,20 @@
       }
     },
     "required": true
+  },
+  "iam": {
+    "type": "dict",
+    "schema": {
+      "bedrock": { "type": "boolean", "required": false }
+    },
+    "required": false
+  },
+  "secrets": {
+    "type": "list",
+    "schema": {
+      "type": "string",
+      "regex": "^[a-zA-Z0-9-_]+$"
+    },
+    "required": false
   }
 }
