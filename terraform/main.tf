@@ -10,4 +10,5 @@ module "airflow" {
   workflow      = format("%s", split("/", each.key)[1])
   environment   = terraform.workspace
   configuration = yamldecode(file("../environments/${terraform.workspace}/${each.key}/workflow.yml"))
+  eks_oidc_url  = jsondecode(data.aws_secretsmanager_secret_version.analytical_platform_compute_cluster_data.secret_string)["analytical-platform-compute-${terraform.workspace}-oidc-endpoint"]
 }

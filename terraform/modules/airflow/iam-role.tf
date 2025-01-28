@@ -12,7 +12,7 @@ module "iam_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = format("arn:aws:iam::593291632749:oidc-provider/%s", local.oidc_provider)
+      provider_arn               = format("arn:aws:iam::593291632749:oidc-provider/%s", trimprefix(var.eks_oidc_url, "https://"))
       namespace_service_accounts = ["mwaa:${var.project}-${var.workflow}"]
     }
   }

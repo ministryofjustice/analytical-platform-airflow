@@ -13,3 +13,7 @@ variable "environment" {
 variable "configuration" {
   type = any
 }
+
+variable "eks_oidc_url" {
+  type = string
+}
