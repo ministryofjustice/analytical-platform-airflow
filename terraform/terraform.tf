@@ -30,6 +30,24 @@ provider "aws" {
 }
 
 provider "aws" {
+  alias  = "analytical-platform-data-production-eu-west-1"
+  region = "eu-west-1"
+  assume_role {
+    role_arn = "arn:aws:iam::${var.account_ids["analytical-platform-data-production"]}:role/analytical-platform-infrastructure-access"
+  }
+  default_tags {
+    tags = merge(
+      var.tags,
+      {
+        environment   = terraform.workspace
+        is-production = terraform.workspace == "production" ? "true" : "false"
+      }
+    )
+  }
+}
+
+provider "aws" {
+  alias  = "analytical-platform-data-production-eu-west-2"
   region = "eu-west-2"
   assume_role {
     role_arn = "arn:aws:iam::${var.account_ids["analytical-platform-data-production"]}:role/analytical-platform-infrastructure-access"

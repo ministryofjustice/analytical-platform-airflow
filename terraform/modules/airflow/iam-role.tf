@@ -7,6 +7,10 @@ module "iam_role" {
   source  = "terraform-aws-modules/iam/aws//modules/iam-role-for-service-accounts-eks"
   version = "5.52.2"
 
+  providers = {
+    aws = aws.analytical-platform-data-production-eu-west-2
+  }
+
   role_name = "airflow-${var.environment}-${var.project}-${var.workflow}"
   role_policy_arns = {
     policy = module.iam_policy[0].arn

@@ -3,18 +3,24 @@ data "aws_iam_policy_document" "iam_policy" {
 
   /* Default - KMS */
   statement {
-    sid       = "DefaultKMS"
-    effect    = "Allow"
-    actions   = ["kms:Decrypt"]
-    resources = ["*"] // TODO: replace with actual KMS key ARN
+    sid     = "DefaultKMS"
+    effect  = "Allow"
+    actions = ["kms:Decrypt"]
+    resources = [
+      data.aws_kms_key.secrets_manager_eu_west_2.arn,
+      data.aws_kms_key.secrets_manager_eu_west_1.arn
+    ]
   }
 
   /* Default - Secrets Manager */
   statement {
-    sid       = "DefaultSecretsManager"
-    effect    = "Allow"
-    actions   = ["secretsmanager:GetSecretValue"]
-    resources = ["*"] // TODO: replace with actual Secrets Manager ARN, scoped to /airflow/${environment}/${project}/${workflow}
+    sid     = "DefaultSecretsManager"
+    effect  = "Allow"
+    actions = ["secretsmanager:GetSecretValue"]
+    resources = [
+      "arn:aws:secretsmanager:eu-west-2:593291632749:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*",
+      "arn:aws:secretsmanager:eu-west-1:593291632749:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*"
+    ]
   }
 
   /* Bedrock */
@@ -87,6 +93,10 @@ module "iam_policy" {
 
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "5.52.2"
+
+  providers = {
+    aws = aws.analytical-platform-data-production-eu-west-2
+  }
 
   name   = "airflow-${var.environment}-${var.project}-${var.workflow}"
   policy = data.aws_iam_policy_document.iam_policy[0].json

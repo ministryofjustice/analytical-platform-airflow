@@ -6,6 +6,11 @@ module "airflow" {
 
   source = "./modules/airflow"
 
+  providers = {
+    aws.analytical-platform-data-production-eu-west-1 = aws.analytical-platform-data-production-eu-west-1
+    aws.analytical-platform-data-production-eu-west-2 = aws.analytical-platform-data-production-eu-west-2
+  }
+
   project       = format("%s", split("/", each.key)[0])
   workflow      = format("%s", split("/", each.key)[1])
   environment   = terraform.workspace

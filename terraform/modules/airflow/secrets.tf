@@ -7,7 +7,19 @@ module "secrets_manager" {
   source  = "terraform-aws-modules/secrets-manager/aws"
   version = "1.3.1"
 
-  name = "/airflow/${var.environment}/${var.project}/${var.workflow}/${each.key}"
+  providers = {
+    aws = aws.analytical-platform-data-production-eu-west-2
+  }
+
+  name       = "/airflow/${var.environment}/${var.project}/${var.workflow}/${each.key}"
+  kms_key_id = data.aws_kms_key.secrets_manager_eu_west_2.arn
+
+  replica = {
+    eu-west-1 = {
+      region     = "eu-west-1"
+      kms_key_id = data.aws_kms_key.secrets_manager_eu_west_1.arn
+    }
+  }
 
   secret_string         = "CHANGEME"
   ignore_secret_changes = true
