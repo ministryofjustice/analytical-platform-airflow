@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "iam_policy" {
-  count = local.create && length(local.iam_configuration) > 0 ? 1 : 0
+  count = length(local.iam_external_role) > 0 ? 0 : 1
 
   /* Default - KMS */
   statement {
@@ -19,7 +19,7 @@ data "aws_iam_policy_document" "iam_policy" {
 
   /* Bedrock */
   dynamic "statement" {
-    for_each = local.bedrock_enabled ? [1] : []
+    for_each = local.iam_bedrock_enabled ? [1] : []
     content {
       sid    = "Bedrock"
       effect = "Allow"
@@ -83,7 +83,7 @@ module "iam_policy" {
   #checkov:skip=CKV_TF_1:Module registry does not support commit hashes for versions
   #checkov:skip=CKV_TF_2:Module registry does not support tags for versions
 
-  count = local.create && length(local.iam_configuration) > 0 ? 1 : 0
+  count = length(local.iam_external_role) > 0 ? 0 : 1
 
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
   version = "5.52.2"

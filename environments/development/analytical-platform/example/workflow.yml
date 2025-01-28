@@ -11,3 +11,8 @@ dag:
 
 iam:
   bedrock: true
+
+secrets:
+  - username
+  - password
+  - api-key
