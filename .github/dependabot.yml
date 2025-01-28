@@ -16,3 +16,17 @@ updates:
     commit-message:
       prefix: ":dependabot: devcontainers"
       include: "scope"
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: ":dependabot: pip"
+      include: "scope"
+  - package-ecosystem: "terraform"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: ":dependabot: terraform"
+      include: "scope"

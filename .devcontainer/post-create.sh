@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
 
 # Install dependencies
-pip install --requirement requirements-dev.txt
+pip install --upgrade pip
+pip install --requirement requirements.txt
