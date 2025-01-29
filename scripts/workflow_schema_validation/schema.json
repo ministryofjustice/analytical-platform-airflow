@@ -119,9 +119,21 @@
     "schema": {
       "external_role": { "type": "string", "required": false },
       "bedrock": { "type": "boolean", "required": false },
-      "kms": { "type": "list", "schema": { "type": "string" }, "required": false },
-      "s3_read_only": { "type": "list", "schema": { "type": "string" }, "required": false },
-      "s3_read_write": { "type": "list", "schema": { "type": "string" }, "required": false }
+      "kms": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      },
+      "s3_read_only": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      },
+      "s3_read_write": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      }
     },
     "required": false
   },
