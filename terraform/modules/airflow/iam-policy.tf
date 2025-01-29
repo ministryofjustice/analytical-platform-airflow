@@ -98,7 +98,7 @@ data "aws_iam_policy_document" "iam_policy" {
         "kms:ReEncrypt*",
       ]
       resources = [
-        for item in local.iam_kms_keys : "${item}"
+        for item in local.iam_kms_keys : item
       ]
     }
   }
