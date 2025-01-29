@@ -2,7 +2,6 @@
   "tags": {
     "type": "dict",
     "schema": {
-      "application": { "type": "string", "required": true },
       "business_unit": {
         "type": "string",
         "allowed": ["HQ", "Central", "Platforms"],
