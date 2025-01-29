@@ -6,7 +6,7 @@ clean:
 schema_validation:
 	python scripts/workflow_schema_validation/main.py
 
-dags: clean
+dags: schema_validation clean
 	python scripts/workflow_generator/main.py
 
 workflow_validation: schema_validation dags

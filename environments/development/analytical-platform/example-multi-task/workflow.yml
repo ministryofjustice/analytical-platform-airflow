@@ -1,6 +1,5 @@
 ---
 tags:
-  application: Analytical Platform
   business_unit: HQ
   owner: analytical-platform@justice.gov.uk
 
@@ -24,3 +23,6 @@ dag:
         PHASE: "three"
       compute_profile: gpu-spot-1vcpu-4gb
       dependencies: [phase-one, phase-two]
+
+iam:
+  bedrock: false

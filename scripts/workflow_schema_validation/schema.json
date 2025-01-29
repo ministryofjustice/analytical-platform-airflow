@@ -2,7 +2,6 @@
   "tags": {
     "type": "dict",
     "schema": {
-      "application": { "type": "string", "required": true },
       "business_unit": {
         "type": "string",
         "allowed": ["HQ", "Central", "Platforms"],
@@ -114,5 +113,36 @@
       }
     },
     "required": true
+  },
+  "iam": {
+    "type": "dict",
+    "schema": {
+      "external_role": { "type": "string", "required": false },
+      "bedrock": { "type": "boolean", "required": false },
+      "kms": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      },
+      "s3_read_only": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      },
+      "s3_read_write": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      }
+    },
+    "required": false
+  },
+  "secrets": {
+    "type": "list",
+    "schema": {
+      "type": "string",
+      "regex": "^[a-z-]+$"
+    },
+    "required": false
   }
 }
