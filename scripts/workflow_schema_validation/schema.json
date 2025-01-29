@@ -118,7 +118,10 @@
   "iam": {
     "type": "dict",
     "schema": {
-      "bedrock": { "type": "boolean", "required": false }
+      "bedrock": { "type": "boolean", "required": false },
+      "kms": { "type": "list", "schema": { "type": "string" }, "required": false },
+      "s3_read_only": { "type": "list", "schema": { "type": "string" }, "required": false },
+      "s3_read_write": { "type": "list", "schema": { "type": "string" }, "required": false }
     },
     "required": false
   },
@@ -126,7 +129,7 @@
     "type": "list",
     "schema": {
       "type": "string",
-      "regex": "^[a-zA-Z0-9-_]+$"
+      "regex": "^[a-z-]+$"
     },
     "required": false
   }

@@ -11,6 +11,14 @@ dag:
 
 iam:
   bedrock: true
+  kms:
+    - arn:aws:kms:eu-west-2:123456789012:key/mrk-12345678909876543212345678909876
+  s3_read_only:
+    - mojap-compute-development-dummy/readonly1/*
+    - mojap-compute-development-dummy/readonly2/*
+  s3_read_write:
+    - mojap-compute-development-dummy/readwrite1/*
+    - mojap-compute-development-dummy/readwrite2/*
 
 secrets:
   - username

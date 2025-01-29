@@ -20,7 +20,7 @@ data "aws_iam_policy_document" "iam_policy" {
     resources = [
       "arn:aws:secretsmanager:eu-west-2:593291632749:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*",
       "arn:aws:secretsmanager:eu-west-1:593291632749:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*"
-    ]
+    ] // TODO: do something clever with the output of module.secrets_manager
   }
 
   /* Bedrock */
@@ -30,45 +30,45 @@ data "aws_iam_policy_document" "iam_policy" {
       sid    = "Bedrock"
       effect = "Allow"
       actions = [
-        "bedrock:ListFoundationModels",
+        "bedrock:CreateActionGroup",
+        "bedrock:CreateAgent",
+        "bedrock:CreateAgentAlias",
+        "bedrock:CreateAgentDraftSnapshot",
+        "bedrock:CreateFoundationModelAgreement",
+        "bedrock:CreateModelCustomizationJob",
+        "bedrock:DeleteCustomModel",
+        "bedrock:DeleteFoundationModelAgreement",
+        "bedrock:GetActionGroup",
+        "bedrock:GetAgent",
+        "bedrock:GetAgentAlias",
+        "bedrock:GetAgentVersion",
+        "bedrock:GetCustomModel",
         "bedrock:GetFoundationModel",
+        "bedrock:GetFoundationModelAvailability",
+        "bedrock:GetModelCustomizationJob",
+        "bedrock:GetModelInvocationLoggingConfiguration",
+        "bedrock:GetUseCaseForModelAccess",
+        "bedrock:InvokeAgent",
         "bedrock:InvokeModel",
         "bedrock:InvokeModelWithResponseStream",
-        "bedrock:CreateModelCustomizationJob",
-        "bedrock:GetModelCustomizationJob",
-        "bedrock:GetFoundationModelAvailability",
-        "bedrock:ListModelCustomizationJobs",
-        "bedrock:StopModelCustomizationJob",
-        "bedrock:GetCustomModel",
+        "bedrock:ListActionGroups",
+        "bedrock:ListAgentAliases",
+        "bedrock:ListAgents",
+        "bedrock:ListAgentVersions",
         "bedrock:ListCustomModels",
-        "bedrock:DeleteCustomModel",
+        "bedrock:ListFoundationModelAgreementOffers",
+        "bedrock:ListFoundationModels",
+        "bedrock:ListModelCustomizationJobs",
         "bedrock:ListProvisionedModelThroughputs",
         "bedrock:ListTagsForResource",
-        "bedrock:UntagResource",
-        "bedrock:TagResource",
-        "bedrock:CreateAgent",
-        "bedrock:UpdateAgent",
-        "bedrock:GetAgent",
-        "bedrock:ListAgents",
-        "bedrock:CreateActionGroup",
-        "bedrock:UpdateActionGroup",
-        "bedrock:GetActionGroup",
-        "bedrock:ListActionGroups",
-        "bedrock:CreateAgentDraftSnapshot",
-        "bedrock:GetAgentVersion",
-        "bedrock:ListAgentVersions",
-        "bedrock:CreateAgentAlias",
-        "bedrock:UpdateAgentAlias",
-        "bedrock:GetAgentAlias",
-        "bedrock:ListAgentAliases",
-        "bedrock:InvokeAgent",
         "bedrock:PutFoundationModelEntitlement",
-        "bedrock:GetModelInvocationLoggingConfiguration",
         "bedrock:PutModelInvocationLoggingConfiguration",
-        "bedrock:CreateFoundationModelAgreement",
-        "bedrock:DeleteFoundationModelAgreement",
-        "bedrock:ListFoundationModelAgreementOffers",
-        "bedrock:GetUseCaseForModelAccess"
+        "bedrock:StopModelCustomizationJob",
+        "bedrock:TagResource",
+        "bedrock:UntagResource",
+        "bedrock:UpdateActionGroup",
+        "bedrock:UpdateAgent",
+        "bedrock:UpdateAgentAlias"
       ]
       resources = ["*"]
       condition {
@@ -81,6 +81,66 @@ data "aws_iam_policy_document" "iam_policy" {
           "eu-west-3"     // Paris
         ]
       }
+    }
+  }
+
+  /* KMS */
+  dynamic "statement" {
+    for_each = length(local.iam_kms_keys) > 0 ? [1] : []
+    content {
+      sid    = "KMSAccess"
+      effect = "Allow"
+      actions = [
+        "kms:Decrypt",
+        "kms:DescribeKey",
+        "kms:Encrypt",
+        "kms:GenerateDataKey*",
+        "kms:ReEncrypt*",
+      ]
+      resources = [
+        for item in local.iam_kms_keys : "${item}"
+      ]
+    }
+  }
+
+  /* S3 - Read Only */
+  dynamic "statement" {
+    for_each = length(local.iam_s3_read_only) > 0 ? [1] : []
+    content {
+      sid    = "S3ReadOnly"
+      effect = "Allow"
+      actions = [
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:GetObjectVersion"
+      ]
+      resources = [
+        for item in local.iam_s3_read_only : "arn:aws:s3:::${item}"
+      ]
+    }
+  }
+
+  /* S3 Read Write */
+  dynamic "statement" {
+    for_each = length(local.iam_s3_read_write) > 0 ? [1] : []
+    content {
+      sid    = "S3ReadWrite"
+      effect = "Allow"
+      actions = [
+        "s3:DeleteObject",
+        "s3:DeleteObjectVersion",
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:GetObjectTagging",
+        "s3:GetObjectVersion",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:PutObjectTagging",
+        "s3:RestoreObject"
+      ]
+      resources = [
+        for item in local.iam_s3_read_write : "arn:aws:s3:::${item}"
+      ]
     }
   }
 }
