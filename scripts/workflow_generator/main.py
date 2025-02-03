@@ -12,8 +12,7 @@ env = Environment(loader=FileSystemLoader("."))
 template = env.get_template("scripts/workflow_generator/templates/workflow.yml.j2")
 
 # Loop over environments
-# for environment in ["development", "test", "production"]:
-for environment in ["development"]:
+for environment in ["development", "test", "production"]:
     print("=" * 100)
     print(f"Processing environment: {environment}")
 
@@ -55,7 +54,7 @@ for environment in ["development"]:
 
             # Modify secrets list to dictionary
             # secrets list looks like ["username", "password"]
-            # secrets dictionary needs to look like ["secret":f"{project}-{workflow}-{secret}","deploy_type":"env","deploy_target":"f"SECRET_{secret.upper()}", "key": "data"}]
+            # secrets dictionary needs to look like ["secret":f"{project}-{workflow}-{secret}","deploy_type":"env","deploy_target":"f"SECRET_{secret.upper().replace('-', '_')}", "key": "data"}]
             if config.get("secrets"):
                 secrets = config["secrets"]
                 secrets_list = []
