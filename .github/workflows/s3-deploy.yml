@@ -24,8 +24,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # environment: [development, test, production]
-        environment: [development]
+        environment: [development, test, production]
         include:
           - environment: development
             account: 381491960855
