@@ -24,3 +24,33 @@ module "secrets_manager" {
   secret_string         = "CHANGEME"
   ignore_secret_changes = true
 }
+
+resource "kubernetes_manifest" "external_secret" {
+  for_each = toset(local.secrets_configuration)
+
+  manifest = {
+    "apiVersion" = "external-secrets.io/v1beta1"
+    "kind"       = "ExternalSecret"
+    "metadata" = {
+      "namespace" = "mwaa"
+      "name"      = "${var.project}-${var.workflow}-${each.key}"
+    }
+    "spec" = {
+      "secretStoreRef" = {
+        "kind" = "SecretStore"
+        "name" = "analytical-platform-data-production"
+      }
+      "target" = {
+        "name" = "${var.project}-${var.workflow}-${each.key}"
+      }
+      "data" = [
+        {
+          "remoteRef" = {
+            "key" = module.secrets_manager[each.key].secret_id
+          }
+          "secretKey" = "data"
+        }
+      ]
+    }
+  }
+}
