@@ -21,8 +21,10 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
         **kwargs,
     ):
 
+        # Compute Profile
         compute_profile = get_compute_profile(compute_profile=compute_profile)
 
+        # Environment Variables
         if env_vars is None:
             env_vars = {}
 

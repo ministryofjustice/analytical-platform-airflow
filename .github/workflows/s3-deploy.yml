@@ -19,6 +19,7 @@ jobs:
       contents: read
       id-token: write
     strategy:
+      fail-fast: false
       matrix:
         environment: [development, test, production]
         include:
