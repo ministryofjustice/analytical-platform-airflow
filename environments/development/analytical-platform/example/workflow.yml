@@ -20,6 +20,6 @@ iam:
     - mojap-compute-development-dummy/readwrite2/*
 
 secrets:
-  - username
+  - username # Terraform creates AWS secret /airflow/${environment}/${project}/${workflow}/username, and Kubernetes secret ${project}-${workflow}-username
   - password
   - api-key

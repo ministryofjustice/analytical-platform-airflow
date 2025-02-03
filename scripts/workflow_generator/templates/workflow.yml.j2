@@ -21,6 +21,9 @@
         {{ k }}: {{ v }}
         {%- endfor %}
       {%- endif %}
+      {%- if secrets %}
+      secrets: {{ secrets }}
+      {%- endif %}
       environment: {{ meta.environment }}
       project: {{ meta.project }}
       workflow: {{ meta.workflow }}
@@ -40,6 +43,9 @@
         {%- for k, v in dag.env_vars.items() %}
         {{ k }}: {{ v }}
         {%- endfor %}
+      {%- endif %}
+      {%- if secrets %}
+      secrets: {{ secrets }}
       {%- endif %}
       environment: {{ meta.environment }}
       project: {{ meta.project }}

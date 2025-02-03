@@ -20,7 +20,8 @@ jobs:
       id-token: write
     strategy:
       matrix:
-        environment: [development, test, production]
+        # environment: [development, test, production]
+        environment: [development]
         include:
           - environment: development
             account: 381491960855
