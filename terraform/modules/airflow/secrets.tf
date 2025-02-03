@@ -36,6 +36,7 @@ resource "kubernetes_manifest" "external_secret" {
       "name"      = "${var.project}-${var.workflow}-${each.key}"
     }
     "spec" = {
+      "refreshInterval" = "5m"
       "secretStoreRef" = {
         "kind" = "SecretStore"
         "name" = "analytical-platform-data-production"
