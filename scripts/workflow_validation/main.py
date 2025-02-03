@@ -18,9 +18,9 @@ for root, dirs, files in os.walk("dist/dags"):
             dag = dag_factory.generate_dags(globals())
         except DagFactoryConfigException as e:
             print(f"Error loading DAG configuration: {str(e)}", file=sys.stderr)
-            # sys.exit(1)
+            sys.exit(1)
         except Exception as e:
             print(f"Unexpected error while processing DAG: {str(e)}", file=sys.stderr)
-            # sys.exit(1)
+            sys.exit(1)
         else:
             print(f"DAG loaded successfully: {file_path}")
