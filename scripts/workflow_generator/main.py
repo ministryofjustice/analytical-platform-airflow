@@ -62,7 +62,7 @@ for environment in ["development"]:
                 for secret in secrets:
                     secret_object = {
                         "deploy_type": "env",
-                        "deploy_target": f"SECRET_{secret.upper()}",
+                        "deploy_target": f"SECRET_{secret.upper().replace('-', '_')}",
                         "secret": f"{project}-{workflow}-{secret}",
                         "key": "data",
                     }
