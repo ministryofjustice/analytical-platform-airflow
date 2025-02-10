@@ -23,7 +23,9 @@ module "secrets_manager" {
 
   policy_statements = {
     user_access = {
-      sid = "UserAccess"
+      sid       = "UserAccess"
+      actions   = ["secretsmanager:GetSecretValue"]
+      resources = ["*"]
       principals = [{
         type        = "AWS"
         identifiers = ["*"]
