@@ -25,8 +25,12 @@ module "secrets_manager" {
   create_policy = true
   policy_statements = {
     user_access = {
-      sid       = "UserAccess"
-      actions   = ["secretsmanager:GetSecretValue"]
+      sid = "UserAccess"
+      actions = [
+        "secretsmanager:DescribeSecret",
+        "secretsmanager:GetSecretValue",
+        "secretsmanager:PutSecretValue",
+      ]
       resources = ["*"]
       principals = [{
         type        = "AWS"
