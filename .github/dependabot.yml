@@ -24,7 +24,7 @@ updates:
       prefix: ":dependabot: pip"
       include: "scope"
   - package-ecosystem: "terraform"
-    directory: "/"
+    directory: "terraform"
     schedule:
       interval: "daily"
     commit-message:
