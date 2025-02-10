@@ -32,11 +32,11 @@ module "secrets_manager" {
         type        = "AWS"
         identifiers = ["*"]
       }]
-      conditions = {
+      conditions = [{
         test     = "StringEquals"
         variable = "aws:userName"
         values   = var.configuration.maintainers
-      }
+      }]
     }
   }
 
