@@ -19,6 +19,10 @@ iam:
     - mojap-compute-development-dummy/readwrite1/*
     - mojap-compute-development-dummy/readwrite2/*
 
+maintainers:
+  - jacobwoffenden
+  - julialawrence
+
 secrets:
   - username
   - password

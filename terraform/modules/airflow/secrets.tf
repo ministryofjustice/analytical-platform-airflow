@@ -21,6 +21,21 @@ module "secrets_manager" {
     }
   }
 
+  policy_statements = {
+    user_access = {
+      sid = "UserAccess"
+      principals = [{
+        type        = "AWS"
+        identifiers = ["*"]
+      }]
+      condition = {
+        test     = "StringEquals"
+        variable = "aws:userName"
+        values   = var.configuration.maintainers
+      }
+    }
+  }
+
   secret_string         = "CHANGEME"
   ignore_secret_changes = true
 }
@@ -42,7 +57,8 @@ resource "kubernetes_manifest" "external_secret" {
         "name" = "analytical-platform-data-production"
       }
       "target" = {
-        "name" = "${var.project}-${var.workflow}-${each.key}"
+        "name"           = "${var.project}-${var.workflow}-${each.key}"
+        "deletionPolicy" = "Delete"
       }
       "data" = [
         {
