@@ -21,6 +21,8 @@ module "secrets_manager" {
     }
   }
 
+
+  create_policy = true
   policy_statements = {
     user_access = {
       sid       = "UserAccess"
