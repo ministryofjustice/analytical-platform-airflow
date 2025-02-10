@@ -23,3 +23,7 @@ dag:
         PHASE: "three"
       compute_profile: gpu-spot-1vcpu-4gb
       dependencies: [phase-one, phase-two]
+
+maintainers:
+  - jacobwoffenden
+  - julialawrence

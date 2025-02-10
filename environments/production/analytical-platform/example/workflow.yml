@@ -6,3 +6,7 @@ tags:
 dag:
   repository: ministryofjustice/analytical-platform-airflow-poc-workflow
   tag: 0.0.6
+
+maintainers:
+  - jacobwoffenden
+  - julialawrence
