@@ -39,7 +39,7 @@ module "secrets_manager" {
       conditions = [{
         test     = "StringEquals"
         variable = "aws:userName"
-        values   = lower(var.configuration.maintainers)
+        values   = [for maintainer in var.configuration.maintainers : lower(maintainer)]
       }]
     }
   }
