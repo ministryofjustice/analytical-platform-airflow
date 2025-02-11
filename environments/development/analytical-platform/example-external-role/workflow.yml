@@ -10,3 +10,7 @@ dag:
 
 iam:
   external_role: arn:aws:iam::123456789012:role/this-is-not-a-real-role
+
+maintainers:
+  - jacobwoffenden
+  - julialawrence

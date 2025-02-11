@@ -144,5 +144,13 @@
       "regex": "^[a-z-]+$"
     },
     "required": false
+  },
+  "maintainers": {
+    "type": "list",
+    "schema": {
+      "type": "string",
+      "regex": "^[a-z-]+$"
+    },
+    "required": true
   }
 }
