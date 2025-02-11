@@ -1,32 +1,29 @@
 ---
-tags:
-  business_unit: HQ
-  owner: analytical-platform@justice.gov.uk
-
 dag:
-  repository: ministryofjustice/analytical-platform-airflow-poc-workflow
-  tag: 0.0.6
+  repository: moj-analytical-services/analytical-platform-airflow-python-example
+  tag: 2.0.0
   tasks:
     init:
       env_vars:
-        PHASE: "init"
+        MODE: "basic"
     phase-one:
       env_vars:
-        PHASE: "one"
+        MODE: "basic"
       dependencies: [init]
     phase-two:
       env_vars:
-        PHASE: "two"
+        MODE: "basic"
       dependencies: [phase-one]
     phase-three:
       env_vars:
-        PHASE: "three"
-      compute_profile: gpu-spot-1vcpu-4gb
+        MODE: "benchmark"
+      compute_profile: gpu-spot-8vcpu-32gb
       dependencies: [phase-one, phase-two]
-
-iam:
-  bedrock: false
 
 maintainers:
   - jacobwoffenden
   - julialawrence
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
