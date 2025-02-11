@@ -1,20 +1,4 @@
 {
-  "tags": {
-    "type": "dict",
-    "schema": {
-      "business_unit": {
-        "type": "string",
-        "allowed": ["HQ", "Central", "Platforms"],
-        "required": true
-      },
-      "owner": {
-        "type": "string",
-        "regex": "^[a-zA-Z0-9_.+-]+@justice\\.gov\\.uk$",
-        "required": true
-      }
-    },
-    "required": true
-  },
   "dag": {
     "type": "dict",
     "schema": {
@@ -58,6 +42,10 @@
         ],
         "required": false
       },
+      "env_vars": {
+        "type": "dict",
+        "required": false
+      },
       "tasks": {
         "type": "dict",
         "required": false,
@@ -65,15 +53,6 @@
         "valueschema": {
           "type": "dict",
           "schema": {
-            "env_vars": {
-              "type": "dict",
-              "required": false
-            },
-            "dependencies": {
-              "type": "list",
-              "schema": { "type": "string" },
-              "required": false
-            },
             "compute_profile": {
               "type": "string",
               "allowed": [
@@ -106,6 +85,15 @@
                 "gpu-spot-32vcpu-128gb",
                 "gpu-spot-64vcpu-256gb"
               ],
+              "required": false
+            },
+            "env_vars": {
+              "type": "dict",
+              "required": false
+            },
+            "dependencies": {
+              "type": "list",
+              "schema": { "type": "string" },
               "required": false
             }
           }
@@ -150,6 +138,32 @@
     "schema": {
       "type": "string",
       "regex": "^[a-z-]+$"
+    },
+    "required": true
+  },
+  "tags": {
+    "type": "dict",
+    "schema": {
+      "business_unit": {
+        "type": "string",
+        "allowed": [
+          "Central Digital",
+          "CICA",
+          "HMCTS",
+          "HMPPS",
+          "HQ",
+          "LAA",
+          "OPG",
+          "Platforms",
+          "Technology Services"
+        ],
+        "required": true
+      },
+      "owner": {
+        "type": "string",
+        "regex": "^[a-zA-Z0-9_.+-]+@justice\\.gov\\.uk$",
+        "required": true
+      }
     },
     "required": true
   }

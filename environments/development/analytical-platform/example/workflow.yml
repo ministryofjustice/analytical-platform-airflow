@@ -1,12 +1,10 @@
 ---
-tags:
-  business_unit: HQ
-  owner: analytical-platform@justice.gov.uk
-
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
-  tag: 1.2.0
+  tag: 2.0.0
   compute_profile: gpu-spot-8vcpu-32gb
+  env_vars:
+    MODE: "benchmark"
 
 iam:
   bedrock: true
@@ -24,6 +22,8 @@ maintainers:
   - julialawrence
 
 secrets:
-  - username
-  - password
   - api-key
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
