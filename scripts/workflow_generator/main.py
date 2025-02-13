@@ -7,8 +7,16 @@ import os
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
+# Custom filter to merge dictionaries
+def merge_dicts(dict1, dict2):
+    result = dict1.copy()
+    result.update(dict2)
+    return result
+
+
 # Load Jinja template
 env = Environment(loader=FileSystemLoader("."))
+env.filters['merge_dicts'] = merge_dicts
 template = env.get_template("scripts/workflow_generator/templates/workflow.yml.j2")
 
 # Loop over environments
