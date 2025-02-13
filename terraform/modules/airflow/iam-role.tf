@@ -24,13 +24,13 @@ module "iam_role" {
 resource "aws_iam_role_policy_attachment" "generated" {
   count = length(local.iam_external_role) == 0 ? 1 : 0
 
-  role       = module.iam_role[0].iam_role_arn
+  role       = module.iam_role[0].iam_role_name
   policy_arn = module.iam_policy[0].arn
 }
 
 resource "aws_iam_role_policy_attachment" "athena_read" {
   count = length(local.iam_external_role) == 0 && local.iam_athena == "read" ? 1 : 0
 
-  role       = module.iam_role[0].iam_role_arn
+  role       = module.iam_role[0].iam_role_name
   policy_arn = "arn:aws:iam::593291632749:policy/airflow-service/athena-read"
 }
