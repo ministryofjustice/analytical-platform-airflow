@@ -7,9 +7,9 @@ dag:
     MODE: "benchmark"
 
 iam:
-  athena: read
-  # bedrock: true
-  # glue: true
+  athena: write
+  bedrock: true
+  glue: true
   kms:
     - arn:aws:kms:eu-west-2:123456789012:key/mrk-12345678909876543212345678909876
   s3_deny:
