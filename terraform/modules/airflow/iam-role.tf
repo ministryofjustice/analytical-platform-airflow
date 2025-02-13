@@ -15,7 +15,7 @@ module "iam_role" {
 
   oidc_providers = {
     main = {
-      provider_arn               = format("arn:aws:iam::593291632749:oidc-provider/%s", trimprefix(var.eks_oidc_url, "https://"))
+      provider_arn               = format("arn:aws:iam::${data.aws_caller_identity.analytical_platform_data_production.account_id}:oidc-provider/%s", trimprefix(var.eks_oidc_url, "https://"))
       namespace_service_accounts = ["mwaa:${var.project}-${var.workflow}"]
     }
   }
@@ -36,7 +36,7 @@ resource "aws_iam_role_policy_attachment" "athena_read" {
   provider = aws.analytical-platform-data-production-eu-west-2
 
   role       = module.iam_role[0].iam_role_name
-  policy_arn = "arn:aws:iam::593291632749:policy/airflow-service/athena-read"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.analytical_platform_data_production.account_id}:policy/airflow-service/athena-read"
 }
 
 resource "aws_iam_role_policy_attachment" "athena_write" {
@@ -45,7 +45,7 @@ resource "aws_iam_role_policy_attachment" "athena_write" {
   provider = aws.analytical-platform-data-production-eu-west-2
 
   role       = module.iam_role[0].iam_role_name
-  policy_arn = "arn:aws:iam::593291632749:policy/airflow-service/athena-write"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.analytical_platform_data_production.account_id}:policy/airflow-service/athena-write"
 }
 
 resource "aws_iam_role_policy_attachment" "bedrock" {
@@ -54,7 +54,7 @@ resource "aws_iam_role_policy_attachment" "bedrock" {
   provider = aws.analytical-platform-data-production-eu-west-2
 
   role       = module.iam_role[0].iam_role_name
-  policy_arn = "arn:aws:iam::593291632749:policy/airflow-service/bedrock"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.analytical_platform_data_production.account_id}:policy/airflow-service/bedrock"
 }
 
 resource "aws_iam_role_policy_attachment" "glue" {
@@ -63,7 +63,7 @@ resource "aws_iam_role_policy_attachment" "glue" {
   provider = aws.analytical-platform-data-production-eu-west-2
 
   role       = module.iam_role[0].iam_role_name
-  policy_arn = "arn:aws:iam::593291632749:policy/airflow-service/glue"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.analytical_platform_data_production.account_id}:policy/airflow-service/glue"
 }
 
 resource "aws_iam_role_policy_attachment" "kms" {
@@ -72,5 +72,5 @@ resource "aws_iam_role_policy_attachment" "kms" {
   provider = aws.analytical-platform-data-production-eu-west-2
 
   role       = module.iam_role[0].iam_role_name
-  policy_arn = "arn:aws:iam::593291632749:policy/airflow-service/kms"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.analytical_platform_data_production.account_id}:policy/airflow-service/kms"
 }

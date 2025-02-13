@@ -8,7 +8,7 @@ data "aws_iam_policy_document" "iam_policy" {
       sid       = "GluePassRole"
       effect    = "Allow"
       actions   = ["iam:PassRole"]
-      resources = ["arn:aws:iam::593291632749:role/airflow-${var.environment}-${var.project}-${var.workflow}"]
+      resources = ["arn:aws:iam::${data.aws_caller_identity.analytical_platform_data_production.account_id}:role/airflow-${var.environment}-${var.project}-${var.workflow}"]
       condition {
         test     = "StringEquals"
         variable = "iam:PassedToService"
@@ -124,8 +124,8 @@ data "aws_iam_policy_document" "iam_policy" {
     effect  = "Allow"
     actions = ["secretsmanager:GetSecretValue"]
     resources = [
-      "arn:aws:secretsmanager:eu-west-2:593291632749:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*",
-      "arn:aws:secretsmanager:eu-west-1:593291632749:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*"
+      "arn:aws:secretsmanager:eu-west-2:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*",
+      "arn:aws:secretsmanager:eu-west-1:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*"
     ]
   }
 }
