@@ -25,7 +25,7 @@ data "aws_iam_policy_document" "iam_policy" {
 
   /* Athena - Read Only */
   dynamic "statement" {
-    for_each = local.iam_athena == "read" ? [1] : []
+    for_each = local.iam_athena == "read" || local.iam_athena == "write" ? [1] : []
     content {
       sid    = "AthenaReadOnlyS3BucketActions"
       effect = "Allow"
@@ -38,12 +38,13 @@ data "aws_iam_policy_document" "iam_policy" {
   }
 
   dynamic "statement" {
-    for_each = local.iam_athena == "read" ? [1] : []
+    for_each = local.iam_athena == "read" || local.iam_athena == "write" ? [1] : []
     content {
       sid     = "AthenaReadOnlyS3ListBuckets"
       effect  = "Allow"
       actions = ["s3:ListBucket"]
       resources = [
+        "arn:aws:s3:::alpha-athena-query-dump",
         "arn:aws:s3:::moj-analytics-lookup-tables",
         "arn:aws:s3:::mojap-athena-query-dump"
       ]
@@ -51,7 +52,7 @@ data "aws_iam_policy_document" "iam_policy" {
   }
 
   dynamic "statement" {
-    for_each = local.iam_athena == "read" ? [1] : []
+    for_each = local.iam_athena == "read" || local.iam_athena == "write" ? [1] : []
     content {
       sid       = "AthenaReadOnlyS3GetObjects"
       effect    = "Allow"
@@ -61,7 +62,7 @@ data "aws_iam_policy_document" "iam_policy" {
   }
 
   dynamic "statement" {
-    for_each = local.iam_athena == "read" ? [1] : []
+    for_each = local.iam_athena == "read" || local.iam_athena == "write" ? [1] : []
     content {
       sid    = "AthenaReadOnlyS3GetPutObjects"
       effect = "Allow"
@@ -74,7 +75,7 @@ data "aws_iam_policy_document" "iam_policy" {
   }
 
   dynamic "statement" {
-    for_each = local.iam_athena == "read" ? [1] : []
+    for_each = local.iam_athena == "read" || local.iam_athena == "write" ? [1] : []
     content {
       sid    = "AthenaReadOnlyS3DeleteGetPutObjects"
       effect = "Allow"
@@ -83,12 +84,15 @@ data "aws_iam_policy_document" "iam_policy" {
         "s3:GetObject",
         "s3:PutObject"
       ]
-      resources = ["arn:aws:s3:::mojap-athena-query-dump/$${aws:userid}/*"]
+      resources = [
+        "arn:aws:s3:::alpha-athena-query-dump/$${aws:userid}/*",
+        "arn:aws:s3:::mojap-athena-query-dump/$${aws:userid}/*"
+      ]
     }
   }
 
   dynamic "statement" {
-    for_each = local.iam_athena == "read" ? [1] : []
+    for_each = local.iam_athena == "read" || local.iam_athena == "write" ? [1] : []
     content {
       sid    = "AthenaReadOnlyAthenaGlueRead"
       effect = "Allow"
@@ -126,6 +130,34 @@ data "aws_iam_policy_document" "iam_policy" {
         "glue:GetTables",
         "glue:GetUserDefinedFunction",
         "glue:GetUserDefinedFunctions"
+      ]
+      resources = ["*"]
+    }
+  }
+
+  /* Athena - Write */
+  dynamic "statement" {
+    for_each = local.iam_athena == "write" ? [1] : []
+    content {
+      sid    = "AthenaWrite"
+      effect = "Allow"
+      actions = [
+        "athena:DeleteNamedQuery",
+        "glue:BatchCreatePartition",
+        "glue:BatchDeletePartition",
+        "glue:BatchDeleteTable",
+        "glue:CreateDatabase",
+        "glue:CreatePartition",
+        "glue:CreateTable",
+        "glue:CreateUserDefinedFunction",
+        "glue:DeleteDatabase",
+        "glue:DeletePartition",
+        "glue:DeleteTable",
+        "glue:DeleteUserDefinedFunction",
+        "glue:UpdateDatabase",
+        "glue:UpdatePartition",
+        "glue:UpdateTable",
+        "glue:UpdateUserDefinedFunction"
       ]
       resources = ["*"]
     }
