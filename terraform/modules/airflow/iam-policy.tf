@@ -20,7 +20,115 @@ data "aws_iam_policy_document" "iam_policy" {
     resources = [
       "arn:aws:secretsmanager:eu-west-2:593291632749:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*",
       "arn:aws:secretsmanager:eu-west-1:593291632749:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*"
-    ] // TODO: do something clever with the output of module.secrets_manager
+    ]
+  }
+
+  /* Athena - Read Only */
+  dynamic "statement" {
+    for_each = local.iam_athena == "read" ? [1] : []
+    content {
+      sid    = "AthenaReadOnlyS3BucketActions"
+      effect = "Allow"
+      actions = [
+        "s3:GetBucketLocation",
+        "s3:ListAllMyBuckets"
+      ]
+      resources = ["*"]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = local.iam_athena == "read" ? [1] : []
+    content {
+      sid     = "AthenaReadOnlyS3ListBuckets"
+      effect  = "Allow"
+      actions = ["s3:ListBucket"]
+      resources = [
+        "arn:aws:s3:::moj-analytics-lookup-tables",
+        "arn:aws:s3:::mojap-athena-query-dump"
+      ]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = local.iam_athena == "read" ? [1] : []
+    content {
+      sid       = "AthenaReadOnlyS3GetObjects"
+      effect    = "Allow"
+      actions   = ["s3:GetObject"]
+      resources = ["arn:aws:s3:::moj-analytics-lookup-tables/*"]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = local.iam_athena == "read" ? [1] : []
+    content {
+      sid    = "AthenaReadOnlyS3GetPutObjects"
+      effect = "Allow"
+      actions = [
+        "s3:GetObject",
+        "s3:PutObject"
+      ]
+      resources = ["arn:aws:s3:::aws-athena-query-results-*"]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = local.iam_athena == "read" ? [1] : []
+    content {
+      sid    = "AthenaReadOnlyS3DeleteGetPutObjects"
+      effect = "Allow"
+      actions = [
+        "s3:DeleteObject",
+        "s3:GetObject",
+        "s3:PutObject"
+      ]
+      resources = ["arn:aws:s3:::mojap-athena-query-dump/$${aws:userid}/*"]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = local.iam_athena == "read" ? [1] : []
+    content {
+      sid    = "AthenaReadOnlyAthenaGlueRead"
+      effect = "Allow"
+      actions = [
+        "athena:BatchGetNamedQuery",
+        "athena:BatchGetQueryExecution",
+        "athena:CancelQueryExecution",
+        "athena:GetCatalogs",
+        "athena:GetExecutionEngine",
+        "athena:GetExecutionEngines",
+        "athena:GetNamedQuery",
+        "athena:GetNamespace",
+        "athena:GetNamespaces",
+        "athena:GetQueryExecution",
+        "athena:GetQueryResults",
+        "athena:GetQueryResultsStream",
+        "athena:GetTable",
+        "athena:GetTableMetadata",
+        "athena:GetTables",
+        "athena:GetWorkGroup",
+        "athena:ListNamedQueries",
+        "athena:ListQueryExecutions",
+        "athena:ListWorkGroups",
+        "athena:RunQuery",
+        "athena:StartQueryExecution",
+        "athena:StopQueryExecution",
+        "glue:BatchGetPartition",
+        "glue:GetCatalogImportStatus",
+        "glue:GetDatabase",
+        "glue:GetDatabases",
+        "glue:GetPartition",
+        "glue:GetPartitions",
+        "glue:GetTable",
+        "glue:GetTableVersions",
+        "glue:GetTables",
+        "glue:GetUserDefinedFunction",
+        "glue:GetUserDefinedFunctions"
+      ]
+      resources = ["*"]
+    }
   }
 
   /* Bedrock */
@@ -88,7 +196,7 @@ data "aws_iam_policy_document" "iam_policy" {
   dynamic "statement" {
     for_each = length(local.iam_kms_keys) > 0 ? [1] : []
     content {
-      sid    = "KMSAccess"
+      sid    = "KMS"
       effect = "Allow"
       actions = [
         "kms:Decrypt",

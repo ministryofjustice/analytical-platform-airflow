@@ -106,6 +106,14 @@
     "type": "dict",
     "schema": {
       "external_role": { "type": "string", "required": false },
+      "athena": {
+        "type": "string",
+        "allowed": [
+          "read",
+          "write"
+        ],
+        "required": false
+      },
       "bedrock": { "type": "boolean", "required": false },
       "kms": {
         "type": "list",
