@@ -329,6 +329,28 @@ data "aws_iam_policy_document" "iam_policy" {
     }
   }
 
+  /* S3 - Deny */
+  dynamic "statement" {
+    for_each = length(local.iam_s3_deny) > 0 ? [1] : []
+    content {
+      sid    = "S3Deny"
+      effect = "Deny"
+      actions = [
+        "s3:DeleteObject",
+        "s3:DeleteObjectVersion",
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:GetObjectVersion",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:RestoreObject"
+      ]
+      resources = [
+        for item in local.iam_s3_deny : "arn:aws:s3:::${item}"
+      ]
+    }
+  }
+
   /* S3 - Read Only */
   dynamic "statement" {
     for_each = length(local.iam_s3_read_only) > 0 ? [1] : []
@@ -366,6 +388,25 @@ data "aws_iam_policy_document" "iam_policy" {
       ]
       resources = [
         for item in local.iam_s3_read_write : "arn:aws:s3:::${item}"
+      ]
+    }
+  }
+
+  /* S3 - Write Only */
+  dynamic "statement" {
+    for_each = length(local.iam_s3_write_only) > 0 ? [1] : []
+    content {
+      sid    = "S3WriteOnly"
+      effect = "Allow"
+      actions = [
+        "s3:DeleteObject",
+        "s3:DeleteObjectVersion",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:RestoreObject"
+      ]
+      resources = [
+        for item in local.iam_s3_write_only : "arn:aws:s3:::${item}"
       ]
     }
   }
