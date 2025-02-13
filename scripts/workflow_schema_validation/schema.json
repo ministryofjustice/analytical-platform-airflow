@@ -106,8 +106,19 @@
     "type": "dict",
     "schema": {
       "external_role": { "type": "string", "required": false },
+      "athena": {
+        "type": "string",
+        "allowed": ["read", "write"],
+        "required": false
+      },
       "bedrock": { "type": "boolean", "required": false },
+      "glue": { "type": "boolean", "required": false },
       "kms": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      },
+      "s3_deny": {
         "type": "list",
         "schema": { "type": "string" },
         "required": false
@@ -118,6 +129,11 @@
         "required": false
       },
       "s3_read_write": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      },
+      "s3_write_only": {
         "type": "list",
         "schema": { "type": "string" },
         "required": false
