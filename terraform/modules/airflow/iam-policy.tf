@@ -224,6 +224,92 @@ data "aws_iam_policy_document" "iam_policy" {
     }
   }
 
+  /* Glue */
+  dynamic "statement" {
+    for_each = local.iam_glue ? [1] : []
+    content {
+      sid    = "GlueActions"
+      effect = "Allow"
+      actions = [
+        "glue:BatchGetJobs",
+        "glue:BatchStopJobRun",
+        "glue:CreateJob",
+        "glue:DeleteJob",
+        "glue:GetJob",
+        "glue:GetJobBookmark",
+        "glue:GetJobRun",
+        "glue:GetJobRuns",
+        "glue:GetJobs",
+        "glue:ListJobs",
+        "glue:StartJobRun",
+        "glue:UpdateJob"
+      ]
+      resources = ["*"]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = local.iam_glue ? [1] : []
+    content {
+      sid    = "GlueLogs"
+      effect = "Allow"
+      actions = [
+        "logs:DescribeLogStreams",
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:GetLogEvents",
+        "logs:PutLogEvents"
+      ]
+      resources = ["*"]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = local.iam_glue ? [1] : []
+    content {
+      sid    = "GlueMetrics"
+      effect = "Allow"
+      actions = [
+        "cloudwatch:GetMetricData",
+        "cloudwatch:ListDashboards",
+        "cloudwatch:PutMetricData"
+      ]
+      resources = ["*"]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = local.iam_glue ? [1] : []
+    content {
+      sid    = "GlueS3"
+      effect = "Allow"
+      actions = [
+        "s3:GetObject",
+        "s3:PutObject"
+      ]
+      resources = [
+        "arn:aws:s3:::aws-glue-*/*",
+        "arn:aws:s3:::*/*aws-glue-*/*",
+        "arn:aws:s3:::aws-glue-*"
+      ]
+    }
+  }
+
+  dynamic "statement" {
+    for_each = local.iam_glue ? [1] : []
+    content {
+      sid       = "GluePassRole"
+      effect    = "Allow"
+      actions   = ["iam:PassRole"]
+      resources = ["arn:aws:iam::593291632749:role/airflow-${var.environment}-${var.project}-${var.workflow}"]
+      condition {
+        test     = "StringEquals"
+        variable = "iam:PassedToService"
+        values   = ["glue.amazonaws.com"]
+      }
+    }
+  }
+
   /* KMS */
   dynamic "statement" {
     for_each = length(local.iam_kms_keys) > 0 ? [1] : []
