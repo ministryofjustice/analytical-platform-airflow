@@ -108,10 +108,7 @@
       "external_role": { "type": "string", "required": false },
       "athena": {
         "type": "string",
-        "allowed": [
-          "read",
-          "write"
-        ],
+        "allowed": ["read", "write"],
         "required": false
       },
       "bedrock": { "type": "boolean", "required": false },
