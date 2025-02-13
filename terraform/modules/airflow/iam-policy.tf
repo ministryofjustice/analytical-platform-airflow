@@ -1,5 +1,5 @@
 data "aws_iam_policy_document" "iam_policy" {
-  count = length(local.iam_external_role) > 0 ? 0 : 1
+  count = length(local.iam_external_role) == 0 ? 1 : 0
 
   /* Glue */
   dynamic "statement" {

@@ -7,7 +7,7 @@ dag:
     MODE: "benchmark"
 
 iam:
-  # athena: write
+  athena: read
   # bedrock: true
   # glue: true
   kms:
