@@ -34,6 +34,7 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             "AWS_DEFAULT_EXTRACT_REGION": "eu-west-1",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
+            "AIRFLOW_ENVIRONMENT": environment.upper()
         }
 
         for k, v in std_envs.items():
