@@ -7,14 +7,14 @@
     owner: {{ tags.owner }}
     retries: {{ dag.retries|default(0) }}
     {%- if dag.retry_delay %}
-    retry_delay: { "seconds": {{ dag.retry_delay|default(300) }} }
+    retry_delay: {{ dag.retry_delay|default(300) }}
     {%- endif %}
     start_date: {{ dag.start_date|default("2025-01-01") }}
   catchup: {{ dag.catchup|default(False) }}
   is_paused_upon_creation: {{ dag.is_paused_upon_creation|default(False) }}
   max_active_runs: {{ dag.max_active_runs|default(1) }}
-  {%- if dag.schedule_interval %}
-  schedule_interval: {{ dag.schedule_interval }}
+  {%- if dag.schedule %}
+  schedule_interval: {{ dag.schedule }}
   {%- endif %}
   tasks:
     {%- if dag.tasks %}
