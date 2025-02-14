@@ -1,11 +1,21 @@
 {{ meta.project }}.{{ meta.workflow }}:
   default_args:
+    depends_on_past: {{ dag.depends_on_past|default(False) }}
+    {%- if dag.end_date %}
+    end_date: {{ dag.end_date }}
+    {% endif %}
     owner: {{ tags.owner }}
     retries: {{ dag.retries|default(0) }}
-    start_date: {{ dag.start_date|default("2024-01-01") }}
-  schedule_interval: {{ dag.schedule_interval|default(null) }}
+    {%- if dag.retry_delay %}
+    retry_delay: { "seconds": {{ dag.retry_delay|default(300) }} }
+    {%- endif %}
+    start_date: {{ dag.start_date|default("2025-01-01") }}
   catchup: {{ dag.catchup|default(False) }}
   is_paused_upon_creation: {{ dag.is_paused_upon_creation|default(False) }}
+  max_active_runs: {{ dag.max_active_runs|default(1) }}
+  {%- if dag.schedule_interval %}
+  schedule_interval: {{ dag.schedule_interval }}
+  {%- endif %}
   tasks:
     {%- if dag.tasks %}
     {%- for task_name, task in dag.tasks.items() %}
