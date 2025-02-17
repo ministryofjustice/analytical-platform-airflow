@@ -3,7 +3,7 @@ dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
   tag: 2.0.0
   env_vars:
-    MODE: "basic"
+    FOO: "bar"
   tasks:
     task_one:
       env_vars:
@@ -16,6 +16,7 @@ dag:
       env_vars:
         TASK: "3"
         MODE: "benchmark"
+        FOO: "baz"
       compute_profile: gpu-spot-8vcpu-32gb
       dependencies: [task_two]
 
