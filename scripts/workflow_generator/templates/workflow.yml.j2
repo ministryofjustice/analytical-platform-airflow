@@ -6,7 +6,7 @@
     {% endif %}
     owner: {{ tags.owner }}
     retries: {{ dag.retries|default(0) }}
-    {%- if dag.retry_delay %}
+    {%- if dag.retries %}
     retry_delay: {{ dag.retry_delay|default(300) }}
     {%- endif %}
     start_date: {{ dag.start_date|default("2025-01-01") }}
