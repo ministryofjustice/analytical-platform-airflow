@@ -5,27 +5,23 @@ dag:
   env_vars:
     FOO: "bar"
   tasks:
-    init:
+    task_one:
       env_vars:
-        MODE: "basic"
-    phase-one:
+        TASK: "1"
+    task_two:
       env_vars:
-        MODE: "basic"
-      dependencies: [init]
-    phase-two:
+        TASK: "2"
+      dependencies: [task_one]
+    task_three:
       env_vars:
-        MODE: "basic"
-      dependencies: [phase-one]
-    phase-three:
-      env_vars:
+        TASK: "3"
         MODE: "benchmark"
         FOO: "baz"
       compute_profile: gpu-spot-8vcpu-32gb
-      dependencies: [phase-one, phase-two]
+      dependencies: [task_two]
 
 maintainers:
   - jacobwoffenden
-  - julialawrence
 
 tags:
   business_unit: Central Digital

@@ -2,12 +2,12 @@
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
   tag: 2.0.0
+  retries: 3
+  retry_delay: 150
+  schedule: "0 8 * * *"
 
 maintainers:
   - jacobwoffenden
-
-secrets:
-  - api-key
 
 tags:
   business_unit: Central Digital
