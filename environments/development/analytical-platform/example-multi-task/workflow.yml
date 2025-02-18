@@ -20,6 +20,9 @@ dag:
       compute_profile: gpu-spot-8vcpu-32gb
       dependencies: [task_two]
 
+notifications:
+  slack_channel: analytical-platform-airflow-testing
+
 maintainers:
   - jacobwoffenden
 

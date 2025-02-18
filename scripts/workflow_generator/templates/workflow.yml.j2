@@ -15,12 +15,14 @@
       callback: airflow.providers.slack.notifications.slack.send_slack_notification
       channel: {{ notifications.slack_channel }}
       text: |
-        :airflow: {{ meta.project }}.{{ meta.workflow }} has failed. :airflow:
+        :airflow: Airflow {{ meta.environment|capitalize }} :airflow:
+        :red: {{ meta.project }}.{{ meta.workflow }} has failed. :red:
     on_success_callback:
       callback: airflow.providers.slack.notifications.slack.send_slack_notification
       channel: {{ notifications.slack_channel }}
       text: |
-        :airflow: {{ meta.project }}.{{ meta.workflow }} has succeeded. :airflow:
+        :airflow: Airflow {{ meta.environment|capitalize }} :airflow:
+        :green: {{ meta.project }}.{{ meta.workflow }} has succeeded. :green:
     {%- endif %}
   catchup: {{ dag.catchup|default(False) }}
   is_paused_upon_creation: {{ dag.is_paused_upon_creation|default(False) }}
