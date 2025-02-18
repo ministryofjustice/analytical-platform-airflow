@@ -1,7 +1,9 @@
 ---
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
-  tag: 2.1.0
+  tag: 2.1.1
+  env_vars:
+    MODE: "failure"
 maintainers:
   - jacobwoffenden
 
