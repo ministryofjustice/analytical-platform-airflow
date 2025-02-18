@@ -12,13 +12,18 @@ dag:
       env_vars:
         TASK: "SECOND"
       dependencies: [task_one]
-    task_three:
+    task_four:
       env_vars:
-        TASK: "THIRD"
-        MODE: "benchmark"
-        FOO: "baz"
-      compute_profile: gpu-spot-8vcpu-32gb
-      dependencies: [task_two]
+        TASK: "FOURTH"
+        mode: "failure"
+      dependencies: [task_three]
+    task_five:
+      env_vars:
+        TASK: "FIFTH"
+      dependencies: [task_four]
+    task_six:
+      env_vars:
+        TASK: "SIXTH"
 
 notifications:
   slack_channel: analytical-platform-airflow-testing
