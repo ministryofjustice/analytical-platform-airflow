@@ -24,7 +24,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [development, test, production]
+        # environment: [development, test, production]
+        environment: [development]
     defaults:
       run:
         working-directory: terraform
@@ -67,7 +68,7 @@ jobs:
           terraform plan -out=${{ matrix.environment }}.tfplan -input=false
 
       - name: Terraform Apply
-        if: github.ref == 'refs/heads/main'
+        # if: github.ref == 'refs/heads/main'
         id: terraform_apply
         shell: bash
         run: |

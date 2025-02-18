@@ -1,0 +1,10 @@
+---
+dag:
+  repository: moj-analytical-services/analytical-platform-airflow-python-example
+  tag: 2.1.0
+maintainers:
+  - jacobwoffenden
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
