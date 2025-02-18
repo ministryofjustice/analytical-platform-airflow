@@ -15,13 +15,13 @@
   max_active_runs: {{ dag.max_active_runs|default(1) }}
   {%- if dag.schedule %}
   schedule_interval: {{ dag.schedule }}
+  {%- endif %}
   on_failure_callback:
     callback: airflow.providers.slack.notifications.slack.send_slack_notification
     username: Analytical Platform Airflow ({{ meta.environment }})
     channel: analytical-platform
     text: |
       {{ meta.project }}.{{ meta.workflow }} has failed.
-  {%- endif %}
   tasks:
     {%- if dag.tasks %}
     {%- for task_name, task in dag.tasks.items() %}
