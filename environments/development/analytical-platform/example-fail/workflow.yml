@@ -4,6 +4,10 @@ dag:
   tag: 2.1.1
   env_vars:
     MODE: "failure"
+
+notifications:
+  slack_channel: analytical-platform-airflow-testing
+
 maintainers:
   - jacobwoffenden
 
