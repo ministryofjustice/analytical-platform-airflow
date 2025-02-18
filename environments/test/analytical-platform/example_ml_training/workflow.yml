@@ -6,7 +6,12 @@ dag:
 maintainers:
   - mshodge
 
+iam:
+  s3_read_only:
+    - alpha-mlops-examples/insurance_example/data/*
+  s3_write_only:
+    - alpha-mlops-examples/insurance_example/model/*
+
 tags:
   business_unit: HQ
   owner: michael.hodge1@justice.gov.uk
-  
