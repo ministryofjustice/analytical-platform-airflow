@@ -12,6 +12,10 @@ dag:
       env_vars:
         TASK: "SECOND"
       dependencies: [task_one]
+    task_three:
+      env_vars:
+        TASK: "THIRD"
+      dependencies: [task_two]
     task_four:
       env_vars:
         TASK: "FOURTH"
