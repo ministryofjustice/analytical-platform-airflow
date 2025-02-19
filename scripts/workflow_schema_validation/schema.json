@@ -166,6 +166,15 @@
     },
     "required": true
   },
+  "notifications": {
+    "type": "dict",
+    "schema": {
+      "slack_channel": {
+        "type": "string",
+        "required": false
+      }
+    }
+  },
   "tags": {
     "type": "dict",
     "schema": {

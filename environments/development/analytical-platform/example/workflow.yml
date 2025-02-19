@@ -3,6 +3,9 @@ dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
   tag: 2.0.0
 
+notifications:
+  slack_channel: analytical-platform-airflow-testing
+
 maintainers:
   - jacobwoffenden
 
