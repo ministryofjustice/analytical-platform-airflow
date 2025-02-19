@@ -30,9 +30,7 @@
   catchup: {{ dag.catchup|default(False) }}
   is_paused_upon_creation: {{ dag.is_paused_upon_creation|default(False) }}
   max_active_runs: {{ dag.max_active_runs|default(1) }}
-  {%- if dag.schedule %}
-  schedule_interval: {{ dag.schedule }}
-  {%- endif %}
+  schedule_interval: {{ dag.schedule|default(null) }}
   tasks:
     {%- if dag.tasks %}
     {%- for task_name, task in dag.tasks.items() %}
