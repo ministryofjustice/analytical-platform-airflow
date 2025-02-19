@@ -6,6 +6,9 @@ dag:
   retry_delay: 150
   schedule: "0 8 * * *"
 
+notifications:
+  slack_channel: analytical-platform-airflow-testing
+
 maintainers:
   - jacobwoffenden
 
