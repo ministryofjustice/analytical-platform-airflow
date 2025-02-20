@@ -4,6 +4,8 @@ dag:
   tag: 2.0.0
 
 notifications:
+  emails:
+    - jacob.woffenden@justice.gov.uk
   slack_channel: analytical-platform-airflow-testing
 
 maintainers:

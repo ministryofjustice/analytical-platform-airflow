@@ -27,6 +27,9 @@
         :airflow: *Airflow {{ meta.environment|capitalize }}*
         :white_check_mark: {{ meta.project }}.{{ meta.workflow }} has succeeded.
     {%- endif %}
+    {%- if notifications is defined and notifications.emails %}
+    email: {{ notifications.emails }}
+    {%- endif %}
   catchup: {{ dag.catchup|default(False) }}
   is_paused_upon_creation: {{ dag.is_paused_upon_creation|default(False) }}
   max_active_runs: {{ dag.max_active_runs|default(1) }}
