@@ -2,7 +2,7 @@
 dag:
   repository: moj-analytical-services/new_airflow_mlops_test
   tag: 1.0.10
-  compute_profile: gpu-spot-2vcpu-8gb
+  compute_profile: general-spot-64vcpu-256gb
 
 maintainers:
   - mshodge
