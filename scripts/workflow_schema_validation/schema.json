@@ -169,6 +169,14 @@
   "notifications": {
     "type": "dict",
     "schema": {
+      "emails": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "regex": "^[a-zA-Z0-9_.+-]+@justice\\.gov\\.uk$"
+        },
+        "required": false
+      },
       "slack_channel": {
         "type": "string",
         "required": false
