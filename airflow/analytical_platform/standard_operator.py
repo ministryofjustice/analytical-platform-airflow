@@ -37,11 +37,10 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             "AIRFLOW_ENVIRONMENT": environment.upper()
         }
 
-        for k, v in std_envs.items():
-            if k not in env_vars:
-                env_vars[k] = str(v)
+        # merge dicts into env_vars
+        env_vars = std_envs | env_vars
 
-        # Convert any non-string values in user-provided env_vars to strings
+        # Convert all values to strings
         env_vars = {k: str(v) for k, v in env_vars.items()}
 
         super().__init__(
