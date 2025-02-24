@@ -39,7 +39,10 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
 
         for k, v in std_envs.items():
             if k not in env_vars:
-                env_vars[k] = v
+                env_vars[k] = str(v)
+
+        # Convert any non-string values in user-provided env_vars to strings
+        env_vars = {k: str(v) for k, v in env_vars.items()}
 
         super().__init__(
             # Airflow Configuration
