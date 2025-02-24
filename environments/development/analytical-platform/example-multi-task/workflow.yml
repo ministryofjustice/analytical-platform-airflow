@@ -24,6 +24,7 @@ dag:
     task_five:
       env_vars:
         TASK: "FIFTH"
+        N_TASK: 5
       dependencies: [task_four]
     task_six:
       env_vars:

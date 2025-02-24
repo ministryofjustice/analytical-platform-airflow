@@ -2,6 +2,9 @@
 name: 🪣 S3 Deploy
 
 on:
+  pull_request:
+    branches:
+      - main
   push:
     branches:
       - main
@@ -21,14 +24,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [development, test, production]
+        # environment: [development, test, production]
+        environment: [development]
         include:
           - environment: development
             account: 381491960855
-          - environment: test
-            account: 767397661611
-          - environment: production
-            account: 992382429243
+          # - environment: test
+          #   account: 767397661611
+          # - environment: production
+          #   account: 992382429243
     steps:
       - name: Checkout
         id: checkout
