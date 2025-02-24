@@ -23,7 +23,9 @@ dag:
       dependencies: [task_three]
     task_five:
       env_vars:
+        AWS_DEFAULT_REGION: "eu-west-2"
         TASK: "FIFTH"
+        N_TASK: 5
       dependencies: [task_four]
     task_six:
       env_vars:

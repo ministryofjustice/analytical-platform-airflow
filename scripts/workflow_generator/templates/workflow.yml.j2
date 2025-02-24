@@ -17,7 +17,6 @@
       text: |
         :airflow: *Airflow {{ meta.environment|capitalize }}*
         :x: {{ meta.project }}.{{ meta.workflow }} has failed.
-        *Workflow*: {% raw %}{{ ti.dag_id }}{% endraw %}
         *Task*: {% raw %}{{ ti.task_id }}{% endraw %}
         *Logs*: {% raw %}{{ ti.log_url }}{% endraw %}
     on_success_callback:
@@ -26,6 +25,8 @@
       text: |
         :airflow: *Airflow {{ meta.environment|capitalize }}*
         :white_check_mark: {{ meta.project }}.{{ meta.workflow }} has succeeded.
+        *Task*: {% raw %}{{ ti.task_id }}{% endraw %}
+        *Logs*: {% raw %}{{ ti.log_url }}{% endraw %}
     {%- endif %}
     {%- if notifications is defined and notifications.emails %}
     email: {{ notifications.emails }}
