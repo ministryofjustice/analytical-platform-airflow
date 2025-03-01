@@ -1,0 +1,23 @@
+---
+dag:
+  repository: moj-analytical-services/ap-airflow-corp-fileloader
+  tag: 0.0.1
+
+maintainers:
+  - williamorrie
+
+notifications:
+  - dmet-corp-notifications
+
+athena: write
+
+iam:
+  s3_read_only:
+    - alpha-div-inc/sscl-sourced-gcdi/*
+  s3_write_only:
+    - mojap-processed/corporate/sop/dev-iceberg/*
+    - alpha-corp-data-staging/athena_queries/temp_data/athena_query_dump/*
+
+tags:
+  business_unit: DEDSAI
+  owner: william.orr@justice.gov.uk
