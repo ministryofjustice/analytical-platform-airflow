@@ -11,6 +11,7 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
         self,
         task_id: str,
         compute_profile: str,
+        hmcts_sdp_networking: bool,
         name: str,
         image: str,
         environment: str,
@@ -23,6 +24,58 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
 
         # Compute Profile
         compute_profile = get_compute_profile(compute_profile=compute_profile)
+
+        # HMCTS SDP Networking
+        if not hmcts_sdp_networking:
+            hmcts_sdp_networking_host_aliases = None
+        else:
+            # Annotations
+            # hmcts_sdp_networking_annotations = {
+            #     # Ingress and Egress is capped at 175M so workloads
+            #     # don't saturate the network link between MoJ and HMCTS
+            #     "kubernetes.io/ingress-bandwidth": "175M",
+            #     "kubernetes.io/egress-bandwidth": "175M"
+            # }
+
+            # Host Aliases
+            hmcts_sdp_networking_host_aliases = [
+                {
+                    "ip": "10.168.4.13",
+                    "hostnames": ["mipersistentithc.blob.core.windows.net"]
+                },
+                {
+                    "ip": "10.168.4.5",
+                    "hostnames": ["miexportithc.blob.core.windows.net"]
+                },
+                {
+                    "ip": "10.168.3.8",
+                    "hostnames": ["mipersistentstg.blob.core.windows.net"]
+                },
+                {
+                    "ip": "10.168.3.7",
+                    "hostnames": ["miexportstg.blob.core.windows.net"]
+                },
+                {
+                    "ip": "10.168.5.13",
+                    "hostnames": ["mipersistentprod.blob.core.windows.net"]
+                },
+                {
+                    "ip": "10.168.5.8",
+                    "hostnames": ["miexportprod.blob.core.windows.net"]
+                },
+                {
+                    "ip": "10.225.251.100",
+                    "hostnames": ["baisbaumojapnle.blob.core.windows.net"]
+                },
+                {
+                    "ip": "10.224.251.100",
+                    "hostnames": ["baisbaumojapprod.blob.core.windows.net"]
+                },
+                {
+                    "ip": "10.168.5.4",
+                    "hostnames": ["miadhoclandingprod.blob.core.windows.net"]
+                }
+            ]
 
         # Environment Variables
         if env_vars is None:
@@ -42,6 +95,10 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
 
         # Convert all values to strings
         env_vars = {k: str(v) for k, v in env_vars.items()}
+
+        # Annotations
+        # append HMCTS SDP Networking annotations
+
 
         super().__init__(
             # Airflow Configuration
@@ -65,6 +122,7 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
                 "airflow.compute.analytical-platform.service.justice.gov.uk/workflow": workflow,
             },
             env_vars=env_vars,
+            host_aliases=hmcts_sdp_networking_host_aliases,
             affinity=compute_profile["affinity"],
             annotations=compute_profile["annotations"],
             container_resources=compute_profile["container_resources"],
