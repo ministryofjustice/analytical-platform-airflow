@@ -30,12 +30,14 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             hmcts_sdp_networking_host_aliases = None
         else:
             # Annotations
-            # hmcts_sdp_networking_annotations = {
-            #     # Ingress and Egress is capped at 175M so workloads
-            #     # don't saturate the network link between MoJ and HMCTS
-            #     "kubernetes.io/ingress-bandwidth": "175M",
-            #     "kubernetes.io/egress-bandwidth": "175M"
-            # }
+            hmcts_sdp_networking_annotations = {
+                # Ingress and Egress is capped at 175M so workloads
+                # don't saturate the network link between MoJ and HMCTS
+                "kubernetes.io/ingress-bandwidth": "175M",
+                "kubernetes.io/egress-bandwidth": "175M"
+            }
+
+            compute_profile["annotations"].update(hmcts_sdp_networking_annotations)
 
             # Host Aliases
             hmcts_sdp_networking_host_aliases = [
