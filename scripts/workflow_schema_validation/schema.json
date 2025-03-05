@@ -42,6 +42,7 @@
         ],
         "required": false
       },
+      "hmcts_sdp_networking": { "type": "boolean", "required": false },
       "env_vars": {
         "type": "dict",
         "required": false
@@ -96,6 +97,7 @@
               ],
               "required": false
             },
+            "hmcts_sdp_networking": { "type": "boolean", "required": false },
             "env_vars": {
               "type": "dict",
               "required": false
