@@ -96,9 +96,6 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
         # Convert all values to strings
         env_vars = {k: str(v) for k, v in env_vars.items()}
 
-        # Annotations
-        # append HMCTS SDP Networking annotations
-
 
         super().__init__(
             # Airflow Configuration
