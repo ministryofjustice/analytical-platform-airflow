@@ -22,8 +22,12 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
         **kwargs,
     ):
 
+        # Declare any settings that can be updated later
+        annotations = {}
+
         # Compute Profile
         compute_profile = get_compute_profile(compute_profile=compute_profile)
+        annotations.update(compute_profile["annotations"])
 
         # HMCTS SDP Networking
         if not hmcts_sdp_networking:
@@ -37,7 +41,7 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
                 "kubernetes.io/egress-bandwidth": "175M"
             }
 
-            compute_profile["annotations"].update(hmcts_sdp_networking_annotations)
+            annotations.update(hmcts_sdp_networking_annotations)
 
             # Host Aliases
             hmcts_sdp_networking_host_aliases = [
@@ -115,6 +119,7 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             service_account_name=f"{project}-{workflow}",
             image=image,
             image_pull_policy="Always",
+            annotations=annotations,
             labels={
                 "airflow.compute.analytical-platform.service.justice.gov.uk/environment": environment,
                 "airflow.compute.analytical-platform.service.justice.gov.uk/project": project,
@@ -123,7 +128,6 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             env_vars=env_vars,
             host_aliases=hmcts_sdp_networking_host_aliases,
             affinity=compute_profile["affinity"],
-            annotations=compute_profile["annotations"],
             container_resources=compute_profile["container_resources"],
             container_security_context=compute_profile["container_security_context"],
             security_context=compute_profile["security_context"],
