@@ -9,9 +9,8 @@ maintainers:
 notifications:
   - dmet-corp-notifications
 
-athena: write
-
 iam:
+  athena: write
   s3_read_only:
     - alpha-div-inc/sscl-sourced-gcdi/*
   s3_write_only:
