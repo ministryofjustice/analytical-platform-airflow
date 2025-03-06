@@ -7,7 +7,7 @@ maintainers:
   - williamorrie
 
 notifications:
-  - dmet-corp-notifications
+  slack_channel: dmet-corp-notifications
 
 iam:
   athena: write
