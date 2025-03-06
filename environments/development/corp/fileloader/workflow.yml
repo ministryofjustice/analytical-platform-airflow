@@ -19,5 +19,5 @@ iam:
     - alpha-corp-data-staging/athena_queries/temp_data/athena_query_dump/*
 
 tags:
-  business_unit: DEDSAI
+  business_unit: HQ
   owner: william.orr@justice.gov.uk
