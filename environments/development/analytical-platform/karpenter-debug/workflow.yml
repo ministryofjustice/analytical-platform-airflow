@@ -1,0 +1,17 @@
+---
+dag:
+  repository: moj-analytical-services/analytical-platform-airflow-python-example
+  tag: 2.0.0
+  schedule: "0 * * * *" # Every hour
+  compute_profile: general-spot-4vcpu-16gb
+
+notifications:
+  slack_channel: analytical-platform-airflow-testing
+
+maintainers:
+  - jacobwoffenden
+  - jhpyke
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
