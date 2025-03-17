@@ -1,1 +1,11 @@
 
+dag:
+  repository: moj-analytical-services/CourtCaseLoad
+  tag: v.1.0.3
+
+maintainers:
+  - fogunpola
+
+tags:
+  business_unit: HMCTS
+  owner: flo.ogunpola@justice.gov.uk
