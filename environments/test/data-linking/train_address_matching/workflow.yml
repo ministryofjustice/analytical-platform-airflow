@@ -1,0 +1,12 @@
+---
+dag:
+  repository: moj-analytical-services/airflow_train_address_matching
+  tag: v0.0.2
+  compute_profile: general-spot-120vcpu-500gb
+
+maintainers:
+  - robinl
+
+tags:
+  business_unit: HQ
+  owner: robin.linacre@justice.gov.uk
