@@ -84,7 +84,7 @@ resource "helm_release" "external_secret" {
   for_each = toset(local.secrets_configuration)
 
   name      = "${var.project}-${var.workflow}-${each.key}"
-  chart     = "./src/helm/charts/external-secret"
+  chart     = "${path.module}/src/helm/charts/external-secret"
   namespace = "mwaa"
 
   set {
