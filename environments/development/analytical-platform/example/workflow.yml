@@ -15,6 +15,7 @@ maintainers:
 secrets:
   - api-key
   - user
+  - password
 
 tags:
   business_unit: Central Digital
