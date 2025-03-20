@@ -1,0 +1,20 @@
+---
+dag:
+  repository: ministryofjustice/cadet-pyspark-models-deployment
+  tag: v0.0.3
+  hmcts_sdp_networking: true
+
+notifications:
+  emails:
+    - Jacob.Hamblin-Pyke@justice.gov.uk>
+  slack_channel: analytical-platform-airflow-testing
+
+maintainers:
+  - jhpyke
+
+secrets:
+  - api-key
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
