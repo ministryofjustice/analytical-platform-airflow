@@ -6,7 +6,7 @@ dag:
 
 notifications:
   emails:
-    - Jacob.Hamblin-Pyke@justice.gov.uk>
+    - Jacob.Hamblin-Pyke@justice.gov.uk
   slack_channel: analytical-platform-airflow-testing
 
 maintainers:
