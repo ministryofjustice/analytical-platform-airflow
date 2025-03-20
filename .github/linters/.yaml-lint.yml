@@ -1,0 +1,11 @@
+---
+extends: default
+
+ignore:
+  - "**/modules/airflow/src/helm/charts/external-secret/templates/*.yaml"
+
+rules:
+  line-length:
+    max: 80
+    level: warning
+
