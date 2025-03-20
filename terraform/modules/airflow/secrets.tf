@@ -48,34 +48,57 @@ module "secrets_manager" {
   ignore_secret_changes = true
 }
 
-resource "kubernetes_manifest" "external_secret" {
+# resource "kubernetes_manifest" "external_secret" {
+#   for_each = toset(local.secrets_configuration)
+
+#   manifest = {
+#     "apiVersion" = "external-secrets.io/v1beta1"
+#     "kind"       = "ExternalSecret"
+#     "metadata" = {
+#       "namespace" = "mwaa"
+#       "name"      = "${var.project}-${var.workflow}-${each.key}"
+#     }
+#     "spec" = {
+#       "refreshInterval" = "5m"
+#       "secretStoreRef" = {
+#         "kind" = "SecretStore"
+#         "name" = "analytical-platform-data-production"
+#       }
+#       "target" = {
+#         "name"           = "${var.project}-${var.workflow}-${each.key}"
+#         "deletionPolicy" = "Delete"
+#       }
+#       "data" = [
+#         {
+#           "remoteRef" = {
+#             "key" = module.secrets_manager[each.key].secret_id
+#           }
+#           "secretKey" = "data"
+#         }
+#       ]
+#     }
+#   }
+# }
+
+resource "helm_release" "external_secret" {
   for_each = toset(local.secrets_configuration)
 
-  manifest = {
-    "apiVersion" = "external-secrets.io/v1beta1"
-    "kind"       = "ExternalSecret"
-    "metadata" = {
-      "namespace" = "mwaa"
-      "name"      = "${var.project}-${var.workflow}-${each.key}"
-    }
-    "spec" = {
-      "refreshInterval" = "5m"
-      "secretStoreRef" = {
-        "kind" = "SecretStore"
-        "name" = "analytical-platform-data-production"
-      }
-      "target" = {
-        "name"           = "${var.project}-${var.workflow}-${each.key}"
-        "deletionPolicy" = "Delete"
-      }
-      "data" = [
-        {
-          "remoteRef" = {
-            "key" = module.secrets_manager[each.key].secret_id
-          }
-          "secretKey" = "data"
-        }
-      ]
-    }
+  name      = "${var.project}-${var.workflow}-${each.key}"
+  chart     = "./src/helm/charts/external-secret"
+  namespace = "mwaa"
+
+  set {
+    name  = "secretName"
+    value = "${var.project}-${var.workflow}-${each.key}"
+  }
+
+  set {
+    name  = "targetName"
+    value = "${var.project}-${var.workflow}-${each.key}"
+  }
+
+  set {
+    name  = "remoteRefKey"
+    value = module.secrets_manager[each.key].secret_id
   }
 }
