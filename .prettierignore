@@ -1,1 +1,2 @@
 .devcontainer/devcontainer-lock.json
+terraform/modules/airflow/src/helm/charts/external-secret/templates/external-secret.yaml
