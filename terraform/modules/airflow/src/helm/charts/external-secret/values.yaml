@@ -1,0 +1,8 @@
+---
+secretName:
+secretStoreRefKind: SecretStore
+secretStoreRefName: analytical-platform-data-production
+targetName:
+deletePolicy: Delete
+secretKey: data
+remoteRefKey:

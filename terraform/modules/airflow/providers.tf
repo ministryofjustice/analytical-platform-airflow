@@ -8,6 +8,10 @@ terraform {
         aws.analytical-platform-data-production-eu-west-2
       ]
     }
+    helm = {
+      source  = "hashicorp/helm"
+      version = "~> 2.0"
+    }
     kubernetes = {
       source  = "hashicorp/kubernetes"
       version = "~> 2.0"
