@@ -119,7 +119,7 @@
               "regex": "^(ministryofjustice|moj-analytical-services)/[a-zA-Z0-9-_]+$",
               "required": false
             },
-            "tag": { "type": "string", "required": true },
+            "tag": { "type": "string", "required": false },
             "hmcts_sdp_networking": { "type": "boolean", "required": false },
             "env_vars": {
               "type": "dict",
