@@ -2,12 +2,7 @@
 dag:
   repository: ministryofjustice/cadet-pyspark-models-deployment
   tag: v0.0.3
-  hmcts_sdp_networking: true
-
-notifications:
-  emails:
-    - Jacob.Hamblin-Pyke@justice.gov.uk
-  slack_channel: analytical-platform-airflow-testing
+  compute_profile: general-spot-64vcpu-256gb
 
 maintainers:
   - jhpyke
