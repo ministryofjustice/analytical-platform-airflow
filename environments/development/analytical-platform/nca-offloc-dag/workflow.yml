@@ -1,9 +1,19 @@
 dag:
   repository: ministryofjustice/nca-offloc-dag
   tag: 0.1
+  catchup: false
+  depends_on_past: false
+  end_date: null
+  is_paused_upon_creation: false
+  max_active_runs: 1
+  retries: 1
+  retry_delay: 150
+  schedule: "30 2 * * *"
+  start_date: 2025-03-18
 
 maintainers:
   - vonbraunbates
+  - calumabarnett
 
 tags:
   business_unit: Central Digital
