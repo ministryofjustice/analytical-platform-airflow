@@ -27,8 +27,8 @@ iam:
     - mojap-hub-exports/*
 
 secrets:
-  - offloc_user
-  - offloc_pass
+  - user
+  - pass
 
 maintainers:
   - vonbraunbates
