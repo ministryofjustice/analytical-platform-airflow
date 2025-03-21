@@ -113,6 +113,13 @@
               ],
               "required": false
             },
+            "retries": { "type": "integer", "required": false },
+            "repository": {
+              "type": "string",
+              "regex": "^(ministryofjustice|moj-analytical-services)/[a-zA-Z0-9-_]+$",
+              "required": true
+            },
+            "tag": { "type": "string", "required": true },
             "hmcts_sdp_networking": { "type": "boolean", "required": false },
             "env_vars": {
               "type": "dict",
