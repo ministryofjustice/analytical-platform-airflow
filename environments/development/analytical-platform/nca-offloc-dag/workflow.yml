@@ -27,6 +27,10 @@ iam:
     - moj-reg-prod/landing/offloc-prod/*
     - mojap-hub-exports/*
 
+secrets:
+  - offloc_user
+  - offloc_pass
+
 maintainers:
   - vonbraunbates
   - calumabarnett
