@@ -16,6 +16,17 @@ dag:
       env_vars:
         dev_prod: "dev"
 
+iam:
+  athena: write
+  bedrock: false
+  glue: true
+  kms:
+    - arn:aws:kms:eu-west-2:505940320338:key/a4e16805-b10a-4996-9e90-fefe8674ecc7
+  s3_read_write:
+    - moj-reg-dev/landing/offloc-dev/*
+    - moj-reg-prod/landing/offloc-prod/*
+    - mojap-hub-exports/*
+
 maintainers:
   - vonbraunbates
   - calumabarnett
