@@ -1,6 +1,9 @@
 dag:
   repository: ministryofjustice/nca-offloc-dag
   tag: 0.1
+  dag.compute_profile: "general-on-demand-1vcpu-4gb"
+  env_vars:
+    dev_prod: "dev"
   catchup: false
   depends_on_past: false
   end_date: null
