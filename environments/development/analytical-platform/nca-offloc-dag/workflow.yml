@@ -1,0 +1,11 @@
+dag:
+  repository: ministryofjustice/nca-offloc-dag
+  tag: 0.1
+
+maintainers:
+  - vonbraunbates
+
+tags:
+  business_unit: Central Digital
+  owner: francesca.von.braun-bates@justice.gov.uk
+
