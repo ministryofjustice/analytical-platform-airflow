@@ -41,9 +41,16 @@
     {{ task_name }}:
       operator: analytical_platform.standard_operator.AnalyticalPlatformStandardOperator
       name: {{ meta.project }}-{{ meta.workflow }}-{{ task_name }}
+      {%- if dag.tasks.retries %}
+      retries: {{ task.retries|default(dag.retries|default(0)) }}
+      {%- endif %}
       task_id: {{ meta.project }}-{{ meta.workflow }}-{{ task_name }}
       compute_profile: {{ task.compute_profile or dag.compute_profile or "general-spot-1vcpu-4gb" }}
+      {%- if task.repository %}
+      image: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/{{ task.repository }}:{{ task.tag }}
+      {%- else %}
       image: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/{{ dag.repository }}:{{ dag.tag }}
+      {%- endif %}
       hmcts_sdp_networking: {{ task.hmcts_sdp_networking|default(dag.hmcts_sdp_networking|default(false)) }}
       {%- if task.env_vars or dag.env_vars %}
       {%- set merged_env_vars = dag.env_vars | default({}) | merge_dicts(task.env_vars | default({})) %}
