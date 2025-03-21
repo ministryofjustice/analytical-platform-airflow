@@ -39,3 +39,7 @@ tags:
   business_unit: Central Digital
   owner: francesca.von.braun-bates@justice.gov.uk
 
+notifications:
+  emails:
+    - francesca.von.braun-bates@justice.gov.uk
+  slack_channel: ct-data-engineering
