@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/cadet-pyspark-models-deployment
-  tag: v0.0.4
+  tag: v0.0.8
   compute_profile: general-spot-64vcpu-256gb
 
 maintainers:
@@ -9,6 +9,10 @@ maintainers:
 
 secrets:
   - api-key
+
+iam:
+  s3_read_write:
+    - alpha-everyone/cadet-spark-athena-test/*
 
 tags:
   business_unit: Central Digital
