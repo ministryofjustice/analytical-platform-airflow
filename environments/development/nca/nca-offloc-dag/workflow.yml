@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/nca-offloc-dag
-  tag: v0.2
+  tag: v0.4.1
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -12,8 +12,6 @@ dag:
   tasks:
     task:
       compute_profile: "general-on-demand-1vcpu-4gb"
-      env_vars:
-        dev_prod: "dev"
 
 iam:
   athena: write
