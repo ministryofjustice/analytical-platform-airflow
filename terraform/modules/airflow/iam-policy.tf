@@ -82,6 +82,7 @@ data "aws_iam_policy_document" "iam_policy" {
       sid    = "S3ReadWrite"
       effect = "Allow"
       actions = [
+        "s3:CreateMultipartUpload",
         "s3:DeleteObject",
         "s3:DeleteObjectVersion",
         "s3:GetObject",
