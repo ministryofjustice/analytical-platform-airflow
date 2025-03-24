@@ -66,7 +66,7 @@ jobs:
         id: generate_workflows
         shell: bash
         run: |
-          uv run scripts/workflow_generator/main.py
+          python scripts/workflow_generator/main.py
 
       - name: Deploy DAGs
         id: deploy_dags

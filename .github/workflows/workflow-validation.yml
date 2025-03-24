@@ -42,16 +42,16 @@ jobs:
       - name: Workflow Schema Validation
         id: workflow_schema_validation
         run: |
-          uv run scripts/workflow_schema_validation/main.py
+          python scripts/workflow_schema_validation/main.py
 
       - name: Generate Workflows
         id: generate_workflows
         run: |
-          uv run scripts/workflow_generator/main.py
+          python scripts/workflow_generator/main.py
 
       - name: Validate Workflows
         id: validate_workflows
         env:
           PYTHONPATH: airflow
         run: |
-          uv run scripts/workflow_validation/main.py
+          python scripts/workflow_validation/main.py
