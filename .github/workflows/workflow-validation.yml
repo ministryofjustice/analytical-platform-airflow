@@ -27,25 +27,31 @@ jobs:
         with:
           python-version: 3.11
 
+      - name: Set Up UV
+        id: setup_uv
+        uses: astral-sh/setup-uv@22695119d769bdb6f7032ad67b9bca0ef8c4a174
+        with:
+          version: "latest"
+          python-version: "3.11"
+
       - name: Install Requirements
         id: install_requirements
         run: |
-          pip install uv
           uv pip install --system -r requirements.txt
 
       - name: Workflow Schema Validation
         id: workflow_schema_validation
         run: |
-          python scripts/workflow_schema_validation/main.py
+          uv run scripts/workflow_schema_validation/main.py
 
       - name: Generate Workflows
         id: generate_workflows
         run: |
-          python scripts/workflow_generator/main.py
+          uv run scripts/workflow_generator/main.py
 
       - name: Validate Workflows
         id: validate_workflows
         env:
           PYTHONPATH: airflow
         run: |
-          python scripts/workflow_validation/main.py
+          uv run scripts/workflow_validation/main.py
