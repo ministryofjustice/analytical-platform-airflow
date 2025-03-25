@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/nca-offloc-dag
-  tag: v0.5
+  tag: v0.6
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -19,8 +19,6 @@ iam:
   kms:
     - arn:aws:kms:eu-west-2:505940320338:key/a4e16805-b10a-4996-9e90-fefe8674ecc7
   s3_read_write:
-    - moj-reg-dev/landing/offloc-dev/*
-    - moj-reg-prod/landing/offloc-prod/*
     - mojap-hub-exports/*
 
 secrets:
