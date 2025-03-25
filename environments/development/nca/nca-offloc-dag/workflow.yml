@@ -7,7 +7,7 @@ dag:
   max_active_runs: 1
   retries: 1
   retry_delay: 150
-  schedule: "30 2 * * *"
+  schedule: "58 9 * * Tue"
   start_date: "2025-03-18"
   tasks:
     task:
