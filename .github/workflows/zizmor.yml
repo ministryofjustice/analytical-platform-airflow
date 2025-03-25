@@ -29,10 +29,17 @@ jobs:
         with:
           python-version: 3.12
 
+      - name: Set Up UV
+        id: setup_uv
+        uses: astral-sh/setup-uv@22695119d769bdb6f7032ad67b9bca0ef8c4a174 # v5.4.0
+        with:
+          version: "latest"
+          python-version: "3.12"
+
       - name: Install Requirements
         id: install_requirements
         run: |
-          pip install --requirement requirements.txt
+          uv pip install -r requirements.txt
 
       - name: Zizmor
         id: zizmor
