@@ -36,8 +36,8 @@ jobs:
         with:
           filters: .github/path-filter/workflows.yml
 
-      - name: Check Changed Files Length
-        id: check_changed_files_length
+      - name: Check Changed Length
+        id: check_changed_length
         run: |
           if [[ "$(jq 'length > 1' <<< '${{ steps.detect_changes.outputs.changes }}')" == "true" ]]; then
             echo "Multiple workflows changed, exiting..."
