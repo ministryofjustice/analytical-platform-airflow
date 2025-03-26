@@ -128,4 +128,5 @@ jobs:
         run: |
           workflowDirectory="${{ env.workflow-directory }}"
           distWorkflowDirectory=${workflowDirectory#environments/}
-          python scripts/workflow_validation/main.py "dist/${distWorkflowDirectory}/workflow.yml"
+
+          python scripts/workflow_validation/main.py "dist/dags/${distWorkflowDirectory}/workflow.yml"
