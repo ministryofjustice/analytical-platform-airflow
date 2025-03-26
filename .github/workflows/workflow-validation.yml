@@ -113,7 +113,17 @@ jobs:
 
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
-      - name: Schema Validation
-        id: schema_validation
+      - name: Validate Schema
+        id: validate_schema
         run: |
           python scripts/workflow_schema_validation/main.py "${{ env.workflow-directory }}/workflow.yml"
+
+      - name: Generate Workflow
+        id: generate_workflow
+        run: |
+          python scripts/workflow_generator/main.py "${{ env.workflow-directory }}/workflow.yml"
+
+      - name: Validate Workflow
+        id: validate_workflow
+        run: |
+          python scripts/workflow_validation/main.py "dist/${{ env.workflow-directory }}/workflow.yml"
