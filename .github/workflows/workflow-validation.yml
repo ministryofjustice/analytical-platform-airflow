@@ -125,6 +125,8 @@ jobs:
 
       - name: Validate Workflow
         id: validate_workflow
+        env:
+          PYTHONPATH: airflow
         run: |
           workflowDirectory="${{ env.workflow-directory }}"
           distWorkflowDirectory=${workflowDirectory#environments/}
