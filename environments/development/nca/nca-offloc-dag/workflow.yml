@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/nca-offloc-dag
-  tag: v0.7
+  tag: v0.7.1
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
