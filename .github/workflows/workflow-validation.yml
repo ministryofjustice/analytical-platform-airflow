@@ -36,6 +36,14 @@ jobs:
         with:
           filters: .github/path-filter/workflows.yml
 
+      - name: Check Changed Files Length
+        id: check_changed_files_length
+        run: |
+          if [[ "$(jq 'length > 1' <<< '${{ steps.detect_changes.outputs.changes }}')" == "true" ]]; then
+            echo "Multiple workflows changed, exiting..."
+            exit 1
+          fi
+
       - name: Upload path-filters File
         id: upload_path_filter
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
