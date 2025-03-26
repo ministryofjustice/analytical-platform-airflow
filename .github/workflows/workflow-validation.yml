@@ -53,7 +53,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        component: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
+        workflow: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
     steps:
       - name: Checkout
         id: checkout
@@ -68,9 +68,10 @@ jobs:
           name: workflows-path-filter
           path: .github/path-filter
 
-      - name: DEBUG
-        id: debug
+      - name: Set Workflow Directory
+        id: set_workflow_directory
         run: |
-          echo "${{ matrix.component }}"
-          ls -lrta
-          cat .github/path-filter/workflows.yml
+          workflowDirectory=$(yq -e ".${{ inputs.workflow }}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
+          export workflowDirectory
+
+          echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
