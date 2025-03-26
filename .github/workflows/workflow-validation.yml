@@ -44,6 +44,19 @@ jobs:
             exit 1
           fi
 
+      - name: Comment on Length Check Failure
+        id: comment_on_test_failure
+        if: failure() && steps.check_changed_length.outcome == 'failure'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Changes to multiple workflows detected. Please ensure only one workflow is changed at a time.'
+            })
+
       - name: Upload path-filters File
         id: upload_path_filter
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
