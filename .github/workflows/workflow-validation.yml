@@ -26,15 +26,22 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Build path-filters file
+      - name: Build path-filters File
         id: build_path_filters
         run: bash scripts/path-filter/configuration-generator.sh workflows
 
-      - name: Detect changes
+      - name: Detect Changes
         id: detect_changes
         uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
         with:
           filters: .github/path-filter/workflows.yml
+
+      - name: Upload path-filters File
+        id: upload_path_filter
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: workflows-path-filter
+          path: .github/path-filter/workflows.yml
 
   workflow-validation:
     if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
@@ -54,7 +61,15 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Download path-filters File
+        id: download_path_filters
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+        with:
+          name: workflows-path-filter
+          path: .github/path-filter/workflows.yml
+
       - name: DEBUG
         id: debug
         run: |
           echo "${{ matrix.component }}"
+          cat .github/path-filter/workflows.yml
