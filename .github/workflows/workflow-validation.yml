@@ -71,4 +71,5 @@ jobs:
         id: debug
         run: |
           echo "${{ matrix.component }}"
+          ls -lrta
           cat .github/path-filter/workflows.yml
