@@ -84,6 +84,18 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Set Up UV
+        id: setup_uv
+        uses: astral-sh/setup-uv@22695119d769bdb6f7032ad67b9bca0ef8c4a174 # v5.4.0
+        with:
+          version: "latest"
+          python-version: "3.11"
+
+      - name: Install Requirements
+        id: install_requirements
+        run: |
+          uv pip install --requirements requirements.txt
+
       - name: Download path-filters File
         id: download_path_filters
         uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
