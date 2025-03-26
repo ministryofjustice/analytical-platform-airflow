@@ -75,3 +75,10 @@ jobs:
           export workflowDirectory
 
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
+
+      - name: DEBUG
+        id: debug
+        run: |
+          ls -lrta "${{ env.workflow-directory }}"
+
+          cat "${{ env.workflow-directory }}/workflow.yml"
