@@ -4,20 +4,19 @@ MODE="${1}"
 PATH_FILTER_CONFIGURATION_FILE=".github/path-filter/${MODE}.yml"
 
 case ${MODE} in
-  workflows)
-    FOLDER_PREFIX="environments"
-    SEARCH_PATTERN="workflow.yml"
-    SKIP_FILE=".workflow-path-filter-ignore"
+workflows)
+  FOLDER_PREFIX="environments"
+  SEARCH_PATTERN="workflow.yml"
+  SKIP_FILE=".workflow-path-filter-ignore"
   ;;
-  *)
-    echo "Usage: ${0} [workflows]"
-    exit 1
+*)
+  echo "Usage: ${0} [workflows]"
+  exit 1
   ;;
 esac
 
 mkdir --parents ".github/path-filter"
 touch "${PATH_FILTER_CONFIGURATION_FILE}"
-
 
 folders=$(find "${FOLDER_PREFIX}" -type f -name "${SEARCH_PATTERN}" -exec dirname {} \; | sort -h | uniq)
 
