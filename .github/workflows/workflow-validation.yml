@@ -38,8 +38,10 @@ jobs:
 
       - name: Check Changed Length
         id: check_changed_length
+        env:
+          CHANGES: ${{ steps.detect_changes.outputs.changes }}
         run: |
-          if [[ "$(jq 'length > 1' <<< '${{ steps.detect_changes.outputs.changes }}')" == "true" ]]; then
+          if [[ "$(jq 'length > 1' <<< '${CHANGES}')" == "true" ]]; then
             echo "Multiple workflows changed, exiting..."
             exit 1
           fi
@@ -91,8 +93,10 @@ jobs:
 
       - name: Set Workflow Directory
         id: set_workflow_directory
+        env:
+          WORKFLOW: ${{ matrix.workflow }}
         run: |
-          workflowDirectory=$(yq -e ".${{ matrix.workflow }}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
+          workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
           export workflowDirectory
 
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
