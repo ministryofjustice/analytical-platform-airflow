@@ -126,4 +126,6 @@ jobs:
       - name: Validate Workflow
         id: validate_workflow
         run: |
-          python scripts/workflow_validation/main.py "dist/${{ env.workflow-directory }}/workflow.yml"
+          workflowDirectory="${{ env.workflow-directory }}"
+          distWorkflowDirectory=${workflowDirectory#environments/}
+          python scripts/workflow_validation/main.py "dist/${distWorkflowDirectory}/workflow.yml"
