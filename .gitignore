@@ -10,3 +10,4 @@ env/
 terraform.tfstate
 dist/
 __pycache__/
+.github/path-filter/
