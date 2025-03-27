@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - main
+    paths:
+      - airflow/**
+      - environments/**
 
 permissions: {}
 
@@ -43,12 +46,6 @@ jobs:
           aws-region: eu-west-2
           role-to-assume: arn:aws:iam::${{ matrix.account }}:role/github-actions-ministryofjustice-analytical-platform-airflow
 
-      - name: Set Up Python
-        id: setup_python
-        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
-        with:
-          python-version: 3.11
-
       - name: Set Up UV
         id: setup_uv
         uses: astral-sh/setup-uv@22695119d769bdb6f7032ad67b9bca0ef8c4a174 # v5.4.0
@@ -60,13 +57,13 @@ jobs:
         id: install_requirements
         shell: bash
         run: |
-          uv pip install -r requirements.txt
+          uv pip install --requirements requirements.txt
 
       - name: Generate Workflows
         id: generate_workflows
         shell: bash
         run: |
-          python scripts/workflow_generator/main.py
+          bash scripts/generate-workkflows/main.sh ${{ matrix.environment }}
 
       - name: Deploy DAGs
         id: deploy_dags
