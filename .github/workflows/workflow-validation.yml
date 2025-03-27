@@ -280,6 +280,21 @@ jobs:
             exit 1
           fi
 
+          downloadTrivyignore=$(gh api "repos/${dagRepository}/contents/.trivyignore?ref=${dagTag}" 2>/dev/null)
+          export downloadTrivyignore
+
+          downloadTrivyignoreStatus=$(jq -r '.status' <<< "${downloadTrivyignore}")
+          export downloadTrivyignoreStatus
+
+          if [[ "${downloadTrivyignoreStatus}" == "null" ]]; then
+            jq -r '.content' <<< "${downloadTrivyignore}" | base64 --decode > .trivyignore
+          elif [[ "${downloadTrivyignoreStatus}" == "404" ]]; then
+            echo ".trivyignore not found"
+          else
+            echo "Error downloading .trivyignore"
+            exit 1
+          fi
+
           imageName=$(grep "^FROM" Dockerfile | cut -d' ' -f2 | cut -d':' -f1 | cut -d'@' -f1)
           export imageName
 
@@ -290,7 +305,11 @@ jobs:
 
           curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/tags/${imageVersion}/.trivyignore" --output "runtime-trivyignore"
 
-          cat runtime-trivyignore
+          if [[ ! -f .trivyignore ]]; then
+            mv "runtime-trivyignore" .trivyignore
+          else
+            cat "runtime-trivyignore" >> .trivyignore
+          fi
 
       - name: Scan
         id: scan
