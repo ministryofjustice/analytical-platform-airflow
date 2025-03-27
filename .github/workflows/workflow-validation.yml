@@ -408,6 +408,20 @@ jobs:
             fi
           done
 
+          # Check if the workflow file has been modified, and in what way
+          if [[ $(git diff --name-status origin/main ${{ env.workflow-directory }}/workflow.yml | awk '{ print $1 }') == "M" ]]; then
+            echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, eligible for automatic approval depending on changes"
+            gh api "repos/${{ github.repository }}/contents/${{ env.workflow-directory }}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${{ env.workflow-directory }}/workflow-main.yml"
+
+            if [[ $(python scripts/yaml_diff/main.py "${{ env.workflow-directory }}/workflow-main.yml" "${{ env.workflow-directory }}/workflow.yml") == "Only dag.tag has changed" ]]; then
+              echo "Only dag.tag has changed, eligible for automatic approval"
+              eligible="true"
+            else
+              echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, not eligible for automatic approval"
+              eligible="false"
+            fi
+          fi
+
           # Check if any files outside the specified path were changed
           for file in ${changed_files}; do
             if [[ ${file} != "environments/development/*" ]]; then
@@ -415,15 +429,7 @@ jobs:
               eligible="false"
               break
             fi
-          done
-
-
-          if [[ $(git diff --name-status origin/main ${{ env.workflow-directory }}/workflow.yml) == "M" ]]; then
-            echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, eligible for automatic approval depending on changes"
-            gh api "repos/${{ github.repository }}/contents/${{ env.workflow-directory }}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${{ env.workflow-directory }}/workflow-main.yml"
-            python scripts/yaml_diff/main.py "${{ env.workflow-directory }}/workflow-main.yml" "${{ env.workflow-directory }}/workflow.yml"
-            # eligible="true"
-          fi
+          don
 
           if [[ ${eligible} == "true" ]]; then
             echo "Eligible for automatic approval"
