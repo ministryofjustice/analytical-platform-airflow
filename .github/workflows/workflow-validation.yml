@@ -379,6 +379,7 @@ jobs:
           # Check if any files outside the specified path were changed
           for file in ${changed_files}; do
             if [[ ${file} != "environments/development/*" ]]; then
+              echo "File ${file} changed outside the specified path, not eligible for automatic approval"
               eligible="false"
               break
             fi
