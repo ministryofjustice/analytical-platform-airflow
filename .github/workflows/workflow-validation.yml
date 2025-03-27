@@ -209,6 +209,19 @@ jobs:
         run: |
           aws ecr describe-images --repository-name "${{ env.ecr-repository }}" --image-ids imageTag="${{ env.image-tag }}" || exit 1
 
+      - name: Comment on Image Check Failure
+        id: comment_on_test_failure
+        if: failure() && steps.check_image_exists.outcome == 'failure'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Specified image does not exists in container registry. Please check the supplied image tag is correct, and it has been pushed successfully. Refer to the [User Guidance](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#create-a-github-release) for more information.'
+            })
+
       - name: Pull Image
         id: pull_image
         run: |
