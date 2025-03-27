@@ -209,8 +209,13 @@ jobs:
         run: |
           aws ecr describe-images --repository-name "${{ env.ecr-repository }}" --image-ids imageTag="${{ env.image-tag }}" || exit 1
 
+      - name: Pull Image
+        id: pull_image
+        run: |
+          docker pull "509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}"
+
       - name: Container Structure Test
         id: container_structure_test
         shell: bash
         run: |
-          container-structure-test test --config container-structure-test.yml --image 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
+          container-structure-test test --config container-structure-test.yml --image "509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}"
