@@ -33,6 +33,7 @@ jobs:
         uses: super-linter/super-linter/slim@4e8a7c2bf106c4c766c816b35ec612638dc9b6b2 # v7.3.0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MULTI_STATUS: false
           VALIDATE_JSCPD: false
           VALIDATE_KUBERNETES_KUBECONFORM: false # Disabling as it cannot process Helm charts
           # I promise this is temporary

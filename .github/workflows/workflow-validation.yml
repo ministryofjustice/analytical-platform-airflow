@@ -5,15 +5,20 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - environments/**
 
 permissions: {}
 
 jobs:
-  workflow-validation:
-    name: Workflow Validation
+  detect-changes:
+    name: 🔍 Detect Changes
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: write
+    outputs:
+      workflows: ${{ steps.detect_changes.outputs.changes }}
     steps:
       - name: Checkout
         id: checkout
@@ -21,11 +26,63 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Set Up Python
-        id: setup_python
-        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
+      - name: Build path-filters File
+        id: build_path_filters
+        run: bash scripts/path-filter/configuration-generator.sh workflows
+
+      - name: Detect Changes
+        id: detect_changes
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
         with:
-          python-version: 3.11
+          filters: .github/path-filter/workflows.yml
+
+      - name: Check Changed Length
+        id: check_changed_length
+        env:
+          CHANGES: ${{ steps.detect_changes.outputs.changes }}
+        run: |
+          if [[ "$(jq 'length > 1' <<< '${CHANGES}')" == "true" ]]; then
+            echo "Multiple workflows changed, exiting..."
+            exit 1
+          fi
+
+      - name: Comment on Length Check Failure
+        id: comment_on_test_failure
+        if: failure() && steps.check_changed_length.outcome == 'failure'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Changes to multiple workflows detected. Please ensure only one workflow is changed at a time.'
+            })
+
+      - name: Upload path-filters File
+        id: upload_path_filter
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: workflows-path-filter
+          path: .github/path-filter/workflows.yml
+
+  workflow-validation:
+    if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
+    needs: [detect-changes]
+    name: 🛂 Workflow Validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        workflow: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
 
       - name: Set Up UV
         id: setup_uv
@@ -37,21 +94,155 @@ jobs:
       - name: Install Requirements
         id: install_requirements
         run: |
-          uv pip install -r requirements.txt
+          uv pip install --requirements requirements.txt
 
-      - name: Workflow Schema Validation
-        id: workflow_schema_validation
+      - name: Download path-filters File
+        id: download_path_filters
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+        with:
+          name: workflows-path-filter
+          path: .github/path-filter
+
+      - name: Set Workflow Directory
+        id: set_workflow_directory
+        env:
+          WORKFLOW: ${{ matrix.workflow }}
         run: |
-          python scripts/workflow_schema_validation/main.py
+          workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
+          export workflowDirectory
 
-      - name: Generate Workflows
-        id: generate_workflows
+          echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
+
+      - name: Validate Schema
+        id: validate_schema
         run: |
-          python scripts/workflow_generator/main.py
+          python scripts/workflow_schema_validation/main.py "${{ env.workflow-directory }}/workflow.yml"
 
-      - name: Validate Workflows
-        id: validate_workflows
+      - name: Generate Workflow
+        id: generate_workflow
+        run: |
+          python scripts/workflow_generator/main.py "${{ env.workflow-directory }}/workflow.yml"
+
+      - name: Validate Workflow
+        id: validate_workflow
         env:
           PYTHONPATH: airflow
         run: |
-          python scripts/workflow_validation/main.py
+          workflowDirectory="${{ env.workflow-directory }}"
+          distWorkflowDirectory=${workflowDirectory#environments/}
+
+          python scripts/workflow_validation/main.py "dist/dags/${distWorkflowDirectory}/workflow.yml"
+
+  image-check:
+    if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
+    needs: [detect-changes, workflow-validation]
+    name: 📦 Image Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    strategy:
+      fail-fast: false
+      matrix:
+        workflow: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Set Up Container Structure Test
+        id: setup_container_structure_test
+        uses: ministryofjustice/github-actions/setup-container-structure-test@db1a54895bf5fb975c60af47e5a3aab96505ca3e # v18.6.0
+
+      - name: Fetch Container Structure Test
+        id: fetch_container_structure_test
+        run: |
+          curl --silent --show-error --location https://raw.githubusercontent.com/ministryofjustice/analytical-platform-airflow-github-actions/refs/heads/main/assets/container-structure-test/container-structure-test.yml --output container-structure-test.yml
+
+      - name: Download path-filters File
+        id: download_path_filters
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+        with:
+          name: workflows-path-filter
+          path: .github/path-filter
+
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials
+        uses: aws-actions/configure-aws-credentials@ececac1a45f3b08a01d2dd070d28d111c5fe6722 # v4.1.0
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::509399598587:role/ecr-access
+
+      - name: Log in to Amazon ECR
+        id: ecr_login
+        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2.0.1
+
+      - name: Set Workflow Directory
+        id: set_workflow_directory
+        env:
+          WORKFLOW: ${{ matrix.workflow }}
+        run: |
+          workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
+          export workflowDirectory
+
+          echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
+
+      - name: Set ECR Repository
+        id: set_ecr_repository
+        run: |
+          ecrRepositoryRaw=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
+          export ecrRepositoryRaw
+
+          ecrRepository=$(echo "${ecrRepositoryRaw}" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')
+          export ecrRepository
+
+          imageTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
+          export imageTag
+
+          echo "ecr-repository=${ecrRepository}" >>"${GITHUB_ENV}"
+          echo "image-tag=${imageTag}" >>"${GITHUB_ENV}"
+
+      - name: Check Image Exists
+        id: check_image_exists
+        run: |
+          aws ecr describe-images --repository-name "${{ env.ecr-repository }}" --image-ids imageTag="${{ env.image-tag }}" || exit 1
+
+      - name: Comment on Image Check Failure
+        id: comment_on_check_failure
+        if: failure() && steps.check_image_exists.outcome == 'failure'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Specified image does not exist in the container registry. Please check the supplied image tag is correct, and it has been pushed successfully. Refer to the [User Guidance](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#create-a-github-release) for more information.'
+            })
+
+      - name: Pull Image
+        id: pull_image
+        run: |
+          docker pull "509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}"
+
+      - name: Container Structure Test
+        id: container_structure_test
+        shell: bash
+        run: |
+          container-structure-test test --config container-structure-test.yml --image "509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}"
+
+      - name: Comment on Image Test Failure
+        id: comment_on_test_failure
+        if: failure() && steps.container_structure_test.outcome == 'failure'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Container test has failed. Refer to the [User Guide](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#configuration-testing) for more information.'
+            })

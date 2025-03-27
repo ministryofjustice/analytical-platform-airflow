@@ -5,9 +5,15 @@ on:
   pull_request:
     branches:
       - main
+    paths:
+      - environments/**
+      - terraform/**
   push:
     branches:
       - main
+    paths:
+      - environments/**
+      - terraform/**
 
 permissions: {}
 

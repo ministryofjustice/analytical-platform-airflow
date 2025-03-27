@@ -2,7 +2,6 @@
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
   tag: 2.0.0
-  hmcts_sdp_networking: true
 
 notifications:
   emails:
