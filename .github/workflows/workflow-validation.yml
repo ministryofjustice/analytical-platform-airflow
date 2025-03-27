@@ -280,10 +280,17 @@ jobs:
             exit 1
           fi
 
+          imageName=$(grep "^FROM" Dockerfile | cut -d' ' -f2 | cut -d':' -f1 | cut -d'@' -f1)
+          export imageName
+
           imageVersion=$(grep "^FROM" Dockerfile | cut -d':' -f2 | cut -d'@' -f1)
           export imageVersion
 
-          echo "${imageVersion}"
+          imageRepo=$(echo "${imageName}" | sed 's|ghcr.io/||')
+
+          curl --silent --show-error --location "https://raw.githubusercontent.com/ministryofjustice/${imageRepo}/refs/tags/${imageVersion}/.trivyignore" --output "runtime-trivyignore"
+
+          cat runtime-trivyignore
 
       # - name: Scan
       #   id: scan
