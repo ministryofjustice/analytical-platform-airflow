@@ -135,7 +135,7 @@ jobs:
 
   image-check:
     if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
-    needs: [workflow-validation]
+    needs: [detect-changes, workflow-validation]
     name: 📦 Image Check
     runs-on: ubuntu-latest
     permissions:
