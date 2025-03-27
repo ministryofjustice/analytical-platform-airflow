@@ -6,6 +6,7 @@ dag:
 
 maintainers:
   - jhpyke
+  - jacobwoffenden
 
 secrets:
   - api-key
