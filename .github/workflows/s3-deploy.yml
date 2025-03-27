@@ -63,7 +63,7 @@ jobs:
         id: generate_workflows
         shell: bash
         run: |
-          bash scripts/generate-workkflows/main.sh ${{ matrix.environment }}
+          bash scripts/generate-workflows/main.sh ${{ matrix.environment }}
 
       - name: Deploy DAGs
         id: deploy_dags
