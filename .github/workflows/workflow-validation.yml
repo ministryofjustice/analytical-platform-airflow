@@ -344,6 +344,8 @@ jobs:
     needs: [detect-changes]
     name: ✅ Automatic Approval Gate
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     steps:
       - name: Checkout
         id: checkout
