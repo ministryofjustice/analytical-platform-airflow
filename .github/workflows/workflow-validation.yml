@@ -198,13 +198,4 @@ jobs:
       - name: Check Image Exists
         id: check_image_exists
         run: |
-          awsEcrDescribeImage=$(aws ecr describe-images --repository-name "${{ env.ecr-repository }}" --image-ids imageTag="${{ env.image-tag }}" 2>&1)
-          export awsEcrDescribeImage
-
-          if [[ "${awsEcrDescribeImage}" == *"RepositoryNotFoundException"* ]]; then
-            echo "RepositoryNotFoundException: ${{ env.ecr-repository }} does not exist."
-            exit 1
-          elif [[ "${awsEcrDescribeImage}" == *"ImageNotFoundException"* ]]; then
-            echo "ImageNotFoundException: ${{ env.image-tag }} does not exist."
-            exit 1
-          fi
+          aws ecr describe-images --repository-name "${{ env.ecr-repository }}" --image-ids imageTag="${{ env.image-tag }}" || exit 1
