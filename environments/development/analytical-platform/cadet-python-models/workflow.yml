@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/cadet-pyspark-models-deployment
-  tag: v0.0.11
+  tag: v0.0.12
   compute_profile: general-spot-64vcpu-256gb
 
 maintainers:
