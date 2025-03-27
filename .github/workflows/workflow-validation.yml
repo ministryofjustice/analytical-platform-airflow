@@ -361,3 +361,18 @@ jobs:
           changed_files=$(git diff --name-only origin/main)
 
           echo "${changed_files}"
+
+          eligble="true"
+
+          for file in ${changed_files}; do
+            if [[ ${file} != "environments/development/*" ]]; then
+              eligible=false
+              break
+            fi
+          done
+
+          if [[ ${eligible} == "true" ]]; then
+            echo "Eligible for automatic approval"
+          else
+            echo "Not eligible for automatic approval"
+          fi
