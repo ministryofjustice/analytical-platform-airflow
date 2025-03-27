@@ -152,6 +152,15 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Set Up Container Structure Test
+        id: setup_container_structure_test
+        uses: ministryofjustice/github-actions/setup-container-structure-test@db1a54895bf5fb975c60af47e5a3aab96505ca3e # v18.6.0
+
+      - name: Fetch Container Structure Test
+        id: fetch_container_structure_test
+        run: |
+          curl --silent --show-error --location https://raw.githubusercontent.com/ministryofjustice/analytical-platform-airflow-github-actions/refs/heads/main/assets/container-structure-test/container-structure-test.yml --output container-structure-test.yml
+
       - name: Download path-filters File
         id: download_path_filters
         uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
@@ -199,3 +208,9 @@ jobs:
         id: check_image_exists
         run: |
           aws ecr describe-images --repository-name "${{ env.ecr-repository }}" --image-ids imageTag="${{ env.image-tag }}" || exit 1
+
+      - name: Container Structure Test
+        id: container_structure_test
+        shell: bash
+        run: |
+          container-structure-test test --config container-structure-test.yml --image 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
