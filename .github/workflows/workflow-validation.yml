@@ -250,7 +250,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Container test has failed. Refer to the [User Guide](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#configuration-testing) for more information.'
+              body: 'Container test has failed. Refer to the [User Guidance](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#configuration-testing) for more information.'
             })
 
       - name: Generate Trivy Ignore
@@ -301,7 +301,7 @@ jobs:
           imageVersion=$(grep "^FROM" Dockerfile | cut -d':' -f2 | cut -d'@' -f1)
           export imageVersion
 
-          imageRepo=$(echo "${imageName}" | sed 's|ghcr.io/||')
+          imageRepo=${imageName#ghcr.io/}
 
           curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/tags/${imageVersion}/.trivyignore" --output "runtime-trivyignore"
 
@@ -324,3 +324,16 @@ jobs:
           vuln-type: library
           timeout: 10m0s
           exit-code: 1
+
+      - name: Comment on Scan Failure
+        id: comment_on_scan_failure
+        if: failure() && steps.scan.outcome == 'failure'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Container scan has failed. Refer to the [User Guide](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#vulnerability-scanning) for more information.'
+            })
