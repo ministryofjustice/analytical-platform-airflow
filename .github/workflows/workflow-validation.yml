@@ -132,3 +132,79 @@ jobs:
           distWorkflowDirectory=${workflowDirectory#environments/}
 
           python scripts/workflow_validation/main.py "dist/dags/${distWorkflowDirectory}/workflow.yml"
+
+  image-check:
+    if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
+    needs: [workflow-validation]
+    name: 📦 Image Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        workflow: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Download path-filters File
+        id: download_path_filters
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+        with:
+          name: workflows-path-filter
+          path: .github/path-filter
+
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials
+        uses: aws-actions/configure-aws-credentials@ececac1a45f3b08a01d2dd070d28d111c5fe6722 # v4.1.0
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::509399598587:role/ecr-access
+
+      - name: Log in to Amazon ECR
+        id: ecr_login
+        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2.0.1
+
+      - name: Set Workflow Directory
+        id: set_workflow_directory
+        env:
+          WORKFLOW: ${{ matrix.workflow }}
+        run: |
+          workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
+          export workflowDirectory
+
+          echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
+
+      - name: Set ECR Repository
+        id: set_ecr_repository
+        run: |
+          ecrRepositoryRaw=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
+          export ecrRepositoryRaw
+
+          ecrRepository=$(echo "${ecrRepositoryRaw}" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')
+          export ecrRepository
+
+          imageTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
+          export imageTag
+
+          echo "ecr-repository=${ecrRepository}" >>"${GITHUB_ENV}"
+          echo "image-tag=${imageTag}" >>"${GITHUB_ENV}"
+
+      - name: Check Image Exists
+        id: check_image_exists
+        run: |
+          awsEcrDescribeImage=$(aws ecr describe-images --repository-name "${{ env.ecr-repository }}" --image-ids imageTag="${{ env.image-tag }}" 2>&1)
+          export awsEcrDescribeImage
+
+          if [[ "${awsEcrDescribeImage}" == *"RepositoryNotFoundException"* ]]; then
+            echo "RepositoryNotFoundException: ${{ env.ecr-repository }} does not exist."
+            exit 1
+          elif [[ "${awsEcrDescribeImage}" == *"ImageNotFoundException"* ]]; then
+            echo "ImageNotFoundException: ${{ env.image-tag }} does not exist."
+            exit 1
+          fi
