@@ -356,6 +356,8 @@ jobs:
       - name: TEST
         id: test
         run: |
+          git fetch origin main
+
           changed_files=$(git diff --name-only origin/main)
 
           echo "${changed_files}"
