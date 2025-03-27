@@ -391,7 +391,7 @@ jobs:
           #   echo "Not eligible for automatic approval"
           # fi
 
-          echo "eligible=${eligible}" >>"${GIHUB_OUTPUT}"
+          echo "eligible=${eligible}" >>"${GITHUB_OUTPUT}"
 
       - name: Automatic Approval
         if: steps.automatic_approval_check.outputs.eligible == 'true'
