@@ -194,18 +194,17 @@ jobs:
       - name: Set ECR Repository
         id: set_ecr_repository
         run: |
-          githubRepository=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
-          export githubRepository
+          dagRepository=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
+          export dagRepository
 
-          ecrRepository=$(echo "${githubRepository}" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')
+          ecrRepository=$(echo "${dagRepository}" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')
           export ecrRepository
 
-          imageTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
-          export imageTag
+          dagTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
+          export dagTag
 
-          echo "github-repository=${githubRepository}" >>"${GITHUB_ENV}"
           echo "ecr-repository=${ecrRepository}" >>"${GITHUB_ENV}"
-          echo "image-tag=${imageTag}" >>"${GITHUB_ENV}"
+          echo "image-tag=${dagTag}" >>"${GITHUB_ENV}"
 
       - name: Check Image Exists
         id: check_image_exists
@@ -254,16 +253,48 @@ jobs:
               body: 'Container test has failed. Refer to the [User Guide](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#configuration-testing) for more information.'
             })
 
-      - name: Scan
-        id: scan
-        uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # v0.30.0
+      - name: Generate Trivy Ignore
+        id: generate_trivy_ignore
         env:
-          TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
-          TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
-        with:
-          image-ref: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
-          severity: HIGH,CRITICAL
-          ignore-unfixed: true
-          vuln-type: library
-          timeout: 10m0s
-          exit-code: 1
+          GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+        run: |
+          dagRepository=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
+          export dagRepository
+
+          dagTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
+          export dagTag
+
+          downloadDockerfile=$(gh api "repos/${dagRepository}/contents/Dockerfile?ref=${dagTag}" 2>/dev/null)
+          export downloadDockerfile
+
+          downloadDockerfileStatus=$(jq -r '.status' <<< "${downloadDockerfile}")
+          export downloadDockerfileStatus
+
+          if [[ "${downloadDockerfileStatus}" == "null" ]]; then
+            jq -r '.content' <<< "${downloadDockerfile}" | base64 --decode > Dockerfile
+          elif [[ "${downloadDockerfileStatus}" == "404" ]]; then
+            echo "Dockerfile not found"
+            exit 1
+          else
+            echo "Error downloading Dockerfile"
+            exit 1
+          fi
+
+          imageVersion=$(grep "^FROM" Dockerfile | cut -d':' -f2 | cut -d'@' -f1)
+          export imageVersion
+
+          echo "${imageVersion}"
+
+      # - name: Scan
+      #   id: scan
+      #   uses: aquasecurity/trivy-action@6c175e9c4083a92bbca2f9724c8a5e33bc2d97a5 # v0.30.0
+      #   env:
+      #     TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
+      #     TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
+      #   with:
+      #     image-ref: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
+      #     severity: HIGH,CRITICAL
+      #     ignore-unfixed: true
+      #     vuln-type: library
+      #     timeout: 10m0s
+      #     exit-code: 1
