@@ -387,6 +387,8 @@ jobs:
 
       - name: Automatic Approval Check
         id: automatic_approval_check
+        env:
+          GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
         run: |
           git fetch origin main
 
