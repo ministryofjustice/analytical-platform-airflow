@@ -359,14 +359,27 @@ jobs:
           git fetch origin main
 
           changed_files=$(git diff --name-only origin/main)
+          changed_files_status=$(git diff --name-status origin/main | awk '{ print $1 }')
 
           echo "${changed_files}"
+          echo "${changed_files_status}"
 
-          eligble="true"
+          # Default to true
+          eligible="true"
 
+          # Check if any files were added or deleted
+          if [[ "${changed_files_status}" == *"A"* ]]; then
+            echo "New files added, not eligible for automatic approval"
+            eligible="false"
+          elif [[ "${changed_files_status}" == *"D"* ]]; then
+            echo "Files deleted, not eligible for automatic approval"
+            eligible="false"
+          fi
+
+          # Check if any files outside the specified path were changed
           for file in ${changed_files}; do
             if [[ ${file} != "environments/development/*" ]]; then
-              eligible=false
+              eligible="false"
               break
             fi
           done
