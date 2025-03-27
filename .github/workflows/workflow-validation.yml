@@ -337,3 +337,23 @@ jobs:
               repo: context.repo.repo,
               body: 'Container scan has failed. Refer to the [User Guide](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#vulnerability-scanning) for more information.'
             })
+
+  automatic-approval-gate:
+    if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
+    # needs: [detect-changes, workflow-validation, image-check]
+    needs: [detect-changes]
+    name: ✅ Automatic Approval Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: TEST
+        id: test
+        run: |
+          changed_files=$(git diff --name-only origin/main)
+
+          echo "${changed_files}"
