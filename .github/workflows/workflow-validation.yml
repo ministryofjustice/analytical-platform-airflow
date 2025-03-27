@@ -288,7 +288,7 @@ jobs:
 
           imageRepo=$(echo "${imageName}" | sed 's|ghcr.io/||')
 
-          curl --silent --show-error --location "https://raw.githubusercontent.com/ministryofjustice/${imageRepo}/refs/tags/${imageVersion}/.trivyignore" --output "runtime-trivyignore"
+          curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/tags/${imageVersion}/.trivyignore" --output "runtime-trivyignore"
 
           cat runtime-trivyignore
 
