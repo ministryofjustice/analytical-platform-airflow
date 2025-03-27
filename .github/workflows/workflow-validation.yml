@@ -289,7 +289,7 @@ jobs:
           if [[ "${downloadTrivyignoreStatus}" == "null" ]]; then
             jq -r '.content' <<< "${downloadTrivyignore}" | base64 --decode > .trivyignore
           elif [[ "${downloadTrivyignoreStatus}" == "404" ]]; then
-            echo ".trivyignore not found"
+            echo ".trivyignore not found" # It's OK if we don't find one, it means the user might not have created one yet
           else
             echo "Error downloading .trivyignore"
             exit 1
