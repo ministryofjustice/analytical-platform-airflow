@@ -367,14 +367,15 @@ jobs:
           # Default to true
           eligible="true"
 
+          ############# TODO: check this logic
           # Check if any files were added or deleted
-          if [[ "${changed_files_status}" == *"A"* ]]; then
-            echo "New files added, not eligible for automatic approval"
-            eligible="false"
-          elif [[ "${changed_files_status}" == *"D"* ]]; then
-            echo "Files deleted, not eligible for automatic approval"
-            eligible="false"
-          fi
+          for status in ${changed_files_status}; do
+            if [[ ${status} != "M" ]]; then
+              echo "File status ${status} detected, not eligible for automatic approval"
+              eligible="false"
+              break
+            fi
+          done
 
           # Check if any files outside the specified path were changed
           for file in ${changed_files}; do

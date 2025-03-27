@@ -1,0 +1,21 @@
+---
+dag:
+  repository: moj-analytical-services/analytical-platform-airflow-python-example
+  tag: 2.5.0
+
+notifications:
+  emails:
+    - jacob.woffenden@justice.gov.uk
+  slack_channel: analytical-platform-airflow-testing
+
+maintainers:
+  - jacobwoffenden
+
+secrets:
+  - api-key
+  - user
+  - password
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
