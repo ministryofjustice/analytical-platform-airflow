@@ -429,7 +429,7 @@ jobs:
               eligible="false"
               break
             fi
-          don
+          done
 
           if [[ ${eligible} == "true" ]]; then
             echo "Eligible for automatic approval"
