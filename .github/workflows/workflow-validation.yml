@@ -264,7 +264,7 @@ jobs:
           dagTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
           export dagTag
 
-          downloadDockerfile=$(gh api "repos/${dagRepository}/contents/Dockerfile?ref=${dagTag}" 2>/dev/null)
+          downloadDockerfile=$(gh api "repos/${dagRepository}/contents/Dockerfile?ref=${dagTag}" 2>/dev/null || true)
           export downloadDockerfile
 
           downloadDockerfileStatus=$(jq -r '.status' <<< "${downloadDockerfile}")
@@ -280,7 +280,7 @@ jobs:
             exit 1
           fi
 
-          downloadTrivyignore=$(gh api "repos/${dagRepository}/contents/.trivyignore?ref=${dagTag}" 2>/dev/null)
+          downloadTrivyignore=$(gh api "repos/${dagRepository}/contents/.trivyignore?ref=${dagTag}" 2>/dev/null || true)
           export downloadTrivyignore
 
           downloadTrivyignoreStatus=$(jq -r '.status' <<< "${downloadTrivyignore}")
