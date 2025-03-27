@@ -340,8 +340,7 @@ jobs:
 
   automatic-approval-gate:
     if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
-    # needs: [detect-changes, workflow-validation, image-check]
-    needs: [detect-changes]
+    needs: [detect-changes, workflow-validation, image-check]
     name: 🛂 Automatic Approval Gate
     runs-on: ubuntu-latest
     permissions:
@@ -367,29 +366,29 @@ jobs:
           # Default to true
           eligible="true"
 
-          # # Check if any files were added or deleted
-          # for status in ${changed_files_status}; do
-          #   if [[ ${status} != "M" ]]; then
-          #     echo "File status ${status} detected, not eligible for automatic approval"
-          #     eligible="false"
-          #     break
-          #   fi
-          # done
+          # Check if any files were added or deleted
+          for status in ${changed_files_status}; do
+            if [[ ${status} != "M" ]]; then
+              echo "File status ${status} detected, not eligible for automatic approval"
+              eligible="false"
+              break
+            fi
+          done
 
-          # # Check if any files outside the specified path were changed
-          # for file in ${changed_files}; do
-          #   if [[ ${file} != "environments/development/*" ]]; then
-          #     echo "File ${file} changed outside the specified path, not eligible for automatic approval"
-          #     eligible="false"
-          #     break
-          #   fi
-          # done
+          # Check if any files outside the specified path were changed
+          for file in ${changed_files}; do
+            if [[ ${file} != "environments/development/*" ]]; then
+              echo "File ${file} changed outside the specified path, not eligible for automatic approval"
+              eligible="false"
+              break
+            fi
+          done
 
-          # if [[ ${eligible} == "true" ]]; then
-          #   echo "Eligible for automatic approval"
-          # else
-          #   echo "Not eligible for automatic approval"
-          # fi
+          if [[ ${eligible} == "true" ]]; then
+            echo "Eligible for automatic approval"
+          else
+            echo "Not eligible for automatic approval"
+          fi
 
           echo "eligible=${eligible}" >>"${GITHUB_OUTPUT}"
 
