@@ -345,12 +345,45 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        workflow: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
     steps:
       - name: Checkout
         id: checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
+
+      - name: Set Up UV
+        id: setup_uv
+        uses: astral-sh/setup-uv@22695119d769bdb6f7032ad67b9bca0ef8c4a174 # v5.4.0
+        with:
+          version: "latest"
+          python-version: "3.11"
+
+      - name: Install Requirements
+        id: install_requirements
+        run: |
+          uv pip install --requirements requirements.txt
+
+      - name: Download path-filters File
+        id: download_path_filters
+        uses: actions/download-artifact@95815c38cf2ff2164869cbab79da8d1f422bc89e # v4.2.1
+        with:
+          name: workflows-path-filter
+          path: .github/path-filter
+
+      - name: Set Workflow Directory
+        id: set_workflow_directory
+        env:
+          WORKFLOW: ${{ matrix.workflow }}
+        run: |
+          workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
+          export workflowDirectory
+
+          echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
       - name: Automatic Approval Check
         id: automatic_approval_check
@@ -384,6 +417,14 @@ jobs:
             fi
           done
 
+
+          if [[ $(git diff --name-status origin/main ${{ env.workflow-directory }}/workflow.yml) == "M" ]]; then
+            echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, eligible for automatic approval depending on changes"
+            gh api "repos/${{ github.repository }}/contents/${{ env.workflow-directory }}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${{ env.workflow-directory }}/workflow-main.yml"
+            python scripts/yaml_diff/main.py "${{ env.workflow-directory }}/workflow-main.yml" "${{ env.workflow-directory }}/workflow.yml"
+            # eligible="true"
+          fi
+
           if [[ ${eligible} == "true" ]]; then
             echo "Eligible for automatic approval"
           else
@@ -392,17 +433,17 @@ jobs:
 
           echo "eligible=${eligible}" >>"${GITHUB_OUTPUT}"
 
-      - name: Automatic Approval
-        if: steps.automatic_approval_check.outputs.eligible == 'true'
-        id: automatic_approval
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          github-token: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
-          script: |
-            github.rest.pulls.createReview({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-              body: 'Automatic approval requirements satisfied.',
-              event: 'APPROVE'
-            })
+      # - name: Automatic Approval
+      #   if: steps.automatic_approval_check.outputs.eligible == 'true'
+      #   id: automatic_approval
+      #   uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+      #   with:
+      #     github-token: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+      #     script: |
+      #       github.rest.pulls.createReview({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         pull_number: context.payload.pull_request.number,
+      #         body: 'Automatic approval requirements satisfied.',
+      #         event: 'APPROVE'
+      #       })
