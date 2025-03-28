@@ -1,3 +1,4 @@
+---
 dag:
   repository: moj-analytical-services/CourtCaseLoad
   tag: 2.0.0
