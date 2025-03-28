@@ -10,8 +10,8 @@ tags:
   owner: "flo.ogunpola@justice.gov.uk"  
 
 tasks:
-    task_id: execute_notebook
-    operator: PapermillOperator
-    input_notebook: "/court_caseload_wb.ipynb" 
-    output_notebook: "/tmp/notebook_output.ipynb"
+    - name: execute_notebook
+      operator: PapermillOperator
+      input_notebook: "/court_caseload_wb.ipynb" 
+      output_notebook: "/tmp/notebook_output.ipynb"
 
