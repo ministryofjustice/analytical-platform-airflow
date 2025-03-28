@@ -3,4 +3,4 @@
 # Install dependencies
 pip install --upgrade pip
 pip install uv
-uv pip install --system -r requirements.txt
+uv pip install --system --requirements requirements.txt
