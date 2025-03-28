@@ -1,6 +1,11 @@
 dag:
   repository: moj-analytical-services/CourtCaseLoad
-  tag: v1.0.4  
+  tag: v1.0.4 
+  tasks:
+    task_id: execute_notebook
+    operator: PapermillOperator
+    input_notebook: "/court_caseload_wb.ipynb"  # Full path to notebook
+    output_notebook: "/tmp/notebook_output.ipynb"  # Output location (ensure it's writable)
 
 maintainers:
   - fogunpola
@@ -9,9 +14,5 @@ tags:
   business_unit: HMCTS
   owner: "flo.ogunpola@justice.gov.uk"  
 
-  tasks:
-    task_id: execute_notebook
-    operator: PapermillOperator
-    input_notebook: "/court_caseload_wb.ipynb"  # Full path to notebook
-    output_notebook: "/tmp/notebook_output.ipynb"  # Output location (ensure it's writable)
+ 
 
