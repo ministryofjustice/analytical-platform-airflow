@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/CourtCaseLoad
-  tag: v1.0.4 
+  tag: v.1.0.4 
 
 maintainers:
   - fogunpola
