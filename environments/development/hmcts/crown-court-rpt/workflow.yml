@@ -6,11 +6,10 @@ dag:
 notifications:
   emails:
     - flo.ogunpola@justice.gov.uk
-  slack_channel: analytical-platform-airflow-testing
 
 maintainers:
   - fogunpola
-  
+
 tags:
-  business_unit: Central Digital
-  owner: analytical-platform@justice.gov.uk
+  business_unit: "Central Digital"
+  owner: "analytical-platform@justice.gov.uk"
