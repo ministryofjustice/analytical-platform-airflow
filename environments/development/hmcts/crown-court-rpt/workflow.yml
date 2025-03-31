@@ -1,1 +1,16 @@
+---
+dag:
+  repository: moj-analytical-services/CourtCaseLoad
+  tag: 2.0.0
 
+notifications:
+  emails:
+    - flo.ogunpola@justice.gov.uk
+  slack_channel: analytical-platform-airflow-testing
+
+maintainers:
+  - fogunpola
+  
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
