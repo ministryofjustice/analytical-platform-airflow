@@ -405,9 +405,7 @@ jobs:
           for status in ${changed_files_status}; do
             if [[ ${status} != "M" ]]; then
               echo "File status ${status} detected, not eligible for automatic approval"
-              eligible="false"
               exit 0
-              break
             fi
           done
 
@@ -418,10 +416,8 @@ jobs:
 
             if [[ $(python scripts/yaml_diff/main.py "${{ env.workflow-directory }}/workflow-main.yml" "${{ env.workflow-directory }}/workflow.yml") == "Only dag.tag has changed" ]]; then
               echo "Only dag.tag has changed, eligible for automatic approval"
-              eligible="true"
             else
               echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, not eligible for automatic approval"
-              eligible="false"
               exit 0
             fi
           fi
@@ -430,9 +426,7 @@ jobs:
           for file in ${changed_files}; do
             if [[ ${file} != "environments/development/*" ]]; then
               echo "File ${file} changed outside the specified path, not eligible for automatic approval"
-              eligible="false"
               exit 0
-              break
             fi
           done
 
