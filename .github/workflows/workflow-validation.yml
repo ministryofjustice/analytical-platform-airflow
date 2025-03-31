@@ -406,6 +406,7 @@ jobs:
             if [[ ${status} != "M" ]]; then
               echo "File status ${status} detected, not eligible for automatic approval"
               eligible="false"
+              exit 0
               break
             fi
           done
@@ -421,6 +422,7 @@ jobs:
             else
               echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, not eligible for automatic approval"
               eligible="false"
+              exit 0
             fi
           fi
 
@@ -429,6 +431,7 @@ jobs:
             if [[ ${file} != "environments/development/*" ]]; then
               echo "File ${file} changed outside the specified path, not eligible for automatic approval"
               eligible="false"
+              exit 0
               break
             fi
           done
