@@ -1,0 +1,43 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: 0.0.13
+  env_vars:
+    AFFILE_DOMAIN: "corporate"
+    AFFILE_SOURCE_SYSTEM: "sop"
+    AFFILE_DESTINATION_DB: "corporate_sop"
+  tasks:
+    task_one:
+      env_vars:
+        TASK: "IEXP_01"
+        AFFILE_SOURCE: "s3://alpha-travel-subsistence/raw-data/iExpense/iEXP01/"
+        AFFILE_DESTINATION_TABLE: "expenses__iexp01
+    task_two:
+      env_vars:
+        TASK: "IEXP_22"
+        AFFILE_SOURCE: "s3://alpha-travel-subsistence/raw-data/iExpense/iEXP22/"
+        AFFILE_DESTINATION_TABLE: "expenses__iexp22
+    task_three:
+      env_vars:
+        TASK: "IEXP_25"
+        AFFILE_SOURCE: "s3://alpha-travel-subsistence/raw-data/iExpense/iEXP25/"
+        AFFILE_DESTINATION_TABLE: "expenses__iexp25
+
+iam:
+  athena: write
+  s3_read_only:
+    - alpha-travel-subsistence/raw-data/iExpense/*
+  s3_write_only:
+    - s3://mojap-processed/corporate/sop/dev/expenses__iexp01/*
+
+notifications:
+  slack_channel: dmet-corporate-notification
+  emails:
+    - william.orr@justice.gov.uk
+
+maintainers:
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
