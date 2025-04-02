@@ -1,0 +1,11 @@
+---
+dag:
+  repository: moj-analytical-services/mbpr-test-airflow-pipeline
+  tag: v1.0.0
+
+maintainers:
+  - scott-lowther
+
+tags:
+  business_unit: Central Digital
+  owner: scott.lowther@justice.gov.uk
