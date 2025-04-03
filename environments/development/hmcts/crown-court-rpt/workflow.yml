@@ -1,0 +1,16 @@
+---
+dag:
+  repository: moj-analytical-services/CourtCaseLoad
+  tag: 2.0.0
+  #schedule: "0 8 * * 1"  # Runs every Monday at 08:00 UTC
+
+notifications:
+  emails:
+    - flo.ogunpola@justice.gov.uk
+
+maintainers:
+  - fogunpola
+
+tags:
+  business_unit: "HMCTS"
+  owner: "analytical-platform@justice.gov.uk"
