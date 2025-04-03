@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: 0.0.14
+  tag: 0.0.15
   env_vars:
     AFFILE_DOMAIN: "corporate"
     AFFILE_SOURCE_SYSTEM: "sop"
