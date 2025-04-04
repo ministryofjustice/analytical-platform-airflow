@@ -13,6 +13,10 @@ iam:
   s3_write_only:
     - alpha-mlops-examples/insurance_example/model/*
 
+secrets:
+  - MLFLOW_TRACKING_USERNAME
+  - MLFLOW_TRACKING_PASSWORD
+
 tags:
   business_unit: HQ
   owner: michael.hodge1@justice.gov.uk
