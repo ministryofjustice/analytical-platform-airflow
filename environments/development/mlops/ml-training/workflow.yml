@@ -14,8 +14,8 @@ iam:
     - alpha-mlops-examples/insurance_example/model/*
 
 secrets:
-  - MLFLOW_TRACKING_USERNAME
-  - MLFLOW_TRACKING_PASSWORD
+  - mlflow_tracking_username
+  - mlflow_tracking_password
 
 tags:
   business_unit: HQ
