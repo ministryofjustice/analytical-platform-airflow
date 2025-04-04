@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/new_airflow_mlops_test
-  tag: 1.0.10
+  tag: 1.1.1
   compute_profile: general-spot-64vcpu-256gb
 
 maintainers:
