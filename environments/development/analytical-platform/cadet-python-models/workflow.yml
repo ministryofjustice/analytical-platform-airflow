@@ -13,6 +13,7 @@ secrets:
 iam:
   s3_read_write:
     - alpha-everyone/cadet-spark-athena-test/*
+    - arn:aws:s3:::alpha-everyone/this-should-fail/*
 
 tags:
   business_unit: Central Digital
