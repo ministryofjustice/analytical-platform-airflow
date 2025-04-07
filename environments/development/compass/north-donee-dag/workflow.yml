@@ -1,5 +1,5 @@
 dag:
-  repository: ministryofjustice/nirth-donee-dag
+  repository: ministryofjustice/north-donee-dag
   tag: v0.1
   catchup: false
   depends_on_past: false
