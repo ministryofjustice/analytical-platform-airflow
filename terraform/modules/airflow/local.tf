@@ -18,6 +18,6 @@ locals {
       local.iam_s3_read_only,
       local.iam_s3_read_write,
       local.iam_s3_write_only
-    )) : regex("^([^/]+)", bucket)
+    )) : regex("^([^/]+)", bucket)[0]
   ])
 }
