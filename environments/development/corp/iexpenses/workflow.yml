@@ -1,0 +1,47 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: 0.0.20
+  env_vars:
+    AFFILE_DOMAIN: "corporate"
+    AFFILE_SOURCE_SYSTEM: "sop"
+    AFFILE_DESTINATION_DB: "corporate_sop"
+  tasks:
+    task_one:
+      env_vars:
+        TASK: "IEXP_01"
+        AFFILE_SOURCE: "s3://alpha-travel-subsistence/raw-data/iExpense/iEXP01/"
+        AFFILE_DESTINATION_TABLE: "expenses__iexp01"
+    task_two:
+      env_vars:
+        TASK: "IEXP_22"
+        AFFILE_SOURCE: "s3://alpha-travel-subsistence/raw-data/iExpense/iEXP22/"
+        AFFILE_DESTINATION_TABLE: "expenses__iexp22"
+    task_three:
+      env_vars:
+        TASK: "IEXP_25"
+        AFFILE_SOURCE: "s3://alpha-travel-subsistence/raw-data/iExpense/iEXP25/"
+        AFFILE_DESTINATION_TABLE: "expenses__iexp25"
+
+iam:
+  athena: write
+  s3_read_only:
+    - alpha-travel-subsistence/raw-data/iExpense/*
+  s3_write_only:
+    - mojap-processed/corporate/sop/dev/expenses__iexp01/*
+  s3_read_write:
+    - mojap-processed/corporate/sop/dev/**/corporate_sop_dev/_dlt_*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - william.orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: william.orr@justice.gov.uk
