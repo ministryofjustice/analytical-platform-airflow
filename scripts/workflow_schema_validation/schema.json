@@ -148,25 +148,25 @@
       },
       "s3_deny": {
         "type": "list",
-        "regex": "^!arn:aws:s3",
+        "regex": "^(?!arn:aws:s3).*",
         "schema": { "type": "string" },
         "required": false
       },
       "s3_read_only": {
         "type": "list",
-        "regex": "^!arn:aws:s3",
+        "regex": "^(?!arn:aws:s3).*",
         "schema": { "type": "string" },
         "required": false
       },
       "s3_read_write": {
         "type": "list",
-        "regex": "^!arn:aws:s3",
+        "regex": "^(?!arn:aws:s3).*",
         "schema": { "type": "string" },
         "required": false
       },
       "s3_write_only": {
         "type": "list",
-        "regex": "^!arn:aws:s3",
+        "regex": "^(?!arn:aws:s3).*",
         "schema": { "type": "string" },
         "required": false
       }
