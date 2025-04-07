@@ -142,7 +142,6 @@
       "glue": { "type": "boolean", "required": false },
       "kms": {
         "type": "list",
-        "regex": "^arn:aws:kms",
         "schema": { "type": "string", "regex": "^arn:aws:kms.*+$"  },
         "required": false
       },
