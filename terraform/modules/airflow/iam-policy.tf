@@ -47,7 +47,9 @@ data "aws_iam_policy_document" "iam_policy" {
         "s3:ListAllMyBuckets",
         "s3:ListBucket"
       ]
-      resources = local.s3_buckets
+      resources = [
+        for item in local.s3_buckets : "arn:aws:s3:::${item}"
+      ]
     }
   }
 
