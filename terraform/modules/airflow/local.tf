@@ -11,4 +11,13 @@ locals {
   iam_s3_write_only = try(local.iam_configuration.s3_write_only, [])
 
   secrets_configuration = try(var.configuration.secrets, [])
+
+  s3_buckets = distinct([
+    for bucket in flatten(concat(
+      local.iam_s3_deny,
+      local.iam_s3_read_only,
+      local.iam_s3_read_write,
+      local.iam_s3_write_only
+    )) : regex("^([^/]+)", bucket)
+  ])
 }

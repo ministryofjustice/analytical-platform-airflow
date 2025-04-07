@@ -36,6 +36,21 @@ data "aws_iam_policy_document" "iam_policy" {
     }
   }
 
+  /* S3 - Bucket Access */
+  dynamic "statement" {
+    for_each = length(local.s3_buckets) > 0 ? [1] : []
+    content {
+      sid    = "S3BucketAccess"
+      effect = "Allow"
+      actions = [
+        "s3:GetBucketLocation",
+        "s3:ListAllMyBuckets",
+        "s3:ListBucket"
+      ]
+      resources = local.s3_buckets
+    }
+  }
+
   /* S3 - Deny */
   dynamic "statement" {
     for_each = length(local.iam_s3_deny) > 0 ? [1] : []
