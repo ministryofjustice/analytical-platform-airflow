@@ -21,14 +21,14 @@ jobs:
       # VALIDATE_PYTHON_* are set to false as we need to revisit the Python from a linting perspective
       super-linter-variables: |
         {
-          "VALIDATE_JSCPD": false,
-          "VALIDATE_KUBERNETES_KUBECONFORM": false,
-          "VALIDATE_PYTHON": false,
-          "VALIDATE_PYTHON_BLACK": false,
-          "VALIDATE_PYTHON_FLAKE8": false,
-          "VALIDATE_PYTHON_ISORT": false,
-          "VALIDATE_PYTHON_MYPY": false,
-          "VALIDATE_PYTHON_PYINK": false,
-          "VALIDATE_PYTHON_PYLINT": false,
-          "VALIDATE_PYTHON_RUFF": false,
+          "VALIDATE_JSCPD": "false",
+          "VALIDATE_KUBERNETES_KUBECONFORM": "false",
+          "VALIDATE_PYTHON": "false",
+          "VALIDATE_PYTHON_BLACK": "false",
+          "VALIDATE_PYTHON_FLAKE8": "false",
+          "VALIDATE_PYTHON_ISORT": "false",
+          "VALIDATE_PYTHON_MYPY": "false",
+          "VALIDATE_PYTHON_PYINK": "false",
+          "VALIDATE_PYTHON_PYLINT": "false",
+          "VALIDATE_PYTHON_RUFF": "false",
         }
