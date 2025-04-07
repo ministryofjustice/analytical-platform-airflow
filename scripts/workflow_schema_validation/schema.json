@@ -143,35 +143,40 @@
       "kms": {
         "type": "list",
         "schema": {
-          "type": "string", "regex": "^arn:aws:kms.*+$"
+          "type": "string",
+          "regex": "^arn:aws:kms.*+$"
         },
         "required": false
       },
       "s3_deny": {
         "type": "list",
         "schema": {
-          "type": "string", "regex": "^(?!arn:aws:s3).*+$"
+          "type": "string",
+          "regex": "^(?!arn:aws:s3).*+$"
         },
         "required": false
       },
       "s3_read_only": {
         "type": "list",
         "schema": {
-          "type": "string", "regex": "^(?!arn:aws:s3).*+$"
+          "type": "string",
+          "regex": "^(?!arn:aws:s3).*+$"
         },
         "required": false
       },
       "s3_read_write": {
         "type": "list",
         "schema": {
-          "type": "string", "regex": "^(?!arn:aws:s3).*+$"
+          "type": "string",
+          "regex": "^(?!arn:aws:s3).*+$"
         },
         "required": false
       },
       "s3_write_only": {
         "type": "list",
         "schema": {
-          "type": "string", "regex": "^(?!arn:aws:s3).*+$"
+          "type": "string",
+          "regex": "^(?!arn:aws:s3).*+$"
         },
         "required": false
       }
