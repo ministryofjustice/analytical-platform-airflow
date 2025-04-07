@@ -35,6 +35,7 @@ notifications:
 
   emails:
     - william.orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
 
 maintainers:
   - williamorrie
