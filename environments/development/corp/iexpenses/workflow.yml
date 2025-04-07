@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: 0.0.18
+  tag: 0.0.19
   env_vars:
     AFFILE_DOMAIN: "corporate"
     AFFILE_SOURCE_SYSTEM: "sop"
@@ -31,7 +31,8 @@ iam:
     - mojap-processed/corporate/sop/dev/expenses__iexp01/*
 
 notifications:
-  slack_channel: dmet-corporate-notification
+  slack_channel: dmet-corp-notifications
+
   emails:
     - william.orr@justice.gov.uk
 
