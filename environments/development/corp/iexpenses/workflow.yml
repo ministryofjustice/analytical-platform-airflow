@@ -29,6 +29,8 @@ iam:
     - alpha-travel-subsistence/raw-data/iExpense/*
   s3_write_only:
     - mojap-processed/corporate/sop/dev/expenses__iexp01/*
+  s3_read_write:
+    - mojap-processed/corporate/sop/dev/**/corporate_sop_dev/_dlt_*
 
 notifications:
   slack_channel: dmet-corp-notifications
