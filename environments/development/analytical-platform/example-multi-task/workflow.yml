@@ -22,12 +22,15 @@ dag:
         mode: "failure"
       dependencies: [task_three]
     task_five:
+      retries: 3
       env_vars:
         AWS_DEFAULT_REGION: "eu-west-2"
         TASK: "FIFTH"
         N_TASK: 5
       dependencies: [task_four]
     task_six:
+      repository: moj-analytical-services/analytical-platform-airflow-python-example
+      tag: 2.3.0
       env_vars:
         TASK: "SIXTH"
 
