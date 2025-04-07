@@ -12,6 +12,13 @@ maintainers:
   - jacobwoffenden
   - jhpyke
 
+iam:
+  s3_read_write:
+    - alpha-everyone/airflow-example/*
+    - arn:aws:s3:::alpha-everyone/airflow-should-fail/*
+  kms:
+    - im-not-a-key
+
 secrets:
   - api-key
   - user
