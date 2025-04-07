@@ -11,45 +11,8 @@ permissions: {}
 jobs:
   zizmor:
     name: Zizmor
-    runs-on: ubuntu-latest
     permissions:
-      contents: read
       actions: read
+      contents: read
       security-events: write
-    steps:
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          persist-credentials: false
-
-      - name: Set Up Python
-        id: setup_python
-        uses: actions/setup-python@8d9ed9ac5c53483de85588cdf95a591a75ab9f55 # v5.5.0
-        with:
-          python-version: 3.12
-
-      - name: Set Up UV
-        id: setup_uv
-        uses: astral-sh/setup-uv@0c5e2b8115b80b4c7c5ddf6ffdd634974642d182 # v5.4.1
-        with:
-          version: "latest"
-          python-version: "3.12"
-
-      - name: Install Requirements
-        id: install_requirements
-        run: |
-          uv pip install -r requirements.txt
-
-      - name: Zizmor
-        id: zizmor
-        run: zizmor --format sarif . > results.sarif
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Upload SARIF
-        id: upload_sarif
-        uses: github/codeql-action/upload-sarif@1b549b9259bda1cb5ddde3b41741a82a2d15a841 # v3.28.13
-        with:
-          sarif_file: results.sarif
-          category: zizmor
+    uses: ministryofjustice/analytical-platform-github-actions/.github/workflows/reusable-zizmor.yml@04ad82468002a6d0ade1ece361d627e872604f2f # v1.1.0

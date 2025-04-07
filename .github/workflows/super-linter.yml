@@ -1,47 +1,34 @@
 ---
-name: 🦝 Super-Linter
+name: 🦝 Super Linter
 
 on:
   pull_request:
     branches:
       - main
-    types:
-      - edited
-      - opened
-      - reopened
-      - synchronize
 
 permissions: {}
 
 jobs:
   super-linter:
-    name: Super-Linter
-    runs-on: ubuntu-latest
+    name: Super Linter
     permissions:
       contents: read
+      packages: read
       statuses: write
-    steps:
-      - name: Checkout
-        id: checkout
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-        with:
-          persist-credentials: false
-          fetch-depth: 0
-
-      - name: Super-Linter
-        id: super_linter
-        uses: super-linter/super-linter/slim@4e8a7c2bf106c4c766c816b35ec612638dc9b6b2 # v7.3.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          MULTI_STATUS: false
-          VALIDATE_JSCPD: false
-          VALIDATE_KUBERNETES_KUBECONFORM: false # Disabling as it cannot process Helm charts
-          # I promise this is temporary
-          VALIDATE_PYTHON: false
-          VALIDATE_PYTHON_BLACK: false
-          VALIDATE_PYTHON_FLAKE8: false
-          VALIDATE_PYTHON_ISORT: false
-          VALIDATE_PYTHON_MYPY: false
-          VALIDATE_PYTHON_PYINK: false
-          VALIDATE_PYTHON_PYLINT: false
-          VALIDATE_PYTHON_RUFF: false
+    uses: ministryofjustice/analytical-platform-github-actions/.github/workflows/reusable-super-linter.yml@04ad82468002a6d0ade1ece361d627e872604f2f # v1.1.0
+    with:
+      # VALIDATE_KUBERNETES_KUBECONFORM is set to false as it cannot process Helm charts
+      # VALIDATE_PYTHON_* are set to false as we need to revisit the Python from a linting perspective
+      super-linter-variables: |
+        {
+          "VALIDATE_JSCPD": false,
+          "VALIDATE_KUBERNETES_KUBECONFORM": false,
+          "VALIDATE_PYTHON": false,
+          "VALIDATE_PYTHON_BLACK": false,
+          "VALIDATE_PYTHON_FLAKE8": false,
+          "VALIDATE_PYTHON_ISORT": false,
+          "VALIDATE_PYTHON_MYPY": false,
+          "VALIDATE_PYTHON_PYINK": false,
+          "VALIDATE_PYTHON_PYLINT": false,
+          "VALIDATE_PYTHON_RUFF": ".pylintrc",
+        }
