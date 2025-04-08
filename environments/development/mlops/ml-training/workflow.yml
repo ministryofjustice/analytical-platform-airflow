@@ -1,7 +1,7 @@
 ---
 dag:
-  repository: moj-analytical-services/new_airflow_mlops_test
-  tag: 1.0.10
+  repository: moj-analytical-services/airflow_mlops_training_example
+  tag: 1.1.1
   compute_profile: general-spot-64vcpu-256gb
 
 maintainers:
@@ -12,6 +12,10 @@ iam:
     - alpha-mlops-examples/insurance_example/data/*
   s3_write_only:
     - alpha-mlops-examples/insurance_example/model/*
+
+secrets:
+  - mlflow-tracking-username
+  - mlflow-tracking-password
 
 tags:
   business_unit: HQ
