@@ -18,7 +18,7 @@ notifications:
   slack_channel: em-engineers-moj-madetech
 
 iam:
-  external_role: arn:aws:iam::396913731313:role/airflow-dev-load-fms
+  external_role: arn:aws:iam::396913731313:role/airflow-test-full-reload-fms
 
 maintainers:
   - matt-heery
