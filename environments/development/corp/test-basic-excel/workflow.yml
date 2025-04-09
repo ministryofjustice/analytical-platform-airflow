@@ -1,0 +1,34 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: 0.0.20
+  env_vars:
+    AFFILE_DOMAIN: "corporate"
+    AFFILE_SOURCE_SYSTEM: "sop"
+    AFFILE_DESTINATION_DB: "corporate_sop"
+    AFFILE_SOURCE: "s3://alpha-corp-data-staging/DE_source_copies/test/basic_excel/"
+    AFFILE_DESTINATION_TABLE: "test__basic_excel"
+
+iam:
+  athena: write
+  s3_read_only:
+    - alpha-corp-data-staging/DE_source_copies/test/basic_excel/*
+  s3_write_only:
+    - mojap-processed/corporate/sop/dev/test__basic_excel/*
+  s3_read_write:
+    - mojap-processed/corporate/sop/dev/**/corporate_sop_dev*/_dlt_*
+    - alpha-corp-data-staging/corporate/athena_query_dump/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - william.orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: william.orr@justice.gov.uk
