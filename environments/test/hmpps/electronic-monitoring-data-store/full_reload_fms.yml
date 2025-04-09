@@ -1,0 +1,29 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-load-em-data
+  tag: 0.2.0
+  compute_profile: gpu-spot-8vcpu-32gb
+  catchup: false
+  depends_on_past: false
+  schedule: None
+  max_active_runs: 1
+  env_vars:
+    SUPPLIER_NAME: "serco"
+    SYSTEM_NAME: "fms"
+    FULL_REFRESH: true
+
+notifications:
+  emails:
+    - matt.heery@justice.gov.uk
+  slack_channel: em-engineers-moj-madetech
+
+iam:
+  external_role: arn:aws:iam::396913731313:role/airflow-dev-load-fms
+
+maintainers:
+  - matt-heery
+  - pricemg
+
+tags:
+  business_unit: HMPPS
+  owner: matt.heery@justice.gov.uk # for now....
