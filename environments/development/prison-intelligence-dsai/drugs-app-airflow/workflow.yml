@@ -1,0 +1,40 @@
+dag:
+  repository: moj-analytical-services/airflow-drugs-app
+  tag: 1.1.01
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 1
+  retries: 3
+  retry_delay: 100
+  schedule: None
+  start_date: "2025-04-04"
+  tasks:
+    task:
+      compute_profile: "general-on-demand-1vcpu-4gb"
+
+iam:
+  s3_read_only:
+    - alpha-app-kpi-s3-proxy/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+  s3_read_write:
+    - alpha-app-drugs-app/
+    - alpha-app-drug-conveyancing/*
+    - alpha-athena-dump/*
+    - alpha-athena-query-dump/*
+
+notifications:
+  emails:
+    - matthew.funnell@justice.gov.uk
+  slack_channel: intel-app-maintenance
+
+maintainers:
+  - mattfunnell
+  - d-lundie
+
+tags:
+  business_unit: HMPPS
+  owner: matthew.funnell@justice.gov.uk
