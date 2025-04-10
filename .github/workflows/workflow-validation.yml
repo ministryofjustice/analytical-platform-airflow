@@ -228,12 +228,12 @@ jobs:
           THRESHOLD=$((4 * 1024 * 1024 * 1024)) # 4GB in bytes
 
           IMAGE_SIZE_GB=$(echo "scale=2; $IMAGE_SIZE / (1024 * 1024 * 1024)" | bc)
-          echo "Image size: $IMAGE_SIZE bytes"
+          echo "Image size: $IMAGE_SIZE_GB bytes"
           if [ "$IMAGE_SIZE" -gt "$THRESHOLD" ]; then
             echo "clean_runner=true" >> "$GITHUB_ENV"
           else
             echo "clean_runner=false" >> "$GITHUB_ENV"
-          fi 
+          fi
 
       - name: Clean Actions Runner
         id: clean_actions_runner
