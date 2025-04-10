@@ -220,24 +220,29 @@ jobs:
 
       - name: Pull Image and Check Size
         id: pull_image_and_check_size
+        shell: bash
+        env:
+          IMAGE: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
+          THRESHOLD_GB: 4 
         run: |
-          # docker pull "509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}"
-          IMAGE="509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}"
-          docker pull "$IMAGE"
-          IMAGE_SIZE=$(docker inspect "$IMAGE" --format='{{.Size}}')
-          THRESHOLD=$((4 * 1024 * 1024 * 1024)) # 4GB in bytes
+          docker pull "${IMAGE}"
 
-          IMAGE_SIZE_GB=$(echo "scale=2; $IMAGE_SIZE / (1024 * 1024 * 1024)" | bc)
-          echo "Image size: $IMAGE_SIZE_GB bytes"
-          if [ "$IMAGE_SIZE" -gt "$THRESHOLD" ]; then
-            echo "clean_runner=true" >> "$GITHUB_ENV"
+          imageSize=$(docker inspect "${IMAGE}" --format='{{.Size}}')
+          export imageSize
+
+          imageSizeGB=$((imageSize / 1024 / 1024 / 1024))
+
+          if [[ "${imageSizeGB}" -gt "${THRESHOLD_GB}" ]]; then
+            echo "Image size: ${imageSizeGB}"
+            echo "clean-runner=true" >>"${GITHUB_ENV}"
           else
-            echo "clean_runner=false" >> "$GITHUB_ENV"
+            echo "Image size: ${imageSizeGB}"
+            echo "clean-runner=false" >>"${GITHUB_ENV}"
           fi
 
       - name: Clean Actions Runner
         id: clean_actions_runner
-        if: env.clean_runner =='true'
+        if: env.clean_runner == 'true'
         uses: ministryofjustice/github-actions/clean-actions-runner@db1a54895bf5fb975c60af47e5a3aab96505ca3e # v18.6.0
         with:
           confirm: true
