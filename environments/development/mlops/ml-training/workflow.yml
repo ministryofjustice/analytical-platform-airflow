@@ -12,6 +12,7 @@ iam:
     - alpha-mlops-examples/insurance_example/data/*
   s3_write_only:
     - alpha-mlops-examples/insurance_example/model/*
+    - alpha-analytical-platform-mlflow-development/*
 
 secrets:
   - mlflow-tracking-username
