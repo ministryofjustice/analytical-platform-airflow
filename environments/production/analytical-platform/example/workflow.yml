@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
-  tag: 2.0.0
+  tag: 2.6.0
   compute_profile: gpu-spot-8vcpu-32gb
   env_vars:
     MODE: "benchmark"
