@@ -14,7 +14,7 @@ dag:
       compute_profile: "general-on-demand-1vcpu-4gb"
       
 iam:
-  athena: write:
+  athena: write
 
 s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
