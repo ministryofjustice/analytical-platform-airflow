@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow_mlops_training_example
-  tag: 1.1.6
+  tag: 1.1.8
   compute_profile: general-spot-64vcpu-256gb
 
 maintainers:
@@ -10,6 +10,7 @@ maintainers:
 iam:
   s3_read_only:
     - alpha-mlops-examples/insurance_example/data/*
+    - alpha-mlops-examples/insurance_example/config/*
   s3_write_only:
     - alpha-mlops-examples/insurance_example/model/*
     - alpha-analytical-platform-mlflow-development/*
