@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-drugs-app
-  tag: 1.1.01
+  tag: 1.1.02
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
