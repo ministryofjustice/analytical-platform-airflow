@@ -1,0 +1,10 @@
+{
+  "overrides": [
+    {
+      "files": ".github/pull_request_template.md",
+      "rules": {
+        "MD041": false
+      }
+    }
+  ]
+}
