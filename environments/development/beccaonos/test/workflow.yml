@@ -1,0 +1,11 @@
+---
+dag:
+  repository: moj-analytical-services/becks-airflow-test
+  tag: v0.2.1-alpha
+
+maintainers:
+  - beccaonos
+
+tags:
+  business_unit: HMPPS
+  owner: rebecca.atsaboghena@justice.gov.uk
