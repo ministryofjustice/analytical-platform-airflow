@@ -41,7 +41,7 @@ jobs:
         env:
           CHANGES: ${{ steps.detect_changes.outputs.changes }}
         run: |
-          if [[ "$(jq 'length > 1' <<< '${CHANGES}')" == "true" ]]; then
+          if [[ "$(jq 'length > 1' <<< "${CHANGES}")" == "true" ]]; then
             echo "Multiple workflows changed, exiting..."
             exit 1
           fi
