@@ -1,3 +1,0 @@
-# Specifically exclude PR template
-ignore:
-  - ".github/pull_request_template.md"
