@@ -11,6 +11,7 @@ notifications:
 maintainers:
   - jacobwoffenden
   - jhpyke
+  - julialawrence
 
 secrets:
   - api-key
