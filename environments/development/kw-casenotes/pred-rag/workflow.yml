@@ -34,10 +34,14 @@ iam:
 notifications:
   emails:
     - roger.brown@justice.gov.uk
+    - laura.auburn@justice.gov.uk
+    - rob.mcnaughter@justice.gov.uk
 
 maintainers:
   - rogerbrownmoj
+  - laura-auburn
+  - rob-mcnaughter
 
 tags:
   business_unit: HMPPS
-  owner: roger.brown@justice.gov.uk
+  owner: laura.auburn@justice.gov.uk
