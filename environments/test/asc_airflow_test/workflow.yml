@@ -1,0 +1,10 @@
+dag:
+  repository: moj-analytical-services/asc_test_airflow
+  tag: 0.0.1
+
+maintainers:
+  - antonyjscott
+
+tags:
+  business_unit: HQ
+  owner: antony.scott@justice.gov.uk
