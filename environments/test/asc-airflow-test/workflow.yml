@@ -1,6 +1,6 @@
 dag:
-  repository: moj-analytical-services/asc_test_airflow
-  tag: 0.0.1
+  repository: moj-analytical-services/asc-test-airflow
+  tag: 1.0.0
 
 maintainers:
   - antonyjscott
