@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/becks-airflow-test
-  tag: v0.2.1-alpha
+  tag: v0.2.2-alpha
 
 maintainers:
   - beccaonos
