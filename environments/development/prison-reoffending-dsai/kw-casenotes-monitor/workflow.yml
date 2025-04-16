@@ -9,7 +9,7 @@ dag:
   start_date: "2025-04-10"
   tasks:
     task:
-      compute_profile: "general-on-demand-16vcpu-64gb"
+      compute_profile: "general-on-demand-32vcpu-128gb"
 
 iam:
   athena: write
