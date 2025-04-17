@@ -1,13 +1,13 @@
 dag:
   repository: ministryofjustice/north-donee-dag
-  tag: v0.3.1
+  tag: v1.0.0
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 1
   retries: 1
   retry_delay: 150
-  schedule: "30 2 * * *"
+  schedule: None # prod is "30 2 * * *"
   start_date: "2025-04-07"
   tasks:
     task:
