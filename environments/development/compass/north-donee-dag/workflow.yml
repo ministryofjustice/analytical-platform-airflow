@@ -7,7 +7,7 @@ dag:
   max_active_runs: 1
   retries: 1
   retry_delay: 150
-  schedule: None # prod is "30 2 * * *"
+  schedule: "30 2 * * *"
   start_date: "2025-04-07"
   tasks:
     task:
