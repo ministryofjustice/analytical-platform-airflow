@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: 0.0.3
+  tag: 0.0.4
   env_vars:
     OUTPATH: "s3://alpha-everyone/airflow-example/wto_demo/"
     URL: "https://sop.govsharedservices.gov.uk:4470/SplashBI/en_US/Login.html"
