@@ -1,0 +1,25 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-report-extractor
+  tag: 0.0.5
+  env_vars:
+    OUTPATH: "s3://alpha-everyone/airflow-example/wto_demo/"
+    URL: "https://sop.govsharedservices.gov.uk:4470/SplashBI/en_US/Login.html"
+
+iam:
+  s3_read_write:
+    - alpha-everyone/airflow-example/wto_demo/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - william.orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: william.orr@justice.gov.uk
