@@ -4,7 +4,7 @@ dag:
   tag: 0.0.5
   env_vars:
     OUTPATH: "s3://alpha-everyone/airflow-example/wto_demo/"
-    URL: "https://sop.govsharedservices.gov.uk:4470/SplashBI/en_US/Login.html"
+    URL: "https://www.bbc.co.uk"
 
 iam:
   s3_read_write:
