@@ -3,6 +3,11 @@ dag:
   repository: moj-analytical-services/becks-airflow-test
   tag: v0.2.4
 
+iam:
+  athena: write
+  bedrock: true
+  glue: true
+
 maintainers:
   - beccaonos
 
