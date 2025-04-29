@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-dmet-property
-  tag: v0.4.3
+  tag: v0.4.4
   compute_profile: "general-on-demand-1vcpu-4gb"
 
 maintainers:
