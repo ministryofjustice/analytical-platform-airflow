@@ -12,7 +12,7 @@ secrets:
 
 iam:
   s3_read_write:
-    -s3://mojap-land-dev/property/cde/*
+  - s3://mojap-land-dev/property/cde/*
 
 tags:
   business_unit: property
