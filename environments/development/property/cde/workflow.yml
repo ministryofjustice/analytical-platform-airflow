@@ -8,7 +8,7 @@ maintainers:
   - jnayak-moj
 
 secrets:
-  - /alpha/airflow/airflow_dev_dmet_property/secrets
+  - api-key
 
 iam:
   s3_read_write:
