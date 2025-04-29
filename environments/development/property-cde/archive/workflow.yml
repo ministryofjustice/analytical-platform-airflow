@@ -14,5 +14,5 @@ iam:
     - s3://mojap-land-dev/property/cde/*
 
 tags:
-  business_unit: Digital and Technology
+  business_unit: Central Digital
   owner: jyotiranjan.nayak@justice.gov.uk
