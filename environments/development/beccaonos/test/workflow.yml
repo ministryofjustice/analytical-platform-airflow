@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/becks-airflow-test
-  tag: v0.2.4
+  tag: v0.2.5
 
 iam:
   athena: write
