@@ -1,0 +1,36 @@
+dag:
+  repository: moj-analytical-services/airflow-anvil-access-tool
+  tag: 1.2.12
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 1
+  retries: 3
+  retry_delay: 100
+  schedule: "0 2 * * *"
+  start_date: "2025-04-28"
+  tasks:
+    task:
+      compute_profile: "general-on-demand-1vcpu-4gb"
+
+iam:
+  s3_read_write:
+    - alpha-app-bentham-app/*
+    - alpha-app-drug-conveyancing/*
+    - alpha-app-novel-drug-words/*
+    - alpha-app-prison-network-app/*
+    - alpha-app-prison-visitor-app/*
+    - alpha-app-anvil-access-tool/*
+    - alpha-app-intel-app-homepage/*
+
+notifications:
+  emails:
+    - matthew.funnell@justice.gov.uk
+  slack_channel: intel-app-maintenance
+
+maintainers:
+  - mattfunnell
+
+tags:
+  business_unit: HMPPS
+  owner: matthew.funnell@justice.gov.uk
