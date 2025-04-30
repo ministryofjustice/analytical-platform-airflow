@@ -7,9 +7,8 @@ iam:
   athena: write
   bedrock: true
   glue: true
-  s3:
-    write:
-      - alpha-justice-data-files/*
+  s3_read_write:
+    - alpha-justice-data-files/*
 
 maintainers:
   - beccaonos
