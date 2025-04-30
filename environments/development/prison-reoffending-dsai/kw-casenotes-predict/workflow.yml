@@ -1,0 +1,45 @@
+dag:
+  repository: moj-analytical-services/airflow-keyworker-casenotes-prediction
+  tag: v2.0.0
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 1
+  schedule: None
+  start_date: "2025-04-10"
+  tasks:
+    task:
+      compute_profile: "general-on-demand-64vcpu-256gb"
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - moj-reg-prod-curated/data-eng-uploader-prod/data/database_name=kw_ratings/*
+    - alpha-nomis/nomis_dn/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+    - alpha-kw-case-notes/KW_Quality/*
+
+  s3_read_write:
+    - alpha-keyworker-casenotes/*
+    - alpha-athena-dump/*
+    - alpha-athena-query-dump/*
+    - mojap-athena-query-dump/*
+
+notifications:
+  emails:
+    - roger.brown@justice.gov.uk
+    - laura.auburn@justice.gov.uk
+    - rob.mcnaughter@justice.gov.uk
+
+maintainers:
+  - rogerbrownmoj
+  - laura-auburn
+  - rob-mcnaughter
+
+tags:
+  business_unit: HMPPS
+  owner: laura.auburn@justice.gov.uk
