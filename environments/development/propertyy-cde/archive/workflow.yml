@@ -15,6 +15,7 @@ iam:
   athena: read
   s3_read_write:
     - mojap-land-dev/property/cde/*
+    - mojap-athena-query-dump/*
 
 tags:
   business_unit: Central Digital
