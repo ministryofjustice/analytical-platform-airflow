@@ -1,0 +1,24 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-antfmoj-python
+  tag: 0.0.3
+  compute_profile: gpu-spot-4vcpu-16gb
+  env_vars:
+    RUN: "write"
+    "TEXT": "Hello world"
+    "OUTPATH": f"s3://alpha-everyone/airflow-example/jhpyke/test.txt"
+    "AWS_METADATA_SERVICE_TIMEOUT": "60"
+    "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5"
+
+iam:
+  s3:
+    read_write:
+      - alpha-everyone/airflow-example/*
+
+maintainers:
+  - jacobwoffenden
+  - jhpyke
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
