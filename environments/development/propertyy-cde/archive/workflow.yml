@@ -1,0 +1,20 @@
+dag:
+  repository: moj-analytical-services/airflow-dmet-property
+  tag: v0.4.6
+  compute_profile: "general-on-demand-1vcpu-4gb"
+
+maintainers:
+  - jnayak-moj
+
+secrets:
+  - username
+  - password
+  - application-id
+
+iam:
+  s3_read_write:
+    - mojap-land-dev/property/cde/*
+
+tags:
+  business_unit: Central Digital
+  owner: jyotiranjan.nayak@justice.gov.uk
