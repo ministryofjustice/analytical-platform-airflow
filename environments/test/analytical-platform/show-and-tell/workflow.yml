@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-antfmoj-python
-  tag: 0.0.3
+  tag: v0.0.3
   compute_profile: gpu-spot-4vcpu-16gb
   env_vars:
     RUN: "write"
