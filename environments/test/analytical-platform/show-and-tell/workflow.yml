@@ -11,9 +11,9 @@ dag:
     "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5"
 
 iam:
-  s3:
-    read_write:
+  s3_read_write:
       - alpha-everyone/airflow-example/*
+  athena: write
 
 maintainers:
   - jacobwoffenden
