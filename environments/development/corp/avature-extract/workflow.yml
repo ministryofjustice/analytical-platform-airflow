@@ -3,7 +3,7 @@ dag:
   repository: moj-analytical-services/airflow-avature-scraper
   tag: 0.0.17
   env_vars:
-    action: 
+    action: extract-test
 
 iam:
   athena: write
