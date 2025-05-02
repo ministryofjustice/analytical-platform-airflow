@@ -1,0 +1,41 @@
+dag:
+  repository: moj-analytical-services/airflow-prison-visitor-app
+  tag: 1.2.4
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 1
+  retries: 3
+  retry_delay: 100
+  schedule: None
+  start_date: "2025-04-30"
+  tasks:
+    task:
+      compute_profile: "general-on-demand-1vcpu-4gb"
+
+iam:
+  athena: read
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - alpha-app-bentham-app/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+  s3_read_write:
+    - alpha-app-prison-visitor-app/*
+    - alpha-athena-dump/*
+    - alpha-athena-query-dump/*
+
+notifications:
+  emails:
+    - matthew.funnell@justice.gov.uk
+    - dean.lundie@justice.gov.uk
+  slack_channel: intel-app-maintenance
+
+maintainers:
+  - mattfunnell
+  - d-lundie
+
+tags:
+  business_unit: HMPPS
+  owner: matthew.funnell@justice.gov.uk
