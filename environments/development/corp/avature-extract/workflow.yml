@@ -15,8 +15,7 @@ iam:
     - alpha-recruitment-data-model/avature-iceberg/*
 
 secrets:
-  - service_account_token
-
+  - service-account-token
 
 notifications:
   slack_channel: dmet-corp-notifications
