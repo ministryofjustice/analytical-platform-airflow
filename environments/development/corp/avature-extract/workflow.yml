@@ -6,7 +6,6 @@ dag:
     action: extract-test
     WR_WORKGROUP: airflow-prod-workgroup-corp
     secrets_manager_path: /alpha/airflow/airflow_prod_avature_extract/secrets/
-    
 
 iam:
   athena: write
