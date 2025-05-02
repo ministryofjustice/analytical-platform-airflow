@@ -1,0 +1,30 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-avature-scraper
+  tag: v0.0.18-test-01
+  env_vars:
+    action: extract-test
+    WR_WORKGROUP: airflow-prod-workgroup-corp
+    secrets_manager_path: /alpha/airflow/airflow_prod_avature_extract/secrets/
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-corp-secrets/avature/*
+    - alpha-recruitment-data-model/avature-extracts/*
+    - alpha-recruitment-data-model/avature-iceberg/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - william.orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - ltd-pa
+
+tags:
+  business_unit: Central Digital
+  owner: Laurence.Droy@justice.gov.uk
