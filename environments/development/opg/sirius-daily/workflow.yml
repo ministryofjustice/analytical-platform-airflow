@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.2.0-test-1
+  tag: v3.2.0-test-2
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -12,10 +12,10 @@ dag:
   env_vars:
     DATABASE: "sirius"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: {tag}
+    GITHUB_TAG: { tag }
     ATHENA_DB_PREFIX: "opg"
     IAM_ROLE: "airflow_prod_opg_sirius"
-    START_DATE: {start_date}
+    START_DATE: { start_date }
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
@@ -66,9 +66,9 @@ iam:
     - mojap-athena-query-dump/*-airflow_dev_opg_sirius/*
 
   s3_read_only:
-      - mojap-land-dev/opg/sirius/*
-      - alpha-opg-etl/dev/nspl_reference/curated/*
-      - alpha-opg-mi-dashboard/working/*
+    - mojap-land-dev/opg/sirius/*
+    - alpha-opg-etl/dev/nspl_reference/curated/*
+    - alpha-opg-mi-dashboard/working/*
 
 maintainers:
   - p-sin
