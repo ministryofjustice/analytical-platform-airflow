@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-keyworker-casenotes-prediction
-  tag: v2.0.1
+  tag: v2.0.3
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
