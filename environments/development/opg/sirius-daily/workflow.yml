@@ -12,10 +12,10 @@ dag:
   env_vars:
     DATABASE: "sirius"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: {tag}
+    GITHUB_TAG: "v3.2.0-test-3"
     ATHENA_DB_PREFIX: "opg"
     IAM_ROLE: "airflow_prod_opg_sirius"
-    START_DATE: {start_date}
+    START_DATE: "2025-04-30"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
@@ -25,21 +25,11 @@ dag:
       env_vars:
         STEP: "to_land"
       compute_profile: "general-on-demand-1vcpu-4gb"
-    land_to_raw_init:
-      env_vars:
-        STEP: "land_to_raw"
-      compute_profile: "general-on-demand-1vcpu-4gb"
-      dependencies: [to_land]
     land_to_raw:
       env_vars:
         STEP: "land_to_raw"
       compute_profile: "general-on-demand-1vcpu-4gb"
-      dependencies: [land_to_raw_init]
-    land_to_raw_close:
-      env_vars:
-        STEP: "land_to_raw"
-      compute_profile: "general-on-demand-1vcpu-4gb"
-      dependencies: [land_to_raw]
+      dependencies: [to_land]
     raw_to_curated:
       env_vars:
         STEP: "raw_to_curated"
