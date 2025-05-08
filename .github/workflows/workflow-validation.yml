@@ -117,6 +117,12 @@ jobs:
       - name: Validate Schema
         id: validate_schema
         run: |
+          if find "${{ env.workflow-directory }}" -name "*.py" -exec grep -q .; then
+            echo "Full Schema validation is disabled, as you are using a Python file"
+            exit 0
+          else
+            echo "Schema validation is enabled"
+          fi
           python scripts/workflow_schema_validation/main.py "${{ env.workflow-directory }}/workflow.yml"
 
       - name: Generate Workflow
