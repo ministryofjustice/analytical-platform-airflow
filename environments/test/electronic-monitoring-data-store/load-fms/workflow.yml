@@ -14,6 +14,7 @@ dag:
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+    DELIVERY_DATE: "{{ dag_run.conf.get('date', data_interval_end.strftime('%Y-%m-%d')) }}"
 
 notifications:
   emails:
