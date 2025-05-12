@@ -118,10 +118,12 @@ jobs:
         id: validate_schema
         run: |
           if find "${{ env.workflow-directory }}" -name "*.py" -exec grep -q .; then
-            echo "Full Schema validation is disabled, as you are using a Python file"
+            echo "Full Schema/Workflow validation is disabled, as you are using a Python file"
+            echo "is-python-workflow=true" >>"${GITHUB_ENV}"
             exit 0
           else
             echo "Schema validation is enabled"
+            echo "is-python-workflow=false" >>"${GITHUB_ENV}"
           fi
           python scripts/workflow_schema_validation/main.py "${{ env.workflow-directory }}/workflow.yml"
 
@@ -191,6 +193,24 @@ jobs:
           export workflowDirectory
 
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
+      
+      - name: Comment on Python Non-Validation
+        id: comment_on_python_workflow
+        if: ${{ env.is-python-workflow == 'true' }} 
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Validation checks are disabled for Python workflows. Please ensure the image is built and pushed to ECR, and the tags match with the tags specified for your DAG.'
+            })
+      
+      - name: End python Validation
+        if: ${{ env.is-python-workflow == 'true' }} 
+        run: |
+          exit 0
 
       - name: Set ECR Repository
         id: set_ecr_repository
