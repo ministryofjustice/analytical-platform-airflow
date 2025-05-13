@@ -7,8 +7,8 @@ dag:
   compute_profile: general-spot-120vcpu-500gb
   env_vars:
     ORACLE_DSN: "rds.mojfin.laa-development.modernisation-platform.service.justice.gov.uk:1521/mojfin"
-    MOJAP_EXTRACTION_TS: RUN_TS
-    MOJAP_IMAGE_VERSION: IMAGE_VERSION
+    MOJAP_EXTRACTION_TS: 123456
+    MOJAP_IMAGE_VERSION: 0.1.1
     ORACLE_USER: "ANY_PLATFORM"
     TABLES: "ACCOUNTS"
     LANDING_FOLDER: "s3://mojap-land-dev/laa/mojfin/cis/raw"
@@ -20,9 +20,9 @@ iam:
   s3_read_write:
     - mojap-land-dev/laa/mojfin/*
 
-  secrets:
-    - username
-    - password
+secrets:
+  - username
+  - password
 
 notifications:
   emails:
