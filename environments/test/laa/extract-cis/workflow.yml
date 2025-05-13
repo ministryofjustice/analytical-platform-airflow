@@ -1,13 +1,13 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-laa-data-extractor
-  tag: 0.1.1
+  tag: 0.1.2
   retries: 3
   retry_delay: 150
   env_vars:
     ORACLE_DSN: "rds.mojfin.laa-development.modernisation-platform.service.justice.gov.uk:1521/mojfin"
-    MOJAP_EXTRACTION_TS: 123456
-    MOJAP_IMAGE_VERSION: 0.1.1
+    MOJAP_EXTRACTION_TS: "123456"
+    MOJAP_IMAGE_VERSION: "0.1.2"
     ORACLE_USER: "ANY_PLATFORM"
     TABLES: "ACCOUNTS"
     LANDING_FOLDER: "s3://mojap-land-dev/laa/mojfin/cis/raw"
