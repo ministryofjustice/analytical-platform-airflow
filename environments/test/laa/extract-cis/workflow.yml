@@ -4,7 +4,6 @@ dag:
   tag: 0.1.1
   retries: 3
   retry_delay: 150
-  compute_profile: general-spot-120vcpu-500gb
   env_vars:
     ORACLE_DSN: "rds.mojfin.laa-development.modernisation-platform.service.justice.gov.uk:1521/mojfin"
     MOJAP_EXTRACTION_TS: 123456
