@@ -4,7 +4,7 @@ dag:
   schedule: "30 6 * * *"
 
 maintainers:
-  - HCGK
+  - hcgk
   - yvette-justice
 
 notifications:
