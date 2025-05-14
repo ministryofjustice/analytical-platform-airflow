@@ -1,0 +1,21 @@
+dag:
+  repository: moj-analytical-services/probation-performance-extraction
+  tag: v0.0.10
+  schedule: "30 6 * * *"
+
+maintainers:
+  - hcgk
+  - yvette-justice
+
+notifications:
+  emails:
+    - henry.goldsack@justice.gov.uk
+
+tags:
+  business_unit: HQ
+  owner: communityperformanceenquiries@justice.gov.uk
+
+iam:
+  athena: read
+  s3_write_only:
+    - alpha_probation_performance_extraction/*
