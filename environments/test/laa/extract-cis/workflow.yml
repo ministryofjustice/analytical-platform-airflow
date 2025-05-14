@@ -10,16 +10,15 @@ dag:
     MOJAP_IMAGE_VERSION: "v0.1.2"
     LANDING_FOLDER: "s3://mojap-land-dev/laa/mojfin/cis/raw"
     METADATA_FOLDER: "s3://mojap-land-dev/laa/mojfin/cis/metadata"
-
-tasks:
-  extract-accounts:
-    env_vars:
-      ORACLE_USER: "ANY_PLATFORM"
-      TABLES: "ACCOUNTS"
-  extract-transactions:
-    env_vars:
-      ORACLE_USER: "ANY_PLATFORM"
-      TABLES: "TRANSACTIONS"
+  tasks:
+    extract-accounts:
+      env_vars:
+        ORACLE_USER: "ANY_PLATFORM"
+        TABLES: "ACCOUNTS"
+    extract-transactions:
+      env_vars:
+        ORACLE_USER: "ANY_PLATFORM"
+        TABLES: "TRANSACTIONS"
 
 iam:
   athena: write
