@@ -1,11 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-keyworker-casenote-monitoring
   tag: v2.0.9
-  catchup: false
-  depends_on_past: false
-  is_paused_upon_creation: false
-  max_active_runs: 1
-  schedule: None
   start_date: "2025-04-10"
   tasks:
     task:
