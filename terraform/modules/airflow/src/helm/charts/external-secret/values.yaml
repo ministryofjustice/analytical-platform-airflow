@@ -1,7 +1,7 @@
 ---
 secretName:
 secretStoreRefKind: SecretStore
-secretStoreRefName: analytical-platform-data-production
+secretStoreRefName: analytical-platform-data-production # checkov:skip=CKV_SECRET_6
 targetName:
 deletePolicy: Delete
 secretKey: data
