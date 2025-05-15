@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-anvil-access-tool
-  tag: 1.2.21
+  tag: 1.2.24
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
