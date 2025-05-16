@@ -5,6 +5,7 @@ dag:
 
 iam:
   athena: write
+  glue: true
   s3_read_write:
     - alpha-weekly-prison-pop-cap-publication-data/*
 
