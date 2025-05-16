@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-govuk-weekly-prison-stats-etl
-  tag: v0.1.5
+  tag: v0.1.7
 
 iam:
   athena: write
