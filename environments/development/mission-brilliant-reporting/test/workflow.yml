@@ -1,10 +1,14 @@
 ---
 dag:
   repository: moj-analytical-services/mbpr-test-airflow-pipeline
-  tag: v1.0.1
+  tag: v1.0.2
 
 maintainers:
   - scott-lowther
+
+iam:
+  s3_read_write:
+    - alpha-mission-brilliant-performance-reporting/*
 
 tags:
   business_unit: Central Digital
