@@ -80,6 +80,18 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
                 {
                     "ip": "10.168.5.4",
                     "hostnames": ["miadhoclandingprod.blob.core.windows.net"]
+                },
+                {
+                    "ip": "10.168.1.14",
+                    "hostnames": ["mi-synapse-dev.sql.azuresynapse.net"]
+                },
+                {
+                    "ip": "10.168.1.15",
+                    "hostnames": ["mi-synapse-dev.dev.azuresynapse.net"]
+                },
+                {
+                    "ip": "10.168.1.16",
+                    "hostnames": ["mi-synapse-dev-ondemand.sql.azuresynapse.net"]
                 }
             ]
 
