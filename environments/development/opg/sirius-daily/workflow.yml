@@ -9,12 +9,19 @@ dag:
   retry_delay: 150
   schedule: "00 05 * * *"
   start_date: "2025-04-30"
+  secrets:
+    - sra_key
+    - survey_key
+    - survey_key_secret
+    - poa_satisfaction_details_id
+    - poa_satisfaction_responses_id
+    - deputyship_satisfaction_details_id
+    - deputyship_satisfaction_responses_id
   env_vars:
     DATABASE: "sirius"
-    DATABASE_VERSION: "prod"
+    DATABASE_VERSION: "dev"
     GITHUB_TAG: "v3.2.0-test-3"
     ATHENA_DB_PREFIX: "opg"
-    IAM_ROLE: "airflow_prod_opg_sirius"
     START_DATE: "2025-04-30"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
