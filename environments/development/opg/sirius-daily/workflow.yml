@@ -18,16 +18,6 @@ dag:
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
-
-  secrets:
-    - sra_key
-    - survey_key
-    - survey_key_secret
-    - poa_satisfaction_details_id
-    - poa_satisfaction_responses_id
-    - deputyship_satisfaction_details_id
-    - deputyship_satisfaction_responses_id
-
   tasks:
     to_land:
       env_vars:
@@ -53,6 +43,15 @@ dag:
         STEP: "create_derived"
       compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [raw_to_curated, create_curated_database]
+
+secrets:
+  - sra-key
+  - survey-key
+  - survey-key-secret
+  - poa-satisfaction-details-id
+  - poa-satisfaction-responses-id
+  - deputyship-satisfaction-details-id
+  - deputyship-satisfaction-responses-id
 
 iam:
   athena: write
