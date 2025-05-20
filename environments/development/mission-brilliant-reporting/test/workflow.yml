@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/mbpr-test-airflow-pipeline
-  tag: v1.0.3
+  tag: v1.0.4
 
 maintainers:
   - scott-lowther
