@@ -1,14 +1,20 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: 0.0.5
+  tag: 0.0.6-test-02
   env_vars:
-    OUTPATH: "s3://alpha-everyone/airflow-example/wto_demo/"
-    URL: "https://sop.govsharedservices.gov.uk:4470/SplashBI/en_US/Login.html"
+    SITE: "splashbi"
+  tasks:
+    sip_daily:
+      env_vars:
+        REPORT: "sip"
+    leavers_daily:
+      env_vars:
+        REPORT: "leavers"
 
 iam:
   s3_read_write:
-    - alpha-everyone/airflow-example/wto_demo/*
+    - mojap-land-preprod/corporate/report_extractor/splashbi/*
 
 notifications:
   slack_channel: dmet-corp-notifications
