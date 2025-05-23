@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: 0.0.6-test-04
+  tag: 0.0.6-test-05
   env_vars:
     SITE: "splashbi"
   tasks:
@@ -15,6 +15,10 @@ dag:
 iam:
   s3_read_write:
     - mojap-land-preprod/corporate/report_extractor/splashbi/*
+
+secrets:
+  - splashbi-username
+  - splashbi-password
 
 notifications:
   slack_channel: dmet-corp-notifications
