@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.2.0-test-7
+  tag: v3.2.0-test-8
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -12,7 +12,7 @@ dag:
   env_vars:
     DATABASE: "sirius"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.2.0-test-7"
+    GITHUB_TAG: "v3.2.0-test-8"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-05-20"
     AWS_DEFAULT_REGION: "eu-west-1"
