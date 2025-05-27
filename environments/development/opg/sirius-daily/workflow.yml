@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.2.0-test-5
+  tag: v3.2.0-test-6
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -12,7 +12,7 @@ dag:
   env_vars:
     DATABASE: "sirius"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.2.0-test-5"
+    GITHUB_TAG: "v3.2.0-test-6"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-05-20"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -43,15 +43,6 @@ dag:
         STEP: "create_derived"
       compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [raw_to_curated, create_curated_database]
-
-secrets:
-  - sra-key
-  - survey-key
-  - survey-key-secret
-  - poa-satisfaction-details-id
-  - poa-satisfaction-responses-id
-  - deputyship-satisfaction-details-id
-  - deputyship-satisfaction-responses-id
 
 iam:
   athena: write
