@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: 0.0.6-test-06
+  tag: 0.0.6-test-07
   env_vars:
     SITE: "splashbi"
   tasks:
