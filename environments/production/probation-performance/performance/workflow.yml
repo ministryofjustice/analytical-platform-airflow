@@ -18,4 +18,4 @@ tags:
 iam:
   athena: read
   s3_write_only:
-    - alpha_probation_performance_extraction/*
+    - alpha-probation-performance-extracts/*
