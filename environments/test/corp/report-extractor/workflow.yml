@@ -1,13 +1,11 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: 0.0.6-test-07
+  tag: 0.0.6-test-08
+  schedule: "30 7 * * 1-5"
   env_vars:
     SITE: "splashbi"
   tasks:
-    sip_daily:
-      env_vars:
-        REPORT: "sip"
     leavers_daily:
       env_vars:
         REPORT: "leavers"
