@@ -55,6 +55,7 @@ iam:
 
   s3_read_only:
     - mojap-land-dev/opg/sirius/*
+    - mojap-land/opg/sirius/*
     - alpha-opg-etl/dev/nspl_reference/curated/*
     - alpha-opg-mi-dashboard/working/*
 
