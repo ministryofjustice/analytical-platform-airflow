@@ -1,20 +1,20 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.2.0-test-16
+  tag: v3.2.0-test-17
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 4
   retries: 1
   retry_delay: 150
-  start_date: "2025-05-20"
+  start_date: "2025-05-28"
   schedule: None
   env_vars:
     DATABASE: "sirius"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.2.0-test-7"
+    GITHUB_TAG: "v3.2.0-test-17"
     ATHENA_DB_PREFIX: "opg"
-    START_DATE: "2025-05-20"
+    START_DATE: "2025-05-28"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
