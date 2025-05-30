@@ -8,9 +8,8 @@ dag:
   schedule: None
   max_active_runs: 1
   env_vars:
-    SUPPLIER_NAME: "serco"
-    SYSTEM_NAME: "fms"
-    REFRESH_TOTAL_DB: true
+    SUPPLIER_NAME: "allied"
+    SYSTEM_NAME: "mdss"
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
@@ -21,7 +20,7 @@ notifications:
   slack_channel: em-engineers-moj-madetech
 
 iam:
-  external_role: arn:aws:iam::443370694497:role/airflow-prod-load-mdss
+  external_role: arn:aws:iam::443370694497:role/airflow-prod-load-mdss-pp
 
 maintainers:
   - matt-heery
