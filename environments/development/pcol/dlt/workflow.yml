@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/pcol-pipeline
   tag: v0.0.8
-  retries: 0
+  retries: 1
   retry_delay: 60
   env_vars:
     AWS_METADATA_SERVICE_TIMEOUT: "60"
@@ -18,7 +18,6 @@ dag:
     process-v3-cgi-pcol-claim-event:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-claim-event"
-      compute_profile: general-on-demand-4vcpu-16gb
 
     process-v3-cgi-pcol-claim-order:
       env_vars:
@@ -27,7 +26,6 @@ dag:
     process-v3-cgi-pcol-claim-particulars:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-claim-particulars"
-      compute_profile: general-on-demand-4vcpu-16gb
 
     process-v3-cgi-pcol-claim-party:
       env_vars:
@@ -96,7 +94,6 @@ dag:
     process-v3-cgi-pcol-payment-history:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-payment-history"
-      compute_profile: general-on-demand-4vcpu-16gb
 
     process-v3-cgi-pcol-payment-record:
       env_vars:
@@ -143,7 +140,6 @@ iam:
 notifications:
   emails:
     - Murad.Ali@justice.gov.uk
-    - Oliver.Critchfield@justice.gov.uk
 
 maintainers:
   - murad-ali-moj
