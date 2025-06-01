@@ -1,13 +1,13 @@
 dag:
   repository: moj-analytical-services/pcol-pipeline
-  tag: v0.0.7
+  tag: v0.0.8
   retries: 0
   retry_delay: 60
   env_vars:
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
     AWS_DEFAULT_REGION: "eu-west-1"
-    MOJAP_IMAGE_VERSION: "v0.0.7"
+    MOJAP_IMAGE_VERSION: "v0.0.8"
     MOJAP_ROLE: "airflow_dev_xhibit_dlt"
 
   tasks:
