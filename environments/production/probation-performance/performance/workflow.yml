@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/probation-performance-extraction
-  tag: v0.0.10
+  tag: v0.0.12
   schedule: "30 6 * * *"
 
 maintainers:
@@ -18,4 +18,4 @@ tags:
 iam:
   athena: read
   s3_write_only:
-    - alpha_probation_performance_extraction/*
+    - alpha-probation-performance-extracts/*
