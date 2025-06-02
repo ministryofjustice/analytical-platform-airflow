@@ -1,7 +1,9 @@
 ---
 dag:
-  repository: moj-analytical-services/mbpr-test-airflow-pipeline
-  tag: v1.0.8
+  repository: moj-analytical-services/mbpr-airflow-pipelines
+  tag: v1.0.9
+  env_vars:
+    MODE: "opg-usat"
 
 maintainers:
   - scott-lowther
