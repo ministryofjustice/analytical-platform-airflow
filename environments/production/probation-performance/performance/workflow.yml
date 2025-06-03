@@ -16,6 +16,6 @@ tags:
   owner: communityperformanceenquiries@justice.gov.uk
 
 iam:
-  athena: read
+  athena: write
   s3_write_only:
     - alpha-probation-performance-extracts/*
