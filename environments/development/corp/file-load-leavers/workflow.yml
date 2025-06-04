@@ -1,0 +1,32 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: 0.0.12-alpha
+  env_vars:
+    AFFILE_PIPELINE_NAME: "all-time-wf59-leavers"
+    AFFILE_ENV: "dev"
+    AFFILE_SCHEMA_CONTRACT: "freeze"
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+
+iam:
+  s3_read_write:
+    - mojap-land-preprod/corporate/report_extractor/splashbi/leavers_daily/data/*
+    - mojap-processed/corporate/sop/dev/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - ltd-pa
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: Laurence.Droy@justice.gov.uk
