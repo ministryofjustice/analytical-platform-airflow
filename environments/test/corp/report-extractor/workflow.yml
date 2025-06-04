@@ -12,6 +12,9 @@ dag:
     sickness_daily:
       env_vars:
         REPORT: "sickness"
+    starters_daily:
+      env_vars:
+        REPORT: "starters"
 
 iam:
   s3_read_write:
