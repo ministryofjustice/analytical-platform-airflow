@@ -1,0 +1,20 @@
+---
+dag:
+  repository: moj-analytical-services/mbpr-airflow-pipelines
+  tag: v1.0.9
+  env_vars:
+    MODE: "smart-survey"
+
+maintainers:
+  - scott-lowther
+
+iam:
+  s3_read_write:
+    - alpha-mission-brilliant-performance-reporting/*
+
+secrets:
+  - api-auth
+
+tags:
+  business_unit: Central Digital
+  owner: scott.lowther@justice.gov.uk
