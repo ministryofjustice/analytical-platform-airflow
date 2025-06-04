@@ -3,6 +3,18 @@ dag:
   tag: v0.0.13
   schedule: "30 6 * * *"
 
+iam:
+  athena: write
+
+  s3_write_only:
+    - alpha-probation-performance-extracts/*
+
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius_dim/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius_stg/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius/*
+
 maintainers:
   - hcgk
   - yvette-justice
@@ -14,8 +26,3 @@ notifications:
 tags:
   business_unit: HQ
   owner: communityperformanceenquiries@justice.gov.uk
-
-iam:
-  athena: write
-  s3_write_only:
-    - alpha-probation-performance-extracts/*
