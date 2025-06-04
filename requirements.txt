@@ -1,4 +1,4 @@
---requirement "https://raw.githubusercontent.com/ministryofjustice/modernisation-platform-environments/main/terraform/environments/analytical-platform-compute/src/airflow/requirements.txt"
+--requirement "https://raw.githubusercontent.com/ministryofjustice/modernisation-platform-environments/refs/heads/main/terraform/environments/analytical-platform-compute/airflow/src/airflow/requirements.txt"
 autopep8==2.3.2
 black==24.10.0
 cerberus==1.3.7
