@@ -13,7 +13,7 @@ iam:
     - alpha-mission-brilliant-performance-reporting/*
 
 secrets:
-  - smart-survey-api-auth
+  - api-auth
 
 tags:
   business_unit: Central Digital
