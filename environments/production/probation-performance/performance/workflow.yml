@@ -14,6 +14,7 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius_dim/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius_stg/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius/*
+    - mojap-derived-tables/prod/models/domain_name=general/database_name=common_lookup/*
 
 maintainers:
   - hcgk
