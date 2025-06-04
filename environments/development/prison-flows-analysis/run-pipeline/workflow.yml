@@ -1,0 +1,10 @@
+dag:
+  repository: moj-analytical-services/prison-flows-analysis
+  tag: v0.4.0.dev3
+
+maintainers:
+  - antonyjscott
+
+tags:
+  business_unit: HQ
+  owner: antony.scott@justice.gov.uk
