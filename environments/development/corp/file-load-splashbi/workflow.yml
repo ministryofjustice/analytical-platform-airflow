@@ -1,0 +1,61 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: v0.0.15-alpha
+  env_vars:
+    AFFILE_ENV: "dev"
+    AFFILE_SCHEMA_CONTRACT: "freeze"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+  compute_profile: cpu-general-1vcpu-8gb
+  tasks:
+    leavers:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all-time-wf59-leavers"
+    sickness:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all-time-wf60-sickness"
+      dependencies: [leavers]
+      trigger_rule: all_done
+    sip:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "snapshots-wf62-sip"
+      dependencies: [sickness]
+      trigger_rule: all_done
+    starters:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all-time-wf64-starters"
+      dependencies: [sip]
+      trigger_rule: all_done
+    nonsickabsence:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "snapshots-hra04-non-sickness-absence"
+      dependencies: [starters]
+      trigger_rule: all_done
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-preprod/corporate/report_extractor/splashbi/*
+    - mojap-processed/corporate/sop/dev/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - ltd-pa
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: Laurence.Droy@justice.gov.uk
