@@ -51,7 +51,7 @@ iam:
     - mojap-land-dev/opg/dev/sirius/*
     - mojap-raw/opg/dev/sirius/*
     - alpha-opg-etl/dev/sirius/*
-    - mojap-athena-query-dump/*-airflow-development-opg-sirius-daily/*
+    - mojap-athena-query-dump/*airflow-development-opg-sirius-daily/*
 
   s3_read_only:
     - mojap-land-dev/opg/sirius/*
