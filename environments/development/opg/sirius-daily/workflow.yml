@@ -12,7 +12,7 @@ dag:
   env_vars:
     DATABASE: "sirius"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.2.0-test-17"
+    GITHUB_TAG: "v3.2.0-test-26"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-05-28"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -51,7 +51,7 @@ iam:
     - mojap-land-dev/opg/dev/sirius/*
     - mojap-raw/opg/dev/sirius/*
     - alpha-opg-etl/dev/sirius/*
-    - mojap-athena-query-dump/*-airflow_dev_opg_sirius/*
+    - mojap-athena-query-dump/*-airflow-development-opg-sirius-daily/*
 
   s3_read_only:
     - mojap-land-dev/opg/sirius/*
