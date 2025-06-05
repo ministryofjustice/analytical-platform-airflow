@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.12-alpha
+  tag: v0.0.14-alpha
   env_vars:
     AFFILE_PIPELINE_NAME: "all-time-wf59-leavers"
     AFFILE_ENV: "dev"
