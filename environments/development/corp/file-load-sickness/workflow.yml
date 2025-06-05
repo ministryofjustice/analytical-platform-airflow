@@ -12,6 +12,7 @@ dag:
   catchup: false
   max_active_runs: 1
   retries: 0
+  compute_profile: cpu-general-1vcpu-8gb
 
 iam:
   athena: write
