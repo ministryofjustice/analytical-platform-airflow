@@ -6,11 +6,16 @@ dag:
     AFFILE_PIPELINE_NAME: "all-time-wf59-leavers"
     AFFILE_ENV: "dev"
     AFFILE_SCHEMA_CONTRACT: "freeze"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
   catchup: false
   max_active_runs: 1
   retries: 0
 
 iam:
+  athena: write
+  glue: true
   s3_read_write:
     - mojap-land-preprod/corporate/report_extractor/splashbi/leavers_daily/data/*
     - mojap-processed/corporate/sop/dev/*
