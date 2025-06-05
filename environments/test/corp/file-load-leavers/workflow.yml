@@ -14,7 +14,6 @@ dag:
   max_active_runs: 1
   retries: 0
 
-
 iam:
   athena: write
   glue: true
