@@ -18,7 +18,6 @@ dag:
     sip_daily:
       env_vars:
         REPORT: "sip"
-        
 
 iam:
   s3_read_write:
