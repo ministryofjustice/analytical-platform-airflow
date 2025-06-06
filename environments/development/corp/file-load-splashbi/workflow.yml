@@ -3,7 +3,6 @@ dag:
   repository: moj-analytical-services/airflow-file
   tag: v0.0.15-alpha
   env_vars:
-    AFFILE_PIPELINE_NAME: "all-time-wf60-sickness"
     AFFILE_ENV: "dev"
     AFFILE_SCHEMA_CONTRACT: "freeze"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -13,12 +12,28 @@ dag:
   max_active_runs: 1
   retries: 0
   compute_profile: general-on-demand-2vcpu-8gb
+  tasks:
+    leavers:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all-time-wf59-leavers"
+    sickness:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all-time-wf60-sickness"
+    sip:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "snapshots-wf62-sip"
+    starters:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all-time-wf64-starters"
+    nonsickabsence:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "snapshots-hra04-non-sickness-absence"
 
 iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-land-preprod/corporate/report_extractor/splashbi/sickness_daily/data/*
+    - mojap-land-preprod/corporate/report_extractor/splashbi/*
     - mojap-processed/corporate/sop/dev/*
 
 notifications:
