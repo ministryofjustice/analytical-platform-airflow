@@ -1,0 +1,37 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: v0.0.15-alpha
+  env_vars:
+    AFFILE_PIPELINE_NAME: "snapshots-hra04-non-sickness-absence"
+    AFFILE_ENV: "dev"
+    AFFILE_SCHEMA_CONTRACT: "freeze"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-preprod/corporate/report_extractor/splashbi/absence_nonsick_daily/data/*
+    - mojap-processed/corporate/sop/dev/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - ltd-pa
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: Laurence.Droy@justice.gov.uk
