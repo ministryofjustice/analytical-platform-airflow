@@ -19,23 +19,15 @@ dag:
     sickness:
       env_vars:
         AFFILE_PIPELINE_NAME: "all-time-wf60-sickness"
-      dependencies: [leavers]
-      trigger_rule: all_done
     sip:
       env_vars:
         AFFILE_PIPELINE_NAME: "snapshots-wf62-sip"
-      dependencies: [sickness]
-      trigger_rule: all_done
     starters:
       env_vars:
         AFFILE_PIPELINE_NAME: "all-time-wf64-starters"
-      dependencies: [sip]
-      trigger_rule: all_done
     nonsickabsence:
       env_vars:
         AFFILE_PIPELINE_NAME: "snapshots-hra04-non-sickness-absence"
-      dependencies: [starters]
-      trigger_rule: all_done
 
 iam:
   athena: write
