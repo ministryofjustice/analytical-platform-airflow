@@ -13,4 +13,4 @@ jobs:
     name: Dependency Review
     permissions:
       contents: read
-    uses: ministryofjustice/analytical-platform-github-actions/.github/workflows/reusable-dependency-review.yml@319361378084213c1d2495e562c580bc8d2f8b62 # v2.9.0
+    uses: ministryofjustice/analytical-platform-github-actions/.github/workflows/reusable-dependency-review.yml@8b6e720fdc9ecc1fd16342f88d84496ebdd6b244 # v3.0.0
