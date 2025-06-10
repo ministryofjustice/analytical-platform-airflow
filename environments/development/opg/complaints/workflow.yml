@@ -7,14 +7,14 @@ dag:
   max_active_runs: 4
   retries: 1
   retry_delay: 150
-  start_date: "2025-06-10"
+  start_date: "2022-05-11"
   schedule: None
   env_vars:
     DATABASE: "sirius"
     DATABASE_VERSION: "dev"
     GITHUB_TAG: "v3.2.0-test-28"
     ATHENA_DB_PREFIX: "opg"
-    START_DATE: "2025-06-10"
+    START_DATE: "2022-05-11"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
@@ -22,27 +22,26 @@ dag:
     to_land:
       env_vars:
         STEP: "to_land"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-    land_to_raw:
+      compute_profile: "general-on-demand-1vcpu-4gb"
+    land_to_raw_hist:
       env_vars:
-        STEP: "land_to_raw"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [to_land]
-    raw_to_curated:
+        STEP: "land_to_raw_hist"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+    raw_hist_to_processed:
       env_vars:
-        STEP: "raw_to_curated"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [land_to_raw]
+        STEP: "raw_hist_to_processed"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [land_to_raw_hist]
+    processed_to_curated:
+      env_vars:
+        STEP: "processed_to_curated"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [raw_hist_to_processed]
     create_curated_database:
       env_vars:
         STEP: "create_curated_database"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [raw_to_curated]
-    create_derived:
-      env_vars:
-        STEP: "create_derived"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [raw_to_curated, create_curated_database]
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [processed_to_curated]
 
 iam:
   athena: write
