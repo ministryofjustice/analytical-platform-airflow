@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/prison-flows-analysis
-  tag: v0.4.0.dev18
+  tag: v0.4.0.dev19
 
 maintainers:
   - antonyjscott
