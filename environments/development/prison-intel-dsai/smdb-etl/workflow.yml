@@ -1,0 +1,39 @@
+dag:
+  repository: moj-analytical-services/airflow_smdb_etl
+  tag: 1.0.1
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 1
+  retries: 3
+  retry_delay: 100
+  schedule: None
+  start_date: "2025-06-01"
+  tasks:
+    task:
+      compute_profile: "general-on-demand-16vcpu-64gb"
+
+iam:
+  athena: write
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+  s3_read_write:
+    - alpha-app-bentham-app/raw_excel_files/*
+    - alpha-app-bentham-app/data/*
+    - alpha-athena-dump/*
+    - alpha-athena-query-dump/*
+
+notifications:
+  emails:
+    - christodoulos.foufoulides@justice.gov.uk
+    - matthew.funnell@justice.gov.uk
+  slack_channel: intel-app-maintenance
+
+maintainers:
+  - foufoulides
+  - mattfunnell
+
+tags:
+  business_unit: HMPPS
+  owner: christodoulos.foufoulides@justice.gov.uk
