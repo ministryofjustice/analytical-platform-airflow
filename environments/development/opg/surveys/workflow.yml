@@ -1,0 +1,81 @@
+dag:
+  repository: moj-analytical-services/airflow-opg-etl
+  tag: v3.2.0-test-29
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 4
+  retries: 1
+  retry_delay: 150
+  start_date: "2025-06-17"
+  schedule: None
+  env_vars:
+    DATABASE: "surveys"
+    DATABASE_VERSION: "dev"
+    GITHUB_TAG: "v3.2.0-test-29"
+    ATHENA_DB_PREFIX: "opg"
+    START_DATE: "2025-06-17"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_METADATA_SERVICE_TIMEOUT: "60"
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
+  tasks:
+    to_land:
+      env_vars:
+        STEP: "to_land"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+    land_to_raw_hist:
+      env_vars:
+        STEP: "land_to_raw_hist"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+      dependencies: [to_land]
+    raw_hist_to_processed:
+      env_vars:
+        STEP: "raw_hist_to_processed"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+      dependencies: [land_to_raw_hist]
+    processed_to_curated:
+      env_vars:
+        STEP: "processed_to_curated"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+      dependencies: [raw_hist_to_processed]
+    create_db:
+      env_vars:
+        STEP: "create_db"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+      dependencies: [processed_to_curated]
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land/opg/dev/surveys/*
+    - mojap-raw-hist/opg/dev/surveys/*
+    - mojap-processed/opg/dev/surveys/*
+    - alpha-opg-etl/dev/surveys/*
+    - mojap-athena-query-dump/*airflow-development-opg-surveys/*
+
+  s3_read_only:
+    - alpha-opg-etl/dev/nspl_reference/curated/*
+    - alpha-opg-mi-dashboard/working/*
+
+secrets:
+  - api-key
+  - api-key-secret
+  - poa_satisfaction_details_id
+  - poa_satisfaction_responses_id
+  - deputyship_satisfaction_details_id
+  - deputyship_satisfaction_responses_id
+
+
+maintainers:
+  - p-sin
+  - gwionap
+
+tags:
+  business_unit: OPG
+  owner: philip.sinfield@justice.gov.uk
+
+notifications:
+  emails:
+    - philip.sinfield@justice.gov.uk
+  slack_channel: opg-deds
