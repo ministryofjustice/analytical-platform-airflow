@@ -11,6 +11,7 @@ dag:
   schedule: None
   env_vars:
     DATABASE: "investigations"
+    PIPELINE_NAME": "investigations"
     DATABASE_VERSION: "dev"
     GITHUB_TAG: "v3.2.0-test-29"
     ATHENA_DB_PREFIX: "opg"
