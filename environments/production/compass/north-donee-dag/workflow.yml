@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/north-donee-dag
-  tag: v1.0.4
+  tag: v1.0.6
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
