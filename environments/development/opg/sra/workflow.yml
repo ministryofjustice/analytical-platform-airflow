@@ -52,7 +52,7 @@ iam:
     - mojap-raw-hist/opg/dev/sra/*
     - mojap-processed/opg/dev/sra/*
     - alpha-opg-etl/dev/sra/*
-    - mojap-athena-query-dump/*airflow-development-opg-sirius-daily/*
+    - mojap-athena-query-dump/*airflow-development-opg-sra/*
 
   s3_read_only:
     - alpha-opg-etl/dev/nspl_reference/curated/*
