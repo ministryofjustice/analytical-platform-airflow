@@ -1,0 +1,70 @@
+dag:
+  repository: moj-analytical-services/airflow-opg-etl
+  tag: v3.2.0-test-29
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 4
+  retries: 1
+  retry_delay: 150
+  start_date: "2025-06-17"
+  schedule: None
+  env_vars:
+    DATABASE: "investigations"
+    DATABASE_VERSION: "dev"
+    GITHUB_TAG: "v3.2.0-test-29"
+    ATHENA_DB_PREFIX: "opg"
+    START_DATE: "2025-06-17"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_METADATA_SERVICE_TIMEOUT: "60"
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
+  tasks:
+    to_land:
+      env_vars:
+        STEP: "to_land"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+    land_to_raw:
+      env_vars:
+        STEP: "land_to_raw_hist"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+      dependencies: [to_land]
+    raw_to_curated:
+      env_vars:
+        STEP: "raw_hist_to_processed"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+      dependencies: [land_to_raw_hist]
+    create_curated_database:
+      env_vars:
+        STEP: "processed_to_curated"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+      dependencies: [raw_hist_to_processed]
+    create_derived:
+      env_vars:
+        STEP: "create_curated_database"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+      dependencies: [processed_to_curated]
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-opg-etl/dev/investigations/*
+    - mojap-athena-query-dump/*airflow-development-opg-investigations/*
+
+  s3_read_only:
+    - alpha-opg-investigations/*
+    - alpha-opg-etl/dev/nspl_reference/curated/*
+    - alpha-opg-mi-dashboard/working/*
+
+maintainers:
+  - p-sin
+  - gwionap
+
+tags:
+  business_unit: OPG
+  owner: philip.sinfield@justice.gov.uk
+
+notifications:
+  emails:
+    - philip.sinfield@justice.gov.uk
+  slack_channel: opg-deds
