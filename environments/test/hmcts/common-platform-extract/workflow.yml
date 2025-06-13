@@ -36,6 +36,9 @@ iam:
     - alpha-mojap-common-platform/*
     - alpha-mojap-ccd/*
 
+secrets:
+  - SDP_PASS
+
 maintainers:
   - Andy-Cook
 
