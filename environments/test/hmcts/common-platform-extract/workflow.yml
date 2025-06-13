@@ -20,6 +20,12 @@ dag:
     LAND_FOLDER: "hmcts/common-platform/dev/dev_sdp_v3"
     HIST_FOLDER: "hmcts/common-platform/dev/dev_sdp_v3"
     CUT_OFF: "2022-08-21"
+  tasks:
+    cp_extract_allocated_listings:
+      env_vars:
+        TABLE_NAME: "allocated-listings"
+        S3_TABLE_NAME: "allocated_listings"
+        FILENAME_TABLE_NAME: "allocated_listings"
 
 maintainers:
   - Andy-Cook
