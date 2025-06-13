@@ -17,8 +17,8 @@ dag:
     DATABASE_NAME: "common_platform_dev_pp"
     LAND_BUCKET: "s3://mojap-land-dev"
     HIST_BUCKET: "s3://mojap-raw-hist-dev"
-    LAND_FOLDER: "hmcts/common-platform/dev/dev_sdp_v3"
-    HIST_FOLDER: "hmcts/common-platform/dev/dev_sdp_v3"
+    LAND_FOLDER: "hmcts/dev/common-platform/dev_sdp_v3"
+    HIST_FOLDER: "hmcts/dev/common-platform/dev_sdp_v3"
     CUT_OFF: "2022-08-21"
   tasks:
     cp_extract_allocated_listings:
