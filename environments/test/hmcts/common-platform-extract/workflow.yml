@@ -1,0 +1,10 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v3.0.0beta
+
+maintainers:
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
