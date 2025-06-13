@@ -27,6 +27,15 @@ dag:
         S3_TABLE_NAME: "allocated_listings"
         FILENAME_TABLE_NAME: "allocated_listings"
 
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land/hmcts/common-platform/*
+    - mojap-raw-hist/hmcts/common-platform/*
+  s3_read_only:
+    - alpha-mojap-common-platform/*
+    - alpha-mojap-ccd/*
+
 maintainers:
   - Andy-Cook
 
