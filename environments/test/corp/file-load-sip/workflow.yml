@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.15-alpha
+  tag: v0.0.16-alpha
   schedule: "30 8 * * 1-5"
   env_vars:
     AFFILE_PIPELINE_NAME: "snapshots-wf62-sip"
