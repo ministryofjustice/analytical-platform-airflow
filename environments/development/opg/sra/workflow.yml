@@ -13,7 +13,7 @@ dag:
     DATABASE: "sra"
     PIPELINE_NAME: "sra"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.2.0-test-30"
+    GITHUB_TAG: "v3.2.0-test-29"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-06-17"
     AWS_DEFAULT_REGION: "eu-west-1"
