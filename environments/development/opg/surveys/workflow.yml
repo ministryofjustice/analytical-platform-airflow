@@ -61,10 +61,8 @@ iam:
 secrets:
   - api-key
   - api-key-secret
-  - poa-satisfaction-details-id
-  - poa-satisfaction-responses-id
-  - deputyship-satisfaction-details-id
-  - deputyship-satisfaction-responses-id
+  - poa-satisfaction-id
+  - deputyship-satisfaction-id
 
 maintainers:
   - p-sin
