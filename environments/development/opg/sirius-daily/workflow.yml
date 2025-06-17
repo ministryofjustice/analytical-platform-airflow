@@ -11,7 +11,7 @@ dag:
   schedule: None
   env_vars:
     DATABASE: "sirius"
-    PIPELINE_NAME: "sirius-daily"
+    PIPELINE_NAME: "sirius"
     DATABASE_VERSION: "dev"
     GITHUB_TAG: "v3.2.0-test-29"
     ATHENA_DB_PREFIX: "opg"
