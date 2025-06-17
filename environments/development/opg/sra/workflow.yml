@@ -13,7 +13,7 @@ dag:
     DATABASE: "sra"
     PIPELINE_NAME: "sra"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.2.0-test-29"
+    GITHUB_TAG: "v3.2.0-test-30"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-06-17"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -48,7 +48,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-land-dev/opg/dev/sra/*
+    - mojap-land/opg/dev/sra/*
     - mojap-raw-hist/opg/dev/sra/*
     - mojap-processed/opg/dev/sra/*
     - alpha-opg-etl/dev/sra/*
