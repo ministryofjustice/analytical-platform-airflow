@@ -7,7 +7,7 @@ dag:
   max_active_runs: 4
   retries: 1
   retry_delay: 150
-  start_date: "2025-06-10"
+  start_date: "2025-06-17"
   schedule: None
   env_vars:
     DATABASE: "sirius"
@@ -15,7 +15,7 @@ dag:
     DATABASE_VERSION: "dev"
     GITHUB_TAG: "v3.2.0-test-29"
     ATHENA_DB_PREFIX: "opg"
-    START_DATE: "2025-06-10"
+    START_DATE: "2025-06-17"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
