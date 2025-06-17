@@ -1,0 +1,97 @@
+from datetime import datetime
+
+from airflow.models import DAG
+from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import (
+    KubernetesPodOperator,
+)
+from imports.high_memory_constants import tolerations, affinity
+
+# It is good practice to define the image tag and repo name
+# as constants in your script. And then derive the full IMAGE name below.
+# This avoids making typos on the part of the IMAGE that will most likely
+# not change.
+
+IMAGE_TAG = "v4.9"
+
+REPO_NAME = "airflow-cf-misconduct"
+IMAGE = f"189157455002.dkr.ecr.eu-west-1.amazonaws.com/{REPO_NAME}:{IMAGE_TAG}"
+
+ROLE = "airflow_dev_cf_misconduct"
+SERVICE_ACCOUNT_NAME = ROLE.replace("_", "-")
+
+# For tips/advice on the default args see the use_dummy_operator.py example
+ds_team_email_list = ['jhenielle.francis@justice.gov.uk']
+default_args = {
+    # Normally you want to set this to False.
+    "depends_on_past": False,
+    "email_on_failure": True,
+    "owner": "jhenfrancis",
+    "email": ds_team_email_list,
+}
+
+dag = DAG(
+    # Name of the dag (how it will appear on the Airflow UI)
+    # We use the naming convention: <folder_name>.<filename>
+    dag_id="cf_misconduct.cf_misconduct_predictions",
+    default_args=default_args,
+    description="A Kubernetes DAG with high memory node",
+    # Requires a start_date as a datetime object. This will be when the
+    # DAG will start running from. DO NOT use datetime.now().
+    start_date=datetime(2022, 1, 1),
+    # How often should I run the dag. If set to None your dag
+    # will only run when manually triggered.
+    schedule_interval=None,
+)
+
+
+def create_kubernetes_pod_operator(
+        task_id_name,
+        py_file):
+    """
+    Creates a KubernetesPodOperator task in Airflow to execute a Python script inside a Kubernetes pod.
+
+    Args:
+        task_id_name (str): The name of the task in Airflow.
+        py_file (str): The Python script filename (without the path).
+
+    Returns:
+        KubernetesPodOperator: An Airflow operator to run the script in a Kubernetes pod.
+    """
+
+    return KubernetesPodOperator(
+        dag=dag,
+        image=IMAGE,
+        name=task_id_name,
+        env_vars={
+            "AWS_METADATA_SERVICE_TIMEOUT": "60",
+            "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
+            "AWS_DEFAULT_REGION": "eu-west-1",
+            "AWS_ATHENA_QUERY_REGION": "eu-west-1",
+            "PYTHON_SCRIPT_NAME": py_file
+        },
+        in_cluster=False,
+        task_id=task_id_name,
+        get_logs=True,
+        is_delete_operator_pod=True,
+        namespace="airflow",
+        cluster_context="analytical-platform-compute-test",
+        config_file="/usr/local/airflow/dags/.kube/config",
+        service_account_name=SERVICE_ACCOUNT_NAME,
+        security_context={
+            "runAsNonRoot": True,
+            "runAsUser": 1000,
+            "allowPrivilegeEscalation": False,
+            "privileged": False,
+        },
+        startup_timeout_seconds=600,
+        tolerations=tolerations,
+        affinity=affinity
+    )
+
+
+task_id = "evidently-reports"
+task = create_kubernetes_pod_operator(
+    task_id_name=task_id,
+    py_file="testevidently.py")
+
+task
