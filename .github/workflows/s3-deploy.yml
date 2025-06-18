@@ -8,6 +8,10 @@ on:
     paths:
       - airflow/**
       - environments/**
+  # DEBUG
+  pull_request:
+    branches:
+      - main
 
 permissions: {}
 
@@ -24,7 +28,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [development, test, production]
+        # environment: [development, test, production]
+        environment: [development]
         include:
           - environment: development
             account: 381491960855
