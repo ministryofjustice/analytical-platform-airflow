@@ -379,6 +379,13 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials
+        uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::509399598587:role/analytical-platform-github-actions
+
       - name: Set Up UV
         id: setup_uv
         uses: astral-sh/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb # v6.1.0
@@ -454,6 +461,14 @@ jobs:
             fi
           done
 
+          # Check automatic approval status in DynamoDB
+          automatic_approval_dynamodb_status=$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)
+
+          if [[ "${automatic_approval_dynamodb_status}" != "active" ]]; then
+            echo "Automatic approval is not active, not eligible for automatic approval"
+            exit 0
+          fi
+
           if [[ ${eligible} == "true" ]]; then
             echo "Eligible for automatic approval"
           else
@@ -462,17 +477,17 @@ jobs:
 
           echo "eligible=${eligible}" >>"${GITHUB_OUTPUT}"
 
-      - name: Automatic Approval
-        if: steps.automatic_approval_check.outputs.eligible == 'true'
-        id: automatic_approval
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          github-token: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
-          script: |
-            github.rest.pulls.createReview({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number,
-              body: 'Automatic approval requirements satisfied.',
-              event: 'APPROVE'
-            })
+      # - name: Automatic Approval
+      #   if: steps.automatic_approval_check.outputs.eligible == 'true'
+      #   id: automatic_approval
+      #   uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+      #   with:
+      #     github-token: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+      #     script: |
+      #       github.rest.pulls.createReview({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         pull_number: context.payload.pull_request.number,
+      #         body: 'Automatic approval requirements satisfied.',
+      #         event: 'APPROVE'
+      #       })
