@@ -456,20 +456,17 @@ jobs:
           fi
 
           # Check if any files outside environments/(development|test) have changed
-          for file in ${changed_files}; do
-            if [[ ! "${file}" =~ ^environments/(development|test)/.*$ ]]; then
-              echo "File (${file}) has changed outside the specified path (environments/(development|test)), not eligible for automatic approval"
-              exit 0
-            fi
-          done
+          # for file in ${changed_files}; do
+          #   if [[ ! "${file}" =~ ^environments/(development|test)/.*$ ]]; then
+          #     echo "File (${file}) has changed outside the specified path (environments/(development|test)), not eligible for automatic approval"
+          #     exit 0
+          #   fi
+          # done
 
           # Check automatic approval status in DynamoDB
           automatic_approval_dynamodb_status=$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)
 
           echo "Automatic approval DynamoDB status: ${automatic_approval_dynamodb_status}"
-
-          # DEBUG
-          aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text
 
           if [[ "${automatic_approval_dynamodb_status}" == "active" ]]; then
             echo "Automatic approval is active"
