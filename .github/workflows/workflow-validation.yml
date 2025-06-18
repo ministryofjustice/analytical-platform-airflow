@@ -69,7 +69,7 @@ jobs:
   workflow-validation:
     if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
     needs: [detect-changes]
-    name: 🛂 Workflow Validation
+    name: 🏗️ Workflow Validation
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -465,6 +465,11 @@ jobs:
 
           # Check automatic approval status in DynamoDB
           automatic_approval_dynamodb_status=$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)
+
+          echo "Automatic approval DynamoDB status: ${automatic_approval_dynamodb_status}"
+
+          # DEBUG
+          aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text
 
           if [[ "${automatic_approval_dynamodb_status}" == "active" ]]; then
             echo "Automatic approval is active"
