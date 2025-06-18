@@ -25,7 +25,7 @@ dag:
         AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5"
         AWS_DEFAULT_REGION": "eu-west-1"
         
-task
+tasks
 
 iam:
   # athena: write
