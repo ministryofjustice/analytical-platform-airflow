@@ -34,6 +34,12 @@
   catchup: {{ dag.catchup|default(False) }}
   is_paused_upon_creation: {{ dag.is_paused_upon_creation|default(False) }}
   max_active_runs: {{ dag.max_active_runs|default(1) }}
+  {%- if dag.params %}
+  params:
+    {%- for k, v in dag.params.items() %}
+    {{ k }}: {{ v }}
+    {%- endfor %}
+  {%- endif %}
   schedule_interval: {{ dag.schedule|default(null) }}
   tasks:
     {%- if dag.tasks %}

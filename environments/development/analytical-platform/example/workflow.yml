@@ -2,6 +2,8 @@
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
   tag: 2.6.0
+  params:
+    example_param: example_value
 
 notifications:
   emails:
