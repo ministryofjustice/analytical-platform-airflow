@@ -5,7 +5,7 @@ dag:
   compute_profile: gpu-spot-8vcpu-32gb
   catchup: true
   depends_on_past: false
-  schedule: None
+  schedule: "0 3 * * *"
   max_active_runs: 1
   env_vars:
     SUPPLIER_NAME: "allied"
