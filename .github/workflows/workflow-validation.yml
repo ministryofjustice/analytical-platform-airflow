@@ -489,7 +489,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Automatic approval is currently paused. Please request manual approval on [#ask-analytical-platform](https://moj.enterprise.slack.com/archives/C4PF7QAJZ)'
+              body: 'Automatic approval is currently paused. Please request manual approval via [#ask-analytical-platform](https://moj.enterprise.slack.com/archives/C4PF7QAJZ).'
             })
 
       # - name: Automatic Approval
