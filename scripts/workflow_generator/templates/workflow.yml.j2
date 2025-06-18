@@ -76,11 +76,18 @@
       compute_profile: {{ dag.compute_profile|default("general-spot-1vcpu-4gb") }}
       image: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/{{ dag.repository }}:{{ dag.tag }}
       hmcts_sdp_networking: {{ dag.hmcts_sdp_networking|default(false) }}
-      {%- if dag.env_vars %}
+      {%- if dag.env_vars or dag.params %}
       env_vars:
+        {%- if dag.env_vars %}
         {%- for k, v in dag.env_vars.items() %}
         {{ k }}: {{ v }}
         {%- endfor %}
+        {%- endif %}
+        {%- if dag.params %}
+        {%- for k, v in dag.params.items() %}
+        PARAM_{{ k.upper() }}: {{ '{{ params.' ~ k ~ ' }}' }}
+        {%- endfor %}
+        {%- endif %}
       {%- endif %}
       {%- if secrets %}
       secrets: {{ secrets }}
