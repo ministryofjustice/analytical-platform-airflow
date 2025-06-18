@@ -1,375 +1,158 @@
-from datetime import datetime
-from airflow.models import DAG
-from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import (
-    KubernetesPodOperator,
-)
-from imports.high_memory_constants import tolerations, affinity
+dag:
+  repository: airflow-cf-misconduct
+  tag: v6.3
+  # not sure if two rows below are needed?
+  dag_id: cf_misconduct.cf_misconduct_process
+  default_args: default_args
+  catchup: false
+  depends_on_past: false
+  email_on_failure: True
+  #is_paused_upon_creation: false
+  #max_active_runs: 1
+  #retries: 3
+  #retry_delay: 100
+  schedule_interval: *0 20 * * *"
+  start_date: "2022-01-01"
+  ds_team_email_list: ['jhenielle.francis@justice.gov.uk', 'sheila.ladva@justice.gov.uk', 'thomas.dykins@justice.gov.uk']
+  owner: jhenfrancis
 
-IMAGE_TAG = "v6.3"
+env:
+  AWS_DEFAULT_REGION: eu-west-1
+  AWS_ATHENA_QUERY_REGION: eu-west-1
+  AWS_METADATA_SERVICE_TIMEOUT: 60
+  AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
 
-REPO_NAME = "airflow-cf-misconduct"
-IMAGE = f"189157455002.dkr.ecr.eu-west-1.amazonaws.com/{REPO_NAME}:{IMAGE_TAG}"
+jobs:
+  check_db_prepared:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check DB Prepared
+        run: echo "Running: pipeline-checks --check db_prepared"
 
-ROLE = "airflow_dev_cf_misconduct"
-SERVICE_ACCOUNT_NAME = ROLE.replace("_", "-")
+  compare_labels:
+    needs: check_db_prepared
+    runs-on: ubuntu-latest
+    steps:
+      - name: Compare Labels DB
+        run: echo "Running: compare-labels-db"
 
-ds_team_email_list = ['jhenielle.francis@justice.gov.uk', 'sheila.ladva@justice.gov.uk', 'thomas.dykins@justice.gov.uk']
-default_args = {
-    "depends_on_past": False,
-    "email_on_failure": True,
-    "owner": "jhenfrancis",
-    "email": ds_team_email_list,
-}
+  copy_db:
+    needs: check_db_prepared
+    runs-on: ubuntu-latest
+    steps:
+      - name: Copy DB
+        run: echo "Running: copy-db"
 
-dag = DAG(
-    # Name of the dag (how it will appear on the Airflow UI)
-    # We use the naming convention: <folder_name>.<filename>
-    dag_id="cf_misconduct.cf_misconduct_process",
-    default_args=default_args,
-    description="A Kubernetes DAG with high memory node",
-    # Requires a start_date as a datetime object. This will be when the
-    # DAG will start running from. DO NOT use datetime.now().
-    start_date=datetime(2022, 1, 1),
-    schedule_interval="0 20 * * *",
-    catchup=False,
-)
+  check_process_sscl_reports:
+    needs: copy_db
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Process SSCL Reports
+        run: echo "Running: pipeline-checks --check process_sscl_reports"
 
-# region Helper Functions
+  process_sscl_reports:
+    needs: check_process_sscl_reports
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process SSCL Reports
+        run: echo "Running: misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py"
 
+  check_merged_tables:
+    needs: process_sscl_reports
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Merged Tables
+        run: echo "Running: pipeline-checks --check merged_tables"
 
-def create_kubernetes_pod_operator(
-    task_id_name,
-    python_script_or_command,
-    chosen_cmd="uv run",
-    pull_task_id=None,
-    pull_task_key=None,
-    xcom_push_bool=False,
-    trigger_str="all_success",
-):
-    """
-    Creates a KubernetesPodOperator task in Airflow to execute a Python script or a
-    project command (alias) inside a Kubernetes pod.
+  merged_tables:
+    needs: check_merged_tables
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Merged Tables
+        run: echo "Running: misconduct_nlp/process_inv_cd_data/create_merged_tables.py"
 
-    This operator can conditionally run the script or command based on a boolean value
-    pulled from an XCom of a previous task. If `pull_task_id` is provided, it checks
-    the value of the specified XCom key from the given task and runs the script or
-    command if the value is `True`. If the value is `False`, the task only prints
-    `skipping task`. It relies on the pulled XCom value being True or False.
+  check_tags:
+    needs: merged_tables
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Tags
+        run: echo "Running: pipeline-checks --check tags"
 
-    Args:
-        task_id_name (str): The name of the task in Airflow.
-        python_script_or_command (str): Either the Python script filename (with
-            optional command line arguments) or a project command as defined in the
-            source code's pyproject.toml file.
-            Examples:
-                - "misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py"
-                - "tagging-process"
-                - "pipeline-checks --check model_metrics"
-                - "misconduct_nlp/etl_subtasks/pipeline_checks.py --check model_metrics"
-        chosen_cmd (str, optional): The command to use for execution (e.g., 'uv run').
-            Defaults to 'uv run'.
-        pull_task_id (str, optional): The task ID to pull an XCom value from. If
-            provided, the task runs conditionally based on the XCom result.
-        pull_task_key (str, optional): The key in the XCom dict that contains the
-            boolean value to check. Should only be used if pull_task_id is not None.
-        xcom_push_bool (bool, optional): Whether to push the output to XCom.
-            Defaults to False.
-        trigger_str (str, optional): Airflow trigger rule (e.g., 'none_failed', all_success,
-            'all_done'). Defaults to 'all_success'.
+  tags:
+    needs: check_tags
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Tagging Process
+        run: echo "Running: tagging-process"
 
-    Returns:
-        KubernetesPodOperator: An Airflow operator to run the script or project
-            command in a Kubernetes pod.
-    """
+  check_tables_w_tags:
+    needs: tags
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Tables with Tags
+        run: echo "Running: pipeline-checks --check tables_w_tags"
 
-    cmd = ["bash", "-c"]
+  tables_w_tags:
+    needs: check_tables_w_tags
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create Tagged Employee DB
+        run: echo "Running: misc_nlp/process_inv_cd_data/create_employee_tagged_db.py"
 
-    if not pull_task_id:
-        cmd_arg = [f"{chosen_cmd} {python_script_or_command}"]
-    else:
-        cmd_arg = [
-            f"if [ \"{{{{ (ti.xcom_pull(task_ids='{pull_task_id}'))['{pull_task_key}'] }}}}\" = \"True\" ]; "
-            f'then {chosen_cmd} {python_script_or_command}; else echo "skipping task"; fi'
-        ]
+  check_generate_reports:
+    needs: tables_w_tags
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Generate Reports
+        run: echo "Running: pipeline-checks --check generate_reports"
 
-    return KubernetesPodOperator(
-        dag=dag,
-        image=IMAGE,
-        env_vars={
-            "AWS_METADATA_SERVICE_TIMEOUT": "60",
-            "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "AWS_DEFAULT_REGION": "eu-west-1",
-            "AWS_ATHENA_QUERY_REGION": "eu-west-1",
-        },
-        name=task_id_name,
-        cmds=cmd,
-        arguments=cmd_arg,
-        in_cluster=False,
-        task_id=task_id_name,
-        get_logs=True,
-        is_delete_operator_pod=True,
-        namespace="airflow",
-        cluster_context="analytical-platform-compute-test",
-        config_file="/usr/local/airflow/dags/.kube/config",
-        service_account_name=SERVICE_ACCOUNT_NAME,
-        security_context={
-            "runAsNonRoot": True,
-            "runAsUser": 1000,
-            "allowPrivilegeEscalation": False,
-            "privileged": False,
-        },
-        startup_timeout_seconds=600,
-        tolerations=tolerations,
-        do_xcom_push=xcom_push_bool,
-        affinity=affinity,
-        trigger_rule=trigger_str,
-    )
+  generate_reports:
+    needs: check_generate_reports
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate All Reports
+        run: echo "Running: misconduct_nlp/etl_subtasks/generate_all_reports.py"
 
+  check_model_metrics:
+    needs: tables_w_tags
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Model Metrics
+        run: echo "Running: pipeline-checks --check model_metrics"
 
-def create_kubernetes_task_dict(task_details):
-    """
-    Creates a dict of KubernetesPodOperator tasks from a dictionary of task details.
-    Each value is a dict containing keys: script, cmd, pull_task_id, pull_task_key,
-    xcom_push, trigger_str.
-    """
-    tasks = {}
-    for task_id, details in task_details.items():
-        tasks[task_id] = create_kubernetes_pod_operator(
-            task_id,
-            details["script"],
-            details.get("cmd", "uv run"),
-            details.get("pull_task_id"),
-            details.get("pull_task_key"),
-            details.get("xcom_push", False),
-            details.get("trigger_str", "all_success"),
-        )
-    return tasks
+  model_metrics_evidently:
+    needs: check_model_metrics
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Evidently AI
+        run: echo "Running: misconduct-evidently-ai"
+
+  model_metrics:
+    needs: model_metrics_evidently
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run Model Metrics
+        run: echo "Running: model-monitoring-metrics"
 
 
-def branch_func(
-    pull_task_id,
-    true_task_id,
-    false_task_id,
-    branch_condition,
-    filter_keys=None,
-    include_filter=True,
-    **kwargs,
-):
-    """
-    Evaluates the filtered XCom dictionary using a callable (branch_condition)
-    and returns true_task_id if the condition is True; otherwise returns false_task_id.
+iam:
+  # athena: write
+  # glue: true
+  # s3_read_write:
+  #   - alpha-mojap-ccde/dev/pcol_raw_data/*
 
-    Parameters:
-      pull_task_id (str): Task ID that pushed the XCom dictionary.
-      true_task_id (str): Task ID to execute if branch_condition returns True.
-      false_task_id (str): Task ID to execute if branch_condition returns False.
-      branch_condition (callable): A callable that accepts the (filtered) XCom dictionary
-                                   and returns a bool.
-      filter_keys (list, optional): List of keys to filter the XCom dictionary. If provided,
-                                    only these keys will be included (if include_filter=True)
-                                    or excluded (if include_filter=False).
-      include_filter (bool, optional): If True, include only keys in filter_keys; otherwise,
-                                       exclude them.
-      **kwargs: Must include "ti" (TaskInstance) as provided by Airflow.
+secrets:
+  # - pds
 
-    Returns:
-      str: true_task_id if condition is True; otherwise false_task_id.
-    """
-    ti = kwargs["ti"]
-    xcom_values = ti.xcom_pull(task_ids=pull_task_id) or {}
+# notifications:
+#   emails:
+#     - Jhenielle.Francis@justice.gov.uk
 
-    if filter_keys is not None:
-        if include_filter:
-            filtered = {k: v for k, v in xcom_values.items() if k in filter_keys}
-        else:
-            filtered = {k: v for k, v in xcom_values.items() if k not in filter_keys}
-    else:
-        filtered = xcom_values
+maintainers:
+  - jhenfrancis
+  - sheilz81
+  - tomd-moj
 
-    outcome = branch_condition(filtered)
-    task_to_run = true_task_id if outcome else false_task_id
-
-    print(f"Branching based on this dictionary: {filtered}")
-    print(f"Branch condition evaluated to: {outcome}")
-    print(f"Branching to task: {task_to_run}")
-
-    return task_to_run
-
-
-def check_task_execution(**kwargs):
-    """Pull a boolean from an XCom dict under `task_id_to_check`, default False."""
-    ti = kwargs["ti"]
-    data = ti.xcom_pull(task_ids=kwargs["pull_task_id"]) or {}
-    return bool(data.get(kwargs["task_id_to_check"], False))
-
-
-# endregion
-
-# region Kubernetes Task Dictionaries
-
-# Default Settings for Kubernetes Tasks
-DEFAULT_K8S_ARGS = {
-    "cmd": "uv run",
-    "pull_task_id": None,
-    "pull_task_key": None,
-    "xcom_push": False,
-    "trigger_str": "all_success",
-}
-
-# For setup tasks, only override what is needed per task.
-kubernetes_setup_details = {
-    "check_db_prepared": {
-        "script": "pipeline-checks --check db_prepared",
-        **DEFAULT_K8S_ARGS,
-        "xcom_push": True,
-    },
-    "compare_labels": {
-        "script": "compare-labels-db",
-        **DEFAULT_K8S_ARGS,
-        "pull_task_id": "check_db_prepared",
-        "pull_task_key": "db_prepared",
-    },
-    "copy_db": {
-        "script": "copy-db",
-        **DEFAULT_K8S_ARGS,
-        "pull_task_id": "check_db_prepared",
-        "pull_task_key": "db_prepared",
-    },
-}
-
-# For rest of kubernetes tasks, similarly define defaults and override where necessary.
-kubernetes_pipeline_task_details = {
-    "check_process_sscl_reports": {
-        "script": "pipeline-checks --check process_sscl_reports",
-        **DEFAULT_K8S_ARGS,
-        "xcom_push": True,
-    },
-    "process_sscl_reports": {
-        "script": "misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py",
-        **DEFAULT_K8S_ARGS,
-        "pull_task_id": "check_process_sscl_reports",
-        "pull_task_key": "process_sscl_reports",
-    },
-    "check_merged_tables": {
-        "script": "pipeline-checks --check merged_tables",
-        **DEFAULT_K8S_ARGS,
-        "xcom_push": True,
-    },
-    "merged_tables": {
-        "script": "misconduct_nlp/process_inv_cd_data/create_merged_tables.py",
-        **DEFAULT_K8S_ARGS,
-        "pull_task_id": "check_merged_tables",
-        "pull_task_key": "merged_tables",
-    },
-    "check_tags": {
-        "script": "pipeline-checks --check tags",
-        **DEFAULT_K8S_ARGS,
-        "xcom_push": True,
-    },
-    "tags": {
-        "script": "tagging-process",
-        **DEFAULT_K8S_ARGS,
-        "pull_task_id": "check_tags",
-        "pull_task_key": "tags",
-    },
-    "check_tables_w_tags": {
-        "script": "pipeline-checks --check tables_w_tags",
-        **DEFAULT_K8S_ARGS,
-        "xcom_push": True,
-    },
-    "tables_w_tags": {
-        "script": "misconduct_nlp/process_inv_cd_data/create_employee_tagged_db.py",
-        **DEFAULT_K8S_ARGS,
-        "pull_task_id": "check_tables_w_tags",
-        "pull_task_key": "tables_w_tags",
-    },
-    "check_generate_reports": {
-        "script": "pipeline-checks --check generate_reports",
-        **DEFAULT_K8S_ARGS,
-        "xcom_push": True,
-    },
-    "generate_reports": {
-        "script": "misconduct_nlp/etl_subtasks/generate_all_reports.py",
-        **DEFAULT_K8S_ARGS,
-        "pull_task_id": "check_generate_reports",
-        "pull_task_key": "generate_reports",
-    },
-    "check_model_metrics": {
-        "script": "pipeline-checks --check model_metrics",
-        **DEFAULT_K8S_ARGS,
-        "xcom_push": True,
-    },
-    "model_metrics_evidently": {
-        "script": "misconduct-evidently-ai",
-        **DEFAULT_K8S_ARGS,
-        "pull_task_id": "check_model_metrics",
-        "pull_task_key": "model_metrics",
-    },
-    "model_metrics": {
-        "script": "model-monitoring-metrics",
-        **DEFAULT_K8S_ARGS,
-        "pull_task_id": "check_model_metrics",
-        "pull_task_key": "model_metrics",
-    },
-}
-
-# Create KubernetesPodOperator tasks for setup and processing
-setup_tasks = create_kubernetes_task_dict(kubernetes_setup_details)
-pipeline_tasks = create_kubernetes_task_dict(kubernetes_pipeline_task_details)
-
-# endregion
-
-# region Define task order for kubernetes tasks excluding report/monitoring tasks
-
-# Define the order of execution for setup and processing tasks
-setup_ordered_keys = [
-    "check_db_prepared",
-    "compare_labels",
-    "copy_db",
-]
-
-pre_process_classification_ordered_keys = [
-    "check_process_sscl_reports",
-    "process_sscl_reports",
-    "check_merged_tables",
-    "merged_tables",
-    "check_tags",
-    "tags",
-    "check_tables_w_tags",
-    "tables_w_tags",
-]
-# endregion
-
-# region Set up Task Dependencies
-
-# Set up flow for setup tasks
-for i in range(len(setup_ordered_keys) - 1):
-    setup_tasks[setup_ordered_keys[i]] >> setup_tasks[setup_ordered_keys[i + 1]]
-
-# link set up and processing tasks
-setup_tasks["copy_db"] >> pipeline_tasks["check_process_sscl_reports"]
-
-# Define pre-processing & classification flow (active branch only).
-for i in range(len(pre_process_classification_ordered_keys) - 1):
-    (
-        pipeline_tasks[pre_process_classification_ordered_keys[i]]
-        >> pipeline_tasks[pre_process_classification_ordered_keys[i + 1]]
-    )
-
-# After tables_w_tags or skip_classification_tasks, run report generation and model metrics flows in parallel.
-pipeline_tasks["tables_w_tags"] >> [
-    pipeline_tasks["check_generate_reports"],
-    pipeline_tasks["check_model_metrics"],
-]
-
-# Reporting tasks
-pipeline_tasks["check_generate_reports"] >> pipeline_tasks["generate_reports"]
-
-# Model monitoring flow: run evidently, then metrics, then check if email should be sent, then send email.
-(
-    pipeline_tasks["check_model_metrics"]
-    >> pipeline_tasks["model_metrics_evidently"]
-    >> pipeline_tasks["model_metrics"]
-)
-
-# endregion
+tags:
+  business_unit: HQ
+  owner: Jhenielle.Francis@justice.gov.uk
