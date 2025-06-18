@@ -466,18 +466,28 @@ jobs:
           # Check automatic approval status in DynamoDB
           automatic_approval_dynamodb_status=$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)
 
-          if [[ "${automatic_approval_dynamodb_status}" != "active" ]]; then
-            echo "Automatic approval is not active, not eligible for automatic approval"
-            exit 0
-          fi
-
-          if [[ ${eligible} == "true" ]]; then
-            echo "Eligible for automatic approval"
-          else
-            echo "Not eligible for automatic approval"
+          if [[ "${automatic_approval_dynamodb_status}" == "active" ]]; then
+            echo "Automatic approval is active"
+          elif [[ "${automatic_approval_dynamodb_status}" == "paused" ]]; then
+            echo "Automatic approval is paused"
+            echo "automatic_approval_paused=true" >>"${GIHUB_OUTPUT}"
+            eligible="false"
           fi
 
           echo "eligible=${eligible}" >>"${GITHUB_OUTPUT}"
+
+      - name: Comment on Automatic Approval Check Status
+        id: comment_on_automatic_approval_check
+        if: steps.automatic_approval_check.outputs.automatic_approval_paused == 'true'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Automatic approval is currently paused. Please request manual approval on [#ask-analytical-platform](https://moj.enterprise.slack.com/archives/C4PF7QAJZ)'
+            })
 
       # - name: Automatic Approval
       #   if: steps.automatic_approval_check.outputs.eligible == 'true'
