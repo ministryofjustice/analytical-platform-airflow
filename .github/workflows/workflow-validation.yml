@@ -472,7 +472,7 @@ jobs:
             echo "Automatic approval is active"
           elif [[ "${automatic_approval_dynamodb_status}" == "paused" ]]; then
             echo "Automatic approval is paused"
-            echo "automatic_approval_paused=true" >>"${GIHUB_OUTPUT}"
+            echo "automatic_approval_paused=true" >>"${GITHUB_OUTPUT}"
             eligible="false"
           fi
 
