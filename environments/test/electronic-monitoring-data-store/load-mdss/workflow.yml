@@ -5,16 +5,32 @@ dag:
   compute_profile: gpu-spot-8vcpu-32gb
   catchup: true
   depends_on_past: false
-  schedule: None
+  schedule: "0 3 * * *"
   max_active_runs: 1
   env_vars:
     SUPPLIER_NAME: "allied"
     SYSTEM_NAME: "mdss"
     REFRESH_TOTAL_DB: true
     START_DATE: "2025-06-10"
+    DELIVERY_DATE: "2025-06-10"
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+  tasks:
+    load_general:
+      env_vars:
+        FEED_TYPE: "general"
+
+    load_home_office:
+      dependencies: [load_general]
+      env_vars:
+        FEED_TYPE: "home_office"
+
+    load_specials:
+      dependencies: [load_home_office]
+      env_vars:
+        FEED_TYPE: "specials"
 
 notifications:
   emails:
