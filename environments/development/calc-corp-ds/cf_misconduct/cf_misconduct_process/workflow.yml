@@ -3,7 +3,14 @@ dag:
   tag: v6.3
   # not sure if two rows below are needed?
   dag_id: cf_misconduct.cf_misconduct_process
-  default_args: default_args
+  default_k8s_args:
+    #python_script_or_command,
+    cmd: "uv run",
+    pull_task_id: None
+    pull_task_key: None
+    xcom_push: False
+    xcom_push_bool: False
+    trigger_str: "all_success"
   catchup: false
   depends_on_past: false
   email_on_failure: True
@@ -16,17 +23,121 @@ dag:
   ds_team_email_list: ['jhenielle.francis@justice.gov.uk', 'sheila.ladva@justice.gov.uk', 'thomas.dykins@justice.gov.uk']
   owner: jhenfrancis
 
+tasks:
+  - task_id: task_a
+    operator: KubernetesPodOperator
+    image: <your-docker-image>
+    name: task_a
+    cmds:
+      - bash
+      - -c
+    arguments:
+      - >
+        {% if ti.xcom_pull(task_ids='check_a')['should_run'] == 'True' %}
+          uv run script_a.py
+        {% else %}
+          echo "skipping task"
+        {% endif %}
+    env_vars:
+      AWS_METADATA_SERVICE_TIMEOUT: "60"
+      AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
+      AWS_DEFAULT_REGION: "eu-west-1"
+      AWS_ATHENA_QUERY_REGION: "eu-west-1"
+    in_cluster: false
+    get_logs: true
+    is_delete_operator_pod: true
+    namespace: airflow
+    cluster_context: analytical-platform-compute-test
+    config_file: /usr/local/airflow/dags/.kube/config
+    service_account_name: <your-service-account>
+    security_context:
+      runAsNonRoot: true
+      runAsUser: 1000
+      allowPrivilegeEscalation: false
+      privileged: false
+    tolerations: {{ tolerations }}
+    affinity: {{ affinity }}
+    trigger_rule: all_success
+    do_xcom_push: true
+
+  - task_id: task_b
+    operator: KubernetesPodOperator
+    image: <your-docker-image>
+    name: task_b
+    cmds:
+      - bash
+      - -c
+    arguments:
+      - "uv run script_b.py --arg test"
+    env_vars:
+      AWS_METADATA_SERVICE_TIMEOUT: "60"
+      AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
+      AWS_DEFAULT_REGION: "eu-west-1"
+      AWS_ATHENA_QUERY_REGION: "eu-west-1"
+    in_cluster: false
+    get_logs: true
+    is_delete_operator_pod: true
+    namespace: airflow
+    cluster_context: analytical-platform-compute-test
+    config_file: /usr/local/airflow/dags/.kube/config
+    service_account_name: <your-service-account>
+    security_context:
+      runAsNonRoot: true
+      runAsUser: 1000
+      allowPrivilegeEscalation: false
+      privileged: false
+    tolerations: {{ tolerations }}
+    affinity: {{ affinity }}
+    trigger_rule: all_success
+    do_xcom_push: false
+
+def branch_func(
+    pull_task_id,
+    true_task_id,
+    false_task_id,
+    branch_condition,
+    filter_keys=None,
+    include_filter=True,
+    **kwargs,
+):
+
+ti: kwargs["ti"]
+xcom_values: ti.xcom_pull(task_ids=pull_task_id) or {}
+  if filter_keys is not None:
+        if include_filter:
+            filtered = {k: v for k, v in xcom_values.items() if k in filter_keys}
+        else:
+            filtered = {k: v for k, v in xcom_values.items() if k not in filter_keys}
+    else:
+        filtered = xcom_values
+
+    outcome = branch_condition(filtered)
+    task_to_run = true_task_id if outcome else false_task_id
+
+    print(f"Branching based on this dictionary: {filtered}")
+    print(f"Branch condition evaluated to: {outcome}")
+    print(f"Branching to task: {task_to_run}")
+
+    return task_to_run
+
+
+def check_task_execution(**kwargs):
+    """Pull a boolean from an XCom dict under `task_id_to_check`, default False."""
+    ti = kwargs["ti"]
+    data = ti.xcom_pull(task_ids=kwargs["pull_task_id"]) or {}
+    return bool(data.get(kwargs["task_id_to_check"], False))
+
 env:
   AWS_DEFAULT_REGION: eu-west-1
   AWS_ATHENA_QUERY_REGION: eu-west-1
   AWS_METADATA_SERVICE_TIMEOUT: 60
   AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
 
-jobs:
-  check_db_prepared:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check DB Prepared
+kubernetes_setup_details:
+  tasks: 
+    check_db_prepared:
+      steps:
+        - name: Check DB Prepared
         run: echo "Running: pipeline-checks --check db_prepared"
 
   compare_labels:
@@ -133,6 +244,105 @@ jobs:
     steps:
       - name: Run Model Metrics
         run: echo "Running: model-monitoring-metrics"
+
+
+# For setup tasks, only override what is needed per task.
+kubernetes_setup_details = {
+    "check_db_prepared": {
+        "script": "pipeline-checks --check db_prepared",
+        **DEFAULT_K8S_ARGS,
+        "xcom_push": True,
+    },
+    "compare_labels": {
+        "script": "compare-labels-db",
+        **DEFAULT_K8S_ARGS,
+        "pull_task_id": "check_db_prepared",
+        "pull_task_key": "db_prepared",
+    },
+    "copy_db": {
+        "script": "copy-db",
+        **DEFAULT_K8S_ARGS,
+        "pull_task_id": "check_db_prepared",
+        "pull_task_key": "db_prepared",
+    },
+}
+
+# For rest of kubernetes tasks, similarly define defaults and override where necessary.
+kubernetes_pipeline_task_details = {
+    "check_process_sscl_reports": {
+        "script": "pipeline-checks --check process_sscl_reports",
+        **DEFAULT_K8S_ARGS,
+        "xcom_push": True,
+    },
+    "process_sscl_reports": {
+        "script": "misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py",
+        **DEFAULT_K8S_ARGS,
+        "pull_task_id": "check_process_sscl_reports",
+        "pull_task_key": "process_sscl_reports",
+    },
+    "check_merged_tables": {
+        "script": "pipeline-checks --check merged_tables",
+        **DEFAULT_K8S_ARGS,
+        "xcom_push": True,
+    },
+    "merged_tables": {
+        "script": "misconduct_nlp/process_inv_cd_data/create_merged_tables.py",
+        **DEFAULT_K8S_ARGS,
+        "pull_task_id": "check_merged_tables",
+        "pull_task_key": "merged_tables",
+    },
+    "check_tags": {
+        "script": "pipeline-checks --check tags",
+        **DEFAULT_K8S_ARGS,
+        "xcom_push": True,
+    },
+    "tags": {
+        "script": "tagging-process",
+        **DEFAULT_K8S_ARGS,
+        "pull_task_id": "check_tags",
+        "pull_task_key": "tags",
+    },
+    "check_tables_w_tags": {
+        "script": "pipeline-checks --check tables_w_tags",
+        **DEFAULT_K8S_ARGS,
+        "xcom_push": True,
+    },
+    "tables_w_tags": {
+        "script": "misconduct_nlp/process_inv_cd_data/create_employee_tagged_db.py",
+        **DEFAULT_K8S_ARGS,
+        "pull_task_id": "check_tables_w_tags",
+        "pull_task_key": "tables_w_tags",
+    },
+    "check_generate_reports": {
+        "script": "pipeline-checks --check generate_reports",
+        **DEFAULT_K8S_ARGS,
+        "xcom_push": True,
+    },
+    "generate_reports": {
+        "script": "misconduct_nlp/etl_subtasks/generate_all_reports.py",
+        **DEFAULT_K8S_ARGS,
+        "pull_task_id": "check_generate_reports",
+        "pull_task_key": "generate_reports",
+    },
+    "check_model_metrics": {
+        "script": "pipeline-checks --check model_metrics",
+        **DEFAULT_K8S_ARGS,
+        "xcom_push": True,
+    },
+    "model_metrics_evidently": {
+        "script": "misconduct-evidently-ai",
+        **DEFAULT_K8S_ARGS,
+        "pull_task_id": "check_model_metrics",
+        "pull_task_key": "model_metrics",
+    },
+    "model_metrics": {
+        "script": "model-monitoring-metrics",
+        **DEFAULT_K8S_ARGS,
+        "pull_task_id": "check_model_metrics",
+        "pull_task_key": "model_metrics",
+    },
+}
+
 
 
 iam:
