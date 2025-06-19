@@ -10,8 +10,6 @@ from mojap_airflow_tools.operators import BasicKubernetesPodOperator
 # As defined in the image repo
 IMAGE_TAG = "v14.2.2"
 REPO_NAME = "airflow-cjs-dashboard-data"
-# USER_ID must match Dockerfile in airflow-cjs-dashboard-data
-USER_ID = 1337
 ENVIRONMENT = "dev"
 
 ROLE = f"airflow_{ENVIRONMENT}_cjs_dashboard_data"
@@ -47,8 +45,8 @@ dag = DAG(
     description="A DAG to execute CJS Dashboard data validation process in R",
     # Requires a start_date as a datetime object. This will be when the
     # DAG will start running from. DO NOT use datetime.now().
-    start_date=datetime(2025, 6, 10),
-    end_date=datetime(2025, 6, 12),
+    start_date=datetime(2025, 6, 20),
+    end_date=datetime(2025, 6, 21),
     # Schedule for the dag to run.
     # For example, to run every 30 minutes between 09:00 and 17:59 UTC/GMT, set
     # schedule_interval="*/30 9-17 * * 1-5"
@@ -107,12 +105,11 @@ for data_provider in data_providers:
     task_id_1 = f"r-validation-{data_provider}"
     task_1 = BasicKubernetesPodOperator(
         dag=dag,
-        run_as_user=USER_ID,
         repo_name=REPO_NAME,
         release=IMAGE_TAG,
         role=ROLE,
         service_account_name=SERVICE_ACCOUNT_NAME,
-        environment="prod",
+        environment="dev",
         task_id=task_id_1,
         env_vars=env_vars,
         do_xcom_push=True
