@@ -8,7 +8,7 @@ from mojap_airflow_tools.operators import BasicKubernetesPodOperator
 
 
 # As defined in the image repo
-IMAGE_TAG = "v14.2.2"
+IMAGE_TAG = "v15.0.1"
 REPO_NAME = "airflow-cjs-dashboard-data"
 ENVIRONMENT = "dev"
 
