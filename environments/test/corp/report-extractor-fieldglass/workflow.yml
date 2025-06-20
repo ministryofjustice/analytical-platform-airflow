@@ -1,0 +1,36 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-report-extractor
+  tag: 0.0.6-test-22
+  schedule: "30 7 * * 1-5"
+  env_vars:
+    SITE: "fieldglass"
+  tasks:
+    workorders_daily:
+      env_vars:
+        REPORT: "MOJ Finishers In Last Month"
+        RUN_HEADLESS: "True"
+
+iam:
+  s3_read_write:
+    - mojap-land-preprod/corporate/report_extractor/fieldglass/*
+
+secrets:
+  - fieldglass-username
+  - fieldglass-password
+  - fieldglass-url
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - william.orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - williamorrie
+  - moj-supratikc
+
+tags:
+  business_unit: Central Digital
+  owner: william.orr@justice.gov.uk
