@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-keyworker-casenotes-prediction
-  tag: v4.0.0
+  tag: v4.0.1
   env_vars:
     ENVIRONMENT: "prod" #to be changed to dev once we have a prod DAG running
   catchup: true
