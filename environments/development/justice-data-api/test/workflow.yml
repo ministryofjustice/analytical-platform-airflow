@@ -1,0 +1,17 @@
+---
+dag:
+  repository: ministryofjustice/airflow-justice-data-api-extract
+  tag: v1.0.0-dev
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-justice-data-api/*
+
+maintainers:
+  - guyvw1
+
+tags:
+  business_unit: Central Digital
+  owner: guy.wheeler@justice.gov.uk
