@@ -17,8 +17,8 @@ dag:
     DATABASE_NAME: "common_platform_dev_pp"
     LAND_BUCKET: "s3://mojap-land-dev"
     HIST_BUCKET: "s3://mojap-raw-hist-dev"
-    LAND_FOLDER: "hmcts/dev/common-platform/dev_sdp_v3"
-    HIST_FOLDER: "hmcts/dev/common-platform/dev_sdp_v3"
+    LAND_FOLDER: "hmcts/common-platform/dev/dev_sdp_v3"
+    HIST_FOLDER: "hmcts/common-platform/dev/dev_sdp_v3"
     CUT_OFF: "2022-08-21"
   tasks:
     cp_extract_allocated_listings:
@@ -30,8 +30,8 @@ dag:
 iam:
   athena: write
   s3_read_write:
-    - mojap-land/hmcts/common-platform/*
-    - mojap-raw-hist/hmcts/common-platform/*
+    - mojap-land-dev/hmcts/common-platform/*
+    - mojap-raw-hist-dev/hmcts/common-platform/*
   s3_read_only:
     - alpha-mojap-common-platform/*
     - alpha-mojap-ccd/*
