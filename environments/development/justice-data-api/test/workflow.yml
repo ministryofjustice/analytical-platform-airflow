@@ -3,7 +3,7 @@ dag:
   repository: ministryofjustice/airflow-justice-data-api-extract
   tag: v1.0.6-dev
   env_vars:
-    ENVIRONMENT: "dev"
+    ENVIRONMENT: dev
 
 iam:
   athena: write
