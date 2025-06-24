@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.15-alpha
+  tag: v0.0.16-alpha
   env_vars:
     AFFILE_PIPELINE_NAME: "snapshots-wf62-sip"
     AFFILE_ENV: "dev"

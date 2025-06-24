@@ -3,7 +3,7 @@ dag:
   repository: moj-analytical-services/mbpr-airflow-pipelines
   tag: v1.1.2
   env_vars:
-    MODE: "opg-usat"
+    MODE: "peakon"
 
 maintainers:
   - scott-lowther
@@ -11,6 +11,9 @@ maintainers:
 iam:
   s3_read_write:
     - alpha-mission-brilliant-performance-reporting/*
+
+secrets:
+  - api-auth
 
 tags:
   business_unit: Central Digital

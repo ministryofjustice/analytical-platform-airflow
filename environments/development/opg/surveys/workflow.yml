@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.2.0-test-32
+  tag: v3.2.0-test-33
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -10,10 +10,10 @@ dag:
   start_date: "2025-06-17"
   schedule: None
   env_vars:
-    DATABASE: "sirius"
-    PIPELINE_NAME: "sirius"
+    DATABASE: "surveys"
+    PIPELINE_NAME: "surveys"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.2.0-test-29"
+    GITHUB_TAG: "v3.2.0-test-31"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-06-17"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -24,41 +24,46 @@ dag:
       env_vars:
         STEP: "to_land"
       compute_profile: "general-on-demand-4vcpu-16gb"
-    land_to_raw:
+    land_to_raw_hist:
       env_vars:
-        STEP: "land_to_raw"
+        STEP: "land_to_raw_hist"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [to_land]
-    raw_to_curated:
+    raw_hist_to_processed:
       env_vars:
-        STEP: "raw_to_curated"
+        STEP: "raw_hist_to_processed"
       compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [land_to_raw]
-    create_curated_database:
+      dependencies: [land_to_raw_hist]
+    processed_to_curated:
       env_vars:
-        STEP: "create_curated_database"
+        STEP: "processed_to_curated"
       compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [raw_to_curated]
-    create_derived:
+      dependencies: [raw_hist_to_processed]
+    create_db:
       env_vars:
-        STEP: "create_derived"
+        STEP: "create_db"
       compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [raw_to_curated, create_curated_database]
+      dependencies: [processed_to_curated]
 
 iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-land-dev/opg/dev/sirius/*
-    - mojap-raw/opg/dev/sirius/*
-    - alpha-opg-etl/dev/sirius/*
-    - mojap-athena-query-dump/*airflow-development-opg-sirius-daily/*
+    - mojap-land/opg/dev/surveys/*
+    - mojap-raw-hist/opg/dev/surveys/*
+    - mojap-processed/opg/dev/surveys/*
+    - alpha-opg-etl/dev/surveys/*
+    - mojap-athena-query-dump/*airflow-development-opg-surveys/*
 
   s3_read_only:
-    - mojap-land-dev/opg/sirius/*
-    - mojap-land/opg/sirius/*
     - alpha-opg-etl/dev/nspl_reference/curated/*
     - alpha-opg-mi-dashboard/working/*
+
+secrets:
+  - api-key
+  - api-key-secret
+  - poa-satisfaction-id
+  - deputyship-satisfaction-id
 
 maintainers:
   - p-sin

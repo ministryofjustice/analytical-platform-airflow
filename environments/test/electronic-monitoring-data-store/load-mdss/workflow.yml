@@ -1,19 +1,36 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.2.5
+  tag: v0.2.9
   compute_profile: gpu-spot-8vcpu-32gb
-  catchup: false
+  catchup: true
   depends_on_past: false
-  schedule: None
+  schedule: "0 3 * * *"
   max_active_runs: 1
   env_vars:
-    SUPPLIER_NAME: "serco"
-    SYSTEM_NAME: "fms"
+    SUPPLIER_NAME: "allied"
+    SYSTEM_NAME: "mdss"
     REFRESH_TOTAL_DB: true
+    START_DATE: "2025-06-10"
+    DELIVERY_DATE: "2025-06-10"
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+  tasks:
+    load_general:
+      env_vars:
+        FEED_TYPE: "general"
+
+    load_home_office:
+      dependencies: [load_general]
+      env_vars:
+        FEED_TYPE: "home_office"
+
+    load_specials:
+      dependencies: [load_home_office]
+      env_vars:
+        FEED_TYPE: "specials"
 
 notifications:
   emails:
@@ -21,7 +38,7 @@ notifications:
   slack_channel: em-engineers-moj-madetech
 
 iam:
-  external_role: arn:aws:iam::396913731313:role/airflow-prod-load-mdss
+  external_role: arn:aws:iam::396913731313:role/airflow-test-load-mdss
 
 maintainers:
   - matt-heery

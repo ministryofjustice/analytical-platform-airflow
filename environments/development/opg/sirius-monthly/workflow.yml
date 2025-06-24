@@ -1,21 +1,21 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.2.0-test-32
+  tag: v3.2.0-test-33
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 4
   retries: 1
   retry_delay: 150
-  start_date: "2025-06-17"
+  start_date: "2025-06-01"
   schedule: None
   env_vars:
     DATABASE: "sirius"
-    PIPELINE_NAME: "sirius"
+    PIPELINE_NAME: "sirius-monthly"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.2.0-test-29"
+    GITHUB_TAG: "v3.2.0-test-33"
     ATHENA_DB_PREFIX: "opg"
-    START_DATE: "2025-06-17"
+    START_DATE: "2025-06-01"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
@@ -39,11 +39,6 @@ dag:
         STEP: "create_curated_database"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [raw_to_curated]
-    create_derived:
-      env_vars:
-        STEP: "create_derived"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [raw_to_curated, create_curated_database]
 
 iam:
   athena: write
@@ -52,7 +47,7 @@ iam:
     - mojap-land-dev/opg/dev/sirius/*
     - mojap-raw/opg/dev/sirius/*
     - alpha-opg-etl/dev/sirius/*
-    - mojap-athena-query-dump/*airflow-development-opg-sirius-daily/*
+    - mojap-athena-query-dump/*airflow-development-opg-sirius-monthly/*
 
   s3_read_only:
     - mojap-land-dev/opg/sirius/*

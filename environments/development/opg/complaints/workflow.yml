@@ -1,21 +1,21 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.2.0-test-32
+  tag: v3.2.1
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 4
   retries: 1
   retry_delay: 150
-  start_date: "2025-06-17"
+  start_date: "2025-06-19"
   schedule: None
   env_vars:
-    DATABASE: "sirius"
-    PIPELINE_NAME: "sirius"
+    DATABASE: "complaints"
+    PIPELINE_NAME: "complaints"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.2.0-test-29"
+    GITHUB_TAG: "v3.2.1"
     ATHENA_DB_PREFIX: "opg"
-    START_DATE: "2025-06-17"
+    START_DATE: "2025-06-19"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
@@ -24,39 +24,36 @@ dag:
       env_vars:
         STEP: "to_land"
       compute_profile: "general-on-demand-4vcpu-16gb"
-    land_to_raw:
+    land_to_raw_hist:
       env_vars:
-        STEP: "land_to_raw"
+        STEP: "land_to_raw_hist"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [to_land]
-    raw_to_curated:
+    raw_hist_to_processed:
       env_vars:
-        STEP: "raw_to_curated"
+        STEP: "raw_hist_to_processed"
       compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [land_to_raw]
+      dependencies: [land_to_raw_hist]
+    processed_to_curated:
+      env_vars:
+        STEP: "processed_to_curated"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+      dependencies: [raw_hist_to_processed]
     create_curated_database:
       env_vars:
         STEP: "create_curated_database"
       compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [raw_to_curated]
-    create_derived:
-      env_vars:
-        STEP: "create_derived"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [raw_to_curated, create_curated_database]
+      dependencies: [processed_to_curated]
 
 iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-land-dev/opg/dev/sirius/*
-    - mojap-raw/opg/dev/sirius/*
-    - alpha-opg-etl/dev/sirius/*
-    - mojap-athena-query-dump/*airflow-development-opg-sirius-daily/*
+    - alpha-opg-etl/dev/complaints/*
+    - mojap-athena-query-dump/*airflow-development-opg-complaints/*
 
   s3_read_only:
-    - mojap-land-dev/opg/sirius/*
-    - mojap-land/opg/sirius/*
+    - alpha-opg-insight/Complaints_data_dom1/*
     - alpha-opg-etl/dev/nspl_reference/curated/*
     - alpha-opg-mi-dashboard/working/*
 
