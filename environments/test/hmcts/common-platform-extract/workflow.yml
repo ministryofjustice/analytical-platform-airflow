@@ -37,10 +37,10 @@ iam:
     - alpha-mojap-ccd/*
 
 secrets:
-  - SDP_PASS
+  - sdp-pass
 
 maintainers:
-  - Andy-Cook
+  - andy-cook
 
 tags:
   business_unit: Central Digital
