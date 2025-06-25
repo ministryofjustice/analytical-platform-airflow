@@ -45,8 +45,8 @@ dag = DAG(
     description="A DAG to execute CJS Dashboard data validation process in R",
     # Requires a start_date as a datetime object. This will be when the
     # DAG will start running from. DO NOT use datetime.now().
-    start_date=datetime(2025, 6, 20),
-    end_date=datetime(2025, 6, 21),
+    start_date=datetime(2025, 6, 25),
+    end_date=datetime(2025, 6, 26),
     # Schedule for the dag to run.
     # For example, to run every 30 minutes between 09:00 and 17:59 UTC/GMT, set
     # schedule_interval="*/30 9-17 * * 1-5"
@@ -74,7 +74,7 @@ def _send_email(data_provider):
                       f"Extraction max_timestamp: {max_timestamp}<br>"
                       f"Result: {result}"
                       "<p>Detailed results saved in "
-                      f"s3://alpha-cjs-scorecard/data_validation/prod/{data_provider}/{max_timestamp}/</p>"
+                      f"s3://alpha-cjs-scorecard/data_validation/dev/{data_provider}/{max_timestamp}/</p>"
                       )
     email_task = EmailOperator(
         to=email_addresses,
