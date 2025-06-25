@@ -1,8 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: 0.0.6-test-15
-  schedule: "0 7 * * *"
+  tag: 0.0.6-test-25
+  schedule: "0 7 * * 1-5"
   env_vars:
     SITE: "splashbi"
   tasks:
@@ -21,6 +21,12 @@ dag:
     nonsick_daily:
       env_vars:
         REPORT: "nonsick"
+    nonsick_laa_daily:
+      env_vars:
+        REPORT: "nonsick_laa"
+    nonsick_opg_daily:
+      env_vars:
+        REPORT: "nonsick_opg"
 
 iam:
   s3_read_write:
