@@ -19,7 +19,7 @@ iam:
   glue: true
   s3_read_write:
     - mojap-land-preprod/corporate/report_extractor/fieldglass/MoJ_DMET_Corperate_Headcount_v2/*
-    - mojap-processed/corporate/sop/dev/*
+    - mojap-processed/corporate/fieldglass/dev/*
 
 notifications:
   slack_channel: dmet-corp-notifications
