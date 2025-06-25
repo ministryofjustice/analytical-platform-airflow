@@ -1,0 +1,93 @@
+
+dag:
+  repository: moj-analytical-services/airflow-cjs-dashboard-data
+  tag: v15.0.1
+  environment: dev
+  dag_id: "cjs_dashboard_validation"
+  env_vars:
+    AWS_METADATA_SERVICE_TIMEOUT: "60"
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
+    EXECUTION_TIME: datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    data_provider: "moj"
+  email_on_failure: False
+  retries: 2
+  retry_delay: 60
+  start_date: 2025-06-25
+  end_date: 2025-06-26
+  schedule_interval: "*/30 9-17 * * 1-5"
+  tasks:
+    task: 
+      compute_profile: general-on-demand-4vcpu-16gb
+    task_validaton: f"r-validation-{data_provider}"
+    task_send_email: f"python-send-email-{data_provider}"
+  email_func: send_email(data_provider)
+
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-cjs-scorecard/data_validation/dev/moj
+
+maintainers:
+  - joe-dods
+  - rolakeo-mojo
+
+emails:
+  - "joe.dods@justice.gov.uk"
+  - "rolake.odebunmi@justice.gov.uk"
+
+
+# Define function to handle email operator, uses xcom to pull timestamp information
+# from r validation process in task 1 (below)
+def _send_email(data_provider):
+    context = get_current_context()
+    returned = context.get('task_instance')\
+                      .xcom_pull(task_ids=f'r-validation-{data_provider}')
+    max_timestamp = returned["max_timestamp"]
+    result = returned["overall_result"]
+    task_id = f"send-email-{data_provider}"
+    email_addresses = ["rolake.odebunmi@justice.gov.uk",
+                       "Joe.Dods@justice.gov.uk"]
+    subject = f"New data validation output ready - {data_provider.upper()} - {result}"
+    # HTML contents of email
+    email_contents = ("<h3>A new data validation output has been created</h3>"
+                      f"Data provider: {data_provider.upper()}<br>"
+                      f"Extraction max_timestamp: {max_timestamp}<br>"
+                      f"Result: {result}"
+                      "<p>Detailed results saved in "
+                      f"s3://alpha-cjs-scorecard/data_validation/dev/{data_provider}/{max_timestamp}/</p>"
+                      )
+    email_task = EmailOperator(
+        to=email_addresses,
+        subject=subject,
+        html_content=email_contents,
+        dag=dag,
+        task_id=task_id
+    )
+    return email_task.execute(context=context)
+
+
+def send_email(data_provider):
+    return partial(_send_email, data_provider)
+
+
+task_1 = BasicKubernetesPodOperator(
+  dag=dag,
+  environment=environment,
+  task_id=task_id_1,
+  env_vars=env_vars,
+  do_xcom_push=True
+)
+
+task_2 = PythonOperator(
+  dag=dag,
+  task_id=task_id_2,
+  python_callable=email_func,
+  provide_context=True
+)
+
+task_1 >> task_2
+
+
+tags:
+  owner: cjs.data.dashboard@justice.gov.uk
