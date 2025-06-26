@@ -1,6 +1,6 @@
 from typing import Optional
 
-from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import (
+from airflow.providers.cncf.kubernetes.operators.pod import (
     KubernetesPodOperator,
 )
 from analytical_platform.compute_profiles import get_compute_profile
