@@ -30,6 +30,5 @@ task = AnalyticalPlatformStandardOperator(
     image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
-    workflow=f"{WORKFLOW}",
-    hmcts_sdp_networking=False
+    workflow=f"{WORKFLOW}"
 )
