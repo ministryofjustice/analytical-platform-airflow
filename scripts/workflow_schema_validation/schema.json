@@ -125,6 +125,10 @@
             }
           }
         }
+      },
+      "params": {
+        "type": "dict",
+        "required": false
       }
     },
     "required": true
