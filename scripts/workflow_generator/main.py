@@ -49,6 +49,7 @@ if config.get("dag", {}).get("python_config", False):
     owner = config["tags"]["owner"]
 
     # Replace placeholders in the dag.py file
+    print("Replacing placeholders")
     with open(f"{SOURCE_DIR}/dag.py", "r", encoding="utf-8") as file:
         dag_content = file.read()
         dag_content = dag_content.replace("PLACEHOLDER_REPOSITORY_NAME", repository_name)
@@ -57,6 +58,10 @@ if config.get("dag", {}).get("python_config", False):
         dag_content = dag_content.replace("PLACEHOLDER_WORKFLOW", workflow)
         dag_content = dag_content.replace("PLACEHOLDER_ENVIRONMENT", environment)
         dag_content = dag_content.replace("PLACEHOLDER_OWNER", owner)
+
+    print("=" * 42 + " Rendered DAG " + "=" * 44)
+    print(dag_content)
+    print("=" * 100)
 
     # Write the modified content back to the dag.py file
     with open(f"{OUTPUT_DIR}/dag.py", "w", encoding="utf-8") as file:

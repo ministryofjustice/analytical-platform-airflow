@@ -138,10 +138,6 @@ jobs:
         run: |
           python scripts/workflow_generator/main.py "${{ env.workflow-directory }}/workflow.yml"
 
-          if [[ "${{ env.skip-workflow-validation }}" == "true" ]]; then
-            cat "dist/dags/${{ env.workflow-directory }}/dag.py"
-          fi
-
       - name: Validate Workflow
         if: env.skip-workflow-validation == 'false'
         id: validate_workflow
