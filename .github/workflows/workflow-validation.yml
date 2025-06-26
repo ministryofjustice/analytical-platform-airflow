@@ -112,10 +112,6 @@ jobs:
           workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
           export workflowDirectory
 
-          dagIsPython=$(yq -e ".dag.python_config" "${{ env.workflow-directory }}/workflow.yml")
-          export dagIsPython
-
-          echo "dag-is-python=${dagIsPython}" >>"${GITHUB_ENV}"
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
       - name: Check if DAG is Python
