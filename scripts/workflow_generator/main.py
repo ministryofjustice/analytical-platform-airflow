@@ -1,7 +1,6 @@
 """Script to generate Airflow workflow from YAML configuration files."""
 import json
 import os
-import shutil
 import sys
 
 import yaml
@@ -40,14 +39,29 @@ with open(workflow_file, "r", encoding="utf-8") as yaml_file:
 
 if config.get("dag", {}).get("python_config", False):
     print("Python config is enabled")
-    SOURCE_DIR = "scripts/workflow_generator/templates/python_config"
+    SOURCE_DIR = f"environments/{environment}/{project}/{workflow}"
     OUTPUT_DIR = f"dist/dags/{environment}/{project}/{workflow}"
     os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-    shutil.copy(
-        f"environments/{environment}/{project}/{workflow}/dag.py",
-        f"{OUTPUT_DIR}/dag.py"
-    )
+    # Set placeholder replacement value
+    repository_name = config["dag"]["repository"]
+    repository_tag = config["dag"]["tag"]
+    owner = config["tags"]["owner"]
+
+    # Replace placeholders in the dag.py file
+    with open(f"{SOURCE_DIR}/dag.py", "r", encoding="utf-8") as file:
+        dag_content = file.read()
+        dag_content = dag_content.replace("PLACEHOLDER_REPOSITORY_NAME", repository_name)
+        dag_content = dag_content.replace("PLACEHOLDER_REPOSITORY_TAG", repository_tag)
+        dag_content = dag_content.replace("PLACEHOLDER_PROJECT", project)
+        dag_content = dag_content.replace("PLACEHOLDER_WORKFLOW", workflow)
+        dag_content = dag_content.replace("PLACEHOLDER_ENVIRONMENT", environment)
+        dag_content = dag_content.replace("PLACEHOLDER_OWNER", owner)
+
+    # Write the modified content back to the dag.py file
+    with open(f"{OUTPUT_DIR}/dag.py", "w", encoding="utf-8") as file:
+        file.write(dag_content)
+
 else:
     print("Python config is disabled")
     # Update config with environment, project, and workflow

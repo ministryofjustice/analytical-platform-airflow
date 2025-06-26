@@ -2,16 +2,17 @@ from datetime import datetime
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 
-REPOSITORY_NAME="moj-analytical-services/analytical-platform-airflow-python-example"
-REPOSITORY_TAG="2.10.0"
-PROJECT="analytical-platform"
-WORKFLOW="example-python-dag"
-ENVIRONMENT="development"
+REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
+REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
+PROJECT="PLACEHOLDER_PROJECT"
+WORKFLOW="PLACEHOLDER_WORKFLOW"
+ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
+OWNER="PLACEHOLDER_OWNER"
 
 default_args = {
     "depends_on_past": False,
     "email_on_failure": False,
-    "owner": "jacob.woffenden@justice.gov.uk",
+    "owner": f"{OWNER}",
 }
 
 dag = DAG(
