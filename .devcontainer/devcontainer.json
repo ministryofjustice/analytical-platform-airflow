@@ -3,10 +3,6 @@
   "image": "ghcr.io/ministryofjustice/devcontainer-base:latest",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers/features/python:1": {
-      "version": "3.11",
-      "installTools": false
-    },
     "ghcr.io/ministryofjustice/devcontainer-feature/astral:1": {},
     "ghcr.io/ministryofjustice/devcontainer-feature/aws:1": {},
     "ghcr.io/ministryofjustice/devcontainer-feature/kubernetes:1": {},
@@ -16,16 +12,20 @@
   "customizations": {
     "vscode": {
       "extensions": [
+        "charliermarsh.ruff",
         "EditorConfig.EditorConfig",
         "GitHub.vscode-github-actions",
         "GitHub.vscode-pull-request-github",
-        "ms-python.python",
-        "ms-python.pylint",
-        "ms-python.black-formatter",
-        "ms-python.isort",
-        "ms-python.flake8",
-        "ms-python.autopep8"
-      ]
+        "ms-python.python"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+        "python.terminal.activateEnvInCurrentTerminal": true,
+        "python.venvFolders": ["${workspaceFolder}/.venv"],
+        "terminal.intergrated.env.linux": {
+          "PYTHONPATH": "airflow"
+        }
+      }
     }
   }
 }
