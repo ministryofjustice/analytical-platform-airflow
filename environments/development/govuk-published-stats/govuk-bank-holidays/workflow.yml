@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-govuk-bank-holidays
-  tag: v0.1.0
+  tag: v0.1.1
 
 iam:
   athena: write
