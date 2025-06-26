@@ -37,7 +37,7 @@ print(f"Workflow: {workflow}")
 with open(workflow_file, "r", encoding="utf-8") as yaml_file:
     config = yaml.safe_load(yaml_file)
 
-if config.get("dag", {}).get("python_config", False):
+if config.get("dag", {}).get("python_dag", False):
     print("Python config is enabled")
     SOURCE_DIR = f"environments/{environment}/{project}/{workflow}"
     OUTPUT_DIR = f"dist/dags/{environment}/{project}/{workflow}"
