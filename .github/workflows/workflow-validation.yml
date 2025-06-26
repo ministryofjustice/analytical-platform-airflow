@@ -112,7 +112,25 @@ jobs:
           workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
           export workflowDirectory
 
+          dagIsPython=$(yq -e ".dag.python_config" "${{ env.workflow-directory }}/workflow.yml")
+          export dagIsPython
+
+          echo "dag-is-python=${dagIsPython}" >>"${GITHUB_ENV}"
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
+
+      - name: Check if DAG is Python
+        id: dag_is_python
+        run: |
+          dagIsPython=$(yq -e ".dag.python_config" "${{ env.workflow-directory }}/workflow.yml")
+          export dagIsPython
+
+          if [[ "${dagIsPython}" == "true" ]]; then
+            echo "DAG is Python, skipping workflow validation"
+            echo "skip-workflow-validation=true" >>"${GITHUB_OUTPUT}"
+          else
+            echo "DAG is not Python, proceeding with workflow validation"
+            echo "skip-workflow-validation=false" >>"${GITHUB_OUTPUT}"
+          fi
 
       - name: Validate Schema
         id: validate_schema
@@ -120,11 +138,13 @@ jobs:
           python scripts/workflow_schema_validation/main.py "${{ env.workflow-directory }}/workflow.yml"
 
       - name: Generate Workflow
+        if: steps.dag_is_python.outputs.skip-workflow-validation != 'true'
         id: generate_workflow
         run: |
           python scripts/workflow_generator/main.py "${{ env.workflow-directory }}/workflow.yml"
 
       - name: Validate Workflow
+        if: steps.dag_is_python.outputs.skip-workflow-validation != 'true'
         id: validate_workflow
         env:
           PYTHONPATH: airflow
