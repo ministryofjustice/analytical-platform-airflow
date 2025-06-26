@@ -125,7 +125,8 @@
             }
           }
         }
-      }
+      },
+      "python_config": { "type": "boolean", "required": false }
     },
     "required": true
   },
