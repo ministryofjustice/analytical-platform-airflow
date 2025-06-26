@@ -1,3 +1,5 @@
 #!/usr/bin/env bash
 
-uv pip install --system --requirements requirements.txt
+uv venv
+
+uv pip install --requirements requirements.txt

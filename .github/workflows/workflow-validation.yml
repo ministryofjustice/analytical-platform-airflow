@@ -114,6 +114,18 @@ jobs:
 
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
+      - name: Check if DAG is Python
+        id: dag_is_python
+        run: |
+          dagIsPython=$(yq -e ".dag.python_dag" "${{ env.workflow-directory }}/workflow.yml")
+          export dagIsPython
+
+          if [[ "${dagIsPython}" == "true" ]]; then
+            echo "dag-is-python=true"  >>"${GITHUB_ENV}"
+          else
+            echo "dag-is-python=false"  >>"${GITHUB_ENV}"
+          fi
+
       - name: Validate Schema
         id: validate_schema
         run: |
@@ -132,7 +144,11 @@ jobs:
           workflowDirectory="${{ env.workflow-directory }}"
           distWorkflowDirectory=${workflowDirectory#environments/}
 
-          python scripts/workflow_validation/main.py "dist/dags/${distWorkflowDirectory}/workflow.yml"
+          if [[ "${{ env.dag-is-python }}" == "true" ]]; then
+            python "dist/dags/${distWorkflowDirectory}/dag.py"
+          else
+            python scripts/workflow_validation/main.py "dist/dags/${distWorkflowDirectory}/workflow.yml"
+          fi
 
   image-check:
     if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
