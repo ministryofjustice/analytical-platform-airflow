@@ -33,7 +33,7 @@ dag:
     nonsick_nms_daily:
       env_vars:
         REPORT: "nonsick_nms"
-    nonsick_mo=j_daily:
+    nonsick_moj_daily:
       env_vars:
         REPORT: "nonsick_moj"
 
