@@ -3,7 +3,7 @@ dag:
   tag: v0.1.2
   retries: 1
   retry_delay: 150
-  python_dag: true
+  python_dag: false
   env_vars:
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
