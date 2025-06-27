@@ -37,58 +37,90 @@ print(f"Workflow: {workflow}")
 with open(workflow_file, "r", encoding="utf-8") as yaml_file:
     config = yaml.safe_load(yaml_file)
 
-# Update config with environment, project, and workflow
-config.update(
-    {
-        "meta": {
-            "environment": environment,
-            "project": project,
-            "workflow": workflow,
+if config.get("dag", {}).get("python_dag", False):
+    print("Python config is enabled")
+    SOURCE_DIR = f"environments/{environment}/{project}/{workflow}"
+    OUTPUT_DIR = f"dist/dags/{environment}/{project}/{workflow}"
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    # Set placeholder replacement value
+    repository_name = config["dag"]["repository"]
+    repository_tag = config["dag"]["tag"]
+    owner = config["tags"]["owner"]
+
+    # Replace placeholders in the dag.py file
+    print("Replacing placeholders")
+    with open(f"{SOURCE_DIR}/dag.py", "r", encoding="utf-8") as file:
+        dag_content = file.read()
+        dag_content = dag_content.replace("PLACEHOLDER_REPOSITORY_NAME", repository_name)
+        dag_content = dag_content.replace("PLACEHOLDER_REPOSITORY_TAG", repository_tag)
+        dag_content = dag_content.replace("PLACEHOLDER_PROJECT", project)
+        dag_content = dag_content.replace("PLACEHOLDER_WORKFLOW", workflow)
+        dag_content = dag_content.replace("PLACEHOLDER_ENVIRONMENT", environment)
+        dag_content = dag_content.replace("PLACEHOLDER_OWNER", owner)
+
+    print("=" * 42 + " Rendered DAG " + "=" * 44)
+    print(dag_content)
+    print("=" * 100)
+
+    # Write the modified content back to the dag.py file
+    with open(f"{OUTPUT_DIR}/dag.py", "w", encoding="utf-8") as file:
+        file.write(dag_content)
+
+else:
+    print("Python config is disabled")
+    # Update config with environment, project, and workflow
+    config.update(
+        {
+            "meta": {
+                "environment": environment,
+                "project": project,
+                "workflow": workflow,
+            }
         }
-    }
-)
+    )
 
-# Sanitise repository so it matches what is created in ECR
-sanitised_repository = config["dag"]["repository"].lower().replace("_", "-")
-print(f"Sanitised repository: {sanitised_repository}")
-config["dag"]["repository"] = sanitised_repository
+    # Sanitise repository so it matches what is created in ECR
+    sanitised_repository = config["dag"]["repository"].lower().replace("_", "-")
+    print(f"Sanitised repository: {sanitised_repository}")
+    config["dag"]["repository"] = sanitised_repository
 
-# Modify secrets list to dictionary
-# secrets list looks like ["username", "password"]
-# secrets dictionary needs to look like ["secret":f"{project}-{workflow}-{secret}","deploy_type":"env","deploy_target":"f"SECRET_{secret.upper().replace('-', '_')}", "key": "data"}]
-if config.get("secrets"):
-    secrets = config["secrets"]
-    secrets_list = []
-    for secret in secrets:
-        secret_object = {
-            "deploy_type": "env",
-            "deploy_target": f"SECRET_{secret.upper().replace('-', '_')}",
-            "secret": f"{project}-{workflow}-{secret}",
-            "key": "data",
-        }
-        secrets_list.append(secret_object)
-    config["secrets"] = secrets_list
+    # Modify secrets list to dictionary
+    # secrets list looks like ["username", "password"]
+    # secrets dictionary needs to look like ["secret":f"{project}-{workflow}-{secret}","deploy_type":"env","deploy_target":"f"SECRET_{secret.upper().replace('-', '_')}", "key": "data"}]
+    if config.get("secrets"):
+        secrets = config["secrets"]
+        secrets_list = []
+        for secret in secrets:
+            secret_object = {
+                "deploy_type": "env",
+                "deploy_target": f"SECRET_{secret.upper().replace('-', '_')}",
+                "secret": f"{project}-{workflow}-{secret}",
+                "key": "data",
+            }
+            secrets_list.append(secret_object)
+        config["secrets"] = secrets_list
 
-# Print config
-pretty_config = json.dumps(config, indent=4)
-print("=" * 42 + " Configuration " + "=" * 43)
-print(pretty_config)
-print("=" * 100)
+    # Print config
+    pretty_config = json.dumps(config, indent=4)
+    print("=" * 42 + " Configuration " + "=" * 43)
+    print(pretty_config)
+    print("=" * 100)
 
-# Render DAG
-print("=" * 42 + " Rendered DAG " + "=" * 44)
-rendered_dag = template.render(config)
-print(rendered_dag)
-print("=" * 100)
+    # Render DAG
+    print("=" * 42 + " Rendered DAG " + "=" * 44)
+    rendered_dag = template.render(config)
+    print(rendered_dag)
+    print("=" * 100)
 
-# Ensure the directory exists
-OUTPUT_DIR = f"dist/dags/{environment}/{project}/{workflow}"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+    # Ensure the directory exists
+    OUTPUT_DIR = f"dist/dags/{environment}/{project}/{workflow}"
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
 
-# Write the rendered DAG to a file
-with open(
-    f"dist/dags/{environment}/{project}/{workflow}/workflow.yml",
-    "w",
-    encoding="utf-8",
-) as f:
-    f.write(rendered_dag)
+    # Write the rendered DAG to a file
+    with open(
+        f"dist/dags/{environment}/{project}/{workflow}/workflow.yml",
+        "w",
+        encoding="utf-8",
+    ) as f:
+        f.write(rendered_dag)

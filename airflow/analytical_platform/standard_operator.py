@@ -1,6 +1,6 @@
 from typing import Optional
 
-from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import (
+from airflow.providers.cncf.kubernetes.operators.pod import (
     KubernetesPodOperator,
 )
 from analytical_platform.compute_profiles import get_compute_profile
@@ -11,12 +11,12 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
         self,
         task_id: str,
         compute_profile: str,
-        hmcts_sdp_networking: bool,
         name: str,
         image: str,
         environment: str,
         project: str,
         workflow: str,
+        hmcts_sdp_networking: Optional[bool] = False,
         env_vars: Optional[dict] = None,
         *args,
         **kwargs,
