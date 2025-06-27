@@ -8,9 +8,9 @@ from analytical_platform.standard_operator import AnalyticalPlatformStandardOper
 
 REPOSITORY_NAME="airflow-cjs-dashboard-data"
 REPOSITORY_TAG="v15.0.1"
+ENVIRONMENT="development"
 PROJECT="cjs_dashboard"
 WORKFLOW="workflow.yml"
-ENVIRONMENT="development"
 OWNER="rolakeo-mojo"
 EXECUTION_TIME = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -91,7 +91,7 @@ for data_provider in data_providers:
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}"
   )
-  
+
   # If Task 1 succeeds, Task 2 will call the send_email function
   email_func = send_email(data_provider)
   task_id_2 = f"python-send-email-{data_provider}"
