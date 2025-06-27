@@ -1,6 +1,9 @@
 from datetime import datetime
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
+from airflow.providers.cncf.kubernetes.secret import (
+    Secret,
+)
 
 REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
 REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
@@ -36,17 +39,16 @@ task = AnalyticalPlatformStandardOperator(
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}",
-    ### Extras ###
     env_vars={
         "EXAMPLE_VARIABLE_ONE": "apple",
         "EXAMPLE_VARIABLE_TWO": "{{ dag_run.conf['EXAMPLE_PARAMATER'] }}",
     },
     secrets=[
-        {
-            "deploy_type": "env",
-            "deploy_target": "SECRET_EXAMPLE",
-            "secret": f"{PROJECT}-{WORKFLOW}-example",
-            "key": "data"
-        }
-    ],
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_EXAMPLE",
+            secret=f"{PROJECT}-{WORKFLOW}-example",
+            key="data"
+        )
+    ]
 )
