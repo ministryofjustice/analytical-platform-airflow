@@ -14,6 +14,9 @@ WORKFLOW="workflow.yml"
 OWNER="rolakeo-mojo"
 EXECUTION_TIME = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+ROLE = f"airflow_{ENVIRONMENT}_cjs_dashboard_data"
+SERVICE_ACCOUNT_NAME = ROLE.replace("_", "-")
+
 data_providers = [
   "ho",
   "cps",
@@ -87,6 +90,8 @@ for data_provider in data_providers:
     name=f"{PROJECT}.{WORKFLOW}",
     compute_profile="general-spot-1vcpu-4gb",
     image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
+    role=ROLE,
+    service_account_name=SERVICE_ACCOUNT_NAME,
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}"
