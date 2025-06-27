@@ -117,7 +117,9 @@ jobs:
       - name: Check if DAG is Python
         id: dag_is_python
         run: |
-          dagIsPython=$(yq -e ".dag.python_dag // false" "${{ env.workflow-directory }}/workflow.yml")
+          set -x
+
+          dagIsPython=$(yq ".dag.python_dag // false" "${{ env.workflow-directory }}/workflow.yml")
           export dagIsPython
 
           if [[ "${dagIsPython}" == "true" ]]; then
