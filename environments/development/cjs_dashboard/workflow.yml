@@ -1,0 +1,12 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-cjs-dashboard-data
+  tag: 15.0.1
+  python_dag: true
+
+maintainers:
+  - joe-dods
+  - rolakeo-mojo
+
+tags:
+  owner: cjs.data.dashboard@justice.gov.uk
