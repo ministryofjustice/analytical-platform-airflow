@@ -9,7 +9,7 @@ from analytical_platform.standard_operator import AnalyticalPlatformStandardOper
 REPOSITORY_NAME="airflow-cjs-dashboard-data"
 REPOSITORY_TAG="v15.0.1"
 ENVIRONMENT="development"
-PROJECT="cjs_dashboard"
+PROJECT="cjs-dashboard/r-validation"
 WORKFLOW="workflow.yml"
 OWNER="rolakeo-mojo"
 EXECUTION_TIME = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
