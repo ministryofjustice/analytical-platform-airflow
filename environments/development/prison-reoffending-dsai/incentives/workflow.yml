@@ -1,0 +1,44 @@
+dag:
+  repository: moj-analytical-services/airflow-digital-incentives
+  tag: v2.0.0
+  env_vars:
+    ENVIRONMENT: "prod" #to be changed to dev once we have a prod DAG running
+  catchup: true
+  retries: 3
+  schedule: "0 20 * * *"
+  start_date: "2025-06-27"
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=agency_internal_locations/*
+    - alpha-prison-population/mojap_pipeline/*
+    - mojap-athena-query-dump/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/table_name=rpt_ao_*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=backup_nomis_ao/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+
+  s3_read_write:
+    - mojap-incentives/*
+    - alpha-athena-dump/*
+    - alpha-athena-query-dump/*
+    - mojap-athena-query-dump/*
+
+notifications:
+  emails:
+    - roger.brown@justice.gov.uk
+    - laura.auburn@justice.gov.uk
+    - rob.mcnaughter@justice.gov.uk
+
+maintainers:
+  - rogerbrownmoj
+  - laura-auburn
+  - rob-mcnaughter
+
+tags:
+  business_unit: HMPPS
+  owner: laura.auburn@justice.gov.uk
