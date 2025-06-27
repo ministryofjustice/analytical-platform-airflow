@@ -27,6 +27,15 @@ dag:
     nonsick_opg_daily:
       env_vars:
         REPORT: "nonsick_opg"
+    nonsick_cts_daily:
+      env_vars:
+        REPORT: "nonsick_cts"
+    nonsick_nms_daily:
+      env_vars:
+        REPORT: "nonsick_nms"
+    nonsick_mo=j_daily:
+      env_vars:
+        REPORT: "nonsick_moj"
 
 iam:
   s3_read_write:
