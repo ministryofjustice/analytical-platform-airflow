@@ -10,16 +10,16 @@ dag:
     MOJAP_IMAGE_VERSION: "latest"
     DESTINATION_PREFIX: "s3://alpha-mojap-ccde/dev/pcol_raw_data"
 
+  tasks:
+    process-v3-cgi-pcol-claim:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-pcol-claim"
+
 iam:
   athena: write
   glue: true
   s3_read_write:
     - alpha-mojap-ccde/dev/pcol_raw_data/*
-
-tasks:
-  process-v3-cgi-pcol-claim:
-    env_vars:
-      CONTAINER_NAME: "v3-cgi-pcol-claim"
 
 notifications:
   emails:
