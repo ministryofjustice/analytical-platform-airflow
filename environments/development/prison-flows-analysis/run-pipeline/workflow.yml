@@ -11,7 +11,7 @@ iam:
   s3_read_write:
     - alpha-short-term-forecast/data/*
     - alpha-short-term-forecast/files/*
-    
+
 maintainers:
   - antonyjscott
 
