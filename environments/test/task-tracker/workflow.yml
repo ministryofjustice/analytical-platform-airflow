@@ -1,0 +1,11 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-ms130-task-tracker
+  tag: 1.9.0
+
+maintainers:
+  - ms130
+
+tags:
+  business_unit: HQ
+  owner: marco.surace@justice.gov.uk
