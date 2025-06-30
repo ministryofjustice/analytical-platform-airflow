@@ -16,10 +16,10 @@ iam:
   s3_read_write:
     - alpha-mojap-ccde/dev/pcol_raw_data/*
 
-  tasks:
-    process-v3-cgi-pcol-claim:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-claim"
+tasks:
+  process-v3-cgi-pcol-claim:
+    env_vars:
+      CONTAINER_NAME: "v3-cgi-pcol-claim"
 
 notifications:
   emails:
