@@ -1,6 +1,32 @@
 data "aws_iam_policy_document" "iam_policy" {
   count = length(local.iam_external_role) == 0 ? 1 : 0
 
+  /* CloudWatch Logs - Read Only */
+  dynamic "statement" {
+    for_each = length(local.iam_cloudwatch_logs_read_only) > 0 ? [1] : []
+    content {
+      # Based on https://docs.aws.amazon.com/aws-managed-policy/latest/reference/CloudWatchLogsReadOnlyAccess.html
+      sid    = "CloudWatchReadOnly"
+      effect = "Allow"
+      actions = [
+        "logs:Describe*",
+        "logs:Get*",
+        "logs:List*",
+        "logs:StartQuery",
+        "logs:StopQuery",
+        "logs:TestMetricFilter",
+        "logs:FilterLogEvents",
+        "logs:StartLiveTail",
+        "logs:StopLiveTail",
+        "cloudwatch:GenerateQuery",
+        "cloudwatch:GenerateQueryResultsSummary"
+      ]
+      resources = [
+        for item in local.iam_cloudwatch_logs_read_only : item
+      ]
+    }
+  }
+
   /* Glue */
   dynamic "statement" {
     for_each = local.iam_glue ? [1] : []
