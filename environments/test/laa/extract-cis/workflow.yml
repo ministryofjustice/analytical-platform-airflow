@@ -6,8 +6,7 @@ dag:
   retry_delay: 150
   env_vars:
     ORACLE_DSN: "rds.mojfin.laa-development.modernisation-platform.service.justice.gov.uk:1521/mojfin"
-    MOJAP_EXTRACTION_TS: "123456"
-    MOJAP_IMAGE_VERSION: "v0.1.5"
+    MOJAP_IMAGE_VERSION: "v0.1.6"
     LANDING_FOLDER: "s3://mojap-land-dev/laa/mojfin/cis/raw"
     METADATA_FOLDER: "s3://mojap-land-dev/laa/mojfin/cis/metadata"
   tasks:

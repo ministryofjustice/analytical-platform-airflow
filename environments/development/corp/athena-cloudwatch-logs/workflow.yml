@@ -12,6 +12,7 @@ iam:
   glue: true
   s3_read_write:
     - alpha-corp-data-staging/athena_queries/iceberg_data/athena_query_executions/*
+    - alpha-corp-data-staging/athena_queries/select_queries/*
 
 notifications:
   slack_channel: dmet-corp-notifications
