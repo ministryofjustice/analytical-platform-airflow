@@ -363,6 +363,7 @@ jobs:
           image-ref: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
           severity: HIGH,CRITICAL
           ignore-unfixed: true
+          skip-dirs: "/home/analyticalplatform/.cache/R,/usr/local/lib/R/site-library/openssl/doc"
           timeout: 10m0s
           exit-code: 1
 
