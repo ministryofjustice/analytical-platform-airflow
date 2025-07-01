@@ -6,7 +6,7 @@ data "aws_iam_policy_document" "iam_policy" {
     for_each = length(local.iam_cloudwatch_logs_read_only) > 0 ? [1] : []
     content {
       # Based on https://docs.aws.amazon.com/aws-managed-policy/latest/reference/CloudWatchLogsReadOnlyAccess.html
-      sid    = "CloudWatchReadOnly"
+      sid    = "CloudWatchLogsReadOnly"
       effect = "Allow"
       actions = [
         "logs:Describe*",

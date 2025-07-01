@@ -3,7 +3,7 @@ locals {
   iam_external_role             = try(local.iam_configuration.external_role, "")
   iam_athena                    = try(local.iam_configuration.athena, "")
   iam_bedrock                   = try(local.iam_configuration.bedrock, false)
-  iam_cloudwatch_logs_read_only = try(local.iam_configuration.cloudwatch_read_only, [])
+  iam_cloudwatch_logs_read_only = try(local.iam_configuration.cloudwatch_logs_read_only, [])
   iam_glue                      = try(local.iam_configuration.glue, false)
   iam_kms_keys                  = try(local.iam_configuration.kms, [])
   iam_s3_deny                   = try(local.iam_configuration.s3_deny, [])
