@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.2.13
+  tag: v0.2.28
   compute_profile: gpu-spot-8vcpu-32gb
   catchup: true
   depends_on_past: false
