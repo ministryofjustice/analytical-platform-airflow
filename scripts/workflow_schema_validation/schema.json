@@ -141,6 +141,14 @@
       },
       "bedrock": { "type": "boolean", "required": false },
       "glue": { "type": "boolean", "required": false },
+      "cloudwatch_logs_read_only": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "regex": "^arn:aws:logs.*+$"
+        },
+        "required": false
+      },
       "kms": {
         "type": "list",
         "schema": {
