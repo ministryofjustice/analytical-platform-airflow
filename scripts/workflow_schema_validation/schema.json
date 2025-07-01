@@ -130,7 +130,6 @@
         "type": "dict",
         "required": false
       },
-=======
       "python_dag": { "type": "boolean", "required": false }
     },
     "required": true
