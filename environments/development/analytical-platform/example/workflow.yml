@@ -8,6 +8,10 @@ notifications:
     - jacob.woffenden@justice.gov.uk
   slack_channel: analytical-platform-airflow-testing
 
+iam:
+  cloudwatch_logs_read_only:
+    - arn:aws:logs:eu-west-2:593291632749:log-group:cloudtrail-athena-events:*
+
 maintainers:
   - jacobwoffenden
   - jhpyke
