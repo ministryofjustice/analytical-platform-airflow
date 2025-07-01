@@ -10,6 +10,8 @@ dag:
 iam:
   athena: write
   glue: true
+  cloudwatch_logs_read_only:
+    - arn:aws:logs:eu-west-2:593291632749:log-group:cloudtrail-athena-events:*
   s3_read_write:
     - alpha-corp-data-staging/athena_queries/iceberg_data/athena_query_executions/*
     - alpha-corp-data-staging/athena_queries/select_queries/*
