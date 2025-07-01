@@ -129,7 +129,9 @@
       "params": {
         "type": "dict",
         "required": false
-      }
+      },
+=======
+      "python_dag": { "type": "boolean", "required": false }
     },
     "required": true
   },
@@ -144,6 +146,14 @@
       },
       "bedrock": { "type": "boolean", "required": false },
       "glue": { "type": "boolean", "required": false },
+      "cloudwatch_logs_read_only": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "regex": "^arn:aws:logs.*+$"
+        },
+        "required": false
+      },
       "kms": {
         "type": "list",
         "schema": {
@@ -199,7 +209,7 @@
     "type": "list",
     "schema": {
       "type": "string",
-      "regex": "^[a-z-]+$"
+      "regex": "^[a-z0-9-]+$"
     },
     "required": true
   },

@@ -86,7 +86,7 @@ jobs:
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb # v6.1.0
+        uses: astral-sh/setup-uv@bd01e18f51369d5a26f1651c3cb451d3417e3bba # v6.3.1
         with:
           activate-environment: true
           version: "latest"
@@ -114,6 +114,20 @@ jobs:
 
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
+      - name: Check if DAG is Python
+        id: dag_is_python
+        run: |
+          set -x
+
+          dagIsPython=$(yq ".dag.python_dag // false" "${{ env.workflow-directory }}/workflow.yml")
+          export dagIsPython
+
+          if [[ "${dagIsPython}" == "true" ]]; then
+            echo "dag-is-python=true"  >>"${GITHUB_ENV}"
+          else
+            echo "dag-is-python=false"  >>"${GITHUB_ENV}"
+          fi
+
       - name: Validate Schema
         id: validate_schema
         run: |
@@ -132,7 +146,11 @@ jobs:
           workflowDirectory="${{ env.workflow-directory }}"
           distWorkflowDirectory=${workflowDirectory#environments/}
 
-          python scripts/workflow_validation/main.py "dist/dags/${distWorkflowDirectory}/workflow.yml"
+          if [[ "${{ env.dag-is-python }}" == "true" ]]; then
+            python "dist/dags/${distWorkflowDirectory}/dag.py"
+          else
+            python scripts/workflow_validation/main.py "dist/dags/${distWorkflowDirectory}/workflow.yml"
+          fi
 
   image-check:
     if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
@@ -345,6 +363,7 @@ jobs:
           image-ref: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
           severity: HIGH,CRITICAL
           ignore-unfixed: true
+          skip-dirs: "/home/analyticalplatform/.cache/R,/usr/local/lib/R/site-library/openssl/doc"
           timeout: 10m0s
           exit-code: 1
 
@@ -390,7 +409,7 @@ jobs:
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@f0ec1fc3b38f5e7cd731bb6ce540c5af426746bb # v6.1.0
+        uses: astral-sh/setup-uv@bd01e18f51369d5a26f1651c3cb451d3417e3bba # v6.3.1
         with:
           activate-environment: true
           version: "latest"
