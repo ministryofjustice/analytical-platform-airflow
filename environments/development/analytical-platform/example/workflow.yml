@@ -2,6 +2,9 @@
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
   tag: 2.10.0
+  params:
+    example_param: underscored
+    example-param-two: hyphenated
 
 notifications:
   emails:
