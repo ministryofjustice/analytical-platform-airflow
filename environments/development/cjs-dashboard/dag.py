@@ -6,12 +6,12 @@ from airflow.operators.python import get_current_context
 from airflow.operators.python_operator import PythonOperator
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 
-REPOSITORY_NAME="airflow-cjs-dashboard-data"
-REPOSITORY_TAG="v15.0.1"
-ENVIRONMENT="development"
-PROJECT="cjs-dashboard"
-WORKFLOW="workflow.yml"
-OWNER="rolakeo-mojo"
+REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
+REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
+PROJECT="PLACEHOLDER_PROJECT"
+WORKFLOW="PLACEHOLDER_WORKFLOW"
+ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
+OWNER="PLACEHOLDER_OWNER"
 EXECUTION_TIME = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 data_providers = [
