@@ -1,0 +1,21 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-ms130-task-tracker
+  tag: 2.1.0
+
+maintainers:
+  - ms130
+
+tags:
+  business_unit: HQ
+  owner: marco.surace@justice.gov.uk
+
+iam:
+  athena: write
+  s3_read_only:
+    - alpha-mojap-ccd/v1/database/*
+  s3_read_write:
+    - alpha-task-tracker/*
+
+notifications:
+  slack_channel: task-tracker-airflow
