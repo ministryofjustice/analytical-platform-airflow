@@ -128,7 +128,8 @@
       },
       "params": {
         "type": "dict",
-        "required": false
+        "required": false,
+        "keysrules": { "type": "string", "regex": "^[a-zA-Z0-9_]+$" }
       },
       "python_dag": { "type": "boolean", "required": false }
     },

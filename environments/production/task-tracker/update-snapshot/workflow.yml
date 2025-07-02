@@ -2,6 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-ms130-task-tracker
   tag: 2.1.1
+  schedule: "0 4 * * *"
 
 maintainers:
   - ms130
