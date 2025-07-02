@@ -4,7 +4,6 @@ dag:
   tag: 2.11.0-rc1
   params:
     example_param: underscored
-    example-param-two: hyphenated
 
 notifications:
   emails:
