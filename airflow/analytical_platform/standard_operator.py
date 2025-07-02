@@ -117,7 +117,11 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             "AWS_DEFAULT_EXTRACT_REGION": "eu-west-1",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "AIRFLOW_ENVIRONMENT": environment.upper()
+            "AIRFLOW_ENVIRONMENT": environment.upper(),
+            "AIRFLOW_DATESTAMP": "{{ ds }}",
+            "AIRFLOW_DATESTAMP_NO_DASH": "{{ ds_nodash }}",
+            "AIRFLOW_TIMESTAMP": "{{ ts }}",
+            "AIRFLOW_TIMESTAMP_NO_DASH": "{{ ts_nodash_with_tz }}",
         }
 
         # merge dicts into env_vars
