@@ -8,10 +8,6 @@ on:
     paths:
       - airflow/**
       - environments/**
-  # DEBUG
-  pull_request:
-    branches:
-      - main
 
 permissions: {}
 
@@ -28,15 +24,14 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        # environment: [development, test, production]
-        environment: [development]
+        environment: [development, test, production]
         include:
           - environment: development
             account: 381491960855
-          # - environment: test
-          #   account: 767397661611
-          # - environment: production
-          #   account: 992382429243
+          - environment: test
+            account: 767397661611
+          - environment: production
+            account: 992382429243
     steps:
       - name: Checkout
         id: checkout
