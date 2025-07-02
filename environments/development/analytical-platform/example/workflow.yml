@@ -2,11 +2,18 @@
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
   tag: 2.10.0
+  params:
+    example_param: underscored
+    example-param-two: hyphenated
 
 notifications:
   emails:
     - jacob.woffenden@justice.gov.uk
   slack_channel: analytical-platform-airflow-testing
+
+iam:
+  cloudwatch_logs_read_only:
+    - arn:aws:logs:eu-west-2:593291632749:log-group:cloudtrail-athena-events:*
 
 maintainers:
   - jacobwoffenden

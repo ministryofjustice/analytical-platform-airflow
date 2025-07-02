@@ -1,6 +1,17 @@
 dag:
   repository: moj-analytical-services/prison-flows-analysis
-  tag: v0.4.0.dev21
+  tag: v0.4.0.dev26
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - alpha-short-term-forecast/PrisonLongLookup.csv
+
+  s3_read_write:
+    - alpha-short-term-forecast/data/*
+    - alpha-short-term-forecast/files/*
+    - alpha-short-term-forecast/data_folder/*
 
 maintainers:
   - antonyjscott

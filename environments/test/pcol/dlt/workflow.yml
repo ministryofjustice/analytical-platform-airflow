@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/pcol-pipeline
-  tag: v0.1.0
+  tag: v0.1.4
   retries: 1
   retry_delay: 150
   hmcts_sdp_networking: True
@@ -8,7 +8,7 @@ dag:
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
     AWS_DEFAULT_REGION: "eu-west-1"
-    MOJAP_IMAGE_VERSION: "v0.1.0"
+    MOJAP_IMAGE_VERSION: "v0.1.4"
     ENDPOINT: "MI_PERSISTENT_PROD"
     DESTINATION_PREFIX: "s3://alpha-mojap-ccde/dev/pcol_raw_data"
 
@@ -16,122 +16,7 @@ dag:
     process-v3-cgi-pcol-claim:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-claim"
-
-    process-v3-cgi-pcol-claim-event:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-claim-event"
-
-    process-v3-cgi-pcol-claim-order:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-claim-order"
-
-    process-v3-cgi-pcol-claim-particulars:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-claim-particulars"
-
-    process-v3-cgi-pcol-claim-party:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-claim-party"
-
-    process-v3-cgi-pcol-claim-party-contact-details:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-claim-party-contact-details"
-
-    process-v3-cgi-pcol-court:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-court"
-
-    process-v3-cgi-pcol-court-jurisdiction:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-court-jurisdiction"
-
-    process-v3-cgi-pcol-court-notification:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-court-notification"
-
-    process-v3-cgi-pcol-courtfee:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-courtfee"
-
-    process-v3-cgi-pcol-defence:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-defence"
-
-    process-v3-cgi-pcol-defence-court-fine:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-defence-court-fine"
-
-    process-v3-cgi-pcol-defence-debt:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-defence-debt"
-
-    process-v3-cgi-pcol-event:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-event"
-
-    process-v3-cgi-pcol-general-application:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-general-application"
-
-    process-v3-cgi-pcol-hearing:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-hearing"
-
-    process-v3-cgi-pcol-hearing-venue:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-hearing-venue"
-
-    process-v3-cgi-pcol-judgement:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-judgement"
-
-    process-v3-cgi-pcol-judgements:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-judgements"
-
-    process-v3-cgi-pcol-party:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-party"
-
-    process-v3-cgi-pcol-payment-history:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-payment-history"
-
-    process-v3-cgi-pcol-payment-record:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-payment-record"
-
-    process-v3-cgi-pcol-pcol-claim-ref-num:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-pcol-claim-ref-num"
-
-    process-v3-cgi-pcol-pcol-settings:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-pcol-settings"
-
-    process-v3-cgi-pcol-pcol-system-event:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-pcol-system-event"
-
-    process-v3-cgi-pcol-puser:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-puser"
-
-    process-v3-cgi-pcol-puser-role:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-puser-role"
-
-    process-v3-cgi-pcol-warrant:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-warrant"
-
-    process-v3-cgi-pcol-warrant-party:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-warrant-party"
-
-    process-v3-cgi-pcol-warrant-return:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-pcol-warrant-return"
+        DESTINATION_PREFIX: s3://alpha-mojap-ccde/dev/pcol_raw_data
 
 iam:
   athena: write
