@@ -59,7 +59,7 @@
         {%- endfor %}
         {%- if dag.params %}
         {%- for k, v in dag.params.items() %}
-        PARAM_{{ k.upper() }}: "{{ '{{ params.' ~ k ~ ' }}' }}"
+        PARAM_{{ k.replace('-', '_').upper() }}: "{{ '{{ params.' ~ k ~ ' }}' }}"
         {%- endfor %}
         {%- endif %}
       {%- endif %}
@@ -90,7 +90,7 @@
         {%- endif %}
         {%- if dag.params %}
         {%- for k, v in dag.params.items() %}
-        PARAM_{{ k.upper() }}: "{{ '{{ params.' ~ k ~ ' }}' }}"
+        PARAM_{{ k.replace('-', '_').upper() }}: "{{ '{{ params.' ~ k ~ ' }}' }}"
         {%- endfor %}
         {%- endif %}
       {%- endif %}
