@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-ms130-task-tracker
-  tag: 2.0.0
+  tag: 2.1.0
 
 maintainers:
   - ms130
