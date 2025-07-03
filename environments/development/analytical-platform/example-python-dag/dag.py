@@ -5,8 +5,6 @@ from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
 
-# This is a test
-
 REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
 REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
 PROJECT="PLACEHOLDER_PROJECT"
