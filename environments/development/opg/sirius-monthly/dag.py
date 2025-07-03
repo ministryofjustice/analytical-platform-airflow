@@ -33,9 +33,6 @@ base_env_vars={
     "GITHUB_TAG": f"{REPOSITORY_TAG}",
     "ATHENA_DB_PREFIX": "opg",
     "START_DATE": start_date,
-    "AWS_DEFAULT_REGION": "eu-west-1",
-    "AWS_METADATA_SERVICE_TIMEOUT": "60",
-    "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
 }
 
 def update_env_vars(env_vars: dict[str, str], updates: dict[str, str]) -> dict[str, str]:
