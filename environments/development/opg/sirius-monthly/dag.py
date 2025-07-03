@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import datetime
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 
@@ -10,7 +10,7 @@ WORKFLOW="PLACEHOLDER_WORKFLOW"
 ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
 OWNER="PLACEHOLDER_OWNER"
 
-start_date=date(2025, 6, 1)
+start_date=datetime(2025, 6, 1)
 total_workers = 10
 
 default_args = {
@@ -35,7 +35,7 @@ base_env_vars={
     "DATABASE_VERSION": "dev",
     "GITHUB_TAG": f"{REPOSITORY_TAG}",
     "ATHENA_DB_PREFIX": "opg",
-    "START_DATE": start_date,
+    "START_DATE": start_date.strftime("%Y-%m-%d"),
 }
 
 def update_env_vars(env_vars: dict[str, str], updates: dict[str, str]) -> dict[str, str]:
