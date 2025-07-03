@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 
@@ -10,7 +10,7 @@ WORKFLOW="PLACEHOLDER_WORKFLOW"
 ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
 OWNER="PLACEHOLDER_OWNER"
 
-start_date=datetime(2025, 6, 1)
+start_date=date(2025, 6, 1)
 total_workers = 10
 
 default_args = {
