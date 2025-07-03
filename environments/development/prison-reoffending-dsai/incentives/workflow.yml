@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-digital-incentives
-  tag: v2.0.2
+  tag: v2.0.3
   env_vars:
     ENVIRONMENT: "prod" #to be changed to dev once we have a prod DAG running
   catchup: true
