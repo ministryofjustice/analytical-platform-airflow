@@ -35,7 +35,7 @@ base_env_vars={
     "DATABASE_VERSION": "dev",
     "GITHUB_TAG": f"{REPOSITORY_TAG}",
     "ATHENA_DB_PREFIX": "opg",
-    "START_DATE": start_date,
+    "START_DATE": start_date.strftime("%Y-%m-%d"),
 }
 
 def update_env_vars(env_vars: dict[str, str], updates: dict[str, str]) -> dict[str, str]:
