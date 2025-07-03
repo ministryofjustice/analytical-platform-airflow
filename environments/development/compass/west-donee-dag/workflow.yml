@@ -1,0 +1,38 @@
+dag:
+  repository: ministryofjustice/west-donee-dag
+  tag: v0.1
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 1
+  retries: 1
+  retry_delay: 150
+  schedule: None # prod is "30 2 * * *"
+  start_date: "2025-07-03"
+  tasks:
+    task:
+      compute_profile: "general-on-demand-1vcpu-4gb"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-hub-exports/*
+
+secrets:
+  - user
+  - pass
+
+maintainers:
+  - vonbraunbates
+  - calumabarnett
+  - gwionap
+
+tags:
+  business_unit: Central Digital
+  owner: francesca.von.braun-bates@justice.gov.uk
+
+notifications:
+  emails:
+    - francesca.von.braun-bates@justice.gov.uk
+  slack_channel: ct-data-engineering
