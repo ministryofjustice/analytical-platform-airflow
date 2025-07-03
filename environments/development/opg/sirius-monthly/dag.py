@@ -17,6 +17,8 @@ default_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "owner": f"{OWNER}",
+    "retries": 1,
+    "retry_delay":150
 }
 
 dag = DAG(
@@ -25,8 +27,6 @@ dag = DAG(
     start_date=start_date,
     schedule=None,
     catchup=False,
-    retries=1,
-    retry_delay=150
 )
 
 base_env_vars={
