@@ -30,7 +30,7 @@ base_env_vars={
     "DATABASE": "sirius",
     "PIPELINE_NAME": "sirius-monthly",
     "DATABASE_VERSION": "dev",
-    "GITHUB_TAG": "v3.2.7",
+    "GITHUB_TAG": f"{REPOSITORY_TAG}",
     "ATHENA_DB_PREFIX": "opg",
     "START_DATE": start_date,
     "AWS_DEFAULT_REGION": "eu-west-1",
