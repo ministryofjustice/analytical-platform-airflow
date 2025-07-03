@@ -24,6 +24,9 @@ dag = DAG(
     default_args=default_args,
     start_date=start_date,
     schedule=None,
+    catchup=False,
+    retries=1,
+    retry_delay=150
 )
 
 base_env_vars={
