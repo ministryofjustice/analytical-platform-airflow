@@ -28,7 +28,7 @@ dag = DAG(
 
 base_env_vars={
     "DATABASE": "sirius",
-    "PIPELINE_NAME": "sirius-monthly",
+    "PIPELINE_NAME": f"{WORKFLOW}",
     "DATABASE_VERSION": "dev",
     "GITHUB_TAG": f"{REPOSITORY_TAG}",
     "ATHENA_DB_PREFIX": "opg",
