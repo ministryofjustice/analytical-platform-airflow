@@ -24,6 +24,7 @@ iam:
   glue: true
   s3_read_write:
     - alpha-mojap-ccde/dev/pcol_raw_data/*
+    - alpha-mojap-ccde/dev/pcol_raw/*
 
 secrets:
   - pds
