@@ -17,7 +17,7 @@ dag:
     process-v3-cgi-pcol-claim:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-claim"
-    
+
     process-v3-cgi-pcol-claim-event:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-claim-event"
