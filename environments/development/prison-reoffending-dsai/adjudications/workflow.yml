@@ -1,0 +1,42 @@
+dag:
+  repository: moj-analytical-services/airflow-adjudications-insights
+  tag: v2.1.5
+  env_vars:
+    ENVIRONMENT: "prod"
+  catchup: true
+  retries: 3
+  schedule: "0 20 * * *"
+  start_date: "2025-07-04"
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - mojap-derived-tables/prod/models/domain_name=risk/database_name=oasys/*
+    - alpha-data-linking-anonymised/*
+    - alpha-data-linking/*
+    - alpha-prison-population/mojap_pipeline/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/table_name=rpt_ao_*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=backup_nomis_ao/*
+
+  s3_read_write:
+    - alpha-adjudications/*
+    - mojap-adjudications-insights/*
+
+notifications:
+  emails:
+    - laura.auburn@justice.gov.uk
+    - rob.mcnaughter@justice.gov.uk
+
+maintainers:
+  - laura-auburn
+  - rob-mcnaughter
+
+tags:
+  business_unit: HMPPS
+  owner: laura.auburn@justice.gov.uk
