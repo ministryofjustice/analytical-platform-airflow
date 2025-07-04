@@ -9,11 +9,7 @@ dag:
   start_date: "2025-07-04"
 
 iam:
-  athena: 
-    write: true
-    dump_bucket:
-      - alpha-athena-query-dump
-      - mojap-athena-query-dump
+  athena: write
 
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
