@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.2.0-test-29
+  tag: v3.2.0-test-33
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -11,8 +11,9 @@ dag:
   schedule: None
   env_vars:
     DATABASE: "surveys"
+    PIPELINE_NAME: "surveys"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.2.0-test-29"
+    GITHUB_TAG: "v3.2.0-test-31"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-06-17"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -61,10 +62,8 @@ iam:
 secrets:
   - api-key
   - api-key-secret
-  - poa-satisfaction-details-id
-  - poa-satisfaction-responses-id
-  - deputyship-satisfaction-details-id
-  - deputyship-satisfaction-responses-id
+  - poa-satisfaction-id
+  - deputyship-satisfaction-id
 
 maintainers:
   - p-sin

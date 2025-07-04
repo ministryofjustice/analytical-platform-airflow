@@ -3,4 +3,4 @@ apiVersion: v2
 name: external-secret
 description: A Helm chart for creating an ExternalSecret
 type: application
-version: 1.0.0
+version: 2.0.0

@@ -1,0 +1,17 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-govuk-bank-holidays
+  tag: v0.1.4
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-govuk-bank-holidays/*
+
+maintainers:
+  - swalla-moj
+
+tags:
+  business_unit: HMPPS
+  owner: steven.wallace1@justice.gov.uk

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import (
+from airflow.providers.cncf.kubernetes.operators.pod import (
     KubernetesPodOperator,
 )
 from analytical_platform.compute_profiles import get_compute_profile
@@ -11,12 +11,12 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
         self,
         task_id: str,
         compute_profile: str,
-        hmcts_sdp_networking: bool,
         name: str,
         image: str,
         environment: str,
         project: str,
         workflow: str,
+        hmcts_sdp_networking: Optional[bool] = False,
         env_vars: Optional[dict] = None,
         *args,
         **kwargs,
@@ -117,7 +117,11 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             "AWS_DEFAULT_EXTRACT_REGION": "eu-west-1",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "AIRFLOW_ENVIRONMENT": environment.upper()
+            "AIRFLOW_ENVIRONMENT": environment.upper(),
+            "AIRFLOW_RUN_ID": "{{ run_id }}",
+            "AIRFLOW_TIMESTAMP": "{{ ts }}",
+            "AIRFLOW_TIMESTAMP_NO_DASH": "{{ ts_nodash }}",
+            "AIRFLOW_TIMESTAMP_NO_DASH_WITH_TZ": "{{ ts_nodash_with_tz }}",
         }
 
         # merge dicts into env_vars

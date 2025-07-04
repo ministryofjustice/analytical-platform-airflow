@@ -1,0 +1,39 @@
+dag:
+  repository: moj-analytical-services/pcol-pipeline
+  tag: v0.1.4
+  retries: 1
+  retry_delay: 150
+  hmcts_sdp_networking: True
+  env_vars:
+    AWS_METADATA_SERVICE_TIMEOUT: "60"
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    MOJAP_IMAGE_VERSION: "v0.1.4"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    DESTINATION_PREFIX: "s3://alpha-mojap-ccde/dev/pcol_raw_data"
+
+  tasks:
+    process-v3-cgi-pcol-claim:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-pcol-claim"
+        DESTINATION_PREFIX: s3://alpha-mojap-ccde/dev/pcol_raw_data
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-mojap-ccde/dev/pcol_raw_data/*
+
+secrets:
+  - pds
+
+notifications:
+  emails:
+    - Murad.Ali@justice.gov.uk
+
+maintainers:
+  - murad-ali-moj
+
+tags:
+  business_unit: HMCTS
+  owner: Murad.Ali@justice.gov.uk

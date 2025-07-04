@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/mbpr-airflow-pipelines
-  tag: v1.0.9
+  tag: v1.1.2
   env_vars:
     MODE: "opg-usat"
 

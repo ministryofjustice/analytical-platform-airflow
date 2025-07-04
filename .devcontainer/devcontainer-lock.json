@@ -5,11 +5,6 @@
       "resolved": "ghcr.io/devcontainers/features/docker-in-docker@sha256:842d2ed40827dc91b95ef727771e170b0e52272404f00dba063cee94eafac4bb",
       "integrity": "sha256:842d2ed40827dc91b95ef727771e170b0e52272404f00dba063cee94eafac4bb"
     },
-    "ghcr.io/devcontainers/features/python:1": {
-      "version": "1.7.1",
-      "resolved": "ghcr.io/devcontainers/features/python@sha256:cf9b6d879790a594b459845b207c5e1762a0c8f954bb8033ff396e497f9c301b",
-      "integrity": "sha256:cf9b6d879790a594b459845b207c5e1762a0c8f954bb8033ff396e497f9c301b"
-    },
     "ghcr.io/ministryofjustice/devcontainer-feature/astral:1": {
       "version": "1.0.0",
       "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/astral@sha256:a6df118c6475e79fe15e63b815a5df591a24b0d25517ea941114cb6bee1af9a8",
