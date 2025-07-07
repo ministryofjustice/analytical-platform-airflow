@@ -113,7 +113,7 @@ for table in raw_tables:
             dag=dag,
             task_id=f"land_to_raw_{table}_{batch}",
             name=f"{PROJECT}.{WORKFLOW}",
-            compute_profile=f"general-on-demand{compute}",
+            compute_profile=f"general-spot{compute}",
             image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
             environment=f"{ENVIRONMENT}",
             project=f"{PROJECT}",
