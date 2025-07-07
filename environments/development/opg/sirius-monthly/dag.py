@@ -39,9 +39,7 @@ base_env_vars={
 }
 
 def update_env_vars(env_vars: dict[str, str], updates: dict[str, str]) -> dict[str, str]:
-    for key, value in updates.items():
-        env_vars[key] = value
-    return env_vars
+    return {**env_vars, **updates}
 
 tasks = {}
 
