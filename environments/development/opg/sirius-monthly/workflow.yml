@@ -1,44 +1,8 @@
+---
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.2.6
-  catchup: false
-  depends_on_past: false
-  is_paused_upon_creation: false
-  max_active_runs: 4
-  retries: 1
-  retry_delay: 150
-  start_date: "2025-06-01"
-  schedule: None
-  env_vars:
-    DATABASE: "sirius"
-    PIPELINE_NAME: "sirius-monthly"
-    DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.2.0-test-33"
-    ATHENA_DB_PREFIX: "opg"
-    START_DATE: "2025-06-01"
-    AWS_DEFAULT_REGION: "eu-west-1"
-    AWS_METADATA_SERVICE_TIMEOUT: "60"
-    AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
-  tasks:
-    to_land:
-      env_vars:
-        STEP: "to_land"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-    land_to_raw:
-      env_vars:
-        STEP: "land_to_raw"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [to_land]
-    raw_to_curated:
-      env_vars:
-        STEP: "raw_to_curated"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [land_to_raw]
-    create_curated_database:
-      env_vars:
-        STEP: "create_curated_database"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [raw_to_curated]
+  tag: v3.2.12
+  python_dag: true
 
 iam:
   athena: write
@@ -62,8 +26,3 @@ maintainers:
 tags:
   business_unit: OPG
   owner: philip.sinfield@justice.gov.uk
-
-notifications:
-  emails:
-    - philip.sinfield@justice.gov.uk
-  slack_channel: opg-deds

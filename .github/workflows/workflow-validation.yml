@@ -474,6 +474,14 @@ jobs:
             fi
           fi
 
+          # Check if any environments/**/dag.py files have changed
+          for file in ${changed_files}; do
+            if [[ "${file}" =~ ^environments/.*/dag\.py$ ]]; then
+              echo "File (${file}) is a dag.py file, not eligible for automatic approval"
+              exit 0
+            fi
+          done
+
           # Check if any files outside environments/(development|test) have changed
           for file in ${changed_files}; do
             if [[ ! "${file}" =~ ^environments/(development|test)/.*$ ]]; then
