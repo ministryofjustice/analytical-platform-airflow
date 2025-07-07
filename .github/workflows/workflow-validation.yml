@@ -345,6 +345,19 @@ jobs:
 
           imageRepo=${imageName#ghcr.io/}
 
+          imageRepoLatestVersion=$(curl --silent https://api.github.com/repos/${imageRepo}/releases/latest | jq -r '.tag_name')
+          export imageRepoLatestVersion
+
+          if [[ "${imageVersion}" != "${imageRepoLatestVersion}"]]; then
+            echo "Image version (${imageVersion}) does not match latest version of upstream (${imageRepoLatestVersion})"
+            echo "image-version=${imageVersion}" >>"${GITHUB_ENV}"
+            echo "upstream-image-version=${imageRepoLatestVersion}" >>"${GITHUB_ENV}"
+            echo "image-version-match=false" >>"${GITHUB_OUTPUT}"
+          else
+            echo "Image version (${imageVersion}) matches latest version of upstream (${imageRepoLatestVersion})"
+            echo "image-version-match=true" >>"${GITHUB_OUTPUT}"
+          fi
+
           curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/tags/${imageVersion}/.trivyignore" --output "runtime-trivyignore"
 
           if [[ ! -f .trivyignore ]]; then
@@ -352,6 +365,19 @@ jobs:
           else
             cat "runtime-trivyignore" >> .trivyignore
           fi
+
+      - name: Comment on Image Version Mismatch
+        id: comment_on_image_version_mismatch
+        if: env.image-version-match == 'false'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Provided image does not use the latest version of the upstream image. Please ensure you are using the latest version of the upstream image in your Dockerfile.'
+            })
 
       - name: Scan
         id: scan
