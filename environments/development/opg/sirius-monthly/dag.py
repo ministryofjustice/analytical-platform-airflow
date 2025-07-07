@@ -106,12 +106,14 @@ for table in raw_tables:
         env_vars=update_env_vars(base_env_vars, {"STEP": "land_to_raw", "TOTAL_WORKERS": total_workers, "CLOSE": True, "TABLE": table})
     )
 
+    compute = "-16vcpu-64gb" if table == "documents" else "-1vcpu-4gb"
+
     for batch in range (total_workers):
         tasks[f"land_to_raw_{table}_{batch}"] = AnalyticalPlatformStandardOperator(
             dag=dag,
             task_id=f"land_to_raw_{table}_{batch}",
             name=f"{PROJECT}.{WORKFLOW}",
-            compute_profile="general-on-demand-4vcpu-16gb",
+            compute_profile=f"general-on-demand{compute}",
             image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
             environment=f"{ENVIRONMENT}",
             project=f"{PROJECT}",
