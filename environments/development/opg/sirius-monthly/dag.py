@@ -83,7 +83,7 @@ raw_tables = [
 
 for table in raw_tables:
 
-    tasks["land_to_raw_init"] = AnalyticalPlatformStandardOperator(
+    tasks[f"land_to_raw_init_{table}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
         task_id=f"land_to_raw_init_{table}",
         name=f"{PROJECT}.{WORKFLOW}",
@@ -96,7 +96,7 @@ for table in raw_tables:
     )
     tasks["to_land"] >> tasks[f"land_to_raw_init_{table}"]
 
-    tasks["land_to_raw_close"] = AnalyticalPlatformStandardOperator(
+    tasks[f"land_to_raw_close_{table}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
         task_id=f"land_to_raw_close_{table}",
         name=f"{PROJECT}.{WORKFLOW}",
@@ -111,7 +111,7 @@ for table in raw_tables:
     for batch in range (total_workers):
         tasks[f"land_to_raw_{table}_{batch}"] = AnalyticalPlatformStandardOperator(
             dag=dag,
-            task_id=f"land_to_raw_{batch}",
+            task_id=f"land_to_raw_{table}_{batch}",
             name=f"{PROJECT}.{WORKFLOW}",
             compute_profile="general-on-demand-4vcpu-16gb",
             image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
