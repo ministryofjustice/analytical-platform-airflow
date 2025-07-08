@@ -51,11 +51,12 @@ iam:
   s3_read_write:
     - alpha-opg-etl/dev/investigations/*
     - mojap-athena-query-dump/*airflow-development-opg-investigations/*
-
   s3_read_only:
     - mojap-data-production-datasync-opg-ingress-production/Investigations/Database/*
     - alpha-opg-etl/dev/nspl_reference/curated/*
     - alpha-opg-mi-dashboard/working/*
+  kms:
+    - arn:aws:kms:eu-west-2:593291632749:key/96eb04fe-8393-402c-b1f9-71fcece99e75
 
 maintainers:
   - p-sin
