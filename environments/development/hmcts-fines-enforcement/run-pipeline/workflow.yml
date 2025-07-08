@@ -1,3 +1,4 @@
+---
 dag:
   repository: moj-analytical-services/airflow-enforcement-data-engineering
   tag: v3.2.3
@@ -50,17 +51,17 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-      - alpha-enforcement-data-engineering/input_folder/*
-      - alpha-enforcement-data-engineering/test_db/*
-      - alpha-enforcement-data-engineering/redacted_test_db/*
-      - alpha-enforcement-data-engineering/data_not_standard_input/*
-      - alpha-enforcement-data-engineering/data_not_standard_output/*
-      - alpha-enforcement-data-engineering/live/live_raw_test/*
-      - alpha-enforcement-data-engineering/closed/closed_raw_test/*
-      - alpha-enforcement-data-engineering/transactions/transactions_raw_test/*
-      - alpha-enforcement-data-engineering/offences/offences_raw_test/*
+    - alpha-enforcement-data-engineering/input_folder/*
+    - alpha-enforcement-data-engineering/test_db/*
+    - alpha-enforcement-data-engineering/redacted_test_db/*
+    - alpha-enforcement-data-engineering/data_not_standard_input/*
+    - alpha-enforcement-data-engineering/data_not_standard_output/*
+    - alpha-enforcement-data-engineering/live/live_raw_test/*
+    - alpha-enforcement-data-engineering/closed/closed_raw_test/*
+    - alpha-enforcement-data-engineering/transactions/transactions_raw_test/*
+    - alpha-enforcement-data-engineering/offences/offences_raw_test/*
   s3_read_only:
-      - alpha-enforcement-data-engineering/misc/*
-      - mojap-derived-tables/prod/seeds/*
-      - mojap-derived-tables/prod/models/domain_name=general/database_name=lookup_offence_v2/*
-      - mojap-derived-tables/prod/models/domain_name=courts/database_name=common_platform_derived/*
+    - alpha-enforcement-data-engineering/misc/*
+    - mojap-derived-tables/prod/seeds/*
+    - mojap-derived-tables/prod/models/domain_name=general/database_name=lookup_offence_v2/*
+    - mojap-derived-tables/prod/models/domain_name=courts/database_name=common_platform_derived/*
