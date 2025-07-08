@@ -1,0 +1,36 @@
+dag:
+  repository: moj-analytical-services/airflow-create-a-pipeline
+  tag: v4.0.0-alpha.badc1c0
+  retries: 1
+  retry_delay: 150
+  max_active_runs: 5
+  env_vars:
+    LOG_LEVEL: "DEBUG"
+    DB_RUN_TS: {{ ts }}
+    LAND: "s3://mojap-land-dev/hmcts/common-platform/dev/dev_sdp_v3"
+    RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/common-platform/dev/dev_sdp_v3"
+    BASE_LOC: "s3://alpha-mojap-common-platform/dev_sdp_v3"
+    BASE_DB_NAME: "common_platform_dev"
+    SERVICE: "common-platform"
+    CHUNK_SIZE: "500MB"
+    DAG_RUN_ID: {{ run_id }}
+    DAG_INTERVAL_END: {{ data_interval_end }}
+
+  tasks:
+    cp_load_allocated_listings:
+      env_vars:
+        TABLE: "allocated_listings"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/hmcts/common-platform/*
+    - mojap-raw-hist-dev/hmcts/common-platform/*
+    - alpha-mojap-common-platform/*
+
+maintainers:
+  - andy-cook
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
