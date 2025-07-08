@@ -2,7 +2,7 @@ dag:
   repository: moj-analytical-services/airflow-adjudications-insights
   tag: v2.1.5
   env_vars:
-    ENVIRONMENT: "prod"
+    DEV_PROD: "prod" #to be changed to dev once we have a prod DAG running
   catchup: true
   retries: 3
   schedule: "0 20 * * *"
