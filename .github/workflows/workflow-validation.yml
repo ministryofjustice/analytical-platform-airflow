@@ -381,7 +381,7 @@ jobs:
 
       - name: Scan
         id: scan
-        uses: aquasecurity/trivy-action@76071ef0d7ec797419534a183b498b4d6366cf37 # v0.31.0
+        uses: aquasecurity/trivy-action@dc5a429b52fcf669ce959baa2c2dd26090d2a6c4 # v0.32.0
         env:
           TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
@@ -499,6 +499,14 @@ jobs:
               exit 0
             fi
           fi
+
+          # Check if any environments/**/dag.py files have changed
+          for file in ${changed_files}; do
+            if [[ "${file}" =~ ^environments/.*/dag\.py$ ]]; then
+              echo "File (${file}) is a dag.py file, not eligible for automatic approval"
+              exit 0
+            fi
+          done
 
           # Check if any files outside environments/(development|test) have changed
           for file in ${changed_files}; do
