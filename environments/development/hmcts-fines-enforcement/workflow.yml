@@ -1,0 +1,66 @@
+dag:
+  repository: moj-analytical-services/airflow-enforcement-data-engineering
+  tag: 3.2.3
+  compute_profile: general-on-demand-4vcpu-16gb
+  depends_on_past: false
+  schedule: None
+  env_vars:
+    BUCKET: "alpha-enforcement-data-engineering"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+    TEST_ENV: "True"
+  tasks:
+    extract-live:
+      env_vars:
+        TASK: "extract"
+        DATASET: "live"
+    extract-closed:
+      env_vars:
+        TASK: "extract"
+        DATASET: "closed"
+    extract-transactions:
+      env_vars:
+        TASK: "extract"
+        DATASET: "transactions"
+    extract-offences:
+      env_vars:
+        TASK: "extract"
+        DATASET: "offences"
+    full-schema:
+      env_vars:
+        TASK: "full-schema"
+        DATASET: "transactions"  # The dataset doesn't matter for this task
+      dependencies: [extract-live, extract-closed, extract-transactions, extract-offences]
+    redact-schema:
+      env_vars:
+        TASK: "redact-schema"
+        DATASET: "transactions"  # The dataset doesn't matter for this task
+      dependencies: [extract-live, extract-closed, extract-transactions, extract-offences]
+
+maintainers:
+  - chloepugh
+  - rosswyatt
+
+tags:
+  business_unit: HQ
+  owner: chloe.pugh1@justice.gov.uk
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+      - alpha-enforcement-data-engineering/input_folder/*
+      - alpha-enforcement-data-engineering/test_db/*
+      - alpha-enforcement-data-engineering/redacted_test_db/*
+      - alpha-enforcement-data-engineering/data_not_standard_input/*
+      - alpha-enforcement-data-engineering/data_not_standard_output/*
+      - alpha-enforcement-data-engineering/live/live_raw_test/*
+      - alpha-enforcement-data-engineering/closed/closed_raw_test/*
+      - alpha-enforcement-data-engineering/transactions/transactions_raw_test/*
+      - alpha-enforcement-data-engineering/offences/offences_raw_test/*
+  s3_read_only:
+      - alpha-enforcement-data-engineering/misc/*
+      - mojap-derived-tables/prod/seeds/*
+      - mojap-derived-tables/prod/models/domain_name=general/database_name=lookup_offence_v2/*
+      - mojap-derived-tables/prod/models/domain_name=courts/database_name=common_platform_derived/*
