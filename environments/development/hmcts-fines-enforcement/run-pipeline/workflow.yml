@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-enforcement-data-engineering
-  tag: v3.2.3
+  tag: v3.2.4
   compute_profile: general-on-demand-4vcpu-16gb
   depends_on_past: false
   schedule: None
