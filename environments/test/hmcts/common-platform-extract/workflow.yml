@@ -7,14 +7,13 @@ dag:
   max_active_runs: 3
   env_vars:
     TASK: "extract"
-    IMAGE_VERSION: "v3.0.0-beta4"
     LOG_LEVEL: "DEBUG"
     ENDPOINT: "MI_PERSISTENT_PROD"
     SDP_TABLE_PREFIX: "v2-cp"
     PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
     CHECK_MODE: "hist"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
-    DATABASE_NAME: "common_platform_dev_pp"
+    DATABASE_NAME: "common_platform_dev_CAP4"
     LAND_BUCKET: "s3://mojap-land-dev"
     HIST_BUCKET: "s3://mojap-raw-hist-dev"
     LAND_FOLDER: "hmcts/common-platform/dev/dev_sdp_v3"
