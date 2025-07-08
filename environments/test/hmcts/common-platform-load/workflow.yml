@@ -9,7 +9,7 @@ dag:
     LAND: "s3://mojap-land-dev/hmcts/common-platform/dev/dev_sdp_v3"
     RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/common-platform/dev/dev_sdp_v3"
     BASE_LOC: "s3://alpha-mojap-common-platform/dev_sdp_v3"
-    BASE_DB_NAME: "common_platform_dev"
+    BASE_DB_NAME: "common_platform_dev_CAP4"
     SERVICE: "common-platform"
     CHUNK_SIZE: "500MB"
     DAG_INTERVAL_END: "{{ data_interval_end }}"
