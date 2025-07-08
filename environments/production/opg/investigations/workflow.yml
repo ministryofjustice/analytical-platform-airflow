@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.2.2
+  tag: v3.3.1
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -8,12 +8,12 @@ dag:
   retries: 1
   retry_delay: 150
   start_date: "2025-07-01"
-  schedule: None
+  schedule: 0 5 * * *
   env_vars:
     DATABASE: "investigations"
     PIPELINE_NAME: "investigations"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: "v3.2.2"
+    GITHUB_TAG: "v3.3.0"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-07-01"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -23,39 +23,40 @@ dag:
     to_land:
       env_vars:
         STEP: "to_land"
-      compute_profile: "general-on-demand-4vcpu-16gb"
+      compute_profile: "general-on-demand-1vcpu-4gb"
     land_to_raw_hist:
       env_vars:
         STEP: "land_to_raw_hist"
-      compute_profile: "general-on-demand-4vcpu-16gb"
+      compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [to_land]
     raw_hist_to_processed:
       env_vars:
         STEP: "raw_hist_to_processed"
-      compute_profile: "general-on-demand-4vcpu-16gb"
+      compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [land_to_raw_hist]
     processed_to_curated:
       env_vars:
         STEP: "processed_to_curated"
-      compute_profile: "general-on-demand-4vcpu-16gb"
+      compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [raw_hist_to_processed]
     create_curated_database:
       env_vars:
         STEP: "create_curated_database"
-      compute_profile: "general-on-demand-4vcpu-16gb"
+      compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [processed_to_curated]
 
 iam:
   athena: write
   glue: true
   s3_read_write:
-    - alpha-opg-etl/prod/investigations/*
+    - alpha-opg-etl/dev/investigations/*
     - mojap-athena-query-dump/*airflow-development-opg-investigations/*
-
   s3_read_only:
-    - alpha-opg-investigations/*
+    - mojap-data-production-datasync-opg-ingress-production/Investigations/Database/*
     - alpha-opg-etl/dev/nspl_reference/curated/*
     - alpha-opg-mi-dashboard/working/*
+  kms:
+    - arn:aws:kms:eu-west-2:593291632749:key/96eb04fe-8393-402c-b1f9-71fcece99e75
 
 maintainers:
   - p-sin
