@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/pcol-pipeline
-  tag: v0.2.3
+  tag: v0.2.4
   retries: 1
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -20,6 +20,9 @@ iam:
   s3_read_write:
     - alpha-mojap-ccde/dev/pcol_raw_data/*
     - alpha-mojap-ccde/dev/pcol_raw/*
+
+secrets:
+  - pds
 
 notifications:
   emails:
