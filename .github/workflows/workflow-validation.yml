@@ -348,7 +348,7 @@ jobs:
           imageRepoLatestVersion=$(curl --silent https://api.github.com/repos/${imageRepo}/releases/latest | jq -r '.tag_name')
           export imageRepoLatestVersion
 
-          if [[ "${imageVersion}" != "${imageRepoLatestVersion}"]]; then
+          if [[ "${imageVersion}" != "${imageRepoLatestVersion}" ]]; then
             echo "Image version (${imageVersion}) does not match latest version of upstream (${imageRepoLatestVersion})"
             echo "image-version=${imageVersion}" >>"${GITHUB_ENV}"
             echo "upstream-image-version=${imageRepoLatestVersion}" >>"${GITHUB_ENV}"
