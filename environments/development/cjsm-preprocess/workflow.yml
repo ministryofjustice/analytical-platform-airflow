@@ -6,9 +6,9 @@ dag:
 
 iam:
   athena: read
-  s3_read_only: 
+  s3_read_only:
     - alpha-cjsm-logs-data/api_test/production/processed/pass/*
-  s3_write_only: # Needs to write to bucket for app data
+  s3_write_only:
     - alpha-app-cjsm-email-traffic/*
     - alpha-app-cjsm-networkanalysis/*
 
