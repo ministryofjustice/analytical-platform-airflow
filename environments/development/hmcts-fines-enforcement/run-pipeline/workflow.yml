@@ -31,13 +31,15 @@ dag:
     full-schema:
       env_vars:
         TASK: "full-schema"
-        DATASET: "transactions"  # The dataset doesn't matter for this task
-      dependencies: [extract-live, extract-closed, extract-transactions, extract-offences]
+        DATASET: "transactions" # The dataset doesn't matter for this task
+      dependencies:
+        [extract-live, extract-closed, extract-transactions, extract-offences]
     redact-schema:
       env_vars:
         TASK: "redact-schema"
-        DATASET: "transactions"  # The dataset doesn't matter for this task
-      dependencies: [extract-live, extract-closed, extract-transactions, extract-offences]
+        DATASET: "transactions" # The dataset doesn't matter for this task
+      dependencies:
+        [extract-live, extract-closed, extract-transactions, extract-offences]
 
 maintainers:
   - chloepugh
