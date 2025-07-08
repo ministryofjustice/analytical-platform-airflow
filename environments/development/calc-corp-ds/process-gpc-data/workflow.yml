@@ -1,0 +1,33 @@
+dag:
+  repository: moj-analytical-services/airflow-gpc-anomalies-preprocess
+  tag: v0.2.0-rc1
+  retries: 3
+  retry_delay: 150
+  schedule: "0 2 * * *"
+  tasks:
+    unlock_dev:
+      env_vars:
+        R_CONFIG_ACTIVE: "dev"
+      bash_command: "Rscript scripts/unlock_all_blocks.R"
+    unlock_prod:
+      env_vars:
+        R_CONFIG_ACTIVE: "prod"
+      bash_command: "Rscript scripts/unlock_all_blocks.R"
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-app-gpc-anomalies/*
+
+maintainers:
+  - tomd-moj
+  - sheilz81
+
+notifications:
+  emails:
+    - thomas.dykins@justice.gov.uk
+    - sheila.ladva@justice.gov.uk
+
+tags:
+  business_unit: HQ
+  owner: thomas.dykins@justice.gov.uk
