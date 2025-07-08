@@ -1,0 +1,25 @@
+dag:
+  repository: moj-analytical-services/airflow-cf-misconduct
+  tag: v7.0
+  catchup: false
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-cf-misconduct/*
+    - alpha-app-fraud-and-corruption-insights/*
+    - mojap-athena-query-dump/*
+    - alpha-athena/*
+    - alpha-athena-query-dump/*
+
+maintainers:
+  - jhenfrancis
+  - sheilz81
+  - tomd-moj
+
+notifications:
+  slack_channel: misconduct_nlp
+
+tags:
+  business_unit: HQ
+  owner: jhenielle.francis@justice.gov.uk
