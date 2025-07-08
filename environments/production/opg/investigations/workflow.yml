@@ -13,7 +13,7 @@ dag:
     DATABASE: "investigations"
     PIPELINE_NAME: "investigations"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: "v3.3.0"
+    GITHUB_TAG: "v3.3.1"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-07-01"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -49,11 +49,11 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - alpha-opg-etl/dev/investigations/*
+    - alpha-opg-etl/prod/investigations/*
     - mojap-athena-query-dump/*airflow-development-opg-investigations/*
   s3_read_only:
     - mojap-data-production-datasync-opg-ingress-production/Investigations/Database/*
-    - alpha-opg-etl/dev/nspl_reference/curated/*
+    - alpha-opg-etl/prod/nspl_reference/curated/*
     - alpha-opg-mi-dashboard/working/*
   kms:
     - arn:aws:kms:eu-west-2:593291632749:key/96eb04fe-8393-402c-b1f9-71fcece99e75
