@@ -37,7 +37,7 @@
   {%- if dag.params %}
   params:
     {%- for k, v in dag.params.items() %}
-    {{ k }}: {{ v }}
+    {{ k }}: "{{ v }}"
     {%- endfor %}
   {%- endif %}
   schedule_interval: {{ dag.schedule|default(null) }}
@@ -55,7 +55,7 @@
       {%- set merged_env_vars = dag.env_vars | default({}) | merge_dicts(task.env_vars | default({})) %}
       env_vars:
         {%- for k, v in merged_env_vars.items() %}
-        {{ k }}: {{ v }}
+        {{ k }}: "{{ v }}"
         {%- endfor %}
         {%- if dag.params %}
         {%- for k, v in dag.params.items() %}
@@ -85,7 +85,7 @@
       env_vars:
         {%- if dag.env_vars %}
         {%- for k, v in dag.env_vars.items() %}
-        {{ k }}: {{ v }}
+        {{ k }}: "{{ v }}"
         {%- endfor %}
         {%- endif %}
         {%- if dag.params %}
