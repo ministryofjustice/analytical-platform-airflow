@@ -11,6 +11,7 @@ dag:
     ENDPOINT: "MI_PERSISTENT_PROD"
     SDP_TABLE_PREFIX: "v2-cp"
     PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
+    COPY_MODE: "new"
     CHECK_MODE: "hist"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
     DATABASE_NAME: "common_platform_dev_CAP4"
