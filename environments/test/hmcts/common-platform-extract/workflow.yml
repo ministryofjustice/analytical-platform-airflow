@@ -13,6 +13,7 @@ dag:
     PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
     COPY_MODE: "new"
     CHECK_MODE: "hist"
+    FILENAME_COL_NAME: "mojap_unpacked_filename"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
     DATABASE_NAME: "common_platform_dev_CAP4"
     LAND_BUCKET: "s3://mojap-land-dev"
