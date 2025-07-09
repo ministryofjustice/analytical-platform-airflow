@@ -15,7 +15,7 @@ dag:
     CHECK_MODE: "hist"
     FILENAME_COL_NAME: "mojap_unpacked_filename"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
-    DATABASE_NAME: "common_platform_dev_CAP4"
+    DATABASE_NAME: "common_platform_dev_cap4"
     LAND_BUCKET: "s3://mojap-land-dev"
     HIST_BUCKET: "s3://mojap-raw-hist-dev"
     LAND_FOLDER: "hmcts/common-platform/dev/dev_sdp_v3"
