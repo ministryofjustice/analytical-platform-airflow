@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-gpc-anomalies-preprocess
-  tag: v0.2.0-rc2
+  tag: v0.2.0-rc3
   retries: 3
   retry_delay: 150
   schedule: "0 2 * * *"
@@ -9,10 +9,10 @@ dag:
       env_vars:
         R_CONFIG_ACTIVE: "dev"
         MODE: "unlock"
-    unlock_prod:
-      env_vars:
-        R_CONFIG_ACTIVE: "prod"
-        MODE: "unlock"
+    # unlock_prod:
+    #   env_vars:
+    #     R_CONFIG_ACTIVE: "prod"
+    #     MODE: "unlock"
 
 iam:
   athena: write
