@@ -18,7 +18,6 @@ iam:
     - alpha-cjsm-logs-data/dummytestdata/*
     - alpha-app-cjsm-email-traffic/*
     - alpha-app-cjsm-networkanalysis/*
-    - alpha-athena-dump/*
     - alpha-athena-query-dump/*
 
 maintainers:
