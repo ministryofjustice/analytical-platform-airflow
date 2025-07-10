@@ -1,0 +1,58 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-enforcement-data-engineering
+  tag: v3.2.5
+  compute_profile: general-on-demand-4vcpu-16gb
+  depends_on_past: false
+  schedule: "0 1 4 * *"
+  start_date: "2025-07-10"
+  env_vars:
+    BUCKET: "alpha-enforcement-data-engineering"
+    TEST_ENV: "False"
+  tasks:
+    extract-live:
+      env_vars:
+        TASK: "extract"
+        DATASET: "live"
+    extract-closed:
+      env_vars:
+        TASK: "extract"
+        DATASET: "closed"
+    extract-transactions:
+      env_vars:
+        TASK: "extract"
+        DATASET: "transactions"
+    extract-offences:
+      env_vars:
+        TASK: "extract"
+        DATASET: "offences"
+    full-schema:
+      env_vars:
+        TASK: "full-schema"
+        DATASET: "transactions" # The dataset doesn't matter for this task
+      dependencies:
+        [extract-live, extract-closed, extract-transactions, extract-offences]
+    redact-schema:
+      env_vars:
+        TASK: "redact-schema"
+        DATASET: "transactions" # The dataset doesn't matter for this task
+      dependencies:
+        [extract-live, extract-closed, extract-transactions, extract-offences]
+
+maintainers:
+  - chloepugh
+  - rosswyatt
+
+tags:
+  business_unit: HQ
+  owner: chloe.pugh1@justice.gov.uk
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-enforcement-data-engineering/*
+  s3_read_only:
+    - mojap-derived-tables/prod/seeds/*
+    - mojap-derived-tables/prod/models/domain_name=general/database_name=lookup_offence_v2/*
+    - mojap-derived-tables/prod/models/domain_name=courts/database_name=common_platform_derived/*
