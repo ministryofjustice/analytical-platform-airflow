@@ -32,8 +32,8 @@ default_args = {
 dag = DAG(
   dag_id=f"{PROJECT}.{WORKFLOW}",
   default_args=default_args,
-  start_date=datetime(2025, 6, 27),
-  end_date=datetime(2025, 6, 28),
+  start_date=datetime(2025, 7, 10),
+  end_date=datetime(2025, 7, 11),
   schedule="*/30 9-17 * * 1-5",
 )
 
