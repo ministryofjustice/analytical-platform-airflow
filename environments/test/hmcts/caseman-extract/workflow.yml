@@ -22,11 +22,11 @@ dag:
     HIST_FOLDER: "hmcts/caseman_sdp/test"
     CUT_OFF: "2025-07-03"
   tasks:
-    cp_extract_allocated_listings:
+    caseman_extract_address_types:
       env_vars:
-        TABLE_NAME: "allocated-listings"
-        S3_TABLE_NAME: "allocated_listings"
-        FILENAME_TABLE_NAME: "allocated_listings"
+        TABLE_NAME: "address-types"
+        S3_TABLE_NAME: "address_types"
+        FILENAME_TABLE_NAME: "address_types"
 
 iam:
   athena: write
