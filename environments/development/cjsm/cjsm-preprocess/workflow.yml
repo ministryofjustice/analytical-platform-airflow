@@ -6,21 +6,20 @@ dag:
 
 iam:
   athena: read
-  s3:
-    read_only:
-      - alpha-cjsm-logs-data/Source Data/*
-      - alpha-cjsm-logs-data/api_test/production/processed/pass/*
-    read_write:
-      - alpha-cjsm-logs-data/Combined Data/*
-      - alpha-cjsm-logs-data/Exceptions/*
-      - alpha-cjsm-logs-data/Lookups/*
-      - alpha-cjsm-logs-data/Processed Data/*
-      - alpha-cjsm-logs-data/dev_testing/*
-      - alpha-cjsm-logs-data/dummytestdata/*
-      - alpha-app-cjsm-email-traffic/*
-      - alpha-app-cjsm-networkanalysis/*
-      - alpha-athena-dump/*
-      - alpha-athena-query-dump/*
+  s3_read_only:
+    - alpha-cjsm-logs-data/Source Data/*
+    - alpha-cjsm-logs-data/api_test/production/processed/pass/*
+  s3_read_write:
+    - alpha-cjsm-logs-data/Combined Data/*
+    - alpha-cjsm-logs-data/Exceptions/*
+    - alpha-cjsm-logs-data/Lookups/*
+    - alpha-cjsm-logs-data/Processed Data/*
+    - alpha-cjsm-logs-data/dev_testing/*
+    - alpha-cjsm-logs-data/dummytestdata/*
+    - alpha-app-cjsm-email-traffic/*
+    - alpha-app-cjsm-networkanalysis/*
+    - alpha-athena-dump/*
+    - alpha-athena-query-dump/*
 
 maintainers:
   - dugaldhepburnmoj
