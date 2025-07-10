@@ -342,16 +342,17 @@ jobs:
 
           imageVersion=$(grep "^FROM" Dockerfile | cut -d':' -f2 | cut -d'@' -f1)
           export imageVersion
+          echo "image-version=${imageVersion}" >>"${GITHUB_ENV}"
 
           imageRepo=${imageName#ghcr.io/}
+          echo "upstream-image-repo=${imageRepo}" >>"${GITHUB_ENV}"
 
           imageRepoLatestVersion=$(curl --silent https://api.github.com/repos/"${imageRepo}"/releases/latest | jq -r '.tag_name')
           export imageRepoLatestVersion
+          echo "upstream-image-version=${imageRepoLatestVersion}" >>"${GITHUB_ENV}"
 
           if [[ "${imageVersion}" != "${imageRepoLatestVersion}" ]]; then
             echo "Image version (${imageVersion}) does not match latest version of upstream (${imageRepoLatestVersion})"
-            echo "image-version=${imageVersion}" >>"${GITHUB_ENV}"
-            echo "upstream-image-version=${imageRepoLatestVersion}" >>"${GITHUB_ENV}"
             echo "image-version-match=false" >>"${GITHUB_ENV}"
           else
             echo "Image version (${imageVersion}) matches latest version of upstream (${imageRepoLatestVersion})"
@@ -376,7 +377,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Provided image does not use the latest version of the base image. Please ensure you are using the latest version of the base image in your Dockerfile.'
+              body: 'Provided image version (${{ env.image-version }}) does not use the latest version (${{ env.upstream-image-version }}) of the [base image](https://github.com/ministryofjustice/${{ env.upstream-image-repo}}/releases/latest). Please ensure you are using the latest version of the base image in your Dockerfile.'
             })
 
       - name: Scan
