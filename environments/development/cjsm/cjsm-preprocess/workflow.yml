@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cjsm-email-traffic-preprocess
-  tag: v5.0.3
+  tag: v5.0.4
   python_dag: true
 
 iam:
