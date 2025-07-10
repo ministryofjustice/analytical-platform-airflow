@@ -1,0 +1,109 @@
+dag:
+  repository: moj-analytical-services/pcol-pipeline
+  tag: v0.3.0
+  retries: 1
+  retry_delay: 150
+  start_date: "2025-07-15"
+  schedule: "0 7 * * 2" # Every Tuesday at 07:00
+  max_active_runs: 3
+  hmcts_sdp_networking: true
+  env_vars:
+    AWS_DEFAULT_REGION: "eu-west-1"
+    DESTINATION_PATH: "s3://alpha-mojap-ccde/dev/familyman_raw/"
+
+  tasks:
+    process-v3-opt-familyman-tucs-address-type-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-address-type-models"
+
+    process-v3-opt-familyman-tucs-addresses:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-addresses"
+
+    process-v3-opt-familyman-tucs-case-event-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-case-event-models"
+
+    process-v3-opt-familyman-tucs-case-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-case-models"
+
+    process-v3-opt-familyman-tucs-cases:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-cases"
+
+    process-v3-opt-familyman-tucs-court-addresses-mv:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-court-addresses-mv"
+
+    process-v3-opt-familyman-tucs-courts-mv:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-courts-mv"
+
+    process-v3-opt-familyman-tucs-event-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-event-models"
+
+    process-v3-opt-familyman-tucs-events:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-events"
+
+    process-v3-opt-familyman-tucs-field-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-field-models"
+
+    process-v3-opt-familyman-tucs-fields:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-fields"
+
+    process-v3-opt-familyman-tucs-hearings:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-hearings"
+
+    process-v3-opt-familyman-tucs-home-courts:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-home-courts"
+
+    process-v3-opt-familyman-tucs-links:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-links"
+
+    process-v3-opt-familyman-tucs-list-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-list-models"
+
+    process-v3-opt-familyman-tucs-list-value-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-list-value-models"
+
+    process-v3-opt-familyman-tucs-parties:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-parties"
+
+    process-v3-opt-familyman-tucs-role-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-role-models"
+
+    process-v3-opt-familyman-tucs-roles:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-roles"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-mojap-ccde/dev/familyman_raw/*
+
+secrets:
+  - pds
+
+notifications:
+  emails:
+    - Murad.Ali@justice.gov.uk
+
+maintainers:
+  - murad-ali-moj
+
+tags:
+  business_unit: HMCTS
+  owner: Murad.Ali@justice.gov.uk
