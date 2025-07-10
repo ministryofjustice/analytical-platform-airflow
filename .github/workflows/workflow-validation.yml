@@ -345,7 +345,7 @@ jobs:
 
           imageRepo=${imageName#ghcr.io/}
 
-          imageRepoLatestVersion=$(curl --silent https://api.github.com/repos/${imageRepo}/releases/latest | jq -r '.tag_name')
+          imageRepoLatestVersion=$(curl --silent https://api.github.com/repos/"${imageRepo}"/releases/latest | jq -r '.tag_name')
           export imageRepoLatestVersion
 
           if [[ "${imageVersion}" != "${imageRepoLatestVersion}" ]]; then
