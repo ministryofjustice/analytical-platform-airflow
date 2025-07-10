@@ -1,0 +1,75 @@
+dag:
+  repository: moj-analytical-services/airflow-opg-etl
+  tag: v3.3.1
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 4
+  retries: 1
+  retry_delay: 150
+  start_date: "2025-06-17"
+  schedule: None
+  env_vars:
+    DATABASE: "sra"
+    PIPELINE_NAME: "sra"
+    DATABASE_VERSION: "prod"
+    GITHUB_TAG: "v3.3.1"
+    ATHENA_DB_PREFIX: "opg"
+    START_DATE: "2025-06-17"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_METADATA_SERVICE_TIMEOUT: "60"
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
+  tasks:
+    to_land:
+      env_vars:
+        STEP: "to_land"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+    land_to_raw_hist:
+      env_vars:
+        STEP: "land_to_raw_hist"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [to_land]
+    raw_hist_to_processed:
+      env_vars:
+        STEP: "raw_hist_to_processed"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [land_to_raw_hist]
+    processed_to_curated:
+      env_vars:
+        STEP: "processed_to_curated"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [raw_hist_to_processed]
+    create_curated_database:
+      env_vars:
+        STEP: "create_curated_database"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [processed_to_curated]
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land/opg/prod/sra/*
+    - mojap-raw-hist/opg/prod/sra/*
+    - mojap-processed/opg/prod/sra/*
+    - alpha-opg-etl/prod/sra/*
+    - mojap-athena-query-dump/*
+
+  s3_read_only:
+    - alpha-opg-etl/dev/nspl_reference/curated/*
+    - alpha-opg-mi-dashboard/working/*
+
+secrets:
+  - api-subscription-key
+
+maintainers:
+  - p-sin
+  - gwionap
+
+tags:
+  business_unit: OPG
+  owner: philip.sinfield@justice.gov.uk
+
+notifications:
+  emails:
+    - philip.sinfield@justice.gov.uk
+  slack_channel: opg-deds

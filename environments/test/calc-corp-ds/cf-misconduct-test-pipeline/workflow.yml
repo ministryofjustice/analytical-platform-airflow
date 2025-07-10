@@ -1,0 +1,40 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-cf-misconduct
+  tag: v7.2
+  catchup: false
+  tasks:
+    db_prep_compare_labels:
+      env_vars:
+        CHECK: "db_prepared"
+        SCRIPT: "compare-labels-db"
+
+    db_prep_copy_db:
+      env_vars:
+        CHECK: "db_prepared"
+        SCRIPT: "copy-db"
+      dependencies: [db_prep_compare_labels]
+
+    test_task:
+      env_vars:
+        CHECK: "db_prepared"
+        SCRIPT: "compare-labels-db"
+      dependencies: [db_prep_copy_db]
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-cf-misconduct/*
+    - alpha-app-fraud-and-corruption-insights/*
+    - mojap-athena-query-dump/*
+    - alpha-athena/*
+    - alpha-athena-query-dump/*
+
+maintainers:
+  - jhenfrancis
+  - sheilz81
+  - tomd-moj
+
+tags:
+  business_unit: HQ
+  owner: jhenielle.francis@justice.gov.uk
