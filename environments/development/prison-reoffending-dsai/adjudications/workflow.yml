@@ -1,12 +1,15 @@
 dag:
   repository: moj-analytical-services/airflow-adjudications-insights
-  tag: v2.1.5
+  tag: v2.1.7
   env_vars:
-    ENVIRONMENT: "prod"
+    DEV_PROD: "prod" #to be changed to dev once we have a prod DAG running
   catchup: true
   retries: 3
   schedule: "0 20 * * *"
   start_date: "2025-07-04"
+  tasks:
+    task:
+      compute_profile: "general-on-demand-2vcpu-8gb"
 
 iam:
   athena: write
