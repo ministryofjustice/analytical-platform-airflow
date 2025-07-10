@@ -22,7 +22,7 @@ dag:
     HIST_FOLDER: "hmcts/caseman_sdp/test"
     CUT_OFF: "2025-07-03"
   tasks:
-    extract_[Table name]:
+    cp_extract_allocated_listings:
       env_vars:
         TABLE_NAME: "allocated-listings"
         S3_TABLE_NAME: "allocated_listings"
