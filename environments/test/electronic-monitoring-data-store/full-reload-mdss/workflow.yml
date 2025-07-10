@@ -12,7 +12,7 @@ dag:
     SYSTEM_NAME: "mdss"
     REFRESH_TOTAL_DB: true      # full-refresh mode
     START_DATE: "2025-06-01"    # backfill window start
-    END_DATE:   "2025-06-10"    # backfill window end
+    END_DATE: "2025-06-10"      # backfill window end
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
