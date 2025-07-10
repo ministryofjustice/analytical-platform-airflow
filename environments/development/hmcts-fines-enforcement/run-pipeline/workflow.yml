@@ -7,9 +7,6 @@ dag:
   schedule: None
   env_vars:
     BUCKET: "alpha-enforcement-data-engineering"
-    AWS_DEFAULT_REGION: "eu-west-1"
-    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
-    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
     TEST_ENV: "True"
   tasks:
     extract-live:
