@@ -3,7 +3,7 @@ dag:
   tag: v0.3.0
   retries: 1
   retry_delay: 150
-  start_date: "2025-07-15"
+  start_date: "2025-07-09"
   schedule: "0 7 * * 2" # Every Tuesday at 07:00
   max_active_runs: 3
   hmcts_sdp_networking: true
@@ -96,11 +96,7 @@ iam:
 
 secrets:
   - pds
-
-notifications:
-  emails:
-    - Murad.Ali@justice.gov.uk
-
+  
 maintainers:
   - murad-ali-moj
 
