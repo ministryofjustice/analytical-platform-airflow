@@ -352,10 +352,10 @@ jobs:
             echo "Image version (${imageVersion}) does not match latest version of upstream (${imageRepoLatestVersion})"
             echo "image-version=${imageVersion}" >>"${GITHUB_ENV}"
             echo "upstream-image-version=${imageRepoLatestVersion}" >>"${GITHUB_ENV}"
-            echo "image-version-match=false" >>"${GITHUB_OUTPUT}"
+            echo "image-version-match=false" >>"${GITHUB_ENV}"
           else
             echo "Image version (${imageVersion}) matches latest version of upstream (${imageRepoLatestVersion})"
-            echo "image-version-match=true" >>"${GITHUB_OUTPUT}"
+            echo "image-version-match=true" >>"${GITHUB_ENV}"
           fi
 
           curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/tags/${imageVersion}/.trivyignore" --output "runtime-trivyignore"
