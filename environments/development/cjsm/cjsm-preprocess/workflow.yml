@@ -3,7 +3,6 @@ dag:
   repository: moj-analytical-services/airflow-cjsm-email-traffic-preprocess
   tag: v5.0.4
   python_dag: true
-  compute_profile: "general-on-demand-4vcpu-16gb"
 
 iam:
   athena: read
