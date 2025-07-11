@@ -13,9 +13,9 @@ dag:
 iam:
   athena: write
   s3_read_write:
-    - mojap-land-dev/hmcts/common-platform/*
-    - mojap-raw-hist-dev/hmcts/common-platform/*
-    - alpha-mojap-common-platform/*
+    - alpha-mojap-ccde/manage_offences_test/*
+    - alpha-mojap-ccde/manage_offences_test_staging/*
+    - mojap-raw-hist/hmcts/manage_offences_test/
 
 secrets:
   - client-auth
