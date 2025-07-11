@@ -13,6 +13,10 @@ dag:
       env_vars:
         ORACLE_USER: "ANY_PLATFORM"
         TABLES: "DIM_OUTCOMES"
+    extract-dim-police-station-courts:
+      env_vars:
+        ORACLE_USER: "ANY_PLATFORM"
+        TABLES: "DIM_POLICE_STATION_COURTS"
     extract-dim-submissions:
       env_vars:
         ORACLE_USER: "ANY_PLATFORM"
