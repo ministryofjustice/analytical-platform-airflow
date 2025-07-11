@@ -47,6 +47,10 @@ maintainers:
   - sheilz81
   - tomd-moj
 
+notifications:
+  emails:
+    - jhenielle.francis@justice.gov.uk
+
 tags:
   business_unit: HQ
   owner: jhenielle.francis@justice.gov.uk
