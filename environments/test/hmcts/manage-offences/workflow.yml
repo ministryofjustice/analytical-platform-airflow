@@ -8,6 +8,8 @@ dag:
     LOG_LEVEL: "DEBUG"
   tasks:
     manage_offences_extract_load:
+      env_vars:
+        SERVICE: "default"
 
 
 iam:
