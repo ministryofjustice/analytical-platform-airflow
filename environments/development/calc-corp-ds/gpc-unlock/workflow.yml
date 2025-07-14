@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-gpc-anomalies-preprocess
-  tag: v0.2.0-rc6
+  tag: v0.2.1
   retries: 3
   retry_delay: 150
   schedule: "0 2 * * *"
