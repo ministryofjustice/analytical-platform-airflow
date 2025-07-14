@@ -18,26 +18,26 @@ dag:
   tasks:
     load-dim-outcomes:
       env_vars:
-        table: "dim_outcomes"
+        TABLE: "dim_outcomes"
     load-dim-police-station-courts:
       env_vars:
-        table: "dim_police_station_courts"
+        TABLE: "dim_police_station_courts"
     load-dim-submissions:
       env_vars:
-        table: "dim_submissions"
+        TABLE: "dim_submissions"
     load-dim-prisons:
       env_vars:
-        table: "dim_prisons"
+        TABLE: "dim_prisons"
     load-dim-offices:
       env_vars:
-        table: "dim_offices"
+        TABLE: "dim_offices"
 
 iam:
   athena: write
   glue: true
   s3_read_write:
     - mojap-land-dev/laa/mojfin/edw/*
-    - alpha-curated-laa-dev/*
+    - alpha-mojap-curated-laa-dev/*
 
 notifications:
   emails:
