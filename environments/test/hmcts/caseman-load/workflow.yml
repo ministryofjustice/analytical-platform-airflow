@@ -1,0 +1,34 @@
+dag:
+  repository: moj-analytical-services/airflow-create-a-pipeline
+  tag: v4.0.0-alpha.1b77a60
+  retries: 1
+  retry_delay: 150
+  max_active_runs: 5
+  env_vars:
+    LOG_LEVEL: "DEBUG"
+    LAND: "s3://mojap-land-dev/hmcts/caseman_sdp/test"
+    RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/caseman_sdp/test"
+    BASE_LOC: "s3://alpha-mojap-civil/dev/caseman_sdp/test"
+    BASE_DB_NAME: "casmeman_test_ap"
+    SERVICE: "caseman"
+    CHUNK_SIZE: "500MB"
+    DAG_INTERVAL_END: "{{ data_interval_end }}"
+
+  tasks:
+    cp_load_allocated_listings:
+      env_vars:
+        TABLE: "address_types"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/hmcts/caseman_sdp/*
+    - s3://mojap-raw-hist-dev/hmcts/caseman_sdp/*
+    - alpha-mojap-civil/*
+
+maintainers:
+  - murad-ali-moj
+
+tags:
+  business_unit: HMCTS
+  owner: murad.ali@justice.gov.uk

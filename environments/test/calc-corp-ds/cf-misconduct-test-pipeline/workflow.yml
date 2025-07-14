@@ -1,25 +1,38 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v7.2
+  tag: v7.3
   catchup: false
   tasks:
-    db_prep_compare_labels:
+    test-1:
+      env_vars:
+        EXEC_SCRIPT: "src/misconduct_nlp/main.py"
+    test-2:
+      env_vars:
+        EXEC_SCRIPT: "run-main"
+        dependencies: [test-1]
+    test-3:
+      env_vars:
+        EXEC_SCRIPT: "pipeline-checks"
+        CHECK: "process_sscl_reports"
+      dependencies: [test-2]
+    test-4:
       env_vars:
         CHECK: "db_prepared"
-        SCRIPT: "compare-labels-db"
-
-    db_prep_copy_db:
+        SCRIPT: "src/misconduct_nlp/main.py"
+      dependencies: [test-3]
+    test-5:
       env_vars:
-        CHECK: "db_prepared"
-        SCRIPT: "copy-db"
-      dependencies: [db_prep_compare_labels]
-
-    test_task:
+        EXEC_SCRIPT: "run-pipeline"
+        CHECK: "process_sscl_reports"
+        SCRIPT: "run-main"
+      dependencies: [test-4]
+    test-6:
       env_vars:
-        CHECK: "db_prepared"
-        SCRIPT: "compare-labels-db"
-      dependencies: [db_prep_copy_db]
+        EXEC_SCRIPT: "run-pipeline"
+        CHECK: "process_sscl_reports"
+        SCRIPT: "src/misconduct_nlp/main.py"
+      dependencies: [test-4]
 
 iam:
   athena: write
@@ -27,13 +40,16 @@ iam:
     - alpha-cf-misconduct/*
     - alpha-app-fraud-and-corruption-insights/*
     - mojap-athena-query-dump/*
-    - alpha-athena/*
     - alpha-athena-query-dump/*
 
 maintainers:
   - jhenfrancis
   - sheilz81
   - tomd-moj
+
+notifications:
+  emails:
+    - jhenielle.francis@justice.gov.uk
 
 tags:
   business_unit: HQ
