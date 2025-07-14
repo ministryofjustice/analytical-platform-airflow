@@ -1,0 +1,51 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-create-a-pipeline
+  tag: v4.0.0-alpha.1b77a60
+  retries: 1
+  retry_delay: 150
+  max_active_runs: 5
+  env_vars:
+    LOG_LEVEL: "DEBUG"
+    SERVICE: "laa"
+    BASE_DB_NAME: "laa_raw_dev_edw"
+    LAND: "s3://mojap-land-dev/laa/mojfin/edw/raw"
+    RAW_HIST: "s3://mojap-land-dev/laa/mojfin/edw/raw_hist"
+    BASE_LOC: "s3://alpha-mojap-curated-laa-dev/mojfin"
+    DAG_INTERVAL_END: "{{ data_interval_end }}"
+    LAA_PARQUET: "True"
+
+  tasks:
+    load-dim-outcomes:
+      env_vars:
+        TABLE: "DIM_OUTCOMES"
+    load-dim-police-station-courts:
+      env_vars:
+        TABLE: "DIM_POLICE_STATION_COURTS"
+    load-dim-submissions:
+      env_vars:
+        TABLE: "DIM_SUBMISSIONS"
+    load-dim-prisons:
+      env_vars:
+        TABLE: "DIM_PRISONS"
+    load-dim-offices:
+      env_vars:
+        TABLE: "DIM_OFFICES"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-dev/laa/mojfin/edw/*
+    - alpha-curated-laa-dev/*
+
+notifications:
+  emails:
+    - Damilola.Oyebade@justice.gov.uk
+
+maintainers:
+  - dami-moj
+
+tags:
+  business_unit: LAA
+  owner: Damilola.Oyebade@justice.gov.uk
