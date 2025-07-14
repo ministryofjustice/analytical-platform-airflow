@@ -18,19 +18,19 @@ dag:
   tasks:
     load-dim-outcomes:
       env_vars:
-        TABLE: "DIM_OUTCOMES"
+        table: "dim_outcomes"
     load-dim-police-station-courts:
       env_vars:
-        TABLE: "DIM_POLICE_STATION_COURTS"
+        table: "dim_police_station_courts"
     load-dim-submissions:
       env_vars:
-        TABLE: "DIM_SUBMISSIONS"
+        table: "dim_submissions"
     load-dim-prisons:
       env_vars:
-        TABLE: "DIM_PRISONS"
+        table: "dim_prisons"
     load-dim-offices:
       env_vars:
-        TABLE: "DIM_OFFICES"
+        table: "dim_offices"
 
 iam:
   athena: write
