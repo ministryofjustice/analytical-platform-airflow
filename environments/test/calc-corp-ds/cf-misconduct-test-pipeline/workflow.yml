@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v7.3
+  tag: v7.4
   catchup: false
   tasks:
     test-1:
