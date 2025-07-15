@@ -17,7 +17,7 @@ maintainers:
   - jhpyke
 
 secrets:
-  - slack-key
+  - github-key
 
 iam:
   athena: write
