@@ -83,5 +83,5 @@ resource "aws_iam_role_policy_attachment" "cadet" {
   provider = aws.analytical-platform-data-production-eu-west-2
 
   role       = module.iam_role[0].iam_role_name
-  policy_arn = "arn:aws:iam::${data.aws_caller_identity.analytical_platform_data_production.account_id}:policy/airflow-service/kms"
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.analytical_platform_data_production.account_id}:policy/airflow-service/cadet"
 }
