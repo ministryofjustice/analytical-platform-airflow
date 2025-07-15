@@ -4,7 +4,6 @@ dag:
   retries: 1
   retry_delay: 150
   start_date: "2025-07-09"
-  schedule: 30 6 * * 1
   max_active_runs: 3
   hmcts_sdp_networking: true
   env_vars:
