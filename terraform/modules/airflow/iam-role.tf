@@ -78,7 +78,7 @@ resource "aws_iam_role_policy_attachment" "kms" {
 }
 
 resource "aws_iam_role_policy_attachment" "cadet" {
-  count = length(local.iam_external_role) == 0 && can(regex("^cadet", module.iam_role[0].iam_role_name)) ? 1 : 0
+  count = length(local.iam_external_role) == 0 && can(regex(".*cadet.*", module.iam_role[0].iam_role_name)) ? 1 : 0
 
   provider = aws.analytical-platform-data-production-eu-west-2
 
