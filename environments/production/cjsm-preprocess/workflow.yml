@@ -1,0 +1,20 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-cjsm-email-traffic-preprocess
+  tag: v5.0.5
+  python_dag: true
+
+iam:
+  athena: read
+  s3_read_only:
+    - alpha-cjsm-logs-data/api_test/production/processed/pass/*
+  s3_write_only:
+    - alpha-app-cjsm-email-traffic/*
+    - alpha-app-cjsm-networkanalysis/*
+
+maintainers:
+  - dugaldhepburnmoj
+
+tags:
+  business_unit: HQ
+  owner: dugald.hepburn@justice.gov.uk
