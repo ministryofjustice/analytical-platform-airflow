@@ -6,6 +6,7 @@ locals {
   iam_cloudwatch_logs_read_only = try(local.iam_configuration.cloudwatch_logs_read_only, [])
   iam_glue                      = try(local.iam_configuration.glue, false)
   iam_kms_keys                  = try(local.iam_configuration.kms, [])
+  iam_cadet                     = try(local.iam_configuration.cadet, [])
   iam_s3_deny                   = try(local.iam_configuration.s3_deny, [])
   iam_s3_read_only              = try(local.iam_configuration.s3_read_only, [])
   iam_s3_read_write             = try(local.iam_configuration.s3_read_write, [])
