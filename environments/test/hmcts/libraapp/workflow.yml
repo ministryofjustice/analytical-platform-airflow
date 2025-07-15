@@ -1,15 +1,15 @@
 dag:
   repository: moj-analytical-services/pcol-pipeline
-  tag: v0.3.0
+  tag: v0.3.2
   retries: 1
   retry_delay: 150
   start_date: "2025-07-09"
-  schedule: 30 6 * * 1
   max_active_runs: 3
   hmcts_sdp_networking: true
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
-    DESTINATION_PATH: "s3://alpha-mojap-ccde/dev/libraapp_raw/"
+    DESTINATION_PATH: "s3://mojap-land/dlt/libraapp/"
+    ATHENA_DATABASE_NAME: "libraapp_v3_prod"
 
   tasks:
     process-v3-cgi-libraapp-app-list-entry-fee-id:
@@ -68,7 +68,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - alpha-mojap-ccde/dev/libraapp_raw/*
+    - mojap-land/dlt/libraapp/*
 
 secrets:
   - pds
