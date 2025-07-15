@@ -76,3 +76,12 @@ resource "aws_iam_role_policy_attachment" "kms" {
   role       = module.iam_role[0].iam_role_name
   policy_arn = "arn:aws:iam::${data.aws_caller_identity.analytical_platform_data_production.account_id}:policy/airflow-service/kms"
 }
+
+resource "aws_iam_role_policy_attachment" "cadet" {
+  count = length(local.iam_external_role) == 0 && can(regex("airflow-.*-analytical-platform-cadet.*", module.iam_role[0].iam_role_name)) ? 1 : 0
+
+  provider = aws.analytical-platform-data-production-eu-west-2
+
+  role       = module.iam_role[0].iam_role_name
+  policy_arn = "arn:aws:iam::${data.aws_caller_identity.analytical_platform_data_production.account_id}:policy/airflow-service/cadet"
+}
