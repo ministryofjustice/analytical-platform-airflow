@@ -1,0 +1,85 @@
+dag:
+  repository: moj-analytical-services/pcol-pipeline
+  tag: v0.3.0
+  retries: 1
+  retry_delay: 150
+  start_date: "2025-07-09"
+  schedule: 30 6 * * 1
+  max_active_runs: 3
+  hmcts_sdp_networking: true
+  env_vars:
+    AWS_DEFAULT_REGION: "eu-west-1"
+    DESTINATION_PATH: "s3://alpha-mojap-ccde/dev/libraapp_raw/"
+
+  tasks:
+    process-v3-cgi-libraapp-app-list-entry-fee-id:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-app-list-entry-fee-id"
+
+    process-v3-cgi-libraapp-app-list-entry-fee-status:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-app-list-entry-fee-status"
+
+    process-v3-cgi-libraapp-app-list-entry-official:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-app-list-entry-official"
+
+    process-v3-cgi-libraapp-app-list-entry-resolutions:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-app-list-entry-resolutions"
+
+    process-v3-cgi-libraapp-application-codes:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-application-codes"
+
+    process-v3-cgi-libraapp-application-list-entries:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-application-list-entries"
+
+    process-v3-cgi-libraapp-application-lists:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-application-lists"
+
+    process-v3-cgi-libraapp-application-register:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-application-register"
+
+    process-v3-cgi-libraapp-criminal-justice-area:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-criminal-justice-area"
+
+    process-v3-cgi-libraapp-fee:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-fee"
+
+    process-v3-cgi-libraapp-name-address:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-name-address"
+
+    process-v3-cgi-libraapp-resolution-codes:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-resolution-codes"
+
+    process-v3-cgi-libraapp-standard-applicants:
+      env_vars:
+        CONTAINER_NAME: "v3-cgi-libraapp-standard-applicants"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-mojap-ccde/dev/libraapp_raw/*
+
+secrets:
+  - pds
+
+notifications:
+  emails:
+    - Murad.Ali@justice.gov.uk
+
+maintainers:
+  - murad-ali-moj
+
+tags:
+  business_unit: HMCTS
+  owner: Murad.Ali@justice.gov.uk

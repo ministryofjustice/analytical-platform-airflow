@@ -4,6 +4,12 @@ dag:
   tag: 2.10.0
   python_dag: true
 
+iam:
+  bedrock: true
+
+secrets:
+  - example
+
 maintainers:
   - jacobwoffenden
   - jhpyke

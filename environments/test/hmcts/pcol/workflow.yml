@@ -1,16 +1,15 @@
 dag:
   repository: moj-analytical-services/pcol-pipeline
-  tag: v0.1.0
+  tag: v0.3.0
   retries: 1
   retry_delay: 150
-  hmcts_sdp_networking: True
+  start_date: "2025-07-09"
+  schedule: 30 6 * * 3
+  max_active_runs: 3
+  hmcts_sdp_networking: true
   env_vars:
-    AWS_METADATA_SERVICE_TIMEOUT: "60"
-    AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
     AWS_DEFAULT_REGION: "eu-west-1"
-    MOJAP_IMAGE_VERSION: "v0.1.0"
-    ENDPOINT: "MI_PERSISTENT_PROD"
-    DESTINATION_PREFIX: "s3://alpha-mojap-ccde/dev/pcol_raw_data"
+    DESTINATION_PATH: "s3://alpha-mojap-ccde/dev/pcol_raw/"
 
   tasks:
     process-v3-cgi-pcol-claim:
@@ -137,6 +136,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
+    - alpha-mojap-ccde/dev/pcol_raw/*
     - alpha-mojap-ccde/dev/pcol_raw_data/*
 
 secrets:

@@ -34,6 +34,12 @@
   catchup: {{ dag.catchup|default(False) }}
   is_paused_upon_creation: {{ dag.is_paused_upon_creation|default(False) }}
   max_active_runs: {{ dag.max_active_runs|default(1) }}
+  {%- if dag.params %}
+  params:
+    {%- for k, v in dag.params.items() %}
+    {{ k }}: "{{ v }}"
+    {%- endfor %}
+  {%- endif %}
   schedule_interval: {{ dag.schedule|default(null) }}
   tasks:
     {%- if dag.tasks %}
@@ -45,12 +51,17 @@
       compute_profile: {{ task.compute_profile or dag.compute_profile or "general-spot-1vcpu-4gb" }}
       image: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/{{ dag.repository }}:{{ dag.tag }}
       hmcts_sdp_networking: {{ task.hmcts_sdp_networking|default(dag.hmcts_sdp_networking|default(false)) }}
-      {%- if task.env_vars or dag.env_vars %}
+      {%- if task.env_vars or dag.env_vars or dag.params %}
       {%- set merged_env_vars = dag.env_vars | default({}) | merge_dicts(task.env_vars | default({})) %}
       env_vars:
         {%- for k, v in merged_env_vars.items() %}
-        {{ k }}: {{ v }}
+        {{ k }}: "{{ v }}"
         {%- endfor %}
+        {%- if dag.params %}
+        {%- for k, v in dag.params.items() %}
+        PARAM_{{ k.upper() }}: "{{ '{{ params.' ~ k ~ ' }}' }}"
+        {%- endfor %}
+        {%- endif %}
       {%- endif %}
       {%- if secrets %}
       secrets: {{ secrets }}
@@ -70,11 +81,18 @@
       compute_profile: {{ dag.compute_profile|default("general-spot-1vcpu-4gb") }}
       image: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/{{ dag.repository }}:{{ dag.tag }}
       hmcts_sdp_networking: {{ dag.hmcts_sdp_networking|default(false) }}
-      {%- if dag.env_vars %}
+      {%- if dag.env_vars or dag.params %}
       env_vars:
+        {%- if dag.env_vars %}
         {%- for k, v in dag.env_vars.items() %}
-        {{ k }}: {{ v }}
+        {{ k }}: "{{ v }}"
         {%- endfor %}
+        {%- endif %}
+        {%- if dag.params %}
+        {%- for k, v in dag.params.items() %}
+        PARAM_{{ k.upper() }}: "{{ '{{ params.' ~ k ~ ' }}' }}"
+        {%- endfor %}
+        {%- endif %}
       {%- endif %}
       {%- if secrets %}
       secrets: {{ secrets }}

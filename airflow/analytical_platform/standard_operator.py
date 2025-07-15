@@ -3,8 +3,22 @@ from typing import Optional
 from airflow.providers.cncf.kubernetes.operators.pod import (
     KubernetesPodOperator,
 )
+from airflow.providers.cncf.kubernetes.utils.xcom_sidecar import (
+    PodDefaults,
+)
 from analytical_platform.compute_profiles import get_compute_profile
+from kubernetes.client import models as k8s_models
 
+def override_xcom_sidecar_defaults():
+    """Override the default sidecar container for XCom in KubernetesPodOperator"""
+    PodDefaults.SIDECAR_CONTAINER.image = "ghcr.io/ministryofjustice/analytical-platform-airflow-xcom-sidecar:1.0.0@sha256:83c145bccf9f112b7081759e37823b08d6d4b62cf4cb4573da5265cad1db0904"
+    PodDefaults.SIDECAR_CONTAINER.security_context = k8s_models.V1SecurityContext(
+        allow_privilege_escalation=False,
+        privileged=False,
+        run_as_non_root=True,
+        seccomp_profile=k8s_models.V1SeccompProfile(type="RuntimeDefault"),
+        capabilities=k8s_models.V1Capabilities(drop=["ALL"]),
+    )
 
 class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
     def __init__(
@@ -21,6 +35,8 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
         *args,
         **kwargs,
     ):
+        # Override the default sidecar container for XCom
+        override_xcom_sidecar_defaults()
 
         # Declare any settings that can be updated later
         annotations = {}
@@ -117,7 +133,11 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             "AWS_DEFAULT_EXTRACT_REGION": "eu-west-1",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "AIRFLOW_ENVIRONMENT": environment.upper()
+            "AIRFLOW_ENVIRONMENT": environment.upper(),
+            "AIRFLOW_RUN_ID": "{{ run_id }}",
+            "AIRFLOW_TIMESTAMP": "{{ ts }}",
+            "AIRFLOW_TIMESTAMP_NO_DASH": "{{ ts_nodash }}",
+            "AIRFLOW_TIMESTAMP_NO_DASH_WITH_TZ": "{{ ts_nodash_with_tz }}",
         }
 
         # merge dicts into env_vars

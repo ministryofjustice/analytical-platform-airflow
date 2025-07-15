@@ -1,0 +1,31 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-cloudwatch-logs
+  tag: 0.0.1-test-12
+  env_vars:
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+
+iam:
+  athena: write
+  glue: true
+  cloudwatch_logs_read_only:
+    - arn:aws:logs:eu-west-2:593291632749:log-group:cloudtrail-athena-events:*
+  s3_read_write:
+    - alpha-corp-data-staging/athena_queries/iceberg_data/athena_query_executions/*
+    - alpha-corp-data-staging/athena_queries/select_queries/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - william.orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: william.orr@justice.gov.uk
