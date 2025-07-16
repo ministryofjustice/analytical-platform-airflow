@@ -9,7 +9,7 @@ maintainers:
   - rolakeo-mojo
 
 iam:
-  athena: read
+  athena: write
   s3_read_write:
     - alpha-cjs-scorecard/*
 
