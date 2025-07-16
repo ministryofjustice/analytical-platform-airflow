@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cjs-dashboard-data
-  tag: v15.0.4
+  tag: v15.0.5
   python_dag: true
 
 maintainers:
