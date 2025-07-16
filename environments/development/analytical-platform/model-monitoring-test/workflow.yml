@@ -1,0 +1,19 @@
+dag:
+  repository: ministryofjustice/model-monitoring-airflow
+  tag: main
+  # schedule: "0 7 * * *"    # <--- Schedule commented for manual trigger only
+  retries: 0
+
+maintainers:
+  - siddhesh0099
+
+tags:
+  business_unit: HMPPS
+  owner: siddhesh.dhamale@justice.gov.uk
+
+iam:
+  athena: write
+
+notifications:
+  emails:
+    - siddhesh.dhamale@justice.gov.uk
