@@ -9,7 +9,7 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-sandpit
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: cadet-compile-airflow
-    DBT_SELECT_CRITERIA: .
+    DBT_SELECT_CRITERIA: ./models/
     RETRY_TAGS: retry
     MODE: compile
 
