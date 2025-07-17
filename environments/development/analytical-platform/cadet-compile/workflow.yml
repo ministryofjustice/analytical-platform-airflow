@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-cadet
-  tag: v0.0.11
+  tag: v0.0.12
   compute_profile: general-spot-16vcpu-64gb
   env_vars:
     DEPLOY_ENV: prod
