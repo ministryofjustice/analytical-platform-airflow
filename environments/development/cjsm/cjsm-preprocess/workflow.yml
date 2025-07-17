@@ -7,8 +7,7 @@ dag:
 iam:
   athena: read
   s3_read_only:
-    - alpha-cjsm-logs-data/Source Data/*
-    - alpha-cjsm-logs-data/api_test/production/processed/pass/*
+    - mojap-land/corporate/cjsm/*
   s3_read_write:
     - alpha-cjsm-logs-data/Combined Data/*
     - alpha-cjsm-logs-data/Exceptions/*
