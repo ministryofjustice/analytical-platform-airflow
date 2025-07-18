@@ -6,46 +6,55 @@ dag:
 tasks:
   db_prep_compare_labels:
     env_vars:
+      EXEC_SCRIPT: "run-pipeline"
       CHECK: "db_prepared"
       SCRIPT: "compare-labels-db"
   db_prep_copy_db:
     env_vars:
+      EXEC_SCRIPT: "run-pipeline"
       CHECK: "db_prepared"
       SCRIPT: "copy-db"
     dependencies: [db_prep_compare_labels]
   process_sscl_reports:
     env_vars:
+      EXEC_SCRIPT: "run-pipeline"
       CHECK: "process_sscl_reports"
       SCRIPT: "src/misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py"
     dependencies: [db_prep_copy_db]
   merged_tables:
     env_vars:
+      EXEC_SCRIPT: "run-pipeline"
       CHECK: "merged_tables"
       SCRIPT: "src/misconduct_nlp/process_inv_cd_data/create_merged_tables.py"
     dependencies: [process_sscl_reports]
   tag_and_review_data:
     env_vars:
+      EXEC_SCRIPT: "run-pipeline"
       CHECK: "tags"
       SCRIPT: "tagging-process"
     compute_profile: gpu-spot-8vcpu-32gb
     dependencies: [merged_tables]
   create_tagged_employee_data:
     env_vars:
+      EXEC_SCRIPT: "run-pipeline"
       CHECK: "tables_w_tags"
       SCRIPT: "src/misconduct_nlp/process_inv_cd_data/create_employee_tagged_db.py"
     dependencies: [tag_and_review_data]
   customer_reports:
     env_vars:
+      EXEC_SCRIPT: "run-pipeline"
       CHECK: "generate_reports"
       SCRIPT: "src/misconduct_nlp/etl_subtasks/generate_all_reports.py"
     dependencies: [create_tagged_employee_data]
   model_metrics_evidently:
     env_vars:
+      EXEC_SCRIPT: "run-pipeline"
       CHECK: "model_metrics"
       SCRIPT: "misconduct-evidently-ai"
     dependencies: [tag_and_review_data]
   model_metrics_scikit:
     env_vars:
+      EXEC_SCRIPT: "run-pipeline"
       CHECK: "model_metrics"
       SCRIPT: "model-monitoring-metrics"
     dependencies: [model_metrics_evidently]
