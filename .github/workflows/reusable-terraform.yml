@@ -79,5 +79,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         id: terraform_apply
         shell: bash
+        env:
+          ENVIRONMENT: ${{ matrix.environment }}
         run: |
           terraform apply -auto-approve -input=false "${ENVIRONMENT}.tfplan"
