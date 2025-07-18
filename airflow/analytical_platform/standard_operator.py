@@ -11,7 +11,7 @@ from kubernetes.client import models as k8s_models
 
 def override_xcom_sidecar_defaults():
     """Override the default sidecar container for XCom in KubernetesPodOperator"""
-    PodDefaults.SIDECAR_CONTAINER.image = "ghcr.io/ministryofjustice/analytical-platform-airflow-xcom-sidecar:1.0.0@sha256:83c145bccf9f112b7081759e37823b08d6d4b62cf4cb4573da5265cad1db0904"
+    PodDefaults.SIDECAR_CONTAINER.image = "ghcr.io/ministryofjustice/analytical-platform-airflow-xcom-sidecar:1.1.0@sha256:fb7f6851569a630aea800a3bddb5ce11586cb6f479503ae952cb8f0eb01a1146"
     PodDefaults.SIDECAR_CONTAINER.security_context = k8s_models.V1SecurityContext(
         allow_privilege_escalation=False,
         privileged=False,
