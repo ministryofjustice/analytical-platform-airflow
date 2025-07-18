@@ -164,7 +164,7 @@ jobs:
 
   terraform:
     needs: [workflow-validation]
-    name: Terraform
+    name: 🌐 Terraform
     permissions:
       contents: read
       id-token: write
