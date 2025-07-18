@@ -6,17 +6,15 @@ on:
     branches:
       - main
     paths:
-      - environments/**
       - terraform/**
       - .github/workflows/terraform.yml
       - .github/workflows/reusable-terraform.yml
-  # DEBUG: this needs to come back in
-  # push:
-  #   branches:
-  #     - main
-  #   paths:
-  #     - environments/**
-  #     - terraform/**
+  push:
+    branches:
+      - main
+    paths:
+      - environments/**
+      - terraform/**
 
 permissions: {}
 

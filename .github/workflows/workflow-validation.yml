@@ -174,409 +174,409 @@ jobs:
     with:
       environments: ${{ needs.workflow-validation.outputs.environment }}
 
-  # image-check:
-  #   if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
-  #   needs: [detect-changes, workflow-validation]
-  #   name: 📦 Image Check
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: read
-  #     id-token: write
-  #     pull-requests: write
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       workflow: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
-  #   steps:
-  #     - name: Checkout
-  #       id: checkout
-  #       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-  #       with:
-  #         persist-credentials: false
+  image-check:
+    if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
+    needs: [detect-changes, workflow-validation]
+    name: 📦 Image Check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    strategy:
+      fail-fast: false
+      matrix:
+        workflow: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
 
-  #     - name: Set Up Container Structure Test
-  #       id: setup_container_structure_test
-  #       uses: ministryofjustice/analytical-platform-github-actions/setup-container-structure-test@e0b96059804cbe750acb4a495ec6106617972f0b # v4.1.0
+      - name: Set Up Container Structure Test
+        id: setup_container_structure_test
+        uses: ministryofjustice/analytical-platform-github-actions/setup-container-structure-test@e0b96059804cbe750acb4a495ec6106617972f0b # v4.1.0
 
-  #     - name: Download path-filters File
-  #       id: download_path_filters
-  #       uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
-  #       with:
-  #         name: workflows-path-filter
-  #         path: .github/path-filter
+      - name: Download path-filters File
+        id: download_path_filters
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: workflows-path-filter
+          path: .github/path-filter
 
-  #     - name: Configure AWS Credentials
-  #       id: configure_aws_credentials
-  #       uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
-  #       with:
-  #         aws-region: eu-west-2
-  #         role-to-assume: arn:aws:iam::509399598587:role/ecr-access
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials
+        uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::509399598587:role/ecr-access
 
-  #     - name: Log in to Amazon ECR
-  #       id: ecr_login
-  #       uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2.0.1
+      - name: Log in to Amazon ECR
+        id: ecr_login
+        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2.0.1
 
-  #     - name: Set Workflow Directory
-  #       id: set_workflow_directory
-  #       env:
-  #         WORKFLOW: ${{ matrix.workflow }}
-  #       run: |
-  #         workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
-  #         export workflowDirectory
+      - name: Set Workflow Directory
+        id: set_workflow_directory
+        env:
+          WORKFLOW: ${{ matrix.workflow }}
+        run: |
+          workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
+          export workflowDirectory
 
-  #         echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
+          echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
-  #     - name: Set ECR Repository
-  #       id: set_ecr_repository
-  #       run: |
-  #         dagRepository=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
-  #         export dagRepository
+      - name: Set ECR Repository
+        id: set_ecr_repository
+        run: |
+          dagRepository=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
+          export dagRepository
 
-  #         ecrRepository=$(echo "${dagRepository}" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')
-  #         export ecrRepository
+          ecrRepository=$(echo "${dagRepository}" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')
+          export ecrRepository
 
-  #         dagTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
-  #         export dagTag
+          dagTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
+          export dagTag
 
-  #         echo "ecr-repository=${ecrRepository}" >>"${GITHUB_ENV}"
-  #         echo "image-tag=${dagTag}" >>"${GITHUB_ENV}"
+          echo "ecr-repository=${ecrRepository}" >>"${GITHUB_ENV}"
+          echo "image-tag=${dagTag}" >>"${GITHUB_ENV}"
 
-  #     - name: Check Image Exists
-  #       id: check_image_exists
-  #       run: |
-  #         aws ecr describe-images --repository-name "${{ env.ecr-repository }}" --image-ids imageTag="${{ env.image-tag }}" || exit 1
+      - name: Check Image Exists
+        id: check_image_exists
+        run: |
+          aws ecr describe-images --repository-name "${{ env.ecr-repository }}" --image-ids imageTag="${{ env.image-tag }}" || exit 1
 
-  #     - name: Comment on Image Check Failure
-  #       id: comment_on_check_failure
-  #       if: failure() && steps.check_image_exists.outcome == 'failure'
-  #       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-  #       with:
-  #         script: |
-  #           github.rest.issues.createComment({
-  #             issue_number: context.issue.number,
-  #             owner: context.repo.owner,
-  #             repo: context.repo.repo,
-  #             body: 'Specified image does not exist in the container registry. Please check the supplied image tag is correct, and it has been pushed successfully. Refer to the [User Guidance](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#create-a-github-release) for more information.'
-  #           })
+      - name: Comment on Image Check Failure
+        id: comment_on_check_failure
+        if: failure() && steps.check_image_exists.outcome == 'failure'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Specified image does not exist in the container registry. Please check the supplied image tag is correct, and it has been pushed successfully. Refer to the [User Guidance](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#create-a-github-release) for more information.'
+            })
 
-  #     - name: Pull Image and Check Size
-  #       id: pull_image_and_check_size
-  #       shell: bash
-  #       env:
-  #         IMAGE: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
-  #         THRESHOLD_GB: 4
-  #       run: |
-  #         docker pull "${IMAGE}"
+      - name: Pull Image and Check Size
+        id: pull_image_and_check_size
+        shell: bash
+        env:
+          IMAGE: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
+          THRESHOLD_GB: 4
+        run: |
+          docker pull "${IMAGE}"
 
-  #         imageSize=$(docker inspect "${IMAGE}" --format='{{.Size}}')
-  #         export imageSize
+          imageSize=$(docker inspect "${IMAGE}" --format='{{.Size}}')
+          export imageSize
 
-  #         imageSizeGB=$((imageSize / 1024 / 1024 / 1024))
-  #         imageSizeMB=$((imageSize / 1024 / 1024))
+          imageSizeGB=$((imageSize / 1024 / 1024 / 1024))
+          imageSizeMB=$((imageSize / 1024 / 1024))
 
-  #         echo "Image size in bytes: ${imageSize}"
-  #         echo "Image size in MB: ${imageSizeMB}"
-  #         echo "Image size in GB: ${imageSizeGB}"
+          echo "Image size in bytes: ${imageSize}"
+          echo "Image size in MB: ${imageSizeMB}"
+          echo "Image size in GB: ${imageSizeGB}"
 
-  #         if [[ "${imageSizeGB}" -gt "${THRESHOLD_GB}" ]]; then
-  #           echo "Image size (${imageSizeGB} GB) exceeds threshold (${THRESHOLD_GB} GB)"
-  #           echo "clean-runner=true" >>"${GITHUB_ENV}"
-  #         else
-  #           echo "Image size (${imageSizeGB} GB) is within threshold (${THRESHOLD_GB} GB)"
-  #           echo "clean-runner=false" >>"${GITHUB_ENV}"
-  #         fi
+          if [[ "${imageSizeGB}" -gt "${THRESHOLD_GB}" ]]; then
+            echo "Image size (${imageSizeGB} GB) exceeds threshold (${THRESHOLD_GB} GB)"
+            echo "clean-runner=true" >>"${GITHUB_ENV}"
+          else
+            echo "Image size (${imageSizeGB} GB) is within threshold (${THRESHOLD_GB} GB)"
+            echo "clean-runner=false" >>"${GITHUB_ENV}"
+          fi
 
-  #     - name: Clean Actions Runner
-  #       id: clean_actions_runner
-  #       if: env.clean-runner == 'true'
-  #       uses: ministryofjustice/analytical-platform-github-actions/clean-actions-runner@e0b96059804cbe750acb4a495ec6106617972f0b # v4.1.0
-  #       with:
-  #         confirm: true
+      - name: Clean Actions Runner
+        id: clean_actions_runner
+        if: env.clean-runner == 'true'
+        uses: ministryofjustice/analytical-platform-github-actions/clean-actions-runner@e0b96059804cbe750acb4a495ec6106617972f0b # v4.1.0
+        with:
+          confirm: true
 
-  #     - name: Fetch Container Structure Test
-  #       id: fetch_container_structure_test
-  #       run: |
-  #         curl --silent --show-error --location https://raw.githubusercontent.com/ministryofjustice/analytical-platform-airflow-github-actions/refs/heads/main/assets/container-structure-test/container-structure-test.yml --output container-structure-test.yml
+      - name: Fetch Container Structure Test
+        id: fetch_container_structure_test
+        run: |
+          curl --silent --show-error --location https://raw.githubusercontent.com/ministryofjustice/analytical-platform-airflow-github-actions/refs/heads/main/assets/container-structure-test/container-structure-test.yml --output container-structure-test.yml
 
-  #     - name: Container Structure Test
-  #       id: container_structure_test
-  #       shell: bash
-  #       run: |
-  #         container-structure-test test --config container-structure-test.yml --image "509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}"
+      - name: Container Structure Test
+        id: container_structure_test
+        shell: bash
+        run: |
+          container-structure-test test --config container-structure-test.yml --image "509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}"
 
-  #     - name: Comment on Image Test Failure
-  #       id: comment_on_test_failure
-  #       if: failure() && steps.container_structure_test.outcome == 'failure'
-  #       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-  #       with:
-  #         script: |
-  #           github.rest.issues.createComment({
-  #             issue_number: context.issue.number,
-  #             owner: context.repo.owner,
-  #             repo: context.repo.repo,
-  #             body: 'Container test has failed. Refer to the [User Guidance](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#configuration-testing) for more information.'
-  #           })
+      - name: Comment on Image Test Failure
+        id: comment_on_test_failure
+        if: failure() && steps.container_structure_test.outcome == 'failure'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Container test has failed. Refer to the [User Guidance](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#configuration-testing) for more information.'
+            })
 
-  #     - name: Generate Trivy Ignore
-  #       id: generate_trivy_ignore
-  #       env:
-  #         GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
-  #       run: |
-  #         dagRepository=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
-  #         export dagRepository
+      - name: Generate Trivy Ignore
+        id: generate_trivy_ignore
+        env:
+          GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+        run: |
+          dagRepository=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
+          export dagRepository
 
-  #         dagTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
-  #         export dagTag
+          dagTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
+          export dagTag
 
-  #         downloadDockerfile=$(gh api "repos/${dagRepository}/contents/Dockerfile?ref=${dagTag}" 2>/dev/null || true)
-  #         export downloadDockerfile
+          downloadDockerfile=$(gh api "repos/${dagRepository}/contents/Dockerfile?ref=${dagTag}" 2>/dev/null || true)
+          export downloadDockerfile
 
-  #         downloadDockerfileStatus=$(jq -r '.status' <<< "${downloadDockerfile}")
-  #         export downloadDockerfileStatus
+          downloadDockerfileStatus=$(jq -r '.status' <<< "${downloadDockerfile}")
+          export downloadDockerfileStatus
 
-  #         if [[ "${downloadDockerfileStatus}" == "null" ]]; then
-  #           jq -r '.content' <<< "${downloadDockerfile}" | base64 --decode > Dockerfile
-  #         elif [[ "${downloadDockerfileStatus}" == "404" ]]; then
-  #           echo "Dockerfile not found"
-  #           exit 1
-  #         else
-  #           echo "Error downloading Dockerfile"
-  #           exit 1
-  #         fi
+          if [[ "${downloadDockerfileStatus}" == "null" ]]; then
+            jq -r '.content' <<< "${downloadDockerfile}" | base64 --decode > Dockerfile
+          elif [[ "${downloadDockerfileStatus}" == "404" ]]; then
+            echo "Dockerfile not found"
+            exit 1
+          else
+            echo "Error downloading Dockerfile"
+            exit 1
+          fi
 
-  #         downloadTrivyignore=$(gh api "repos/${dagRepository}/contents/.trivyignore?ref=${dagTag}" 2>/dev/null || true)
-  #         export downloadTrivyignore
+          downloadTrivyignore=$(gh api "repos/${dagRepository}/contents/.trivyignore?ref=${dagTag}" 2>/dev/null || true)
+          export downloadTrivyignore
 
-  #         downloadTrivyignoreStatus=$(jq -r '.status' <<< "${downloadTrivyignore}")
-  #         export downloadTrivyignoreStatus
+          downloadTrivyignoreStatus=$(jq -r '.status' <<< "${downloadTrivyignore}")
+          export downloadTrivyignoreStatus
 
-  #         if [[ "${downloadTrivyignoreStatus}" == "null" ]]; then
-  #           jq -r '.content' <<< "${downloadTrivyignore}" | base64 --decode > .trivyignore
-  #         elif [[ "${downloadTrivyignoreStatus}" == "404" ]]; then
-  #           echo ".trivyignore not found" # It's OK if we don't find one, it means the user might not have created one yet
-  #         else
-  #           echo "Error downloading .trivyignore"
-  #           exit 1
-  #         fi
+          if [[ "${downloadTrivyignoreStatus}" == "null" ]]; then
+            jq -r '.content' <<< "${downloadTrivyignore}" | base64 --decode > .trivyignore
+          elif [[ "${downloadTrivyignoreStatus}" == "404" ]]; then
+            echo ".trivyignore not found" # It's OK if we don't find one, it means the user might not have created one yet
+          else
+            echo "Error downloading .trivyignore"
+            exit 1
+          fi
 
-  #         imageName=$(grep "^FROM" Dockerfile | cut -d' ' -f2 | cut -d':' -f1 | cut -d'@' -f1)
-  #         export imageName
+          imageName=$(grep "^FROM" Dockerfile | cut -d' ' -f2 | cut -d':' -f1 | cut -d'@' -f1)
+          export imageName
 
-  #         imageVersion=$(grep "^FROM" Dockerfile | cut -d':' -f2 | cut -d'@' -f1)
-  #         export imageVersion
+          imageVersion=$(grep "^FROM" Dockerfile | cut -d':' -f2 | cut -d'@' -f1)
+          export imageVersion
 
-  #         imageRepo=${imageName#ghcr.io/}
-  #         echo "upstream-image-repo=${imageRepo}" >>"${GITHUB_ENV}"
+          imageRepo=${imageName#ghcr.io/}
+          echo "upstream-image-repo=${imageRepo}" >>"${GITHUB_ENV}"
 
-  #         imageRepoLatestVersion=$(curl --silent https://api.github.com/repos/"${imageRepo}"/releases/latest | jq -r '.tag_name')
-  #         export imageRepoLatestVersion
-  #         echo "upstream-image-version=${imageRepoLatestVersion}" >>"${GITHUB_ENV}"
+          imageRepoLatestVersion=$(curl --silent https://api.github.com/repos/"${imageRepo}"/releases/latest | jq -r '.tag_name')
+          export imageRepoLatestVersion
+          echo "upstream-image-version=${imageRepoLatestVersion}" >>"${GITHUB_ENV}"
 
-  #         if [[ "${imageVersion}" != "${imageRepoLatestVersion}" ]]; then
-  #           echo "Image version (${imageVersion}) does not match latest version of upstream (${imageRepoLatestVersion})"
-  #           echo "image-version-match=false" >>"${GITHUB_ENV}"
-  #         else
-  #           echo "Image version (${imageVersion}) matches latest version of upstream (${imageRepoLatestVersion})"
-  #           echo "image-version-match=true" >>"${GITHUB_ENV}"
-  #         fi
+          if [[ "${imageVersion}" != "${imageRepoLatestVersion}" ]]; then
+            echo "Image version (${imageVersion}) does not match latest version of upstream (${imageRepoLatestVersion})"
+            echo "image-version-match=false" >>"${GITHUB_ENV}"
+          else
+            echo "Image version (${imageVersion}) matches latest version of upstream (${imageRepoLatestVersion})"
+            echo "image-version-match=true" >>"${GITHUB_ENV}"
+          fi
 
-  #         curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/tags/${imageVersion}/.trivyignore" --output "runtime-trivyignore"
+          curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/tags/${imageVersion}/.trivyignore" --output "runtime-trivyignore"
 
-  #         if [[ ! -f .trivyignore ]]; then
-  #           mv "runtime-trivyignore" .trivyignore
-  #         else
-  #           cat "runtime-trivyignore" >> .trivyignore
-  #         fi
+          if [[ ! -f .trivyignore ]]; then
+            mv "runtime-trivyignore" .trivyignore
+          else
+            cat "runtime-trivyignore" >> .trivyignore
+          fi
 
-  #     - name: Comment on Image Version Mismatch
-  #       id: comment_on_image_version_mismatch
-  #       if: env.image-version-match == 'false'
-  #       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-  #       with:
-  #         script: |
-  #           github.rest.issues.createComment({
-  #             issue_number: context.issue.number,
-  #             owner: context.repo.owner,
-  #             repo: context.repo.repo,
-  #             body: `Provided image does not use the latest version (${process.env['upstream-image-version']}) of [${process.env['upstream-image-repo']}](https://github.com/${process.env['upstream-image-repo']}/releases/latest). Please ensure you are using the latest version of the base image in your Dockerfile.`
-  #           })
+      - name: Comment on Image Version Mismatch
+        id: comment_on_image_version_mismatch
+        if: env.image-version-match == 'false'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `Provided image does not use the latest version (${process.env['upstream-image-version']}) of [${process.env['upstream-image-repo']}](https://github.com/${process.env['upstream-image-repo']}/releases/latest). Please ensure you are using the latest version of the base image in your Dockerfile.`
+            })
 
-  #     - name: Scan
-  #       id: scan
-  #       uses: aquasecurity/trivy-action@dc5a429b52fcf669ce959baa2c2dd26090d2a6c4 # v0.32.0
-  #       env:
-  #         TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
-  #         TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
-  #       with:
-  #         image-ref: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
-  #         severity: HIGH,CRITICAL
-  #         ignore-unfixed: true
-  #         skip-dirs: "/home/analyticalplatform/.cache/R,/usr/local/lib/R/site-library/openssl/doc"
-  #         timeout: 10m0s
-  #         exit-code: 1
+      - name: Scan
+        id: scan
+        uses: aquasecurity/trivy-action@dc5a429b52fcf669ce959baa2c2dd26090d2a6c4 # v0.32.0
+        env:
+          TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
+          TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
+        with:
+          image-ref: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
+          severity: HIGH,CRITICAL
+          ignore-unfixed: true
+          skip-dirs: "/home/analyticalplatform/.cache/R,/usr/local/lib/R/site-library/openssl/doc"
+          timeout: 10m0s
+          exit-code: 1
 
-  #     - name: Comment on Scan Failure
-  #       id: comment_on_scan_failure
-  #       if: failure() && steps.scan.outcome == 'failure'
-  #       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-  #       with:
-  #         script: |
-  #           github.rest.issues.createComment({
-  #             issue_number: context.issue.number,
-  #             owner: context.repo.owner,
-  #             repo: context.repo.repo,
-  #             body: 'Container scan has failed. Refer to the [User Guide](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#vulnerability-scanning) for more information.'
-  #           })
+      - name: Comment on Scan Failure
+        id: comment_on_scan_failure
+        if: failure() && steps.scan.outcome == 'failure'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Container scan has failed. Refer to the [User Guide](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#vulnerability-scanning) for more information.'
+            })
 
-  # automatic-approval-gate:
-  #   if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
-  #   needs: [detect-changes, workflow-validation, image-check]
-  #   name: 🛂 Automatic Approval Gate
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: read
-  #     id-token: write
-  #     pull-requests: write
-  #   strategy:
-  #     fail-fast: false
-  #     matrix:
-  #       workflow: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
-  #   steps:
-  #     - name: Checkout
-  #       id: checkout
-  #       uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-  #       with:
-  #         persist-credentials: false
+  automatic-approval-gate:
+    if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
+    needs: [detect-changes, workflow-validation, terraform, image-check]
+    name: 🛂 Automatic Approval Gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    strategy:
+      fail-fast: false
+      matrix:
+        workflow: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
 
-  #     - name: Configure AWS Credentials
-  #       id: configure_aws_credentials
-  #       uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
-  #       with:
-  #         aws-region: eu-west-2
-  #         role-to-assume: arn:aws:iam::509399598587:role/analytical-platform-github-actions
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials
+        uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::509399598587:role/analytical-platform-github-actions
 
-  #     - name: Set Up UV
-  #       id: setup_uv
-  #       uses: astral-sh/setup-uv@7edac99f961f18b581bbd960d59d049f04c0002f # v6.4.1
-  #       with:
-  #         activate-environment: true
-  #         version: "latest"
-  #         python-version: "3.11"
+      - name: Set Up UV
+        id: setup_uv
+        uses: astral-sh/setup-uv@7edac99f961f18b581bbd960d59d049f04c0002f # v6.4.1
+        with:
+          activate-environment: true
+          version: "latest"
+          python-version: "3.11"
 
-  #     - name: Install Requirements
-  #       id: install_requirements
-  #       run: |
-  #         uv pip install --requirements requirements.txt
+      - name: Install Requirements
+        id: install_requirements
+        run: |
+          uv pip install --requirements requirements.txt
 
-  #     - name: Download path-filters File
-  #       id: download_path_filters
-  #       uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
-  #       with:
-  #         name: workflows-path-filter
-  #         path: .github/path-filter
+      - name: Download path-filters File
+        id: download_path_filters
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: workflows-path-filter
+          path: .github/path-filter
 
-  #     - name: Set Workflow Directory
-  #       id: set_workflow_directory
-  #       env:
-  #         WORKFLOW: ${{ matrix.workflow }}
-  #       run: |
-  #         workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
-  #         export workflowDirectory
+      - name: Set Workflow Directory
+        id: set_workflow_directory
+        env:
+          WORKFLOW: ${{ matrix.workflow }}
+        run: |
+          workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
+          export workflowDirectory
 
-  #         echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
+          echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
-  #     - name: Automatic Approval Check
-  #       id: automatic_approval_check
-  #       env:
-  #         GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
-  #       run: |
-  #         git fetch origin main
+      - name: Automatic Approval Check
+        id: automatic_approval_check
+        env:
+          GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+        run: |
+          git fetch origin main
 
-  #         changed_files=$(git diff --name-only origin/main)
-  #         changed_files_status=$(git diff --name-status origin/main | awk '{ print $1 }')
+          changed_files=$(git diff --name-only origin/main)
+          changed_files_status=$(git diff --name-status origin/main | awk '{ print $1 }')
 
-  #         echo "${changed_files}"
-  #         echo "${changed_files_status}"
+          echo "${changed_files}"
+          echo "${changed_files_status}"
 
-  #         # Default to true
-  #         eligible="true"
+          # Default to true
+          eligible="true"
 
-  #         # Check if any files were added or deleted
-  #         for status in ${changed_files_status}; do
-  #           if [[ ${status} != "M" ]]; then
-  #             echo "File status ${status} detected, not eligible for automatic approval"
-  #             exit 0
-  #           fi
-  #         done
+          # Check if any files were added or deleted
+          for status in ${changed_files_status}; do
+            if [[ ${status} != "M" ]]; then
+              echo "File status ${status} detected, not eligible for automatic approval"
+              exit 0
+            fi
+          done
 
-  #         # Check if the workflow file has been modified, and in what way
-  #         if [[ $(git diff --name-status origin/main ${{ env.workflow-directory }}/workflow.yml | awk '{ print $1 }') == "M" ]]; then
-  #           echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, eligible for automatic approval depending on changes"
-  #           gh api "repos/${{ github.repository }}/contents/${{ env.workflow-directory }}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${{ env.workflow-directory }}/workflow-main.yml"
+          # Check if the workflow file has been modified, and in what way
+          if [[ $(git diff --name-status origin/main ${{ env.workflow-directory }}/workflow.yml | awk '{ print $1 }') == "M" ]]; then
+            echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, eligible for automatic approval depending on changes"
+            gh api "repos/${{ github.repository }}/contents/${{ env.workflow-directory }}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${{ env.workflow-directory }}/workflow-main.yml"
 
-  #           if [[ $(python scripts/yaml_diff/main.py "${{ env.workflow-directory }}/workflow-main.yml" "${{ env.workflow-directory }}/workflow.yml") == "Only dag.tag has changed" ]]; then
-  #             echo "Only dag.tag has changed, eligible for automatic approval"
-  #           else
-  #             echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, not eligible for automatic approval"
-  #             exit 0
-  #           fi
-  #         fi
+            if [[ $(python scripts/yaml_diff/main.py "${{ env.workflow-directory }}/workflow-main.yml" "${{ env.workflow-directory }}/workflow.yml") == "Only dag.tag has changed" ]]; then
+              echo "Only dag.tag has changed, eligible for automatic approval"
+            else
+              echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, not eligible for automatic approval"
+              exit 0
+            fi
+          fi
 
-  #         # Check if any environments/**/dag.py files have changed
-  #         for file in ${changed_files}; do
-  #           if [[ "${file}" =~ ^environments/.*/dag\.py$ ]]; then
-  #             echo "File (${file}) is a dag.py file, not eligible for automatic approval"
-  #             exit 0
-  #           fi
-  #         done
+          # Check if any environments/**/dag.py files have changed
+          for file in ${changed_files}; do
+            if [[ "${file}" =~ ^environments/.*/dag\.py$ ]]; then
+              echo "File (${file}) is a dag.py file, not eligible for automatic approval"
+              exit 0
+            fi
+          done
 
-  #         # Check if any files outside environments/(development|test) have changed
-  #         for file in ${changed_files}; do
-  #           if [[ ! "${file}" =~ ^environments/(development|test)/.*$ ]]; then
-  #             echo "File (${file}) has changed outside the specified path (environments/(development|test)), not eligible for automatic approval"
-  #             exit 0
-  #           fi
-  #         done
+          # Check if any files outside environments/(development|test) have changed
+          for file in ${changed_files}; do
+            if [[ ! "${file}" =~ ^environments/(development|test)/.*$ ]]; then
+              echo "File (${file}) has changed outside the specified path (environments/(development|test)), not eligible for automatic approval"
+              exit 0
+            fi
+          done
 
-  #         # Check automatic approval status in DynamoDB
-  #         automatic_approval_dynamodb_status=$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)
+          # Check automatic approval status in DynamoDB
+          automatic_approval_dynamodb_status=$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)
 
-  #         echo "Automatic approval DynamoDB status: ${automatic_approval_dynamodb_status}"
+          echo "Automatic approval DynamoDB status: ${automatic_approval_dynamodb_status}"
 
-  #         if [[ "${automatic_approval_dynamodb_status}" == "active" ]]; then
-  #           echo "Automatic approval is active"
-  #         elif [[ "${automatic_approval_dynamodb_status}" == "paused" ]]; then
-  #           echo "Automatic approval is paused"
-  #           echo "automatic_approval_paused=true" >>"${GITHUB_OUTPUT}"
-  #           eligible="false"
-  #         fi
+          if [[ "${automatic_approval_dynamodb_status}" == "active" ]]; then
+            echo "Automatic approval is active"
+          elif [[ "${automatic_approval_dynamodb_status}" == "paused" ]]; then
+            echo "Automatic approval is paused"
+            echo "automatic_approval_paused=true" >>"${GITHUB_OUTPUT}"
+            eligible="false"
+          fi
 
-  #         echo "eligible=${eligible}" >>"${GITHUB_OUTPUT}"
+          echo "eligible=${eligible}" >>"${GITHUB_OUTPUT}"
 
-  #     - name: Comment on Automatic Approval Check Status
-  #       id: comment_on_automatic_approval_check
-  #       if: steps.automatic_approval_check.outputs.automatic_approval_paused == 'true'
-  #       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-  #       with:
-  #         script: |
-  #           github.rest.issues.createComment({
-  #             issue_number: context.issue.number,
-  #             owner: context.repo.owner,
-  #             repo: context.repo.repo,
-  #             body: 'Automatic approval is currently paused. Please request manual approval via [#ask-analytical-platform](https://moj.enterprise.slack.com/archives/C4PF7QAJZ).'
-  #           })
+      - name: Comment on Automatic Approval Check Status
+        id: comment_on_automatic_approval_check
+        if: steps.automatic_approval_check.outputs.automatic_approval_paused == 'true'
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Automatic approval is currently paused. Please request manual approval via [#ask-analytical-platform](https://moj.enterprise.slack.com/archives/C4PF7QAJZ).'
+            })
 
-  #     - name: Automatic Approval
-  #       if: steps.automatic_approval_check.outputs.eligible == 'true'
-  #       id: automatic_approval
-  #       uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-  #       with:
-  #         github-token: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
-  #         script: |
-  #           github.rest.pulls.createReview({
-  #             owner: context.repo.owner,
-  #             repo: context.repo.repo,
-  #             pull_number: context.payload.pull_request.number,
-  #             body: 'Automatic approval requirements satisfied.',
-  #             event: 'APPROVE'
-  #           })
+      - name: Automatic Approval
+        if: steps.automatic_approval_check.outputs.eligible == 'true'
+        id: automatic_approval
+        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        with:
+          github-token: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          script: |
+            github.rest.pulls.createReview({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.payload.pull_request.number,
+              body: 'Automatic approval requirements satisfied.',
+              event: 'APPROVE'
+            })
