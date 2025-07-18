@@ -156,9 +156,11 @@ jobs:
 
       - name: Set Outputs
         id: set_outputs
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
           # Environment
-          getEnvironment=$(echo "${{ env.workflow-directory }}" | cut -d'/' -f2)
+          getEnvironment=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f2)
           export getEnvironment
           echo "environment=[\"${getEnvironment}\"]" >>"${GITHUB_OUTPUT}"
 

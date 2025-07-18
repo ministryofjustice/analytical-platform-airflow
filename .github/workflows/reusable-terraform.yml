@@ -55,18 +55,22 @@ jobs:
       - name: Terraform Workspace
         id: terraform_workspace
         shell: bash
+        env:
+          ENVIRONMENT: ${{ matrix.environment }}
         run: |
-          terraform workspace select -or-create ${{ matrix.environment }}
+          terraform workspace select -or-create "${ENVIRONMENT}"
 
       - name: Terraform Plan
         id: terraform_plan
         shell: bash
+        env:
+          ENVIRONMENT: ${{ matrix.environment }}
         run: |
-          terraform plan -out=${{ matrix.environment }}.tfplan -input=false
+          terraform plan -input=false -out="${ENVIRONMENT}.tfplan"
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         id: terraform_apply
         shell: bash
         run: |
-          terraform apply -auto-approve -input=false ${{ matrix.environment }}.tfplan
+          terraform apply -auto-approve -input=false "${ENVIRONMENT}.tfplan"
