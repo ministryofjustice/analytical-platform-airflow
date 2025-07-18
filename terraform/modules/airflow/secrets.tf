@@ -55,20 +55,6 @@ resource "helm_release" "external_secret" {
   chart     = "${path.module}/src/helm/charts/external-secret"
   namespace = "mwaa"
 
-  # set {
-  #   name  = "secretName"
-  #   value = "${var.project}-${var.workflow}-${each.key}"
-  # }
-
-  # set {
-  #   name  = "targetName"
-  #   value = "${var.project}-${var.workflow}-${each.key}"
-  # }
-
-  # set {
-  #   name  = "remoteRefKey"
-  #   value = module.secrets_manager[each.key].secret_id
-  # }
   set = [
     {
       name  = "secretName"
