@@ -14,11 +14,11 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "5.100.0"
+      version = "6.4.0"
     }
     helm = {
       source  = "hashicorp/helm"
-      version = "2.17.0"
+      version = "3.0.2"
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
@@ -78,10 +78,10 @@ provider "kubernetes" {
 }
 
 provider "helm" {
-  kubernetes {
+  kubernetes = {
     host                   = jsondecode(data.aws_secretsmanager_secret_version.analytical_platform_compute_cluster_data.secret_string)["analytical-platform-compute-${terraform.workspace}-api-endpoint"]
     cluster_ca_certificate = base64decode(jsondecode(data.aws_secretsmanager_secret_version.analytical_platform_compute_cluster_data.secret_string)["analytical-platform-compute-${terraform.workspace}-certificate"])
-    exec {
+    exec = {
       api_version = "client.authentication.k8s.io/v1"
       command     = "bash"
       args        = ["scripts/eks-authentication.sh", "analytical-platform-compute-${terraform.workspace}"]

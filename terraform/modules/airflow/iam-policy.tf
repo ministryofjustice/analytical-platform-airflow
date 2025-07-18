@@ -182,7 +182,7 @@ module "iam_policy" {
   count = length(local.iam_external_role) > 0 ? 0 : 1
 
   source  = "terraform-aws-modules/iam/aws//modules/iam-policy"
-  version = "5.55.0"
+  version = "5.59.0"
 
   providers = {
     aws = aws.analytical-platform-data-production-eu-west-2
