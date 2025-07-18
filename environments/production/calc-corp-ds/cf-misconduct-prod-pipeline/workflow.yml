@@ -32,7 +32,7 @@ tasks:
       EXEC_SCRIPT: "run-pipeline"
       CHECK: "tags"
       SCRIPT: "tagging-process"
-    compute_profile: gpu-spot-8vcpu-32gb
+    compute_profile: "gpu-spot-8vcpu-32gb"
     dependencies: [merged-tables]
   create-tagged-employee-data:
     env_vars:
