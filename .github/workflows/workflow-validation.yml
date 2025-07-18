@@ -160,7 +160,7 @@ jobs:
           # Environment
           getEnvironment=$(echo "${{ env.workflow-directory }}" | cut -d'/' -f2)
           export getEnvironment
-          echo "environment='[\"${getEnvironment}\"']" >>"${GITHUB_OUTPUT}"
+          echo "environment=[\"${getEnvironment}\"]" >>"${GITHUB_OUTPUT}"
 
   terraform:
     needs: [workflow-validation]
