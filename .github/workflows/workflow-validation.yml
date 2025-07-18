@@ -77,6 +77,8 @@ jobs:
       fail-fast: false
       matrix:
         workflow: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
+    outputs:
+      environment: ${{ steps.set_outputs.outputs.environment }}
     steps:
       - name: Checkout
         id: checkout
@@ -151,6 +153,26 @@ jobs:
           else
             python scripts/workflow_validation/main.py "dist/dags/${distWorkflowDirectory}/workflow.yml"
           fi
+
+      - name: Set Outputs
+        id: set_outputs
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+        run: |
+          # Environment
+          getEnvironment=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f2)
+          export getEnvironment
+          echo "environment=[\"${getEnvironment}\"]" >>"${GITHUB_OUTPUT}"
+
+  terraform:
+    needs: [workflow-validation]
+    name: 🌐 Terraform
+    permissions:
+      contents: read
+      id-token: write
+    uses: ./.github/workflows/reusable-terraform.yml
+    with:
+      environments: ${{ needs.workflow-validation.outputs.environment }}
 
   image-check:
     if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
@@ -408,7 +430,7 @@ jobs:
 
   automatic-approval-gate:
     if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
-    needs: [detect-changes, workflow-validation, image-check]
+    needs: [detect-changes, workflow-validation, terraform, image-check]
     name: 🛂 Automatic Approval Gate
     runs-on: ubuntu-latest
     permissions:
