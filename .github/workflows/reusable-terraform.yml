@@ -60,6 +60,13 @@ jobs:
         run: |
           terraform workspace select -or-create "${ENVIRONMENT}"
 
+      - name: Terraform Validate
+        if: github.ref != 'refs/heads/main'
+        id: terraform_validate
+        shell: bash
+        run: |
+          terraform validate -no-color
+
       - name: Terraform Plan
         id: terraform_plan
         shell: bash
