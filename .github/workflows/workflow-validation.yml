@@ -174,7 +174,7 @@ jobs:
 
       - name: Set Up Container Structure Test
         id: setup_container_structure_test
-        uses: ministryofjustice/github-actions/setup-container-structure-test@db1a54895bf5fb975c60af47e5a3aab96505ca3e # v18.6.0
+        uses: ministryofjustice/analytical-platform-github-actions/setup-container-structure-test@e0b96059804cbe750acb4a495ec6106617972f0b # v4.1.0
 
       - name: Download path-filters File
         id: download_path_filters
@@ -267,7 +267,7 @@ jobs:
       - name: Clean Actions Runner
         id: clean_actions_runner
         if: env.clean-runner == 'true'
-        uses: ministryofjustice/github-actions/clean-actions-runner@db1a54895bf5fb975c60af47e5a3aab96505ca3e # v18.6.0
+        uses: ministryofjustice/analytical-platform-github-actions/clean-actions-runner@e0b96059804cbe750acb4a495ec6106617972f0b # v4.1.0
         with:
           confirm: true
 
