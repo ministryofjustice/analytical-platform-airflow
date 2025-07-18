@@ -73,7 +73,7 @@ def send_email(data_provider):
 for data_provider in data_providers:
   # Environmental variables for passing to the docker container
   env_vars = {
-        "DATA_PROVIDER": data_provider,
+        "DATA_PROVIDER": f"{data_provider}",
         "ENVIRONMENT": ENVIRONMENT,
         "EXECUTION_TIME": EXECUTION_TIME,
         "AWS_METADATA_SERVICE_TIMEOUT": "60",
