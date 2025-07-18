@@ -1,0 +1,72 @@
+---
+on:
+  workflow_call:
+    inputs:
+      environments:
+        description: 'List of environments to run Terraform against'
+        required: true
+        type: string
+
+permissions: {}
+
+concurrency:
+  group: terraform
+
+jobs:
+  terraform:
+    name: Terraform
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: ${{ fromJson(inputs.environments) }}
+    defaults:
+      run:
+        working-directory: terraform
+    env:
+      TF_IN_AUTOMATION: true
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+
+      - name: Set Up Terraform
+        id: install_terraform
+        uses: hashicorp/setup-terraform@b9cd54a3c349d3f38e8881555d616ced269862dd # v3.1.2
+
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials
+        uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::509399598587:role/analytical-platform-github-actions
+
+      - name: Initialise Terraform
+        id: initialise_terraform
+        shell: bash
+        run: |
+          terraform init -upgrade -input=false
+
+      - name: Terraform Workspace
+        id: terraform_workspace
+        shell: bash
+        run: |
+          terraform workspace select -or-create ${{ matrix.environment }}
+
+      - name: Terraform Plan
+        id: terraform_plan
+        shell: bash
+        run: |
+          terraform plan -out=${{ matrix.environment }}.tfplan -input=false
+
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/main'
+        id: terraform_apply
+        shell: bash
+        run: |
+          terraform apply -auto-approve -input=false ${{ matrix.environment }}.tfplan
