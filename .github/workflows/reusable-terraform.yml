@@ -3,7 +3,7 @@ on:
   workflow_call:
     inputs:
       environments:
-        description: 'List of environments to run Terraform against'
+        description: "List of environments to run Terraform against"
         required: true
         type: string
 
