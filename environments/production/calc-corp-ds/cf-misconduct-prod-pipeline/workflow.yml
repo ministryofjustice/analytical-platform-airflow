@@ -1,0 +1,75 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-cf-misconduct
+  tag: v7.6
+  catchup: false
+tasks:
+  db_prep_compare_labels:
+    env_vars:
+      CHECK: "db_prepared"
+      SCRIPT: "compare-labels-db"
+  db_prep_copy_db:
+    env_vars:
+      CHECK: "db_prepared"
+      SCRIPT: "copy-db"
+    dependencies: [db_prep_compare_labels]
+  process_sscl_reports:
+    env_vars:
+      CHECK: "process_sscl_reports"
+      SCRIPT: "src/misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py"
+    dependencies: [db_prep_copy_db]
+  merged_tables:
+    env_vars:
+      CHECK: "merged_tables"
+      SCRIPT: "src/misconduct_nlp/process_inv_cd_data/create_merged_tables.py"
+    dependencies: [process_sscl_reports]
+  tag_and_review_data:
+    env_vars:
+      CHECK: "tags"
+      SCRIPT: "tagging-process"
+    compute_profile: gpu-spot-8vcpu-32gb
+    dependencies: [merged_tables]
+  create_tagged_employee_data:
+    env_vars:
+      CHECK: "tables_w_tags"
+      SCRIPT: "src/misconduct_nlp/process_inv_cd_data/create_employee_tagged_db.py"
+    dependencies: [tag_and_review_data]
+  customer_reports:
+    env_vars:
+      CHECK: "generate_reports"
+      SCRIPT: "src/misconduct_nlp/etl_subtasks/generate_all_reports.py"
+    dependencies: [create_tagged_employee_data]
+  model_metrics_evidently:
+    env_vars:
+      CHECK: "model_metrics"
+      SCRIPT: "misconduct-evidently-ai"
+    dependencies: [tag_and_review_data]
+  model_metrics_scikit:
+    env_vars:
+      CHECK: "model_metrics"
+      SCRIPT: "model-monitoring-metrics"
+    dependencies: [model_metrics_evidently]
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-cf-misconduct/*
+    - alpha-app-fraud-and-corruption-insights/*
+    - mojap-athena-query-dump/*
+    - alpha-athena-query-dump/*
+
+maintainers:
+  - jhenfrancis
+  - sheilz81
+  - tomd-moj
+
+notifications:
+  emails:
+    - jhenielle.francis@justice.gov.uk
+    - sheila.ladva@justice.gov.uk
+    - thomas.dykins@justice.gov.uk
+  slack_channel: misconduct_nlp
+
+tags:
+  business_unit: HQ
+  owner: jhenielle.francis@justice.gov.uk
