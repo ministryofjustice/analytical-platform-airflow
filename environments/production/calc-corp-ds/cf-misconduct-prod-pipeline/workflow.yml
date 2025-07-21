@@ -78,7 +78,7 @@ notifications:
     - jhenielle.francis@justice.gov.uk
     - sheila.ladva@justice.gov.uk
     - thomas.dykins@justice.gov.uk
-  slack_channel: misconduct_nlp
+  slack_channel: misconduct-nlp
 
 tags:
   business_unit: HQ
