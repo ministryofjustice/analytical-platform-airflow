@@ -1,17 +1,17 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-cadet
-  tag: v0.1.1
+  tag: v0.1.2
   compute_profile: general-spot-16vcpu-64gb
   env_vars:
-    DEPLOY_ENV: prod
+    DEPLOY_ENV: sandpit
     AWS_DEFAULT_REGION: eu-west-1
-    DBT_PROFILE_WORKGROUP: dbt-prod
+    DBT_PROFILE_WORKGROUP: dbt-sandpit
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: cadet-compile-airflow
-    DBT_SELECT_CRITERIA: ./models/ --threads 400
+    DBT_SELECT_CRITERIA: models/development_sandpit
     RETRY_TAGS: retry
-    MODE: compile
+    MODE: build
 
 maintainers:
   - jhpyke
