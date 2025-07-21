@@ -3,6 +3,7 @@ dag:
   repository: moj-analytical-services/airflow-cf-misconduct
   tag: v7.7
   catchup: false
+  schedule: "0 20 * * *"
   tasks:
     db-prep-compare-labels:
       env_vars:
@@ -51,7 +52,7 @@ dag:
         EXEC_SCRIPT: "run-pipeline"
         CHECK: "model_metrics"
         SCRIPT: "misconduct-evidently-ai"
-      dependencies: [tag-and-review-data]
+      dependencies: [create-tagged-employee-data]
     model-metrics-scikit:
       env_vars:
         EXEC_SCRIPT: "run-pipeline"
