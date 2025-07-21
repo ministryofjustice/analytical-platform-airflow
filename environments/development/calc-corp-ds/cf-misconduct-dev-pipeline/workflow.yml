@@ -1,0 +1,84 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-cf-misconduct
+  tag: v7.7
+  catchup: false
+  tasks:
+    db-prep-compare-labels:
+      env_vars:
+        EXEC_SCRIPT: "run-pipeline"
+        CHECK: "db_prepared"
+        SCRIPT: "compare-labels-db"
+    db-prep-copy-db:
+      env_vars:
+        EXEC_SCRIPT: "run-pipeline"
+        CHECK: "db_prepared"
+        SCRIPT: "copy-db"
+      dependencies: [db-prep-compare-labels]
+    process-sscl-reports:
+      env_vars:
+        EXEC_SCRIPT: "run-pipeline"
+        CHECK: "process_sscl_reports"
+        SCRIPT: "src/misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py"
+      dependencies: [db-prep-copy-db]
+    merged-tables:
+      env_vars:
+        EXEC_SCRIPT: "run-pipeline"
+        CHECK: "merged_tables"
+        SCRIPT: "src/misconduct_nlp/process_inv_cd_data/create_merged_tables.py"
+      dependencies: [process-sscl-reports]
+    tag-and-review-data:
+      env_vars:
+        EXEC_SCRIPT: "run-pipeline"
+        CHECK: "tags"
+        SCRIPT: "tagging-process"
+      compute_profile: "gpu-spot-8vcpu-32gb"
+      dependencies: [merged-tables]
+    create-tagged-employee-data:
+      env_vars:
+        EXEC_SCRIPT: "run-pipeline"
+        CHECK: "tables_w_tags"
+        SCRIPT: "src/misconduct_nlp/process_inv_cd_data/create_employee_tagged_db.py"
+      dependencies: [tag-and-review-data]
+    customer-reports:
+      env_vars:
+        EXEC_SCRIPT: "run-pipeline"
+        CHECK: "generate_reports"
+        SCRIPT: "src/misconduct_nlp/etl_subtasks/generate_all_reports.py"
+      dependencies: [create-tagged-employee-data]
+    model-metrics-evidently:
+      env_vars:
+        EXEC_SCRIPT: "run-pipeline"
+        CHECK: "model_metrics"
+        SCRIPT: "misconduct-evidently-ai"
+      dependencies: [create-tagged-employee-data]
+    model-metrics-scikit:
+      env_vars:
+        EXEC_SCRIPT: "run-pipeline"
+        CHECK: "model_metrics"
+        SCRIPT: "model-monitoring-metrics"
+      dependencies: [model-metrics-evidently]
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-cf-misconduct/*
+    - alpha-app-fraud-and-corruption-insights/*
+    - mojap-athena-query-dump/*
+    - alpha-athena-query-dump/*
+
+maintainers:
+  - jhenfrancis
+  - sheilz81
+  - tomd-moj
+
+notifications:
+  emails:
+    - jhenielle.francis@justice.gov.uk
+    - sheila.ladva@justice.gov.uk
+    - thomas.dykins@justice.gov.uk
+  slack_channel: misconduct-nlp
+
+tags:
+  business_unit: HQ
+  owner: jhenielle.francis@justice.gov.uk
