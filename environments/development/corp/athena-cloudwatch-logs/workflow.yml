@@ -15,6 +15,7 @@ iam:
   s3_read_write:
     - alpha-corp-data-staging/athena_queries/iceberg_data/athena_query_executions/*
     - alpha-corp-data-staging/athena_queries/select_queries/*
+    - alpha-corp-data-staging/athena_queries/temp_data/athena_query_dump/*
 
 notifications:
   slack_channel: dmet-corp-notifications
