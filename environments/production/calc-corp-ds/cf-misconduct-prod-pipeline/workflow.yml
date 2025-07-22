@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v7.7
+  tag: v7.8
   catchup: false
   schedule: "0 20 * * *"
   tasks:
@@ -21,6 +21,7 @@ dag:
         EXEC_SCRIPT: "run-pipeline"
         CHECK: "process_sscl_reports"
         SCRIPT: "src/misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py"
+      compute_profile: "gpu-spot-8vcpu-32gb"
       dependencies: [db-prep-copy-db]
     merged-tables:
       env_vars:
@@ -78,7 +79,7 @@ notifications:
     - jhenielle.francis@justice.gov.uk
     - sheila.ladva@justice.gov.uk
     - thomas.dykins@justice.gov.uk
-  slack_channel: misconduct-nlp
+  slack_channel: cf-misconduct-notifications
 
 tags:
   business_unit: HQ
