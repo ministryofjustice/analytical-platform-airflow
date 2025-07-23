@@ -9,6 +9,7 @@ dag:
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-docs
     DBT_SELECT_CRITERIA: models/
+    BRANCH: dbt-docs-clean-branch
     MODE: docs generate
 
 maintainers:
