@@ -93,7 +93,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-land/dlt/libraapp/*
+    - mojap-land/dlt/familyman/*
 
 secrets:
   - pds
