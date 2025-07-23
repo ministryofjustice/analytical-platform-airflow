@@ -20,7 +20,6 @@ dag:
     DATA_INTERVAL_START: "{{ data_interval_start }}"
     DATA_INTERVAL_END: "{{ data_interval_end }}"
 
-
 notifications:
   emails:
     - matt.heery@justice.gov.uk
