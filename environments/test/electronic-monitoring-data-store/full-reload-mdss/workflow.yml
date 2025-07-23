@@ -20,20 +20,6 @@ dag:
     DATA_INTERVAL_START: "{{ data_interval_start }}"
     DATA_INTERVAL_END: "{{ data_interval_end }}"
 
-  tasks:
-    load_general:
-      env_vars:
-        FEED_TYPE: "general"
-
-    load_home_office:
-      dependencies: [load_general]
-      env_vars:
-        FEED_TYPE: "home_office"
-
-    load_specials:
-      dependencies: [load_home_office]
-      env_vars:
-        FEED_TYPE: "specials"
 
 notifications:
   emails:
