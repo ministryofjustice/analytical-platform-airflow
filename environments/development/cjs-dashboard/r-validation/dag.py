@@ -33,7 +33,7 @@ dag = DAG(
   dag_id=f"{PROJECT}.{WORKFLOW}",
   default_args=default_args,
   start_date=datetime(2025, 7, 20),
-  end_date=datetime(2025, 7, 22),
+  end_date=datetime(2025, 7, 26),
   schedule="*/30 9-17 * * 1-5",
 )
 
@@ -73,7 +73,7 @@ def send_email(data_provider):
 for data_provider in data_providers:
   # Environmental variables for passing to the docker container
   env_vars = {
-        "DATA_PROVIDER": f"{data_provider}",
+        "DATA_PROVIDER": data_provider,
         "ENVIRONMENT": ENVIRONMENT,
         "EXECUTION_TIME": EXECUTION_TIME,
         "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -87,6 +87,7 @@ for data_provider in data_providers:
     name=f"{PROJECT}.{WORKFLOW}",
     compute_profile="general-spot-1vcpu-4gb",
     image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
+    env_vars=env_vars,
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}"

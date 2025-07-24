@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.2.39
+  tag: v0.2.48
   compute_profile: gpu-spot-8vcpu-32gb
   catchup: true
   depends_on_past: false
@@ -19,21 +19,6 @@ dag:
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
     DATA_INTERVAL_START: "{{ data_interval_start }}"
     DATA_INTERVAL_END: "{{ data_interval_end }}"
-
-  tasks:
-    load_general:
-      env_vars:
-        FEED_TYPE: "general"
-
-    load_home_office:
-      dependencies: [load_general]
-      env_vars:
-        FEED_TYPE: "home_office"
-
-    load_specials:
-      dependencies: [load_home_office]
-      env_vars:
-        FEED_TYPE: "specials"
 
 notifications:
   emails:
