@@ -1,0 +1,30 @@
+---
+dag:
+  repository: ministryofjustice/hmlr-load-ap-airflow
+  tag: v0.0.1
+  schedule: "5 4 * * 1"
+  catchup: false
+  max_active_runs: 1
+  retries: 1
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-corp-data-staging/hmlr/price-paid/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - ltd-pa
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: Laurence.Droy@justice.gov.uk
