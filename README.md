@@ -8,4 +8,4 @@
 
 Please refer to our [User Guidance](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow) for information on how to use Analytical Platform Airflow.
 
-Commit signature verification is enabled on this repository. To set this up follow the instructions [here](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification).
+Commit signature verification is enabled on this repository. To set this up follow the instructions [on GitHub](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification).
