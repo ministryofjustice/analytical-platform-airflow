@@ -1,6 +1,6 @@
 ---
 dag:
-  repository: ministrryofjustice/hmlr-load-ap-airflow
+  repository: ministryofjustice/hmlr-load-ap-airflow
   tag: v0.0.1
   schedule: "5 4 * * 1"
   catchup: false
