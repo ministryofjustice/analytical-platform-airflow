@@ -6,7 +6,6 @@ dag:
   start_date: "2025-07-09"
   schedule: "0 7 * * 2"
   max_active_runs: 3
-  retry_exponential_backoff: true
   hmcts_sdp_networking: true
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
