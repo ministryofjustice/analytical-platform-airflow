@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/hmcts-dlt-pipeline
-  tag: v1.0.0
+  tag: v1.0.1
   retries: 1
   retry_delay: 150
   start_date: "2025-07-09"
@@ -99,7 +99,7 @@ secrets:
   - pds
 
 notifications:
-  slack_channel: dmet-hmcts-cft
+  slack_channel: dmet-hmcts-notifications
 
 maintainers:
   - murad-ali-moj
