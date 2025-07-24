@@ -37,7 +37,7 @@ dag:
     process-v3-opt-familyman-tucs-cases:
       env_vars:
         CONTAINER_NAME: "v3-opt-familyman-tucs-cases"
-      compute_profile: general-on-demand-8vcpu-32gb
+      compute_profile: general-on-demand-32vcpu-128gb
 
     process-v3-opt-familyman-tucs-court-addresses-mv:
       env_vars:
@@ -52,12 +52,12 @@ dag:
     process-v3-opt-familyman-tucs-event-models:
       env_vars:
         CONTAINER_NAME: "v3-opt-familyman-tucs-event-models"
-      compute_profile: general-on-demand-8vcpu-32gb
+      compute_profile: general-on-demand-32vcpu-128gb
 
     process-v3-opt-familyman-tucs-events:
       env_vars:
         CONTAINER_NAME: "v3-opt-familyman-tucs-events"
-      compute_profile: general-on-demand-8vcpu-32gb
+      compute_profile: general-on-demand-32vcpu-128gb
 
     process-v3-opt-familyman-tucs-field-models:
       env_vars:
