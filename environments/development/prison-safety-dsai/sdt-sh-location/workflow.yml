@@ -3,6 +3,9 @@ dag:
   tag: v4.4.3
   env_vars:
     AIRFLOW_ENVIRONMENT: "PRODUCTION" #to be changed to dev once we have a prod DAG running
+  tasks:
+    task:
+      compute_profile: "general-on-demand-4vcpu-16gb"
 
 iam:
   athena: write
