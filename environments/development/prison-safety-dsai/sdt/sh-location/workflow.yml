@@ -2,7 +2,7 @@ dag:
   repository: moj-analytical-services/airflow-sh-location
   tag: v4.3.6
   env_vars:
-    AIRFLOW_ENVIRONMENT: "PRODUCTION"
+    AIRFLOW_ENVIRONMENT: "PRODUCTION" 
 
 iam:
   athena: write
@@ -23,9 +23,13 @@ iam:
     - alpha-anvil-lookups/*
     - alpha-nomis/nomis_dn/selfharm_proc/*
 
+notifications:
+  emails:
+    - sdt-support@justice.gov.uk
+
 maintainers:
   - miller-william
 
 tags:
   business_unit: HMPPS
-  owner: sdt-support@justice.gov.uk
+  owner: william.miller1@justice.gov.uk
