@@ -1,8 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow-sh-location
-  tag: v4.3.6
+  tag: v4.3.7
   env_vars:
-    AIRFLOW_ENVIRONMENT: "PRODUCTION"
+    AIRFLOW_ENVIRONMENT: "PRODUCTION" #to be changed to dev once we have a prod DAG running
 
 iam:
   athena: write
