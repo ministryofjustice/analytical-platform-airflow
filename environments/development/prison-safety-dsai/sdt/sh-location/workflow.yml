@@ -19,7 +19,7 @@ iam:
       - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_cases_wap/*
       - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_case_responses_wap/*
   
-    s3_read_write:
+  s3_read_write:
       - alpha-anvil-lookups/*
       - alpha-nomis/nomis_dn/selfharm_proc/*
 
