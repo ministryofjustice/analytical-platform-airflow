@@ -1,0 +1,10 @@
+dag:
+  repository: moj-analytical-services/airflow-sh-location
+  tag: v4.3.6
+
+maintainers:
+  - miller-william
+
+tags:
+  business_unit: DEDSAI
+  owner: sdt-support@justice.gov.uk
