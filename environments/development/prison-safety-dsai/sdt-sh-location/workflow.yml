@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sh-location
-  tag: v4.4.1
+  tag: v4.4.3
   env_vars:
     AIRFLOW_ENVIRONMENT: "PRODUCTION" #to be changed to dev once we have a prod DAG running
 
