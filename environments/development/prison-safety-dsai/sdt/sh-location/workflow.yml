@@ -6,22 +6,22 @@ dag:
 
 iam:
   athena: write
-  
+
   s3_read_only:
-      - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=selfharm/*
-      - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=involvements/*
-      - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=prisons/*
-      - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=bed_assignment_histories/*
-      - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=agency_internal_locations/*
-      - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=questionnaire_questions/*
-      - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=incident_case_questions/*
-      - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=questionnaire_answers/*
-      - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_cases_wap/*
-      - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_case_responses_wap/*
-  
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=selfharm/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=involvements/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=prisons/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=bed_assignment_histories/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=agency_internal_locations/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=questionnaire_questions/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=incident_case_questions/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=questionnaire_answers/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_cases_wap/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_case_responses_wap/*
+
   s3_read_write:
-      - alpha-anvil-lookups/*
-      - alpha-nomis/nomis_dn/selfharm_proc/*
+    - alpha-anvil-lookups/*
+    - alpha-nomis/nomis_dn/selfharm_proc/*
 
 maintainers:
   - miller-william
