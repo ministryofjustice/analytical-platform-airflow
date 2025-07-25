@@ -1,0 +1,31 @@
+dag:
+  repository: moj-analytical-services/airflow-viper-2
+  tag: v1.1.0
+  env_vars:
+    AIRFLOW_ENVIRONMENT: "PRODUCTION" #to be changed to dev once we have a prod DAG running
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+
+  s3_read_write:
+    - alpha-safety-mi/*
+    - alpha-viper/scores_2/*
+    - alpha-viper/monitoring/*
+    - alpha-app-viper-monitoring/*
+
+notifications:
+  emails:
+    - sdt-support@justice.gov.uk
+
+maintainers:
+  - miller-william
+
+tags:
+  business_unit: HMPPS
+  owner: william.miller1@justice.gov.uk

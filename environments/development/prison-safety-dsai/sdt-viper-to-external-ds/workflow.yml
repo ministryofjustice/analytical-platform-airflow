@@ -1,0 +1,26 @@
+dag:
+  repository: moj-analytical-services/airflow-viper-to-external-ds
+  tag: v1.1.0
+  env_vars:
+    AIRFLOW_ENVIRONMENT: "PRODUCTION" #to be changed to dev once we have a prod DAG running
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - alpha-viper/scores/*
+    - alpha-viper/scores_2/*
+
+  s3_read_write:
+    - cloud-platform-c504369937d1f1cd634905e8d28d65b1/viper/*
+
+notifications:
+  emails:
+    - sdt-support@justice.gov.uk
+
+maintainers:
+  - miller-william
+
+tags:
+  business_unit: HMPPS
+  owner: william.miller1@justice.gov.uk
