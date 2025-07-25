@@ -2,7 +2,7 @@ dag:
   repository: moj-analytical-services/airflow-sh-location
   tag: v4.3.6
   env_vars:
-    DEV_PROD: "prod"
+    AIRFLOW_ENVIRONMENT: "PRODUCTION"
 
 iam:
   athena: write
