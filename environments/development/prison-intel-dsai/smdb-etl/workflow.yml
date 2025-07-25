@@ -21,6 +21,7 @@ iam:
   s3_read_write:
     - alpha-app-bentham-app/raw_excel_files/*
     - alpha-app-bentham-app/data/*
+    - alpha-app-bentham-app/models/*
     - alpha-athena-dump/*
     - alpha-athena-query-dump/*
 
