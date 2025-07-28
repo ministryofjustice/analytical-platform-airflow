@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.2.60
+  tag: v0.2.61
   compute_profile: general-on-demand-4vcpu-16gb
   catchup: False
   depends_on_past: False
