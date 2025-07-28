@@ -3,7 +3,6 @@ dag:
   repository: moj-analytical-services/airflow-load-em-data
   tag: v0.2.60
   compute_profile: general-on-demand-4vcpu-16gb
-  start_date: "2025-02-09"
   catchup: True
   depends_on_past: False
   schedule: "0 3 * * *"
