@@ -22,6 +22,8 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_cases_wap/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_case_responses_wap/*
     - alpha-safety-mi/*
+    - alpha-safety-mi          # required for bucket-level ListBucket apparently
+
 
   s3_read_write:
     - alpha-anvil-lookups/*
