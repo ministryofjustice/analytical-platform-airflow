@@ -1,18 +1,19 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.2.58
-  compute_profile: gpu-spot-8vcpu-32gb
-  catchup: true
-  depends_on_past: false
+  tag: v0.2.60
+  compute_profile: general-on-demand-4vcpu-16gb
+  start_date: "2025-02-09"
+  catchup: True
+  depends_on_past: False
   schedule: "0 3 * * *"
   max_active_runs: 1
   env_vars:
     SUPPLIER_NAME: "allied"
     SYSTEM_NAME: "mdss"
-    REFRESH_TOTAL_DB: false
-    START_DATE: "2025-06-10"
-    DELIVERY_DATE: "2025-06-10"
+    REFRESH_TOTAL_DB: False
+    START_DATE: "2025-02-09"
+    DELIVERY_DATE: "{{ ds }}"
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
