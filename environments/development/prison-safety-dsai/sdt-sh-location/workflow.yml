@@ -21,10 +21,12 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=questionnaire_answers/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_cases_wap/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_case_responses_wap/*
+    - alpha-safety-mi/*
 
   s3_read_write:
     - alpha-anvil-lookups/*
     - alpha-nomis/nomis_dn/selfharm_proc/*
+    - alpha-safety-mi/prisons_ds/*
 
 notifications:
   emails:
