@@ -24,7 +24,6 @@ iam:
     - alpha-safety-mi/*
     - alpha-safety-mi
 
-
   s3_read_write:
     - alpha-anvil-lookups/*
     - alpha-nomis/nomis_dn/selfharm_proc/*
