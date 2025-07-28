@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sh-location
-  tag: v4.4.7
+  tag: v4.4.8
   env_vars:
     AIRFLOW_ENVIRONMENT: "PRODUCTION"
   tasks:
