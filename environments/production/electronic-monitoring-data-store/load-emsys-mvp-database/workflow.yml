@@ -1,0 +1,575 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-load-em-data
+  tag: v0.2.61
+  compute_profile: general-on-demand-4vcpu-16gb
+  email_on_failure: false
+  email_on_retry: false
+  catchup: false
+  depends_on_past: false
+  end_date: null
+  is_paused_upon_creation: false
+  max_active_runs: 1
+  retries: 0
+  retry_delay: 300
+  schedule: null
+  start_date: "2024-08-21"
+  env_vars:
+    SUPPLIER_NAME: "g4s"
+    SYSTEM_NAME: "emsys_mvp"
+    DATASET_NAME: "emsys_mvp"
+    SCHEMA_NAME: "dbo"
+    AWS_METADATA_SERVICE_TIMEOUT: 60
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
+    AWS_DEFAULT_REGION: "eu-west-2"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+  tasks:
+    load_emsys_mvp_address:
+      env_vars:
+        TABLE_NAME: "Address"
+
+    load_emsys_mvp_address_details:
+      env_vars:
+        TABLE_NAME: "AddressDetails"
+
+    load_emsys_mvp_alarm:
+      env_vars:
+        TABLE_NAME: "Alarm"
+
+    load_emsys_mvp_alarm_note:
+      env_vars:
+        TABLE_NAME: "AlarmNote"
+
+    load_emsys_mvp_application_config:
+      env_vars:
+        TABLE_NAME: "ApplicationConfig"
+
+    load_emsys_mvp_commissioned_device_person:
+      env_vars:
+        TABLE_NAME: "CommissionedDevicePerson"
+
+    load_emsys_mvp_completion_curfew_order:
+      env_vars:
+        TABLE_NAME: "CompletionCurfewOrder"
+
+    load_emsys_mvp_contact_update_frequency:
+      env_vars:
+        TABLE_NAME: "ContactorUpdateFrequency"
+
+    load_emsys_mvp_conversation_progress:
+      env_vars:
+        TABLE_NAME: "ConversationProgress"
+
+    load_emsys_mvp_curfew:
+      env_vars:
+        TABLE_NAME: "Curfew"
+
+    load_emsys_mvp_curfew_order:
+      env_vars:
+        TABLE_NAME: "CurfewOrder"
+
+    load_emsys_mvp_curfew_segment:
+      env_vars:
+        TABLE_NAME: "CurfewSegment"
+
+    load_emsys_mvp_curfew_site:
+      env_vars:
+        TABLE_NAME: "CurfewSite"
+
+    load_emsys_mvp_device:
+      env_vars:
+        TABLE_NAME: "Device"
+
+    load_emsys_mvp_device_config:
+      env_vars:
+        TABLE_NAME: "DeviceConfig"
+
+    load_emsys_mvp_device_config_node:
+      env_vars:
+        TABLE_NAME: "DeviceConfigNode"
+
+    load_emsys_mvp_device_language_option:
+      env_vars:
+        TABLE_NAME: "DeviceLanguageOption"
+
+    load_emsys_mvp_device_notes:
+      env_vars:
+        TABLE_NAME: "DeviceNotes"
+
+    load_emsys_mvp_device_specific_config:
+      env_vars:
+        TABLE_NAME: "DeviceSpecificConfig"
+
+    load_emsys_mvp_device_status:
+      env_vars:
+        TABLE_NAME: "DeviceStatus"
+
+    load_emsys_mvp_device_update:
+      env_vars:
+        TABLE_NAME: "DeviceUpdate"
+
+    load_emsys_mvp_device_value_to_type:
+      env_vars:
+        TABLE_NAME: "DeviceValueToType"
+
+    load_emsys_mvp_email:
+      env_vars:
+        TABLE_NAME: "Email"
+
+    load_emsys_mvp_emsys_role:
+      env_vars:
+        TABLE_NAME: "EmsysRole"
+
+    load_emsys_mvp_emsys_role_membership:
+      env_vars:
+        TABLE_NAME: "EmsysRoleMembership"
+
+    load_emsys_mvp_event_alarm_localized_description:
+      env_vars:
+        TABLE_NAME: "EventAlarmLocalizedDescription"
+
+    load_emsys_mvp_event_alarm_lookup:
+      env_vars:
+        TABLE_NAME: "EventAlarmLookup"
+
+    load_emsys_mvp_event_settings_config:
+      env_vars:
+        TABLE_NAME: "EventSettingsConfig"
+
+    load_emsys_mvp_event_settings_config_item:
+      env_vars:
+        TABLE_NAME: "EventSettingsConfigItem"
+
+    load_emsys_mvp_event_settings_config_node:
+      env_vars:
+        TABLE_NAME: "EventSettingsConfigNode"
+
+    load_emsys_mvp_event_settings_config_person:
+      env_vars:
+        TABLE_NAME: "EventSettingsConfigPerson"
+
+    load_emsys_mvp_firmware_upgrade_path:
+      env_vars:
+        TABLE_NAME: "FirmwareUpgradePath"
+
+    load_emsys_mvp_firmware_upgrade_path_node:
+      env_vars:
+        TABLE_NAME: "FirmwareUpgradePathNode"
+
+    load_emsys_mvp_firmware_upgrade_schedule:
+      env_vars:
+        TABLE_NAME: "FirmwareUpgradeSchedule"
+
+    load_emsys_mvp_firmware_upgrade_schedule_node:
+      env_vars:
+        TABLE_NAME: "FirmwareUpgradeScheduleNode"
+
+    load_emsys_mvp_gps_position_v2:
+      env_vars:
+        TABLE_NAME: "GPSPosition_V2"
+
+    load_emsys_mvp_gps_position_v3:
+      env_vars:
+        TABLE_NAME: "GPSPosition_V3"
+
+    load_emsys_mvp_gps_position:
+      env_vars:
+        TABLE_NAME: "GPSPosition"
+
+    load_emsys_mvp_gps_position_latest:
+      env_vars:
+        TABLE_NAME: "GPSPositionLatest"
+
+    load_emsys_mvp_localized_description:
+      env_vars:
+        TABLE_NAME: "LocalizedDescription"
+
+    load_emsys_mvp_login:
+      env_vars:
+        TABLE_NAME: "Login"
+
+    load_emsys_mvp_login_session_instance:
+      env_vars:
+        TABLE_NAME: "LoginSessionInstance"
+
+    load_emsys_mvp_lookup:
+      env_vars:
+        TABLE_NAME: "Lookup"
+
+    load_emsys_mvp_lookup_aerial_range_name:
+      env_vars:
+        TABLE_NAME: "LookupAerialRangeName"
+
+    load_emsys_mvp_lookup_alarm_classification:
+      env_vars:
+        TABLE_NAME: "LookupAlarmClassification"
+
+    load_emsys_mvp_lookup_alarm_export_status:
+      env_vars:
+        TABLE_NAME: "LookupAlarmExportStatus"
+
+    load_emsys_mvp_lookup_alarm_type:
+      env_vars:
+        TABLE_NAME: "LookupAlarmType"
+
+    load_emsys_mvp_lookup_alarm_urgency:
+      env_vars:
+        TABLE_NAME: "LookupAlarmUrgency"
+
+    load_emsys_mvp_lookup_alarm_violation_type:
+      env_vars:
+        TABLE_NAME: "LookupAlarmViolationType"
+
+    load_emsys_mvp_lookup_audit_operation:
+      env_vars:
+        TABLE_NAME: "LookupAuditOperation"
+
+    load_emsys_mvp_lookup_conversation_outcome_code:
+      env_vars:
+        TABLE_NAME: "LookupConversationOutcomeCode"
+
+    load_emsys_mvp_lookup_culture:
+      env_vars:
+        TABLE_NAME: "LookupCulture"
+
+    load_emsys_mvp_lookup_culture_node:
+      env_vars:
+        TABLE_NAME: "LookupCultureNode"
+
+    load_emsys_mvp_lookup_curfew_completion_reason:
+      env_vars:
+        TABLE_NAME: "LookupCurfewCompletionReason"
+
+    load_emsys_mvp_lookup_curfew_order_state:
+      env_vars:
+        TABLE_NAME: "LookupCurfewOrderState"
+
+    load_emsys_mvp_lookup_curfew_schedule_view_option:
+      env_vars:
+        TABLE_NAME: "LookupCurfewScheduleViewOption"
+
+    load_emsys_mvp_lookup_curfew_segment_type:
+      env_vars:
+        TABLE_NAME: "LookupCurfewSegmentType"
+
+    load_emsys_mvp_lookup_curfew_type:
+      env_vars:
+        TABLE_NAME: "LookupCurfewType"
+
+    load_emsys_mvp_lookup_device_activity_type:
+      env_vars:
+        TABLE_NAME: "LookupDeviceActivityType"
+
+    load_emsys_mvp_lookup_device_language:
+      env_vars:
+        TABLE_NAME: "LookupDeviceLanguage"
+
+    load_emsys_mvp_lookup_device_status:
+      env_vars:
+        TABLE_NAME: "LookupDeviceStatus"
+
+    load_emsys_mvp_lookup_device_sub_type:
+      env_vars:
+        TABLE_NAME: "LookupDeviceSubType"
+
+    load_emsys_mvp_lookup_device_type:
+      env_vars:
+        TABLE_NAME: "LookupDeviceType"
+
+    load_emsys_mvp_lookup_error_text:
+      env_vars:
+        TABLE_NAME: "LookupErrorText"
+
+    load_emsys_mvp_lookup_ethnic_group:
+      env_vars:
+        TABLE_NAME: "LookupEthnicGroup"
+
+    load_emsys_mvp_lookup_event_source:
+      env_vars:
+        TABLE_NAME: "LookupEventSource"
+
+    load_emsys_mvp_lookup_gender:
+      env_vars:
+        TABLE_NAME: "LookupGender"
+
+    load_emsys_mvp_lookup_lbs_zone_checking_method:
+      env_vars:
+        TABLE_NAME: "LookupLBSZoneCheckingMethod"
+
+    load_emsys_mvp_lookup_measure_state:
+      env_vars:
+        TABLE_NAME: "LookupMeasureState"
+
+    load_emsys_mvp_lookup_message_type:
+      env_vars:
+        TABLE_NAME: "LookupMessageType"
+
+    load_emsys_mvp_lookup_mu_event_type:
+      env_vars:
+        TABLE_NAME: "LookupMUEventType"
+
+    load_emsys_mvp_lookup_nationality:
+      env_vars:
+        TABLE_NAME: "LookupNationality"
+
+    load_emsys_mvp_lookup_notifications_text:
+      env_vars:
+        TABLE_NAME: "LookupNotificationsText"
+
+    load_emsys_mvp_lookup_permission_segment_type:
+      env_vars:
+        TABLE_NAME: "LookupPermissionSegmentType"
+
+    load_emsys_mvp_lookup_person_type:
+      env_vars:
+        TABLE_NAME: "LookupPersonType"
+
+    load_emsys_mvp_lookup_phoneline_operation_type:
+      env_vars:
+        TABLE_NAME: "LookupPhonelineOperationType"
+
+    load_emsys_mvp_lookup_phone_number_type:
+      env_vars:
+        TABLE_NAME: "LookupPhoneNumberType"
+
+    load_emsys_mvp_lookup_profile_category:
+      env_vars:
+        TABLE_NAME: "LookupProfileCategory"
+
+    load_emsys_mvp_lookup_protected_person_completion_reason:
+      env_vars:
+        TABLE_NAME: "LookupProtectedPersonCompletionReason"
+
+    load_emsys_mvp_lookup_risk_level:
+      env_vars:
+        TABLE_NAME: "LookupRiskLevel"
+
+    load_emsys_mvp_lookup_segment_category:
+      env_vars:
+        TABLE_NAME: "LookupSegmentCategory"
+
+    load_emsys_mvp_lookup_site_type:
+      env_vars:
+        TABLE_NAME: "LookupSiteType"
+
+    load_emsys_mvp_lookup_spoken_language:
+      env_vars:
+        TABLE_NAME: "LookupSpokenLanguage"
+
+    load_emsys_mvp_lookup_suspension_reason:
+      env_vars:
+        TABLE_NAME: "LookupSuspensionReason"
+
+    load_emsys_mvp_lookup_time_zone:
+      env_vars:
+        TABLE_NAME: "LookupTimeZone"
+
+    load_emsys_mvp_lookup_title:
+      env_vars:
+        TABLE_NAME: "LookupTitle"
+
+    load_emsys_mvp_lookup_tracking_mode:
+      env_vars:
+        TABLE_NAME: "LookupTrackingMode"
+
+    load_emsys_mvp_lookup_type_group:
+      env_vars:
+        TABLE_NAME: "LookupTypeGroup"
+
+    load_emsys_mvp_lookup_ui_text:
+      env_vars:
+        TABLE_NAME: "LookupUIText"
+
+    load_emsys_mvp_lookup_web_application_page:
+      env_vars:
+        TABLE_NAME: "LookupWebApplicationPage"
+
+    load_emsys_mvp_lookup_zone_category:
+      env_vars:
+        TABLE_NAME: "LookupZoneCategory"
+
+    load_emsys_mvp_lookup_mu_event:
+      env_vars:
+        TABLE_NAME: "MUEvent"
+
+    load_emsys_mvp_lookup_mu_event_alarm_mapping:
+      env_vars:
+        TABLE_NAME: "MUEventAlarmMapping"
+
+    load_emsys_mvp_lookup_mu_event_clearing_event:
+      env_vars:
+        TABLE_NAME: "MUEventClearingEvent"
+
+    load_emsys_mvp_lookup_mu_event_handling:
+      env_vars:
+        TABLE_NAME: "MUEventHandling"
+
+    load_emsys_mvp_lookup_mu_event_value_to_type:
+      env_vars:
+        TABLE_NAME: "MUEventValueToType"
+
+    load_emsys_mvp_lookup_node:
+      env_vars:
+        TABLE_NAME: "Node"
+
+    load_emsys_mvp_lookup_note:
+      env_vars:
+        TABLE_NAME: "Note"
+
+    load_emsys_mvp_lookup_person:
+      env_vars:
+        TABLE_NAME: "Person"
+
+    load_emsys_mvp_lookup_person_alarm_locks:
+      env_vars:
+        TABLE_NAME: "PersonAlarmLocks"
+
+    load_emsys_mvp_lookup_person_details:
+      env_vars:
+        TABLE_NAME: "PersonDetails"
+
+    load_emsys_mvp_lookup_person_device_message:
+      env_vars:
+        TABLE_NAME: "PersonDeviceMessage"
+
+    load_emsys_mvp_lookup_person_document:
+      env_vars:
+        TABLE_NAME: "PersonDocument"
+
+    load_emsys_mvp_lookup_person_document_data:
+      env_vars:
+        TABLE_NAME: "PersonDocumentData"
+
+    load_emsys_mvp_lookup_person_email:
+      env_vars:
+        TABLE_NAME: "PersonEmail"
+
+    load_emsys_mvp_lookup_person_message:
+      env_vars:
+        TABLE_NAME: "PersonMessage"
+
+    load_emsys_mvp_lookup_person_note:
+      env_vars:
+        TABLE_NAME: "PersonNote"
+
+    load_emsys_mvp_lookup_person_phone_number:
+      env_vars:
+        TABLE_NAME: "PersonPhoneNumber"
+
+    load_emsys_mvp_lookup_person_site:
+      env_vars:
+        TABLE_NAME: "PersonSite"
+
+    load_emsys_mvp_lookup_person_with_unviewed_alarms:
+      env_vars:
+        TABLE_NAME: "PersonWithUnviewedAlarms"
+
+    load_emsys_mvp_lookup_phone_line:
+      env_vars:
+        TABLE_NAME: "PhoneLine"
+
+    load_emsys_mvp_lookup_phone_number:
+      env_vars:
+        TABLE_NAME: "PhoneNumber"
+
+    load_emsys_mvp_lookup_region:
+      env_vars:
+        TABLE_NAME: "Region"
+
+    load_emsys_mvp_lookup_region_localization:
+      env_vars:
+        TABLE_NAME: "RegionLocalization"
+
+    load_emsys_mvp_lookup_region_node:
+      env_vars:
+        TABLE_NAME: "RegionNode"
+
+    load_emsys_mvp_lookup_related_alarm_group:
+      env_vars:
+        TABLE_NAME: "RelatedAlarmGroup"
+
+    load_emsys_mvp_lookup_related_alarm_group_note:
+      env_vars:
+        TABLE_NAME: "RelatedAlarmGroupNote"
+
+    load_emsys_mvp_lookup_segment_category_details:
+      env_vars:
+        TABLE_NAME: "SegmentCategoryDetails"
+
+    load_emsys_mvp_lookup_site:
+      env_vars:
+        TABLE_NAME: "Site"
+
+    load_emsys_mvp_lookup_system_config:
+      env_vars:
+        TABLE_NAME: "SystemConfig"
+
+    load_emsys_mvp_lookup_timezone:
+      env_vars:
+        TABLE_NAME: "TimezoneLookup"
+
+    load_emsys_mvp_lookup_version:
+      env_vars:
+        TABLE_NAME: "Version"
+
+    load_emsys_mvp_lookup_workflow_for_device_status:
+      env_vars:
+        TABLE_NAME: "WorkflowForDeviceStatus"
+
+    load_emsys_mvp_lookup_zone:
+      env_vars:
+        TABLE_NAME: "Zone"
+
+    load_emsys_mvp_lookup_zone_category_icon:
+      env_vars:
+        TABLE_NAME: "ZoneCategoryIcon"
+
+    load_emsys_mvp_lookup_zone_curfew:
+      env_vars:
+        TABLE_NAME: "ZoneCurfew"
+
+    load_emsys_mvp_lookup_zone_ellipse:
+      env_vars:
+        TABLE_NAME: "ZoneEllipse"
+
+    load_emsys_mvp_lookup_zone_group:
+      env_vars:
+        TABLE_NAME: "ZoneGroup"
+
+    load_emsys_mvp_lookup_zone_group_zone:
+      env_vars:
+        TABLE_NAME: "ZoneGroupZone"
+
+    load_emsys_mvp_lookup_zone_polygon:
+      env_vars:
+        TABLE_NAME: "ZonePolygon"
+
+    load_emsys_mvp_lookup_zone_polygon_point:
+      env_vars:
+        TABLE_NAME: "ZonePolygonPoint"
+
+    load_emsys_mvp_lookup_zone_rectangle:
+      env_vars:
+        TABLE_NAME: "ZoneRectangle"
+
+
+notifications:
+  emails:
+    - Matt.Heery@justice.gov.uk
+    - Khristiania.Raihan@justice.gov.uk
+    - Luke.Williams6@justice.gov.uk
+  slack_channel: em-engineers-moj-madetech
+
+iam:
+  external_role: arn:aws:iam::976799291502:role/airflow-prod-load-emsys-mvp
+
+maintainers:
+  - matt-heery
+  - kraihanmoj
+  - luke-a-williams
+
+tags:
+  business_unit: HMPPS
+  owner: matt.heery@justice.gov.uk  # for now....
