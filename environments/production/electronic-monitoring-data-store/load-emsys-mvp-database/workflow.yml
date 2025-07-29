@@ -552,7 +552,6 @@ dag:
       env_vars:
         TABLE_NAME: "ZoneRectangle"
 
-
 notifications:
   emails:
     - Matt.Heery@justice.gov.uk
@@ -570,4 +569,4 @@ maintainers:
 
 tags:
   business_unit: HMPPS
-  owner: matt.heery@justice.gov.uk  # for now....
+  owner: matt.heery@justice.gov.uk # for now....
