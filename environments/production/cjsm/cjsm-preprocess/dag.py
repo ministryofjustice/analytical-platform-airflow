@@ -29,7 +29,7 @@ dag = DAG(
     default_args=default_args,
     description="Preprocesses CJSM Email Logs",
     start_date=datetime(2022, 3, 1),
-    schedule_interval="0 20 8-28 * *",
+    schedule_interval="0 20 4-28 * *",
     catchup=False,
 )
 

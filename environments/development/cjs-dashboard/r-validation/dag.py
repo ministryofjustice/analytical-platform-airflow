@@ -33,7 +33,7 @@ dag = DAG(
   dag_id=f"{PROJECT}.{WORKFLOW}",
   default_args=default_args,
   start_date=datetime(2025, 7, 20),
-  end_date=datetime(2025, 7, 22),
+  end_date=datetime(2025, 7, 26),
   schedule="*/30 9-17 * * 1-5",
 )
 

@@ -88,7 +88,7 @@ jobs:
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@7edac99f961f18b581bbd960d59d049f04c0002f # v6.4.1
+        uses: astral-sh/setup-uv@e92bafb6253dcd438e0484186d7669ea7a8ca1cc # v6.4.3
         with:
           activate-environment: true
           version: "latest"
@@ -196,7 +196,7 @@ jobs:
 
       - name: Set Up Container Structure Test
         id: setup_container_structure_test
-        uses: ministryofjustice/analytical-platform-github-actions/setup-container-structure-test@e0b96059804cbe750acb4a495ec6106617972f0b # v4.1.0
+        uses: ministryofjustice/analytical-platform-github-actions/setup-container-structure-test@4955b4d040ce9687476956ab7d28a997bb727432 # v4.2.0
 
       - name: Download path-filters File
         id: download_path_filters
@@ -289,7 +289,7 @@ jobs:
       - name: Clean Actions Runner
         id: clean_actions_runner
         if: env.clean-runner == 'true'
-        uses: ministryofjustice/analytical-platform-github-actions/clean-actions-runner@e0b96059804cbe750acb4a495ec6106617972f0b # v4.1.0
+        uses: ministryofjustice/analytical-platform-github-actions/clean-actions-runner@4955b4d040ce9687476956ab7d28a997bb727432 # v4.2.0
         with:
           confirm: true
 
@@ -457,7 +457,7 @@ jobs:
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@7edac99f961f18b581bbd960d59d049f04c0002f # v6.4.1
+        uses: astral-sh/setup-uv@e92bafb6253dcd438e0484186d7669ea7a8ca1cc # v6.4.3
         with:
           activate-environment: true
           version: "latest"

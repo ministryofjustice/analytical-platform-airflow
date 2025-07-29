@@ -1,0 +1,41 @@
+dag:
+  repository: moj-analytical-services/airflow-sh-location
+  tag: v4.4.8
+  env_vars:
+    AIRFLOW_ENVIRONMENT: "PRODUCTION"
+  tasks:
+    task:
+      compute_profile: "general-spot-8vcpu-32gb"
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=selfharm/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=involvements/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=prisons/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=bed_assignment_histories/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=agency_internal_locations/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=questionnaire_questions/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=incident_case_questions/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/table_name=questionnaire_answers/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_cases_wap/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=incident_case_responses_wap/*
+    - alpha-safety-mi/*
+    - alpha-safety-mi
+
+  s3_read_write:
+    - alpha-anvil-lookups/*
+    - alpha-nomis/nomis_dn/selfharm_proc/*
+    - alpha-safety-mi/prisons_ds/*
+
+notifications:
+  emails:
+    - sdt-support@justice.gov.uk
+
+maintainers:
+  - miller-william
+
+tags:
+  business_unit: HMPPS
+  owner: william.miller1@justice.gov.uk

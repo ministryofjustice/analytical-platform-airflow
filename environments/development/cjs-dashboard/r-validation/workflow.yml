@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cjs-dashboard-data
-  tag: v15.0.8
+  tag: v15.0.10
   python_dag: true
 
 maintainers:
@@ -10,6 +10,8 @@ maintainers:
 
 iam:
   athena: read
+  s3_read_only:
+    - moj-reg-prod-curated/data-eng-uploader-prod/data/database_name=cjs_dashboard/*
   s3_read_write:
     - alpha-cjs-scorecard/*
 

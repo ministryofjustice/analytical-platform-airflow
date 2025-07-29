@@ -1,0 +1,128 @@
+dag:
+  repository: moj-analytical-services/hmcts-dlt-pipeline
+  tag: v1.0.1
+  retries: 3
+  retry_delay: 150
+  start_date: "2025-07-09"
+  schedule: "0 7 * * 2"
+  max_active_runs: 3
+  hmcts_sdp_networking: true
+  env_vars:
+    AWS_DEFAULT_REGION: "eu-west-1"
+    DESTINATION_PATH: "s3://mojap-land/dlt/familyman/"
+    ATHENA_DATABASE_NAME: "familyman_v3_prod"
+
+  tasks:
+    process-v3-opt-familyman-tucs-address-type-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-address-type-models"
+      compute_profile: general-on-demand-8vcpu-32gb
+
+    process-v3-opt-familyman-tucs-addresses:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-addresses"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    process-v3-opt-familyman-tucs-case-event-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-case-event-models"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    process-v3-opt-familyman-tucs-case-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-case-models"
+      compute_profile: general-on-demand-8vcpu-32gb
+
+    process-v3-opt-familyman-tucs-cases:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-cases"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    process-v3-opt-familyman-tucs-court-addresses-mv:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-court-addresses-mv"
+      compute_profile: general-on-demand-8vcpu-32gb
+
+    process-v3-opt-familyman-tucs-courts-mv:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-courts-mv"
+      compute_profile: general-on-demand-8vcpu-32gb
+
+    process-v3-opt-familyman-tucs-event-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-event-models"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    process-v3-opt-familyman-tucs-events:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-events"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    process-v3-opt-familyman-tucs-field-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-field-models"
+      compute_profile: general-on-demand-8vcpu-32gb
+
+    process-v3-opt-familyman-tucs-fields:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-fields"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    process-v3-opt-familyman-tucs-hearings:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-hearings"
+      compute_profile: general-on-demand-8vcpu-32gb
+
+    process-v3-opt-familyman-tucs-home-courts:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-home-courts"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    process-v3-opt-familyman-tucs-links:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-links"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    process-v3-opt-familyman-tucs-list-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-list-models"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    process-v3-opt-familyman-tucs-list-value-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-list-value-models"
+      compute_profile: general-on-demand-8vcpu-32gb
+
+    process-v3-opt-familyman-tucs-parties:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-parties"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    process-v3-opt-familyman-tucs-role-models:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-role-models"
+      compute_profile: general-on-demand-8vcpu-32gb
+
+    process-v3-opt-familyman-tucs-roles:
+      env_vars:
+        CONTAINER_NAME: "v3-opt-familyman-tucs-roles"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land/dlt/familyman/*
+
+secrets:
+  - pds
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
+maintainers:
+  - murad-ali-moj
+
+tags:
+  business_unit: HMCTS
+  owner: Murad.Ali@justice.gov.uk
