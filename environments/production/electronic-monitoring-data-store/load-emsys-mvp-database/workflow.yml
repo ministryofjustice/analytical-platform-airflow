@@ -3,16 +3,14 @@ dag:
   repository: moj-analytical-services/airflow-load-em-data
   tag: v0.2.61
   compute_profile: general-on-demand-4vcpu-16gb
-  email_on_failure: false
-  email_on_retry: false
   catchup: false
   depends_on_past: false
-  end_date: null
+  end_date: None
   is_paused_upon_creation: false
   max_active_runs: 1
   retries: 0
   retry_delay: 300
-  schedule: null
+  schedule: None
   start_date: "2024-08-21"
   env_vars:
     SUPPLIER_NAME: "g4s"
