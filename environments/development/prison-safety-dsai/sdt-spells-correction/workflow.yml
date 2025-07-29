@@ -1,0 +1,35 @@
+dag:
+  repository: moj-analytical-services/airflow-spells-correction
+  tag: v1.1.0
+  env_vars:
+    AIRFLOW_ENVIRONMENT: "DEVELOPMENT" #to be changed to dev once we have a prod DAG running
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - alpha-prison-population/mojap_pipeline/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/table_name=rpt_ao_*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=backup_nomis_ao/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+
+  s3_read_write:
+    - alpha-safety-mi/prisons_ds/offender_location_fix/*
+    - alpha-safety-mi/prisons_ds/offender_location_nomis/*
+    - alpha-safety-mi/prisons_ds/offender_location_extract/*
+    - alpha-safety-mi/viper/*
+
+notifications:
+  emails:
+    - sdt-support@justice.gov.uk
+
+maintainers:
+  - miller-william
+
+tags:
+  business_unit: HMPPS
+  owner: william.miller1@justice.gov.uk
