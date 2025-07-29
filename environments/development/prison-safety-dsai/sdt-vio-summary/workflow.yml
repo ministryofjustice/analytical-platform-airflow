@@ -1,8 +1,9 @@
 dag:
   repository: moj-analytical-services/airflow-vio-summary
-  tag: v1.1.1
+  tag: v1.1.4
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+    IMAGE_TAG: "v1.1.4"
 
 iam:
   athena: write
@@ -17,6 +18,8 @@ iam:
 
   s3_read_write:
     - alpha-app-safety-diagnostic-tool/*
+
+  bedrock: true
 
 notifications:
   emails:
