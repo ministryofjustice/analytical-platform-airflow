@@ -1,0 +1,35 @@
+dag:
+  repository: moj-analytical-services/airflow-sdt
+  tag: v4.3.0
+  env_vars:
+    AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - alpha-safety-mi/prisons_ds/*
+    - alpha-viper/*
+    - alpha-test-iam-builer/db/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+    - alpha-nomis/nomis_dn/*
+
+  s3_read_write:
+    - alpha-anvil-lookups/*
+    - alpha-app-safety-diagnostic-tool/*
+
+notifications:
+  emails:
+    - sdt-support@justice.gov.uk
+
+maintainers:
+  - miller-william
+
+tags:
+  business_unit: HMPPS
+  owner: william.miller1@justice.gov.uk
