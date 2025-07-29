@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdt
-  tag: v4.3.0
+  tag: v4.3.1
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
 
