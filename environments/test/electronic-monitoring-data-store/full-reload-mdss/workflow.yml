@@ -12,7 +12,7 @@ dag:
     SYSTEM_NAME: "mdss"
     REFRESH_TOTAL_DB: true
     START_DATE: "2025-01-08"
-    END_DATE: "2025-02-08"
+    END_DATE: "{{ ds }}"
     DELIVERY_DATE: "2025-07-09"
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
