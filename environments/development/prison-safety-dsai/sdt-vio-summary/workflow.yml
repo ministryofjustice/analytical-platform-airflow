@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-vio-summary
-  tag: v1.0
+  tag: v1.1
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
 
