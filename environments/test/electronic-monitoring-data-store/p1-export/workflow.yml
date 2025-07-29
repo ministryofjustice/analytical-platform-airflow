@@ -1,0 +1,31 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-export-em-data-p1
+  tag: v0.13.0
+  compute_profile: general-on-demand-4vcpu-16gb
+  catchup: False
+  depends_on_past: False
+  schedule: "0 6 * * *"
+  max_active_runs: 1
+  env_vars:
+    START_DATE: "2025-02-09"
+    END_DATE: "{{ ds }}"
+    AWS_DEFAULT_REGION: "eu-west-2"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+notifications:
+  emails:
+    - matt.heery@justice.gov.uk
+  slack_channel: em-engineers-moj-madetech
+
+iam:
+  external_role: arn:aws:iam::396913731313:role/airflow-test-export-em-data-p1
+
+maintainers:
+  - matt-heery
+  - pricemg
+
+tags:
+  business_unit: HMPPS
+  owner: matt.heery@justice.gov.uk # for now....
