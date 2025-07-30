@@ -1,12 +1,11 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.2.61
+  tag: v0.2.62
   compute_profile: general-on-demand-4vcpu-16gb
   catchup: false
   depends_on_past: false
   max_active_runs: 1
-  schedule: None
   env_vars:
     SUPPLIER_NAME: "g4s"
     SYSTEM_NAME: "emsys_mvp"
