@@ -1,9 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow-vio-summary
-  tag: v1.1.5
+  tag: v1.1.7
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
-    IMAGE_TAG: "v1.1.5"
 
 iam:
   athena: write
