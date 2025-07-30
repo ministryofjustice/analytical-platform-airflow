@@ -16,6 +16,7 @@ iam:
 
   s3_read_write:
     - alpha-safety-mi/prisons_ds/assaults_proc_locations/*
+    - alpha-safety-mi/test/*
 
 notifications:
   emails:
