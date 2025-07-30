@@ -1,7 +1,6 @@
 dag:
   repository: moj-analytical-services/hmcts-dlt-pipeline
   tag: v1.0.1
-  compute_profile: general-on-demand-16vcpu-64gb
   retries: 1
   retry_delay: 150
   start_date: "2025-07-09"
@@ -17,122 +16,152 @@ dag:
     process-v3-cgi-pcol-claim:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-claim"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-claim-event:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-claim-event"
+      compute_profile: general-on-demand-32vcpu-128gb
 
     process-v3-cgi-pcol-claim-order:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-claim-order"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-claim-particulars:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-claim-particulars"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-claim-party:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-claim-party"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-claim-party-contact-details:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-claim-party-contact-details"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-court:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-court"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-court-jurisdiction:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-court-jurisdiction"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-court-notification:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-court-notification"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-courtfee:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-courtfee"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-defence:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-defence"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-defence-court-fine:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-defence-court-fine"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-defence-debt:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-defence-debt"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-event:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-event"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-general-application:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-general-application"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-hearing:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-hearing"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-hearing-venue:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-hearing-venue"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-judgement:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-judgement"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-judgements:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-judgements"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-party:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-party"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-payment-history:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-payment-history"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-payment-record:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-payment-record"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-pcol-claim-ref-num:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-pcol-claim-ref-num"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-pcol-settings:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-pcol-settings"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-pcol-system-event:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-pcol-system-event"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-puser:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-puser"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-puser-role:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-puser-role"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-warrant:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-warrant"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-warrant-party:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-warrant-party"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-pcol-warrant-return:
       env_vars:
         CONTAINER_NAME: "v3-cgi-pcol-warrant-return"
+      compute_profile: general-on-demand-16vcpu-64gb
 iam:
   athena: write
   glue: true
@@ -143,7 +172,7 @@ secrets:
   - pds
 
 notifications:
-  slack_channel: dmet-hmcts-cft
+  slack_channel: dmet-hmcts-notifications
 
 maintainers:
   - murad-ali-moj
