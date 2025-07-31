@@ -8,7 +8,7 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-sandpit
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: cadet-compile-airflow
-    DBT_SELECT_CRITERIA: models/general/
+    DBT_SELECT_CRITERIA: models/general/addressbase_stg
     BRANCH: test-airflow-aware-export
     MODE: build
 
