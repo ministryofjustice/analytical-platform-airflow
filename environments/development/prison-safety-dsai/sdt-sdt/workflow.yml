@@ -1,6 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-sdt
   tag: v4.3.2
+  compute_profile: "general-spot-2vcpu-8gb"
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
 
