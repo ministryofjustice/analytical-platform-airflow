@@ -1,16 +1,16 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.0.0
+  tag: 1.1.1
   compute_profile: general-spot-64vcpu-256gb
   env_vars:
-    DEPLOY_ENV: prod
-    DBT_PROFILE_WORKGROUP: dbt-docs
+    DEPLOY_ENV: sandpit
+    DBT_PROFILE_WORKGROUP: dbt-sandpit
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-docs
+    WORKFLOW_NAME: cadet-compile-airflow
     DBT_SELECT_CRITERIA: models/
-    BRANCH: dbt-docs-clean-branch
-    MODE: docs generate
+    BRANCH: test-airflow-aware-export
+    MODE: compile
 
 maintainers:
   - jhpyke
