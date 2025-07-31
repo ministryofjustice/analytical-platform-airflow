@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.1.0
+  tag: 1.1.1
   compute_profile: general-spot-64vcpu-256gb
   env_vars:
     DEPLOY_ENV: sandpit
