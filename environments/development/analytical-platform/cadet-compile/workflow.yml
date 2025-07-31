@@ -7,7 +7,7 @@ dag:
     DEPLOY_ENV: sandpit
     DBT_PROFILE_WORKGROUP: dbt-sandpit
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: sandpit-compile
+    WORKFLOW_NAME: cadet-compile-airflow
     DBT_SELECT_CRITERIA: models/
     BRANCH: test-airflow-aware-export
     MODE: compile
