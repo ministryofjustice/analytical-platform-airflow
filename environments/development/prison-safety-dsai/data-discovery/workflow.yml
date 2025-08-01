@@ -1,6 +1,7 @@
 dag:
   repository: moj-analytical-services/prisons-data-discovery
   tag: v1.0.1
+  compute_profile: "general-spot-2vcpu-8gb"
 
 iam:
   athena: write
