@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/prisons-data-discovery
-  tag: v1.0.0
+  tag: v1.0.1
 
 iam:
   athena: write
