@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v7.8
+  tag: v7.9
   catchup: false
   tasks:
     db-prep-compare-labels:
