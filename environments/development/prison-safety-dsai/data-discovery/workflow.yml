@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/prisons-data-discovery
-  tag: v1.0.2
+  tag: v1.0.3
   compute_profile: "general-spot-2vcpu-8gb"
 
 iam:
