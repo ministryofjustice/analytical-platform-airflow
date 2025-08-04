@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.5.3
+  tag: v3.5.4
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
