@@ -59,7 +59,7 @@ iam:
     - arn:aws:kms:eu-west-2:593291632749:key/96eb04fe-8393-402c-b1f9-71fcece99e75
 
 secrets:
-  - dom1-file-password
+  - dom-file-password
 
 maintainers:
   - p-sin
