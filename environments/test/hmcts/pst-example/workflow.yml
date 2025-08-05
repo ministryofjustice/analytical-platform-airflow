@@ -1,0 +1,13 @@
+dag:
+  repository: moj-analytical-services/pst_airflow_example
+  tag: 0.1.0-alpha
+  retries: 3
+  retry_delay: 150
+  schedule: "*/5 * * * *"
+
+maintainers:
+  - parminder-thindal-moj
+
+tags:
+  business_unit: HMCTS
+  owner: parminder.thindal@justice.gov.uk
