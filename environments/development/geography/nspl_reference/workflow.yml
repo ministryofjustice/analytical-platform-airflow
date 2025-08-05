@@ -1,0 +1,65 @@
+dag:
+  repository: moj-analytical-services/airflow-geography
+  tag: v1.2.0
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 4
+  retries: 1
+  retry_delay: 150
+  start_date: "2025-08-05"
+  schedule: None
+  env_vars:
+    DATABASE: "nspl_reference"
+    PIPELINE_NAME: "nspl_reference"
+    DATABASE_VERSION: "dev"
+    GITHUB_TAG: "v1.2.0"
+    ATHENA_DB_PREFIX: "geog"
+    START_DATE: "2025-08-05"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_METADATA_SERVICE_TIMEOUT: "60"
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
+  tasks:
+    to_land:
+      env_vars:
+        STEP: "to_land"
+      compute_profile: "general-spot-1vcpu-4gb"
+    land_to_raw_hist:
+      env_vars:
+        STEP: "land_to_raw_hist"
+      compute_profile: "general-spot-1vcpu-4gb"
+      dependencies: [to_land]
+    raw_hist_to_processed:
+      env_vars:
+        STEP: "raw_hist_to_processed"
+      compute_profile: "general-spot-1vcpu-4gb"
+      dependencies: [land_to_raw_hist]
+    processed_to_curated:
+      env_vars:
+        STEP: "processed_to_curated"
+      compute_profile: "general-spot-1vcpu-4gb"
+      dependencies: [raw_hist_to_processed]
+  create_curated_database:
+      env_vars:
+        STEP: "create_curated_database"
+      compute_profile: "general-spot-1vcpu-4gb"
+      dependencies: [processed_to_curated]
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - s3://alpha-geography/dev/nspl_reference/*
+
+maintainers:
+  - p-sin
+  - gwionap
+
+tags:
+  business_unit: OPG
+  owner: philip.sinfield@justice.gov.uk
+
+notifications:
+  emails:
+    - philip.sinfield@justice.gov.uk
+  slack_channel: opg-deds
