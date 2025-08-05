@@ -10,35 +10,33 @@ Please refer to our [User Guidance](https://user-guidance.analytical-platform.se
 
 Commit signature verification is enabled on this repository. To set this up follow the instructions [on GitHub](https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification#ssh-commit-signature-verification).
 
-
 ## 🧪 Running Workflow Scripts Locally
 
 This project contains utility scripts under the `scripts/` directory that support DAG development and validation.
 
 These scripts import internal modules from the `airflow/analytical_platform` package. To ensure Python can resolve these imports, you must set the `PYTHONPATH` environment variable when running the scripts locally.
 
-
 ### ✅ Quick Start
 
 1. Install project dependencies using [`uv`](https://github.com/astral-sh/uv):
 
-    ```bash
-    uv venv
-    uv pip install -r requirements.txt
-    ```
+   ```bash
+   uv venv
+   uv pip install -r requirements.txt
+   ```
 
 2. Run a script using PYTHONPATH=airflow:
 
-    ```bash
-    # to validate the source workflow schema
-    PYTHONPATH=airflow uv run python scripts/workflow_schema_validation/main.py path/to/source/workflow.yml
+   ```bash
+   # to validate the source workflow schema
+   PYTHONPATH=airflow uv run python scripts/workflow_schema_validation/main.py path/to/source/workflow.yml
 
-    # to build the dist workflow.yml
-    PYTHONPATH=airflow uv run python scripts/workflow_generator/main.py path/to/source/workflow.yml
+   # to build the dist workflow.yml
+   PYTHONPATH=airflow uv run python scripts/workflow_generator/main.py path/to/source/workflow.yml
 
-    # to validate the dist workflow.yml
-    PYTHONPATH=airflow uv run python scripts/workflow_validation/main.py path/to/dist/workflow.yml
-    ```
+   # to validate the dist workflow.yml
+   PYTHONPATH=airflow uv run python scripts/workflow_validation/main.py path/to/dist/workflow.yml
+   ```
 
 ### 📚 Why PYTHONPATH Is Needed
 
@@ -49,7 +47,6 @@ from analytical_platform.standard_operator import AnalyticalPlatformStandardOper
 ```
 
 Without setting PYTHONPATH=airflow, Python will not recognise analytical_platform as a valid module, since it's nested under the airflow/ directory.
-
 
 ### 🤖 Dev Containers and CI/CD
 
