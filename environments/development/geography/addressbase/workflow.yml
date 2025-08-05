@@ -1,0 +1,19 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-geography
+  tag: v1.2.1
+  python_dag: true
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - s3://alpha-geography/dev/addressbase/*
+
+maintainers:
+  - p-sin
+  - gwionap
+
+tags:
+  business_unit: OPG
+  owner: philip.sinfield@justice.gov.uk
