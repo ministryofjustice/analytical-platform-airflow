@@ -31,15 +31,22 @@ To ensure Python can resolve these imports, you must set the `PYTHONPATH` enviro
 2. Run a script using PYTHONPATH=airflow:
 
     ```bash
-    # validate schema
+    # to validate the source workflow schema
     PYTHONPATH=airflow uv run python scripts/workflow_schema_validation/main.py path/to/source/workflow.yml
 
-    # build it
+    # to build the dist workflow.yml
     PYTHONPATH=airflow uv run python scripts/workflow_generator/main.py path/to/source/workflow.yml
 
-    # validate it
+    # to validate the dist workflow.yml
     PYTHONPATH=airflow uv run python scripts/workflow_validation/main.py path/to/dist/workflow.yml
     ```
+
+### 📚 Why PYTHONPATH Is Needed
+
+The internal code is located under the airflow/ directory. Scripts use imports like:
+```python
+from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
+```
 
 Without setting PYTHONPATH=airflow, Python will not recognise analytical_platform as a valid module, since it's nested under the airflow/ directory.
 
