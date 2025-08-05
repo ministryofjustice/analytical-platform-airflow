@@ -44,9 +44,9 @@ These scripts import internal modules from the `airflow/analytical_platform` pac
 
 The internal code is located under the airflow/ directory. Scripts use imports like:
 
-    ```python
-    from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
-    ```
+```python
+from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
+```
 
 Without setting PYTHONPATH=airflow, Python will not recognise analytical_platform as a valid module, since it's nested under the airflow/ directory.
 
