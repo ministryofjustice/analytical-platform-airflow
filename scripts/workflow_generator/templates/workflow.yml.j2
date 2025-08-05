@@ -40,7 +40,14 @@
     {{ k }}: "{{ v }}"
     {%- endfor %}
   {%- endif %}
-  schedule_interval: {{ dag.schedule|default(null) }}
+  {%- if dag.schedule %}
+  schedule:
+    __type__: airflow.timetables.trigger.CronTriggerTimetable
+    cron: "{{ dag.schedule }}"
+    timezone: UTC
+  {%- else %}
+  schedule: None
+  {%- endif %}
   tasks:
     {%- if dag.tasks %}
     {%- for task_name, task in dag.tasks.items() %}

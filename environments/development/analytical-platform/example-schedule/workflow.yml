@@ -4,7 +4,7 @@ dag:
   tag: 2.0.0
   retries: 3
   retry_delay: 150
-  schedule: "0 8 * * *"
+  schedule: "*/5 * * * *"
 
 notifications:
   slack_channel: analytical-platform-airflow-testing
