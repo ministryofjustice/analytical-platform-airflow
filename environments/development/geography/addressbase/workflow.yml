@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-geography
-  tag: v1.2.0
+  tag: v1.2.1
   python_dag: true
 
 iam:

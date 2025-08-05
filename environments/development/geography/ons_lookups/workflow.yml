@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-geography
-  tag: v1.2.0
+  tag: v1.2.1
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -13,7 +13,7 @@ dag:
     DATABASE: "ons_lookups"
     PIPELINE_NAME: "ons_lookups"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v1.2.0"
+    GITHUB_TAG: "v1.2.1"
     ATHENA_DB_PREFIX: "geog"
     START_DATE: "2025-08-05"
     AWS_DEFAULT_REGION: "eu-west-1"
