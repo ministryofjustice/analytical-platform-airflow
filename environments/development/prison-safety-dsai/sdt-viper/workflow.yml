@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-viper-2
-  tag: v1.1.3
+  tag: v1.1.4
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
 
