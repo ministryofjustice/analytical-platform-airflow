@@ -15,8 +15,7 @@ Commit signature verification is enabled on this repository. To set this up foll
 
 This project contains utility scripts under the `scripts/` directory that support DAG development and validation.
 
-These scripts import internal modules from the `airflow/analytical_platform` package.  
-To ensure Python can resolve these imports, you must set the `PYTHONPATH` environment variable when running the scripts locally.
+These scripts import internal modules from the `airflow/analytical_platform` package. To ensure Python can resolve these imports, you must set the `PYTHONPATH` environment variable when running the scripts locally.
 
 
 ### ✅ Quick Start
