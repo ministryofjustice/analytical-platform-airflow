@@ -40,10 +40,10 @@ dag:
       compute_profile: "general-spot-1vcpu-4gb"
       dependencies: [raw_hist_to_processed]
     create_curated_database:
-        env_vars:
-          STEP: "create_curated_database"
-        compute_profile: "general-spot-1vcpu-4gb"
-        dependencies: [processed_to_curated]
+      env_vars:
+        STEP: "create_curated_database"
+      compute_profile: "general-spot-1vcpu-4gb"
+      dependencies: [processed_to_curated]
 
 iam:
   athena: write
