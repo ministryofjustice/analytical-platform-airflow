@@ -15,7 +15,7 @@ iam:
   tasks:
     data_validation:
       env_vars:
-	    PYTHON_SCRIPT_NAME: "run_validation.py"
+	      PYTHON_SCRIPT_NAME: "run_validation.py"
 
 notifications:
   slack_channel: dmet-corp-notifications  
