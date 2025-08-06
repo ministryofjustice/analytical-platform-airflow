@@ -53,3 +53,44 @@ Without setting PYTHONPATH=airflow, Python will not recognise analytical_platfor
 In development containers and GitHub Actions workflows, PYTHONPATH=airflow is already set.
 
 You only need to configure this manually when running scripts directly on your local machine.
+
+## ⚗️ Running MWAA Locally
+
+> [!WARNING]
+> This is only available to Analytical Platform's [engineering team](https://github.com/orgs/ministryofjustice/teams/analytical-platform-engineers)
+
+1. Initialise submodules
+
+    ```bash
+    git submodule init
+
+    git submodule update
+   ```
+
+1. Change into MWAA Local Runner directory
+
+    ```bash
+    cd aws-mwaa-local-runner
+    ```
+
+1. Build MWAA Local Runner
+
+    ```bash
+    ./mwaa-local-env build-image
+    ```
+
+1. Connect to Analytical Platform Compute
+
+    ```bash
+    aws-sso login
+
+    aws-sso exec --profile "analytical-platform-compute-${ENVIRONMENT:-"development"}:platform-engineer-admin"
+
+    aws eks update-kubeconfig --name "${AWS_SSO_PROFILE%%:*}"
+    ```
+
+1. Start MWAA Local Runner
+
+    ```bash
+    ./mwaa-local-env start
+    ```
