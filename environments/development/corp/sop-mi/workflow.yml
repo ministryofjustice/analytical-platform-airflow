@@ -18,7 +18,8 @@ iam:
 	    PYTHON_SCRIPT_NAME: "run_validation.py"
 
 notifications:
-  slack_channel: dmet-corp-notifications  emails:
+  slack_channel: dmet-corp-notifications  
+  emails:
     - Laurence.Droy@justice.gov.uk
     - William.Orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
