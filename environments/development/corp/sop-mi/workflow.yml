@@ -9,7 +9,11 @@ dag:
 
 iam:
   s3_read_write:
-	  - alpha-dag-sop-data-engineering/*-apdev/*
+    - alpha-dag-sop-data-engineering/raw-apdev/*
+    - alpha-dag-sop-data-engineering/land-apdev/*
+    - alpha-dag-sop-data-engineering/preprocessed-apdev/*
+    - alpha-dag-sop-data-engineering/derived-apdev/*
+    - alpha-dag-sop-data-engineering/lookups-apdev/*
     - alpha-dag-sop-data-engineering/__temp_athena__/*
     - alpha-opg-etl/dev/opg_sop/*
 
