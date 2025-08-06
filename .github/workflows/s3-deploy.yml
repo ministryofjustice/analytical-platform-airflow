@@ -9,9 +9,9 @@ on:
       - airflow/**
       - environments/**
   # DEBUG - DO NOT MERGE
-  pull_request:
-    branches:
-      - main
+  # pull_request:
+  #   branches:
+  #     - main
 
 permissions: {}
 
