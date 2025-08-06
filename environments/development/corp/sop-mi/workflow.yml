@@ -1,0 +1,32 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-sop-mi
+  tag: v4.4.0-test-01
+  env_vars:
+    ENVIRONMENT: "apdev"
+    IMAGE_VERSION: tag
+    RUN_DATE: "2025-07-31"
+
+iam:
+	- alpha-dag-sop-data-engineering/*-apdev/*
+  - alpha-dag-sop-data-engineering/__temp_athena__/*
+  - alpha-opg-etl/dev/opg_sop/*
+
+  tasks:
+    data_validation:
+      env_vars:
+	    PYTHON_SCRIPT_NAME: "run_validation.py"
+
+notifications:
+  slack_channel: dmet-corp-notifications  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - moj-supratikc
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: William.Orr@justice.gov.uk
