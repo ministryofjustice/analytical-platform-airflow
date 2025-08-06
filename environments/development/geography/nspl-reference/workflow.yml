@@ -13,7 +13,7 @@ dag:
     DATABASE: "nspl_reference"
     PIPELINE_NAME: "nspl_reference"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v1.2.1"
+    GITHUB_TAG: "v1.2.2"
     ATHENA_DB_PREFIX: "geog"
     START_DATE: "2025-08-05"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -50,7 +50,7 @@ iam:
   glue: true
   s3_read_write:
     - alpha-geography/dev/nspl_reference/*
-
+    
 maintainers:
   - p-sin
   - gwionap
