@@ -50,7 +50,7 @@ iam:
   glue: true
   s3_read_write:
     - alpha-geography/dev/nspl_reference/*
-    
+
 maintainers:
   - p-sin
   - gwionap
