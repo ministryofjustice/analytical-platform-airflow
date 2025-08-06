@@ -59,36 +59,36 @@ Without setting `PYTHONPATH=airflow`, Python will not recognise [`analytical_pla
 
 1. Initialise submodules
 
-    ```bash
-    git submodule init
+   ```bash
+   git submodule init
 
-    git submodule update
+   git submodule update
    ```
 
 1. Change into MWAA Local Runner directory
 
-    ```bash
-    cd aws-mwaa-local-runner
-    ```
+   ```bash
+   cd aws-mwaa-local-runner
+   ```
 
 1. Build MWAA Local Runner
 
-    ```bash
-    ./mwaa-local-env build-image
-    ```
+   ```bash
+   ./mwaa-local-env build-image
+   ```
 
 1. Connect to Analytical Platform Compute
 
-    ```bash
-    aws-sso login
+   ```bash
+   aws-sso login
 
-    aws-sso exec --profile "analytical-platform-compute-${ENVIRONMENT:-"development"}:platform-engineer-admin"
+   aws-sso exec --profile "analytical-platform-compute-${ENVIRONMENT:-"development"}:platform-engineer-admin"
 
-    aws eks update-kubeconfig --name "${AWS_SSO_PROFILE%%:*}"
-    ```
+   aws eks update-kubeconfig --name "${AWS_SSO_PROFILE%%:*}"
+   ```
 
 1. Start MWAA Local Runner
 
-    ```bash
-    ./mwaa-local-env start
-    ```
+   ```bash
+   ./mwaa-local-env start
+   ```
