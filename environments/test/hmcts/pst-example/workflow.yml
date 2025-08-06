@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/pst_airflow_example
-  tag: 0.1.0-alpha
+  tag: 0.0.1-alpha-d5617d2
   retries: 3
   retry_delay: 150
   # schedule: "*/5 * * * *"
