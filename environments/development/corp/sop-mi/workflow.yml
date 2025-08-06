@@ -21,6 +21,10 @@ tasks:
   data_validation:
     env_vars:
       PYTHON_SCRIPT_NAME: "run_validation.py"
+  preprocessing:
+    env_vars:
+      PYTHON_SCRIPT_NAME: "run_preprocess.py"
+    dependencies: [data_validation]
 
 notifications:
   slack_channel: dmet-corp-notifications
