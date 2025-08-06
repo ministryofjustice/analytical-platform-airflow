@@ -49,7 +49,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - s3://alpha-geography/*
+    - alpha-geography/dev/nspl_reference/*
 
 maintainers:
   - p-sin
