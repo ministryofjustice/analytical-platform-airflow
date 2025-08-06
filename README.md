@@ -50,7 +50,7 @@ The internal code is located under the [`airflow`](./airflow/) directory. Script
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 ```
 
-Without setting `PYTHONPATH=airflow`, Python will not recognise `analytical_platform` as a valid module, since it's nested under the `airflow` directory.
+Without setting `PYTHONPATH=airflow`, Python will not recognise [`analytical_platform`](./airflow/analytical_platform/) as a valid module, since it's nested under the [`airflow`](./airflow/) directory.
 
 ## ⚗️ Running MWAA Locally
 
