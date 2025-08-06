@@ -52,7 +52,7 @@ from analytical_platform.standard_operator import AnalyticalPlatformStandardOper
 
 Without setting `PYTHONPATH=airflow`, Python will not recognise [`analytical_platform`](./airflow/analytical_platform/) as a valid module, since it's nested under the [`airflow`](./airflow/) directory.
 
-## ⚗️ Running MWAA Locally
+## ⚗️ Running Airflow Locally
 
 > [!WARNING]
 > This is only available to Analytical Platform's [engineering team](https://github.com/orgs/ministryofjustice/teams/analytical-platform-engineers)
