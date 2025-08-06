@@ -6,6 +6,14 @@ dag:
     ENVIRONMENT: "apdev"
     IMAGE_VERSION: tag
     RUN_DATE: "2025-07-31"
+  tasks:
+    data_validation:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_validation.py"
+    preprocessing:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_preprocess.py"
+      dependencies: [data_validation]
 
 iam:
   s3_read_write:
@@ -17,17 +25,9 @@ iam:
     - alpha-dag-sop-data-engineering/__temp_athena__/*
     - alpha-opg-etl/dev/opg_sop/*
 
-tasks:
-  data_validation:
-    env_vars:
-      PYTHON_SCRIPT_NAME: "run_validation.py"
-  preprocessing:
-    env_vars:
-      PYTHON_SCRIPT_NAME: "run_preprocess.py"
-    dependencies: [data_validation]
-
 notifications:
   slack_channel: dmet-corp-notifications
+
   emails:
     - Laurence.Droy@justice.gov.uk
     - William.Orr@justice.gov.uk
