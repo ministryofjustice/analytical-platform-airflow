@@ -75,7 +75,7 @@ secrets:
   - pds
 
 notifications:
-  slack_channel: dmet-hmcts-cft
+  slack_channel: dmet-hmcts-notifications
 
 maintainers:
   - murad-ali-moj

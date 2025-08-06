@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-viper-2
-  tag: v1.1.0
+  tag: v1.1.8
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
 
@@ -15,7 +15,12 @@ iam:
 
   s3_read_write:
     - alpha-safety-mi/*
+    - alpha-viper/scores_2
+    - alpha-viper/scores_2/
     - alpha-viper/scores_2/*
+    - alpha-viper/scores_2_dev
+    - alpha-viper/scores_2_dev/
+    - alpha-viper/scores_2_dev/*
     - alpha-viper/monitoring/*
     - alpha-app-viper-monitoring/*
 

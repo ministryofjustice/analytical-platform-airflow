@@ -101,7 +101,7 @@ jobs:
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
           name: workflows-path-filter
           path: .github/path-filter
@@ -196,18 +196,18 @@ jobs:
 
       - name: Set Up Container Structure Test
         id: setup_container_structure_test
-        uses: ministryofjustice/analytical-platform-github-actions/setup-container-structure-test@4955b4d040ce9687476956ab7d28a997bb727432 # v4.2.0
+        uses: ministryofjustice/analytical-platform-github-actions/setup-container-structure-test@0de1649937202e1839c7ebb903f2fdd1ad03c6d9 # v4.3.0
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
           name: workflows-path-filter
           path: .github/path-filter
 
       - name: Configure AWS Credentials
         id: configure_aws_credentials
-        uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
+        uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4.3.1
         with:
           aws-region: eu-west-2
           role-to-assume: arn:aws:iam::509399598587:role/ecr-access
@@ -289,7 +289,7 @@ jobs:
       - name: Clean Actions Runner
         id: clean_actions_runner
         if: env.clean-runner == 'true'
-        uses: ministryofjustice/analytical-platform-github-actions/clean-actions-runner@4955b4d040ce9687476956ab7d28a997bb727432 # v4.2.0
+        uses: ministryofjustice/analytical-platform-github-actions/clean-actions-runner@0de1649937202e1839c7ebb903f2fdd1ad03c6d9 # v4.3.0
         with:
           confirm: true
 
@@ -450,7 +450,7 @@ jobs:
 
       - name: Configure AWS Credentials
         id: configure_aws_credentials
-        uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
+        uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4.3.1
         with:
           aws-region: eu-west-2
           role-to-assume: arn:aws:iam::509399598587:role/analytical-platform-github-actions
@@ -470,7 +470,7 @@ jobs:
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5.0.0
         with:
           name: workflows-path-filter
           path: .github/path-filter

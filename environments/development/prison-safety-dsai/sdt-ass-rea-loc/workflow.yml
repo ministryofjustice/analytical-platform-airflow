@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-assault-reasons-locations
-  tag: v0.5.0
+  tag: v0.5.7
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
 
@@ -16,6 +16,7 @@ iam:
 
   s3_read_write:
     - alpha-safety-mi/prisons_ds/assaults_proc_locations/*
+    - alpha-safety-mi/test/*
 
 notifications:
   emails:
