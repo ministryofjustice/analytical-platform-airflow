@@ -8,14 +8,15 @@ dag:
     RUN_DATE: "2025-07-31"
 
 iam:
-	- alpha-dag-sop-data-engineering/*-apdev/*
-  - alpha-dag-sop-data-engineering/__temp_athena__/*
-  - alpha-opg-etl/dev/opg_sop/*
+  s3_read_write:
+	  - alpha-dag-sop-data-engineering/*-apdev/*
+    - alpha-dag-sop-data-engineering/__temp_athena__/*
+    - alpha-opg-etl/dev/opg_sop/*
 
-  tasks:
-    data_validation:
-      env_vars:
-	      PYTHON_SCRIPT_NAME: "run_validation.py"
+tasks:
+  data_validation:
+    env_vars:
+	    PYTHON_SCRIPT_NAME: "run_validation.py"
 
 notifications:
   slack_channel: dmet-corp-notifications  
