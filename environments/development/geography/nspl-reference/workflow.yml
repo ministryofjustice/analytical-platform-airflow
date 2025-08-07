@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-geography
-  tag: v1.2.5
+  tag: v1.2.6
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -27,7 +27,7 @@ dag:
     land_to_raw_hist:
       env_vars:
         STEP: "land_to_raw_hist"
-      compute_profile: "general-spot-1vcpu-4gb"
+      compute_profile: "general-spot-2vcpu-8gb"
       dependencies: [to_land]
     raw_hist_to_processed:
       env_vars:

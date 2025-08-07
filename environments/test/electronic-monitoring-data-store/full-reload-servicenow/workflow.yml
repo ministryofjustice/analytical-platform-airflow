@@ -5,8 +5,6 @@ dag:
   compute_profile: general-spot-1vcpu-4gb
   catchup: false
   depends_on_past: false
-  schedule: "0 3 * * *"
-  start_date: "2025-04-15"
   max_active_runs: 1
   env_vars:
     SUPPLIER_NAME: "serco"
@@ -14,6 +12,7 @@ dag:
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+    REFRESH_TOTAL_DB: true
 
 notifications:
   emails:
@@ -21,7 +20,7 @@ notifications:
   slack_channel: em-engineers-moj-madetech
 
 iam:
-  external_role: arn:aws:iam::396913731313:role/airflow-test-load-servicenow
+  external_role: arn:aws:iam::396913731313:role/airflow-test-full-reload-servicenow
 
 maintainers:
   - matt-heery
