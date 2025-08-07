@@ -90,7 +90,8 @@ for data_provider in data_providers:
     env_vars=env_vars,
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
-    workflow=f"{WORKFLOW}"
+    workflow=f"{WORKFLOW}",
+    do_xcom_push=True
   )
 
   # If Task 1 succeeds, Task 2 will call the send_email function
