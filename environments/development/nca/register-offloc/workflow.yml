@@ -17,7 +17,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-hub-exports/*
+    - mojap-hub-exports/p1_nomis_TEST/*
 
 secrets:
   - user
