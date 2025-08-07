@@ -5,7 +5,7 @@ dag:
   compute_profile: general-spot-1vcpu-4gb
   catchup: false
   depends_on_past: false
-  schedule: "0 3 * * *"
+  schedule: "0 * * * *"
   start_date: "2025-04-15"
   max_active_runs: 1
   env_vars:

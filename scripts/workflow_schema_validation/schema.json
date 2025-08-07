@@ -209,7 +209,7 @@
     "type": "list",
     "schema": {
       "type": "string",
-      "regex": "^[a-z0-9-]+$"
+      "regex": "^[a-zA-Z0-9-]+$"
     },
     "required": true
   },
