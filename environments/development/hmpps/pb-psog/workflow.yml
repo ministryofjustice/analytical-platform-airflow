@@ -1,5 +1,5 @@
 dag:
-  repository: https://github.com/moj-analytical-services/pb_wrangling
+  repository: moj-analytical-services/pb_wrangling
   tag: v1.1.8
   schedule: "0 6 1 * *"
 
