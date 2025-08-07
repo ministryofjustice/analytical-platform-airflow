@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-ENVIRONMENT="${1}"
+set -euo pipefail
+
+ENVIRONMENT="${1:-"development"}"
 FOLDER_PREFIX="environments/${ENVIRONMENT}"
 SEARCH_PATTERN="workflow.yml"
 
