@@ -12,7 +12,6 @@ dag:
   env_vars:
     LOG_LEVEL: "DEBUG"
     SERVICE: "load_postcharge"
-    # load-step-defaults
 
 notifications:
   emails:
@@ -21,7 +20,7 @@ notifications:
 
 iam:
   athena: write
-  s3_read_write: 
+  s3_read_write:
     - mojap-land-dev/cps/testing/*
     - mojap-raw-hist-dev/crown_prosecution_service/testing/*
     - alpha-cjs-dataset-sensitive-dip/testing/*
