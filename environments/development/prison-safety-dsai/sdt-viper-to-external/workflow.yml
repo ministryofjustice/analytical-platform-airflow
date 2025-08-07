@@ -2,8 +2,8 @@ dag:
   repository: moj-analytical-services/airflow-viper-to-external-ds
   tag: v1.1.1
   env_vars:
-    AIRFLOW_ENVIRONMENT: "DEVELOPMENT", #to be changed to dev once we have a prod DAG running
-    INTERNAL_BUCKET: "alpha-viper",
+    AIRFLOW_ENVIRONMENT: "DEVELOPMENT" #to be changed to dev once we have a prod DAG running
+    INTERNAL_BUCKET: "alpha-viper"
     EXTERNAL_BUCKET: "cloud-platform-c504369937d1f1cd634905e8d28d65b1"
 
 iam:
