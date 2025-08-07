@@ -20,8 +20,7 @@ notifications:
 
 iam:
   athena: write
-  s3_read_write:
-    s3://mojap-land-dev/cps/testing/
+  s3_read_write: s3://mojap-land-dev/cps/testing/
     s3://mojap-raw-hist-dev/crown_prosecution_service/testing/
     s3://alpha-cjs-dataset-sensitive-dip/testing
 
