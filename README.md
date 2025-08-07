@@ -54,7 +54,7 @@ Without setting `PYTHONPATH=airflow`, Python will not recognise [`analytical_pla
 
 ## ⚗️ Running Airflow Locally
 
-> [!WARNING]
+> [!IMPORTANT]
 > This is only available to Analytical Platform's [engineering team](https://github.com/orgs/ministryofjustice/teams/analytical-platform-engineers)
 
 1. Initialise submodules
@@ -72,6 +72,9 @@ Without setting `PYTHONPATH=airflow`, Python will not recognise [`analytical_pla
    ```
 
 1. Build MWAA Local Runner
+
+   > [!NOTE]
+   > Depending on your internet speed, this may take a while
 
    ```bash
    ./mwaa-local-env build-image
@@ -92,3 +95,8 @@ Without setting `PYTHONPATH=airflow`, Python will not recognise [`analytical_pla
    ```bash
    ./mwaa-local-env start
    ```
+
+1. Log in to Airflow <http://localhost:8080>
+
+- Username: airflow
+- Password: test
