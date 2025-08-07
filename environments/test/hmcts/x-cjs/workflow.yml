@@ -15,7 +15,8 @@ dag:
     # load-step-defaults
 
 notifications:
-  emails: parminder.thindal@justice.gov.uk
+  emails:
+    - parminder.thindal@justice.gov.uk
   slack_channel: cjs-x-de
 
 iam:
