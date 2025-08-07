@@ -1,0 +1,30 @@
+dag:
+  repository: https://github.com/moj-analytical-services/pb_wrangling
+  tag: v1.1.8
+  schedule: "0 6 1 * *"
+
+iam:
+  athena: write
+
+  s3_write_only:
+    - alpha-probation-performance-extracts/*
+
+  s3_read_only:
+    - mojap-derived-tables/dev/models/domain_name=probation/database_name=delius/*
+    - mojap-derived-tables/dev/models/domain_name=probation/database_name=derived_delius_dim/*
+    - mojap-derived-tables/dev/models/domain_name=probation/database_name=derived_delius_stg/*
+    - mojap-derived-tables/dev/models/domain_name=probation/database_name=derived_delius/*
+    - mojap-derived-tables/dev/models/domain_name=general/database_name=common_lookup/*
+
+maintainers:
+  - mamonu
+  - lalithanagarur
+
+notifications:
+  emails:
+    - lalitha.nagarur@justice.gov.uk
+    - theodoros.manassis@justice.gov.uk
+
+tags:
+  business_unit: HMPPS
+  owner: lalitha.nagarur@justice.gov.uk
