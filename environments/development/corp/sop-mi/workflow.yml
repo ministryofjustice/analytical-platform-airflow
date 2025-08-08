@@ -1,0 +1,42 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-sop-mi
+  tag: v4.4.0-test-06
+  env_vars:
+    ENVIRONMENT: "apdev"
+    IMAGE_VERSION: tag
+    RUN_DATE: "2025-07-31"
+  tasks:
+    data_validation:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_validation.py"
+    preprocessing:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_preprocess.py"
+      dependencies: [data_validation]
+
+iam:
+  s3_read_write:
+    - alpha-dag-sop-data-engineering/raw-apdev/*
+    - alpha-dag-sop-data-engineering/land-apdev/*
+    - alpha-dag-sop-data-engineering/preprocessed-apdev/*
+    - alpha-dag-sop-data-engineering/derived-apdev/*
+    - alpha-dag-sop-data-engineering/lookups-apdev/*
+    - alpha-dag-sop-data-engineering/__temp_athena__/*
+    - alpha-opg-etl/dev/opg_sop/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - moj-supratikc
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: William.Orr@justice.gov.uk
