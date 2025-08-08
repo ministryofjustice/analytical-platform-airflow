@@ -1,0 +1,34 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-cross-cjs-data
+  tag: 0.1.0-alpha.579f40c
+  catchup: false
+  compute_profile: "general-spot-1vcpu-4gb"
+  depends_on_past: false
+  retries: 3
+  retry_delay: 150
+  schedule: None
+
+  env_vars:
+    LOG_LEVEL: "DEBUG"
+    SERVICE: "load_postcharge"
+
+notifications:
+  emails:
+    - parminder.thindal@justice.gov.uk
+  slack_channel: cjs-x-de
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/cps/testing/*
+    - mojap-raw-hist-dev/crown_prosecution_service/testing/*
+    - alpha-cjs-dataset-sensitive-dip/testing/*
+
+maintainers:
+  - parminder-thindal-moj
+  - ThomasHepworth
+
+tags:
+  business_unit: HMCTS
+  owner: parminder.thindal@justice.gov.uk
