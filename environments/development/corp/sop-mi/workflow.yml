@@ -33,6 +33,8 @@ iam:
     - alpha-dag-sop-data-engineering/lookups-apdev/*
     - alpha-dag-sop-data-engineering/__temp_athena__/*
     - alpha-opg-etl/dev/opg_sop/*
+    - alpha-dag-sop-data-engineering/data_linter_testing/*
+    - alpha-dag-sop-data-engineering/sip_exclusions-apdev/*
 
 notifications:
   slack_channel: dmet-corp-notifications
