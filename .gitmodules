@@ -1,0 +1,4 @@
+[submodule "aws-mwaa-local-runner"]
+	path = aws-mwaa-local-runner
+	url = git@github.com:ministryofjustice/analytical-platform-aws-mwaa-local-runner.git
+	branch = v2.10.3-internal
