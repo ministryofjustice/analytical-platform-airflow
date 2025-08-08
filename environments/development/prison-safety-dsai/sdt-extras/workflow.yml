@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdt-extras
-  tag: v1.2.3
+  tag: v1.2.4
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT" #to be changed to dev once we have a prod DAG running
 
