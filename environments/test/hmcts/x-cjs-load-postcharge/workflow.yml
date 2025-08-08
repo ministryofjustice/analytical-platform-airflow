@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cross-cjs-data
-  tag: 0.1.0-alpha.e509ac6
+  tag: 0.1.0-alpha.579f40c
   catchup: false
   compute_profile: "general-spot-1vcpu-4gb"
   depends_on_past: false
