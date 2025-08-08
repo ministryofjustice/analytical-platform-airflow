@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/p1-offloc-export
-  tag: v5.2.0
+  tag: v5.3.0
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
