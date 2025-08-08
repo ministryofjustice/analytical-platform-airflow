@@ -10,17 +10,17 @@ dag:
   schedule: None
 
   env_vars:
-      LOG_LEVEL: "DEBUG"
-      ENV: "test"
-      FULL_REFRESH: "false"
-      S3_LAND_DELETION_FLAG: "false"
-      SCRIPT_ENTRYPOINT: src/pipeline.py
+    LOG_LEVEL: "DEBUG"
+    ENV: "test"
+    FULL_REFRESH: "false"
+    S3_LAND_DELETION_FLAG: "false"
+    SCRIPT_ENTRYPOINT: src/pipeline.py
 
   tasks:
     load_postcharge:
       env_vars:
         SERVICE: "load_postcharge"
-    
+
     # add other tasks here.
 
 notifications:
