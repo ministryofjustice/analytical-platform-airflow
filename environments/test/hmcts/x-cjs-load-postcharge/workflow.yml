@@ -16,7 +16,7 @@ dag:
 notifications:
   emails:
     - parminder.thindal@justice.gov.uk
-  slack_channel: cjs-x-de
+  slack_channel: xcjs-de-alerts
 
 iam:
   athena: write
