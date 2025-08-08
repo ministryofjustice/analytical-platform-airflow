@@ -16,6 +16,15 @@ dag:
       dependencies: [data_validation]
 
 iam:
+  s3_read_only:
+    - alpha-dag-sop-data-engineering/hq_lookups/*
+    - alpha-dag-sop-data-engineering/ons_postcode_directory/*
+    - alpha-dag-sop-data-engineering/hmpps_career_grades/*
+    - alpha-hmpps-workforce-stats/Data/Lookup Files/*
+    - alpha-dag-sop-data-engineering/exclusions/*
+    - alpha-dag-sop-data-engineering/manual_returns-testing/*
+    - alpha-dag-sop-data-engineering/hmpps_leavers_history/*
+
   s3_read_write:
     - alpha-dag-sop-data-engineering/raw-apdev/*
     - alpha-dag-sop-data-engineering/land-apdev/*
