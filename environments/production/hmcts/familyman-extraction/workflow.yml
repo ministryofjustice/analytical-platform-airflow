@@ -56,7 +56,7 @@ dag:
     process-v3-opt-familyman-tucs-events:
       env_vars:
         CONTAINER_NAME: "v3-opt-familyman-tucs-events"
-      compute_profile: general-on-demand-32vcpu-128gb
+      compute_profile: general-on-demand-64vcpu-256gb
 
     process-v3-opt-familyman-tucs-field-models:
       env_vars:
