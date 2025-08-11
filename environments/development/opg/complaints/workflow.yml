@@ -57,6 +57,9 @@ iam:
     - alpha-opg-etl/dev/nspl_reference/curated/*
     - alpha-opg-mi-dashboard/working/*
 
+secrets:
+  - dom-file-password
+
 maintainers:
   - p-sin
   - gwionap
