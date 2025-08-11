@@ -3,7 +3,6 @@ dag:
   tag: v0.2.1
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
-  schedule: "0 8 * * *"
 
 iam:
   athena: write
