@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data-science-assets
-  tag: v0.2.0
+  tag: v0.2.1
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
   schedule: "0 8 * * *"
