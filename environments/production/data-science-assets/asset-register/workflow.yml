@@ -1,0 +1,27 @@
+dag:
+  repository: moj-analytical-services/data-science-assets
+  tag: v0.2.1
+  env_vars:
+    AIRFLOW_ENVIRONMENT: "PRODUCTION"
+  schedule: "0 8 * * *"
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - alpha-safety-mi/data-science-assets/*
+
+  s3_read_write:
+    - alpha-everyone/airflow-example/*
+    - alpha-data-science-assets-app/*
+
+notifications:
+  emails:
+    - william.miller1@justice.gov.uk
+
+maintainers:
+  - miller-william
+
+tags:
+  business_unit: HQ
+  owner: william.miller1@justice.gov.uk
