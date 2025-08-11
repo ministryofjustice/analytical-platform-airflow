@@ -34,6 +34,7 @@ iam:
     - mojap-land-dev/cps/testing/*
     - mojap-raw-hist-dev/crown_prosecution_service/testing/*
     - alpha-cjs-dataset-sensitive-dip/testing/*
+    - alpha-criminal-courts-data-staging/crown_prosecution_service/*
 
 maintainers:
   - parminder-thindal-moj
