@@ -14,6 +14,17 @@ dag:
       env_vars:
         PYTHON_SCRIPT_NAME: "run_preprocess.py"
       dependencies: [data_validation]
+    derived:
+      compute_profile: "general-on-demand-2vcpu-8gb"
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_derived.py"
+        COSTCENTRE_BODGE: False
+        OLD_DEDUPE_METHODOLOGY: False
+      dependencies: [data_validation, preprocessing]
+    schema:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_schema.py"
+      dependencies: [data_validation, preprocessing, derived]
 
 iam:
   s3_read_only:
