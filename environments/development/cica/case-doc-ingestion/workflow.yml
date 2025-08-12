@@ -1,0 +1,18 @@
+dag:
+  repository: ministryofjustice/cica-review-case-documents-airflow
+  tag: v0.0.1
+
+maintainers:
+  - neil-stephen-mcgonigle
+  - ross75
+
+tags:
+  business_unit: CICA
+  owner: neil.mcgonigle@justice.gov.uk
+
+iam:
+  bedrock: true
+
+notifications:
+  emails:
+    - neil.mcgonigle@justice.gov.uk
