@@ -1,0 +1,27 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-opg-etl
+  tag: v3.5.5
+  python_dag: true
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land/opg/prod/sirius/*
+    - mojap-raw/opg/prod/sirius/*
+    - alpha-opg-etl/prod/sirius/*
+    - mojap-athena-query-dump/*airflow-production-opg-sirius-monthly/*
+
+  s3_read_only:
+    - mojap-land/opg/sirius/*
+    - alpha-opg-etl/prod/nspl_reference/curated/*
+    - alpha-opg-mi-dashboard/working/*
+
+maintainers:
+  - p-sin
+  - gwionap
+
+tags:
+  business_unit: OPG
+  owner: philip.sinfield@justice.gov.uk
