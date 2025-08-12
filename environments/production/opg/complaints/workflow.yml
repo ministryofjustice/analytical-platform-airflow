@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.3.3
+  tag: v3.5.6
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -13,7 +13,7 @@ dag:
     DATABASE: "complaints"
     PIPELINE_NAME: "complaints"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: "v3.3.1"
+    GITHUB_TAG: "v3.5.6"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-06-19"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -56,6 +56,9 @@ iam:
     - alpha-opg-insight/Complaints_data_dom1/*
     - alpha-opg-etl/prod/nspl_reference/curated/*
     - alpha-opg-mi-dashboard/working/*
+
+secrets:
+  - dom-file-password
 
 maintainers:
   - p-sin
