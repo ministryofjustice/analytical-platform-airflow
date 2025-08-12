@@ -17,9 +17,15 @@ dag:
     SCRIPT_ENTRYPOINT: src/pipeline.py
 
   tasks:
+    extraction:
+      env_vars:
+        SERVICE: "extract"
+        SCRIPT_ENTRYPOINT: src/extraction.py
+
     load_postcharge:
       env_vars:
         SERVICE: "load_postcharge"
+      dependencies: [extraction]
 
     # add other tasks here.
 
