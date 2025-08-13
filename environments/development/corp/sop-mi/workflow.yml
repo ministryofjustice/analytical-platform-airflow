@@ -27,6 +27,7 @@ dag:
       dependencies: [data_validation, preprocessing, derived]
 
 iam:
+  glue: true
   s3_read_only:
     - alpha-dag-sop-data-engineering/hq_lookups/*
     - alpha-dag-sop-data-engineering/ons_postcode_directory/*
