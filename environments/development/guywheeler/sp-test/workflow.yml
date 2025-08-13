@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/airflow-sp-poc
-  tag: v1.0.8-dev
+  tag: v1.0.9-dev
 
 iam:
   s3_read_only:
