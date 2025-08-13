@@ -1,4 +1,5 @@
----
+--- 
+# https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html
 dag:
   repository: moj-analytical-services/airflow-cross-cjs-data
   tag: 0.1.0-alpha.579f40c
@@ -41,6 +42,10 @@ iam:
     - mojap-raw-hist-dev/crown_prosecution_service/testing/*
     - alpha-cjs-dataset-sensitive-dip/testing/*
     - alpha-criminal-courts-data-staging/crown_prosecution_service/*
+
+secrets:
+  - decryption_token
+
 
 maintainers:
   - parminder-thindal-moj
