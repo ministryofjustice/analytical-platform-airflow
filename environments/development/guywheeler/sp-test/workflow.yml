@@ -1,0 +1,21 @@
+---
+dag:
+  repository: ministryofjustice/airflow-sp-poc
+  tag: v1.0.3-dev
+
+iam:
+  s3_read_only:
+    - alpha-sp-poc/*
+
+secrets:
+  - azure-tenant-id
+  - acure-client-id
+  - azure-client-secret
+  - site-id
+
+maintainers:
+  - guyvw1
+
+tags:
+  business_unit: Central Digital
+  owner: guy.wheeler@justice.gov.uk
