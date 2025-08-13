@@ -46,7 +46,6 @@ iam:
 secrets:
   - decryption-token
 
-
 maintainers:
   - parminder-thindal-moj
   - ThomasHepworth
