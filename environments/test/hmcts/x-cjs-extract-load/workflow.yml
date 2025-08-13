@@ -44,7 +44,7 @@ iam:
     - alpha-criminal-courts-data-staging/crown_prosecution_service/*
 
 secrets:
-  - decryption_token
+  - decryption-token
 
 
 maintainers:
