@@ -1,10 +1,10 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.15-alpha
+  tag: v0.0.20
   schedule: "30 8 * * 1-5"
   env_vars:
-    AFFILE_PIPELINE_NAME: "snapshots-hra04-non-sickness-absence"
+    AFFILE_PIPELINE_NAME: "all-time-hra01-non-sickness-absence"
     AFFILE_ENV: "dev"
     AFFILE_SCHEMA_CONTRACT: "freeze"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -18,7 +18,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-land-preprod/corporate/report_extractor/splashbi/absence_nonsick_daily/data/*
+    - mojap-land-preprod/corporate/report_extractor/splashbi/ou_absence_nonsick_daily/*
     - mojap-processed/corporate/sop/dev/*
 
 notifications:
