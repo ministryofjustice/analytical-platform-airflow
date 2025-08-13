@@ -9,7 +9,7 @@ iam:
 
 secrets:
   - azure-tenant-id
-  - acure-client-id
+  - azure-client-id
   - azure-client-secret
   - site-id
 
