@@ -1,20 +1,19 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
   tag: v1.1.8
-  schedule: "0 6 1 * *"
 
 iam:
   athena: write
 
-  s3_write_only:
-    - alpha-probation-performance-extracts/*
+  s3_read_write:
+    - alpha-parole-board/dev/*
+    - mojap-athena-query-dump/*-airflow_dev_parole_board/*
+    - alpha-athena-query-dump/*
 
   s3_read_only:
-    - mojap-derived-tables/dev/models/domain_name=probation/database_name=delius/*
-    - mojap-derived-tables/dev/models/domain_name=probation/database_name=derived_delius_dim/*
-    - mojap-derived-tables/dev/models/domain_name=probation/database_name=derived_delius_stg/*
-    - mojap-derived-tables/dev/models/domain_name=probation/database_name=derived_delius/*
-    - mojap-derived-tables/dev/models/domain_name=general/database_name=common_lookup/*
+    - mojap-derived-tables/dev/models/domain_name=prison/database_name=parole_board*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board*
+    - moj-reg-prod-curated/data-eng-uploader-prod/data/database_name=ppud*
 
 maintainers:
   - mamonu
@@ -22,9 +21,9 @@ maintainers:
 
 notifications:
   emails:
-    - lalitha.nagarur@justice.gov.uk
+    - lalitha.nagarur3@justice.gov.uk
     - theodoros.manassis@justice.gov.uk
 
 tags:
   business_unit: HMPPS
-  owner: lalitha.nagarur@justice.gov.uk
+  owner: lalitha.nagarur3@justice.gov.uk
