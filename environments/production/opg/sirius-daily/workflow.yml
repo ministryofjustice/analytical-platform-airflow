@@ -13,7 +13,7 @@ dag:
     DATABASE: "sirius"
     PIPELINE_NAME: "sirius"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: "v3.3.1"
+    GITHUB_TAG: "v3.5.7"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-06-17"
     AWS_DEFAULT_REGION: "eu-west-1"
