@@ -43,7 +43,6 @@ dag:
         SERVICE: "load_victim_witnesses"
       dependencies: [extraction]
 
-
 notifications:
   emails:
     - parminder.thindal@justice.gov.uk
