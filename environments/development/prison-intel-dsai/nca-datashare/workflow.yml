@@ -16,7 +16,7 @@ dag:
 iam:
   s3_read_write:
     - alpha-app-bentham-app/*
-    - mojap-hub-exports/nca_seized_media/*
+    - mojap-hub-exports/nca_siezed_media/*
 
 notifications:
   emails:
