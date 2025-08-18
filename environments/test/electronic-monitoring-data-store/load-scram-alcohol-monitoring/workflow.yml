@@ -36,7 +36,7 @@ notifications:
   slack_channel: em-engineers-moj-madetech
 
 iam:
-  external_role: arn:aws:iam::976799291502:role/airflow-test-load-scram-alcohol-monitoring
+  external_role: arn:aws:iam::396913731313:role/airflow-test-load-scram-alcohol-monitoring
 
 maintainers:
   - matt-heery
@@ -46,3 +46,4 @@ maintainers:
 tags:
   business_unit: HMPPS
   owner: matt.heery@justice.gov.uk # for now....
+  
