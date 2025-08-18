@@ -6,7 +6,7 @@ dag:
   catchup: false
   compute_profile: "general-spot-2vcpu-8gb"
   depends_on_past: false
-  retries: 3
+  retries: 0
   retry_delay: 150
   schedule: None
 
