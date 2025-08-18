@@ -2,7 +2,7 @@
 # https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html
 dag:
   repository: moj-analytical-services/airflow-cross-cjs-data
-  tag: 0.1.0-alpha.579f40c
+  tag: 0.1.0-alpha.7a0df53
   catchup: false
   compute_profile: "general-spot-1vcpu-4gb"
   depends_on_past: false
