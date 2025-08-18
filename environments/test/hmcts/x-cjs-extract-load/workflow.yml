@@ -28,7 +28,20 @@ dag:
         SERVICE: "load_postcharge"
       dependencies: [extraction]
 
-    # add other tasks here.
+    load_postcharge_cfs:
+      env_vars:
+        SERVICE: "load_postcharge_cfs"
+      dependencies: [extraction]
+
+    load_precharge:
+      env_vars:
+        SERVICE: "load_precharge"
+      dependencies: [extraction]
+
+    load_victim_witnesses:
+      env_vars:
+        SERVICE: "load_victim_witnesses"
+      dependencies: [extraction]
 
 notifications:
   emails:
