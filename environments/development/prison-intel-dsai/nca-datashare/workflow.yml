@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-pdsai-nca-datashare
-  tag: 0.0.1
+  tag: 0.0.2
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -16,7 +16,7 @@ dag:
 iam:
   s3_read_write:
     - alpha-app-bentham-app/*
-    - mojap-hub-exports/nca_seized_media/*
+    - mojap-hub-exports/nca_siezed_media/*
 
 notifications:
   emails:
