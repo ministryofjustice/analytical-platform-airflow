@@ -1,7 +1,13 @@
 ---
 dag:
   repository: ministryofjustice/airflow-sp-poc
-  tag: v1.0.9-dev
+  tag: v1.0.10-dev
+
+  env_vars:
+    BUCKET: alpha-sp-poc
+    S3_KEY: test_file.csv
+    SP_LIBRARY_NAME: Account\ Management
+    SP_UPLOAD_PATH: Probation\ Account\ Management/PRP\ Archive/Priya_test/
 
 iam:
   s3_read_only:
