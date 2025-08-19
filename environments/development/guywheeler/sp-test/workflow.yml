@@ -6,7 +6,7 @@ dag:
   env_vars:
     BUCKET: alpha-sp-poc
     S3_KEY: test_file.csv
-    SP_LIBARY_NAME: Account\ Management
+    SP_LIBRARY_NAME: Account\ Management
     SP_UPLOAD_PATH: Probation\ Account\ Management/PRP\ Archive/Priya_test/
 
 iam:
