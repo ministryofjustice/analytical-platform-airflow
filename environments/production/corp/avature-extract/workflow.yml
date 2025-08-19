@@ -2,7 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-avature-scraper
   tag: v0.0.18-test-06
-  schedule: "* * * * *"
+  schedule: "0-59 * * * *"
   is_paused_upon_creation: true
   catchup: false
   max_active_runs: 1
