@@ -14,7 +14,7 @@ dag:
     LOG_LEVEL: "DEBUG"
     ENV: "test"
     FULL_REFRESH: "false"
-    S3_LAND_DELETION_FLAG: "false"
+    S3_LAND_DELETION_FLAG: "true"
     SCRIPT_ENTRYPOINT: src/pipeline.py
 
   tasks:
