@@ -1,7 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-avature-scraper
-  tag: v0.0.18-test-06
+  tag: v0.0.20-test-02
+  is_paused_upon_creation: true
   env_vars:
     action: scrape-store-plain-json-latest
     WR_WORKGROUP: airflow-prod-workgroup-corp
