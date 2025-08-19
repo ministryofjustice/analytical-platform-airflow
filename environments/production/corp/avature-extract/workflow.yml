@@ -7,6 +7,7 @@ dag:
   catchup: false
   max_active_runs: 1
   retries: 0
+  compute_profile: general-on-demand-1vcpu-4gb
   env_vars:
     action: scrape-store-plain-json-latest
     WR_WORKGROUP: airflow-prod-workgroup-corp
