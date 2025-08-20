@@ -1,0 +1,48 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v3.0.0
+  retries: 1
+  retry_delay: 150
+  hmcts_sdp_networking: True
+  max_active_runs: 3
+  env_vars:
+    TASK: "extract"
+    LOG_LEVEL: "DEBUG"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    SDP_TABLE_PREFIX: "v2-cp"
+    PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
+    COPY_MODE: "new"
+    CHECK_MODE: "hist"
+    FILENAME_COL_NAME: "mojap_unpacked_filename"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    DATABASE_NAME: "common_platform_dev_v5"
+    LAND_BUCKET: "s3://mojap-land-dev"
+    HIST_BUCKET: "s3://mojap-raw-hist-dev"
+    LAND_FOLDER: "hmcts/common-platform/dev/dev_sdp_v5"
+    HIST_FOLDER: "hmcts/common-platform/dev/dev_sdp_v5"
+    CUT_OFF: "2022-08-21"
+  tasks:
+    cp_extract_allocated_listings:
+      env_vars:
+        TABLE_NAME: "allocated-listings"
+        S3_TABLE_NAME: "allocated_listings"
+        FILENAME_TABLE_NAME: "allocated_listings"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/hmcts/common-platform/*
+    - mojap-raw-hist-dev/hmcts/common-platform/*
+  s3_read_only:
+    - alpha-mojap-common-platform/*
+    - alpha-mojap-ccd/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - andy-cook
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
