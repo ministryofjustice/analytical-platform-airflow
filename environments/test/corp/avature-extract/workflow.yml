@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-avature-scraper
-  tag: v0.0.18-test-06
+  tag: v0.0.21-test-01
   env_vars:
     action: scrape-store-plain-json-latest
     WR_WORKGROUP: airflow-prod-workgroup-corp
@@ -17,7 +17,7 @@ secrets:
   - service-account-token
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-avature-notifications
 
   emails:
     - Laurence.Droy@justice.gov.uk
