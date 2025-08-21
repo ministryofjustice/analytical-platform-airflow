@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/west-donee-dag
-  tag: v0.5.2
+  tag: v0.5.3
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
