@@ -1,11 +1,11 @@
 dag:
   repository: moj-analytical-services/airflow-pdsai-nca-datashare
-  tag: v0.2
+  tag: 0.2.2
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 1
-  retries: 3
+  retries: 1
   retry_delay: 100
   schedule: None
   start_date: "2025-07-01"
