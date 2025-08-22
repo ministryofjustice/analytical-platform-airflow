@@ -1,0 +1,32 @@
+dag:
+  repository: moj-analytical-services/airflow-ccmbpt-deep-dive-models
+  tag: v2.3.5
+  retries: 3
+  retry_delay: 150
+  schedule: "0 8 * * 1-5"
+
+maintainers:
+  - chrisbanbury
+  - glenn-christmas
+  - CharlieRiley1
+
+tags:
+  business_unit: HQ
+  owner: glenn.christmas@justice.gov.uk
+
+notifications:
+  emails:
+    - ccmanalytics_asd@justice.gov.uk
+
+iam:
+  athena: write
+  bedrock: false
+  glue: false
+  kms:
+    - arn:aws:kms:eu-west-2:123456789012:key/mrk-12345678909876543212345678909876
+  s3_read_only:
+    - alpha-app-scorecard-form/*
+    - alpha-contracts-etl/*
+  s3_read_write:
+    - alpha-app-ccmbpt-analytics/*
+    - alpha-app-ccma-gold-scorecards/*
