@@ -16,7 +16,7 @@ tags:
 
 notifications:
   emails:
-    - CCMAnalytics_ASD@Justice.gov.uk
+    - ccmanalytics_asd@justice.gov.uk
 
 iam:
   athena: write
