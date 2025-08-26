@@ -1,12 +1,16 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
   tag: v0.4.0.dev1
+  env_vars:
+  AWS_ACCESS_KEY_ID: "ASIANOIDLW24890"
+    AWS_SECRET_ACCESS_KEY: "drjwoiae4ur3q98otruhfweoil"
+    AWS_SESSION_TOKEN: "fwkoeojfgoiwelofjweloiljhft"
 
 iam:
+  external_role: arn:aws:iam::684969100054:role/AWSReservedSSO_AdministratorAccess_f23wjeroi23
   s3_read_write:
     - antony-testbucket/*
     
-
 maintainers:
   - antonyjscott
 
