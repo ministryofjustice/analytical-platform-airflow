@@ -1,10 +1,11 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
   tag: v0.4.0.dev1
-  secrets:
-    - aws-access-key-id
-    - aws-secret-access-key
-    - aws-session-token
+
+secrets:
+  - aws-access-key-id
+  - aws-secret-access-key
+  - aws-session-token
 
 iam:
   external_role: arn:aws:iam::684969100054:role/AWSReservedSSO_AdministratorAccess_f23wjeroi23
