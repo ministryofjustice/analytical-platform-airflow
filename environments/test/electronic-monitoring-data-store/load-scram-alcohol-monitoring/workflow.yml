@@ -1,0 +1,48 @@
+dag:
+  repository: moj-analytical-services/airflow-load-em-data
+  tag: v0.2.64-alpha
+  compute_profile: general-spot-1vcpu-4gb
+  catchup: false
+  depends_on_past: false
+  max_active_runs: 1
+  env_vars:
+    SUPPLIER_NAME: "scram"
+    SYSTEM_NAME: "alcohol_monitoring"
+    DATASET_NAME: "scram_alcohol_monitoring"
+    DELIVERY_DATE: "2025-05-21"
+    AWS_METADATA_SERVICE_TIMEOUT: 60
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
+    AWS_DEFAULT_REGION: "eu-west-2"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+  tasks:
+    load_scram_alerts:
+      env_vars:
+        TABLE_NAME: "Alerts"
+
+    load_scram_clients:
+      env_vars:
+        TABLE_NAME: "Clients"
+
+    load_scram_readings:
+      env_vars:
+        TABLE_NAME: "Readings"
+
+notifications:
+  emails:
+    - Matt.Heery@justice.gov.uk
+    - Luke.Williams6@justice.gov.uk
+  slack_channel: em-engineers-moj-madetech
+
+iam:
+  external_role: arn:aws:iam::396913731313:role/airflow-test-load-scram-alcohol-monitoring
+
+maintainers:
+  - matt-heery
+  - kraihanmoj
+  - luke-a-williams
+
+tags:
+  business_unit: HMPPS
+  owner: matt.heery@justice.gov.uk # for now....

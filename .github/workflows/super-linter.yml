@@ -15,7 +15,7 @@ jobs:
       contents: read
       packages: read
       statuses: write
-    uses: ministryofjustice/analytical-platform-github-actions/.github/workflows/reusable-super-linter.yml@949059b3345aaf08170204e57a010324f03a985b # v4.5.0
+    uses: ministryofjustice/analytical-platform-github-actions/.github/workflows/reusable-super-linter.yml@31245f6d7852ff4fbb735ec759cf42d182f5836e # v5.0.0
     with:
       # VALIDATE_KUBERNETES_KUBECONFORM is set to false as it cannot process Helm charts
       # VALIDATE_PYTHON_* are set to false as we need to revisit the Python from a linting perspective

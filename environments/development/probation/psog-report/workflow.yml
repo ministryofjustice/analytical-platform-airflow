@@ -1,0 +1,29 @@
+dag:
+  repository: moj-analytical-services/pb_wrangling
+  tag: v1.1.9
+
+iam:
+  athena: write
+
+  s3_read_write:
+    - alpha-parole-board/dev/*
+    - mojap-athena-query-dump/*-airflow_dev_parole_board/*
+    - alpha-athena-query-dump/*
+
+  s3_read_only:
+    - mojap-derived-tables/dev/models/domain_name=prison/database_name=parole_board*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board*
+    - moj-reg-prod-curated/data-eng-uploader-prod/data/database_name=ppud*
+
+maintainers:
+  - mamonu
+  - lalithanagarur
+
+notifications:
+  emails:
+    - lalitha.nagarur3@justice.gov.uk
+    - theodoros.manassis@justice.gov.uk
+
+tags:
+  business_unit: HMPPS
+  owner: lalitha.nagarur3@justice.gov.uk

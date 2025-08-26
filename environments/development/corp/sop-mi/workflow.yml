@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-sop-mi
-  tag: v4.4.0-test-08
+  tag: v4.4.0-test-09
   env_vars:
     ENVIRONMENT: "apdev"
     IMAGE_VERSION: tag
@@ -27,6 +27,7 @@ dag:
       dependencies: [data_validation, preprocessing, derived]
 
 iam:
+  athena: write
   glue: true
   s3_read_only:
     - alpha-dag-sop-data-engineering/hq_lookups/*

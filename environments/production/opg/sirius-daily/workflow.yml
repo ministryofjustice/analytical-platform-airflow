@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.3.1
+  tag: v3.5.16
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -13,7 +13,7 @@ dag:
     DATABASE: "sirius"
     PIPELINE_NAME: "sirius"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: "v3.3.1"
+    GITHUB_TAG: "v3.5.16"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-06-17"
     AWS_DEFAULT_REGION: "eu-west-1"

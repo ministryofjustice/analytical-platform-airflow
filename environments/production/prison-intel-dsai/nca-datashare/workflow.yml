@@ -1,13 +1,13 @@
 dag:
   repository: moj-analytical-services/airflow-pdsai-nca-datashare
-  tag: v0.3
+  tag: 0.0.2
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 1
-  retries: 1
+  retries: 3
   retry_delay: 100
-  schedule: None
+  schedule: "0 0 1 2-8/6 *"
   start_date: "2025-07-01"
   tasks:
     task:
@@ -21,7 +21,6 @@ iam:
 notifications:
   emails:
     - matthew.funnell@justice.gov.uk
-    - francesca.von.braun-bates@justice.gov.uk
   slack_channel: intel-app-maintenance
 
 maintainers:
