@@ -5,7 +5,7 @@ dag:
   env_vars:
     ENVIRONMENT: "apdev"
     IMAGE_VERSION: tag
-    RUN_DATE: "2025-07-31"
+    RUN_DATE: "2025-08-31"
   tasks:
     data_validation:
       env_vars:
