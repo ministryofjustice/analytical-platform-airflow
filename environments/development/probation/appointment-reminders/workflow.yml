@@ -1,0 +1,14 @@
+dag:
+  repository: moj-analytical-services/airflow-appointment-reminders
+  tag: v0.0.1.dev4
+
+iam:
+  s3_read_write:
+    - alpha-asc-database/*
+
+maintainers:
+  - antonyjscott
+
+tags:
+  business_unit: HQ
+  owner: antony.scott@justice.gov.uk
