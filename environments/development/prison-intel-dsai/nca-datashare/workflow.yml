@@ -1,6 +1,6 @@
 dag:
-  repository: ministryofjustice/nca-offloc-dag
-  tag: v1.0.24
+  repository:  moj-analytical-services/airflow-pdsai-nca-datashare
+  tag: v0.4
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
