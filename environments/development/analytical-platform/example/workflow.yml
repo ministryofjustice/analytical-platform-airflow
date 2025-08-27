@@ -19,7 +19,6 @@ iam:
 maintainers:
   - jacobwoffenden
   - jhpyke
-  - gary-h9
 
 secrets:
   - api-key
