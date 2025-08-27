@@ -368,7 +368,7 @@ jobs:
           imageRepo=${imageName#ghcr.io/}
           echo "upstream-image-repo=${imageRepo}" >>"${GITHUB_ENV}"
 
-          imageRepoLatestVersion=$(curl --silent https://api.github.com/repos/"${imageRepo}"/releases/latest | jq -r '.tag_name')
+          imageRepoLatestVersion=$(gh api "repos/${imageRepo}/releases/latest" --jq '.tag_name' 2>/dev/null || echo "")
           export imageRepoLatestVersion
           echo "upstream-image-version=${imageRepoLatestVersion}" >>"${GITHUB_ENV}"
 
