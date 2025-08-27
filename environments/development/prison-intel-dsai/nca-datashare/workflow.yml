@@ -19,7 +19,7 @@ iam:
   kms:
     - arn:aws:kms:eu-west-2:505940320338:key/a4e16805-b10a-4996-9e90-fefe8674ecc7
   s3_read_write:
-    - mojap-hub-exports/*
+    - mojap-hub-exports/p1_nomis_TEST/*
 
 secrets:
   - user
