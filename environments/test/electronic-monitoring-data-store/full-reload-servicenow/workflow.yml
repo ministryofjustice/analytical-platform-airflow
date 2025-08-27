@@ -17,7 +17,7 @@ dag:
 notifications:
   emails:
     - matt.heery@justice.gov.uk
-  slack_channel: em-engineers-moj-madetech
+  slack_channel: electronic-monitoring-data-hub-test-notifications
 
 iam:
   external_role: arn:aws:iam::396913731313:role/airflow-test-full-reload-servicenow
