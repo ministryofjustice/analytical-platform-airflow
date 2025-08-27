@@ -289,7 +289,7 @@ jobs:
       - name: Clean Actions Runner
         id: clean_actions_runner
         if: env.clean-runner == 'true'
-        uses: ministryofjustice/action-clean-runner@67c2dd7326ddc6fc58d5555ae9d0404173a1e8d8 # v1.0.0
+        uses: ministryofjustice/action-clean-runner@390530713a326ddc099b2114f38dd0f2f8eac6da # v1.1.0
         with:
           confirm: true
 
