@@ -4,7 +4,7 @@ dag:
   repository: moj-analytical-services/airflow-cross-cjs-data
   tag: 0.1.0-alpha.7a0df53
   catchup: false
-  compute_profile: "general-spot-2vcpu-8gb"
+  compute_profile: "general-spot-8vcpu-32gb"
   depends_on_past: false
   retries: 0
   retry_delay: 150
@@ -63,6 +63,7 @@ maintainers:
   - parminder-thindal-moj
   - ThomasHepworth
   - Andy-Cook
+  - george-w-jenkins
 
 tags:
   business_unit: HMCTS
