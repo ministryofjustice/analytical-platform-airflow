@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.1.dev4
+  tag: v0.0.1.dev5
 
 iam:
   s3_read_write:
