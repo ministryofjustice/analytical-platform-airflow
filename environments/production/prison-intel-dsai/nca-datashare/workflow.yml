@@ -1,11 +1,11 @@
 dag:
   repository: moj-analytical-services/airflow-pdsai-nca-datashare
-  tag: 0.0.2
+  tag: v1.2
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 1
-  retries: 3
+  retries: 0
   retry_delay: 100
   schedule: "0 0 1 2-8/6 *"
   start_date: "2025-07-01"
@@ -15,15 +15,17 @@ dag:
 
 iam:
   s3_read_write:
-    - alpha-app-bentham-app/*
+    - alpha-app-bentham-app/data/databases/intel/*
     - mojap-hub-exports/nca_siezed_media/*
 
 notifications:
   emails:
+    - francesca.von.braun-bates@justice.gov.uk
     - matthew.funnell@justice.gov.uk
-  slack_channel: intel-app-maintenance
+  slack_channel: ct-data-engineering
 
 maintainers:
+  - vonbraunbates
   - mattfunnell
 
 tags:
