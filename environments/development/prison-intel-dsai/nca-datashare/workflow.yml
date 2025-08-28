@@ -22,16 +22,12 @@ iam:
     - alpha-app-bentham-app/data/databases/intel/*
     - mojap-hub-exports/p1_nomis_TEST/*
 
-secrets:
-  - user
-  - pass
-
 maintainers:
   - vonbraunbates
-  - gwionap
+  - mattfunnell
 
 tags:
-  business_unit: Central Digital
+  business_unit: HMPPS
   owner: francesca.von.braun-bates@justice.gov.uk
 
 notifications:
