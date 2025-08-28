@@ -3,10 +3,10 @@ dag:
   tag: v0.1.25
   schedule: "00 14 * * 2"
 
-  iam:
+iam:
   athena: write
 
-s3_read_only:
+  s3_read_only:
     - alpha-safety-mi/prisons_ds/offender_location_extract/*
     - alpha-regime-dashboard/dashboard/*
     - hmpps-performance-hub-curated/data/database_name=hub_prison/table_name=prison_metric_outturns/*
@@ -30,7 +30,7 @@ s3_read_only:
     - alpha-app-regime-dashboard/airflow/summary_pa_data_aligned_with_measure/prisoners_level_data/*
     - alpha-app-regime-dashboard/airflow/2425_pa_data/*
 
-    maintainers:
+maintainers:
   - hayley-purser
   - jamesdeason
   - SullivanJ123
