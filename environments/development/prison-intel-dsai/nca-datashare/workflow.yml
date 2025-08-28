@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-pdsai-nca-datashare
-  tag: v0.4.4
+  tag: v0.4.5
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
