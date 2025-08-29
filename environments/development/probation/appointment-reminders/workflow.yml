@@ -1,6 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
   tag: v0.0.1.dev6
+  env_vars:
+    AWS_DEFAULT_REGION: eu-west-1
 
 iam:
   s3_read_write:
