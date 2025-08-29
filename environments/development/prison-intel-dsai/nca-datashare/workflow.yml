@@ -1,12 +1,12 @@
 dag:
   repository: moj-analytical-services/airflow-pdsai-nca-datashare
-  tag: v0.4.7
+  tag: v1.2
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 1
   retries: 1
-  retry_delay: 150
+  retry_delay: 90
   schedule: None
   start_date: "2025-03-18"
   tasks:
@@ -19,18 +19,15 @@ iam:
   kms:
     - arn:aws:kms:eu-west-2:505940320338:key/a4e16805-b10a-4996-9e90-fefe8674ecc7
   s3_read_write:
+    - alpha-app-bentham-app/data/databases/intel/*
     - mojap-hub-exports/p1_nomis_TEST/*
-
-secrets:
-  - user
-  - pass
 
 maintainers:
   - vonbraunbates
-  - gwionap
+  - mattfunnell
 
 tags:
-  business_unit: Central Digital
+  business_unit: HMPPS
   owner: francesca.von.braun-bates@justice.gov.uk
 
 notifications:
