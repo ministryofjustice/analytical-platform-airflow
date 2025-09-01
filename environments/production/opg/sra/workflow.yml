@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.6.2
+  tag: v3.6.3
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -13,7 +13,7 @@ dag:
     DATABASE: "sra"
     PIPELINE_NAME: "sra"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: "v3.6.2"
+    GITHUB_TAG: "v3.6.3"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-06-17"
     AWS_DEFAULT_REGION: "eu-west-1"
