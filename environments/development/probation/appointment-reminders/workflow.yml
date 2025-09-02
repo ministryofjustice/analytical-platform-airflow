@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.1.dev9
+  tag: v0.0.1.dev10
 
 secrets:
   - api-key-wales
