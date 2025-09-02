@@ -17,7 +17,7 @@ secrets:
   - service-account-token
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-avature-notifications
 
   emails:
     - Laurence.Droy@justice.gov.uk
