@@ -4,6 +4,7 @@ dag:
 
 secrets:
   - api-key-wales
+  - api-key-london
 
 iam:
   s3_read_write:
