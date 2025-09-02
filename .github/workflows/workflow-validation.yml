@@ -289,7 +289,7 @@ jobs:
       - name: Clean Actions Runner
         id: clean_actions_runner
         if: env.clean-runner == 'true'
-        uses: ministryofjustice/action-clean-runner@67c2dd7326ddc6fc58d5555ae9d0404173a1e8d8 # v1.0.0
+        uses: ministryofjustice/action-clean-runner@390530713a326ddc099b2114f38dd0f2f8eac6da # v1.1.0
         with:
           confirm: true
 
@@ -368,7 +368,7 @@ jobs:
           imageRepo=${imageName#ghcr.io/}
           echo "upstream-image-repo=${imageRepo}" >>"${GITHUB_ENV}"
 
-          imageRepoLatestVersion=$(curl --silent https://api.github.com/repos/"${imageRepo}"/releases/latest | jq -r '.tag_name')
+          imageRepoLatestVersion=$(gh release list --repo "${imageRepo}" --exclude-drafts --exclude-pre-releases --json "isLatest,tagName" | jq -r '.[] | select(.isLatest == true) | .tagName')
           export imageRepoLatestVersion
           echo "upstream-image-version=${imageRepoLatestVersion}" >>"${GITHUB_ENV}"
 
@@ -403,7 +403,7 @@ jobs:
 
       - name: Scan
         id: scan
-        uses: aquasecurity/trivy-action@dc5a429b52fcf669ce959baa2c2dd26090d2a6c4 # v0.32.0
+        uses: aquasecurity/trivy-action@f9424c10c36e288d5fa79bd3dfd1aeb2d6eae808 # v0.33.0
         env:
           TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1

@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v0.0.6-test28
+  tag: 0.0.6-test-31
   schedule: "30 7 * * 1-5"
   env_vars:
     SITE: "fieldglass"
@@ -9,6 +9,10 @@ dag:
     workorders_daily:
       env_vars:
         REPORT: "MoJ DMET Corperate Headcount v2"
+        RUN_HEADLESS: "True"
+    timesheet_lastmonth:
+      env_vars:
+        REPORT: "MOJ Master Timesheet Report - Last month"
         RUN_HEADLESS: "True"
 
 iam:

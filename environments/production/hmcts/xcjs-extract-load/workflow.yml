@@ -2,17 +2,17 @@
 # https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html
 dag:
   repository: moj-analytical-services/airflow-cross-cjs-data
-  tag: 0.1.0-alpha.7a0df53
+  tag: 1.0.0-beta.3e2ba81
   catchup: false
   compute_profile: "general-spot-8vcpu-32gb"
   depends_on_past: false
-  retries: 0
+  retries: 1
   retry_delay: 150
   schedule: None
 
   env_vars:
     LOG_LEVEL: "DEBUG"
-    ENV: "test"
+    ENV: "prod"
     FULL_REFRESH: "false"
     S3_LAND_DELETION_FLAG: "true"
     SCRIPT_ENTRYPOINT: src/pipeline.py
@@ -51,9 +51,9 @@ notifications:
 iam:
   athena: write
   s3_read_write:
-    - mojap-land-dev/cps/testing/*
-    - mojap-raw-hist-dev/crown_prosecution_service/testing/*
-    - alpha-cjs-dataset-sensitive-dip/testing/*
+    - mojap-land/cps/*
+    - mojap-raw-hist/crown_prosecution_service/*
+    - alpha-cjs-dataset-sensitive-dip/*
     - alpha-criminal-courts-data-staging/crown_prosecution_service/*
 
 secrets:

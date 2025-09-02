@@ -1,8 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-avature-scraper
-  tag: v0.0.21-test-01
-  is_paused_upon_creation: true
+  tag: v0.0.22-test-01
   env_vars:
     action: scrape-store-plain-json-latest
     WR_WORKGROUP: airflow-prod-workgroup-corp
@@ -16,14 +15,6 @@ iam:
 
 secrets:
   - service-account-token
-
-notifications:
-  slack_channel: dmet-corp-notifications
-
-  emails:
-    - Laurence.Droy@justice.gov.uk
-    - william.orr@justice.gov.uk
-    - Supratik.Chowdhury@justice.gov.uk
 
 maintainers:
   - ltd-pa

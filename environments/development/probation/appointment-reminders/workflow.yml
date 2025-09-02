@@ -1,0 +1,27 @@
+dag:
+  repository: moj-analytical-services/airflow-appointment-reminders
+  tag: v0.0.1.dev11
+  tasks:
+    phase-one:
+      env_vars:
+        KEY_REGION: "Wales"
+    phase-two:
+      env_vars:
+        KEY_REGION: "London"
+
+secrets:
+  - api-key-wales
+  - api-key-london
+
+iam:
+  s3_read_write:
+    - alpha-asc-database/*
+
+maintainers:
+  - antonyjscott
+  - sivabathina2
+  - lalithanagarur
+
+tags:
+  business_unit: HQ
+  owner: antony.scott@justice.gov.uk

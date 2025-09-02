@@ -1,0 +1,54 @@
+dag:
+  repository: moj-analytical-services/airflow-opg-etl
+  tag: v3.6.12
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 4
+  retries: 1
+  retry_delay: 150
+  start_date: "2025-08-28"
+  schedule: None
+  env_vars:
+    DATABASE: "ocr"
+    PIPELINE_NAME: "ocr"
+    DATABASE_VERSION: "dev"
+    GITHUB_TAG: "v3.6.0"
+    ATHENA_DB_PREFIX: "opg"
+    START_DATE: "2025-08-28"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_METADATA_SERVICE_TIMEOUT: "60"
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
+  tasks:
+    land_to_processed:
+      env_vars:
+        STEP: "land_to_processed"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+    processed_to_curated:
+      env_vars:
+        STEP: "processed_to_curated"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+      dependencies: [land_to_processed]
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land/opg/dev/ocr/*
+    - mojap-raw-hist/opg/dev/ocr/*
+    - mojap-processed/opg/dev/ocr/*
+    - alpha-opg-etl/dev/ocr/*
+    - mojap-athena-query-dump/*airflow-development-opg-ocr/*
+
+maintainers:
+  - p-sin
+  - gwionap
+
+tags:
+  business_unit: OPG
+  owner: philip.sinfield@justice.gov.uk
+
+notifications:
+  emails:
+    - philip.sinfield@justice.gov.uk
+  slack_channel: opg-deds
