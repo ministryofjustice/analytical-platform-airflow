@@ -25,8 +25,8 @@ default_params = {
 dag = DAG(
     dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=default_args,
-    start_date=timedelta(seconds=62),
-    schedule=False,
+    start_date=datetime(2025, 9, 1),
+    schedule=timedelta(seconds=62),
     params=default_params,
     catchup=False,
     max_active_tasks=1,
