@@ -42,7 +42,6 @@ task = AnalyticalPlatformStandardOperator(
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}",
-    env_vars={},
     secrets=[
         Secret(
             deploy_type="env",
