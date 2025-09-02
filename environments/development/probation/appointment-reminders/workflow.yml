@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.1.dev10
+  tag: v0.0.1.dev11
   tasks:
     phase-one:
       env_vars:
