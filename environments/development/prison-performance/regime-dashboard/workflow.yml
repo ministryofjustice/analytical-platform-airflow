@@ -24,7 +24,7 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offenders_wap/*
     - moj-reg-prod-curated/hmpps-performance-hub/data/database_name=hub_prison/table_name=prison_metric_outturns/*
 
-  s3_read_write:
+  s3_read_write: 
     - alpha-app-regime-dashboard/airflow/Hub_data/*
     - alpha-app-regime-dashboard/airflow/summary_pa_data_aligned_with_measure/*
     - alpha-app-regime-dashboard/airflow/summary_pa_data_aligned_with_measure/prisoners_level_data/*
