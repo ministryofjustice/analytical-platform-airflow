@@ -16,6 +16,14 @@ iam:
 secrets:
   - service-account-token
 
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
 maintainers:
   - ltd-pa
   - williamorrie
