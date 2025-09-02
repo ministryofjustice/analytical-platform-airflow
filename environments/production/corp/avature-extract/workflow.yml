@@ -2,6 +2,12 @@
 dag:
   repository: moj-analytical-services/airflow-avature-scraper
   tag: v0.0.22-test-01
+  schedule: "0-59 * * * *"
+  is_paused_upon_creation: true
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-1vcpu-4gb
   env_vars:
     action: scrape-store-plain-json-latest
     WR_WORKGROUP: airflow-prod-workgroup-corp
@@ -21,7 +27,7 @@ notifications:
 
   emails:
     - Laurence.Droy@justice.gov.uk
-    - William.Orr@justice.gov.uk
+    - william.orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
 
 maintainers:
