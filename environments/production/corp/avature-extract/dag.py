@@ -42,10 +42,7 @@ task = AnalyticalPlatformStandardOperator(
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}",
-    env_vars={
-        "action": "scrape-store-plain-json-latest",
-        "WR_WORKGROUP": "airflow-prod-workgroup-corp",
-    },
+    env_vars={},
     secrets=[
         Secret(
             deploy_type="env",
