@@ -1,0 +1,26 @@
+dag:
+  repository: ministryofjustice/coat-cur-data-pipeline
+  tag: 1.0.0
+  max_active_runs: 1
+  retries: 3
+  retry_delay: 150
+  schedule: "0 6 * * *"
+
+maintainers:
+  - tamsinforbes
+  - connormaglynn
+  - abachleda-baca
+  - stefanskyhristov
+  - ratna-kurapati-moj
+
+iam:
+  glue: true
+  s3_read_only: mojap-data-production-coat-cur-reports-v2-hourly/*
+  kms:
+    - arn:aws:kms:eu-west-1:593291632749:key/0409ddbc-b6a2-46c4-a613-6145f6a16215
+tags:
+  business_unit: Platforms
+  owner: anthony.bishop@justice.gov.uk
+
+notifications:
+  slack_channel: cloud-optimisation-and-accountability-team
