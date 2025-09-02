@@ -2,6 +2,9 @@
 dag:
   repository: moj-analytical-services/airflow-avature-scraper
   tag: v0.0.22-test-01
+  env_vars:
+    action: scrape-store-plain-json-latest
+    WR_WORKGROUP: airflow-prod-workgroup-corp
 
 iam:
   athena: write
