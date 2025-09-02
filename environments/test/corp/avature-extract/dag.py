@@ -12,10 +12,18 @@ WORKFLOW="PLACEHOLDER_WORKFLOW"
 ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
 OWNER="PLACEHOLDER_OWNER"
 
+DAG_EMAIL = [
+    "Supratik.Chowdhury@justice.gov.uk",
+    "Laurence.Droy@justice.gov.uk",
+    "Shanmugapriya.Basker@justice.gov.uk",
+    "William.Orr@justice.gov.uk",
+]
+
 default_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "owner": f"{OWNER}",
+    "email": DAG_EMAIL
 }
 
 default_params = {
@@ -26,11 +34,10 @@ dag = DAG(
     dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=default_args,
     start_date=datetime(2025, 9, 1),
-    schedule=False,
+    schedule=timedelta(seconds=62),
     params=default_params,
     catchup=False,
     max_active_tasks=1,
-    is_paused_on_creation=True
 )
 
 task = AnalyticalPlatformStandardOperator(
@@ -43,7 +50,7 @@ task = AnalyticalPlatformStandardOperator(
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}",
     env_vars={
-        "action": "scrape-store-plain-json-latest",
+        "action": "extract-test",
         "WR_WORKGROUP": "airflow-prod-workgroup-corp",
     },
     secrets=[
