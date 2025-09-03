@@ -1,21 +1,30 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.1.dev12
+  tag: v0.0.1.dev13
   env_vars:
     GLUE_DATABASE: "notify_raw_dev"
   tasks:
+    init:
+      env_vars:
+        SCRIPT: "glue_database_setup.py"
     wales:
       env_vars:
         KEY_REGION: "Wales"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
     london:
       env_vars:
         KEY_REGION: "London"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
 
 secrets:
   - api-key-wales
   - api-key-london
 
 iam:
+  athena: write
+  glue: true
   s3_read_write:
     - alpha-asc-database/*
 
