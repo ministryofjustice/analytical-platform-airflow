@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-ccmbpt-deep-dive-models
-  tag: v2.3.6
+  tag: v2.3.7
   retries: 3
   retry_delay: 150
   schedule: "0 8 * * 1-5"
