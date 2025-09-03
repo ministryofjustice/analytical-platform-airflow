@@ -14,7 +14,7 @@ maintainers:
   - ratna-kurapati-moj
 
 iam:
-  athena: read
+  athena: write
   glue: true
   s3_read_only:
     - mojap-data-production-coat-cur-reports-v2-hourly/*
