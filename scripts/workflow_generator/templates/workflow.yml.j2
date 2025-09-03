@@ -79,7 +79,7 @@
       inlets: {{ task.inlets }}
       {%- endif %}
       {%- if task.outlets %}
-      dependencies: {{ task.outlets }}
+      outlets: {{ task.outlets }}
       {%- endif %}
     {%- endfor %}
     {%- else %}
