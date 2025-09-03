@@ -1,0 +1,21 @@
+---
+dag:
+  repository: moj-analytical-services/analytical-platform-airflow-python-example
+  tag: 2.0.0
+  retries: 3
+  retry_delay: 150
+  schedule: [ ["s3://ap_bucket/this_is_a_test.json"] ]
+  tasks:
+    task_one:
+      env_vars:
+        TASK: "FIRST"
+
+notifications:
+  slack_channel: analytical-platform-airflow-testing
+
+maintainers:
+  - antfmoj
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
