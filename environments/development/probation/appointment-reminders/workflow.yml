@@ -1,11 +1,13 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.1.dev11
+  tag: v0.0.1.dev12
+  env_vars:
+    GLUE_DATABASE: "notify_raw_dev"
   tasks:
-    phase-one:
+    wales:
       env_vars:
         KEY_REGION: "Wales"
-    phase-two:
+    london:
       env_vars:
         KEY_REGION: "London"
 
