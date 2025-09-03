@@ -4,7 +4,7 @@ dag:
   max_active_runs: 1
   retries: 3
   retry_delay: 150
-  schedule: "0 6 * * *"
+  schedule: "0 15 * * *"
 
 maintainers:
   - tamsinforbes
