@@ -40,7 +40,6 @@
     {{ k }}: "{{ v }}"
     {%- endfor %}
   {%- endif %}
-  schedule_interval: {{ dag.schedule|default(null) }}
   {%- if dag.schedule %}
   schedule: {{ dag.schedule }}
   {%- endif %}
