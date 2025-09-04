@@ -56,7 +56,7 @@ iam:
     - aws-athena-query-results-593291632749-eu-west-1/*
 
 secrets:
-  - api_token
+  - api-token
 
 notifications:
   emails:
