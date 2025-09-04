@@ -1,17 +1,19 @@
 ---
-# https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html
----
 dag:
   repository: moj-analytical-services/laa_cwa_providers
   tag: 0.1.0-alpha.d85ac82
   retries: 1
   retry_delay: 150
+
   env_vars:
     ENVIRONMENT: "dev"
     LOG_LEVEL: "INFO"
-    BUCKET_URL: "s3://alpha-mojap-curated-laa-dev/provider_details/raw/"
-    CACHE_DIRECTORY: "s3://alpha-mojap-curated-laa-dev/provider_details/cache/"
-    QUERY_RESULT_BUCKET: "s3://aws-athena-query-results-593291632749-eu-west-1"
+    BUCKET_URL: >
+      "s3://alpha-mojap-curated-laa-dev/provider_details/raw/"
+    CACHE_DIRECTORY: >
+      "s3://alpha-mojap-curated-laa-dev/provider_details/cache/"
+    QUERY_RESULT_BUCKET: >
+      "s3://aws-athena-query-results-593291632749-eu-west-1"
     ATHENA_WORK_GROUP: "primary"
     CACHE_ENABLED: "true"
     DISABLE_COMPRESSION: "true"
@@ -19,9 +21,11 @@ dag:
     API_REQUEST_TIMEOUT: "30"
     API_MAX_RETRIES: "3"
     DEPENDENCY_BATCH_SIZE: "50"
-    API_BASE_URL: "https://laa-provider-details-api-preprod.apps.live.cloud-platform.service.justice.gov.uk/"
+    API_BASE_URL: >
+      "https://laa-provider-details-api-preprod.apps.live.cloud-platform.service.justice.gov.uk/"
     PIPELINE_DIR: "providers_staging_dev/"
     DATABASE_NAME: "laa_provider_test_dev"
+
   tasks:
     extract-provider-firms:
       env_vars:
@@ -43,7 +47,6 @@ dag:
       env_vars:
         PIPELINE_NAME: "providers_dev_sole_practitioners"
         API_ENDPOINTS: "sole_practitioners"
-
 
 iam:
   athena: write
