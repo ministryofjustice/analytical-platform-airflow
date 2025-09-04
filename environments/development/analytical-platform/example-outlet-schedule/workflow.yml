@@ -5,7 +5,7 @@ dag:
   retries: 3
   retry_delay: 150
   schedule:
-   - "s3://ap_bucket/this_is_a_test_dataset.json"
+    - "s3://ap_bucket/this_is_a_test_dataset.json"
   tasks:
     task_one:
       env_vars:
