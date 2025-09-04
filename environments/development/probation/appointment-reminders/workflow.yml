@@ -33,6 +33,12 @@ maintainers:
   - sivabathina2
   - lalithanagarur
 
+notifications:
+  emails:
+    - lalitha.nagarur@justice.gov.uk
+    - antony.scott@justice.gov.uk
+  slack_channel: data-engineering-alerts-dev
+
 tags:
   business_unit: HQ
   owner: antony.scott@justice.gov.uk
