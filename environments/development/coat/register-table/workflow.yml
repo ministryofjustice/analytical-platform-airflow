@@ -1,10 +1,12 @@
 dag:
   repository: ministryofjustice/coat-cur-data-pipeline
-  tag: v1.0.1-dev
+  tag: v1.0.0
   max_active_runs: 1
   retries: 2
   retry_delay: 120
-  schedule: "0 6 * * *"
+  schedule: "0 1 * * *"
+  env_vars:
+    MODE: "dev"
 
 maintainers:
   - tamsinforbes
@@ -12,6 +14,8 @@ maintainers:
   - abachleda-baca
   - stefanskyhristov
   - ratna-kurapati-moj
+  - antonybishop
+  - andyrogers1973
 
 iam:
   athena: write
@@ -25,4 +29,4 @@ tags:
   owner: anthony.bishop@justice.gov.uk
 
 notifications:
-  slack_channel: cloud-optimisation-and-accountability-team
+  slack_channel: coat-notifications
