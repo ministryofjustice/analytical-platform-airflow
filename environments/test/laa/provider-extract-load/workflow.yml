@@ -9,11 +9,11 @@ dag:
     ENVIRONMENT: "dev"
     LOG_LEVEL: "INFO"
     BUCKET_URL: >
-      "s3://alpha-mojap-curated-laa-dev/provider_details/raw/"
+      s3://alpha-mojap-curated-laa-dev/provider_details/raw/
     CACHE_DIRECTORY: >
-      "s3://alpha-mojap-curated-laa-dev/provider_details/cache/"
+      s3://alpha-mojap-curated-laa-dev/provider_details/cache/
     QUERY_RESULT_BUCKET: >
-      "s3://aws-athena-query-results-593291632749-eu-west-1"
+      s3://aws-athena-query-results-593291632749-eu-west-1
     ATHENA_WORK_GROUP: "primary"
     CACHE_ENABLED: "true"
     DISABLE_COMPRESSION: "true"
@@ -22,7 +22,7 @@ dag:
     API_MAX_RETRIES: "3"
     DEPENDENCY_BATCH_SIZE: "50"
     API_BASE_URL: >
-      "https://laa-provider-details-api-preprod.apps.live.cloud-platform.service.justice.gov.uk/"
+      https://laa-provider-details-api-preprod.apps.live.cloud-platform.service.justice.gov.uk/
     PIPELINE_DIR: "providers_staging_dev/"
     DATABASE_NAME: "laa_provider_test_dev"
 
