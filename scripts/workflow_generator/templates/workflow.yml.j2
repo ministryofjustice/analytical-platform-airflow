@@ -41,8 +41,8 @@
     {%- endfor %}
   {%- endif %}
   schedule_interval: {{ dag.schedule|default(null) }}
-  {%- if schedule %}
-  schedule: {{ schedule }}
+  {%- if dag.schedule %}
+  schedule: {{ dag.schedule }}
   {%- endif %}
   tasks:
     {%- if dag.tasks %}
