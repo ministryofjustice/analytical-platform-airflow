@@ -37,7 +37,7 @@ dag = DAG(
     schedule_interval=timedelta(seconds=62),
     params=default_params,
     catchup=False,
-    max_active_tasks=1,
+    max_active_tasks=1
 )
 
 task = AnalyticalPlatformStandardOperator(
@@ -50,7 +50,7 @@ task = AnalyticalPlatformStandardOperator(
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}",
     env_vars={
-        "action": "extract-test",
+        "action": "scrape-store-plain-json-latest",
         "WR_WORKGROUP": "airflow-prod-workgroup-corp",
     },
     secrets=[
