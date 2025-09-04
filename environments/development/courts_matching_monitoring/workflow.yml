@@ -1,0 +1,27 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-court-matching-monitoring
+  tag: v0.0.33
+  retries: 3
+  retry_delay: 150
+  schedule: "0 8 * * *"
+
+notifications:
+  emails:
+    - alice.oleary@justice.gov.uk
+
+maintainers:
+  - aliceoleary0
+  - laura-williams2
+
+tags:
+  business_unit: HQ
+  owner: Laura.Williams2@justice.gov.uk
+
+iam:
+  athena: write
+  s3_read_only:
+    - moj-reg-prod-curated/hmpps-court-case-prod/data/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
+  s3_read_write:
+    - alpha-libra-delius-linking/*
