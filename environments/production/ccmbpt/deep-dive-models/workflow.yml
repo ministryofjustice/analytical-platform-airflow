@@ -7,7 +7,7 @@ dag:
   compute_profile: general-on-demand-4vcpu-16gb
   env_vars:
     IMAGE_VERSION: "{{ dag.tag }}"
-    
+
 maintainers:
   - chrisbanbury
   - glenn-christmas
