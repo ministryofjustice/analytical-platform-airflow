@@ -98,5 +98,9 @@ Without setting `PYTHONPATH=airflow`, Python will not recognise [`analytical_pla
 
 1. Log in to Airflow <http://localhost:8080>
 
-- Username: airflow
+- Username: admin
 - Password: test
+
+[!NOTE]
+To test a workflow locally, edit one of the exsting example DAGs, as these already have the necessary serviceaccount and IAM role.
+If a new workflow is created and tested locally, the task will fail due to the serviceaccount and IAM role being missing.
