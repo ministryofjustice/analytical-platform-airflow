@@ -1,6 +1,7 @@
 ---
 dag:
-  repository: moj-analytical-services/airflow-court-matching-monitoring
+  repository: "moj-analytical-services\
+              /airflow-court-matching-monitoring"
   tag: v0.0.33
   retries: 3
   retry_delay: 150
@@ -22,7 +23,8 @@ iam:
   athena: write
   s3_read_only:
     - moj-reg-prod-curated/hmpps-court-case-prod/data/*
-    - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
+    - "mojap-derived-tables/prod/models/domain_name\
+      =probation/database_name=delius/*"
   s3_read_write:
     - alpha-libra-delius-linking/*
     
