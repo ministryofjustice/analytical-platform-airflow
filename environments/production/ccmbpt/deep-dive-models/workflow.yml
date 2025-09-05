@@ -5,7 +5,9 @@ dag:
   retry_delay: 150
   schedule: "0 8 * * 1-5"
   compute_profile: general-on-demand-4vcpu-16gb
-
+  env_vars:
+    IMAGE_VERSION: "{{ dag.tag }}"
+    
 maintainers:
   - chrisbanbury
   - glenn-christmas
