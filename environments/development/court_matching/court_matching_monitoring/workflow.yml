@@ -25,3 +25,4 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
   s3_read_write:
     - alpha-libra-delius-linking/*
+    
