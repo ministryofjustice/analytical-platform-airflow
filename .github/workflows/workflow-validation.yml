@@ -49,7 +49,7 @@ jobs:
       - name: Comment on Length Check Failure
         id: comment_on_test_failure
         if: failure() && steps.check_changed_length.outcome == 'failure'
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
           script: |
             github.rest.issues.createComment({
@@ -249,7 +249,7 @@ jobs:
       - name: Comment on Image Check Failure
         id: comment_on_check_failure
         if: failure() && steps.check_image_exists.outcome == 'failure'
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
           script: |
             github.rest.issues.createComment({
@@ -307,7 +307,7 @@ jobs:
       - name: Comment on Image Test Failure
         id: comment_on_test_failure
         if: failure() && steps.container_structure_test.outcome == 'failure'
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
           script: |
             github.rest.issues.createComment({
@@ -391,7 +391,7 @@ jobs:
       - name: Comment on Image Version Mismatch
         id: comment_on_image_version_mismatch
         if: env.image-version-match == 'false'
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
           script: |
             github.rest.issues.createComment({
@@ -418,7 +418,7 @@ jobs:
       - name: Comment on Scan Failure
         id: comment_on_scan_failure
         if: failure() && steps.scan.outcome == 'failure'
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
           script: |
             github.rest.issues.createComment({
@@ -556,7 +556,7 @@ jobs:
       - name: Comment on Automatic Approval Check Status
         id: comment_on_automatic_approval_check
         if: steps.automatic_approval_check.outputs.automatic_approval_paused == 'true'
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
           script: |
             github.rest.issues.createComment({
@@ -569,7 +569,7 @@ jobs:
       - name: Automatic Approval
         if: steps.automatic_approval_check.outputs.eligible == 'true'
         id: automatic_approval
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
           github-token: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
           script: |
