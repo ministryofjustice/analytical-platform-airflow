@@ -4,9 +4,9 @@ dag:
   max_active_runs: 1
   retries: 2
   retry_delay: 120
-  schedule: "0 1 * * *"
+  schedule: "0 2 * * *"
   env_vars:
-    MODE: "dev"
+    MODE: "prod"
 
 maintainers:
   - tamsinforbes
