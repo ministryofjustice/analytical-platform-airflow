@@ -32,7 +32,7 @@ dag:
         KEY_REGION: "West Midlands"
         SCRIPT: "extract_pipeline.py"
       dependencies: [init]
-      
+
 secrets:
   - api-key-wales
   - api-key-london
