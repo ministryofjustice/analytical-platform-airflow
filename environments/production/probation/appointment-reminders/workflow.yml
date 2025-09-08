@@ -1,0 +1,62 @@
+dag:
+  repository: moj-analytical-services/airflow-appointment-reminders
+  tag: v0.0.1
+  env_vars:
+    GLUE_DATABASE: "notify_raw_dev"
+  tasks:
+    init:
+      env_vars:
+        SCRIPT: "glue_database_setup.py"
+    wales:
+      env_vars:
+        KEY_REGION: "Wales"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    london:
+      env_vars:
+        KEY_REGION: "London"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    east-of-england:
+      env_vars:
+        KEY_REGION: "East of Eng"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    greater-manchester:
+      env_vars:
+        KEY_REGION: "Greater Manch"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    west-midlands:
+      env_vars:
+        KEY_REGION: "West Midlands"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+
+secrets:
+  - api-key-wales
+  - api-key-london
+  - api-key-east-of-eng
+  - api-key-greater-manch
+  - api-key-west-midlands
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-govnotify-appointment-reminders/gov-notify/*
+
+maintainers:
+  - antonyjscott
+  - sivabathina2
+  - lalithanagarur
+
+notifications:
+  emails:
+    - lalitha.nagarur@justice.gov.uk
+    - antony.scott@justice.gov.uk
+  slack_channel: data-engineering-alerts-dev
+
+tags:
+  business_unit: HQ
+  owner: antony.scott@justice.gov.uk
