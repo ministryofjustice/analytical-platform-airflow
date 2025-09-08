@@ -11,7 +11,7 @@ dag:
   schedule: "0 16 12 * *"
 
   env_vars:
-    LOG_LEVEL: "DEBUG"
+    LOG_LEVEL: "INFO"
     ENV: "prod"
     FULL_REFRESH: "false"
     S3_LAND_DELETION_FLAG: "true"
