@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: 0.0.6-test-31
+  tag: 0.0.6-test-33
   schedule: "30 7 * * 1-5"
   env_vars:
     SITE: "fieldglass"
