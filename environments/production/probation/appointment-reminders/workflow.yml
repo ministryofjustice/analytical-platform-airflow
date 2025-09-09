@@ -1,8 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.2
+  tag: v0.0.3
   env_vars:
-    GLUE_DATABASE: "notify_raw_dev"
+    GLUE_DATABASE: "notify_raw_production"
   tasks:
     init:
       env_vars:
@@ -55,7 +55,7 @@ notifications:
   emails:
     - lalitha.nagarur@justice.gov.uk
     - antony.scott@justice.gov.uk
-  slack_channel: data-engineering-alerts-dev
+  slack_channel: data-engineering-alerts-prod
 
 tags:
   business_unit: HQ
