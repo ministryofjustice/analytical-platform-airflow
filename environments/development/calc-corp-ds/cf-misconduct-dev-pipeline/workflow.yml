@@ -20,7 +20,7 @@ dag:
         EXEC_SCRIPT: "run-pipeline"
         CHECK: "process_sscl_reports"
         SCRIPT: "src/misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py"
-      compute_profile: gpu-spot-8vcpu-32gb
+      compute_profile: "gpu-spot-8vcpu-32gb"
       dependencies: [db-prep-copy-db]
     merged-tables:
       env_vars:
@@ -33,13 +33,13 @@ dag:
         EXEC_SCRIPT: "run-pipeline"
         CHECK: "tags"
         SCRIPT: "tagging-process"
-      compute_profile: gpu-spot-8vcpu-32gb
+      compute_profile: "gpu-spot-8vcpu-32gb"
       dependencies: [merged-tables]
     create-tagged-employee-data:
       env_vars:
         EXEC_SCRIPT: "run-pipeline"
         CHECK: "tables_w_tags"
-        SCRIPT: "create-employee-tagged-db"
+        SCRIPT: "src/misconduct_nlp/process_inv_cd_data/create_employee_tagged_db.py"
       dependencies: [tag-and-review-data]
     customer-reports:
       env_vars:
