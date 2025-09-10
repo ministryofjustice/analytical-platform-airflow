@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.6.12
+  tag: v3.6.18
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -35,6 +35,7 @@ iam:
   glue: true
   s3_read_write:
     - mojap-land/opg/dev/ocr/*
+    - mojap-raw/opg/dev/ocr/*
     - mojap-raw-hist/opg/dev/ocr/*
     - mojap-processed/opg/dev/ocr/*
     - alpha-opg-etl/dev/ocr/*
