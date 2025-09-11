@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.21-test
+  tag: v0.0.21-test-2
   env_vars:
     AFFILE_PIPELINE_NAME: "test_csv_encrypted"
     AFFILE_ENV: "test"
@@ -27,7 +27,6 @@ notifications:
     - William.Orr@justice.gov.uk
 
 maintainers:
-
   - williamorrie
 
 tags:
