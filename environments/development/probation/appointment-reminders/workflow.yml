@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.1.dev35
+  tag: v0.0.1.dev36
   env_vars:
     GLUE_DATABASE: "appointment_reminders_raw_dev"
   tasks:
