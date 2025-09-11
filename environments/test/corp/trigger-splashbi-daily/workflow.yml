@@ -16,7 +16,7 @@ dag:
         REPORT_NAME: "laa-iexp01"
     opg-iexp01:
       env_vars:
-        REPORT_NAME: "opg-iexp01"    
+        REPORT_NAME: "opg-iexp01"
     cts-iexp01:
       env_vars:
         REPORT_NAME: "cts-iexp01"
@@ -46,4 +46,4 @@ maintainers:
 
 tags:
   business_unit: Central Digital
-  owner: supratik.chowdhury@justice.gov.uk 
+  owner: supratik.chowdhury@justice.gov.uk
