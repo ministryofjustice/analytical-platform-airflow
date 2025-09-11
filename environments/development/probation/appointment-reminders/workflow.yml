@@ -55,7 +55,7 @@ notifications:
   emails:
     - lalitha.nagarur@justice.gov.uk
     - antony.scott@justice.gov.uk
-  slack_channel: data-engineering-alerts-dev
+  slack_channel: de-probation-airflow-dev
 
 tags:
   business_unit: HQ
