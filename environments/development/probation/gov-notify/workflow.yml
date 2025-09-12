@@ -16,37 +16,9 @@ dag:
         SCRIPT: "extract_pipeline.py"
         GLUE_TABLE: "wales"
       dependencies: [init]
-    london:
-      env_vars:
-        KEY_REGION: "London"
-        SCRIPT: "extract_pipeline.py"
-        GLUE_TABLE: "london"
-      dependencies: [init]
-    east-of-england:
-      env_vars:
-        KEY_REGION: "East of Eng"
-        SCRIPT: "extract_pipeline.py"
-        GLUE_TABLE: "east_of_england"
-      dependencies: [init]
-    greater-manchester:
-      env_vars:
-        KEY_REGION: "Greater Manch"
-        SCRIPT: "extract_pipeline.py"
-        GLUE_TABLE: "greater_manchester"
-      dependencies: [init]
-    west-midlands:
-      env_vars:
-        KEY_REGION: "West Midlands"
-        SCRIPT: "extract_pipeline.py"
-        GLUE_TABLE: "west_midlands"
-      dependencies: [init]
 
 secrets:
   - api-key-wales
-  - api-key-london
-  - api-key-east-of-eng
-  - api-key-greater-manch
-  - api-key-west-midlands
 
 iam:
   athena: write
