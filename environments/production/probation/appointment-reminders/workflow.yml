@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.4
+  tag: v0.0.5
   env_vars:
     GLUE_DATABASE: "appointment_reminders_raw_prod"
   tasks:
@@ -48,14 +48,13 @@ iam:
 
 maintainers:
   - antonyjscott
-  - sivabathina2
   - lalithanagarur
 
 notifications:
   emails:
     - lalitha.nagarur@justice.gov.uk
     - antony.scott@justice.gov.uk
-  slack_channel: data-engineering-alerts-prod
+  slack_channel: de-probation-airflow-prod
 
 tags:
   business_unit: HQ
