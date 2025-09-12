@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.21-test-2
+  tag: v0.0.21-test-3
   env_vars:
     AFFILE_PIPELINE_NAME: "test_csv_encrypted"
     AFFILE_ENV: "dev"
