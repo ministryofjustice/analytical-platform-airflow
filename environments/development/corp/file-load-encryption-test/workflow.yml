@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.21-test-4
+  tag: v0.0.21-test-5
   env_vars:
     AFFILE_PIPELINE_NAME: "test_csv_encrypted"
     AFFILE_ENV: "dev"
@@ -21,7 +21,7 @@ iam:
     - mojap-processed/domain__affile/env__test/*
 
 secrets:
-  - pgp-private-key-b64
+  - pgp-privatekey-oneline
 
 notifications:
   slack_channel: dmet-corp-notifications
