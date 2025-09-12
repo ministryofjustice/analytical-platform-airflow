@@ -1,12 +1,9 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.1.dev38
+  tag: v0.0.5
   env_vars:
     GLUE_DATABASE: "app_reminders_dev"
-    S3_BUCKET: alpha-asc-database/airflow
-    DESTINATION__ATHENA__QUERY_RESULT_BUCKET: "s3://alpha-asc-database/airflow/query"
-    DESTINATION__FILESYSTEM__BUCKET_URL: "s3://alpha-asc-database/airflow"
-    DESTINATION__ATHENA__LAKEFORMATION_CONFIG__ENABLED: "false"
+    S3_BUCKET: "alpha-asc-database/airflow"
   tasks:
     init:
       env_vars:
@@ -28,13 +25,11 @@ iam:
     - alpha-asc-database/airflow/*
 
 maintainers:
-  - antonyjscott
   - lalithanagarur
 
 notifications:
   emails:
     - lalitha.nagarur3@justice.gov.uk
-    - antony.scott@justice.gov.uk
   slack_channel: de-probation-airflow-dev
 
 tags:
