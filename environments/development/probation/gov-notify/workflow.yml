@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.5
+  tag: v0.0.1.dev39
   env_vars:
     GLUE_DATABASE: "app_reminders_dev"
     S3_BUCKET: "alpha-asc-database/airflow"
