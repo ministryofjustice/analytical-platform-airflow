@@ -3,7 +3,7 @@ dag:
   tag: v0.0.5
   retries: 3
   retry_delay: 120
-  schedule: "37 2 * * sun"
+  schedule: "37 2 * * *"
   env_vars:
     GLUE_DATABASE: "appointment_reminders_raw_dev"
   tasks:
