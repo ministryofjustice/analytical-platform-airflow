@@ -1,0 +1,69 @@
+dag:
+  repository: moj-analytical-services/airflow-appointment-reminders
+  tag: v0.0.1.dev38
+  env_vars:
+    GLUE_DATABASE: "app_reminders_dev"
+    S3_BUCKET: alpha-asc-database/airflow
+    DESTINATION__ATHENA__QUERY_RESULT_BUCKET: "s3://alpha-asc-database/airflow/query"
+    DESTINATION__FILESYSTEM__BUCKET_URL: "s3://alpha-asc-database/airflow"
+  tasks:
+    init:
+      env_vars:
+        SCRIPT: "glue_database_setup.py"
+    wales:
+      env_vars:
+        KEY_REGION: "Wales"
+        SCRIPT: "extract_pipeline.py"
+        GLUE_TABLE: "wales"
+      dependencies: [init]
+    london:
+      env_vars:
+        KEY_REGION: "London"
+        SCRIPT: "extract_pipeline.py"
+        GLUE_TABLE: "london"
+      dependencies: [init]
+    east-of-england:
+      env_vars:
+        KEY_REGION: "East of Eng"
+        SCRIPT: "extract_pipeline.py"
+        GLUE_TABLE: "east_of_england"
+      dependencies: [init]
+    greater-manchester:
+      env_vars:
+        KEY_REGION: "Greater Manch"
+        SCRIPT: "extract_pipeline.py"
+        GLUE_TABLE: "greater_manchester"
+      dependencies: [init]
+    west-midlands:
+      env_vars:
+        KEY_REGION: "West Midlands"
+        SCRIPT: "extract_pipeline.py"
+        GLUE_TABLE: "west_midlands"
+      dependencies: [init]
+
+secrets:
+  - api-key-wales
+  - api-key-london
+  - api-key-east-of-eng
+  - api-key-greater-manch
+  - api-key-west-midlands
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-asc-database/airflow/*
+
+maintainers:
+  - antonyjscott
+  - lalithanagarur
+
+notifications:
+  emails:
+    - lalitha.nagarur3@justice.gov.uk
+    - antony.scott@justice.gov.uk
+  slack_channel: de-probation-airflow-dev
+
+tags:
+  business_unit: HQ
+  owner: lalitha.nagarur3@justice.gov.uk
