@@ -4,7 +4,7 @@ dag:
   tag: v0.0.21-test-2
   env_vars:
     AFFILE_PIPELINE_NAME: "test_csv_encrypted"
-    AFFILE_ENV: "test"
+    AFFILE_ENV: "dev"
     AFFILE_SCHEMA_CONTRACT: "freeze"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
