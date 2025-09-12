@@ -6,6 +6,7 @@ dag:
     S3_BUCKET: alpha-asc-database/airflow
     DESTINATION__ATHENA__QUERY_RESULT_BUCKET: "s3://alpha-asc-database/airflow/query"
     DESTINATION__FILESYSTEM__BUCKET_URL: "s3://alpha-asc-database/airflow"
+    DESTINATION__ATHENA__LAKEFORMATION_CONFIG__ENABLED": "false"
   tasks:
     init:
       env_vars:
