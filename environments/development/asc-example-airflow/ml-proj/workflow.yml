@@ -1,0 +1,35 @@
+dag:
+  repository: moj-analytical-services/asc-example-repo
+  tag: v0.0.1.dev1
+  tasks:
+    download_data:
+      env_vars:
+        SCRIPT: "data_download/download.py"
+    transform_data:
+      env_vars:
+        SCRIPT: "data_download/transform.py"
+      dependencies: [download_data]
+    ebm_modelling:
+      env_vars:
+        SCRIPT: "data_download/ebm_modelling.py"
+      dependencies: [transform_data]
+    rf_modelling:
+      env_vars:
+        SCRIPT: "data_download/rf_modelling.py"
+      dependencies: [transform_data]
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-asc-example-repo/*
+
+maintainers:
+  - antonyjscott
+
+notifications:
+  emails:
+    - antony.scott@justice.gov.uk
+
+tags:
+  business_unit: HQ
+  owner: antony.scott@justice.gov.uk
