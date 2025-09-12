@@ -20,6 +20,9 @@ iam:
     - alpha-dag-sop-data-engineering/affile-test/test-csv/*
     - mojap-processed/domain__affile/env__test/*
 
+secrets:
+  - pgp-private-key-b64
+
 notifications:
   slack_channel: dmet-corp-notifications
 
