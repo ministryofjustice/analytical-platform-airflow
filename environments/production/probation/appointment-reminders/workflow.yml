@@ -1,7 +1,11 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.5
+  tag: v1.0.0
+  retries: 3
+  retry_delay: 120
+  schedule: "37 2 * * *"
   env_vars:
+    S3_BUCKET: "alpha-govnotify-probation-messaging/appointment-reminders"
     GLUE_DATABASE: "appointment_reminders_raw_prod"
   tasks:
     init:
@@ -52,7 +56,7 @@ maintainers:
 
 notifications:
   emails:
-    - lalitha.nagarur@justice.gov.uk
+    - lalitha.nagarur3@justice.gov.uk
     - antony.scott@justice.gov.uk
   slack_channel: de-probation-airflow-prod
 
