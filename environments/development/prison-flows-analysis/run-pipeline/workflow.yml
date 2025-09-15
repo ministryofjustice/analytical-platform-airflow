@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/prison-flows-analysis
-  tag: v0.4.0.dev30
+  tag: v0.4.1.dev1
 
 iam:
   athena: write
@@ -14,8 +14,12 @@ iam:
     - alpha-short-term-forecast/data_folder/*
 
 maintainers:
-  - antonyjscott
+  - rolakeo-mojo
+  - lhan1825
+  - saimon-khan
+  - fernbeedle
+  
 
 tags:
   business_unit: HQ
-  owner: antony.scott@justice.gov.uk
+  owner: lu.han@justice.gov.uk
