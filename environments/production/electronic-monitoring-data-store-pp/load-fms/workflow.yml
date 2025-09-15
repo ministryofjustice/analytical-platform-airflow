@@ -24,7 +24,7 @@ notifications:
   slack_channel: electronic-monitoring-data-hub-preprod-notifications
 
 iam:
-  external_role: arn:aws:iam::443370694497:role/airflow-preprod-load-fms-pp
+  external_role: arn:aws:iam::443370694497:role/airflow-prod-load-fms-pp
 
 maintainers:
   - matt-heery
