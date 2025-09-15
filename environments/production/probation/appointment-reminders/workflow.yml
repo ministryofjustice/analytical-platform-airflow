@@ -5,7 +5,7 @@ dag:
   retry_delay: 120
   schedule: "37 2 * * *"
   env_vars:
-    S3_BUCKET: "alpha-govnotify-appointment-reminders/gov-notify"
+    S3_BUCKET: "alpha-govnotify-appointment-reminders/appointment-reminders"
     GLUE_DATABASE: "appointment_reminders_raw_prod"
   tasks:
     init:
