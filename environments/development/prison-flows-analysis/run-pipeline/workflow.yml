@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/prison-flows-analysis
-  tag: v0.4.1.dev1
+  tag: v0.4.1.dev2
 
 iam:
   athena: write
@@ -18,7 +18,6 @@ maintainers:
   - lhan1825
   - saimon-khan
   - fernbeedle
-
 
 tags:
   business_unit: HQ
