@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/aamir-test-airflow-repo
-  tag: v0.01
+  tag: v0.02
   schedule: "0 9 17 9 *"
   start_date: "2025-09-17"
   end_date: "2025-09-17"
@@ -11,7 +11,6 @@ dag:
 
 maintainers:
   - aamirramzan
-  - nyh01
 
 tags:
   business_unit: HQ
