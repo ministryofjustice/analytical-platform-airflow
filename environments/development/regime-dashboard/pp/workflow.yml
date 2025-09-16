@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow_regime_dashboard_data
-  tag: v.0.1.40
+  tag: v.0.1.41
   schedule: "00 14 * * 2"
   compute_profile: general-spot-2vcpu-8gb
 
