@@ -6,9 +6,6 @@ dag:
   end_date: "2025-09-20"  # runs hourly until end of 20th Sept
   catchup: false
   is_paused_upon_creation: false
-  retries: 1
-  retry_delay: 30
-
 
 iam:
   athena: write
