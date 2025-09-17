@@ -62,7 +62,7 @@
       "max_active_runs": { "type": "integer", "required": false },
       "retries": { "type": "integer", "required": false },
       "retry_delay": { "type": "integer", "required": false },
-      "schedule": { "type": ["string", "list", "dict"], "required": false },
+      "schedule": { "type": "string", "required": false },
       "start_date": { "type": "string", "required": false },
       "tasks": {
         "type": "dict",
@@ -121,14 +121,6 @@
             "dependencies": {
               "type": "list",
               "schema": { "type": "string" },
-              "required": false
-            },
-            "inlets": {
-              "type": ["list", "dict"],
-              "required": false
-            },
-            "outlets": {
-              "type": ["list", "dict"],
               "required": false
             }
           }

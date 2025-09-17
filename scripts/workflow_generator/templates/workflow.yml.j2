@@ -72,12 +72,6 @@
       {%- if task.dependencies %}
       dependencies: {{ task.dependencies }}
       {%- endif %}
-      {%- if task.inlets %}
-      inlets: {{ task.inlets }}
-      {%- endif %}
-      {%- if task.outlets %}
-      outlets: {{ task.outlets }}
-      {%- endif %}
     {%- endfor %}
     {%- else %}
     main:
