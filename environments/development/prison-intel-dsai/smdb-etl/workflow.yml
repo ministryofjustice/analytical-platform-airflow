@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-smdb-etl
-  tag: 1.0.15
+  tag: 1.0.16
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
