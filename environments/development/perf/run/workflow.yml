@@ -1,7 +1,7 @@
 dag:
   repository: ministryofjustice/aamir-test-airflow-repo
-  tag: v0.02
-  schedule: "20 13 17 9 *"
+  tag: v0.03
+  schedule: "30 13 17 9 *"
   start_date: "2025-09-17"
   end_date: "2025-09-17"
   catchup: false
