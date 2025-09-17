@@ -1,9 +1,9 @@
 dag:
   repository: ministryofjustice/aamir-test-airflow-repo
   tag: v0.05
-  schedule: "0 * * * *"  # every hour on the hour
+  schedule: "0 * * * *"
   start_date: "2025-09-17"
-  end_date: "2025-09-20"  # runs hourly until end of 20th Sept
+  end_date: "2025-09-20"
   catchup: false
   is_paused_upon_creation: false
 
