@@ -20,11 +20,11 @@ notifications:
   slack_channel: electronic-monitoring-data-hub-preprod-notifications
 
 iam:
-  external_role: arn:aws:iam::443370694497:role/airflow-preprod-full-reload-servicenow-pp
+  external_role: arn:aws:iam::443370694497:role/airflow-prod-full-reload-servicenow-pp
 
 maintainers:
   - matt-heery
-  - pricemg
+  - kraihanmoj
 
 tags:
   business_unit: HMPPS
