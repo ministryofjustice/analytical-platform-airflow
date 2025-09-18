@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa_cwa_providers
-  tag: 1.0.0
+  tag: 1.0.1-alpha.4ef7278
   retries: 1
   retry_delay: 150
 
