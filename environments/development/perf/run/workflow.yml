@@ -3,7 +3,7 @@ dag:
   tag: v0.06
   schedule: "0 * * * *"
   start_date: "2025-09-17"
-  end_date: "2025-09-20"
+  end_date: "2025-10-10"
   catchup: false
   is_paused_upon_creation: false
 
