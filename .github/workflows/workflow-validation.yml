@@ -490,6 +490,7 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
           git fetch origin main
 
@@ -511,14 +512,14 @@ jobs:
           done
 
           # Check if the workflow file has been modified, and in what way
-          if [[ $(git diff --name-status origin/main ${{ env.workflow-directory }}/workflow.yml | awk '{ print $1 }') == "M" ]]; then
-            echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, eligible for automatic approval depending on changes"
-            gh api "repos/${{ github.repository }}/contents/${{ env.workflow-directory }}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${{ env.workflow-directory }}/workflow-main.yml"
+          if [[ $(git diff --name-status origin/main ${WORKFLOW_DIRECTORY}/workflow.yml | awk '{ print $1 }') == "M" ]]; then
+            echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, eligible for automatic approval depending on changes"
+            gh api "repos/${{ github.repository }}/contents/${WORKFLOW_DIRECTORY}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${WORKFLOW_DIRECTORY}/workflow-main.yml"
 
-            if [[ $(python scripts/yaml_diff/main.py "${{ env.workflow-directory }}/workflow-main.yml" "${{ env.workflow-directory }}/workflow.yml") == "Only dag.tag has changed" ]]; then
+            if [[ $(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml") == "Only dag.tag has changed" ]]; then
               echo "Only dag.tag has changed, eligible for automatic approval"
             else
-              echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, not eligible for automatic approval"
+              echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, not eligible for automatic approval"
               exit 0
             fi
           fi
@@ -540,7 +541,7 @@ jobs:
           done
 
           # Check if pull request author is maintainer of the workflow
-          if yq -e '.maintainers | contains([env.GITHUB_ACTOR])' ${{ env.workflow-directory }}/workflow.yml > /dev/null; then
+          if yq -e '.maintainers | contains([env.GITHUB_ACTOR])' "${WORKFLOW_DIRECTORY}/workflow.yml" > /dev/null; then
             echo "${GITHUB_ACTOR} is a maintainer, eligible for automatic approval"
           else
             echo "${GITHUB_ACTOR} is not a maintainer, not eligible for automatic approval"
