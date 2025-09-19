@@ -6,15 +6,11 @@ iam:
   glue: true
   s3_read_write:
     - mojap-land/hmpps/prison-curious/proof-of-concept/*
-    
+
 maintainers:
   - iainborsbey-mj
   - anthonycody
   - andrewc-moj
-
-tags:
-  business_unit: HQ
-  owner: iain.borsbey@justice.gov.uk
 
 notifications:
   emails:
