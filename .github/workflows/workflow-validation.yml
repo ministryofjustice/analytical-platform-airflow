@@ -548,7 +548,6 @@ jobs:
             exit 0
           fi
 
-
           # Check automatic approval status in DynamoDB
           automatic_approval_dynamodb_status=$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)
 
