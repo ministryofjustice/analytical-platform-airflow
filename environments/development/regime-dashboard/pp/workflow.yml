@@ -1,7 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow_regime_dashboard_data
-  tag: v.0.1.30
+  tag: v.0.1.41
   schedule: "00 14 * * 2"
+  compute_profile: general-spot-2vcpu-8gb
 
 iam:
   athena: write
@@ -29,6 +30,7 @@ iam:
     - alpha-app-regime-dashboard/airflow/summary_pa_data_aligned_with_measure/*
     - alpha-app-regime-dashboard/airflow/summary_pa_data_aligned_with_measure/prisoners_level_data/*
     - alpha-app-regime-dashboard/airflow/2425_pa_data/*
+    - alpha-prison-performance-team/purposeful_activity/regime_dashboard/*
 
 maintainers:
   - hayley-purser

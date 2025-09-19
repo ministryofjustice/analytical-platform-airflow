@@ -1,18 +1,18 @@
 ---
 dag:
   repository: moj-analytical-services/laa_cwa_providers
-  tag: 0.1.0-alpha.d85ac82
+  tag: 1.0.2-alpha.c57758a
   retries: 1
   retry_delay: 150
 
   env_vars:
     ENVIRONMENT: "dev"
     LOG_LEVEL: "INFO"
-    BUCKET_URL: >
-      s3://alpha-mojap-curated-laa-dev/provider_details/raw/
-    CACHE_DIRECTORY: >
-      s3://alpha-mojap-curated-laa-dev/provider_details/cache/
-    QUERY_RESULT_BUCKET: >
+    BUCKET_URL: >-
+      s3://alpha-mojap-curated-laa-dev/provider_details/raw
+    CACHE_DIRECTORY: >-
+      s3://alpha-mojap-curated-laa-dev/provider_details/cache
+    QUERY_RESULT_BUCKET: >-
       s3://aws-athena-query-results-593291632749-eu-west-1
     ATHENA_WORK_GROUP: "primary"
     CACHE_ENABLED: "true"
@@ -21,7 +21,7 @@ dag:
     API_REQUEST_TIMEOUT: "30"
     API_MAX_RETRIES: "3"
     DEPENDENCY_BATCH_SIZE: "50"
-    API_BASE_URL: >
+    API_BASE_URL: >-
       https://laa-provider-details-api-preprod.apps.live.cloud-platform.service.justice.gov.uk/
     PIPELINE_DIR: "providers_staging_dev/"
     DATABASE_NAME: "laa_provider_test_dev"

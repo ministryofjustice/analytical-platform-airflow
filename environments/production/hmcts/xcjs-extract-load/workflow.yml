@@ -2,16 +2,16 @@
 # https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html
 dag:
   repository: moj-analytical-services/airflow-cross-cjs-data
-  tag: 1.0.0-beta.3e2ba81
+  tag: v1.0.1
   catchup: false
   compute_profile: "general-spot-8vcpu-32gb"
   depends_on_past: false
   retries: 1
   retry_delay: 150
-  schedule: None
+  schedule: "0 1 13 * *"
 
   env_vars:
-    LOG_LEVEL: "DEBUG"
+    LOG_LEVEL: "INFO"
     ENV: "prod"
     FULL_REFRESH: "false"
     S3_LAND_DELETION_FLAG: "true"

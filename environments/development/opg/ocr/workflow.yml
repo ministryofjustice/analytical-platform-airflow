@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.6.12
+  tag: v3.6.36
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -29,12 +29,18 @@ dag:
         STEP: "processed_to_curated"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [land_to_processed]
+    create_curated_database:
+      env_vars:
+        STEP: "create_curated_database"
+      compute_profile: "general-on-demand-4vcpu-16gb"
+      dependencies: [processed_to_curated]
 
 iam:
   athena: write
   glue: true
   s3_read_write:
     - mojap-land/opg/dev/ocr/*
+    - mojap-raw/opg/dev/ocr/*
     - mojap-raw-hist/opg/dev/ocr/*
     - mojap-processed/opg/dev/ocr/*
     - alpha-opg-etl/dev/ocr/*
