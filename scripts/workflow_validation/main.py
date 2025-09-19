@@ -2,15 +2,17 @@
 import sys
 from pathlib import Path
 
-import dagfactory
-
+from dagfactory import load_yaml_dags
 
 workflow_file = sys.argv[1]
 print(f"Processing workflow file: {workflow_file}")
 
 file_path = Path(workflow_file).resolve()
 
-dag_factory = dagfactory.DagFactory(config_filepath=str(file_path))
-dag = dag_factory.generate_dags(globals())
+load_yaml_dags(
+    globals_dict=globals(),
+    config_filepath=file_path
+)
+
 # if we got this far without an exception the DAG is valid
 print(f"DAG loaded successfully: {file_path}")

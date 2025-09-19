@@ -8,6 +8,7 @@ on:
     paths:
       - airflow/**
       - environments/**
+      - scripts/workflow_generator/**
 
 permissions: {}
 
