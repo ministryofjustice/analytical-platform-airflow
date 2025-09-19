@@ -116,6 +116,16 @@ jobs:
 
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
+      - name: Check if Workflow Directory Includes Underscore
+        id: check_workflow_directory_underscore
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+        run: |
+          if [[ "${WORKFLOW_DIRECTORY}" == *"_"* ]]; then
+            echo "Workflow directory contains underscores, which is not allowed."
+            exit 1
+          fi
+
       - name: Check if DAG is Python
         id: dag_is_python
         run: |
@@ -512,7 +522,7 @@ jobs:
           done
 
           # Check if the workflow file has been modified, and in what way
-          if [[ $(git diff --name-status origin/main ${WORKFLOW_DIRECTORY}/workflow.yml | awk '{ print $1 }') == "M" ]]; then
+          if [[ $(git diff --name-status origin/main "${WORKFLOW_DIRECTORY}/workflow.yml" | awk '{ print $1 }') == "M" ]]; then
             echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, eligible for automatic approval depending on changes"
             gh api "repos/${{ github.repository }}/contents/${WORKFLOW_DIRECTORY}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${WORKFLOW_DIRECTORY}/workflow-main.yml"
 
