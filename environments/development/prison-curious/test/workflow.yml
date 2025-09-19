@@ -3,7 +3,7 @@ dag:
 
 iam:
   athena: write
-
+  glue: true
   s3_read_write:
     - mojap-land/hmpps/prison-curious/proof-of-concept/*
     
@@ -15,3 +15,7 @@ maintainers:
 tags:
   business_unit: HQ
   owner: iain.borsbey@justice.gov.uk
+
+notifications:
+  emails:
+    - iain.borsbey@justice.gov.uk
