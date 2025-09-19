@@ -1,5 +1,6 @@
 dag:
   repository: moj-analytical-services/prison-curious-example
+  tag: v1.0.0
 
 iam:
   athena: write
