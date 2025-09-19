@@ -22,7 +22,6 @@ dag:
     opg-hr_rew_02:
       env_vars:
         REPORT_NAME: "opg-hr_rew_02"
-    
 
 iam:
   s3_read_write:
