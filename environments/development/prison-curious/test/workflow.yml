@@ -13,6 +13,10 @@ maintainers:
   - anthonycody
   - andrewc-moj
 
+tags:
+  business_unit: HQ
+  owner: iain.borsbey@justice.gov.uk
+
 notifications:
   emails:
     - iain.borsbey@justice.gov.uk
