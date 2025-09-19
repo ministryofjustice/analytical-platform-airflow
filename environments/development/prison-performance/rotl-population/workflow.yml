@@ -1,6 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow_rotl_population
   tag: v0.1.01
+  retries: 3
+  retry_delay: 150
   schedule: "0 14 4 * *"
 
 iam:
@@ -24,6 +26,8 @@ iam:
 
   s3_read_write:
     - alpha-prison-performance-team/ROTL_population/*
+
+  s3_write_only:
     - mojap-hub-exports/prison_performance/*
 
 maintainers:
