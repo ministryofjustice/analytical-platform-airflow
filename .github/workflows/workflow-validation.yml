@@ -540,7 +540,7 @@ jobs:
           # done
 
           # Check if pull request author is maintainer of the workflow
-          if yq -e '.maintainers | contains(["${{ github.actor }}"])' workflow.yml > /dev/null; then
+          if yq -e '.maintainers | contains(["${{ github.actor }}"])' ${{ env.workflow-directory }}/workflow.yml > /dev/null; then
             echo "${{ github.actor }} is a maintainer"
           else
             echo "${{ github.actor }} is not a maintainer"
