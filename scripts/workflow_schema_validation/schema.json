@@ -64,6 +64,16 @@
       "retry_delay": { "type": "integer", "required": false },
       "schedule": { "type": ["string", "dict"], "required": false },
       "start_date": { "type": "string", "required": false },
+      "inlets": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      },
+      "outlets": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      },
       "tasks": {
         "type": "dict",
         "required": false,
