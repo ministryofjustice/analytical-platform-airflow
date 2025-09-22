@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.2.9-0bce2b7fb82bcf0b501ba3c8cb061d9abf046feb
+  tag: v0.1.73-13646fa32ed3c0d715c9d35fa0a8d7c5971a759c
   compute_profile: general-spot-1vcpu-4gb
   catchup: false
   depends_on_past: false
@@ -29,4 +29,4 @@ maintainers:
 
 tags:
   business_unit: HMPPS
-  owner: matt.heery@justice.gov.uk # for now....
+  owner: EMDataEngineering@justice.gov.uk

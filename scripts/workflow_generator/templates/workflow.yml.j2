@@ -40,7 +40,7 @@
     {{ k }}: "{{ v }}"
     {%- endfor %}
   {%- endif %}
-  schedule_interval: {{ dag.schedule|default(null) }}
+  schedule: {{ dag.schedule|default("None") }}
   tasks:
     {%- if dag.tasks %}
     {%- for task_name, task in dag.tasks.items() %}
@@ -72,6 +72,12 @@
       {%- if task.dependencies %}
       dependencies: {{ task.dependencies }}
       {%- endif %}
+      {%- if task.inlets %}
+      inlets: {{ task.inlets }}
+      {%- endif %}
+      {%- if task.outlets %}
+      outlets: {{ task.outlets }}
+      {%- endif %}
     {%- endfor %}
     {%- else %}
     main:
@@ -100,4 +106,10 @@
       environment: {{ meta.environment }}
       project: {{ meta.project }}
       workflow: {{ meta.workflow }}
+      {%- if task.inlets %}
+      inlets: {{ task.inlets }}
+      {%- endif %}
+      {%- if task.outlets %}
+      outlets: {{ task.outlets }}
+      {%- endif %}
     {%- endif %}

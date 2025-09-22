@@ -1,28 +1,68 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v0.0.1.dev12
+  tag: v1.1.0
   env_vars:
-    GLUE_DATABASE: "notify_raw_dev"
+    GLUE_DATABASE: "appointment_reminders_raw_dev"
+    S3_BUCKET: "alpha-govnotify-probation-messaging/appointment-reminders"
   tasks:
+    init:
+      env_vars:
+        SCRIPT: "glue_database_setup.py"
     wales:
       env_vars:
         KEY_REGION: "Wales"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
     london:
       env_vars:
         KEY_REGION: "London"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    east-of-england:
+      env_vars:
+        KEY_REGION: "East of Eng"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    greater-manchester:
+      env_vars:
+        KEY_REGION: "Greater Manch"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    west-midlands:
+      env_vars:
+        KEY_REGION: "West Midlands"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    kent-surrey-sussex:
+      env_vars:
+        KEY_REGION: "Ken Sur Sus"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
 
 secrets:
   - api-key-wales
   - api-key-london
+  - api-key-east-of-eng
+  - api-key-greater-manch
+  - api-key-west-midlands
+  - api-key-ken-sur-sus
 
 iam:
+  athena: write
+  glue: true
   s3_read_write:
-    - alpha-asc-database/*
+    - alpha-govnotify-probation-messaging/appointment-reminders/*
 
 maintainers:
   - antonyjscott
   - sivabathina2
   - lalithanagarur
+
+notifications:
+  emails:
+    - lalitha.nagarur@justice.gov.uk
+    - antony.scott@justice.gov.uk
+  slack_channel: de-probation-airflow-dev
 
 tags:
   business_unit: HQ

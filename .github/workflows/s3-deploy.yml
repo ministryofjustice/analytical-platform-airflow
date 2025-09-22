@@ -8,6 +8,7 @@ on:
     paths:
       - airflow/**
       - environments/**
+      - scripts/workflow_generator/**
 
 permissions: {}
 
@@ -41,14 +42,14 @@ jobs:
 
       - name: Configure AWS Credentials
         id: configure_aws_credentials
-        uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4.3.1
+        uses: aws-actions/configure-aws-credentials@a03048d87541d1d9fcf2ecf528a4a65ba9bd7838 # v5.0.0
         with:
           aws-region: eu-west-2
           role-to-assume: arn:aws:iam::${{ matrix.account }}:role/github-actions-ministryofjustice-analytical-platform-airflow
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@4959332f0f014c5280e7eac8b70c90cb574c9f9b # v6.6.0
+        uses: astral-sh/setup-uv@b75a909f75acd358c2196fb9a5f1299a9a8868a4 # v6.7.0
         with:
           activate-environment: true
           version: "latest"

@@ -1,0 +1,31 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-load-em-data
+  tag: v0.2.74
+  compute_profile: general-spot-1vcpu-4gb
+  catchup: false
+  depends_on_past: false
+  max_active_runs: 1
+  env_vars:
+    SUPPLIER_NAME: "serco"
+    SYSTEM_NAME: "servicenow"
+    AWS_DEFAULT_REGION: "eu-west-2"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+    REFRESH_TOTAL_DB: true
+
+notifications:
+  emails:
+    - EMDataEngineering@justice.gov.uk
+  slack_channel: electronic-monitoring-data-hub-preprod-notifications
+
+iam:
+  external_role: arn:aws:iam::443370694497:role/airflow-prod-full-reload-servicenow-pp
+
+maintainers:
+  - matt-heery
+  - pricemg
+
+tags:
+  business_unit: HMPPS
+  owner: EMDataEngineering@justice.gov.uk
