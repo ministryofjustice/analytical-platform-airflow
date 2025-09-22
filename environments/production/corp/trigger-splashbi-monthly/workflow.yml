@@ -2,11 +2,11 @@
 dag:
   repository: moj-analytical-services/airflow-report-extractor
   tag: v0.0.17
-  schedule: 0 7 1-7 * MON
+  schedule: "0 7 1-7 * MON"
   env_vars:
-    REPORT_APP: splashbi
-    REPORT_RUNTIME_ENV: prod
-    REPORT_RUN_MODE: trigger
+    REPORT_APP: "splashbi"
+    REPORT_RUNTIME_ENV: "prod"
+    REPORT_RUN_MODE: "trigger"
   tasks:
     po_sscl_details:
       env_vars:
@@ -34,4 +34,3 @@ maintainers:
 tags:
   business_unit: Central Digital
   owner: supratik.chowdhury@justice.gov.uk
-
