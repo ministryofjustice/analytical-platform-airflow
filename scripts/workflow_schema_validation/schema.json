@@ -62,7 +62,7 @@
       "max_active_runs": { "type": "integer", "required": false },
       "retries": { "type": "integer", "required": false },
       "retry_delay": { "type": "integer", "required": false },
-      "schedule": { "type": ["string", "list", "dict"], "required": false },
+      "schedule": { "type": ["string", "dict"], "required": false },
       "start_date": { "type": "string", "required": false },
       "tasks": {
         "type": "dict",
