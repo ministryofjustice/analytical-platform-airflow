@@ -2,16 +2,15 @@
 dag:
   repository: moj-analytical-services/airflow-report-extractor
   tag: v0.0.16-test-grni
-  schedule: "0 7 1-7 * MON"
+  schedule: 0 7 1-7 * MON
   env_vars:
-    REPORT_APP: "splashbi"
-    REPORT_RUNTIME_ENV: "prod"
-    REPORT_RUN_MODE: "trigger"
+    REPORT_APP: splashbi
+    REPORT_RUNTIME_ENV: prod
+    REPORT_RUN_MODE: trigger
   tasks:
     po_sscl_details:
       env_vars:
-        REPORT_NAME: "po_sscl_details"
-
+        REPORT_NAME: po_sscl_details
 
 iam:
   s3_read_write:
@@ -22,7 +21,6 @@ secrets:
 
 notifications:
   slack_channel: dmet-corp-notifications
-
   emails:
     - william.orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
@@ -36,3 +34,4 @@ maintainers:
 tags:
   business_unit: Central Digital
   owner: supratik.chowdhury@justice.gov.uk
+
