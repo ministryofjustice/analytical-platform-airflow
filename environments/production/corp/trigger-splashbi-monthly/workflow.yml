@@ -11,7 +11,7 @@ dag:
     po_sscl_details:
       env_vars:
         REPORT_NAME: "po_sscl_details"
- 
+
 
 iam:
   s3_read_write:
