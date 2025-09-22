@@ -36,6 +36,11 @@ dag:
         KEY_REGION: "West Midlands"
         SCRIPT: "extract_pipeline.py"
       dependencies: [init]
+    kent-surrey-sussex:
+      env_vars:
+        KEY_REGION: "Ken Sur Sus"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
 
 secrets:
   - api-key-wales
@@ -43,6 +48,7 @@ secrets:
   - api-key-east-of-eng
   - api-key-greater-manch
   - api-key-west-midlands
+  - api-key-ken-sur-sus
 
 iam:
   athena: write
