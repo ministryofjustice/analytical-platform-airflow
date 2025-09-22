@@ -9,6 +9,8 @@ dag:
       - "s3://ap_bucket/this_is_a_test_dataset.json"
   tasks:
     task_one:
+      inlets:
+        - "s3://ap_bucket/this_is_a_test_dataset.json"
       env_vars:
         TASK: "SECOND"
 
