@@ -106,10 +106,10 @@
       environment: {{ meta.environment }}
       project: {{ meta.project }}
       workflow: {{ meta.workflow }}
-      {%- if task.inlets %}
-      inlets: {{ task.inlets }}
+      {%- if inlets %}
+      inlets: {{ inlets }}
       {%- endif %}
-      {%- if task.outlets %}
-      outlets: {{ task.outlets }}
+      {%- if outlets %}
+      outlets: {{ outlets }}
       {%- endif %}
     {%- endif %}
