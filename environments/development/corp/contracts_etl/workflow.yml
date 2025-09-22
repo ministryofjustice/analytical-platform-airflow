@@ -20,23 +20,25 @@ tags:
 # If you don't have any specific secrets to add, you can provide an empty list.
 secrets: []
 
-parameters:
+dag:
   iam_role_name: airflow_dev_contracts_etl
-
   athena:
     write: true
     dump_bucket:
       - mojap-athena-query-dump
-
   s3:
     read_write:
       - mojap-land/contracts/*
       - alpha-contracts-etl/*
       - alpha-app-commuter-contracts/*
       - alpha-sop-commercial-land/*
-
     write_only:
       - alpha-app-scorecard-form/jaggaer/*
       - alpha-app-scorecard-form-dev/jaggaer/*
       - alpha-app-scorecard-form/rio/*
       - alpha-app-scorecard-form-dev/rio/*
+  repository: moj-analytical-services/contracts_etl
+  tag: 2.0.0
+  retries: 3
+  retry_delay: 150
+  schedule: "0 8 * * *"
