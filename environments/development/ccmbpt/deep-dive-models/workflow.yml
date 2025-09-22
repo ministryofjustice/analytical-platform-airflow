@@ -1,9 +1,12 @@
 dag:
   repository: moj-analytical-services/airflow-ccmbpt-deep-dive-models
-  tag: v2.3.2
+  tag: v2.4.1
+  env_vars:
+    PRODUCTION_STATUS: "dev"
   retries: 3
   retry_delay: 150
-  schedule: "0 8 * * 1-5"
+  schedule: None
+  compute_profile: general-on-demand-4vcpu-16gb
 
 maintainers:
   - chrisbanbury
