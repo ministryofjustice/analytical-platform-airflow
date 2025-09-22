@@ -44,7 +44,7 @@ dag:
     south-central:
       env_vars:
         KEY_REGION: "South Central"
-        SCRIPT "extract_pipeline.py"
+        SCRIPT: "extract_pipeline.py"
       dependencies: [init]
 
 secrets:
