@@ -511,8 +511,8 @@ jobs:
         run: |
           git fetch origin main
 
-          changed_files=$(git diff --name-only origin/main)
-          changed_files_status=$(git diff --name-status origin/main | awk '{ print $1 }')
+          changed_files="$(git diff --name-only origin/main)"
+          changed_files_status="$(git diff --name-status origin/main | awk '{ print $1 }')"
 
           echo "${changed_files}"
           echo "${changed_files_status}"
@@ -522,18 +522,18 @@ jobs:
 
           # Check if any files were added or deleted
           for status in ${changed_files_status}; do
-            if [[ ${status} != "M" ]]; then
+            if [[ "${status}" != "M" ]]; then
               echo "File status ${status} detected, not eligible for automatic approval"
               exit 0
             fi
           done
 
           # Check if the workflow file has been modified, and in what way
-          if [[ $(git diff --name-status origin/main ${WORKFLOW_DIRECTORY}/workflow.yml | awk '{ print $1 }') == "M" ]]; then
+          if [[ "$(git diff --name-status origin/main "${WORKFLOW_DIRECTORY}/workflow.yml" | awk '{ print $1 }')" == "M" ]]; then
             echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, eligible for automatic approval depending on changes"
             gh api "repos/${GITHUB_REPOSITORY}/contents/${WORKFLOW_DIRECTORY}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${WORKFLOW_DIRECTORY}/workflow-main.yml"
 
-            if [[ $(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml") == "Only dag.tag has changed" ]]; then
+            if [[ "$(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml")" == "Only dag.tag has changed" ]]; then
               echo "Only dag.tag has changed, eligible for automatic approval"
             else
               echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, not eligible for automatic approval"
@@ -558,7 +558,7 @@ jobs:
           done
 
           # Check automatic approval status in DynamoDB
-          automatic_approval_dynamodb_status=$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)
+          automatic_approval_dynamodb_status="$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)"
 
           echo "Automatic approval DynamoDB status: ${automatic_approval_dynamodb_status}"
 
