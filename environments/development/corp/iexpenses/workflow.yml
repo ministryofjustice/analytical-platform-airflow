@@ -36,7 +36,7 @@ iam:
 notifications:
   slack_channel: dmet-corp-notifications
 
-  emails:
+  emails: # pragma: allowlist secret
     - william.orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
 
@@ -45,4 +45,4 @@ maintainers:
 
 tags:
   business_unit: Central Digital
-  owner: william.orr@justice.gov.uk
+  owner: william.orr@justice.gov.uk # pragma: allowlist secret
