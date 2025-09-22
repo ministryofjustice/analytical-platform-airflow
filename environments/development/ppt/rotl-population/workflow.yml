@@ -1,0 +1,44 @@
+dag:
+  repository: moj-analytical-services/airflow_rotl_population
+  tag: v0.1.01
+  retries: 3
+  retry_delay: 150
+  schedule: "0 14 4 * *"
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - alpha-safety-mi/prisons_ds/offender_location_extract/*
+    - hmpps-performance-hub-curated/data/database_name=hub_prison/table_name=prison_metric_outturns/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/table_name=core/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/table_name=identifiers/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/table_name=sentences/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/table_name=rpt_ao_core_hist/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/table_name=rpt_ao_identifiers_hist/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/table_name=rpt_ao_sentences_hist/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=backup_nomis_ao/table_name=core/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=backup_nomis_ao/table_name=identifiers/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=backup_nomis_ao/table_name=sentences/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offenders_wap/*
+    - moj-reg-prod-curated/hmpps-performance-hub/data/database_name=hub_prison/table_name=prison_metric_outturns/*
+
+  s3_read_write:
+    - alpha-prison-performance-team/ROTL_population/*
+
+  s3_write_only:
+    - mojap-hub-exports/prison_performance/*
+
+maintainers:
+  - hayley-purser
+  - jamesdeason
+  - SullivanJ123
+
+notifications:
+  emails:
+    - custodialperformance.enquiries@justice.gov.uk
+
+tags:
+  business_unit: HQ
+  owner: custodialperformance.enquiries@justice.gov.uk
