@@ -18,7 +18,7 @@ iam:
   glue: true
   s3_read_write:
     - alpha-dag-sop-data-engineering/affile-test/test-csv/*
-    - mojap-processed/domain__affile/env__test/*
+    - mojap-processed/domain__affile/env__dev/*
 
 secrets:
   - pgp-privatekey
