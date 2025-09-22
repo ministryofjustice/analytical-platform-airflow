@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v0.0.17-grni
+  tag: v0.0.17
   schedule: 0 7 1-7 * MON
   env_vars:
     REPORT_APP: splashbi
