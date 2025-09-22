@@ -1,5 +1,5 @@
 dag:
-  repository: moj-analytical-services/prison-curious-example
+  repository: moj-analytical-services/airflow-curious-example
   tag: v0.1.11
 
 iam:
