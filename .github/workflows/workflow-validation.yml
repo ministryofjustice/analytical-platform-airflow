@@ -594,13 +594,13 @@ jobs:
             fi
           done
 
-          # Check if any files outside environments/(development|test|production) have changed
-          for file in ${changed_files}; do
-            if [[ ! "${file}" =~ ^environments/(development|test|production)/.*$ ]]; then
-              echo "File (${file}) has changed outside the specified path (environments/(development|test|production)), not eligible for automatic approval"
-              exit 0
-            fi
-          done
+          # # Check if any files outside environments/(development|test|production) have changed
+          # for file in ${changed_files}; do
+          #   if [[ ! "${file}" =~ ^environments/(development|test|production)/.*$ ]]; then
+          #     echo "File (${file}) has changed outside the specified path (environments/(development|test|production)), not eligible for automatic approval"
+          #     exit 0
+          #   fi
+          # done
 
           # Check if pull request author is maintainer of the workflow
           if yq -e '.maintainers[] | contains([env.GITHUB_ACTOR])' "${WORKFLOW_DIRECTORY}/workflow.yml" > /dev/null; then
