@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/contracts_etl
-  tag: 2.0.0
+  tag: "2.0.0"
   retries: 3
   retry_delay: 150
   schedule: "0 8 * * *"
@@ -33,6 +33,7 @@ tags:
   business_unit: Central Digital
   owner: analytical-platform@justice.gov.uk
 
-# The secrets key expects a list of secret names to be created in Kubernetes.
-# If you don't have any specific secrets to add, you can provide an empty list.
+# The secrets key expects a list of secret names to be created in
+# Kubernetes. If you don't have any specific secrets to add, you can provide
+# an empty list.
 secrets: []
