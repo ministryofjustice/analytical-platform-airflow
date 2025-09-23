@@ -73,6 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: write
     strategy:
       fail-fast: false
       matrix:
@@ -115,6 +116,66 @@ jobs:
           export workflowDirectory
 
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
+
+      - name: Check if Workflow Directory Includes Underscore
+        id: check_workflow_directory_underscore
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+        run: |
+          if [[ "${WORKFLOW_DIRECTORY}" == *"_"* ]]; then
+            echo "Workflow directory contains underscores, which is not allowed."
+            exit 1
+          fi
+
+      - name: Comment on Underscore Check Failure
+        id: comment_on_underscore_failure
+        if: failure() && steps.check_workflow_directory_underscore.outcome == 'failure'
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'The workflow directory name contains underscores. Please use hyphens instead of underscores.'
+            })
+
+      - name: Check Computed IAM Role Name Length
+        id: check_iam_role_length
+        env:
+          IAM_ROLE_NAME_PREFIX: "airflow"
+          IAM_ROLE_NAME_MAX_LENGTH: 64
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+        run: |
+          getEnvironment=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f2)
+          export getEnvironment
+
+          getProject=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f3)
+          export getProject
+
+          getWorkflow=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f4)
+          export getWorkflow
+
+          computedRoleName="${IAM_ROLE_NAME_PREFIX}-${getEnvironment}-${getProject}-${getWorkflow}"
+          export computedRoleName
+
+          if [[ "${#computedRoleName}" -gt "${IAM_ROLE_NAME_MAX_LENGTH}" ]]; then
+            echo "Computed IAM role name (${computedRoleName}) exceeds (${#computedRoleName}) maximum length of ${IAM_ROLE_NAME_MAX_LENGTH} characters."
+            exit 1
+          fi
+
+      - name: Comment on IAM Role Length Check Failure
+        id: comment_on_iam_role_length_failure
+        if: failure() && steps.check_iam_role_length.outcome == 'failure'
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'The computed IAM role name exceeds the maximum length. Please shorten the project or workflow name to ensure the IAM role name is within the allowed limit of ${process.env['IAM_ROLE_NAME_MAX_LENGTH']} characters.'
+            })
 
       - name: Check if DAG is Python
         id: dag_is_python
@@ -506,8 +567,8 @@ jobs:
         id: automatic_approval_check
         env:
           GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           git fetch origin main
 
@@ -533,7 +594,7 @@ jobs:
             echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, eligible for automatic approval depending on changes"
             gh api "repos/${GITHUB_REPOSITORY}/contents/${WORKFLOW_DIRECTORY}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${WORKFLOW_DIRECTORY}/workflow-main.yml"
 
-            if [[ "$(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml")" == "Only dag.tag has changed" ]]; then
+            if [[ $(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml") == "Only dag.tag has changed" ]]; then
               echo "Only dag.tag has changed, eligible for automatic approval"
             else
               echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, not eligible for automatic approval"
@@ -549,13 +610,21 @@ jobs:
             fi
           done
 
-          # Check if any files outside environments/(development|test) have changed
+          # Check if any files outside environments/(development|test|production) have changed
           for file in ${changed_files}; do
-            if [[ ! "${file}" =~ ^environments/(development|test)/.*$ ]]; then
-              echo "File (${file}) has changed outside the specified path (environments/(development|test)), not eligible for automatic approval"
+            if [[ ! "${file}" =~ ^environments/(development|test|production)/.*$ ]]; then
+              echo "File (${file}) has changed outside the specified path (environments/(development|test|production)), not eligible for automatic approval"
               exit 0
             fi
           done
+
+          # Check if pull request author is maintainer of the workflow
+          if yq -e '.maintainers | contains([env.GITHUB_ACTOR])' "${WORKFLOW_DIRECTORY}/workflow.yml" > /dev/null; then
+            echo "${GITHUB_ACTOR} is a maintainer, eligible for automatic approval"
+          else
+            echo "${GITHUB_ACTOR} is not a maintainer, not eligible for automatic approval"
+            exit 0
+          fi
 
           # Check automatic approval status in DynamoDB
           automatic_approval_dynamodb_status="$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)"
