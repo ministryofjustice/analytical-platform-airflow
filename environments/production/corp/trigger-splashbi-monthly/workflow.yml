@@ -1,46 +1,35 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v0.0.15-test
+  tag: v0.0.17
+  schedule: "0 7 1-7 * MON"
   env_vars:
     REPORT_APP: "splashbi"
-    REPORT_RUNTIME_ENV: "test"
+    REPORT_RUNTIME_ENV: "prod"
     REPORT_RUN_MODE: "trigger"
   tasks:
-    cts-hr_rew_02:
+    po_sscl_details:
       env_vars:
-        REPORT_NAME: "cts-hr_rew_02"
-    laa-hr_rew_02:
-      env_vars:
-        REPORT_NAME: "laa-hr_rew_02"
-    moj-hr_rew_02:
-      env_vars:
-        REPORT_NAME: "moj-hr_rew_02"
-    nms-hr_rew_02:
-      env_vars:
-        REPORT_NAME: "nms-hr_rew_02"
-    opg-hr_rew_02:
-      env_vars:
-        REPORT_NAME: "opg-hr_rew_02"
+        REPORT_NAME: po_sscl_details
 
 iam:
   s3_read_write:
-    - mojap-land/corporate/report_extractor_test/splashbi/*
+    - mojap-land/corporate/report_extractor_prod/splashbi/*
 
 secrets:
   - splashbi-credentials
 
 notifications:
   slack_channel: dmet-corp-notifications
-
   emails:
     - william.orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
+    - mohammed.ahad1@justice.gov.uk
 
 maintainers:
   - williamorrie
   - moj-supratikc
-  - ltd-pa
+  - morezwan
 
 tags:
   business_unit: Central Digital
