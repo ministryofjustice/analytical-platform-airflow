@@ -179,10 +179,12 @@ jobs:
 
       - name: Check if DAG is Python
         id: dag_is_python
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
           set -x
 
-          dagIsPython=$(yq ".dag.python_dag // false" "${{ env.workflow-directory }}/workflow.yml")
+          dagIsPython=$(yq ".dag.python_dag // false" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagIsPython
 
           if [[ "${dagIsPython}" == "true" ]]; then
@@ -193,23 +195,29 @@ jobs:
 
       - name: Validate Schema
         id: validate_schema
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
-          python scripts/workflow_schema_validation/main.py "${{ env.workflow-directory }}/workflow.yml"
+          python scripts/workflow_schema_validation/main.py "${WORKFLOW_DIRECTORY}/workflow.yml"
 
       - name: Generate Workflow
         id: generate_workflow
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
-          python scripts/workflow_generator/main.py "${{ env.workflow-directory }}/workflow.yml"
+          python scripts/workflow_generator/main.py "${WORKFLOW_DIRECTORY}/workflow.yml"
 
       - name: Validate Workflow
         id: validate_workflow
         env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+          DAG_IS_PYTHON: ${{ env.dag-is-python }}
           PYTHONPATH: airflow
         run: |
-          workflowDirectory="${{ env.workflow-directory }}"
+          workflowDirectory="${WORKFLOW_DIRECTORY}"
           distWorkflowDirectory=${workflowDirectory#environments/}
 
-          if [[ "${{ env.dag-is-python }}" == "true" ]]; then
+          if [[ "${DAG_IS_PYTHON}" == "true" ]]; then
             python "dist/dags/${distWorkflowDirectory}/dag.py"
           else
             python scripts/workflow_validation/main.py "dist/dags/${distWorkflowDirectory}/workflow.yml"
@@ -289,14 +297,16 @@ jobs:
 
       - name: Set ECR Repository
         id: set_ecr_repository
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
-          dagRepository=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
+          dagRepository=$(yq -e ".dag.repository" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagRepository
 
           ecrRepository=$(echo "${dagRepository}" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')
           export ecrRepository
 
-          dagTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
+          dagTag=$(yq -e ".dag.tag" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagTag
 
           echo "ecr-repository=${ecrRepository}" >>"${GITHUB_ENV}"
@@ -304,8 +314,11 @@ jobs:
 
       - name: Check Image Exists
         id: check_image_exists
+        env:
+          ECR_REPOSITORY: ${{ env.ecr-repository }}
+          IMAGE_TAG: ${{ env.image-tag }}
         run: |
-          aws ecr describe-images --repository-name "${{ env.ecr-repository }}" --image-ids imageTag="${{ env.image-tag }}" || exit 1
+          aws ecr describe-images --repository-name "${ECR_REPOSITORY}" --image-ids imageTag="${IMAGE_TAG}" || exit 1
 
       - name: Comment on Image Check Failure
         id: comment_on_check_failure
@@ -362,8 +375,11 @@ jobs:
       - name: Container Structure Test
         id: container_structure_test
         shell: bash
+        env:
+          ECR_REPOSITORY: ${{ env.ecr-repository }}
+          IMAGE_TAG: ${{ env.image-tag }}
         run: |
-          container-structure-test test --config container-structure-test.yml --image "509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}"
+          container-structure-test test --config container-structure-test.yml --image "509399598587.dkr.ecr.eu-west-2.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}"
 
       - name: Comment on Image Test Failure
         id: comment_on_test_failure
@@ -382,11 +398,12 @@ jobs:
         id: generate_trivy_ignore
         env:
           GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
-          dagRepository=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
+          dagRepository=$(yq -e ".dag.repository" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagRepository
 
-          dagTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
+          dagTag=$(yq -e ".dag.tag" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagTag
 
           downloadDockerfile=$(gh api "repos/${dagRepository}/contents/Dockerfile?ref=${dagTag}" 2>/dev/null || true)
@@ -555,8 +572,8 @@ jobs:
         run: |
           git fetch origin main
 
-          changed_files=$(git diff --name-only origin/main)
-          changed_files_status=$(git diff --name-status origin/main | awk '{ print $1 }')
+          changed_files="$(git diff --name-only origin/main)"
+          changed_files_status="$(git diff --name-status origin/main | awk '{ print $1 }')"
 
           echo "${changed_files}"
           echo "${changed_files_status}"
@@ -566,16 +583,16 @@ jobs:
 
           # Check if any files were added or deleted
           for status in ${changed_files_status}; do
-            if [[ ${status} != "M" ]]; then
+            if [[ "${status}" != "M" ]]; then
               echo "File status ${status} detected, not eligible for automatic approval"
               exit 0
             fi
           done
 
           # Check if the workflow file has been modified, and in what way
-          if [[ $(git diff --name-status origin/main "${WORKFLOW_DIRECTORY}/workflow.yml" | awk '{ print $1 }') == "M" ]]; then
+          if [[ "$(git diff --name-status origin/main "${WORKFLOW_DIRECTORY}/workflow.yml" | awk '{ print $1 }')" == "M" ]]; then
             echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, eligible for automatic approval depending on changes"
-            gh api "repos/${{ github.repository }}/contents/${WORKFLOW_DIRECTORY}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${WORKFLOW_DIRECTORY}/workflow-main.yml"
+            gh api "repos/${GITHUB_REPOSITORY}/contents/${WORKFLOW_DIRECTORY}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${WORKFLOW_DIRECTORY}/workflow-main.yml"
 
             if [[ $(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml") == "Only dag.tag has changed" ]]; then
               echo "Only dag.tag has changed, eligible for automatic approval"
@@ -610,7 +627,7 @@ jobs:
           fi
 
           # Check automatic approval status in DynamoDB
-          automatic_approval_dynamodb_status=$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)
+          automatic_approval_dynamodb_status="$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)"
 
           echo "Automatic approval DynamoDB status: ${automatic_approval_dynamodb_status}"
 
