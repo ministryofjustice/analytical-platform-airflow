@@ -174,7 +174,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'The computed IAM role name exceeds the maximum length. Please shorten the project or workflow name to ensure the IAM role name is within the allowed limit.'
+              body: 'The computed IAM role name exceeds the maximum length. Please shorten the project or workflow name to ensure the IAM role name is within the allowed limit of ${process.env['IAM_ROLE_NAME_MAX_LENGTH']} characters.'
             })
 
       - name: Check if DAG is Python
