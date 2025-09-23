@@ -126,6 +126,19 @@ jobs:
             exit 1
           fi
 
+      - name: Comment on Underscore Check Failure
+        id: comment_on_underscore_failure
+        if: failure() && steps.check_workflow_directory_underscore.outcome == 'failure'
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'The workflow directory name contains underscores. Please use hyphens instead of underscores.'
+            })
+
       - name: Check if DAG is Python
         id: dag_is_python
         run: |
