@@ -160,7 +160,7 @@ jobs:
           export computedRoleName
 
           if [[ "${#computedRoleName}" -gt "${IAM_ROLE_NAME_MAX_LENGTH}" ]]; then
-            echo "Computed IAM role name (${computedRoleName}) exceeds maximum length of ${IAM_ROLE_NAME_MAX_LENGTH} characters."
+            echo "Computed IAM role name (${computedRoleName}) exceeds (${#computedRoleName}) maximum length of ${IAM_ROLE_NAME_MAX_LENGTH} characters."
             exit 1
           fi
 
