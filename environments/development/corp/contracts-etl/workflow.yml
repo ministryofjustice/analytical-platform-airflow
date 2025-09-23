@@ -1,0 +1,38 @@
+---
+dag:
+  repository: moj-analytical-services/contracts_etl
+  tag: 2.0.0
+  retries: 3
+  retry_delay: 150
+  schedule: "0 8 * * *"
+  params:
+    iam_role_name: airflow_dev_contracts_etl
+    athena:
+      write: true
+      dump_bucket:
+        - mojap-athena-query-dump
+    s3:
+      read_write:
+        - mojap-land/contracts/*
+        - alpha-contracts-etl/*
+        - alpha-app-commuter-contracts/*
+        - alpha-sop-commercial-land/*
+      write_only:
+        - alpha-app-scorecard-form/jaggaer/*
+        - alpha-app-scorecard-form-dev/jaggaer/*
+        - alpha-app-scorecard-form/rio/*
+        - alpha-app-scorecard-form-dev/rio/*
+
+notifications:
+  slack_channel: analytical-platform-airflow-testing
+
+maintainers:
+  - jacobwoffenden
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
+
+# The secrets key expects a list of secret names to be created in Kubernetes.
+# If you don't have any specific secrets to add, you can provide an empty list.
+secrets: []
