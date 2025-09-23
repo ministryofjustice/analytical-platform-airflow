@@ -1,0 +1,48 @@
+dag:
+  repository: moj-analytical-services/airflow-load-em-data
+  tag: v0.2.74
+  compute_profile: general-spot-1vcpu-4gb
+  catchup: false
+  depends_on_past: false
+  max_active_runs: 1
+  env_vars:
+    SUPPLIER_NAME: "g4s"
+    SYSTEM_NAME: "centurion"
+    DATASET_NAME: "g4s_centurion"
+    DELIVERY_DATE: "2025-05-21"
+    AWS_METADATA_SERVICE_TIMEOUT: 60
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
+    AWS_DEFAULT_REGION: "eu-west-2"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+  tasks:
+    load_g4s_centurion_tables:
+      env_vars:
+        TABLE_NAME: "Alerts"
+
+    load_g4s_centurion_interface:
+      env_vars:
+        TABLE_NAME: "Clients"
+    
+    load_g4s_centurion_commsserver:
+      env_vars:
+        TABLE_NAME: "Clients"
+      
+notifications:
+  emails:
+    - Matt.Heery@justice.gov.uk
+    - Luke.Williams6@justice.gov.uk
+    - Jono.Basford@justice.gov.uk
+  slack_channel: electronic-monitoring-data-hub-test-notifications
+
+iam:
+  external_role: arn:aws:iam::800964199911:role/airflow-dev-load-g4s-centurion
+
+maintainers:
+  - matt-heery
+  - jono-basford
+
+tags:
+  business_unit: HMPPS
+  owner: matt.heery@justice.gov.uk
