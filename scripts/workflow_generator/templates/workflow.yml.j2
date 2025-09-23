@@ -40,7 +40,7 @@
     {{ k }}: "{{ v }}"
     {%- endfor %}
   {%- endif %}
-  schedule: {{ dag.schedule|default("None") }}
+  schedule: "{{ dag.schedule|default("None") }}"
   tasks:
     {%- if dag.tasks %}
     {%- for task_name, task in dag.tasks.items() %}
