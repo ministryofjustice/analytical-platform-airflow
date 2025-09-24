@@ -1,38 +1,66 @@
 ---
 dag:
-  repository: moj-analytical-services/contracts_etl
-  tag: 2.0.0
-  retries: 3
-  retry_delay: 150
-  schedule: "0 8 * * *"
-  params:
-    iam_role_name: airflow_dev_contracts_etl
-    athena:
-      write: true
-      dump_bucket:
-        - mojap-athena-query-dump
-    s3:
-      read_write:
-        - mojap-land/contracts/*
-        - alpha-contracts-etl/*
-        - alpha-app-commuter-contracts/*
-        - alpha-sop-commercial-land/*
-      write_only:
-        - alpha-app-scorecard-form/jaggaer/*
-        - alpha-app-scorecard-form-dev/jaggaer/*
-        - alpha-app-scorecard-form/rio/*
-        - alpha-app-scorecard-form-dev/rio/*
+  repository: moj-analytical-services/airflow-sop-mi
+  tag: v4.4.0-test-11
+  env_vars:
+    ENVIRONMENT: "apdev"
+    IMAGE_VERSION: tag
+    RUN_DATE: "2025-08-31"
+  tasks:
+    data_validation:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_validation.py"
+    preprocessing:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_preprocess.py"
+      dependencies: [data_validation]
+    derived:
+      compute_profile: "general-on-demand-2vcpu-8gb"
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_derived.py"
+        COSTCENTRE_BODGE: False
+        OLD_DEDUPE_METHODOLOGY: False
+      dependencies: [data_validation, preprocessing]
+    schema:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_schema.py"
+      dependencies: [data_validation, preprocessing, derived]
+
+iam:
+  athena: write
+  glue: true
+  s3_read_only:
+    - alpha-dag-sop-data-engineering/hq_lookups/*
+    - alpha-dag-sop-data-engineering/ons_postcode_directory/*
+    - alpha-dag-sop-data-engineering/hmpps_career_grades/*
+    - alpha-hmpps-workforce-stats/Data/Lookup Files/*
+    - alpha-dag-sop-data-engineering/exclusions/*
+    - alpha-dag-sop-data-engineering/manual_returns-testing/*
+    - alpha-dag-sop-data-engineering/hmpps_leavers_history/*
+
+  s3_read_write:
+    - alpha-dag-sop-data-engineering/raw-apdev/*
+    - alpha-dag-sop-data-engineering/land-apdev/*
+    - alpha-dag-sop-data-engineering/preprocessed-apdev/*
+    - alpha-dag-sop-data-engineering/derived-apdev/*
+    - alpha-dag-sop-data-engineering/lookups-apdev/*
+    - alpha-dag-sop-data-engineering/__temp_athena__/*
+    - alpha-opg-etl/dev/opg_sop/*
+    - alpha-dag-sop-data-engineering/data_linter_testing/*
+    - alpha-dag-sop-data-engineering/sip_exclusions-apdev/*
 
 notifications:
-  slack_channel: analytical-platform-airflow-testing
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
 
 maintainers:
-  - jacobwoffenden
+  - moj-supratikc
+  - williamorrie
 
 tags:
   business_unit: Central Digital
-  owner: analytical-platform@justice.gov.uk
-
-# The secrets key expects a list of secret names to be created in Kubernetes.
-# If you don't have any specific secrets to add, you can provide an empty list.
-secrets: []
+  owner: William.Orr@justice.gov.uk
