@@ -1,6 +1,6 @@
 ---
 dag:
-  repository: moj-analytical-services/contracts_etl
+  repository: moj-analytical-services/airflow-contracts
   tag: 2.0.0
   retries: 3
   retry_delay: 150
