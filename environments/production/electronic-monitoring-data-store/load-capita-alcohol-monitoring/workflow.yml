@@ -32,15 +32,15 @@ dag:
     load_am_audit_log:
       env_vars:
         TABLE_NAME: "am_audit_log"
-  
+
     load_am_breach_pck_generate_log:
       env_vars:
         TABLE_NAME: "am_breach_pck_generate_log"
-  
+
     load_am_communication:
       env_vars:
         TABLE_NAME: "am_communication"
-  
+
     load_am_dash_board_rag:
       env_vars:
         TABLE_NAME: "am_dash_board_rag"
