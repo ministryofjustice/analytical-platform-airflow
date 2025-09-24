@@ -141,7 +141,7 @@ notifications:
   slack_channel: em-engineers-moj-madetech
 
 iam:
-  external_role: arn:aws:iam::976799291502:role/capita-alcohol_monitoring-transfer-user-iam-role
+  external_role: arn:aws:iam::976799291502:role/airflow-prod-load-alcohol-monitoring
 
 maintainers:
   - matt-heery
