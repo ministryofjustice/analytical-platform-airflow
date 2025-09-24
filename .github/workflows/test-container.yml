@@ -1,0 +1,17 @@
+---
+name: Test Container
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  test-container:
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    uses: ministryofjustice/analytical-platform-airflow-github-actions/.github/workflows/shared-test-container.yml@3229fa0ef4534b7e2f56e6d3eb79ebb814320f56 # v3.0.0
