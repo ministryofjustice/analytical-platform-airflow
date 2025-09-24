@@ -1,0 +1,153 @@
+dag:
+  repository: moj-analytical-services/airflow-load-em-data
+  tag: v0.2.78
+  compute_profile: general-spot-1vcpu-4gb
+  catchup: false
+  depends_on_past: false
+  max_active_runs: 1
+  env_vars:
+    SUPPLIER_NAME: "capita"
+    SYSTEM_NAME: "alcohol_monitoring"
+    DATASET_NAME: "capita_alcohol_monitoring"
+    DELIVERY_DATE: "2025-05-21"
+    AWS_METADATA_SERVICE_TIMEOUT: 60
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
+    AWS_DEFAULT_REGION: "eu-west-2"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+  tasks:
+    load_ams_user_sec_group_guid:
+      env_vars:
+        TABLE_NAME: "ams_user_sec_group_guid"
+
+    load_am_alert:
+      env_vars:
+        TABLE_NAME: "am_alert"
+
+    load_am_attachment_user_activity:
+      env_vars:
+        TABLE_NAME: "am_attachment_user_activity"
+
+    load_am_audit_log:
+      env_vars:
+        TABLE_NAME: "am_audit_log"
+  
+    load_am_breach_pck_generate_log:
+      env_vars:
+        TABLE_NAME: "am_breach_pck_generate_log"
+  
+    load_am_communication:
+      env_vars:
+        TABLE_NAME: "am_communication"
+  
+    load_am_dash_board_rag:
+      env_vars:
+        TABLE_NAME: "am_dash_board_rag"
+
+    load_am_enable_comms_history_flag:
+      env_vars:
+        TABLE_NAME: "am_enable_comms_history_flag"
+
+    load_am_enforcement:
+      env_vars:
+        TABLE_NAME: "am_enforcement"
+
+    load_am_fmo_consumable_request:
+      env_vars:
+        TABLE_NAME: "am_fmo_consumable_request"
+
+    load_am_fmo_reference_data:
+      env_vars:
+        TABLE_NAME: "am_fmo_reference_data"
+
+    load_am_fmo_shift_details:
+      env_vars:
+        TABLE_NAME: "am_fmo_shift_details"
+
+    load_am_language:
+      env_vars:
+        TABLE_NAME: "am_language"
+
+    load_am_list_options:
+      env_vars:
+        TABLE_NAME: "am_list_options"
+
+    load_am_order:
+      env_vars:
+        TABLE_NAME: "am_order"
+
+    load_am_order_variations:
+      env_vars:
+        TABLE_NAME: "am_order_variations"
+
+    load_am_postcode_district:
+      env_vars:
+        TABLE_NAME: "am_postcode_district"
+
+    load_am_prison:
+      env_vars:
+        TABLE_NAME: "am_prison"
+
+    load_am_probation_org_data:
+      env_vars:
+        TABLE_NAME: "am_probation_org_data"
+
+    load_am_query:
+      env_vars:
+        TABLE_NAME: "am_query"
+
+    load_am_service:
+      env_vars:
+        TABLE_NAME: "am_service"
+
+    load_am_stock:
+      env_vars:
+        TABLE_NAME: "am_stock"
+
+    load_am_stock_audit_log:
+      env_vars:
+        TABLE_NAME: "am_stock_audit_log"
+
+    load_am_stock_consumable_type:
+      env_vars:
+        TABLE_NAME: "am_stock_consumable_type"
+
+    load_am_subject:
+      env_vars:
+        TABLE_NAME: "am_subject"
+
+    load_am_subject_address_history:
+      env_vars:
+        TABLE_NAME: "am_subject_address_history"
+
+    load_am_subject_equip_history:
+      env_vars:
+        TABLE_NAME: "am_subject_equip_history"
+
+    load_am_visit:
+      env_vars:
+        TABLE_NAME: "am_visit"
+
+    load_am_visit_bko_journey:
+      env_vars:
+        TABLE_NAME: "am_visit_bko_journey"
+
+notifications:
+  emails:
+    - Matt.Heery@justice.gov.uk
+    - Luke.Williams6@justice.gov.uk
+    - Jono.Basford@justice.gov.uk
+  slack_channel: em-engineers-moj-madetech
+
+iam:
+  external_role: arn:aws:iam::976799291502:role/airflow-prod-load-alcohol-monitoring
+
+maintainers:
+  - matt-heery
+  - jono-basford-moj
+  - luke-a-williams
+
+tags:
+  business_unit: HMPPS
+  owner: matt.heery@justice.gov.uk # for now....
