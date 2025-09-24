@@ -19,119 +19,119 @@ dag:
   tasks:
     load_ams_user_sec_group_guid:
       env_vars:
-        TABLE_NAME: "ams_user_sec_group_guid"
+        TABLE_NAME: "AMS_User_SecGroup_GUID"
 
     load_am_alert:
       env_vars:
-        TABLE_NAME: "am_alert"
+        TABLE_NAME: "AM_Alert"
 
     load_am_attachment_user_activity:
       env_vars:
-        TABLE_NAME: "am_attachment_user_activity"
+        TABLE_NAME: "AM_Attachment_UserActivity"
 
     load_am_audit_log:
       env_vars:
-        TABLE_NAME: "am_audit_log"
+        TABLE_NAME: "AM_Audit_Log"
 
     load_am_breach_pck_generate_log:
       env_vars:
-        TABLE_NAME: "am_breach_pck_generate_log"
+        TABLE_NAME: "AM_BreachPck_Generate_Log"
 
     load_am_communication:
       env_vars:
-        TABLE_NAME: "am_communication"
+        TABLE_NAME: "AM_Communication"
 
     load_am_dash_board_rag:
       env_vars:
-        TABLE_NAME: "am_dash_board_rag"
+        TABLE_NAME: "AM_DashBoard_RAG"
 
     load_am_enable_comms_history_flag:
       env_vars:
-        TABLE_NAME: "am_enable_comms_history_flag"
+        TABLE_NAME: "AM_Enable_CommsHistory_Flag"
 
     load_am_enforcement:
       env_vars:
-        TABLE_NAME: "am_enforcement"
+        TABLE_NAME: "AM_Enforcement"
 
     load_am_fmo_consumable_request:
       env_vars:
-        TABLE_NAME: "am_fmo_consumable_request"
+        TABLE_NAME: "AM_FMO_Consumable_Request"
 
     load_am_fmo_reference_data:
       env_vars:
-        TABLE_NAME: "am_fmo_reference_data"
+        TABLE_NAME: "AM_FMO_ReferenceData"
 
     load_am_fmo_shift_details:
       env_vars:
-        TABLE_NAME: "am_fmo_shift_details"
+        TABLE_NAME: "AM_FMO_Shift_Details"
 
     load_am_language:
       env_vars:
-        TABLE_NAME: "am_language"
+        TABLE_NAME: "AM_Language"
 
     load_am_list_options:
       env_vars:
-        TABLE_NAME: "am_list_options"
+        TABLE_NAME: "AM_ListOptions"
 
     load_am_order:
       env_vars:
-        TABLE_NAME: "am_order"
+        TABLE_NAME: "AM_Order"
 
     load_am_order_variations:
       env_vars:
-        TABLE_NAME: "am_order_variations"
+        TABLE_NAME: "AM_Order_Variations"
 
     load_am_postcode_district:
       env_vars:
-        TABLE_NAME: "am_postcode_district"
+        TABLE_NAME: "AM_Postcode_District"
 
     load_am_prison:
       env_vars:
-        TABLE_NAME: "am_prison"
+        TABLE_NAME: "AM_Prison"
 
     load_am_probation_org_data:
       env_vars:
-        TABLE_NAME: "am_probation_org_data"
+        TABLE_NAME: "AM_Probation_Org_Data"
 
     load_am_query:
       env_vars:
-        TABLE_NAME: "am_query"
+        TABLE_NAME: "AM_Query"
 
     load_am_service:
       env_vars:
-        TABLE_NAME: "am_service"
+        TABLE_NAME: "AM_Service"
 
     load_am_stock:
       env_vars:
-        TABLE_NAME: "am_stock"
+        TABLE_NAME: "AM_Stock"
 
     load_am_stock_audit_log:
       env_vars:
-        TABLE_NAME: "am_stock_audit_log"
+        TABLE_NAME: "AM_Stock_Audit_Log"
 
     load_am_stock_consumable_type:
       env_vars:
-        TABLE_NAME: "am_stock_consumable_type"
+        TABLE_NAME: "AM_Stock_Consumable_Type"
 
     load_am_subject:
       env_vars:
-        TABLE_NAME: "am_subject"
+        TABLE_NAME: "AM_Subject"
 
     load_am_subject_address_history:
       env_vars:
-        TABLE_NAME: "am_subject_address_history"
+        TABLE_NAME: "AM_Subject_AddressHistory"
 
     load_am_subject_equip_history:
       env_vars:
-        TABLE_NAME: "am_subject_equip_history"
+        TABLE_NAME: "AM_Subject_EquipHistory"
 
     load_am_visit:
       env_vars:
-        TABLE_NAME: "am_visit"
+        TABLE_NAME: "AM_Visit"
 
     load_am_visit_bko_journey:
       env_vars:
-        TABLE_NAME: "am_visit_bko_journey"
+        TABLE_NAME: "AM_Visit_BKOJourney"
 
 notifications:
   emails:
