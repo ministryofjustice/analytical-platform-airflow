@@ -27,7 +27,6 @@ notifications:
   slack_channel: dmet-corp-notifications
 
   emails:
-
     - philip.neale@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
 
@@ -35,7 +34,7 @@ maintainers:
   - moj-supratikc
   - pdnmoji
 
- The secrets key expects a list of secret names to be created in Kubernetes.
+# The secrets key expects a list of secret names to be created in Kubernetes.
 # If you don't have any specific secrets to add, you can provide an empty list.
 secrets: []
 
