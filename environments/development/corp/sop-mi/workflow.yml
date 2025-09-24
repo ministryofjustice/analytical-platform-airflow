@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-sop-mi
-  tag: v4.4.0-test-09
+  tag: v4.4.0-test-11
   env_vars:
     ENVIRONMENT: "apdev"
     IMAGE_VERSION: tag
