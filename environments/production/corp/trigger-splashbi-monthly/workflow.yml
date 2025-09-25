@@ -2,7 +2,10 @@
 dag:
   repository: moj-analytical-services/airflow-report-extractor
   tag: v0.0.17
-  schedule: "0 7 1-7 * MON"
+  start_date: "2025-09-29"
+  schedule: "0 7 1 * *"
+  retries: 2
+  retry_delay: 86400
   env_vars:
     REPORT_APP: "splashbi"
     REPORT_RUNTIME_ENV: "prod"
@@ -10,7 +13,7 @@ dag:
   tasks:
     po_sscl_details:
       env_vars:
-        REPORT_NAME: po_sscl_details
+        REPORT_NAME: "po_sscl_details"
 
 iam:
   s3_read_write:
