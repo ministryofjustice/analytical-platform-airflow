@@ -14,6 +14,18 @@ dag:
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
     REFRESH_TOTAL_DB: true
 
+  tasks:
+    load:
+      env_vars:
+        TASK_NAME: "load_servicenow"
+      compute_profile: general-spot-1vcpu-4gb
+
+    recovery:
+      env_vars:
+        TASK_NAME: "recover_servicenow"
+      compute_profile: general-spot-1vcpu-4gb
+      dependencies: [load]    
+
 notifications:
   emails:
     - EMDataEngineering@justice.gov.uk
