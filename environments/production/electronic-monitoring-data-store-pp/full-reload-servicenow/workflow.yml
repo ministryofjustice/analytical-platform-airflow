@@ -24,7 +24,7 @@ dag:
       env_vars:
         TASK_NAME: "recover_servicenow"
       compute_profile: general-spot-1vcpu-4gb
-      dependencies: [load]    
+      dependencies: [load]
 
 notifications:
   emails:
