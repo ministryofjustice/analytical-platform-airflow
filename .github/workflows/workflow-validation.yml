@@ -147,21 +147,30 @@ jobs:
           IAM_ROLE_NAME_MAX_LENGTH: 64
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
-          getEnvironment=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f2)
-          export getEnvironment
+          externalIamRole=$(yq --output-format=json "${WORKFLOW_DIRECTORY}/workflow.yml" | jq -r '.iam.external_role')
+          export externalIamRole
 
-          getProject=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f3)
-          export getProject
+          if [[ "${externalIamRole}" == "null" ]]; then
+            echo "No external IAM role defined in workflow.yml"
 
-          getWorkflow=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f4)
-          export getWorkflow
+            getEnvironment=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f2)
+            export getEnvironment
 
-          computedRoleName="${IAM_ROLE_NAME_PREFIX}-${getEnvironment}-${getProject}-${getWorkflow}"
-          export computedRoleName
+            getProject=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f3)
+            export getProject
 
-          if [[ "${#computedRoleName}" -gt "${IAM_ROLE_NAME_MAX_LENGTH}" ]]; then
-            echo "Computed IAM role name (${computedRoleName}) exceeds (${#computedRoleName}) maximum length of ${IAM_ROLE_NAME_MAX_LENGTH} characters."
-            exit 1
+            getWorkflow=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f4)
+            export getWorkflow
+
+            computedRoleName="${IAM_ROLE_NAME_PREFIX}-${getEnvironment}-${getProject}-${getWorkflow}"
+            export computedRoleName
+
+            if [[ "${#computedRoleName}" -gt "${IAM_ROLE_NAME_MAX_LENGTH}" ]]; then
+              echo "Computed IAM role name (${computedRoleName}) exceeds (${#computedRoleName}) maximum length of ${IAM_ROLE_NAME_MAX_LENGTH} characters."
+              exit 1
+            fi
+          else
+            echo "External IAM role defined in workflow.yml, skipping computed IAM role name length check"
           fi
 
       - name: Comment on IAM Role Length Check Failure
