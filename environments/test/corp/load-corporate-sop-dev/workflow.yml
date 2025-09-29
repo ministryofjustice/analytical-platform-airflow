@@ -1,0 +1,44 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: v0.0.21-test-7
+  schedule: "30 8 * * 1-5"
+  env_vars:
+    AFFILE_PIPELINE_NAME: "iexp01_expenses_live"
+    AFFILE_ENV: "dev"
+    AFFILE_SCHEMA_CONTRACT: "freeze"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-2vcpu-8gb
+
+iam:
+  athena: write
+  glue: true
+
+  s3_read_only:
+    - mojap-land/corporate/report_extractor_test/splashbi/*
+
+  s3_read_write:
+    - mojap-processed/domain__hr/env__dev/corporate_sop_dev/*
+    - mojap-processed/domain__hr/env__dev/corporate_sop_dev_staging/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - ltd-pa
+  - williamorrie
+  - moj-supratikc
+
+tags:
+  business_unit: Central Digital
+  owner: Laurence.Droy@justice.gov.uk
