@@ -32,7 +32,7 @@ dag = DAG(
 base_env_vars={
     "DATABASE": "sirius",
     "PIPELINE_NAME": f"{WORKFLOW}",
-    "DATABASE_VERSION": "dev",
+    "DATABASE_VERSION": "prod",
     "GITHUB_TAG": f"{REPOSITORY_TAG}",
     "ATHENA_DB_PREFIX": "opg",
     "START_DATE": start_date.strftime("%Y-%m-%d"),
