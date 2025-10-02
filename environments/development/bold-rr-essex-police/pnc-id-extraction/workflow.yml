@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-bold-rr-essex-police
-  tag: v1.2.7-dev
+  tag: v1.2.8-dev
 
   env_vars:
     DBT_ENV: dev
