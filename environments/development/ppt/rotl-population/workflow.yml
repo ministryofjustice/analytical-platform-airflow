@@ -4,7 +4,7 @@ dag:
   retries: 3
   retry_delay: 150
   schedule: "0 14 4 * *"
-  compute_profile: general-spot-2vcpu-8gb
+  compute_profile: general-spot-4vcpu-16gb
 
 iam:
   athena: write
