@@ -1,11 +1,12 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-sop-mi
-  tag: v4.4.0-test-09
+  tag: v4.4.0-test-12
   env_vars:
     ENVIRONMENT: "apdev"
     IMAGE_VERSION: tag
-    RUN_DATE: "2025-08-31"
+  params:
+    RUN_DATE: ""
   tasks:
     data_validation:
       env_vars:

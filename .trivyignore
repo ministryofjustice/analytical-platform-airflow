@@ -1,0 +1,4 @@
+# Jinja2 sandbox breakout vulnerabilities - cannot upgrade beyond 3.1.4 due to constraints https://raw.githubusercontent.com/apache/airflow/constraints-2.10.3/constraints-3.11.txt
+CVE-2024-56201
+CVE-2024-56326
+CVE-2025-27516

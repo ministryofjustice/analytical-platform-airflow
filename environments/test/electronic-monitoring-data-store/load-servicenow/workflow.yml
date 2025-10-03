@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.1.73-13646fa32ed3c0d715c9d35fa0a8d7c5971a759c
+  tag: v0.2.82
   compute_profile: general-spot-1vcpu-4gb
   catchup: false
   depends_on_past: false
@@ -15,6 +15,18 @@ dag:
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
 
+  tasks:
+    load:
+      env_vars:
+        TASK_NAME: "load_servicenow"
+      compute_profile: general-spot-1vcpu-4gb
+
+    recovery:
+      env_vars:
+        TASK_NAME: "recover_servicenow"
+      compute_profile: general-spot-1vcpu-4gb
+      dependencies: [load]
+
 notifications:
   emails:
     - matt.heery@justice.gov.uk
@@ -25,7 +37,7 @@ iam:
 
 maintainers:
   - matt-heery
-  - pricemg
+  - kraihanmoj
 
 tags:
   business_unit: HMPPS

@@ -1,0 +1,72 @@
+---
+dag:
+  repository: moj-analytical-services/laa_cwa_providers
+  tag: 1.0.0
+  retries: 1
+  retry_delay: 150
+
+  env_vars:
+    ENVIRONMENT: "prod"
+    LOG_LEVEL: "INFO"
+    BUCKET_URL: >-
+      s3://alpha-mojap-curated-laa/provider_details/raw
+    CACHE_DIRECTORY: >-
+      s3://alpha-mojap-curated-laa/provider_details/cache
+    QUERY_RESULT_BUCKET: >-
+      s3://aws-athena-query-results-593291632749-eu-west-1
+    ATHENA_WORK_GROUP: "primary"
+    CACHE_ENABLED: "true"
+    DISABLE_COMPRESSION: "true"
+    DLTHUB_TELEMETRY: "false"
+    API_REQUEST_TIMEOUT: "30"
+    API_MAX_RETRIES: "3"
+    DEPENDENCY_BATCH_SIZE: "50"
+    API_BASE_URL: >-
+      https://laa-provider-details-api-preprod.apps.live.cloud-platform.service.justice.gov.uk/
+    PIPELINE_DIR: "providers_staging/"
+    DATABASE_NAME: "laa_provider_raw_test"
+
+  tasks:
+    extract-provider-firms:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_firms"
+        API_ENDPOINTS: "provider_firms"
+    extract-chambers:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_chambers"
+        API_ENDPOINTS: "chambers"
+    extract-advocates:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_advocates"
+        API_ENDPOINTS: "advocates"
+    extract-public-defenders:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_public_defenders"
+        API_ENDPOINTS: "public_defenders"
+    extract-sole-practitioners:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_sole_practitioners"
+        API_ENDPOINTS: "sole_practitioners"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-mojap-curated-laa/provider_details/*
+    - aws-athena-query-results-593291632749-eu-west-1/*
+
+secrets:
+  - api-token
+
+notifications:
+  emails:
+    - Ihuoma.Panton@justice.gov.uk
+    - Damilola.Oyebade@justice.gov.uk
+
+maintainers:
+  - oplaa-collab
+  - dami-moj
+
+tags:
+  business_unit: LAA
+  owner: Damilola.Oyebade@justice.gov.uk

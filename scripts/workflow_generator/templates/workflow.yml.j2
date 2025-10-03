@@ -72,6 +72,12 @@
       {%- if task.dependencies %}
       dependencies: {{ task.dependencies }}
       {%- endif %}
+      {%- if task.inlets %}
+      inlets: {{ task.inlets }}
+      {%- endif %}
+      {%- if task.outlets %}
+      outlets: {{ task.outlets }}
+      {%- endif %}
     {%- endfor %}
     {%- else %}
     main:
@@ -100,4 +106,10 @@
       environment: {{ meta.environment }}
       project: {{ meta.project }}
       workflow: {{ meta.workflow }}
+      {%- if inlets %}
+      inlets: {{ inlets }}
+      {%- endif %}
+      {%- if outlets %}
+      outlets: {{ outlets }}
+      {%- endif %}
     {%- endif %}

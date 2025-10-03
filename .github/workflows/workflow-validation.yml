@@ -73,6 +73,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+      pull-requests: write
     strategy:
       fail-fast: false
       matrix:
@@ -88,7 +89,7 @@ jobs:
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@b75a909f75acd358c2196fb9a5f1299a9a8868a4 # v6.7.0
+        uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
         with:
           activate-environment: true
           version: "latest"
@@ -116,12 +117,83 @@ jobs:
 
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
+      - name: Check if Workflow Directory Includes Underscore
+        id: check_workflow_directory_underscore
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+        run: |
+          if [[ "${WORKFLOW_DIRECTORY}" == *"_"* ]]; then
+            echo "Workflow directory contains underscores, which is not allowed."
+            exit 1
+          fi
+
+      - name: Comment on Underscore Check Failure
+        id: comment_on_underscore_failure
+        if: failure() && steps.check_workflow_directory_underscore.outcome == 'failure'
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'The workflow directory name contains underscores. Please use hyphens instead of underscores.'
+            })
+
+      - name: Check Computed IAM Role Name Length
+        id: check_iam_role_length
+        env:
+          IAM_ROLE_NAME_PREFIX: "airflow"
+          IAM_ROLE_NAME_MAX_LENGTH: 64
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+        run: |
+          externalIamRole=$(yq --output-format=json "${WORKFLOW_DIRECTORY}/workflow.yml" | jq -r '.iam.external_role')
+          export externalIamRole
+
+          if [[ "${externalIamRole}" == "null" ]]; then
+            echo "No external IAM role defined in workflow.yml"
+
+            getEnvironment=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f2)
+            export getEnvironment
+
+            getProject=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f3)
+            export getProject
+
+            getWorkflow=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f4)
+            export getWorkflow
+
+            computedRoleName="${IAM_ROLE_NAME_PREFIX}-${getEnvironment}-${getProject}-${getWorkflow}"
+            export computedRoleName
+
+            if [[ "${#computedRoleName}" -gt "${IAM_ROLE_NAME_MAX_LENGTH}" ]]; then
+              echo "Computed IAM role name (${computedRoleName}) exceeds (${#computedRoleName}) maximum length of ${IAM_ROLE_NAME_MAX_LENGTH} characters."
+              exit 1
+            fi
+          else
+            echo "External IAM role defined in workflow.yml, skipping computed IAM role name length check"
+          fi
+
+      - name: Comment on IAM Role Length Check Failure
+        id: comment_on_iam_role_length_failure
+        if: failure() && steps.check_iam_role_length.outcome == 'failure'
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'The computed IAM role name exceeds the maximum length. Please shorten the project or workflow name to ensure the IAM role name is within the allowed limit of ${process.env['IAM_ROLE_NAME_MAX_LENGTH']} characters.'
+            })
+
       - name: Check if DAG is Python
         id: dag_is_python
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
           set -x
 
-          dagIsPython=$(yq ".dag.python_dag // false" "${{ env.workflow-directory }}/workflow.yml")
+          dagIsPython=$(yq ".dag.python_dag // false" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagIsPython
 
           if [[ "${dagIsPython}" == "true" ]]; then
@@ -132,23 +204,29 @@ jobs:
 
       - name: Validate Schema
         id: validate_schema
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
-          python scripts/workflow_schema_validation/main.py "${{ env.workflow-directory }}/workflow.yml"
+          python scripts/workflow_schema_validation/main.py "${WORKFLOW_DIRECTORY}/workflow.yml"
 
       - name: Generate Workflow
         id: generate_workflow
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
-          python scripts/workflow_generator/main.py "${{ env.workflow-directory }}/workflow.yml"
+          python scripts/workflow_generator/main.py "${WORKFLOW_DIRECTORY}/workflow.yml"
 
       - name: Validate Workflow
         id: validate_workflow
         env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+          DAG_IS_PYTHON: ${{ env.dag-is-python }}
           PYTHONPATH: airflow
         run: |
-          workflowDirectory="${{ env.workflow-directory }}"
+          workflowDirectory="${WORKFLOW_DIRECTORY}"
           distWorkflowDirectory=${workflowDirectory#environments/}
 
-          if [[ "${{ env.dag-is-python }}" == "true" ]]; then
+          if [[ "${DAG_IS_PYTHON}" == "true" ]]; then
             python "dist/dags/${distWorkflowDirectory}/dag.py"
           else
             python scripts/workflow_validation/main.py "dist/dags/${distWorkflowDirectory}/workflow.yml"
@@ -228,14 +306,16 @@ jobs:
 
       - name: Set ECR Repository
         id: set_ecr_repository
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
-          dagRepository=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
+          dagRepository=$(yq -e ".dag.repository" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagRepository
 
           ecrRepository=$(echo "${dagRepository}" | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')
           export ecrRepository
 
-          dagTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
+          dagTag=$(yq -e ".dag.tag" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagTag
 
           echo "ecr-repository=${ecrRepository}" >>"${GITHUB_ENV}"
@@ -243,8 +323,11 @@ jobs:
 
       - name: Check Image Exists
         id: check_image_exists
+        env:
+          ECR_REPOSITORY: ${{ env.ecr-repository }}
+          IMAGE_TAG: ${{ env.image-tag }}
         run: |
-          aws ecr describe-images --repository-name "${{ env.ecr-repository }}" --image-ids imageTag="${{ env.image-tag }}" || exit 1
+          aws ecr describe-images --repository-name "${ECR_REPOSITORY}" --image-ids imageTag="${IMAGE_TAG}" || exit 1
 
       - name: Comment on Image Check Failure
         id: comment_on_check_failure
@@ -301,8 +384,11 @@ jobs:
       - name: Container Structure Test
         id: container_structure_test
         shell: bash
+        env:
+          ECR_REPOSITORY: ${{ env.ecr-repository }}
+          IMAGE_TAG: ${{ env.image-tag }}
         run: |
-          container-structure-test test --config container-structure-test.yml --image "509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}"
+          container-structure-test test --config container-structure-test.yml --image "509399598587.dkr.ecr.eu-west-2.amazonaws.com/${ECR_REPOSITORY}:${IMAGE_TAG}"
 
       - name: Comment on Image Test Failure
         id: comment_on_test_failure
@@ -321,11 +407,12 @@ jobs:
         id: generate_trivy_ignore
         env:
           GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
-          dagRepository=$(yq -e ".dag.repository" "${{ env.workflow-directory }}/workflow.yml")
+          dagRepository=$(yq -e ".dag.repository" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagRepository
 
-          dagTag=$(yq -e ".dag.tag" "${{ env.workflow-directory }}/workflow.yml")
+          dagTag=$(yq -e ".dag.tag" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagTag
 
           downloadDockerfile=$(gh api "repos/${dagRepository}/contents/Dockerfile?ref=${dagTag}" 2>/dev/null || true)
@@ -457,7 +544,7 @@ jobs:
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@b75a909f75acd358c2196fb9a5f1299a9a8868a4 # v6.7.0
+        uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
         with:
           activate-environment: true
           version: "latest"
@@ -489,11 +576,13 @@ jobs:
         id: automatic_approval_check
         env:
           GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
           git fetch origin main
 
-          changed_files=$(git diff --name-only origin/main)
-          changed_files_status=$(git diff --name-status origin/main | awk '{ print $1 }')
+          changed_files="$(git diff --name-only origin/main)"
+          changed_files_status="$(git diff --name-status origin/main | awk '{ print $1 }')"
 
           echo "${changed_files}"
           echo "${changed_files_status}"
@@ -503,21 +592,21 @@ jobs:
 
           # Check if any files were added or deleted
           for status in ${changed_files_status}; do
-            if [[ ${status} != "M" ]]; then
+            if [[ "${status}" != "M" ]]; then
               echo "File status ${status} detected, not eligible for automatic approval"
               exit 0
             fi
           done
 
           # Check if the workflow file has been modified, and in what way
-          if [[ $(git diff --name-status origin/main ${{ env.workflow-directory }}/workflow.yml | awk '{ print $1 }') == "M" ]]; then
-            echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, eligible for automatic approval depending on changes"
-            gh api "repos/${{ github.repository }}/contents/${{ env.workflow-directory }}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${{ env.workflow-directory }}/workflow-main.yml"
+          if [[ "$(git diff --name-status origin/main "${WORKFLOW_DIRECTORY}/workflow.yml" | awk '{ print $1 }')" == "M" ]]; then
+            echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, eligible for automatic approval depending on changes"
+            gh api "repos/${GITHUB_REPOSITORY}/contents/${WORKFLOW_DIRECTORY}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${WORKFLOW_DIRECTORY}/workflow-main.yml"
 
-            if [[ $(python scripts/yaml_diff/main.py "${{ env.workflow-directory }}/workflow-main.yml" "${{ env.workflow-directory }}/workflow.yml") == "Only dag.tag has changed" ]]; then
+            if [[ $(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml") == "Only dag.tag has changed" ]]; then
               echo "Only dag.tag has changed, eligible for automatic approval"
             else
-              echo "Workflow file ${{ env.workflow-directory }}/workflow.yml has been modified, not eligible for automatic approval"
+              echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, not eligible for automatic approval"
               exit 0
             fi
           fi
@@ -530,16 +619,24 @@ jobs:
             fi
           done
 
-          # Check if any files outside environments/(development|test) have changed
+          # Check if any files outside environments/(development|test|production) have changed
           for file in ${changed_files}; do
-            if [[ ! "${file}" =~ ^environments/(development|test)/.*$ ]]; then
-              echo "File (${file}) has changed outside the specified path (environments/(development|test)), not eligible for automatic approval"
+            if [[ ! "${file}" =~ ^environments/(development|test|production)/.*$ ]]; then
+              echo "File (${file}) has changed outside the specified path (environments/(development|test|production)), not eligible for automatic approval"
               exit 0
             fi
           done
 
+          # Check if pull request author is maintainer of the workflow
+          if [[ "$(yq --output-format=json "${WORKFLOW_DIRECTORY}/workflow.yml" | jq --arg GITHUB_ACTOR "${GITHUB_ACTOR}" '.maintainers | any(. == $GITHUB_ACTOR)')" == "true" ]]; then
+            echo "${GITHUB_ACTOR} is a maintainer, eligible for automatic approval"
+          else
+            echo "${GITHUB_ACTOR} is not a maintainer, not eligible for automatic approval"
+            exit 0
+          fi
+
           # Check automatic approval status in DynamoDB
-          automatic_approval_dynamodb_status=$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)
+          automatic_approval_dynamodb_status="$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)"
 
           echo "Automatic approval DynamoDB status: ${automatic_approval_dynamodb_status}"
 
