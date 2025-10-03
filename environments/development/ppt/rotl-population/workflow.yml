@@ -26,7 +26,7 @@ iam:
     - moj-reg-prod-curated/hmpps-performance-hub/data/database_name=hub_prison/table_name=prison_metric_outturns/*
 
   s3_read_write:
-    - alpha-prison-performance-team/ROTL_population/*
+    - alpha-prison-performance-team/ROTL_Population/*
 
   s3_write_only:
     - mojap-hub-exports/prison_performance/*
