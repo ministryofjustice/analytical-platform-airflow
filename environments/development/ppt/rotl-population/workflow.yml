@@ -1,10 +1,10 @@
 dag:
   repository: moj-analytical-services/airflow_rotl_population
-  tag: v0.1.01
+  tag: v0.1.02
   retries: 3
   retry_delay: 150
   schedule: "0 14 4 * *"
-  compute_profile: general-spot-2vcpu-8gb
+  compute_profile: general-spot-4vcpu-16gb
 
 iam:
   athena: write
