@@ -72,7 +72,7 @@ success_task = AnalyticalPlatformStandardOperator(
 # Task that will fail - tests failure notification
 failure_task = AnalyticalPlatformStandardOperator(
     dag=dag,
-    task_id="test_failure_notification", 
+    task_id="test_failure_notification",
     name=f"{PROJECT}.{WORKFLOW}.failure",
     compute_profile="general-spot-1vcpu-4gb",
     environment=f"{ENVIRONMENT}",
