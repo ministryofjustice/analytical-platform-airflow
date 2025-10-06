@@ -40,7 +40,19 @@
     {{ k }}: "{{ v }}"
     {%- endfor %}
   {%- endif %}
-  schedule: {{ dag.schedule|default("None") }}
+  {%- if dag.schedule %}
+  {%- if dag.schedule.seconds %}
+  schedule: {__type__ : datetime.timedelta, seconds : {{ dag.schedule.seconds }}}
+  {%- elif dag.schedule.minutes %}
+  schedule: {__type__ : datetime.timedelta, minutes : {{ dag.schedule.minutes }}}
+  {%- elif dag.schedule.hours %}
+  schedule: {__type__ : datetime.timedelta, hours : {{ dag.schedule.hours }}}
+  {%- else %}
+  schedule: {{ dag.schedule }}
+  {%- endif %}
+  {%- else %}
+  schedule: {{ "None" }}
+  {%- endif %}
   tasks:
     {%- if dag.tasks %}
     {%- for task_name, task in dag.tasks.items() %}
