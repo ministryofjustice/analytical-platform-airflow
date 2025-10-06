@@ -1,0 +1,23 @@
+---
+dag:
+  repository: moj-analytical-services/corp-test-img
+  tag: v0.0.2
+  python_dag: true
+  env_vars:
+    WR_WORKGROUP: airflow-prod-workgroup-corp
+
+iam:
+  athena: write
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - william.orr@justice.gov.uk
+
+maintainers:
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: william.orr@justice.gov.uk
