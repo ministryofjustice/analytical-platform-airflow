@@ -4,7 +4,7 @@ dag:
   tag: v0.2.83
   compute_profile: general-spot-1vcpu-4gb
   catchup: false
-  depends_on_past: true
+  depends_on_past: false
   schedule: "0 * * * *"
   start_date: "2025-04-15"
   max_active_runs: 1
