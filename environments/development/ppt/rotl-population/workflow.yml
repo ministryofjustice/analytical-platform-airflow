@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow_rotl_population
-  tag: v0.1.03
+  tag: v0.1.04
   retries: 3
   retry_delay: 150
   schedule: "0 14 4 * *"
