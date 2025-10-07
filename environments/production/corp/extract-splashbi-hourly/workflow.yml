@@ -11,6 +11,21 @@ dag:
     po_sscl_details:
       env_vars:
         REPORT_NAME: "po_sscl_details"
+    moj-iexp01:
+      env_vars:
+        REPORT_NAME: "moj-iexp01"
+    laa-iexp01:
+      env_vars:
+        REPORT_NAME: "laa-iexp01"
+    opg-iexp01:
+      env_vars:
+        REPORT_NAME: "opg-iexp01"
+    cts-iexp01:
+      env_vars:
+        REPORT_NAME: "cts-iexp01"
+    nms-iexp01:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
 
 iam:
   s3_read_write:
