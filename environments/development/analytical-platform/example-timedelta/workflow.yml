@@ -5,7 +5,7 @@ dag:
   retries: 3
   retry_delay: 60
   schedule:
-    hours: 1
+    hours: 12
 
 notifications:
   slack_channel: analytical-platform-airflow-testing
