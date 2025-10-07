@@ -19,6 +19,7 @@ DAG_EMAIL = [
 
 def slack_failure_callback(context):
     return send_slack_notification(
+        slack_conn_id="slack_api_default",
         channel=SLACK_CHANNEL,
         text=f":airflow: *Airflow {ENVIRONMENT.capitalize()}*\n"
              f":x: {PROJECT}.{WORKFLOW} has failed.\n"
@@ -28,6 +29,7 @@ def slack_failure_callback(context):
 
 def slack_success_callback(context):
     return send_slack_notification(
+        slack_conn_id="slack_api_default",
         channel=SLACK_CHANNEL,
         text=f":airflow: *Airflow {ENVIRONMENT.capitalize()}*\n"
              f":white_check_mark: {PROJECT}.{WORKFLOW} has succeeded.\n"
@@ -50,8 +52,6 @@ dag = DAG(
     start_date=datetime(2025, 1, 1),
     schedule=None,  # Manual trigger only
     catchup=False,
-    on_failure_callback=slack_failure_callback,
-    on_success_callback=slack_success_callback,
     tags=["slack-notification-test"],
 )
 
@@ -68,6 +68,8 @@ success_task = AnalyticalPlatformStandardOperator(
     env_vars={
         "TEST_TYPE": "success",
     },
+    on_failure_callback=slack_failure_callback,
+    on_success_callback=slack_success_callback,
 )
 
 # Task that will fail - tests failure notification
@@ -83,4 +85,6 @@ failure_task = AnalyticalPlatformStandardOperator(
     env_vars={
         "TEST_TYPE": "failure",
     },
+    on_failure_callback=slack_failure_callback,
+    on_success_callback=slack_success_callback,
 )
