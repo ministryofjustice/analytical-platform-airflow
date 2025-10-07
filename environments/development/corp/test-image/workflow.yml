@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/corp-test-img
-  tag: v0.0.2
+  tag: v0.0.3
   python_dag: true
   env_vars:
     WR_WORKGROUP: airflow-prod-workgroup-corp
