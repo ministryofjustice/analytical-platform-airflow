@@ -2,7 +2,6 @@ from datetime import datetime
 from airflow.models import DAG
 from airflow.providers.slack.notifications.slack import SlackNotifier
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
-from airflow.providers.cncf.kubernetes.secret import Secret
 
 # Configuration for testing
 REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
