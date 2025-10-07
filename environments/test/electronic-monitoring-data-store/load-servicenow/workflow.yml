@@ -14,7 +14,7 @@ dag:
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
-
+    REFRESH_TOTAL_DB: false
   tasks:
     load:
       env_vars:
