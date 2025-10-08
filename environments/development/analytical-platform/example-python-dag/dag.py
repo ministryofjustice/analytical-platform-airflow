@@ -1,6 +1,7 @@
 from datetime import datetime
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
+from airflow.providers.slack.notifications.slack import send_slack_notification
 from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
@@ -50,5 +51,11 @@ task = AnalyticalPlatformStandardOperator(
             secret=f"{PROJECT}-{WORKFLOW}-example",
             key="data"
         )
-    ]
+    ],
+    on_success_callback=[
+        send_slack_notification(
+            text="The task {{ ti.task_id }} succeeded",
+            channel="#analytical-platform-airflow-testing",
+        )
+    ],
 )
