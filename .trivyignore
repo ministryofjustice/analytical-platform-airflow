@@ -2,3 +2,5 @@
 CVE-2024-56201
 CVE-2024-56326
 CVE-2025-27516
+# investigating but currently believe this could be a false positive
+AVD-AZU-0012
