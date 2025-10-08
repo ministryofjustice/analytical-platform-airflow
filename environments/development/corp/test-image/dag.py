@@ -1,8 +1,7 @@
 from datetime import datetime
 from airflow.models import DAG
-from airflow.providers.slack.notifications.slack import send_slack_notification
+from airflow.providers.slack.notifications.slack import SlackNotifier
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
-from airflow.providers.cncf.kubernetes.secret import Secret
 
 # Configuration for testing
 REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
@@ -17,25 +16,24 @@ DAG_EMAIL = [
     "william.orr@justice.gov.uk",
 ]
 
-def slack_failure_callback(context):
-    return send_slack_notification(
-        slack_conn_id="slack_api_default",
-        channel=SLACK_CHANNEL,
-        text=f":airflow: *Airflow {ENVIRONMENT.capitalize()}*\n"
-             f":x: {PROJECT}.{WORKFLOW} has failed.\n"
-             f"*Task*: {context['ti'].task_id}\n"
-             f"*Logs*: {context['ti'].log_url}"
-    )
+# Define Slack notifiers
+slack_notifier_success = SlackNotifier(
+    slack_conn_id="slack_api_default",
+    text=":airflow: *Airflow {{ var.value.environment | capitalize }}*\n"
+         ":white_check_mark: {{ dag.dag_id }} has succeeded.\n"
+         "*Task*: {{ ti.task_id }}\n"
+         "*Logs*: {{ ti.log_url }}",
+    channel=SLACK_CHANNEL,
+)
 
-def slack_success_callback(context):
-    return send_slack_notification(
-        slack_conn_id="slack_api_default",
-        channel=SLACK_CHANNEL,
-        text=f":airflow: *Airflow {ENVIRONMENT.capitalize()}*\n"
-             f":white_check_mark: {PROJECT}.{WORKFLOW} has succeeded.\n"
-             f"*Task*: {context['ti'].task_id}\n"
-             f"*Logs*: {context['ti'].log_url}"
-    )
+slack_notifier_failure = SlackNotifier(
+    slack_conn_id="slack_api_default",
+    text=":airflow: *Airflow {{ var.value.environment | capitalize }}*\n"
+         ":x: {{ dag.dag_id }} has failed.\n"
+         "*Task*: {{ ti.task_id }}\n"
+         "*Logs*: {{ ti.log_url }}",
+    channel=SLACK_CHANNEL,
+)
 
 default_args = {
     "depends_on_past": False,
@@ -68,8 +66,8 @@ success_task = AnalyticalPlatformStandardOperator(
     env_vars={
         "TEST_TYPE": "success",
     },
-    on_failure_callback=slack_failure_callback,
-    on_success_callback=slack_success_callback,
+    on_failure_callback=[slack_notifier_failure],
+    on_success_callback=[slack_notifier_success],
 )
 
 # Task that will fail - tests failure notification
@@ -85,6 +83,6 @@ failure_task = AnalyticalPlatformStandardOperator(
     env_vars={
         "TEST_TYPE": "failure",
     },
-    on_failure_callback=slack_failure_callback,
-    on_success_callback=slack_success_callback,
+    on_failure_callback=[slack_notifier_failure],
+    on_success_callback=[slack_notifier_success],
 )
