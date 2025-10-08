@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v0.0.17
+  tag: v1.0.2
   schedule: "0 7-18 * * 1-5"
   env_vars:
     REPORT_APP: "splashbi"
@@ -11,6 +11,21 @@ dag:
     po_sscl_details:
       env_vars:
         REPORT_NAME: "po_sscl_details"
+    moj-iexp01:
+      env_vars:
+        REPORT_NAME: "moj-iexp01"
+    laa-iexp01:
+      env_vars:
+        REPORT_NAME: "laa-iexp01"
+    opg-iexp01:
+      env_vars:
+        REPORT_NAME: "opg-iexp01"
+    cts-iexp01:
+      env_vars:
+        REPORT_NAME: "cts-iexp01"
+    nms-iexp01:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
 
 iam:
   s3_read_write:
@@ -25,11 +40,13 @@ notifications:
     - william.orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
     - mohammed.ahad1@justice.gov.uk
+    - laurence.droy@justice.gov.uk
 
 maintainers:
   - williamorrie
   - moj-supratikc
   - morezwan
+  - ltd-pa
 
 tags:
   business_unit: Central Digital
