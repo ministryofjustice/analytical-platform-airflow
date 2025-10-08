@@ -56,7 +56,6 @@ task = AnalyticalPlatformStandardOperator(
         send_slack_notification(
             text="The task {{ ti.task_id }} succeeded",
             channel="#analytical-platform-airflow-testing",
-            username="Airflow",
         )
     ],
 )
