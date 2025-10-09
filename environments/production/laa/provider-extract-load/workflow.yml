@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa_cwa_providers
-  tag: 1.0.0
+  tag: 1.3.0
   retries: 1
   retry_delay: 150
 
@@ -9,9 +9,9 @@ dag:
     ENVIRONMENT: "prod"
     LOG_LEVEL: "INFO"
     BUCKET_URL: >-
-      s3://alpha-mojap-curated-laa/provider_details/raw
+      s3://alpha-mojap-curated-laa/pda/raw
     CACHE_DIRECTORY: >-
-      s3://alpha-mojap-curated-laa/provider_details/cache
+      s3://alpha-mojap-curated-laa/pda/cache
     QUERY_RESULT_BUCKET: >-
       s3://aws-athena-query-results-593291632749-eu-west-1
     ATHENA_WORK_GROUP: "primary"
@@ -20,11 +20,11 @@ dag:
     DLTHUB_TELEMETRY: "false"
     API_REQUEST_TIMEOUT: "30"
     API_MAX_RETRIES: "3"
-    DEPENDENCY_BATCH_SIZE: "50"
+    DEPENDENCY_BATCH_SIZE: "100"
     API_BASE_URL: >-
-      https://laa-provider-details-api-preprod.apps.live.cloud-platform.service.justice.gov.uk/
+      https://laa-provider-details-api-prod.apps.live.cloud-platform.service.justice.gov.uk/
     PIPELINE_DIR: "providers_staging/"
-    DATABASE_NAME: "laa_provider_raw_test"
+    DATABASE_NAME: "laa_provider_raw"
 
   tasks:
     extract-provider-firms:
@@ -52,7 +52,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - alpha-mojap-curated-laa/provider_details/*
+    - alpha-mojap-curated-laa/pda/*
     - aws-athena-query-results-593291632749-eu-west-1/*
 
 secrets:
@@ -62,6 +62,7 @@ notifications:
   emails:
     - Ihuoma.Panton@justice.gov.uk
     - Damilola.Oyebade@justice.gov.uk
+  slack_channel: laa-de-alerts
 
 maintainers:
   - oplaa-collab
