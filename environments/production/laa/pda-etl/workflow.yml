@@ -2,7 +2,7 @@
 dag:
   repository: moj-analytical-services/laa_cwa_providers
   tag: 1.3.0
-  retries: 1
+  retries: 2
   retry_delay: 150
   env_vars:
     ENVIRONMENT: "prod"
