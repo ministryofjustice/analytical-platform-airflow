@@ -1,6 +1,6 @@
 from datetime import datetime
 from airflow.models import DAG
-from airflow.providers.slack.notifications.slack import SlackNotifier
+from airflow.providers.slack.notifications.slack import send_slack_notification
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 
 # Configuration for testing
@@ -10,30 +10,11 @@ PROJECT = "PLACEHOLDER_PROJECT"
 WORKFLOW = "PLACEHOLDER_WORKFLOW"
 ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
 OWNER = "PLACEHOLDER_OWNER"
-SLACK_CHANNEL = "dmet-corp-notifications"
+SLACK_CHANNEL = "#dmet-corp-notifications"
 
 DAG_EMAIL = [
     "william.orr@justice.gov.uk",
 ]
-
-# Define Slack notifiers
-slack_notifier_success = SlackNotifier(
-    slack_conn_id="slack_api_default",
-    text=":airflow: *Airflow {{ var.value.environment | capitalize }}*\n"
-         ":white_check_mark: {{ dag.dag_id }} has succeeded.\n"
-         "*Task*: {{ ti.task_id }}\n"
-         "*Logs*: {{ ti.log_url }}",
-    channel=SLACK_CHANNEL,
-)
-
-slack_notifier_failure = SlackNotifier(
-    slack_conn_id="slack_api_default",
-    text=":airflow: *Airflow {{ var.value.environment | capitalize }}*\n"
-         ":x: {{ dag.dag_id }} has failed.\n"
-         "*Task*: {{ ti.task_id }}\n"
-         "*Logs*: {{ ti.log_url }}",
-    channel=SLACK_CHANNEL,
-)
 
 default_args = {
     "depends_on_past": False,
@@ -66,8 +47,12 @@ success_task = AnalyticalPlatformStandardOperator(
     env_vars={
         "TEST_TYPE": "success",
     },
-    on_failure_callback=[slack_notifier_failure],
-    on_success_callback=[slack_notifier_success],
+    on_success_callback=[
+        send_slack_notification(
+            text="The task {{ ti.task_id }} succeeded",
+            channel=SLACK_CHANNEL,
+        )
+    ],
 )
 
 # Task that will fail - tests failure notification
@@ -83,6 +68,13 @@ failure_task = AnalyticalPlatformStandardOperator(
     env_vars={
         "TEST_TYPE": "failure",
     },
-    on_failure_callback=[slack_notifier_failure],
-    on_success_callback=[slack_notifier_success],
+    on_failure_callback=[
+        send_slack_notification(
+            text=":airflow: *Airflow {{ var.value.environment | capitalize }}*\n"
+                 ":x: {{ dag.dag_id }} has failed.\n"
+                 "*Task*: {{ ti.task_id }}\n"
+                 "*Logs*: {{ ti.log_url }}",
+            channel=SLACK_CHANNEL,
+        )
+    ],
 )
