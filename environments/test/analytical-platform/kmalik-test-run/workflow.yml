@@ -1,11 +1,16 @@
 ---
 dag:
   repository: ministryofjustice/kmalik
-  tag: v0.0.2
+  tag: v0.0.3
+  env_vars:
+    DB_NAME: "TEST"
 
 iam:
   s3_read_write:
     - alpha-everyone/kmalik-justice-digital/test/airflow/*
+
+secrets:
+  - username
 
 maintainers:
   - kmalik-justice-digital
