@@ -5,7 +5,7 @@ dag:
   python_dag: true
 
 iam:
-athena: write
+  athena: write
   glue: true
   s3_read_write:
     - mojap-land/hmpps/nomis_t62/*
