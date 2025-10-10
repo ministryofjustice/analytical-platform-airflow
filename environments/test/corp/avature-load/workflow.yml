@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-avature-scraper
-  tag: v0.0.23-test
+  tag: v0.0.24-test
   env_vars:
     WR_WORKGROUP: airflow-prod-workgroup-corp
     ENVIRONMENT: test
