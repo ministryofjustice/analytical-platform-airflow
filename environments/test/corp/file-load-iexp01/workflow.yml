@@ -1,10 +1,11 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.21-test-7
+  tag: v0.0.21-test-11
   schedule: "30 8 * * 1-5"
+  is_paused_upon_creation: true
   env_vars:
-    AFFILE_PIPELINE_NAME: "iexp01_expenses_live"
+    AFFILE_PIPELINE_NAME: "sop__iexp01_expenses_live"
     AFFILE_ENV: "dev"
     AFFILE_SCHEMA_CONTRACT: "freeze"
     AWS_DEFAULT_REGION: "eu-west-1"
