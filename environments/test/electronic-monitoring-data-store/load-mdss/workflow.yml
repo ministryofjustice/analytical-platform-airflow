@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.2.94
+  tag: v0.2.70-updated-dockerfile-patch
   compute_profile: general-on-demand-4vcpu-16gb
   catchup: False
   depends_on_past: False
@@ -29,7 +29,7 @@ iam:
 
 maintainers:
   - matt-heery
-  - pricemg
+  - kraihanmoj
 
 tags:
   business_unit: HMPPS
