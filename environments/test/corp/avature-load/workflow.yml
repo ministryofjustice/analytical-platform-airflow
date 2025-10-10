@@ -12,6 +12,7 @@ iam:
   s3_read_write:
     - alpha-recruitment-data-model-test/avature-extracts/*
     - alpha-recruitment-data-model-test/avature-iceberg/*
+    - mojap-athena-query-dump/*
 
 notifications:
   slack_channel: dmet-corp-notifications
