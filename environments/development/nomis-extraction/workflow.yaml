@@ -1,0 +1,34 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-nomis-extraction
+  tag: v0.01
+  python_dag: true
+
+iam:
+athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land/hmpps/nomis_t62/*
+    - mojap-land/hmpps/nomis_t62_deletes/*
+    - mojap-raw-hist/hmpps/nomis_t62/extraction_logs/*
+    - mojap-raw-hist/hmpps/nomis_t62_deletes/extraction_logs/*
+    - alpha-nomis/logs/*
+    - alpha-nomis/nomis_unixtime/*
+
+  s3_read_only:
+    - alpha-anvil/dag_tools/*
+
+  s3_write_only:
+    - mojap-raw-hist/hmpps/nomis_t62/*
+    - mojap-raw-hist/hmpps/nomis_t62_deletes/*
+    - alpha-nomis/processed_nomis_t62/*
+
+notifications:
+  slack_channel: hmpps-data-notifications
+
+maintainers:
+  - anthonycody
+
+tags:
+  business_unit: HQ
+  owner: dataengineers-gg@justice.gov.uk
