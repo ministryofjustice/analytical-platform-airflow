@@ -1,0 +1,124 @@
+---
+dag:
+  repository: moj-analytical-services/laa_cwa_providers
+  tag: 1.5.0
+  retries: 2
+  retry_delay: 150
+  env_vars:
+    ENVIRONMENT: "prod"
+    LOG_LEVEL: "INFO"
+    BUCKET_URL: >-
+      s3://alpha-mojap-curated-laa/pda/raw
+    CACHE_DIRECTORY: >-
+      s3://alpha-mojap-curated-laa/pda/cache
+    QUERY_RESULT_BUCKET: >-
+      s3://aws-athena-query-results-593291632749-eu-west-1
+    ATHENA_WORK_GROUP: "primary"
+    CACHE_ENABLED: "true"
+    DISABLE_COMPRESSION: "true"
+    DLTHUB_TELEMETRY: "false"
+    API_REQUEST_TIMEOUT: "30"
+    API_MAX_RETRIES: "3"
+    DEPENDENCY_BATCH_SIZE: "100"
+    API_BASE_URL: >-
+      https://laa-provider-details-api-prod.apps.live.cloud-platform.service.justice.gov.uk/
+    PIPELINE_DIR: "providers_staging/"
+    DATABASE_NAME: "laa_provider_raw"
+
+  tasks:
+    extract-provider-firms:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_firms"
+        API_ENDPOINTS: "provider_firms"
+
+    extract-chambers:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_chambers"
+        API_ENDPOINTS: "chambers"
+
+    extract-advocates:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_advocates"
+        API_ENDPOINTS: "advocates"
+
+    extract-public-defenders:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_public_defenders"
+        API_ENDPOINTS: "public_defenders"
+
+    extract-sole-practitioners:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_sole_practitioners"
+        API_ENDPOINTS: "sole_practitioners"
+
+    extract-provider-offices:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_offices"
+        API_ENDPOINTS: "provider_offices"
+      dependencies: [extract-provider-firms]
+
+    extract-fee-earners:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_fee_earners"
+        API_ENDPOINTS: "fee_earners"
+      dependencies: [extract-provider-firms]
+
+    extract-mediation-outreach:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_mediation_outreach"
+        API_ENDPOINTS: "mediation_outreach"
+      dependencies: [extract-provider-firms]
+
+    extract-nms-authorisation:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_nms_authorisation"
+        API_ENDPOINTS: "nms_authorisation"
+      dependencies: [extract-provider-firms]
+
+    extract-provider-users:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_users"
+        API_ENDPOINTS: "provider_users"
+      dependencies: [extract-provider-firms]
+
+    extract-contract-details:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_contract_details"
+        API_ENDPOINTS: "contract_details"
+      dependencies: [extract-provider-offices]
+
+    extract-provider-office-users:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_office_users"
+        API_ENDPOINTS: "provider_office_users"
+      dependencies: [extract-provider-offices]
+
+    extract-provider-office-schedules:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_office_schedules"
+        API_ENDPOINTS: "provider_office_schedules"
+      dependencies: [extract-provider-offices]
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-mojap-curated-laa/pda/*
+    - aws-athena-query-results-593291632749-eu-west-1/*
+
+secrets:
+  - api-token
+
+notifications:
+  emails:
+    - Ihuoma.Panton@justice.gov.uk
+    - Damilola.Oyebade@justice.gov.uk
+  slack_channel: laa-de-alerts
+
+maintainers:
+  - oplaa-collab
+  - dami-moj
+
+tags:
+  business_unit: LAA
+  owner: Damilola.Oyebade@justice.gov.uk
