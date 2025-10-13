@@ -37,8 +37,6 @@ dag = DAG(
 
 tasks = dict()
 
-
-
 task_id = "initalise-dag"
 tasks[task_id] = KubernetesPodOperator(
     dag=dag,
@@ -53,6 +51,7 @@ tasks[task_id] = KubernetesPodOperator(
         "DAG_ID": dag.dag_id,
 #        "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
+        "DAG_RUN_UTC_UNIXTIME": str(int(datetime.utcnow().timestamp())),
     },
     startup_timeout_seconds=600,
     pool="nomis_tasks",
