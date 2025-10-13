@@ -6,7 +6,7 @@ from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from imports.nomis_constants import PK_EXCEPTIONS, PK_EXTRACTIONS, email, owner, tags
 from imports.high_memory_constants import tolerations, affinity
 
-IMAGE_VERSION = "v0.2"
+IMAGE_VERSION = "v0.3"
 REPO = "airflow-nomis-extraction"
 BUILD_IMAGE = f"{REPO}:{IMAGE_VERSION}"
 # IMAGE = f"189157455002.dkr.ecr.eu-west-1.amazonaws.com/{BUILD_IMAGE}"
