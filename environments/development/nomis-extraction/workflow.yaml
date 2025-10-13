@@ -14,9 +14,7 @@ iam:
     - mojap-raw-hist/hmpps/nomis_t62_deletes/extraction_logs/*
     - alpha-nomis/logs/*
     - alpha-nomis/nomis_unixtime/*
-
-  s3_read_only:
-    - alpha-anvil/dag_tools/*
+    - alpha-anvil/dag_tools/new_nomis_extraction/*
 
   s3_write_only:
     - mojap-raw-hist/hmpps/nomis_t62/*
