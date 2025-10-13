@@ -27,6 +27,7 @@ iam:
     - mojap-processed/domain__hr/env__dev/corporate_sop_dev/*
     - mojap-processed/domain__hr/env__dev/corporate_sop_dev_staging/*
     - mojap-processed/corporate/sop/dev/*
+    - mojap-processed/domain__hr/env__dev/athena_query_dump/*
 
 notifications:
   slack_channel: dmet-corp-notifications
