@@ -26,6 +26,7 @@ iam:
   s3_read_write:
     - mojap-processed/domain__hr/env__dev/corporate_sop_dev/*
     - mojap-processed/domain__hr/env__dev/corporate_sop_dev_staging/*
+    - mojap-processed/corporate/sop/dev/*
 
 notifications:
   slack_channel: dmet-corp-notifications
