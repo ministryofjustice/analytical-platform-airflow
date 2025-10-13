@@ -1,0 +1,24 @@
+dag:
+  repository: moj-analytical-services/prison-flows-analysis
+  tag: v0.4.2.dev2
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - alpha-short-term-forecast/PrisonLongLookup.csv
+
+  s3_read_write:
+    - alpha-short-term-forecast/data/*
+    - alpha-short-term-forecast/files/*
+    - alpha-short-term-forecast/data_folder/*
+
+maintainers:
+  - rolakeo-mojo
+  - lhan1825
+  - saimon-khan
+  - fernbeedle
+
+tags:
+  business_unit: HQ
+  owner: lu.han@justice.gov.uk
