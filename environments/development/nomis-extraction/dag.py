@@ -6,11 +6,11 @@ from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from imports.nomis_constants import PK_EXCEPTIONS, PK_EXTRACTIONS, email, owner, tags
 from imports.high_memory_constants import tolerations, affinity
 
-IMAGE_VERSION = "v3.10.21"
-REPO = "airflow-nomis-ap"
+IMAGE_VERSION = "v0.2"
+REPO = "airflow-nomis-extraction"
 BUILD_IMAGE = f"{REPO}:{IMAGE_VERSION}"
-IMAGE = f"189157455002.dkr.ecr.eu-west-1.amazonaws.com/{BUILD_IMAGE}"
-ROLE = "airflow_prod_nomis_extraction"
+# IMAGE = f"189157455002.dkr.ecr.eu-west-1.amazonaws.com/{BUILD_IMAGE}"
+# ROLE = "airflow_prod_nomis_extraction"
 
 DELTA_FETCH_SIZE = "100000"
 RM_FETCH_SIZE = "300000"
@@ -38,11 +38,11 @@ dag = DAG(
 tasks = dict()
 
 # Trigger for downstream pipeline
-dep_dag_id = "nomis.nomis_transform"
+# dep_dag_id = "nomis.nomis_transform"
 
-tasks[f"trigger_for_{dep_dag_id}"] = TriggerDagRunOperator(
-    task_id=f"trigger_{dep_dag_id}", trigger_dag_id=f"{dep_dag_id}"
-)
+# tasks[f"trigger_for_{dep_dag_id}"] = TriggerDagRunOperator(
+#     task_id=f"trigger_{dep_dag_id}", trigger_dag_id=f"{dep_dag_id}"
+# )
 
 task_id = "nomis-delta-extract"
 tasks[task_id] = KubernetesPodOperator(
@@ -116,7 +116,7 @@ tasks[task_id] = KubernetesPodOperator(
 (
     tasks["nomis-delta-extract"]
     >> tasks["nomis-delta-extract-check"]
-    >> tasks[f"trigger_for_{dep_dag_id}"]
+#    >> tasks[f"trigger_for_{dep_dag_id}"]
 )
 
 # Deletes
