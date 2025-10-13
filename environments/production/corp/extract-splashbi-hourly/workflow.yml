@@ -3,6 +3,8 @@ dag:
   repository: moj-analytical-services/airflow-report-extractor
   tag: v1.0.2
   schedule: "0 7-18 * * 1-5"
+  retries: 1
+  retry_delay: 60
   env_vars:
     REPORT_APP: "splashbi"
     REPORT_RUNTIME_ENV: "prod"
@@ -11,6 +13,8 @@ dag:
     po_sscl_details:
       env_vars:
         REPORT_NAME: "po_sscl_details"
+
+    # === HR iExpenses Reports ===
     moj-iexp01:
       env_vars:
         REPORT_NAME: "moj-iexp01"
@@ -26,6 +30,63 @@ dag:
     nms-iexp01:
       env_vars:
         REPORT_NAME: "nms-iexp01"
+
+    # === HR Non Sickness Absence Reports ===
+    cts-hr-a-01-nonsick:
+      env_vars:
+        REPORT_NAME: "cts-hr-a-01"
+    laa-hr-a-01-nonsick:
+      env_vars:
+        REPORT_NAME: "laa-hr-a-01"
+    nms-hr-a-01-nonsick:
+      env_vars:
+        REPORT_NAME: "nms-hr-a-01"
+    opg-hr-a-01-nonsick:
+      env_vars:
+        REPORT_NAME: "opg-hr-a-01"
+    moj-hr-a-01-nonsick:
+      env_vars:
+        REPORT_NAME: "moj-hr-a-01"
+    moj-hr-a-04-nonsick:
+      env_vars:
+        REPORT_NAME: "moj-hr-a-04-nonsick"
+
+    # === HR Sick Absence Reports ===
+    moj-hr-a-04-sick:
+      env_vars:
+        REPORT_NAME: "moj-hr-a-04-sick"
+    moj-hr-wf-60-sickleave:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-60"
+
+    # === HR Remuneration Reports ===
+    cts-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "cts-hr-rew-02"
+    laa-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "laa-hr-rew-02"
+    nms-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "nms-hr-rew-02"
+    opg-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "opg-hr-rew-02"
+    moj-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "moj-hr-rew-02"
+
+    # === HR Staffing Reports ===
+    moj-hr-wf-59-leavers:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-59"
+    moj-hr-wf-62-sip:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-62"
+    moj-hr-wf-64-starters:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-64"
+
 
 iam:
   s3_read_write:
