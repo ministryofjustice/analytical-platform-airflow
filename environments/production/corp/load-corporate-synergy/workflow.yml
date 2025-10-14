@@ -10,6 +10,8 @@ dag:
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+    AFFILE_ALLOW_PROD: true
+
   catchup: false
   max_active_runs: 1
   retries: 0
