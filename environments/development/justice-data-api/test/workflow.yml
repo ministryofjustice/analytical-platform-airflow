@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/airflow-justice-data-api-extract
-  tag: v1.1.13-dev
+  tag: v1.1.14-dev
 
 iam:
   athena: write
