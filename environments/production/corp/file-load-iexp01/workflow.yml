@@ -25,8 +25,8 @@ iam:
     - mojap-land/corporate/report_extractor_prod/splashbi/*
 
   s3_read_write:
-    - mojap-processed/domain__hr/env__prod/corporate_sop_prod/*
-    - mojap-processed/domain__hr/env__prod/corporate_sop_prod_staging/*
+    - mojap-processed/domain__hr/env__prod/corporate_sop/*
+    - mojap-processed/domain__hr/env__prod/corporate_sop_staging/*
     - mojap-processed/corporate/sop/prod/*
     - mojap-processed/domain__hr/env__prod/athena_query_dump/*
 
