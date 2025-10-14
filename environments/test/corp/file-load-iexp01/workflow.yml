@@ -1,10 +1,11 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.21-test-7
+  tag: v0.0.21-test-13
   schedule: "30 8 * * 1-5"
+  is_paused_upon_creation: true
   env_vars:
-    AFFILE_PIPELINE_NAME: "iexp01_expenses_live"
+    AFFILE_PIPELINE_NAME: "sop__iexp01_expenses_live"
     AFFILE_ENV: "dev"
     AFFILE_SCHEMA_CONTRACT: "freeze"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -25,6 +26,8 @@ iam:
   s3_read_write:
     - mojap-processed/domain__hr/env__dev/corporate_sop_dev/*
     - mojap-processed/domain__hr/env__dev/corporate_sop_dev_staging/*
+    - mojap-processed/corporate/sop/dev/*
+    - mojap-processed/domain__hr/env__dev/athena_query_dump/*
 
 notifications:
   slack_channel: dmet-corp-notifications
