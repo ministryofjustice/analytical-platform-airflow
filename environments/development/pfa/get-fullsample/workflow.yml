@@ -1,6 +1,7 @@
 dag:
   repository: moj-analytical-services/prison-flows-analysis
   tag: v0.4.2.dev.4
+  compute_profile: general-spot-2vcpu-8gb
 
 iam:
   athena: write
