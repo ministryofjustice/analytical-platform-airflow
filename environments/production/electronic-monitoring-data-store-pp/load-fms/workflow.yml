@@ -1,12 +1,12 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.1.73-a3066f346be51b3aa16728d801dab9a63103f7a6
+  tag: v0.2.98-preprod
   compute_profile: general-spot-1vcpu-4gb
-  catchup: false
+  catchup: true
   depends_on_past: false
   schedule: "0 3 * * *"
-  start_date: "2025-04-15"
+  start_date: "2025-09-02"
   max_active_runs: 1
   env_vars:
     SUPPLIER_NAME: "serco"
