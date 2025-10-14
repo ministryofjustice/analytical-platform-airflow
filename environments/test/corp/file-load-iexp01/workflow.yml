@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.21-test-13
+  tag: v0.0.21-test-14
   schedule: "30 8 * * 1-5"
   is_paused_upon_creation: true
   env_vars:
@@ -21,7 +21,7 @@ iam:
   glue: true
 
   s3_read_only:
-    - mojap-land/corporate/report_extractor_test/splashbi/*
+    - mojap-land/corporate/report_extractor_prod/splashbi/*
 
   s3_read_write:
     - mojap-processed/domain__hr/env__dev/corporate_sop_dev/*
