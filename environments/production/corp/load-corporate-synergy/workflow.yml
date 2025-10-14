@@ -22,7 +22,7 @@ iam:
   glue: true
 
   s3_read_only:
-    - mojap-land/corporate/report_extractor_test/splashbi/*
+    - mojap-land/corporate/report_extractor_prod/splashbi/*
 
   s3_read_write:
     - mojap-processed/domain__synergy/env__prod/synergy_grni/*
