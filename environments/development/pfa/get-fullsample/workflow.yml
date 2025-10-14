@@ -7,6 +7,9 @@ iam:
 
   s3_read_only:
     - alpha-short-term-forecast/PrisonLongLookup.csv
+    - mojap-derived-tables/prod/models/domain_name=courts/*
+    - mojap-derived-tables/prod/models/domain_name=prison/*
+    - mojap-derived-tables/prod/models/domain_name=probation/*
 
   s3_read_write:
     - alpha-short-term-forecast/data/*
