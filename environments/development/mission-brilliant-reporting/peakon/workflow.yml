@@ -1,12 +1,13 @@
 ---
 dag:
   repository: moj-analytical-services/mbpr-airflow-pipelines
-  tag: v1.1.2
+  tag: v1.1.4
   env_vars:
     MODE: "peakon"
 
 maintainers:
-  - scott-lowther
+  - mikeAdamsMOJ
+  - calumabarnett
 
 iam:
   s3_read_write:
@@ -17,4 +18,4 @@ secrets:
 
 tags:
   business_unit: Central Digital
-  owner: scott.lowther@justice.gov.uk
+  owner: Calum.Barnett@justice.gov.uk
