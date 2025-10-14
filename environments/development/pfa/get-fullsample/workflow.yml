@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/prison-flows-analysis
-  tag: v0.4.2.dev2
+  tag: v0.4.2.dev3.1
 
 iam:
   athena: write
