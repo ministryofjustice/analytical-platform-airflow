@@ -10,6 +10,7 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=courts/*
     - mojap-derived-tables/prod/models/domain_name=prison/*
     - mojap-derived-tables/prod/models/domain_name=probation/*
+    - mojap-derived-tables/prod/models/domain_name=general/*
 
   s3_read_write:
     - alpha-short-term-forecast/data/*
