@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/prison-flows-analysis
-  tag: v0.4.2.dev.4
+  tag: v0.4.2.dev5
   compute_profile: general-spot-2vcpu-8gb
 
 iam:
@@ -14,9 +14,7 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=general/*
 
   s3_read_write:
-    - alpha-short-term-forecast/data/*
-    - alpha-short-term-forecast/files/*
-    - alpha-short-term-forecast/data_folder/*
+    - alpha-short-term-forecast/*
 
 maintainers:
   - rolakeo-mojo
