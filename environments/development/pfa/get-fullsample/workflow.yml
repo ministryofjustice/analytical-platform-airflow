@@ -2,7 +2,7 @@ dag:
   repository: moj-analytical-services/prison-flows-analysis
   tag: v0.4.3.dev1
   compute_profile: general-spot-2vcpu-8gb
-  schedule_interval: @weekly
+  schedule_interval: "0 0 * * 0"
 
 iam:
   athena: write
