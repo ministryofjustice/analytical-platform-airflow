@@ -1,0 +1,76 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-load-em-data
+  tag: v0.3.0-rc1
+  compute_profile: general-on-demand-4vcpu-16gb
+  catchup: false
+  depends_on_past: false
+  max_active_runs: 1
+  env_vars:
+    SUPPLIER_NAME: "g4s"
+    SYSTEM_NAME: "g4s"
+    DATASET_NAME: "lcm_archive"
+    SCHEMA_NAME: "dbo"
+    AWS_METADATA_SERVICE_TIMEOUT: 60
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
+    AWS_DEFAULT_REGION: "eu-west-2"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+  tasks:
+    load_lcm_archive_conversation_log:
+      env_vars:
+        TABLE_NAME: "ConversationLog"
+
+    load_lcm_archive_equipment:
+      env_vars:
+        TABLE_NAME: "Equipment"
+
+    load_lcm_archive_equipment_for_deleting:
+      env_vars:
+        TABLE_NAME: "EquipmentForDeleting"
+
+    load_lcm_archive_event:
+      env_vars:
+        TABLE_NAME: "Event"
+
+    load_lcm_archive_event_status:
+      env_vars:
+        TABLE_NAME: "EventStatus"
+
+    load_lcm_archive_firmware_update_allow:
+      env_vars:
+        TABLE_NAME: "FirmwareUpdateAllow"
+
+    load_lcm_archive_firmware_upgrade_log:
+      env_vars:
+        TABLE_NAME: "FirmwareUpgradeLog"
+
+    load_lcm_archive_gprs_allow:
+      env_vars:
+        TABLE_NAME: "GPRSAllow"
+
+    load_lcm_archive_sign_off_log:
+      env_vars:
+        TABLE_NAME: "SignOffLog"
+
+    load_lcm_archive_sign_on_log:
+      env_vars:
+        TABLE_NAME: "SignOnLog"
+
+notifications:
+  emails:
+    - EMDataEngineering@justice.gov.uk
+  slack_channel: em-engineers-moj-madetech
+
+iam:
+  external_role: arn:aws:iam::976799291502:role/airflow-prod-load-lcm-archive
+
+maintainers:
+  - matt-heery
+  - kraihanmoj
+  - luke-a-williams
+
+tags:
+  business_unit: HMPPS
+  owner: EMDataEngineering@justice.gov.uk
