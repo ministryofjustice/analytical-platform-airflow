@@ -1,0 +1,44 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-load-em-data
+  tag: v0.3.0-rc1
+  compute_profile: general-on-demand-4vcpu-16gb
+  catchup: false
+  depends_on_past: false
+  max_active_runs: 1
+  env_vars:
+    SUPPLIER_NAME: "g4s"
+    SYSTEM_NAME: "centurion"
+    DATASET_NAME: "centurion"
+    SCHEMA_NAME: "dbo"
+    AWS_METADATA_SERVICE_TIMEOUT: 60
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
+    AWS_DEFAULT_REGION: "eu-west-2"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+  tasks:
+    load_centurion_device:
+      env_vars:
+        TABLE_NAME: "Device"
+
+    load_centurion_event_type:
+      env_vars:
+        TABLE_NAME: "EventType"
+
+notifications:
+  emails:
+    - EMDataEngineering@justice.gov.uk
+  slack_channel: em-engineers-moj-madetech
+
+iam:
+  external_role: arn:aws:iam::976799291502:role/airflow-prod-load-centurion
+
+maintainers:
+  - matt-heery
+  - kraihanmoj
+  - luke-a-williams
+
+tags:
+  business_unit: HMPPS
+  owner: EMDataEngineering@justice.gov.uk
