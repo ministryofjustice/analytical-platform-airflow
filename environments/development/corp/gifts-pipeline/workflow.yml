@@ -1,13 +1,11 @@
 ---
 dag:
-  repository: airflow-gifts-pipeline
+  repository: ministryofjustice/airflow-gifts-pipeline
   tag: v3.0.4
-  schedule_interval: "0 7 * * *"
-  start_date: "2020-12-01"
-  description: "Gifts reporting app pipeline"
   catchup: false
   max_active_runs: 1
   retries: 0
+  schedule_interval: "0 7 * * *"
   env_vars:
     CONFIG: |
       iam_role_name: airflow_prod_gifts
@@ -38,20 +36,3 @@ maintainers:
 
 tags:
   business_unit: Central Digital
-  owner: Philip.neale@justice.gov.uk
-
-tasks:
-  export_gifts_data:
-    operator: airflow.providers.cncf.kubernetes.operators.pod.KubernetesPodOperator
-    arguments:
-      name: "export-gifts-pod"
-      env_vars:
-        PYTHON_SCRIPT_NAME: "export_extracts.py"
-        SNAPSHOT_DATE: "{{ ds }}"
-        AWS_METADATA_SERVICE_TIMEOUT: "60"
-        AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
-      security_context:
-        runAsNonRoot: True
-        allowPrivilegeEscalation: False
-        runAsUser: 1337
-        privileged: False
