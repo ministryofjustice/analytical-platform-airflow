@@ -27,6 +27,7 @@ iam:
   s3_read_write:
     - mojap-processed/domain__synergy/env__prod/synergy_grni/*
     - mojap-processed/domain__synergy/env__prod/synergy_grini_staging/*
+    - mojap-processed/domain__synergy/env__prod/athena_query_dump/*
 
 notifications:
   slack_channel: dmet-corp-notifications
