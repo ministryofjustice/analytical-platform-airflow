@@ -26,7 +26,6 @@ dag:
       env_vars:
         TABLE_NAME: "EventType"
 
-
 notifications:
   emails:
     - EMDataEngineering@justice.gov.uk
