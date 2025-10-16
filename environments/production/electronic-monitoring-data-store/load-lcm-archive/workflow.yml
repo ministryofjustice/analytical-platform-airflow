@@ -8,8 +8,7 @@ dag:
   max_active_runs: 1
   env_vars:
     SUPPLIER_NAME: "g4s"
-    SYSTEM_NAME: "g4s"
-    DATASET_NAME: "lcm_archive"
+    SYSTEM_NAME: "lcm_archive"
     SCHEMA_NAME: "dbo"
     AWS_METADATA_SERVICE_TIMEOUT: 60
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
