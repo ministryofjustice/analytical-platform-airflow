@@ -22,6 +22,10 @@ dag:
       env_vars:
         TABLE_NAME: "Device"
 
+    load_centurion_event:
+      env_vars:
+        TABLE_NAME: "Event"
+
     load_centurion_event_type:
       env_vars:
         TABLE_NAME: "EventType"
