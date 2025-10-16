@@ -58,7 +58,6 @@ dag:
       env_vars:
         TABLE_NAME: "SignOnLog"
 
-
 notifications:
   emails:
     - EMDataEngineering@justice.gov.uk
