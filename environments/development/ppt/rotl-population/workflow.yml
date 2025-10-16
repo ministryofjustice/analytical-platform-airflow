@@ -1,9 +1,10 @@
 dag:
   repository: moj-analytical-services/airflow_rotl_population
-  tag: v0.1.01
+  tag: v0.1.04
   retries: 3
   retry_delay: 150
   schedule: "0 14 4 * *"
+  compute_profile: general-spot-4vcpu-16gb
 
 iam:
   athena: write
@@ -25,7 +26,7 @@ iam:
     - moj-reg-prod-curated/hmpps-performance-hub/data/database_name=hub_prison/table_name=prison_metric_outturns/*
 
   s3_read_write:
-    - alpha-prison-performance-team/ROTL_population/*
+    - alpha-prison-performance-team/ROTL_Population/*
 
   s3_write_only:
     - mojap-hub-exports/prison_performance/*

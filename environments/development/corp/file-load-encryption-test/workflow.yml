@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.21-test-5
+  tag: v0.0.21-test-6
   env_vars:
     AFFILE_PIPELINE_NAME: "test_csv_encrypted"
     AFFILE_ENV: "dev"
@@ -18,10 +18,10 @@ iam:
   glue: true
   s3_read_write:
     - alpha-dag-sop-data-engineering/affile-test/test-csv/*
-    - mojap-processed/domain__affile/env__test/*
+    - mojap-processed/domain__affile_testing/env__dev/*
 
 secrets:
-  - pgp-privatekey-oneline
+  - pgp-privatekey
 
 notifications:
   slack_channel: dmet-corp-notifications
