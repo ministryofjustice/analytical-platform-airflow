@@ -10,7 +10,6 @@ dag:
     SUPPLIER_NAME: "g4s"
     SYSTEM_NAME: "centurion"
     DATASET_NAME: "centurion"
-    SCHEMA_NAME: "dbo"
     AWS_METADATA_SERVICE_TIMEOUT: 60
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
     AWS_DEFAULT_REGION: "eu-west-2"
@@ -20,10 +19,22 @@ dag:
   tasks:
     load_centurion_device:
       env_vars:
+        SCHEMA_NAME: "dbo"
         TABLE_NAME: "Device"
+
+    load_centurion_event:
+      env_vars:
+        SCHEMA_NAME: "dbo"
+        TABLE_NAME: "Event"
+
+    load_centurion_event_sent:
+      env_vars:
+        SCHEMA_NAME: "interface"
+        TABLE_NAME: "EventSent"
 
     load_centurion_event_type:
       env_vars:
+        SCHEMA_NAME: "dbo"
         TABLE_NAME: "EventType"
 
 notifications:
