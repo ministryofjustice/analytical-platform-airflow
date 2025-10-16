@@ -1,0 +1,98 @@
+from datetime import datetime
+from airflow import DAG
+from airflow.models import Variable
+from airflow.providers.cncf.kubernetes.operators.pod import KubernetesPodOperator
+
+# --- Use Airflow Variables for flexible configuration ---
+# These can be set in the Airflow UI (Admin -> Variables)
+# This avoids hardcoding and makes updates easier.
+GITHUB_TAG = Variable.get("gifts_github_tag", default_var="v3.0.4")
+IAM_ROLE = Variable.get("gifts_iam_role", default_var="airflow_prod_gifts")
+
+# --- Constants that are less likely to change ---
+PIPELINE_NAME = "airflow-gifts-pipeline"
+IMAGE = f"189157455002.dkr.ecr.eu-west-1.amazonaws.com/{PIPELINE_NAME}:{GITHUB_TAG}"
+EXPORT_SCRIPT = "export_extracts.py"
+NAMESPACE = "airflow"
+
+# --- YAML Configuration for the application ---
+# This is passed as an environment variable to the container.
+# The application inside the container should be configured to read this.
+CONFIG_YAML = """
+iam_role_name: airflow_prod_gifts
+
+athena:
+  write: true
+  dump_bucket:
+    - mojap-athena-query-dump
+
+glue_job: false
+
+secrets: false
+
+s3:
+  read_only:
+    - alpha-app-gifts/*
+    - alpha-contracts-etl/*/jaggaer/curated/live/contracts/*
+  read_write:
+    - alpha-app-gifts-reporting/*
+    - alpha-app-gifts/jaggaer/*
+"""
+# Default arguments for the DAG
+task_args = {
+    "depends_on_past": False,
+    "email_on_failure": True,
+    "owner": “pdnmoji,
+    "email": [“Philip.neale@justice.gov.uk"],
+}
+
+with DAG(
+    dag_id="gifts_pipeline",  # A simpler dag_id is often clearer
+    default_args=task_args,
+    description="Gifts reporting app pipeline",
+    start_date=datetime(2020, 12, 1),
+    schedule_interval="0 7 * * *", # Corrected schedule format
+    catchup=False,
+    tags=["gifts", "reporting"], # Using tags helps organize DAGs in the UI
+) as dag:
+    
+    # --- Pass the snapshot date as an environment variable ---
+    # Using Airflow's built-in macros is a best practice for dynamic dates.
+    # '{{ ds }}' will resolve to the logical execution date (YYYY-MM-DD).
+    snapshot_date_str = "{{ ds }}"
+
+    # --- Simplified task definition ---
+    # No need for a 'tasks' dictionary for a single task.
+    export_gifts_data = KubernetesPodOperator(
+        task_id="export_gifts_data", # A more descriptive task_id
+        namespace=NAMESPACE,
+        image=IMAGE,
+        env_vars={
+            "PYTHON_SCRIPT_NAME": EXPORT_SCRIPT,
+            "SNAPSHOT_DATE": snapshot_date_str, # Pass the date to the script
+            "CONFIG": CONFIG_YAML,
+            "AWS_METADATA_SERVICE_TIMEOUT": "60",
+            "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
+        },
+        name="export-gifts-pod", # A descriptive pod name
+        in_cluster=False, # Assumes Airflow is outside the target K8s cluster
+        get_logs=True,
+        annotations={"iam.amazonaws.com/role": IAM_ROLE},
+        # Security context is excellent, follows best practices
+        security_context={
+            "runAsNonRoot": True,
+            "allowPrivilegeEscalation": False,
+            "runAsUser": 1337,
+            "privileged": False,
+        },
+        is_delete_operator_pod=True,
+        # These are only needed if in_cluster=False
+        cluster_context="aws",
+        config_file="/usr/local/airflow/dags/.kube/config",
+    )
+
+# Note: The dangling `tasks['export']` line has been removed as it had no effect.
+# If there were downstream tasks, you would define dependencies here, e.g.:
+# export_gifts_data >> some_other_task
+
+
