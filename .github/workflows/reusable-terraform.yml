@@ -83,7 +83,7 @@ jobs:
         env:
           ENVIRONMENT: ${{ matrix.environment }}
         run: |
-          PLAN_OUTPUT=$(bash ${GITHUB_WORKSPACE}/scripts/terraform/plan-processor.sh ${ENVIRONMENT}.tfplan)
+          PLAN_OUTPUT=$(bash "${GITHUB_WORKSPACE}/scripts/terraform/plan-processor.sh" "${ENVIRONMENT}" "${ENVIRONMENT}.tfplan")
           echo "${PLAN_OUTPUT}"
           {
             echo "plan-summary<<EOF"
