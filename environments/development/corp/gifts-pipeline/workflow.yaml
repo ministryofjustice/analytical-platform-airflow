@@ -1,0 +1,45 @@
+dag:
+  repository: "airflow-gifts-pipeline"
+  tag: "v3.0.4"
+  gifts.gifts_pipeline:
+    default_args:
+      depends_on_past: false
+      email_on_failure: true
+      owner: "pdnmoji"
+      email:
+        - "philip.neale@justice.gov.uk"
+    description: "Gifts reporting app pipeline"
+    start_date: "2020-12-01"
+    schedule_interval: "00 07 * * *"
+    catchup: false
+    tasks:
+      export:
+        operator: analytical_platform.standard_operator.AnalyticalPlatformStandardOperator
+        compute_profile: "general-small"
+        env_vars:
+          PYTHON_SCRIPT_NAME: "export_extracts.py"
+
+maintainers:
+  - "pdnmoji"
+
+iam:
+  external_role: airflow_prod_gifts
+
+athena:
+  write: true
+  dump_bucket:
+    - mojap-athena-query-dump
+
+glue:
+  job: false
+
+secrets: false
+
+s3:
+  read_only:
+    - alpha-app-gifts/*
+    - alpha-contracts-etl/*/jaggaer/curated/live/contracts/*
+
+  read_write:
+    - alpha-app-gifts-reporting/*
+    - alpha-app-gifts/jaggaer/*
