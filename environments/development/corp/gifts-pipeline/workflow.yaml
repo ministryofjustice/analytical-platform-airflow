@@ -1,6 +1,6 @@
 dag:
   repository: "airflow-gifts-pipeline"
-  tag: "v3.0.4"
+  tag: "v3.0.5"
   gifts.gifts_pipeline:
     default_args:
       depends_on_past: false
