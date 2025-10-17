@@ -7,7 +7,6 @@ dag:
   retries: 0
   env_vars:
     CONFIG: |
-      iam_role_name: airflow_prod_gifts
       athena:
         write: true
         dump_bucket:
