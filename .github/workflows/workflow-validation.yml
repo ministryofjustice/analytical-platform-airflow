@@ -310,8 +310,9 @@ jobs:
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
           dagRepository=$(yq -e ".dag.repository" "${WORKFLOW_DIRECTORY}/workflow.yml")
-          
-          ecrRepository=$(echo "${dagRepository}" | sed 's|.*/||')
+          export dagRepository
+
+          ecrRepository=$(echo "${dagRepository}" | sed 's|.*/||' | tr '[:upper:]' '[:lower:]' | sed 's/_/-/g')
           export ecrRepository
 
           dagTag=$(yq -e ".dag.tag" "${WORKFLOW_DIRECTORY}/workflow.yml")
