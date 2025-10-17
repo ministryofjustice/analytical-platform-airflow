@@ -7,7 +7,7 @@ dag:
   env_vars:
     AFFILE_PIPELINE_NAME: "sop__iexp01_expenses_live"
     AFFILE_ENV: "prod"
-    AFFILE_SCHEMA_CONTRACT: "freeze"
+    AFFILE_SCHEMA_CONTRACT: "evolve"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
