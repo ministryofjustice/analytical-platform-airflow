@@ -7,7 +7,7 @@ dag:
   env_vars:
     AFFILE_ALLOW_PROD: "true"
     AFFILE_ENV: "prod"
-    AFFILE_SCHEMA_CONTRACT: "evolve"
+    AFFILE_SCHEMA_CONTRACT: "freeze"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
@@ -16,9 +16,9 @@ dag:
   retries: 0
   compute_profile: general-on-demand-2vcpu-8gb
   tasks:
-    load-sop__snapshots_wf_62:
+    load-sop__snapshots_wf_62_sip:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__snapshots_wf62"
+        AFFILE_PIPELINE_NAME: "sop__snapshots_wf62_sip"
     load-sop__all_time_hra01_non_sickness_absence:
       env_vars:
         AFFILE_PIPELINE_NAME: "sop__all_time_hra01_non_sickness_absence"
@@ -30,13 +30,13 @@ dag:
         AFFILE_PIPELINE_NAME: "sop__all_time_wf60_sickness"
     load-sop__all_time_wf64_starters:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__all_time_wf60_sickness"
+        AFFILE_PIPELINE_NAME: "sop__all_time_wf64_starters"
     load-sop__snapshots_hra04_non_sickness_absence:
       env_vars:
         AFFILE_PIPELINE_NAME: "sop__snapshots_hra04_non_sickness_absence"
-    load-sop__all_time_hra04_sickness_absence:
+    load-sop__snapshots_hra04_sickness_absence:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__all_time_hra04_sickness_absence"
+        AFFILE_PIPELINE_NAME: "sop__snapshots_hra04_sickness_absence"
 
 iam:
   athena: write
