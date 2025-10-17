@@ -1,0 +1,37 @@
+---
+dag:
+  repository: ministryofjustice/airflow-gifts-pipeline
+  tag: v3.0.5
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+  env_vars:
+    CONFIG: |
+      athena:
+        write: true
+        dump_bucket:
+          - mojap-athena-query-dump
+      glue_job: false
+      secrets: false
+      s3:
+        read_only:
+          - alpha-app-gifts/*
+          - alpha-contracts-etl/*/jaggaer/curated/live/contracts/*
+        read_write:
+          - alpha-app-gifts-reporting/*
+          - alpha-app-gifts/jaggaer/*
+
+iam:
+  external_role: airflow_prod_gifts
+
+notifications:
+  slack_channel: dmet-corp-notifications
+  emails:
+    - Philip.neale@justice.gov.uk
+
+maintainers:
+  - pdnmoji
+
+tags:
+  business_unit: Central Digital
+  owner: Philip.neale@justice.gov.uk
