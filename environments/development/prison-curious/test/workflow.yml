@@ -1,6 +1,6 @@
 dag:
-  repository: moj-analytical-services/airflow-curious-example
-  tag: v0.1.11
+  repository: moj-analytical-services/prison-curious
+  tag: v0.1
 
 iam:
   athena: write
