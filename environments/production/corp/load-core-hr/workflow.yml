@@ -49,6 +49,7 @@ iam:
     - mojap-processed/domain__hr/env__prod/corporate_sop/*
     - mojap-processed/domain__hr/env__prod/corporate_sop_staging/*
     - mojap-processed/domain__hr/env__prod/athena_query_dump/*
+    - mojap-processed/corporate/sop/prod/*
 
 notifications:
   slack_channel: dmet-corp-notifications
