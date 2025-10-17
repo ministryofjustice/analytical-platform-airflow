@@ -15,9 +15,9 @@ jobs:
       pull-requests: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: Run actionlint
-        uses: reviewdog/action-actionlint@v1.43.0
+        uses: reviewdog/action-actionlint@5668b553b4731043f0f7f44b0500b503a1151675 # v1.43.0
         with:
           reporter: github-pr-check
