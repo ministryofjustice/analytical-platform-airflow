@@ -113,9 +113,9 @@ jobs:
           WORKFLOW: ${{ matrix.workflow }}
         run: |
           workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
-          cat <<EOF >> "${GITHUB_ENV}"
-          workflow-directory=${workflowDirectory}
-          EOF
+          export workflowDirectory
+
+          echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
       - name: Check if Workflow Directory Includes Underscore
         id: check_workflow_directory_underscore
@@ -192,7 +192,10 @@ jobs:
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
           set -x
+
           dagIsPython=$(yq ".dag.python_dag // false" "${WORKFLOW_DIRECTORY}/workflow.yml")
+          export dagIsPython
+
           if [[ "${dagIsPython}" == "true" ]]; then
             echo "dag-is-python=true"  >>"${GITHUB_ENV}"
           else
@@ -289,7 +292,7 @@ jobs:
 
       - name: Log in to Amazon ECR
         id: ecr_login
-        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076  # v2.0.1
+        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2.0.1
 
       - name: Set Workflow Directory
         id: set_workflow_directory
@@ -297,9 +300,9 @@ jobs:
           WORKFLOW: ${{ matrix.workflow }}
         run: |
           workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
-          cat <<EOF >> "${GITHUB_ENV}"
-          workflow-directory=${workflowDirectory}
-          EOF
+          export workflowDirectory
+
+          echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
       - name: Set ECR Repository
         id: set_ecr_repository
@@ -310,6 +313,7 @@ jobs:
 
           ecrRepository=$(echo "${dagRepository}" | sed 's|.*/||')
           export ecrRepository
+
           dagTag=$(yq -e ".dag.tag" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagTag
 
@@ -327,7 +331,7 @@ jobs:
       - name: Comment on Image Check Failure
         id: comment_on_check_failure
         if: failure() && steps.check_image_exists.outcome == 'failure'
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
           script: |
             github.rest.issues.createComment({
@@ -563,9 +567,9 @@ jobs:
           WORKFLOW: ${{ matrix.workflow }}
         run: |
           workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
-          cat <<EOF >> "${GITHUB_ENV}"
-          workflow-directory=${workflowDirectory}
-          EOF
+          export workflowDirectory
+
+          echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
       - name: Automatic Approval Check
         id: automatic_approval_check
@@ -579,6 +583,12 @@ jobs:
           changed_files="$(git diff --name-only origin/main)"
           changed_files_status="$(git diff --name-status origin/main | awk '{ print $1 }')"
 
+          echo "${changed_files}"
+          echo "${changed_files_status}"
+
+          # Default to true
+          eligible="true"
+
           # Check if any files were added or deleted
           for status in ${changed_files_status}; do
             if [[ "${status}" != "M" ]]; then
@@ -586,9 +596,6 @@ jobs:
               exit 0
             fi
           done
-
-          # Default to true
-          eligible="true"
 
           # Check if the workflow file has been modified, and in what way
           if [[ "$(git diff --name-status origin/main "${WORKFLOW_DIRECTORY}/workflow.yml" | awk '{ print $1 }')" == "M" ]]; then
