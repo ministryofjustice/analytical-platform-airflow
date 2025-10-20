@@ -21,5 +21,5 @@ iam:
     - alpha-app-gifts-reporting/*
     - alpha-app-gifts/jaggaer/*
   tags:
-    project: gifts-pipeline
-    environment: development
+    business_unit: Central Digital
+    owner: philip.neale@justice.gov.uk
