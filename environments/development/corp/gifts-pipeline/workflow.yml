@@ -4,8 +4,6 @@ dag:
   tag: "v3.0.5"
   tasks:
     export:
-      description: "Export extracts from gifts app to S3"
-      compute_profile: "general-small"
       env_vars:
         PYTHON_SCRIPT_NAME: "export_extracts.py"
 
@@ -15,8 +13,7 @@ maintainers:
 iam:
   athena: write
   dump_bucket: mojap-athena-query-dump
-glue: false
-secrets: false
+
 s3_read_only:
   - alpha-app-gifts/*
   - alpha-contracts-etl/*/jaggaer/curated/live/contracts/*
