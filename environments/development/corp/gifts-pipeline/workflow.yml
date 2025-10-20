@@ -2,18 +2,7 @@
 dag:
   repository: "moj-analytical-services/airflow-gifts-pipeline"
   tag: "v3.0.5"
-  gifts.gifts-pipeline:
-    default_args:
-      depends_on_past: false
-      email_on_failure: true
-      owner: "pdnmoji"
-      email:
-        - "philip.neale@justice.gov.uk"
-    description: "Gifts reporting app pipeline"
-    start_date: "2020-12-01"
-    schedule_interval: "00 07 * * *"
-    catchup: false
-    tasks:
+  tasks:
       export:
         description: "Export extracts from gifts app to S3"
         compute_profile: "general-small"
