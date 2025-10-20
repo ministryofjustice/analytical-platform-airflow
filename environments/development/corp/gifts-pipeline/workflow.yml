@@ -1,6 +1,6 @@
 ---
 dag:
-  repository: "moj-analytical-services/airflow-gifts-pipeline"
+  repository: "moj-analytical-services/gifts_pipeline_2"
   tag: "v3.0.5"
   tasks:
     export:
