@@ -15,11 +15,8 @@ maintainers:
 iam:
   athena: write
   dump_bucket: mojap-athena-query-dump
-
 glue: false
-
 secrets: false
-
 s3_read_only:
   - alpha-app-gifts/*
   - alpha-contracts-etl/*/jaggaer/curated/live/contracts/*
