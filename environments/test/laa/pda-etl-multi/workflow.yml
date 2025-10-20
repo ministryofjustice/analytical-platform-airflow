@@ -24,7 +24,7 @@ dag:
     API_BASE_URL: >-
       https://laa-provider-details-api-preprod.apps.live.cloud-platform.service.justice.gov.uk/
     PIPELINE_DIR: providers_details_dev/
-    DATABASE_NAME: laa_provider_raw_dev
+    DATABASE_NAME: laa_provider_raw_dev_v2
   tasks:
     extract-contract-details:
       env_vars:
