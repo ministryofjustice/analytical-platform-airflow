@@ -8,6 +8,9 @@ dag:
         PYTHON_SCRIPT_NAME: "export_extracts.py"
         IMAGE_VERSION: tag
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
 maintainers:
   - "pdnmoji"
 
