@@ -14,10 +14,10 @@ iam:
   athena: write
   dump_bucket: mojap-athena-query-dump
 
-s3_read_only:
-  - alpha-app-gifts/*
-  - alpha-contracts-etl/*/jaggaer/curated/live/contracts/*
+  s3_read_only:
+    - alpha-app-gifts/*
+    - alpha-contracts-etl/*/jaggaer/curated/live/contracts/*
 
-s3_read_write:
-  - alpha-app-gifts-reporting/*
-  - alpha-app-gifts/jaggaer/*
+  s3_read_write:
+    - alpha-app-gifts-reporting/*
+    - alpha-app-gifts/jaggaer/*
