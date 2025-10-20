@@ -1,5 +1,4 @@
-
---
+---
 dag:
   repository: "moj-analytical-services/airflow-gifts-pipeline"
   tag: "v3.0.5"
@@ -15,8 +14,8 @@ dag:
     schedule_interval: "00 07 * * *"
     catchup: false
     tasks:
-      export:
-        operator: analytical_platform.standard_operator.AnalyticalPlatformStandardOperator
+      export:        
+      operator: analytical_platform.standard_operator.AnalyticalPlatformStandardOperator
         compute_profile: "general-small"
         env_vars:
           PYTHON_SCRIPT_NAME: "export_extracts.py"
