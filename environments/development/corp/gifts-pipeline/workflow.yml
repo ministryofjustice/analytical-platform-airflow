@@ -1,5 +1,5 @@
 dag:
-  repository: "airflow-gifts-pipeline"
+  repository: "moj-analytical-services/airflow-gifts-pipeline"
   tag: "v3.0.5"
   gifts.gifts-pipeline:
     default_args:
