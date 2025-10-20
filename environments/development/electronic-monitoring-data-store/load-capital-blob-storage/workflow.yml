@@ -10,7 +10,7 @@ dag:
   max_active_runs: 1
   env_vars:
     SUPPLIER_NAME: "capita"
-    SYSTEM_NAME: "blobstorage"
+    SYSTEM_NAME: "blob_storage"
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
