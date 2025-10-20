@@ -1,3 +1,5 @@
+
+--
 dag:
   repository: "moj-analytical-services/airflow-gifts-pipeline"
   tag: "v3.0.5"
@@ -31,9 +33,9 @@ glue: false
 secrets: false
 
 s3_read_only:
-    - alpha-app-gifts/*
-    - alpha-contracts-etl/*/jaggaer/curated/live/contracts/*
+  - alpha-app-gifts/*
+  - alpha-contracts-etl/*/jaggaer/curated/live/contracts/*
 
 s3_read_write:
-    - alpha-app-gifts-reporting/*
-    - alpha-app-gifts/jaggaer/*
+  - alpha-app-gifts-reporting/*
+  - alpha-app-gifts/jaggaer/*
