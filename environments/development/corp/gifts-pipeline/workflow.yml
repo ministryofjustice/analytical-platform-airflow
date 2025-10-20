@@ -20,6 +20,6 @@ iam:
   s3_read_write:
     - alpha-app-gifts-reporting/*
     - alpha-app-gifts/jaggaer/*
-  tags:
-    business_unit: Central Digital
-    owner: philip.neale@justice.gov.uk
+tags:
+  business_unit: Central Digital
+  owner: philip.neale@justice.gov.uk
