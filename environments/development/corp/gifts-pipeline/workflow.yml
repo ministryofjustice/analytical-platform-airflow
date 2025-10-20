@@ -3,11 +3,11 @@ dag:
   repository: "moj-analytical-services/airflow-gifts-pipeline"
   tag: "v3.0.5"
   tasks:
-      export:
-        description: "Export extracts from gifts app to S3"
-        compute_profile: "general-small"
-        env_vars:
-          PYTHON_SCRIPT_NAME: "export_extracts.py"
+    export:
+      description: "Export extracts from gifts app to S3"
+      compute_profile: "general-small"
+      env_vars:
+        PYTHON_SCRIPT_NAME: "export_extracts.py"
 
 maintainers:
   - "pdnmoji"
