@@ -20,3 +20,6 @@ iam:
   s3_read_write:
     - alpha-app-gifts-reporting/*
     - alpha-app-gifts/jaggaer/*
+  tags:
+    project: gifts-pipeline
+    environment: development
