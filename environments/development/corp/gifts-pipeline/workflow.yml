@@ -23,10 +23,9 @@ maintainers:
   - "pdnmoji"
 
 iam:
-  external_role: airflow_prod_gifts
 
-athena:
-  write: true
+  athena:
+    write: true
   dump_bucket:
     - mojap-athena-query-dump
 
