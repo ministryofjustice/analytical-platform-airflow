@@ -1,7 +1,7 @@
 dag:
   repository: "airflow-gifts-pipeline"
   tag: "v3.0.5"
-  gifts.gifts_pipeline:
+  gifts.gifts-pipeline:
     default_args:
       depends_on_past: false
       email_on_failure: true
