@@ -6,6 +6,7 @@ dag:
     export:
       env_vars:
         PYTHON_SCRIPT_NAME: "export_extracts.py"
+        IMAGE_VERSION: tag
 
 maintainers:
   - "pdnmoji"
