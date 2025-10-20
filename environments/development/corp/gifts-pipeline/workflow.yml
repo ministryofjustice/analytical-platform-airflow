@@ -23,21 +23,17 @@ maintainers:
   - "pdnmoji"
 
 iam:
-  athena:
-    write: true
-  dump_bucket:
-    - mojap-athena-query-dump
+  athena: write
+  dump_bucket: mojap-athena-query-dump
 
-glue:
-  job: false
+glue: false
 
 secrets: false
 
-s3:
-  read_only:
+s3_read_only:
     - alpha-app-gifts/*
     - alpha-contracts-etl/*/jaggaer/curated/live/contracts/*
 
-  read_write:
+s3_read_write:
     - alpha-app-gifts-reporting/*
     - alpha-app-gifts/jaggaer/*
