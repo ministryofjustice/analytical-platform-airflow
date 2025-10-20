@@ -23,7 +23,6 @@ maintainers:
   - "pdnmoji"
 
 iam:
-
   athena:
     write: true
   dump_bucket:
