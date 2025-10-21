@@ -61,7 +61,7 @@ tasks["to_land"] = AnalyticalPlatformStandardOperator(
             deploy_type="env",
             deploy_target="SECRET_OSDATAHUB_API_KEY",
             secret=f"{PROJECT}-{WORKFLOW}-osdatahub-api-key",
-            key="osdatahub_api_key",
+            key="data",
         )
     ],
 )
