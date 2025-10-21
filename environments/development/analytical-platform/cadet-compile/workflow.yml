@@ -1,15 +1,15 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.1.1
-  compute_profile: general-spot-64vcpu-256gb
+  tag: 1.1.2
+  compute_profile: general-on-demand-8vcpu-32gb
   env_vars:
     DEPLOY_ENV: sandpit
     DBT_PROFILE_WORKGROUP: dbt-sandpit
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: cadet-compile-airflow
     DBT_SELECT_CRITERIA: models/general/addressbase_stg
-    BRANCH: test-airflow-aware-export
+    BRANCH: main
     MODE: build
 
 maintainers:
