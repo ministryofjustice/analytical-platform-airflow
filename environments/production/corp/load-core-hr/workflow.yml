@@ -22,6 +22,7 @@ dag:
     load-sop__all_time_hra01_non_sickness_absence:
       env_vars:
         AFFILE_PIPELINE_NAME: "sop__all_time_hra01_non_sickness_absence"
+        AFFILE_SCHEMA_CONTRACT: "evolve"
     load-sop__all_time_wf59_leavers:
       env_vars:
         AFFILE_PIPELINE_NAME: "sop__all_time_wf59_leavers"
