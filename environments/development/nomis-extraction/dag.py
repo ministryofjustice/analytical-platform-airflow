@@ -53,7 +53,7 @@ task_args = {
 }
 
 dag = DAG(
-    dag_id="nomis.nomis_extraction",
+    dag_id="new_nomis_extraction",
     default_args=task_args,
     description="Extract data from the NOMIS T62 Database",
     start_date=datetime(2022, 6, 12),
@@ -65,7 +65,12 @@ dag = DAG(
 #tasks = dict()
 tasks = {}
 
+<<<<<<< HEAD
 tasks["initalise-dag"] = AnalyticalPlatformStandardOperator(
+=======
+task_id = "initalise-dag"
+tasks[task_id] = KubernetesPodOperator(
+>>>>>>> 048167aefd094421a4925a5f9c16d48b1bef2d7f
     dag=dag,
     namespace="airflow",
     image=IMAGE,
@@ -76,7 +81,9 @@ tasks["initalise-dag"] = AnalyticalPlatformStandardOperator(
         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
         "BUILD_IMAGE": BUILD_IMAGE,
         "DAG_ID": dag.dag_id,
-        "ENV": "PRODUCTION",
+#        "ENV": "PRODUCTION",
+        "ENV": "DEVELOPMENT",
+        "DAG_RUN_UTC_UNIXTIME": str(int(datetime.utcnow().timestamp())),
     },
     startup_timeout_seconds=600,
     pool="nomis_tasks",
@@ -117,7 +124,8 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
         "BUILD_IMAGE": BUILD_IMAGE,
         "DAG_ID": dag.dag_id,
-        "ENV": "PRODUCTION",
+ #       "ENV": "PRODUCTION",
+        "ENV": "DEVELOPMENT",
     },
     startup_timeout_seconds=600,
     pool="nomis_tasks",
@@ -151,7 +159,8 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
         "BUILD_IMAGE": BUILD_IMAGE,
         "DAG_ID": dag.dag_id,
-        "ENV": "PRODUCTION",
+  #      "ENV": "PRODUCTION",
+        "ENV": "DEVELOPMENT",
     },
     startup_timeout_seconds=300,
     pool="nomis_tasks",
@@ -196,7 +205,8 @@ for i, L in PK_EXTRACTIONS.items():
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
             "BUILD_IMAGE": BUILD_IMAGE,
             "DAG_ID": dag.dag_id,
-            "ENV": "PRODUCTION",
+   #         "ENV": "PRODUCTION",
+            "ENV": "DEVELOPMENT",
         },
         startup_timeout_seconds=300,
         pool="nomis_tasks",
@@ -229,7 +239,8 @@ for i, L in PK_EXTRACTIONS.items():
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
             "BUILD_IMAGE": BUILD_IMAGE,
             "DAG_ID": dag.dag_id,
-            "ENV": "PRODUCTION",
+    #        "ENV": "PRODUCTION",
+            "ENV": "DEVELOPMENT",
         },
         startup_timeout_seconds=300,
         pool="nomis_tasks",
