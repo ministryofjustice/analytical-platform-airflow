@@ -148,7 +148,7 @@ for table in raw_tables:
         workflow=f"{WORKFLOW}",
         env_vars=update_env_vars(base_env_vars, {"STEP": "raw_hist_to_curated", "TOTAL_WORKERS": total_workers, "CLOSE": True, "TABLE": table})
     )
-        
+
     for batch in range (total_workers):
         tasks[f"raw_hist_to_curated_{table}_{batch}"] = AnalyticalPlatformStandardOperator(
             dag=dag,
