@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-python-mlops-dag-example
-  tag: 0.1.1
+  tag: 0.1.0
   python_dag: true
 
 iam:
