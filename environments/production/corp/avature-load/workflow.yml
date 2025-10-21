@@ -4,6 +4,7 @@ dag:
   tag: v0.0.24
   schedule:
     hours: 1
+  is_paused_upon_creation: true
   env_vars:
     WR_WORKGROUP: airflow-prod-workgroup-corp
     ENVIRONMENT: prod
