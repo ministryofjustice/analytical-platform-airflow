@@ -1,19 +1,46 @@
-from datetime import datetime
-
-from airflow import DAG
-from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
-from airflow.operators.trigger_dagrun import TriggerDagRunOperator
+# original boilerplate
+#from datetime import datetime
+#from airflow import DAG
+#from airflow.contrib.operators.kubernetes_pod_operator import KubernetesPodOperator
+#from airflow.operators.trigger_dagrun import TriggerDagRunOperator
 from imports.nomis_constants import PK_EXCEPTIONS, PK_EXTRACTIONS, email, owner, tags
 from imports.high_memory_constants import tolerations, affinity
 
-IMAGE_VERSION = "v0.2"
+IMAGE_VERSION = "v0.3"
 REPO = "airflow-nomis-extraction"
 BUILD_IMAGE = f"{REPO}:{IMAGE_VERSION}"
 # IMAGE = f"189157455002.dkr.ecr.eu-west-1.amazonaws.com/{BUILD_IMAGE}"
 # ROLE = "airflow_prod_nomis_extraction"
-
 DELTA_FETCH_SIZE = "100000"
 RM_FETCH_SIZE = "300000"
+
+# New boilerplate
+from datetime import datetime
+from airflow.models import DAG
+from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
+from airflow.providers.slack.notifications.slack import send_slack_notification
+from airflow.providers.cncf.kubernetes.secret import (
+    Secret,
+)
+
+REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
+REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
+PROJECT="PLACEHOLDER_PROJECT"
+WORKFLOW="PLACEHOLDER_WORKFLOW"
+ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
+OWNER="PLACEHOLDER_OWNER"
+
+default_args = {
+    "depends_on_past": False,
+    "email_on_failure": False,
+    "owner": f"{OWNER}",
+}
+
+default_params = {
+    "EXAMPLE_PARAMATER": "banana",
+}
+##
+
 
 task_args = {
     "depends_on_past": False,
@@ -35,12 +62,10 @@ dag = DAG(
     tags=tags,
 )
 
-tasks = dict()
+#tasks = dict()
+tasks = {}
 
-
-
-task_id = "initalise-dag"
-tasks[task_id] = KubernetesPodOperator(
+tasks["initalise-dag"] = AnalyticalPlatformStandardOperator(
     dag=dag,
     namespace="airflow",
     image=IMAGE,
@@ -81,8 +106,7 @@ tasks[task_id] = KubernetesPodOperator(
 #     task_id=f"trigger_{dep_dag_id}", trigger_dag_id=f"{dep_dag_id}"
 # )
 
-task_id = "nomis-delta-extract"
-tasks[task_id] = KubernetesPodOperator(
+tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
     dag=dag,
     namespace="airflow",
     image=IMAGE,
@@ -116,8 +140,7 @@ tasks[task_id] = KubernetesPodOperator(
     affinity=affinity,
 )
 
-task_id = "nomis-delta-extract-check"
-tasks[task_id] = KubernetesPodOperator(
+tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
     dag=dag,
     namespace="airflow",
     image=IMAGE,
@@ -161,8 +184,7 @@ for i, L in PK_EXTRACTIONS.items():
     if i in PK_EXCEPTIONS and datetime.now().day not in PK_EXCEPTIONS[i]:
         continue
     tables_string = ",".join(L)
-    task_id = f"nomis-pk-deletes-extract-{i}"
-    tasks[task_id] = KubernetesPodOperator(
+    tasks[f"nomis-pk-deletes-extracts-{i}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
         namespace="airflow",
         image=IMAGE,
@@ -195,8 +217,7 @@ for i, L in PK_EXTRACTIONS.items():
         config_file="/usr/local/airflow/dags/.kube/config",
     )
 
-    task_id = f"nomis-pk-deletes-extract-check-{i}"
-    tasks[task_id] = KubernetesPodOperator(
+    tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
         namespace="airflow",
         image=IMAGE,
