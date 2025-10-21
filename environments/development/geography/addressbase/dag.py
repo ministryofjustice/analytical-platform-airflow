@@ -1,6 +1,9 @@
 from datetime import datetime
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
+from airflow.providers.cncf.kubernetes.secret import (
+    Secret,
+)
 
 
 REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
@@ -52,7 +55,15 @@ tasks["to_land"] = AnalyticalPlatformStandardOperator(
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}",
-    env_vars=update_env_vars(base_env_vars, {"STEP": "to_land"})
+    env_vars=update_env_vars(base_env_vars, {"STEP": "to_land"}),
+    secrets=[
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_OSDATAHUB_API_KEY",
+            secret=f"{PROJECT}-{WORKFLOW}-osdatahub-api-key",
+            key="osdatahub_api_key",
+        )
+    ],
 )
 
 tasks["raw_hist_to_curated"] = AnalyticalPlatformStandardOperator(
