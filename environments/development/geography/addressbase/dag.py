@@ -162,5 +162,5 @@ for table in raw_tables:
             env_vars=update_env_vars(base_env_vars, {"STEP": "raw_hist_to_curated", "TOTAL_WORKERS": total_workers, "CLOSE": False, "CURRENT_WORKER": batch, "TABLE": table})
         )
         tasks[f"raw_hist_to_curated_init_{table}"] >> tasks[f"raw_hist_to_curated_{table}_{batch}"]
-        tasks[f"raw_hist_to_curated_{table}_{batch}"] >> tasks[f"raw_hist_to_curatedclose_{table}"]
+        tasks[f"raw_hist_to_curated_{table}_{batch}"] >> tasks[f"raw_hist_to_curated_close_{table}"]
         tasks[f"raw_hist_to_curated_close_{table}"] >> tasks[f"create_curated_database"]
