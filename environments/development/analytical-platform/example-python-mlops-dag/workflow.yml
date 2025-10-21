@@ -1,18 +1,20 @@
 ---
 dag:
-  repository: moj-analytical-services/analytical-platform-airflow-python-example
-  tag: 2.15.0
+  repository: ministryofjustice/analytical-platform-airflow-python-mlops-dag-example
+  tag: 0.1.0
   python_dag: true
 
 iam:
   bedrock: true
 
 secrets:
-  - example
+  - s3-source-bucket
+  - s3-destination-bucket
+  - model-api-key
 
 maintainers:
+  - gary-h9
   - jacobwoffenden
-  - jhpyke
 
 tags:
   business_unit: Central Digital
