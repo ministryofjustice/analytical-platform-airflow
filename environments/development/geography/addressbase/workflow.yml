@@ -1,14 +1,17 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-geography
-  tag: v1.2.1
+  tag: v1.3.14
   python_dag: true
 
 iam:
   athena: write
   glue: true
   s3_read_write:
-    - s3://alpha-geography/dev/addressbase/*
+    - alpha-geography/dev/addressbase/*
+
+secrets:
+  - osdatahub-api-key
 
 maintainers:
   - p-sin
