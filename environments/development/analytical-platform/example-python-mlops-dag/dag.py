@@ -42,13 +42,24 @@ task = AnalyticalPlatformStandardOperator(
     workflow=f"{WORKFLOW}",
     env_vars={
         "EXAMPLE_VARIABLE_ONE": "apple",
-        "EXAMPLE_VARIABLE_TWO": "{{ dag_run.conf['EXAMPLE_PARAMATER'] }}",
     },
     secrets=[
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_EXAMPLE",
-            secret=f"{PROJECT}-{WORKFLOW}-example",
+            deploy_target="SECRET_S3_SOURCE_BUCKET",
+            secret=f"{PROJECT}-{WORKFLOW}-s3-source-bucket",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_S3_DESTINATION_BUCKET",
+            secret=f"{PROJECT}-{WORKFLOW}-s3-destination-bucket",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_MODEL_API_KEY",
+            secret=f"{PROJECT}-{WORKFLOW}-model-api-key",
             key="data"
         )
     ],
