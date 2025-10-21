@@ -1,0 +1,22 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-python-mlops-dag-example
+  tag: 0.1.0
+  python_dag: true
+
+iam:
+  bedrock: true
+
+secrets:
+  - s3-source-bucket
+  - s3-destination-bucket
+  - model-api-key
+
+maintainers:
+  - gary-h9
+  - jacobwoffenden
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
+
