@@ -19,6 +19,3 @@ iam:
 tags:
   business_unit: Central Digital
   owner: tom.oconnor@justice.gov.uk
-
-secrets:
-  - MLFLOW-PASSWORD
