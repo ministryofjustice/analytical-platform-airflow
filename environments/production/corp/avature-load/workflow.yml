@@ -4,7 +4,8 @@ dag:
   tag: v0.0.24
   schedule:
     hours: 1
-  is_paused_upon_creation: true
+  is_paused_upon_creation: false
+  compute_profile: general-on-demand-2vcpu-8gb
   env_vars:
     WR_WORKGROUP: airflow-prod-workgroup-corp
     ENVIRONMENT: prod
