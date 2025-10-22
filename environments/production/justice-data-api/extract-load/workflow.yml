@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/airflow-justice-data-api-extract
-  tag: v1.1.16
+  tag: v1.1.26
   schedule: "0 0 * * *"
 
 iam:
