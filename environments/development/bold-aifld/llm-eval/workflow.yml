@@ -16,5 +16,5 @@ iam:
 notifications:
   - tom.oconnor@justice.gov.uk
 tags:
-  business_unit: BOLD
+  business_unit: Central Digital
   owner: tom.oconnor@justice.gov.uk
