@@ -7,7 +7,6 @@ dag:
 maintainers:
   - tpoconnor-14
 
-
 iam:
   athena: write
   bedrock: true
