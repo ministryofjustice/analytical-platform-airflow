@@ -3,7 +3,6 @@ dag:
   repository: moj-analytical-services/airflow-bold-aifld-llm-eval
   tag: v1.0.7
   compute_profile: gpu-on-demand-32vcpu-128gb
-  bedrock: true
 
 maintainers:
   - tpoconnor-14
@@ -13,6 +12,7 @@ env_vars:
 
 iam:
   athena: write
+  bedrock: true
   s3_read_write:
     - alpha-ai-for-linked-data/llm-eval/golden-set-recall/*
 
@@ -21,4 +21,4 @@ tags:
   owner: tom.oconnor@justice.gov.uk
 
 secrets:
-  - MLFLOW_PASSWORD
+  - MLFLOW-PASSWORD
