@@ -7,7 +7,6 @@ from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
 from nomis_constants import PK_EXCEPTIONS, PK_EXTRACTIONS, email, owner, tags
-from high_memory_constants import tolerations, affinity
 
 REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
 REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
@@ -53,19 +52,6 @@ tasks["initalise-dag"] = AnalyticalPlatformStandardOperator(
         "ENV": "DEVELOPMENT",
         "DAG_RUN_UTC_UNIXTIME": str(int(datetime.utcnow().timestamp())),
     },
-    startup_timeout_seconds=600,
-    pool="nomis_tasks",
-    labels={"app": dag.dag_id},
-    name=task_id,
-    task_id=task_id,
-    get_logs=True,
-    in_cluster=False,
-    is_delete_operator_pod=True,
-    cluster_context="analytical-platform-compute-production",
-    service_account_name=ROLE.replace("_", "-"),
-    config_file="/usr/local/airflow/dags/.kube/config",
-    tolerations=tolerations,
-    affinity=affinity,
 )
 
 
@@ -83,19 +69,6 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
  #       "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
-    startup_timeout_seconds=600,
-    pool="nomis_tasks",
-    labels={"app": dag.dag_id},
-    name=task_id,
-    task_id=task_id,
-    get_logs=True,
-    in_cluster=False,
-    is_delete_operator_pod=True,
-    cluster_context="analytical-platform-compute-production",
-    service_account_name=ROLE.replace("_", "-"),
-    config_file="/usr/local/airflow/dags/.kube/config",
-    tolerations=tolerations,
-    affinity=affinity,
 )
 
 tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
@@ -112,17 +85,6 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
   #      "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
-    startup_timeout_seconds=300,
-    pool="nomis_tasks",
-    labels={"app": dag.dag_id},
-    name=task_id,
-    task_id=task_id,
-    get_logs=True,
-    in_cluster=False,
-    is_delete_operator_pod=True,
-    cluster_context="analytical-platform-compute-production",
-    service_account_name=ROLE.replace("_", "-"),
-    config_file="/usr/local/airflow/dags/.kube/config",
 )
 
 # Set dependencies
@@ -152,17 +114,6 @@ for i, L in PK_EXTRACTIONS.items():
    #         "ENV": "PRODUCTION",
             "ENV": "DEVELOPMENT",
         },
-        startup_timeout_seconds=300,
-        pool="nomis_tasks",
-        labels={"app": dag.dag_id},
-        name=task_id,
-        task_id=task_id,
-        get_logs=True,
-        in_cluster=False,
-        is_delete_operator_pod=True,
-        cluster_context="analytical-platform-compute-production",
-        service_account_name=ROLE.replace("_", "-"),
-        config_file="/usr/local/airflow/dags/.kube/config",
     )
 
     tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
@@ -180,17 +131,6 @@ for i, L in PK_EXTRACTIONS.items():
     #        "ENV": "PRODUCTION",
             "ENV": "DEVELOPMENT",
         },
-        startup_timeout_seconds=300,
-        pool="nomis_tasks",
-        labels={"app": dag.dag_id},
-        name=task_id,
-        task_id=task_id,
-        get_logs=True,
-        in_cluster=False,
-        is_delete_operator_pod=True,
-        cluster_context="analytical-platform-compute-production",
-        service_account_name=ROLE.replace("_", "-"),
-        config_file="/usr/local/airflow/dags/.kube/config",
     )
 
     (
