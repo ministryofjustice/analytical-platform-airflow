@@ -70,7 +70,7 @@ tasks["create_curated_database"] = AnalyticalPlatformStandardOperator(
     dag=dag,
     task_id="create_curated_database",
     name=f"{PROJECT}.{WORKFLOW}",
-    compute_profile="general-spot-1vcpu-4gb",
+    compute_profile="general-spot-2vcpu-8gb",
     image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
@@ -78,35 +78,24 @@ tasks["create_curated_database"] = AnalyticalPlatformStandardOperator(
     env_vars=update_env_vars(base_env_vars, {"STEP": "create_curated_database"})
 )
 
+tasks[f"land_to_raw_hist"] = AnalyticalPlatformStandardOperator(
+        dag=dag,
+        task_id=f"land_to_raw_hist",
+        name=f"{PROJECT}.{WORKFLOW}",
+        compute_profile="general-spot-64vcpu-256gb",
+        image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
+        environment=f"{ENVIRONMENT}",
+        project=f"{PROJECT}",
+        workflow=f"{WORKFLOW}",
+        env_vars=update_env_vars(base_env_vars, {"STEP": "land_to_raw_hist"})
+    )
+tasks["to_land"] >> tasks[f"land_to_raw_hist"]
+
+
 raw_tables = ["addressbasepremium"]
 
 
 for table in raw_tables:
-
-    tasks[f"land_to_raw_hist_init_{table}"] = AnalyticalPlatformStandardOperator(
-        dag=dag,
-        task_id=f"land_to_raw_hist_init_{table}",
-        name=f"{PROJECT}.{WORKFLOW}",
-        compute_profile="general-spot-1vcpu-4gb",
-        image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
-        environment=f"{ENVIRONMENT}",
-        project=f"{PROJECT}",
-        workflow=f"{WORKFLOW}",
-        env_vars=update_env_vars(base_env_vars, {"STEP": "land_to_raw_hist", "TOTAL_WORKERS": total_workers, "CLOSE": False, "TABLE": table})
-    )
-    tasks["to_land"] >> tasks[f"land_to_raw_hist_init_{table}"]
-
-    tasks[f"land_to_raw_hist_close_{table}"] = AnalyticalPlatformStandardOperator(
-        dag=dag,
-        task_id=f"land_to_raw_hist_close_{table}",
-        name=f"{PROJECT}.{WORKFLOW}",
-        compute_profile="general-spot-1vcpu-4gb",
-        image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
-        environment=f"{ENVIRONMENT}",
-        project=f"{PROJECT}",
-        workflow=f"{WORKFLOW}",
-        env_vars=update_env_vars(base_env_vars, {"STEP": "land_to_raw_hist", "TOTAL_WORKERS": total_workers, "CLOSE": True, "TABLE": table})
-    )
 
     tasks[f"raw_hist_to_curated_init_{table}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
@@ -119,29 +108,13 @@ for table in raw_tables:
         workflow=f"{WORKFLOW}",
         env_vars=update_env_vars(base_env_vars, {"STEP": "raw_hist_to_curated", "TOTAL_WORKERS": total_workers, "CLOSE": False, "TABLE": table})
     )
-    tasks[f"land_to_raw_hist_close_{table}"] >> tasks[f"raw_hist_to_curated_init_{table}"]
-
-    for batch in range (total_workers):
-        tasks[f"land_to_raw_hist_{table}_{batch}"] = AnalyticalPlatformStandardOperator(
-            dag=dag,
-            task_id=f"land_to_raw_hist_{table}_{batch}",
-            name=f"{PROJECT}.{WORKFLOW}",
-            compute_profile="general-spot-1vcpu-4gb",
-            image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
-            environment=f"{ENVIRONMENT}",
-            project=f"{PROJECT}",
-            workflow=f"{WORKFLOW}",
-            env_vars=update_env_vars(base_env_vars, {"STEP": "land_to_raw_hist", "TOTAL_WORKERS": total_workers, "CLOSE": False, "CURRENT_WORKER": batch, "TABLE": table})
-        )
-        tasks[f"land_to_raw_hist_init_{table}"] >> tasks[f"land_to_raw_hist_{table}_{batch}"]
-        tasks[f"land_to_raw_hist_{table}_{batch}"] >> tasks[f"land_to_raw_hist_close_{table}"]
-
+    tasks[f"land_to_raw_hist"] >> tasks[f"raw_hist_to_curated_init_{table}"]
 
     tasks[f"raw_hist_to_curated_close_{table}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
         task_id=f"raw_hist_to_curated_close_{table}",
         name=f"{PROJECT}.{WORKFLOW}",
-        compute_profile="general-spot-1vcpu-4gb",
+        compute_profile="general-spot-2vcpu-8gb",
         image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
         environment=f"{ENVIRONMENT}",
         project=f"{PROJECT}",
@@ -154,7 +127,7 @@ for table in raw_tables:
             dag=dag,
             task_id=f"raw_hist_to_curated_{table}_{batch}",
             name=f"{PROJECT}.{WORKFLOW}",
-            compute_profile="general-spot-1vcpu-4gb",
+            compute_profile="general-spot-2vcpu-8gb",
             image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
             environment=f"{ENVIRONMENT}",
             project=f"{PROJECT}",
