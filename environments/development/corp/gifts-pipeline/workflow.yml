@@ -9,7 +9,7 @@ dag:
         IMAGE_VERSION: tag
 
 maintainers:
-  - "pdnmoji"
+  - "philipneale"
 
 iam:
   athena: write
