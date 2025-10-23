@@ -15,18 +15,19 @@ dag:
   catchup: false
   max_active_runs: 1
   retries: 0
-  compute_profile: general-on-demand-2vcpu-8gb
+  compute_profile: general-on-demand-8vcpu-32gb
 
 iam:
   athena: write
   glue: true
 
   s3_read_only:
-    - mojap-land/corporate/report_extractor_test/splashbi/*
+    - mojap-land/corporate/report_extractor_prod/splashbi/*
 
   s3_read_write:
     - mojap-processed/domain__synergy/env__prod/synergy_grni/*
     - mojap-processed/domain__synergy/env__prod/synergy_grini_staging/*
+    - mojap-processed/domain__synergy/env__prod/athena_query_dump/*
 
 notifications:
   slack_channel: dmet-corp-notifications
