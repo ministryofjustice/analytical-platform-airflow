@@ -49,14 +49,14 @@ task = AnalyticalPlatformStandardOperator(
     secrets=[
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_LLM_GATEWAY_API_KEY",
-            secret=f"{PROJECT}-{WORKFLOW}-llm-gateway-api-key",
+            deploy_target="SECRET_LLM_KEY",
+            secret=f"{PROJECT}-{WORKFLOW}-llm-key",
             key="data"
         ),
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_LLM_GATEWAY_URL",
-            secret=f"{PROJECT}-{WORKFLOW}-llm-gateway-url",
+            deploy_target="SECRET_LLM_URL",
+            secret=f"{PROJECT}-{WORKFLOW}-llm-url",
             key="data"
         ),
     ],
