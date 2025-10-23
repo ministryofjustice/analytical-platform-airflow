@@ -1,8 +1,13 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-mlops-dag-example
-  tag: 0.1.1
+  tag: 0.1.2
   python_dag: true
+  env_vars:
+    S3_SOURCE_BUCKET: "alpha-ap-mlops-source"
+    S3_SOURCE_KEY: "input-data.csv"
+    S3_DESTINATION_BUCKET: "alpha-ap-mlops-destination"
+    S3_DESTINATION_KEY: "transformed-data.csv"
 
 iam:
   s3_read_only:
