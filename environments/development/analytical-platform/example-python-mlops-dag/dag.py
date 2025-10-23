@@ -41,27 +41,24 @@ task = AnalyticalPlatformStandardOperator(
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}",
     env_vars={
-        "EXAMPLE_VARIABLE_ONE": "apple",
+        "S3_SOURCE_BUCKET": "alpha-ap-mlops-source",
+        "S3_SOURCE_KEY": "input-data.csv",
+        "S3_DESTINATION_BUCKET": "alpha-ap-mlops-destination",
+        "S3_DESTINATION_KEY": "transformed-data.csv"
     },
     secrets=[
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_S3_SOURCE_BUCKET",
-            secret=f"{PROJECT}-{WORKFLOW}-s3-source-bucket",
+            deploy_target="SECRET_LLM_GATEWAY_API_KEY",
+            secret=f"{PROJECT}-{WORKFLOW}-llm-gateway-api-key",
             key="data"
         ),
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_S3_DESTINATION_BUCKET",
-            secret=f"{PROJECT}-{WORKFLOW}-s3-destination-bucket",
+            deploy_target="SECRET_LLM_GATEWAY_URL",
+            secret=f"{PROJECT}-{WORKFLOW}-llm-gateway-url",
             key="data"
         ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_MODEL_API_KEY",
-            secret=f"{PROJECT}-{WORKFLOW}-model-api-key",
-            key="data"
-        )
     ],
     on_success_callback=[
         send_slack_notification(

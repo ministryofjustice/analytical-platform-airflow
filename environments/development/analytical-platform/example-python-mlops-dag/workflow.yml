@@ -6,11 +6,14 @@ dag:
 
 iam:
   bedrock: true
+  s3_read_only:
+    - alpha-ap-mlops-source
+  s3_write_only:
+    - alpha-ap-mlops-destination
 
 secrets:
-  - s3-source-bucket
-  - s3-destination-bucket
-  - model-api-key
+  - llm-gateway-api-key
+  - llm-gateway-url
 
 maintainers:
   - gary-h9
