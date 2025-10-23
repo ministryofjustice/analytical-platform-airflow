@@ -5,7 +5,6 @@ dag:
   python_dag: true
 
 iam:
-  bedrock: true
   s3_read_only:
     - alpha-ap-mlops-source
   s3_write_only:
