@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.08
+  tag: v1.09
   start_date: "2025-09-29"
   schedule: "0 7 1 * *"
   retries: 2
