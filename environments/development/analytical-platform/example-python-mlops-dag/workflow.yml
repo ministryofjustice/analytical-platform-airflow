@@ -12,8 +12,8 @@ iam:
     - alpha-ap-mlops-destination
 
 secrets:
-  - llm-gateway-api-key
-  - llm-gateway-url
+  - llm-api-key
+  - llm-url
 
 maintainers:
   - gary-h9
