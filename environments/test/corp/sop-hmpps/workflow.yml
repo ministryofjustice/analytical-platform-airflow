@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-sop-mi
-  tag: v4.5.0-test-07
+  tag: v4.5.0-test-08
   env_vars:
     SOP_TESTING: "testing"
     IMAGE_VERSION: tag
