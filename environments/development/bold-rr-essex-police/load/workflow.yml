@@ -2,26 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-bold-rr-essex-police
   tag: v1.2.10-dev
-
-  env_vars:
-    LAND: s3://mojap-land-dev/bold/essex-police/
-    RAW_HIST: s3://mojap-raw-hist-dev/bold/essex-police/
-    BASE_LOC: s3://alpha-bold-data-shares/bold-dev/
-    BASE_DB_NAME: bold_essex_police_data_dev
-    PARTITION_COL: mojap_file_land_timestamp
-    TABLE: essex_police_table
-    SEPARATOR: \t
-    SFTP_BUCKET: mojap-data-production-bold-egress-development
-    SFTP_BUCKET_PREFIX: essex-police
-    SFTP_FILENAME: dummy_pnc_ids_to_send
-    AWS_METADATA_SERVICE_TIMEOUT: 240
-    AWS_METADATA_SERVICE_NUM_ATTEMPTS: 20
-    AWS_DEFAULT_REGION: eu-west-1
-
-  tasks:
-    police_data_check:
-      env_vars:
-        PYTHON_SCRIPT_NAME: police_data_check.py
+  python_dag: true
 
 iam:
   athena: write
