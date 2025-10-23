@@ -12,7 +12,7 @@ iam:
     - alpha-ap-mlops-destination
 
 secrets:
-  - llm-api-key
+  - llm-key
   - llm-url
 
 maintainers:
