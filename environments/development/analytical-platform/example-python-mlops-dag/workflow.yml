@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-mlops-dag-example
-  tag: 0.1.0
+  tag: 0.1.1
   python_dag: true
 
 iam:
