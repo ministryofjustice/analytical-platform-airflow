@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.09
+  tag: v1.10
   schedule: "30 6 * * 1-5"
   retries: 1
   retry_delay: 60
