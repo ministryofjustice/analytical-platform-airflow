@@ -200,10 +200,10 @@ for i, L in PK_EXTRACTIONS.items():
         continue
     tables_string = ",".join(L)
 #   tasks[f"nomis-pk-deletes-extracts-{i}"] = AnalyticalPlatformStandardOperator(
-    tasks["nomis-pk-deletes-extracts"] = AnalyticalPlatformStandardOperator(
+    tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
         dag=dag,
    #    task_id=f"nomis-pk-deletes-extracts-{i}",
-        task_id="nomis-pk-deletes-extracts",
+        task_id="nomis-pk-deletes-extract",
         env_vars={
             "PK_EXTRACT_TABLES": tables_string,
             "PYTHON_SCRIPT_NAME": "nomis_deletes_extract.py",
