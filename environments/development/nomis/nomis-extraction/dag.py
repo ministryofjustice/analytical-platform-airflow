@@ -115,6 +115,12 @@ PK_EXTRACTIONS = {
 
 
 task_args = {
+    "compute_profile": "general-on-demand-1vcpu-4gb",
+    "image": "ghcr.io/ministryofjustice/analytical-platform-airflow-python-base:latest",
+    "name": "nomis_extraction",
+    "environment": environment,
+    "project": project,
+    "workflow": workflow,
     "depends_on_past": False,
     "email_on_failure": True,
     "email_on_retry": False,
