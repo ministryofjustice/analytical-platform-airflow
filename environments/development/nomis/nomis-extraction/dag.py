@@ -139,9 +139,9 @@ dag = DAG(
 
 tasks = {}
 
-tasks["initalise-dag"] = AnalyticalPlatformStandardOperator(
+tasks["initialise-dag"] = AnalyticalPlatformStandardOperator(
     dag=dag,
-    task_id="initalise-dag",
+    task_id="initialise-dag",
     env_vars={
         "PYTHON_SCRIPT_NAME": "initialise_dag.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
