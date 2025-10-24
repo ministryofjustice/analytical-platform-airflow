@@ -6,7 +6,6 @@ from airflow.providers.slack.notifications.slack import send_slack_notification
 from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
-from nomis_constants import PK_EXCEPTIONS, PK_EXTRACTIONS, email, owner, tags
 
 REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
 REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
@@ -15,12 +14,107 @@ WORKFLOW="PLACEHOLDER_WORKFLOW"
 ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
 OWNER="PLACEHOLDER_OWNER"
 
+# NOMIS CONSTANTS:
+# A dictionary specifying irregular PK extractions
+# and a list of days of month on which they are extracted
+# (for prohibitvely large tables)
+PK_EXCEPTIONS = {"11": [0]}
+PK_EXTRACTIONS = {
+    "1": ["OFFENDER_PROFILE_DETAILS"],
+    "2": ["ORDERS", "OFFENDER_EXTERNAL_MOVEMENTS"],
+    "3": ["OFFENDER_SENTENCE_CHARGES", "INCIDENT_CASE_RESPONSES"],
+    "4": ["OFFENDER_ASSESSMENTS", "INCIDENT_CASE_QUESTIONS"],
+    "5": ["ADDRESSES", "BED_ASSIGNMENT_HISTORIES"],
+    "6": ["COURT_EVENT_CHARGES", "OFFENDER_ASSESSMENT_ITEMS"],
+    "7": ["INCIDENT_CASE_PARTIES", "OFFENDER_SENTENCES", "PERSONS", "OFFENDER_VISITS"],
+    "8": [
+        "OFFENDER_BOOKINGS",
+        "OFFENDER_SENT_CALCULATIONS",
+        "COURT_EVENTS",
+        "OFFENDER_CONTACT_PERSONS",
+    ],
+    "9": [
+        "OFFENDER_ALERTS",
+        "OFFENDER_SENTENCE_TERMS",
+        "OFFENDER_IMPRISON_STATUSES",
+        "OFFENDER_IEP_LEVELS",
+    ],
+    "10": [
+        "OFFENDER_VISIT_VISITORS",
+        "OFFENDER_PHYSICAL_ATTRIBUTES",
+        "OFFENDER_CSIP_ATTENDEES",
+        "OFFENDER_CSIP_FACTORS",
+        "OFFENDER_CSIP_INTVW",
+        "OFFENDER_CSIP_PLANS",
+        "OFFENDER_CSIP_REPORTS",
+        "OFFENDER_CSIP_REVIEWS",
+    ],
+    "11": ["OFFENDER_TRANSACTIONS"],
+    "12": [
+        "AGENCY_VISIT_TIMES",
+        "OFFENDER_VISIT_ORDERS",
+        "OFFENDER_RESTRICTIONS",
+        "AGENCY_VISIT_SLOTS",
+        "CORPORATES",
+        "USER_ACCESSIBLE_CASELOADS",
+        "CASELOAD_AGENCY_LOCATIONS",
+        "OFFENDER_IND_SCHEDULES",
+        "OFFENDER_VO_VISITORS",
+    ],
+    "0": [
+        "OFFENDERS",
+        "OFFENDER_CHARGES",
+        "INCIDENT_CASES",
+        "ADDRESS_USAGES",
+        "OFFENDER_OIC_SANCTIONS",
+        "OFFENDER_CASES",
+        "OFFENDER_HEALTH_PROBLEMS",
+        "OFFENDER_IDENTIFIERS",
+        "OFFENDER_RELEASE_DETAILS",
+        "OFFENDER_REHAB_DECISIONS",
+        "AGENCY_INTERNAL_LOCATIONS",
+        "OFFENDER_NA_DETAILS",
+        "OFFENDER_NON_ASSOCIATIONS",
+        "REFERENCE_CODES",
+        "AGENCY_LOCATIONS",
+        "PROFILE_CODES",
+        "QUESTIONNAIRE_QUESTIONS",
+        "QUESTIONNAIRE_ANSWERS",
+        "QUESTIONNAIRES",
+        "IMPRISONMENT_STATUSES",
+        "INCIDENT_STATUSES",
+        "OFFENCES",
+        "QUESTIONNAIRE_ROLES",
+        "ASSESSMENTS",
+        "STATUTES",
+        "MOVEMENT_REASONS",
+        "OFFENCE_INDICATORS",
+        "OFFENCE_RESULT_CODES",
+        "AREAS",
+        "OFFENDER_RISK_PREDICTORS",
+        "GANG_NON_ASSOCIATIONS",
+        "GANGS",
+        "OFFENDER_GANG_AFFILIATIONS",
+        "OFFENDER_GANG_EVIDENCES",
+        "OFFENDER_GANG_INVESTS",
+        "OFFENDER_PERSON_RESTRICTS",
+        "STAFF_MEMBERS",
+        "RANDOM_TESTING_PROGRAMS",
+        "REHABILITATION_PROVIDERS",
+        "OFFENDER_REHAB_PROVIDERS",
+        "SENTENCE_CALC_TYPES",
+        "PHONES",
+        "INTERNET_ADDRESSES",
+        "STAFF_USER_ACCOUNTS",
+        "PROFILE_TYPES",
+    ],
+}
+
+
 task_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "email_on_retry": False,
-    "owner": owner,
-    "email": email,
     "retries": 2,
     "retry_delay": 300,
 }
@@ -32,7 +126,6 @@ dag = DAG(
     start_date=datetime(2025, 11, 1),
     schedule_interval="00 01 * * *",
     catchup=False,
-    tags=tags,
 )
 
 tasks = {}
