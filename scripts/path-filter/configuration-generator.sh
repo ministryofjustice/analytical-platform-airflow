@@ -7,6 +7,7 @@ case ${MODE} in
 workflows)
   FOLDER_PREFIX="environments"
   SEARCH_PATTERN="workflow.yml"
+  BAD_SEARCH_PATTERN="workflow.yaml"
   SKIP_FILE=".workflow-path-filter-ignore"
   ;;
 *)
@@ -17,6 +18,14 @@ esac
 
 mkdir --parents ".github/path-filter"
 touch "${PATH_FILTER_CONFIGURATION_FILE}"
+
+any_bad=$(find "${FOLDER_PREFIX}" -type f -name "${BAD_SEARCH_PATTERN}" -exec dirname {} \; | sort -h | uniq)
+if [[ ${#any_bad} -gt 0 ]]; then
+  echo "Error: Found workflow(s) named '${BAD_SEARCH_PATTERN}' at:"
+  echo "${any_bad}"
+  echo "Please rename your workflow to to '${SEARCH_PATTERN}' to pass this check."
+  exit 1
+fi
 
 folders=$(find "${FOLDER_PREFIX}" -type f -name "${SEARCH_PATTERN}" -exec dirname {} \; | sort -h | uniq)
 
