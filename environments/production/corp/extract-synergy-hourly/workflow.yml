@@ -1,0 +1,103 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-report-extractor
+  tag: v1.10
+  schedule: "0 7-18 * * 1-5"
+  env_vars:
+    REPORT_APP: "splashbi"
+    REPORT_RUNTIME_ENV: "prod"
+    REPORT_RUN_MODE: "extract"
+  tasks:
+    po_sscl_details:
+      env_vars:
+        REPORT_NAME: "po_sscl_details"
+
+    # === Commercial Synergy Supplier Headers ===
+    cts-supplier_headers:
+      env_vars:
+        REPORT_NAME: "cts-supplier_headers"
+    laa-supplier_headers:
+      env_vars:
+        REPORT_NAME: "laa-supplier_headers"
+    opg-supplier_headers:
+      env_vars:
+        REPORT_NAME: "opg-supplier_headers"
+    yjb-supplier_headers:
+      env_vars:
+        REPORT_NAME: "yjb-supplier_headers"
+    ima-supplier_headers:
+      env_vars:
+        REPORT_NAME: "ima-supplier_headers"
+    moj-supplier_headers:
+      env_vars:
+        REPORT_NAME: "moj-supplier_headers"
+    pbd-supplier_headers:
+      env_vars:
+        REPORT_NAME: "pbd-supplier_headers"
+    jac-supplier_headers:
+      env_vars:
+        REPORT_NAME: "jac-supplier_headers"
+    nms-supplier_headers:
+      env_vars:
+        REPORT_NAME: "nms-supplier_headers"
+    wls-supplier_headers:
+      env_vars:
+        REPORT_NAME: "wls-supplier_headers"
+
+    # === Commercial Synergy Supplier Headers ===
+
+    cts-supplier_sites:
+      env_vars:
+        REPORT_NAME: "cts-supplier_sites"
+    jac-supplier_sites:
+      env_vars:
+        REPORT_NAME: "jac-supplier_sites"
+    moj-supplier_sites:
+      env_vars:
+        REPORT_NAME: "moj-supplier_sites"
+    opg-supplier_sites:
+      env_vars:
+        REPORT_NAME: "opg-supplier_sites"
+    wls-supplier_sites:
+      env_vars:
+        REPORT_NAME: "wls-supplier_sites"
+    ima-supplier_sites:
+      env_vars:
+        REPORT_NAME: "ima-supplier_sites"
+    laa-supplier_sites:
+      env_vars:
+        REPORT_NAME: "laa-supplier_sites"
+    nms-supplier_sites:
+      env_vars:
+        REPORT_NAME: "nms-supplier_sites"
+    pbd-supplier_sites:
+      env_vars:
+        REPORT_NAME: "pbd-supplier_sites"
+    yjb-supplier_sites:
+      env_vars:
+        REPORT_NAME: "yjb-supplier_sites"
+
+iam:
+  s3_read_write:
+    - mojap-land/corporate/report_extractor_prod/splashbi/*
+
+secrets:
+  - splashbi-credentials
+
+notifications:
+  slack_channel: dmet-corp-notifications
+  emails:
+    - william.orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+    - mohammed.ahad1@justice.gov.uk
+    - laurence.droy@justice.gov.uk
+
+maintainers:
+  - williamorrie
+  - moj-supratikc
+  - morezwan
+  - ltd-pa
+
+tags:
+  business_unit: Central Digital
+  owner: supratik.chowdhury@justice.gov.uk
