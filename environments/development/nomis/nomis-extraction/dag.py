@@ -14,8 +14,12 @@ WORKFLOW="PLACEHOLDER_WORKFLOW"
 ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
 OWNER="PLACEHOLDER_OWNER"
 
-DELTA_FETCH_SIZE = "100000"
-RM_FETCH_SIZE = "300000"
+# DELTA_FETCH_SIZE = "100000"
+# RM_FETCH_SIZE = "300000"
+
+# Increase fetch sizes by a factor of 20, because breaking the AP is fun...
+DELTA_FETCH_SIZE = "2000000"
+RM_FETCH_SIZE = "6000000"
 
 # NOMIS CONSTANTS:
 # A dictionary specifying irregular PK extractions
@@ -133,7 +137,7 @@ dag = DAG(
     default_args=task_args,
     description="Extract data from the NOMIS T62 Database",
     start_date=datetime(2025, 11, 1),
-    schedule_interval="00 01 * * *",
+    schedule="00 01 * * *",
     catchup=False,
 )
 
@@ -195,9 +199,11 @@ for i, L in PK_EXTRACTIONS.items():
     if i in PK_EXCEPTIONS and datetime.now().day not in PK_EXCEPTIONS[i]:
         continue
     tables_string = ",".join(L)
-    tasks[f"nomis-pk-deletes-extracts-{i}"] = AnalyticalPlatformStandardOperator(
+#   tasks[f"nomis-pk-deletes-extracts-{i}"] = AnalyticalPlatformStandardOperator(
+    tasks["nomis-pk-deletes-extracts"] = AnalyticalPlatformStandardOperator(
         dag=dag,
-        task_id=f"nomis-pk-deletes-extracts-{i}",
+   #    task_id=f"nomis-pk-deletes-extracts-{i}",
+        task_id="nomis-pk-deletes-extracts",
         env_vars={
             "PK_EXTRACT_TABLES": tables_string,
             "PYTHON_SCRIPT_NAME": "nomis_deletes_extract.py",
@@ -210,9 +216,11 @@ for i, L in PK_EXTRACTIONS.items():
         },
     )
 
-    tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
+#   tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
+    tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
         dag=dag,
-        task_id=f"nomis-pk-deletes-extract-check-{i}",
+    #   task_id=f"nomis-pk-deletes-extract-check-{i}",
+        task_id="nomis-pk-deletes-extract-check",
         env_vars={
             "PK_EXTRACT_TABLES": tables_string,
             "PYTHON_SCRIPT_NAME": "test_deletes_extraction_outputs_and_move_to_raw.py",
@@ -226,8 +234,10 @@ for i, L in PK_EXTRACTIONS.items():
     )
 
     (
-        tasks[f"nomis-pk-deletes-extract-{i}"]
-        >> tasks[f"nomis-pk-deletes-extract-check-{i}"]
+        tasks["nomis-pk-deletes-extract"]
+        >> tasks["nomis-pk-deletes-extract-check"]
+#        tasks[f"nomis-pk-deletes-extract-{i}"]
+#        >> tasks[f"nomis-pk-deletes-extract-check-{i}"]
         >> tasks["initialise-dag"]
 
     )
