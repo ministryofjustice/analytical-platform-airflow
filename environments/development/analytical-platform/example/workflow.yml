@@ -29,5 +29,3 @@ secrets:
 tags:
   business_unit: Central Digital
   owner: analytical-platform@justice.gov.uk
-
-# Trivial change to workflow to trigger workflow-validation action.
