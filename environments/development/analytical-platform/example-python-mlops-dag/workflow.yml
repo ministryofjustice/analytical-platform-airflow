@@ -19,7 +19,7 @@ secrets:
   - llm-url
 
 maintainers:
-  - gary-h9
+  - Gary-h9
   - jacobwoffenden
 
 tags:
