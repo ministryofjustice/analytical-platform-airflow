@@ -141,7 +141,7 @@ tasks = {}
 
 tasks["initalise-dag"] = AnalyticalPlatformStandardOperator(
     dag=dag,
-    task_id="main",
+    task_id="initalise-dag",
     env_vars={
         "PYTHON_SCRIPT_NAME": "initialise_dag.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
@@ -157,7 +157,7 @@ tasks["initalise-dag"] = AnalyticalPlatformStandardOperator(
 
 tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
     dag=dag,
-    task_id="main",
+    task_id="nomis-delta-extract",
     env_vars={
         "PYTHON_SCRIPT_NAME": "nomis_delta_extract.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
@@ -171,7 +171,7 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
 
 tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
     dag=dag,
-    task_id="main",
+    task_id="nomis-delta-extract-check",
     env_vars={
         "PYTHON_SCRIPT_NAME": "test_extraction_outputs_and_move_to_raw.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
@@ -197,7 +197,7 @@ for i, L in PK_EXTRACTIONS.items():
     tables_string = ",".join(L)
     tasks[f"nomis-pk-deletes-extracts-{i}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
-        task_id="main",
+        task_id=f"nomis-pk-deletes-extracts-{i}",
         env_vars={
             "PK_EXTRACT_TABLES": tables_string,
             "PYTHON_SCRIPT_NAME": "nomis_deletes_extract.py",
@@ -212,7 +212,7 @@ for i, L in PK_EXTRACTIONS.items():
 
     tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
-        task_id="main",
+        task_id=f"nomis-pk-deletes-extract-check-{i}",
         env_vars={
             "PK_EXTRACT_TABLES": tables_string,
             "PYTHON_SCRIPT_NAME": "test_deletes_extraction_outputs_and_move_to_raw.py",
