@@ -187,7 +187,7 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
 (
     tasks["nomis-delta-extract"]
     >> tasks["nomis-delta-extract-check"]
-    >> tasks["initialise_dag"]
+    >> tasks["initialise-dag"]
 )
 
 # Deletes
@@ -228,6 +228,6 @@ for i, L in PK_EXTRACTIONS.items():
     (
         tasks[f"nomis-pk-deletes-extract-{i}"]
         >> tasks[f"nomis-pk-deletes-extract-check-{i}"]
-        >> tasks["initialise_dag"]
+        >> tasks["initialise-dag"]
 
     )
