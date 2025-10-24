@@ -31,13 +31,15 @@ iam:
   glue: true
 
   s3_read_only:
-    - mojap-land/corporate/report_extractor_test/splashbi/*
+    - mojap-land/corporate/report_extractor_prod/splashbi/*
 
   s3_read_write:
     - mojap-processed/domain__synergy/env__prod/synergy_grni/*
     - mojap-processed/domain__synergy/env__prod/synergy_grini_staging/*
+    - mojap-processed/domain__synergy/env__prod/athena_query_dump/*
     - mojap-processed/domain__commercial/env__prod/synergy_sop/*
     - mojap-processed/domain__commercial/env__prod/synergy_sop_staging/*
+    - mojap-processed/domain__commercial/env__prod/athena_query_dump/*
 
 notifications:
   slack_channel: dmet-corp-notifications
