@@ -141,6 +141,7 @@ tasks = {}
 
 tasks["initalise-dag"] = AnalyticalPlatformStandardOperator(
     dag=dag,
+    task_id="main",
     namespace="airflow",
     env_vars={
         "PYTHON_SCRIPT_NAME": "initialise_dag.py",
@@ -157,6 +158,7 @@ tasks["initalise-dag"] = AnalyticalPlatformStandardOperator(
 
 tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
     dag=dag,
+    task_id="main",
     namespace="airflow",
     env_vars={
         "PYTHON_SCRIPT_NAME": "nomis_delta_extract.py",
@@ -171,6 +173,7 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
 
 tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
     dag=dag,
+    task_id="main",
     namespace="airflow",
     env_vars={
         "PYTHON_SCRIPT_NAME": "test_extraction_outputs_and_move_to_raw.py",
@@ -197,6 +200,7 @@ for i, L in PK_EXTRACTIONS.items():
     tables_string = ",".join(L)
     tasks[f"nomis-pk-deletes-extracts-{i}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
+        task_id="main",
         namespace="airflow",
         env_vars={
             "PK_EXTRACT_TABLES": tables_string,
@@ -212,6 +216,7 @@ for i, L in PK_EXTRACTIONS.items():
 
     tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
+        task_id="main",
         namespace="airflow",
         env_vars={
             "PK_EXTRACT_TABLES": tables_string,
