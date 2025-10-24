@@ -9,8 +9,8 @@ dag:
   start_date: "2025-04-15"
   max_active_runs: 1
   env_vars:
-    SUPPLIER_NAME: "capita"
-    SYSTEM_NAME: "blob_storage"
+    SUPPLIER_NAME: "g4s"
+    SYSTEM_NAME: "atrium_unstructured"
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
@@ -21,7 +21,7 @@ notifications:
   slack_channel: electronic-monitoring-data-hub-test-notifications
 
 iam:
-  external_role: arn:aws:iam::800964199911:role/airflow-dev-load-capita-blob-storage
+  external_role: arn:aws:iam::800964199911:role/airflow-dev-load-g4s-atrium-unstructured
 
 maintainers:
   - matt-heery
@@ -31,3 +31,6 @@ maintainers:
 tags:
   business_unit: HMPPS
   owner: EMDataEngineering@justice.gov.uk
+
+g4s/
+atrium_unstructured/
