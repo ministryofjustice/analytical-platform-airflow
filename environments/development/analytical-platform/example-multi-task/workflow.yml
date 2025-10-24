@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
-  tag: 2.0.0
+  tag: 2.14.0
   env_vars:
     FOO: "bar"
   tasks:
@@ -19,7 +19,7 @@ dag:
     task_four:
       env_vars:
         TASK: "FOURTH"
-        mode: "failure"
+        MODE: "failure"
       dependencies: [task_three]
     task_five:
       env_vars:

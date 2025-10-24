@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
-  tag: v1.1.8
+  tag: v1.1.10
 
 iam:
   athena: write
@@ -16,13 +16,13 @@ iam:
     - moj-reg-prod-curated/data-eng-uploader-prod/data/database_name=ppud*
 
 maintainers:
-  - mamonu
   - lalithanagarur
+  - antonyjscott
 
 notifications:
   emails:
     - lalitha.nagarur3@justice.gov.uk
-    - theodoros.manassis@justice.gov.uk
+    - antony.scott@justice.gov.uk
 
 tags:
   business_unit: HMPPS

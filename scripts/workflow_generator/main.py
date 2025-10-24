@@ -6,6 +6,8 @@ import sys
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
+from airflow.providers.cncf.kubernetes.secret import Secret
+
 # Custom filter to merge dictionaries
 def merge_dicts(dict1, dict2):
     result = dict1.copy()
@@ -93,6 +95,7 @@ else:
         secrets_list = []
         for secret in secrets:
             secret_object = {
+                "__type__": "airflow.providers.cncf.kubernetes.secret.Secret",
                 "deploy_type": "env",
                 "deploy_target": f"SECRET_{secret.upper().replace('-', '_')}",
                 "secret": f"{project}-{workflow}-{secret}",

@@ -1,8 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.2.9-a62726f12b2b73f142b7490f2eb6b3edbc933bc5
-  compute_profile: general-spot-1vcpu-4gb
+  tag: v0.2.99_test_patch
+  compute_profile: general-on-demand-4vcpu-16gb
   catchup: false
   depends_on_past: false
   max_active_runs: 1
@@ -13,18 +13,29 @@ dag:
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
     REFRESH_TOTAL_DB: true
+  tasks:
+    load:
+      env_vars:
+        TASK_NAME: "load_servicenow"
+      compute_profile: general-on-demand-4vcpu-16gb
+
+    recovery:
+      env_vars:
+        TASK_NAME: "recover_servicenow"
+      compute_profile: general-on-demand-4vcpu-16gb
+      dependencies: [load]
 
 notifications:
   emails:
     - matt.heery@justice.gov.uk
-  slack_channel: em-engineers-moj-madetech
+  slack_channel: electronic-monitoring-data-hub-test-notifications
 
 iam:
   external_role: arn:aws:iam::396913731313:role/airflow-test-full-reload-servicenow
 
 maintainers:
   - matt-heery
-  - pricemg
+  - kraihanmoj
 
 tags:
   business_unit: HMPPS

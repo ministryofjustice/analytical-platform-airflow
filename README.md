@@ -98,5 +98,5 @@ Without setting `PYTHONPATH=airflow`, Python will not recognise [`analytical_pla
 
 1. Log in to Airflow <http://localhost:8080>
 
-- Username: airflow
+- Username: admin
 - Password: test

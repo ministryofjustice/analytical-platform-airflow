@@ -1,0 +1,21 @@
+dag:
+  repository: ministryofjustice/aamir-test-airflow-repo
+  tag: v0.05
+  schedule: "0 * * * *"
+  start_date: "2025-09-17"
+  end_date: "2025-09-20"
+  catchup: false
+  is_paused_upon_creation: false
+
+iam:
+  athena: write
+
+  s3_write_only:
+    - alpha-prison-performance-team/aamir_test_area/*
+
+maintainers:
+  - aamirramzan
+
+tags:
+  business_unit: HQ
+  owner: aamir.ramzan@justice.gov.uk

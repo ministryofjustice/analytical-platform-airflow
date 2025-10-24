@@ -1,0 +1,80 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-report-extractor
+  tag: v1.0.7
+  schedule: "30 6 23 10 *"
+  retries: 1
+  retry_delay: 60
+  env_vars:
+    REPORT_APP: "splashbi"
+    REPORT_RUNTIME_ENV: "test"
+    REPORT_RUN_MODE: "trigger"
+  tasks:
+    nms-jan:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Jan-2025"
+        REPORT_PARAM_TO_DATE_PAID: "31-Jan-2025"
+    nms-feb:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Feb-2025"
+        REPORT_PARAM_TO_DATE_PAID: "28-Feb-2025"
+    nms-mar:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Mar-2025"
+        REPORT_PARAM_TO_DATE_PAID: "31-Mar-2025"
+    nms-apr:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Apr-2025"
+        REPORT_PARAM_TO_DATE_PAID: "30-Apr-2025"
+    nms-may:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-May-2025"
+        REPORT_PARAM_TO_DATE_PAID: "31-May-2025"
+    nms-jun:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Jun-2025"
+        REPORT_PARAM_TO_DATE_PAID: "30-Jun-2025"
+    nms-jul:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Jul-2025"
+        REPORT_PARAM_TO_DATE_PAID: "31-Jul-2025"
+    nms-aug:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Aug-2025"
+        REPORT_PARAM_TO_DATE_PAID: "31-Aug-2025"
+    nms-sep:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Sep-2025"
+        REPORT_PARAM_TO_DATE_PAID: "30-Sep-2025"
+
+iam:
+  s3_read_write:
+    - mojap-land/corporate/report_extractor_test/splashbi/*
+
+secrets:
+  - splashbi-credentials
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - william.orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - williamorrie
+  - moj-supratikc
+  - ltd-pa
+
+tags:
+  business_unit: Central Digital
+  owner: supratik.chowdhury@justice.gov.uk
