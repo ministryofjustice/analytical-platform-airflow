@@ -14,6 +14,9 @@ WORKFLOW="PLACEHOLDER_WORKFLOW"
 ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
 OWNER="PLACEHOLDER_OWNER"
 
+DELTA_FETCH_SIZE = "100000"
+RM_FETCH_SIZE = "300000"
+
 # NOMIS CONSTANTS:
 # A dictionary specifying irregular PK extractions
 # and a list of days of month on which they are extracted
