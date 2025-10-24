@@ -37,7 +37,7 @@ iam:
     - mojap-processed/domain__synergy/env__prod/synergy_grni/*
     - mojap-processed/domain__synergy/env__prod/synergy_grini_staging/*
     - mojap-processed/domain__commercial/env__prod/synergy_sop/*
-    - mojap-processed/domain__commercial/env__prod/synergy_sop/*
+    - mojap-processed/domain__commercial/env__prod/synergy_sop_staging/*
 
 notifications:
   slack_channel: dmet-corp-notifications
