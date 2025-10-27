@@ -2,16 +2,12 @@
 dag:
   repository: moj-analytical-services/airflow-report-extractor
   tag: v1.10
-  start_date: "2025-09-29"
-  schedule: "0 7 1 * *"
-  retries: 2
-  retry_delay: 86400
+  schedule: "0 7-18 * * 1-5"
   env_vars:
     REPORT_APP: "splashbi"
     REPORT_RUNTIME_ENV: "prod"
-    REPORT_RUN_MODE: "trigger"
+    REPORT_RUN_MODE: "extract"
   tasks:
-    # === Commercial Synergy GRNI ===
     po_sscl_details:
       env_vars:
         REPORT_NAME: "po_sscl_details"
@@ -94,11 +90,13 @@ notifications:
     - william.orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
     - mohammed.ahad1@justice.gov.uk
+    - laurence.droy@justice.gov.uk
 
 maintainers:
   - williamorrie
   - moj-supratikc
   - morezwan
+  - ltd-pa
 
 tags:
   business_unit: Central Digital
