@@ -1,25 +1,26 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-mlops-dag-example
-  tag: 0.1.3
+  tag: 0.1.7
   env_vars:
     S3_SOURCE_BUCKET: "alpha-ap-mlops-source"
     S3_SOURCE_KEY: "input-data.csv"
     S3_DESTINATION_BUCKET: "alpha-ap-mlops-destination"
     S3_DESTINATION_KEY: "transformed-data.csv"
+    LLM_MODEL: "bedrock-claude-sonnet-4-5"
 
 iam:
   s3_read_only:
-    - alpha-ap-mlops-source
+    - alpha-ap-mlops-source/*
   s3_write_only:
-    - alpha-ap-mlops-destination
+    - alpha-ap-mlops-destination/*
 
 secrets:
   - llm-key
   - llm-url
 
 maintainers:
-  - gary-h9
+  - Gary-H9
   - jacobwoffenden
 
 tags:
