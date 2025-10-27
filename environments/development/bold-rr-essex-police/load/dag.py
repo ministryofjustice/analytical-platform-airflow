@@ -91,14 +91,7 @@ tasks[task_id_1] = AnalyticalPlatformStandardOperator(
         "AWS_METADATA_SERVICE_TIMEOUT": "240",
         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "20",
         "AWS_DEFAULT_REGION": "eu-west-1",
-    },
-
-    on_success_callback=[
-        send_slack_notification(
-            text="The task {{ ti.task_id }} succeeded",
-            channel="#analytical-platform-airflow-testing",
-        )
-    ],
+    }
 )
 
 task_id_2 = "load-essex-police-bold-data"
