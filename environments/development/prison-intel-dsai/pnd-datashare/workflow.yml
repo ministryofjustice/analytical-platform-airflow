@@ -16,6 +16,8 @@ dag:
 iam:
   s3_read_write:
     - alpha-app-bentham-app/*
+    - alpha-athena-dump/*
+    - alpha-athena-query-dump/*
 
 notifications:
   emails:
