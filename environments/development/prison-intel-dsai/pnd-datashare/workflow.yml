@@ -23,7 +23,7 @@ notifications:
   slack_channel: intel-app-maintenance
 
 maintainers:
-  - mattfunnell
+  - MattFunnell
 
 tags:
   business_unit: HMPPS
