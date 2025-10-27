@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-nomis-extraction
-  tag: v0.6
+  tag: v0.7
   python_dag: true
 
 iam:
@@ -20,6 +20,11 @@ iam:
     - mojap-raw-hist/hmpps/nomis_t62/*
     - mojap-raw-hist/hmpps/nomis_t62_deletes/*
     - alpha-nomis/processed_nomis_t62/*
+
+secrets:
+  - db_pwd
+  - db_user_id
+  - db_dsn
 
 notifications:
   slack_channel: hmpps-data-notifications
