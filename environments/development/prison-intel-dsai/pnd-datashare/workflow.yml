@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-pdsai-pnd-datashare
-  tag: 0.0.2
+  tag: 0.0.3
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -14,8 +14,14 @@ dag:
       compute_profile: "general-on-demand-1vcpu-4gb"
 
 iam:
+  athena: write
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
   s3_read_write:
     - alpha-app-bentham-app/*
+    - alpha-athena-dump/*
+    - alpha-athena-query-dump/*
 
 notifications:
   emails:
@@ -23,7 +29,7 @@ notifications:
   slack_channel: intel-app-maintenance
 
 maintainers:
-  - mattfunnell
+  - MattFunnell
 
 tags:
   business_unit: HMPPS
