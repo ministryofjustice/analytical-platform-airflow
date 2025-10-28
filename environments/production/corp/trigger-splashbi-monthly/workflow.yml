@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.10
+  tag: v1.11
   start_date: "2025-09-29"
   schedule: "0 7 1 * *"
   retries: 2
@@ -80,9 +80,6 @@ dag:
     yjb-supplier_sites:
       env_vars:
         REPORT_NAME: "yjb-supplier_sites"
-    sba-mo-locations:
-      env_vars:
-        REPORT_NAME: "sba-mo-locations"
 
 iam:
   s3_read_write:
