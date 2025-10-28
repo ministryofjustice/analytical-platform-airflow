@@ -56,17 +56,13 @@ default_args = {
     "owner": f"{OWNER}",
 }
 
-default_params = {
-    "EXAMPLE_PARAMATER": "banana",
-}
+
 
 dag = DAG(
     dag_id="bold_rr_essex_police.load",
     default_args=default_args,
     start_date=datetime(2025, 6, 26),
-    schedule=None,
-    params=default_params,
-)
+    schedule=None)
 
 tasks = {}
 
