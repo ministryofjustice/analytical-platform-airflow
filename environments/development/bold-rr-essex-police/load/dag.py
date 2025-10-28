@@ -21,6 +21,7 @@ USERID = 1008
 DB_RUN_TS = datetime.now().strftime("%Y-%m-%d %H:%m:%S")
 DB_VERSION = "v1"
 
+
 # check_file task
 CHECK_FILE_VERSION = "v1.2.12-dev"
 CHECK_FILE_IMAGE = (
@@ -50,23 +51,22 @@ SEPARATOR = "\t"
 PARAMETER_NAME = "/alpha/airflow/airflow_dev_bold_rr_essex_police_load/gov_notify_api_key"
 EMAILS = "guy.wheeler@justice.gov.uk"
 
+print("env:", ENV)
+print("proj:", PROJECT)
+print("workflow:", WORKFLOW)
+
+
 default_args = {
     "depends_on_past": False,
     "email_on_failure": False,
     "owner": f"{OWNER}",
 }
 
-default_params = {
-    "EXAMPLE_PARAMATER": "banana",
-}
-
 dag = DAG(
     dag_id="bold_rr_essex_police.load",
     default_args=default_args,
     start_date=datetime(2025, 6, 26),
-    schedule=None,
-    params=default_params,
-)
+    schedule=None)
 
 tasks = {}
 
