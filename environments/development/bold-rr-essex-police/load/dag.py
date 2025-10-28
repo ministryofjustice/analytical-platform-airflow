@@ -24,7 +24,7 @@ DB_VERSION = "v1"
 # check_file task
 CHECK_FILE_VERSION = "v1.2.12-dev"
 CHECK_FILE_IMAGE = (
-    f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/"
+    f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/"
     f"airflow-bold-rr-essex-police:{CHECK_FILE_VERSION}"
 )
 
