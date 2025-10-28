@@ -83,7 +83,7 @@ tasks[task_id_1] = AnalyticalPlatformStandardOperator(
         "TABLE": TABLE,
         "EMAILS": EMAILS,
         "SEPARATOR": SEPARATOR,
-        "PARAMETER_NAME": SECRET_GOV_NOTIFY_KEY,
+        "SECRET_GOV_NOTIFY_KEY": SECRET_GOV_NOTIFY_KEY,
         "PYTHON_SCRIPT_NAME": "police_data_check.py",
         "AWS_METADATA_SERVICE_TIMEOUT": "240",
         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "20",
