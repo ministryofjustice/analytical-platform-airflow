@@ -210,7 +210,7 @@ dag:
         TABLE_NAME: "UserGroups"
 
 
-noti  ations:
+notifications:
   emails:
     - Matt.Heery@justice.gov.uk
     - Khristiania.Raihan@justice.gov.uk
