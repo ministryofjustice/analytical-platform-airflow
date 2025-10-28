@@ -48,7 +48,7 @@ PARTITION_COL = "mojap_file_land_timestamp"
 TABLE = "essex_police_table"
 SEPARATOR = "\t"
 
-SECRET_GOV_NOTIFY_KEY = os.getenv("SECRET_GOV_NOTIFY_KEY_DEV")
+SECRET_GOV_NOTIFY_KEY = os.getenv("SECRET_GOV_NOTIFY_KEY_DEV", "key is missing for some reason?")
 EMAILS = "guy.wheeler@justice.gov.uk"
 
 default_args = {
