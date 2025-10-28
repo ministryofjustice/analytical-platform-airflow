@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
@@ -22,7 +23,7 @@ DB_RUN_TS = datetime.now().strftime("%Y-%m-%d %H:%m:%S")
 DB_VERSION = "v1"
 
 # check_file task
-CHECK_FILE_VERSION = "v1.2.12-dev"
+CHECK_FILE_VERSION = "v1.2.13-dev"
 CHECK_FILE_IMAGE = (
     f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/"
     f"airflow-bold-rr-essex-police:{CHECK_FILE_VERSION}"
@@ -47,7 +48,7 @@ PARTITION_COL = "mojap_file_land_timestamp"
 TABLE = "essex_police_table"
 SEPARATOR = "\t"
 
-PARAMETER_NAME = "/alpha/airflow/airflow_dev_bold_rr_essex_police_load/gov_notify_api_key"
+SECRET_GOV_NOTIFY_KEY = os.getenv("SECRET_GOV_NOTIFY_KEY_DEV")
 EMAILS = "guy.wheeler@justice.gov.uk"
 
 default_args = {
@@ -82,7 +83,7 @@ tasks[task_id_1] = AnalyticalPlatformStandardOperator(
         "TABLE": TABLE,
         "EMAILS": EMAILS,
         "SEPARATOR": SEPARATOR,
-        "PARAMETER_NAME": PARAMETER_NAME,
+        "PARAMETER_NAME": SECRET_GOV_NOTIFY_KEY,
         "PYTHON_SCRIPT_NAME": "police_data_check.py",
         "AWS_METADATA_SERVICE_TIMEOUT": "240",
         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "20",
