@@ -23,7 +23,7 @@ DB_RUN_TS = datetime.now().strftime("%Y-%m-%d %H:%m:%S")
 DB_VERSION = "v1"
 
 # check_file task
-CHECK_FILE_VERSION = "v1.2.14-dev"
+CHECK_FILE_VERSION = "v1.2.15-dev"
 CHECK_FILE_IMAGE = (
     f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/"
     f"airflow-bold-rr-essex-police:{CHECK_FILE_VERSION}"
