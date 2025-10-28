@@ -12,6 +12,9 @@ iam:
     - mojap-raw-hist-dev/bold/essex-police/*
     - mojap-data-production-bold-egress-development/essex-police/*
 
+secrets:
+  - gov-notify-key-dev
+
 maintainers:
   - guyvw1
 
