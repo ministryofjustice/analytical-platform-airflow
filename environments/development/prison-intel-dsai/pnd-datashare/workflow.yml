@@ -18,6 +18,8 @@ iam:
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
   s3_read_write:
     - alpha-app-bentham-app/*
     - alpha-athena-dump/*
