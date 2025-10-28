@@ -1,0 +1,229 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-load-em-data
+  tag: v0.2.107
+  compute_profile: general-on-demand-4vcpu-16gb
+  catchup: false
+  depends_on_past: false
+  max_active_runs: 1
+  env_vars:
+    SUPPLIER_NAME: "g4s"
+    SYSTEM_NAME: "fep"
+    SCHEMA_NAME: "dbo"
+    AWS_METADATA_SERVICE_TIMEOUT: 60
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
+    AWS_DEFAULT_REGION: "eu-west-2"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+  tasks:
+    load_fep_audit_remote_install:
+      env_vars:
+        TABLE_NAME: "AuditRemoteInstall"
+
+    load_fep_fep_branch:
+      env_vars:
+        TABLE_NAME: "FEPBranch"
+
+    load_fep_fep_centurion_last_event_id:
+      env_vars:
+        TABLE_NAME: "FEPCenturionLastEventID"
+
+    load_fep_fep_equipment:
+      env_vars:
+        TABLE_NAME: "FEPEquipment"
+
+    load_fep_fep_equipment_category:
+      env_vars:
+        TABLE_NAME: "FEPEquipmentCategory"
+
+    load_fep_fep_equipment_configuration:
+      env_vars:
+        TABLE_NAME: "FEPEquipmentConfiguration"
+
+    load_fep_fep_equipment_configuration_association:
+      env_vars:
+        TABLE_NAME: "FEPEquipmentConfigurationAssociation"
+
+    load_fep_fep_equipment_configuration_service_type_association:
+      env_vars:
+        TABLE_NAME: "FEPEquipmentConfigurationServiceTypeAssociation"
+
+    load_fep_fep_equipment_setup_association:
+      env_vars:
+        TABLE_NAME: "FEPEquipmentSetupAssociation"
+
+    load_fep_fep_equipment_setup_value:
+      env_vars:
+        TABLE_NAME: "FEPEquipmentSetupValue"
+
+    load_fep_fep_equipment_setup_value_type:
+      env_vars:
+        TABLE_NAME: "FEPEquipmentSetupValueType"
+
+    load_fep_fep_equipment_status:
+      env_vars:
+        TABLE_NAME: "FEPEquipmentStatus"
+
+    load_fep_fep_equipment_status_value:
+      env_vars:
+        TABLE_NAME: "FEPEquipmentStatusValue"
+
+    load_fep_fep_equipment_status_value_type:
+      env_vars:
+        TABLE_NAME: "FEPEquipmentStatusValueType"
+
+    load_fep_fep_equipment_type:
+      env_vars:
+        TABLE_NAME: "FEPEquipmentType"
+
+    load_fep_fep_field_event:
+      env_vars:
+        TABLE_NAME: "FEPFieldEvent"
+
+    load_fep_fep_field_event_type:
+      env_vars:
+        TABLE_NAME: "FEPFieldEventType"
+
+    load_fep_fep_field_event_value:
+      env_vars:
+        TABLE_NAME: "FEPFieldEventValue"
+
+    load_fep_fep_field_event_value_type:
+      env_vars:
+        TABLE_NAME: "FEPFieldEventValueType"
+
+    load_fep_fep_history:
+      env_vars:
+        TABLE_NAME: "FEPHistory"
+
+    load_fep_fep_incident:
+      env_vars:
+        TABLE_NAME: "FEPIncident"
+
+    load_fep_fep_incident_type:
+      env_vars:
+        TABLE_NAME: "FEPIncidentType"
+
+    load_fep_fep_location_equipment_allocation:
+      env_vars:
+        TABLE_NAME: "FEPLocationEquipmentAllocation"
+
+    load_fep_fep_location_status_allocation:
+      env_vars:
+        TABLE_NAME: "FEPLocationStatusAssociation"
+
+    load_fep_fep_manufacturer:
+      env_vars:
+        TABLE_NAME: "FEPManufacturer"
+
+    load_fep_fep_process_tables:
+      env_vars:
+        TABLE_NAME: "FEPProcessTables"
+
+    load_fep_fep_subject_equipment_allocation:
+      env_vars:
+        TABLE_NAME: "FEPSubjectEquipmentAllocation"
+
+    load_fep_fep_subject_equipment_allocation_history:
+      env_vars:
+        TABLE_NAME: "FEPSubjectEquipmentAllocationHistory"
+
+    load_fep_fep_subject_status_allocation:
+      env_vars:
+        TABLE_NAME: "FEPSubjectStatusAssociation"
+
+    load_fep_fep_subject_to_be_processed:
+      env_vars:
+        TABLE_NAME: "FEPSubjectToBeProcessed"
+
+    load_fep_fep_time_zone:
+      env_vars:
+        TABLE_NAME: "FEPTimeZone"
+
+    load_fep_fep_version:
+      env_vars:
+        TABLE_NAME: "FEPVersion"
+
+    load_fep_fep_visits:
+      env_vars:
+        TABLE_NAME: "FepVisits"
+
+    load_fep_gcs_equipment:
+      env_vars:
+        TABLE_NAME: "GCSEquipment"
+
+    load_fep_gml_equipment_allocation:
+      env_vars:
+        TABLE_NAME: "GMLEquipmentAllocation"
+
+    load_fep_hmu_gen:
+      env_vars:
+        TABLE_NAME: "HMUGen"
+
+    load_fep_hours:
+      env_vars:
+        TABLE_NAME: "Hours"
+
+    load_fep_location:
+      env_vars:
+        TABLE_NAME: "Location"
+
+    load_fep_max_field_event_id:
+      env_vars:
+        TABLE_NAME: "MaxFieldEventID"
+
+    load_fep_order:
+      env_vars:
+        TABLE_NAME: "Order"
+
+    load_fep_profile:
+      env_vars:
+        TABLE_NAME: "Profile"
+
+    load_fep_profile_incident:
+      env_vars:
+        TABLE_NAME: "ProfileIncident"
+
+    load_fep_profile_incident_response:
+      env_vars:
+        TABLE_NAME: "ProfileIncidentResponse"
+
+    load_fep_profile_type:
+      env_vars:
+        TABLE_NAME: "ProfileType"
+
+    load_fep_service:
+      env_vars:
+        TABLE_NAME: "Service"
+
+    load_fep_service_type:
+      env_vars:
+        TABLE_NAME: "ServiceType"
+
+    load_fep_subject:
+      env_vars:
+        TABLE_NAME: "Subject"
+
+    load_fep_user_groups:
+      env_vars:
+        TABLE_NAME: "UserGroups"
+
+notifications:
+  emails:
+    - Matt.Heery@justice.gov.uk
+    - Khristiania.Raihan@justice.gov.uk
+    - Luke.Williams6@justice.gov.uk
+  slack_channel: em-engineers-moj-madetech
+
+iam:
+  external_role: arn:aws:iam::976799291502:role/airflow-prod-load-fep
+
+maintainers:
+  - matt-heery
+  - kraihanmoj
+  - luke-a-williams
+
+tags:
+  business_unit: HMPPS
+  owner: EmDataEngineering@justice.gov.uk
