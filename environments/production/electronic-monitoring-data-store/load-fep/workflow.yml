@@ -209,7 +209,6 @@ dag:
       env_vars:
         TABLE_NAME: "UserGroups"
 
-
 notifications:
   emails:
     - Matt.Heery@justice.gov.uk
