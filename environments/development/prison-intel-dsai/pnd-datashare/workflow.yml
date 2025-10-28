@@ -14,6 +14,7 @@ dag:
       compute_profile: "general-on-demand-1vcpu-4gb"
 
 iam:
+  athena: write
   s3_read_write:
     - alpha-app-bentham-app/*
     - alpha-athena-dump/*
