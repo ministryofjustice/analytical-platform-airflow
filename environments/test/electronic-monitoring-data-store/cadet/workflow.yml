@@ -12,6 +12,7 @@ dag:
     DBT_SELECT_CRITERIA: tag:emd_live
     BRANCH: em/test
     MODE: build
+    DBT_PROFILE_WORKGROUP: dummy_value
 
 maintainers:
   - jhpyke # will remove when we get it working
