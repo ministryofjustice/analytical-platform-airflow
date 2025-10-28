@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.1.6
+  tag: 1.1.7
   compute_profile: general-on-demand-8vcpu-32gb
   env_vars:
     DEPLOY_ENV: test
@@ -13,6 +13,7 @@ dag:
     BRANCH: em/test
     MODE: build
     DBT_PROFILE_WORKGROUP: dummy_value
+    EM_REMOVE_HISTORIC: true
 
 maintainers:
   - jhpyke # will remove when we get it working
