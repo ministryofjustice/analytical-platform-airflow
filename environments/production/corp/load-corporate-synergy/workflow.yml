@@ -25,7 +25,7 @@ dag:
     load-supplier_sites:
       env_vars:
         AFFILE_PIPELINE_NAME: "supplier_sites"
-    load-supplier_sites:
+    load-sba_mo_locations:
       env_vars:
         AFFILE_PIPELINE_NAME: "sba_mo_locations"
 
