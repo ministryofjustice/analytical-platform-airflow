@@ -52,9 +52,9 @@ SEPARATOR = "\t"
 
 secret_gov_notify_key = Secret(
     deploy_type="env",
-    deploy_target="SECRET_GOV_NOTIFY_KEY_DEV",
-    secret="/airflow/development/bold-rr-essex-police/load/gov-notify-key-dev",
-    # key="data"
+    deploy_target="SECRET_GOV_NOTIFY_KEY",
+    secret=f"{PROJECT}-{WORKFLOW}-gov-notify-key-dev",
+    key="data"
 )
 
 EMAILS = "guy.wheeler@justice.gov.uk"
