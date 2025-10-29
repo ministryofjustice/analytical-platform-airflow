@@ -55,7 +55,7 @@ SERVICE = "bold"
 secret_gov_notify_key = Secret(
     deploy_type="env",
     deploy_target="SECRET_GOV_NOTIFY_KEY",
-    secret=f"{PROJECT}-{WORKFLOW}-gov-notify-key-dev",
+    secret=f"{PROJECT}-{WORKFLOW}-gov-notify-key",
     key="data",
 )
 # email to send notification to

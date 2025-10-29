@@ -14,7 +14,7 @@ iam:
     - alpha-bold-data-shares/bold/*
 
 secrets:
-  - gov-notify-key-dev
+  - gov-notify-key
 
 maintainers:
   - guyvw1
