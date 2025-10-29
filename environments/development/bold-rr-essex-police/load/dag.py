@@ -51,7 +51,7 @@ SERVICE = "bold"
 
 
 # configure dev notify key secret
-# key held in AP AWS secrets manager 
+# key held in AP AWS secrets manager
 secret_gov_notify_key = Secret(
     deploy_type="env",
     deploy_target="SECRET_GOV_NOTIFY_KEY",
