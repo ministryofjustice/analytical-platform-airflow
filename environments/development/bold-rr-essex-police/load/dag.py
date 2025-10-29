@@ -7,14 +7,14 @@ from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
 
-REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
-REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
-PROJECT="PLACEHOLDER_PROJECT"
-WORKFLOW="PLACEHOLDER_WORKFLOW"
-ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
-OWNER="PLACEHOLDER_OWNER"
+REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
+REPOSITORY_TAG = "PLACEHOLDER_REPOSITORY_TAG"
+PROJECT = "PLACEHOLDER_PROJECT"
+WORKFLOW = "PLACEHOLDER_WORKFLOW"
+ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
+OWNER = "PLACEHOLDER_OWNER"
 
-# Overall constants
+# set env
 ENV = "dev"
 # This needs to be the same in the image docker files, where necessary
 # (only required for ssh extraction)
@@ -23,21 +23,20 @@ DB_RUN_TS = datetime.now().strftime("%Y-%m-%d %H:%m:%S")
 DB_VERSION = "v1"
 
 # check_file task
-CHECK_FILE_VERSION = "v1.2.15-dev"
+# needs to match the release tag in airflow-bold-rr-essex-police
+CHECK_FILE_VERSION = "v1.2.16-dev"
 CHECK_FILE_IMAGE = (
     f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/"
     f"airflow-bold-rr-essex-police:{CHECK_FILE_VERSION}"
 )
 
 # load task
+# create a pipeline image
 LOAD_IMAGE_VERSION = "v4.0.0"
 LOAD_IMAGE = (
     f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/"
     f"airflow-create-a-pipeline:{LOAD_IMAGE_VERSION}"
 )
-
-ROLE = f"airflow_{ENV}_bold_rr_essex_police_load"
-SERVICE = "bold"
 
 # Constants
 LAND = "s3://mojap-land-dev/bold/essex-police/"
@@ -47,16 +46,19 @@ BASE_DB_NAME = "bold_essex_police_data_dev"
 PARTITION_COL = "mojap_file_land_timestamp"
 TABLE = "essex_police_table"
 SEPARATOR = "\t"
+# create a pipeline service
+SERVICE = "bold"
 
-# SECRET_GOV_NOTIFY_KEY = os.getenv("SECRET_GOV_NOTIFY_KEY_DEV", "key is missing for some reason?")
 
+# configure dev notify key secret
+# key held in AP AWS secrets manager 
 secret_gov_notify_key = Secret(
     deploy_type="env",
     deploy_target="SECRET_GOV_NOTIFY_KEY",
     secret=f"{PROJECT}-{WORKFLOW}-gov-notify-key-dev",
-    key="data"
+    key="data",
 )
-
+# email to send notification to
 EMAILS = "guy.wheeler@justice.gov.uk"
 
 default_args = {
@@ -66,12 +68,12 @@ default_args = {
 }
 
 
-
 dag = DAG(
     dag_id="bold_rr_essex_police.load",
     default_args=default_args,
     start_date=datetime(2025, 6, 26),
-    schedule=None)
+    schedule=None,
+)
 
 tasks = {}
 
@@ -91,13 +93,12 @@ tasks[task_id_1] = AnalyticalPlatformStandardOperator(
         "TABLE": TABLE,
         "EMAILS": EMAILS,
         "SEPARATOR": SEPARATOR,
-        # "SECRET_GOV_NOTIFY_KEY": SECRET_GOV_NOTIFY_KEY,
         "PYTHON_SCRIPT_NAME": "police_data_check.py",
         "AWS_METADATA_SERVICE_TIMEOUT": "240",
         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "20",
         "AWS_DEFAULT_REGION": "eu-west-1",
     },
-    secrets=[secret_gov_notify_key]
+    secrets=[secret_gov_notify_key],
 )
 
 task_id_2 = "load-essex-police-bold-data"
@@ -127,7 +128,7 @@ tasks[task_id_2] = AnalyticalPlatformStandardOperator(
         "AWS_METADATA_SERVICE_TIMEOUT": "240",
         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "20",
         "AWS_DEFAULT_REGION": "eu-west-1",
-    }
+    },
 )
 
 tasks[task_id_1] >> tasks[task_id_2]
