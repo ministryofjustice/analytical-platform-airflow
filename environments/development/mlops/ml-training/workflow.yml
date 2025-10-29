@@ -5,11 +5,14 @@ dag:
   compute_profile: general-spot-8vcpu-32gb
 
 maintainers:
-  - mshodge
+  - gary-h9
+  - jamesabaker
+  - rossken
 
 iam:
   s3_read_only:
     - alpha-mlops-examples/insurance_example/data/*
+    - alpha-mlops-examples/insurance_example/config/*
   s3_write_only:
     - alpha-mlops-examples/insurance_example/model/*
     - alpha-analytical-platform-mlflow-development/*
@@ -20,4 +23,4 @@ secrets:
 
 tags:
   business_unit: HQ
-  owner: michael.hodge1@justice.gov.uk
+  owner: Ross.Kennedy1@justice.gov.uk
