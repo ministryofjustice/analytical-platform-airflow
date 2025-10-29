@@ -1,3 +1,4 @@
+---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
   tag: v0.2.109
@@ -36,7 +37,7 @@ dag:
     load_buddi_verifications:
       env_vars:
         TABLE_NAME: "verifications"
-    
+
     load_buddi_wearers:
       env_vars:
         TABLE_NAME: "wearers"
