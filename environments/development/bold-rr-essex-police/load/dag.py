@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
@@ -22,16 +23,16 @@ DB_RUN_TS = datetime.now().strftime("%Y-%m-%d %H:%m:%S")
 DB_VERSION = "v1"
 
 # check_file task
-CHECK_FILE_VERSION = "v1.2.12-dev"
+CHECK_FILE_VERSION = "v1.2.15-dev"
 CHECK_FILE_IMAGE = (
-    f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/"
+    f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/"
     f"airflow-bold-rr-essex-police:{CHECK_FILE_VERSION}"
 )
 
 # load task
 LOAD_IMAGE_VERSION = "v4.0.0"
 LOAD_IMAGE = (
-    f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/"
+    f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/"
     f"airflow-create-a-pipeline:{LOAD_IMAGE_VERSION}"
 )
 
@@ -47,7 +48,15 @@ PARTITION_COL = "mojap_file_land_timestamp"
 TABLE = "essex_police_table"
 SEPARATOR = "\t"
 
-PARAMETER_NAME = "/alpha/airflow/airflow_dev_bold_rr_essex_police_load/gov_notify_api_key"
+# SECRET_GOV_NOTIFY_KEY = os.getenv("SECRET_GOV_NOTIFY_KEY_DEV", "key is missing for some reason?")
+
+secret_gov_notify_key = Secret(
+    deploy_type="env",
+    deploy_target="SECRET_GOV_NOTIFY_KEY",
+    secret=f"{PROJECT}-{WORKFLOW}-gov-notify-key-dev",
+    key="data"
+)
+
 EMAILS = "guy.wheeler@justice.gov.uk"
 
 default_args = {
@@ -56,17 +65,13 @@ default_args = {
     "owner": f"{OWNER}",
 }
 
-default_params = {
-    "EXAMPLE_PARAMATER": "banana",
-}
+
 
 dag = DAG(
     dag_id="bold_rr_essex_police.load",
     default_args=default_args,
     start_date=datetime(2025, 6, 26),
-    schedule=None,
-    params=default_params,
-)
+    schedule=None)
 
 tasks = {}
 
@@ -86,12 +91,13 @@ tasks[task_id_1] = AnalyticalPlatformStandardOperator(
         "TABLE": TABLE,
         "EMAILS": EMAILS,
         "SEPARATOR": SEPARATOR,
-        "PARAMETER_NAME": PARAMETER_NAME,
+        # "SECRET_GOV_NOTIFY_KEY": SECRET_GOV_NOTIFY_KEY,
         "PYTHON_SCRIPT_NAME": "police_data_check.py",
         "AWS_METADATA_SERVICE_TIMEOUT": "240",
         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "20",
         "AWS_DEFAULT_REGION": "eu-west-1",
-    }
+    },
+    secrets=[secret_gov_notify_key]
 )
 
 task_id_2 = "load-essex-police-bold-data"

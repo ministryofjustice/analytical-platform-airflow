@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-nomis-extraction
-  tag: v0.7
+  tag: v0.8
   python_dag: true
 
 iam:

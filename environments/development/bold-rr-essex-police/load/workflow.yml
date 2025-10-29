@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-bold-rr-essex-police
-  tag: v1.2.12-dev
+  tag: v1.2.15-dev
   python_dag: true
 
 iam:
@@ -11,6 +11,10 @@ iam:
     - mojap-land-dev/bold/essex-police/*
     - mojap-raw-hist-dev/bold/essex-police/*
     - mojap-data-production-bold-egress-development/essex-police/*
+    - alpha-bold-data-shares/bold-dev/*
+
+secrets:
+  - gov-notify-key-dev
 
 maintainers:
   - guyvw1

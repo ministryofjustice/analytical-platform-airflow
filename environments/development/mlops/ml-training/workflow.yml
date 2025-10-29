@@ -1,8 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/airflow_mlops_training_example
-  tag: 1.1.6
-  compute_profile: general-spot-64vcpu-256gb
+  tag: 1.1.9
+  compute_profile: general-spot-8vcpu-32gb
 
 maintainers:
   - mshodge
