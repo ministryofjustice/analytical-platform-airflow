@@ -52,7 +52,7 @@ SEPARATOR = "\t"
 
 secret_gov_notify_key = Secret(
     deploy_type="env",
-    deploy_target="SECRET_GOV_NOTIFY_KEY_DEV",
+    deploy_target="SECRET_GOV_NOTIFY_KEY",
     secret=f"{PROJECT}-{WORKFLOW}-gov-notify-key-dev",
     key="data"
 )
