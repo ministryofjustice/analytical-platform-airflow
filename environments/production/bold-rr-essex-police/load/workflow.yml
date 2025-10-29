@@ -1,0 +1,24 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-bold-rr-essex-police
+  tag: v1.2.16-dev
+  python_dag: true
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land/bold/essex-police/*
+    - mojap-raw-hist/bold/essex-police/*
+    - mojap-data-production-bold-egress-production/essex-police/*
+    - alpha-bold-data-shares/bold/*
+
+secrets:
+  - gov-notify-key-dev
+
+maintainers:
+  - guyvw1
+
+tags:
+  business_unit: Central Digital
+  owner: guy.wheeler@justice.gov.uk
