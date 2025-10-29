@@ -48,7 +48,15 @@ PARTITION_COL = "mojap_file_land_timestamp"
 TABLE = "essex_police_table"
 SEPARATOR = "\t"
 
-SECRET_GOV_NOTIFY_KEY = os.getenv("SECRET_GOV_NOTIFY_KEY_DEV", "key is missing for some reason?")
+# SECRET_GOV_NOTIFY_KEY = os.getenv("SECRET_GOV_NOTIFY_KEY_DEV", "key is missing for some reason?")
+
+secret_gov_notify_key = Secret(
+    deploy_type="env",
+    deploy_target="SECRET_GOV_NOTIFY_KEY_DEV",
+    secret=f"{PROJECT}-{WORKFLOW}-gov-notify-key-dev",
+    key="data"
+)
+
 EMAILS = "guy.wheeler@justice.gov.uk"
 
 default_args = {
@@ -83,12 +91,13 @@ tasks[task_id_1] = AnalyticalPlatformStandardOperator(
         "TABLE": TABLE,
         "EMAILS": EMAILS,
         "SEPARATOR": SEPARATOR,
-        "SECRET_GOV_NOTIFY_KEY": SECRET_GOV_NOTIFY_KEY,
+        # "SECRET_GOV_NOTIFY_KEY": SECRET_GOV_NOTIFY_KEY,
         "PYTHON_SCRIPT_NAME": "police_data_check.py",
         "AWS_METADATA_SERVICE_TIMEOUT": "240",
         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "20",
         "AWS_DEFAULT_REGION": "eu-west-1",
-    }
+    },
+    secrets=[secret_gov_notify_key]
 )
 
 task_id_2 = "load-essex-police-bold-data"
