@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cjsm-api-data-extractor
-  tag: v2.0.0-dev
+  tag: v2.0.1-dev
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
   tasks:
