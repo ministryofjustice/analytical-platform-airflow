@@ -1,0 +1,38 @@
+dag:
+  repository: moj-analytical-services/airflow-pdsai-pnd-datashare
+  tag: 0.0.5
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 1
+  retries: 3
+  retry_delay: 100
+  schedule: "0 8 */32,1-7 * 1"
+  start_date: "2025-10-23"
+  tasks:
+    task:
+      compute_profile: "general-on-demand-1vcpu-4gb"
+
+iam:
+  athena: write
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+  s3_read_write:
+    - alpha-app-bentham-app/*
+    - alpha-athena-dump/*
+    - alpha-athena-query-dump/*
+
+notifications:
+  emails:
+    - matthew.funnell@justice.gov.uk
+  slack_channel: intel-app-maintenance
+
+maintainers:
+  - MattFunnell
+
+tags:
+  business_unit: HMPPS
+  owner: matthew.funnell@justice.gov.uk

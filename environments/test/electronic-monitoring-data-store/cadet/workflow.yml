@@ -1,0 +1,30 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.1.10
+  compute_profile: general-on-demand-8vcpu-32gb
+  env_vars:
+    DEPLOY_ENV: test
+    DBT_PROFILE: emd
+    AWS_DEFAULT_REGION: eu-west-2
+    DBT_PROJECT: hmpps_electronic_monitoring_data_tables
+    WORKFLOW_NAME: cadet-em-test
+    DBT_SELECT_CRITERIA: tag:emd_live
+    BRANCH: em/test
+    MODE: build
+    DBT_PROFILE_WORKGROUP: dummy_value
+    EM_REMOVE_HISTORIC: true
+
+maintainers:
+  - jhpyke # will remove when we get it working
+  - matt-heery
+
+secrets:
+  - github-key
+
+iam:
+  external_role: arn:aws:iam::396913731313:role/test-data-api-cross-account-role
+
+tags:
+  business_unit: HMPPS
+  owner: EMDataEngineering@justice.gov.uk

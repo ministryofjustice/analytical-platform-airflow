@@ -1,13 +1,13 @@
 dag:
   repository: moj-analytical-services/airflow-anvil-access-tool
-  tag: 1.2.30
+  tag: 1.2.31
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 1
   retries: 3
   retry_delay: 100
-  schedule: "0 2 * * *"
+  schedule: None
   start_date: "2025-04-28"
   tasks:
     task:
