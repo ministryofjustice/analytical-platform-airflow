@@ -17,6 +17,7 @@ iam:
   athena: write
   s3_read_write:
     - mojap-land-dev/corporate/cjsm/*
+    - mojap-athena-query-dump/*
 
 secrets:
   - cjsm-scope
