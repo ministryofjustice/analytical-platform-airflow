@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cjsm-api-data-extractor
-  tag: v2.0.2-dev
+  tag: v2.0.0
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
   tasks:
@@ -12,6 +12,26 @@ dag:
         cjsm_env: "develop"
         environment: "dev"
         start_date: "2025-10-10"
+    extract-applications:
+      env_vars:
+        extraction_name: "applications"
+        PYTHON_SCRIPT_NAME: "process_cjsm_api.py"
+        cjsm_env: "develop"
+        environment: "dev"
+        start_date: "2025-10-10"
+        inflight_days_ago: 5
+    extract-organisations:
+      env_vars:
+        extraction_name: "organisations"
+        PYTHON_SCRIPT_NAME: "process_cjsm_api.py"
+        cjsm_env: "develop"
+        environment: "dev"
+    extract-users:
+      env_vars:
+        extraction_name: "users"
+        PYTHON_SCRIPT_NAME: "process_cjsm_api.py"
+        cjsm_env: "develop"
+        environment: "dev"
 
 iam:
   athena: write
