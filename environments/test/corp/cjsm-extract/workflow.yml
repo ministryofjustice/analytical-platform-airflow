@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cjsm-api-data-extractor
-  tag: v2.0.1-dev
+  tag: v2.0.2-dev
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
   tasks:
@@ -17,6 +17,7 @@ iam:
   athena: write
   s3_read_write:
     - mojap-land-dev/corporate/cjsm/*
+    - mojap-athena-query-dump/*
 
 secrets:
   - cjsm-scope
