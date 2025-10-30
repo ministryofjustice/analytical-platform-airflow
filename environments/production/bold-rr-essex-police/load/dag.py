@@ -15,7 +15,7 @@ ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
 OWNER = "PLACEHOLDER_OWNER"
 
 # set env
-ENV = "dev"
+ENV = "prod"
 # This needs to be the same in the image docker files, where necessary
 # (only required for ssh extraction)
 USERID = 1008
@@ -39,10 +39,10 @@ LOAD_IMAGE = (
 )
 
 # Constants
-LAND = "s3://mojap-land-dev/bold/essex-police/"
-RAW_HIST = "s3://mojap-raw-hist-dev/bold/essex-police/"
-BASE_LOC = "s3://alpha-bold-data-shares/bold-dev/"
-BASE_DB_NAME = "bold_essex_police_data_dev"
+LAND = "s3://mojap-land/bold/essex-police/"
+RAW_HIST = "s3://mojap-raw-hist/bold/essex-police/"
+BASE_LOC = "s3://alpha-bold-data-shares/bold-prod/"
+BASE_DB_NAME = "bold_essex_police_data"
 PARTITION_COL = "mojap_file_land_timestamp"
 TABLE = "essex_police_table"
 SEPARATOR = "\t"
@@ -55,11 +55,11 @@ SERVICE = "bold"
 secret_gov_notify_key = Secret(
     deploy_type="env",
     deploy_target="SECRET_GOV_NOTIFY_KEY",
-    secret=f"{PROJECT}-{WORKFLOW}-gov-notify-key-dev",
+    secret=f"{PROJECT}-{WORKFLOW}-gov-notify-key",
     key="data",
 )
 # email to send notification to
-EMAILS = "guy.wheeler@justice.gov.uk"
+EMAILS = "guy.wheeler@justice.gov.uk,CaseInformationDashboard@justice.gov.uk,Shanmugapriya.Basker@justice.gov.uk"
 
 default_args = {
     "depends_on_past": False,
