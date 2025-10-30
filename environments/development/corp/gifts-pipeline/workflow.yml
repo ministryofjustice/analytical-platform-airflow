@@ -2,11 +2,8 @@
 dag:
   repository: "moj-analytical-services/airflow-gifts-pipeline"
   tag: "v3.0.22"
-
   catchup: false
   depends_on_past: false
-
-
   start_date: "2025-10-30”
   schedule: '00 16 * * *'
   tasks:
