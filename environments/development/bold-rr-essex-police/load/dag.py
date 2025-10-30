@@ -18,7 +18,6 @@ OWNER = "PLACEHOLDER_OWNER"
 ENV = "dev"
 # This needs to be the same in the image docker files, where necessary
 # (only required for ssh extraction)
-USERID = 1008
 DB_RUN_TS = datetime.now().strftime("%Y-%m-%d %H:%m:%S")
 DB_VERSION = "v1"
 
