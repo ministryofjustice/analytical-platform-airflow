@@ -82,7 +82,6 @@ secrets:
   - api-key-north-west
   - api-key-south-west
   - api-key-york-humb
-  
 
 iam:
   athena: write
