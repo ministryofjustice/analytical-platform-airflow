@@ -2,7 +2,6 @@
 dag:
   repository: "moj-analytical-services/airflow-gifts-pipeline"
   tag: "v3.0.22"
-
   tasks:
     export:
       env_vars:
