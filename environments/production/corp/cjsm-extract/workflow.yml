@@ -1,0 +1,43 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-cjsm-api-data-extractor
+  tag: v2.0.0
+  schedule: "0 6 * * *"
+  env_vars:
+    AWS_DEFAULT_REGION: "eu-west-1"
+    PYTHON_SCRIPT_NAME: "process_cjsm_api.py"
+    cjsm_env: "production"
+    environment: "prod"
+  tasks:
+    extract-messagedetails:
+      env_vars:
+        extraction_name: "messagedetails"
+    extract-applications:
+      env_vars:
+        extraction_name: "applications"
+    extract-organisations:
+      env_vars:
+        extraction_name: "organisations"
+    extract-users:
+      env_vars:
+        extraction_name: "users"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land/corporate/cjsm/*
+    - mojap-athena-query-dump/*
+
+secrets:
+  - cjsm-scope
+  - cjsm-client-id
+  - cjsm-client-secret
+  - slack-token
+
+maintainers:
+  - moj-supratikc
+  - dugaldhepburnmoj
+
+tags:
+  business_unit: Central Digital
+  owner: Supratik.Chowdhury@justice.gov.uk
