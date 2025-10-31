@@ -3,7 +3,7 @@ dag:
   repository: moj-analytical-services/airflow-report-extractor
   tag: v1.0.0-hyperion
   env_vars:
-    REPORT_APP: "Hyperion"
+    REPORT_APP: "hyperion"
     REPORT_RUNTIME_ENV: "test"
   tasks:
     hyperion-test-oct-2025:
