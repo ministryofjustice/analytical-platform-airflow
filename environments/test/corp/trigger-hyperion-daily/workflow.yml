@@ -1,15 +1,12 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.00
-  schedule: "30 6 * * 1-5"
-  retries: 1
-  retry_delay: 60
+  tag: v1.0.0-hyperion
   env_vars:
     REPORT_APP: "Hyperion"
     REPORT_RUNTIME_ENV: "test"
   tasks:
-    hyperion-oct-2025:
+    hyperion-test-oct-2025:
       env_vars:
         REPORT_NAME: "hyperion_test"
 iam:
