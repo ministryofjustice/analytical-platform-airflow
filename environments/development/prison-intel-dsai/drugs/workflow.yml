@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-drugs-app
-  tag: 1.1.07
+  tag: 1.1.09
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -34,7 +34,7 @@ notifications:
   slack_channel: intel-app-maintenance
 
 maintainers:
-  - mattfunnell
+  - MattFunnell
   - d-lundie
 
 tags:
