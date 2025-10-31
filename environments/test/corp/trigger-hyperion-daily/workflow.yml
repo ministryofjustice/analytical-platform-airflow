@@ -1,0 +1,29 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-report-extractor
+  tag: v1.0.0-hyperion
+  env_vars:
+    REPORT_APP: "Hyperion"
+    REPORT_RUNTIME_ENV: "test"
+  tasks:
+    hyperion-test-oct-2025:
+      env_vars:
+        REPORT_NAME: "hyperion_test"
+iam:
+  s3_read_write:
+    - mojap-land/corporate/report_extractor_test/hyperion/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - chris.sheldon@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - csheldon15
+  - moj-supratikc
+
+tags:
+  business_unit: Central Digital
+  owner: supratik.chowdhury@justice.gov.uk
