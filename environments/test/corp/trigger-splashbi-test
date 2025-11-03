@@ -1,0 +1,34 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-report-extractor
+  tag: v1.0.0-GL22
+  env_vars:
+    REPORT_APP: "splashbi"
+    REPORT_RUNTIME_ENV: "test"
+    REPORT_RUN_MODE: "trigger"
+  tasks:
+    nms-sept-2025:
+      env_vars:
+        REPORT_NAME: "test-gl22-nms"
+
+iam:
+  s3_read_write:
+    - mojap-land/corporate/report_extractor_test/splashbi/*
+
+secrets:
+  - splashbi-credentials
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - chris.sheldon@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - Csheldon155
+  - moj-supratikc
+
+tags:
+  business_unit: Central Digital
+  owner: supratik.chowdhury@justice.gov.uk
