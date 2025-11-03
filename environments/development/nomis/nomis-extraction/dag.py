@@ -171,6 +171,14 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
  #       "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
+    secrets=[
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_SERVICE_ACCOUNT_TOKEN",
+            secret=f"{PROJECT}-{WORKFLOW}-service-account-token",
+            key="data"
+        )
+    ]
 )
 
 tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
@@ -185,6 +193,14 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
   #      "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
+    secrets=[
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_SERVICE_ACCOUNT_TOKEN",
+            secret=f"{PROJECT}-{WORKFLOW}-service-account-token",
+            key="data"
+        )
+    ]
 )
 
 # Set dependencies
@@ -214,6 +230,14 @@ tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
    #    "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
+    secrets=[
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_SERVICE_ACCOUNT_TOKEN",
+            secret=f"{PROJECT}-{WORKFLOW}-service-account-token",
+            key="data"
+        )
+    ]
 )
 
 #   tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
@@ -231,6 +255,14 @@ tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
     #   "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
+    secrets=[
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_SERVICE_ACCOUNT_TOKEN",
+            secret=f"{PROJECT}-{WORKFLOW}-service-account-token",
+            key="data"
+        )
+    ]
 )
 
 (
