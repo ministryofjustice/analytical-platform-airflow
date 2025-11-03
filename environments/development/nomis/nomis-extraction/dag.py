@@ -200,7 +200,7 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
             secret=f"{PROJECT}-{WORKFLOW}-service-account-token",
             key="data"
         )
-    ]    
+    ]
 )
 
 # Set dependencies
