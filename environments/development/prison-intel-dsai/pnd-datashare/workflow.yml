@@ -1,13 +1,13 @@
 dag:
   repository: moj-analytical-services/airflow-pdsai-pnd-datashare
-  tag: 0.0.5
+  tag: 0.0.6
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 1
   retries: 3
   retry_delay: 100
-  schedule: "0 8 */32,1-7 * 1"
+  schedule: "0 8 1-7 * 1"
   start_date: "2025-10-23"
   tasks:
     task:
