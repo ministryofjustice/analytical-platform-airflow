@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-prison-network-app
-  tag: 1.7.3
+  tag: 1.7.5
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -46,7 +46,7 @@ notifications:
   slack_channel: intel-app-maintenance
 
 maintainers:
-  - mattfunnell
+  - MattFunnell
   - d-lundie
 
 tags:
