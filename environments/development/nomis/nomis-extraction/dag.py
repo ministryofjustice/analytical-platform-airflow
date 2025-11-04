@@ -120,7 +120,7 @@ PK_EXTRACTIONS = {
 
 task_args = {
     "compute_profile": "general-on-demand-1vcpu-4gb",
-    "image": "ghcr.io/moj-analytical-services/airflow-nomis-extraction:v0.8@sha256:075d87a0c730fb12575587fc036c8506de12943b4dcd407510541e58c2d8f4be",
+    "image": "509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/airflow-nomis-extraction:v0.8",
     "name": "nomis_extraction",
     "environment": ENVIRONMENT,
     "project": PROJECT,
