@@ -2,8 +2,6 @@
 dag:
   repository: ministryofjustice/airflow-export-sop-to-idam
   tag: v1.0.1-test-01
-  tasks:
-    sop_to_sharepoint:
 
 iam:
   s3_read_only:
