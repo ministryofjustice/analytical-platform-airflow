@@ -1,0 +1,378 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-load-em-data
+  tag: v0.2.112
+  compute_profile: general-on-demand-4vcpu-16gb
+  catchup: false
+  depends_on_past: false
+  max_active_runs: 1
+  env_vars:
+    SUPPLIER_NAME: "g4s"
+    SYSTEM_NAME: "cap_dw"
+    SCHEMA_NAME: "dbo"
+    AWS_METADATA_SERVICE_TIMEOUT: 60
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
+    AWS_DEFAULT_REGION: "eu-west-2"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+  tasks:
+    load_cap_dw_CR155_F_EquipmentAllocation:
+      env_vars:
+        TABLE_NAME: "CR155_F_EquipmentAllocation"
+    load_cap_dw_CR155_stg1_F_EquipmentAllocation:
+      env_vars:
+        TABLE_NAME: "CR155_stg1_F_EquipmentAllocation"
+    load_cap_dw_DWTarget:
+      env_vars:
+        TABLE_NAME: "DWTarget"
+    load_cap_dw_D_Address:
+      env_vars:
+        TABLE_NAME: "D_Address"
+    load_cap_dw_D_AnswerResponse:
+      env_vars:
+        TABLE_NAME: "D_AnswerResponse"
+    load_cap_dw_D_AnswerResponse_MI:
+      env_vars:
+        TABLE_NAME: "D_AnswerResponse_MI"
+    load_cap_dw_D_AuditEntityField:
+      env_vars:
+        TABLE_NAME: "D_AuditEntityField"
+    load_cap_dw_D_BranchCrew:
+      env_vars:
+        TABLE_NAME: "D_BranchCrew"
+    load_cap_dw_D_BranchCrew_MI:
+      env_vars:
+        TABLE_NAME: "D_BranchCrew_MI"
+    load_cap_dw_D_BreachInvestigation:
+      env_vars:
+        TABLE_NAME: "D_BreachInvestigation"
+    load_cap_dw_D_BreachOutcome:
+      env_vars:
+        TABLE_NAME: "D_BreachOutcome"
+    load_cap_dw_D_Comments:
+      env_vars:
+        TABLE_NAME: "D_Comments"
+    load_cap_dw_D_Comments_V2:
+      env_vars:
+        TABLE_NAME: "D_Comments_V2"
+    load_cap_dw_D_CourtHearingOutcome:
+      env_vars:
+        TABLE_NAME: "D_CourtHearingOutcome"
+    load_cap_dw_D_Date:
+      env_vars:
+        TABLE_NAME: "D_Date"
+    load_cap_dw_D_EMSysEventType:
+      env_vars:
+        TABLE_NAME: "D_EMSysEventType"
+    load_cap_dw_D_EMSysNode:
+      env_vars:
+        TABLE_NAME: "D_EMSysNode"
+    load_cap_dw_D_EquipmentType:
+      env_vars:
+        TABLE_NAME: "D_EquipmentType"
+    load_cap_dw_D_EventType:
+      env_vars:
+        TABLE_NAME: "D_EventType"
+    load_cap_dw_D_HMUGen:
+      env_vars:
+        TABLE_NAME: "D_HMUGen"
+    load_cap_dw_D_IncidentType:
+      env_vars:
+        TABLE_NAME: "D_IncidentType"
+    load_cap_dw_D_MonitoringOrganisation:
+      env_vars:
+        TABLE_NAME: "D_MonitoringOrganisation"
+    load_cap_dw_D_Offence:
+      env_vars:
+        TABLE_NAME: "D_Offence"
+    load_cap_dw_D_OffenderManager:
+      env_vars:
+        TABLE_NAME: "D_OffenderManager"
+    load_cap_dw_D_OrderAttributes:
+      env_vars:
+        TABLE_NAME: "D_OrderAttributes"
+    load_cap_dw_D_OrderDescription:
+      env_vars:
+        TABLE_NAME: "D_OrderDescription"
+    load_cap_dw_D_OutcomeType:
+      env_vars:
+        TABLE_NAME: "D_OutcomeType"
+    load_cap_dw_D_ProbationArea:
+      env_vars:
+        TABLE_NAME: "D_ProbationArea"
+    load_cap_dw_D_Risk:
+      env_vars:
+        TABLE_NAME: "D_Risk"
+    load_cap_dw_D_ServiceType:
+      env_vars:
+        TABLE_NAME: "D_ServiceType"
+    load_cap_dw_D_Subject:
+      env_vars:
+        TABLE_NAME: "D_Subject"
+    load_cap_dw_D_SupervisingAgency:
+      env_vars:
+        TABLE_NAME: "D_SupervisingAgency"
+    load_cap_dw_D_TaskCRM:
+      env_vars:
+        TABLE_NAME: "D_TaskCRM"
+    load_cap_dw_D_TaskIncident:
+      env_vars:
+        TABLE_NAME: "D_TaskIncident"
+    load_cap_dw_D_TaskType:
+      env_vars:
+        TABLE_NAME: "D_TaskType"
+    load_cap_dw_D_Time:
+      env_vars:
+        TABLE_NAME: "D_Time"
+    load_cap_dw_D_User:
+      env_vars:
+        TABLE_NAME: "D_User"
+    load_cap_dw_D_VariationPDUProbationarea:
+      env_vars:
+        TABLE_NAME: "D_VariationPDUProbationarea"
+    load_cap_dw_D_VariationReason:
+      env_vars:
+        TABLE_NAME: "D_VariationReason"
+    load_cap_dw_DataDictionary:
+      env_vars:
+        TABLE_NAME: "DataDictionary"
+    load_cap_dw_F_ATV:
+      env_vars:
+        TABLE_NAME: "F_ATV"
+    load_cap_dw_F_Audit:
+      env_vars:
+        TABLE_NAME: "F_Audit"
+    load_cap_dw_F_Breach:
+      env_vars:
+        TABLE_NAME: "F_Breach"
+    load_cap_dw_F_Contact:
+      env_vars:
+        TABLE_NAME: "F_Contact"
+    load_cap_dw_F_CourtHearing:
+      env_vars:
+        TABLE_NAME: "F_CourtHearing"
+    load_cap_dw_F_EMSysEvents:
+      env_vars:
+        TABLE_NAME: "F_EMSysEvents"
+    load_cap_dw_F_EquipmentAllocation:
+      env_vars:
+        TABLE_NAME: "F_EquipmentAllocation"
+    load_cap_dw_F_EquipmentAllocation_Solo:
+      env_vars:
+        TABLE_NAME: "F_EquipmentAllocation_Solo"
+    load_cap_dw_F_History:
+      env_vars:
+        TABLE_NAME: "F_History"
+    load_cap_dw_F_Hours:
+      env_vars:
+        TABLE_NAME: "F_Hours"
+    load_cap_dw_F_Incident:
+      env_vars:
+        TABLE_NAME: "F_Incident"
+    load_cap_dw_F_Order:
+      env_vars:
+        TABLE_NAME: "F_Order"
+    load_cap_dw_F_OrderOffence:
+      env_vars:
+        TABLE_NAME: "F_OrderOffence"
+    load_cap_dw_F_OrderVariation:
+      env_vars:
+        TABLE_NAME: "F_OrderVariation"
+    load_cap_dw_F_OrderVariation_CR24:
+      env_vars:
+        TABLE_NAME: "F_OrderVariation_CR24"
+    load_cap_dw_F_Service:
+      env_vars:
+        TABLE_NAME: "F_Service"
+    load_cap_dw_F_SuspensionOfVisits:
+      env_vars:
+        TABLE_NAME: "F_SuspensionOfVisits"
+    load_cap_dw_F_Task:
+      env_vars:
+        TABLE_NAME: "F_Task"
+    load_cap_dw_F_TaskCRM:
+      env_vars:
+        TABLE_NAME: "F_TaskCRM"
+    load_cap_dw_F_TaskIncident:
+      env_vars:
+        TABLE_NAME: "F_TaskIncident"
+    load_cap_dw_F_Task_MI:
+      env_vars:
+        TABLE_NAME: "F_Task_MI"
+    load_cap_dw_F_Visit:
+      env_vars:
+        TABLE_NAME: "F_Visit"
+    load_cap_dw_F_VisitAnswerResponse:
+      env_vars:
+        TABLE_NAME: "F_VisitAnswerResponse"
+    load_cap_dw_F_VisitAnswerResponse_MI:
+      env_vars:
+        TABLE_NAME: "F_VisitAnswerResponse_MI"
+    load_cap_dw_F_VisitMOComments:
+      env_vars:
+        TABLE_NAME: "F_VisitMOComments"
+    load_cap_dw_F_VisitMOComments_MI:
+      env_vars:
+        TABLE_NAME: "F_VisitMOComments_MI"
+    load_cap_dw_F_Visit_MI:
+      env_vars:
+        TABLE_NAME: "F_Visit_MI"
+    load_cap_dw_Log_LoadErrors:
+      env_vars:
+        TABLE_NAME: "Log_LoadErrors"
+    load_cap_dw_Log_SSISLog:
+      env_vars:
+        TABLE_NAME: "Log_SSISLog"
+    load_cap_dw_OPs_OutgoingCalls:
+      env_vars:
+        TABLE_NAME: "OPs_OutgoingCalls"
+    load_cap_dw_OuterVal:
+      env_vars:
+        TABLE_NAME: "OuterVal"
+    load_cap_dw_Stg1_F_ATV:
+      env_vars:
+        TABLE_NAME: "Stg1_F_ATV"
+    load_cap_dw_Stg1_F_AuditCRM:
+      env_vars:
+        TABLE_NAME: "Stg1_F_AuditCRM"
+    load_cap_dw_Stg1_F_Breach:
+      env_vars:
+        TABLE_NAME: "Stg1_F_Breach"
+    load_cap_dw_Stg1_F_Contact:
+      env_vars:
+        TABLE_NAME: "Stg1_F_Contact"
+    load_cap_dw_Stg1_F_Contact_Phonecalls:
+      env_vars:
+        TABLE_NAME: "Stg1_F_Contact_Phonecalls"
+    load_cap_dw_Stg1_F_CourtHearing:
+      env_vars:
+        TABLE_NAME: "Stg1_F_CourtHearing"
+    load_cap_dw_Stg1_F_EMSysEvents:
+      env_vars:
+        TABLE_NAME: "Stg1_F_EMSysEvents"
+    load_cap_dw_Stg1_F_EquipmentAllocation_Solo:
+      env_vars:
+        TABLE_NAME: "Stg1_F_EquipmentAllocation_Solo"
+    load_cap_dw_Stg1_F_History:
+      env_vars:
+        TABLE_NAME: "Stg1_F_History"
+    load_cap_dw_Stg1_F_Hours:
+      env_vars:
+        TABLE_NAME: "Stg1_F_Hours"
+    load_cap_dw_Stg1_F_Incident:
+      env_vars:
+        TABLE_NAME: "Stg1_F_Incident"
+    load_cap_dw_Stg1_F_OrderOffence:
+      env_vars:
+        TABLE_NAME: "Stg1_F_OrderOffence"
+    load_cap_dw_Stg1_F_Service:
+      env_vars:
+        TABLE_NAME: "Stg1_F_Service"
+    load_cap_dw_Stg1_F_SuspensionOfVisits:
+      env_vars:
+        TABLE_NAME: "Stg1_F_SuspensionOfVisits"
+    load_cap_dw_Stg1_F_TaskIncident:
+      env_vars:
+        TABLE_NAME: "Stg1_F_TaskIncident"
+    load_cap_dw_Stg1_ValidResponse:
+      env_vars:
+        TABLE_NAME: "Stg1_ValidResponse"
+    load_cap_dw_Stg1_ValidResponse_MI:
+      env_vars:
+        TABLE_NAME: "Stg1_ValidResponse_MI"
+    load_cap_dw_Stg1_VisitTask:
+      env_vars:
+        TABLE_NAME: "Stg1_VisitTask"
+    load_cap_dw_Stg1_VisitTask_MI:
+      env_vars:
+        TABLE_NAME: "Stg1_VisitTask_MI"
+    load_cap_dw_Stg2_AnswerResponse:
+      env_vars:
+        TABLE_NAME: "Stg2_AnswerResponse"
+    load_cap_dw_Stg2_AnswerResponse_MI:
+      env_vars:
+        TABLE_NAME: "Stg2_AnswerResponse_MI"
+    load_cap_dw_Stocks:
+      env_vars:
+        TABLE_NAME: "Stocks"
+    load_cap_dw_TEST_F_EquipmentAllocation:
+      env_vars:
+        TABLE_NAME: "TEST_F_EquipmentAllocation"
+    load_cap_dw_TEST_F_Hours:
+      env_vars:
+        TABLE_NAME: "TEST_F_Hours"
+    load_cap_dw_TEST_Stg1_F_Hours:
+      env_vars:
+        TABLE_NAME: "TEST_Stg1_F_Hours"
+    load_cap_dw_TEST_stg1_F_EquipmentAllocation:
+      env_vars:
+        TABLE_NAME: "TEST_stg1_F_EquipmentAllocation"
+    load_cap_dw_Tally:
+      env_vars:
+        TABLE_NAME: "Tally"
+    load_cap_dw_XX_D_BreachInvestigation:
+      env_vars:
+        TABLE_NAME: "XX_D_BreachInvestigation"
+    load_cap_dw_X_D_Subject:
+      env_vars:
+        TABLE_NAME: "X_D_Subject"
+    load_cap_dw_X_Date:
+      env_vars:
+        TABLE_NAME: "X_Date"
+    load_cap_dw_X_F_Contact:
+      env_vars:
+        TABLE_NAME: "X_F_Contact"
+    load_cap_dw_X_History:
+      env_vars:
+        TABLE_NAME: "X_History"
+    load_cap_dw_X_OrderExclude:
+      env_vars:
+        TABLE_NAME: "X_OrderExclude"
+    load_cap_dw_X_OrderPlace:
+      env_vars:
+        TABLE_NAME: "X_OrderPlace"
+    load_cap_dw_X_PrimaryAddress:
+      env_vars:
+        TABLE_NAME: "X_PrimaryAddress"
+    load_cap_dw_X_Stg1_F_Contact:
+      env_vars:
+        TABLE_NAME: "X_Stg1_F_Contact"
+    load_cap_dw_stg1_AnswerResponse:
+      env_vars:
+        TABLE_NAME: "stg1_AnswerResponse"
+    load_cap_dw_stg1_AnswerResponse_MI:
+      env_vars:
+        TABLE_NAME: "stg1_AnswerResponse_MI"
+    load_cap_dw_stg1_F_EquipmentAllocation:
+      env_vars:
+        TABLE_NAME: "stg1_F_EquipmentAllocation"
+    load_cap_dw_stg1_F_Order:
+      env_vars:
+        TABLE_NAME: "stg1_F_Order"
+    load_cap_dw_stg1_F_OrderVariation:
+      env_vars:
+        TABLE_NAME: "stg1_F_OrderVariation"
+    load_cap_dw_stg1_F_OrderVariation_CR24:
+      env_vars:
+        TABLE_NAME: "stg1_F_OrderVariation_CR24"
+    load_cap_dw_stg1_F_TaskCRM:
+      env_vars:
+        TABLE_NAME: "stg1_F_TaskCRM"
+
+notifications:
+  emails:
+    - EMDataEngineering@justice.gov.uk
+  slack_channel: em-engineers-moj-madetech
+
+iam:
+  external_role: arn:aws:iam::976799291502:role/airflow-prod-load-cap-dw
+
+maintainers:
+  - matt-heery
+  - kraihanmoj
+  - luke-a-williams
+
+tags:
+  business_unit: HMPPS
+  owner: EMDataEngineering@justice.gov.uk
