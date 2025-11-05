@@ -4,7 +4,7 @@ dag:
   tag: v1.0.1-test-02
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-2"
-    
+
 iam:
   s3_read_only:
     - mojap-data-production-shared-services-client-team-gov-29148/cgi-ssct-sop/*
