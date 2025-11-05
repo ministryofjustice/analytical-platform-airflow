@@ -30,7 +30,7 @@ notifications:
   slack_channel: hmpps-data-notifications
 
 maintainers:
-  - anthonycody
+  - AnthonyCody
 
 tags:
   business_unit: HQ

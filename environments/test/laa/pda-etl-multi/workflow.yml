@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa_cwa_providers
-  tag: 1.5.4
+  tag: 1.6.0
   retries: 1
   retry_delay: 150
   compute_profile: general-on-demand-8vcpu-32gb
@@ -12,6 +12,8 @@ dag:
       s3://alpha-mojap-curated-laa-dev/pda/raw
     CACHE_DIRECTORY: >-
       s3://alpha-mojap-curated-laa-dev/pda/cache
+    ERROR_SUMMARY_DIR: >-
+      s3://alpha-mojap-curated-laa-dev/pda/error_summaries
     QUERY_RESULT_BUCKET: >-
       s3://aws-athena-query-results-593291632749-eu-west-1
     ATHENA_WORK_GROUP: primary
