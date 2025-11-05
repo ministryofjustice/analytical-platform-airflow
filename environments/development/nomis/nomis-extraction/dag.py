@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
@@ -120,7 +119,7 @@ PK_EXTRACTIONS = {
 
 task_args = {
     "compute_profile": "general-on-demand-1vcpu-4gb",
-    "image": "509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/airflow-nomis-extraction:v0.8",
+    "image": f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
     "name": "nomis_extraction",
     "environment": ENVIRONMENT,
     "project": PROJECT,
@@ -133,7 +132,7 @@ task_args = {
 }
 
 dag = DAG(
-    dag_id="new_nomis_extraction",
+    dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=task_args,
     description="Extract data from the NOMIS T62 Database",
     start_date=datetime(2025, 11, 1),
@@ -149,8 +148,6 @@ tasks["initialise-dag"] = AnalyticalPlatformStandardOperator(
     env_vars={
         "PYTHON_SCRIPT_NAME": "initialise_dag.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
-        "AWS_METADATA_SERVICE_TIMEOUT": "60",
-        "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
         "DAG_ID": dag.dag_id,
 #        "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
@@ -165,8 +162,6 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
     env_vars={
         "PYTHON_SCRIPT_NAME": "nomis_delta_extract.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
-        "AWS_METADATA_SERVICE_TIMEOUT": "60",
-        "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
         "DAG_ID": dag.dag_id,
  #       "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
@@ -187,8 +182,6 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
     env_vars={
         "PYTHON_SCRIPT_NAME": "test_extraction_outputs_and_move_to_raw.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
-        "AWS_METADATA_SERVICE_TIMEOUT": "60",
-        "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
         "DAG_ID": dag.dag_id,
   #      "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
