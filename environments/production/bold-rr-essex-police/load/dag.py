@@ -70,7 +70,7 @@ default_args = {
 dag = DAG(
     dag_id="bold_rr_essex_police.load",
     default_args=default_args,
-    start_date=datetime(2025, 6, 26),
+    start_date=datetime(2025, 11, 6),
     schedule_interval="30 5 * * *",
 )
 
