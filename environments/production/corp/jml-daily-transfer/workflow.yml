@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/airflow-export-sop-to-idam
-  tag: v3.0
+  tag: v4.0
   schedule: "0 10 * * *"
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-2"
@@ -22,6 +22,7 @@ notifications:
   emails:
     - William.Orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
+    - Peter.Mackie1@justice.gov.uk
 
 maintainers:
   - moj-supratikc
