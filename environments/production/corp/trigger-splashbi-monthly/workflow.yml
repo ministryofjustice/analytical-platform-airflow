@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.11
+  tag: v1.12
   start_date: "2025-09-29"
   schedule: "0 7 1 * *"
   retries: 2
@@ -48,7 +48,7 @@ dag:
       env_vars:
         REPORT_NAME: "wls-supplier_headers"
 
-    # === Commercial Synergy Supplier Headers ===
+    # === Commercial Synergy Supplier Sites ===
 
     cts-supplier_sites:
       env_vars:
@@ -80,6 +80,72 @@ dag:
     yjb-supplier_sites:
       env_vars:
         REPORT_NAME: "yjb-supplier_sites"
+
+    # === Commercial Synergy custome headers ===
+
+    cts-customer_headers:
+      env_vars:
+        REPORT_NAME: "cts-customer_headers"
+    laa-customer_headers:
+      env_vars:
+        REPORT_NAME: "laa-customer_headers"
+    opg-customer_headers:
+      env_vars:
+        REPORT_NAME: "opg-customer_headers"
+    yjb-customer_headers:
+      env_vars:
+        REPORT_NAME: "yjb-customer_headers"
+    ima-customer_headers:
+      env_vars:
+        REPORT_NAME: "ima-customer_headers"
+    moj-customer_headers:
+      env_vars:
+        REPORT_NAME: "moj-customer_headers"
+    pbd-customer_headers:
+      env_vars:
+        REPORT_NAME: "pbd-customer_headers"
+    jac-customer_headers:
+      env_vars:
+        REPORT_NAME: "jac-customer_headers"
+    nms-customer_headers:
+      env_vars:
+        REPORT_NAME: "nms-customer_headers"
+    wls-customer_headers:
+      env_vars:
+        REPORT_NAME: "wls-customer_headers"
+
+    # === Commercial Synergy customer sites ===
+
+    cts-customer_sites:
+      env_vars:
+        REPORT_NAME: "cts-customer_sites"
+    laa-customer_sites:
+      env_vars:
+        REPORT_NAME: "laa-customer_sites"
+    opg-customer_sites:
+      env_vars:
+        REPORT_NAME: "opg-customer_sites"
+    yjb-customer_sites:
+      env_vars:
+        REPORT_NAME: "yjb-customer_sites"
+    ima-customer_sites:
+      env_vars:
+        REPORT_NAME: "ima-customer_sites"
+    moj-customer_sites:
+      env_vars:
+        REPORT_NAME: "moj-customer_sites"
+    pbd-customer_sites:
+      env_vars:
+        REPORT_NAME: "pbd-customer_sites"
+    jac-customer_sites:
+      env_vars:
+        REPORT_NAME: "jac-customer_sites"
+    nms-customer_sites:
+      env_vars:
+        REPORT_NAME: "nms-customer_sites"
+    wls-customer_sites:
+      env_vars:
+        REPORT_NAME: "wls-customer_sites"
 
 iam:
   s3_read_write:
