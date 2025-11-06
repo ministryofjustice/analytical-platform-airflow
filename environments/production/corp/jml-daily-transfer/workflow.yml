@@ -22,6 +22,7 @@ notifications:
   emails:
     - William.Orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
+    - Peter.Mackie1@justice.gov.uk
 
 maintainers:
   - moj-supratikc
