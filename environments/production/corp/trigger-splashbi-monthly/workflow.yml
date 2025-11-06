@@ -81,6 +81,11 @@ dag:
       env_vars:
         REPORT_NAME: "yjb-supplier_sites"
 
+    # === HR Locations ===
+    sba-mo-locations:
+      env_vars:
+        REPORT_NAME: "sba-mo-locations"
+
     # === Commercial Synergy custome headers ===
 
     cts-customer_headers:
