@@ -207,7 +207,7 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
         ),
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_DB-USER_ID",
+            deploy_target="SECRET_DB_USER_ID",
             secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
             key="data"
         ),
