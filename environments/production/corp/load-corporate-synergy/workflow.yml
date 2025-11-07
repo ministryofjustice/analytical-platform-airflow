@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.24-test-3
+  tag: v0.0.24-test-4
   schedule: "0 8 1-3 * *"
   env_vars:
     AFFILE_ENV: "prod"
