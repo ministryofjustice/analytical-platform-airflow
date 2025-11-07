@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/airflow-export-sop-to-idam
-  tag: v4.1.0
+  tag: v4.2.0
   schedule: "0 9 * * *"
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-2"
@@ -11,7 +11,7 @@ iam:
     - mojap-data-production-shared-services-client-team-gov-29148/cgi-ssct-sop/*
     - mojap-processed/corporate/fieldglass/*
     - mojap-derived-tables/prod/models/domain_name=people/database_name=contingent_labour_datamarts/*
-    
+
   kms:
     - arn:aws:kms:eu-west-2:593291632749:key/62503ba6-316e-473d-ae4b-042f8420dd07
 
