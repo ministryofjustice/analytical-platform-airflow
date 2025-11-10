@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/airflow-export-sop-to-idam
-  tag: v4.4.0
+  tag: v4.4.1
   schedule: "0 9 * * *"
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-2"
