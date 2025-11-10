@@ -8,6 +8,7 @@ dag:
 maintainers:
   - mikeAdamsMOJ
   - calumabarnett
+  - salabi28
 
 iam:
   s3_read_write:
