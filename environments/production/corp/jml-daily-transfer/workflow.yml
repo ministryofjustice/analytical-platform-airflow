@@ -12,6 +12,9 @@ iam:
     - mojap-processed/corporate/fieldglass/*
     - mojap-derived-tables/prod/models/domain_name=people/database_name=contingent_labour_datamarts/*
 
+  s3_read_write:
+    - mojap-athena-query-dump/*
+
   athena: read
   glue: true
 
