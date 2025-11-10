@@ -18,6 +18,7 @@ iam:
   glue: true
   s3_read_write:
     - mojap-hub-exports/p1_nomis_TEST/*
+    - moj-reg-dev/landing/offloc-dev/*
 
 secrets:
   - user
