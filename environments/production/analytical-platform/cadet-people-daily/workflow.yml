@@ -1,0 +1,30 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.1.11
+  compute_profile: general-on-demand-8vcpu-32gb
+  env_vars:
+    DEPLOY_ENV: prod
+    DBT_PROFILE_WORKGROUP: dbt-daily
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-people-daily
+    DBT_SELECT_CRITERIA: tag:people_daily
+    BRANCH: main
+    MODE: build
+
+maintainers:
+  - jhpyke
+  - ltd-pa
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/prod/models/people/*
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
