@@ -43,11 +43,14 @@ dag:
     moj-hr-a-01-nonsick:
       env_vars:
         REPORT_NAME: "moj-hr-a-01"
+
+    # Note - this one uses an internal schedule
     moj-hr-a-04-nonsick:
       env_vars:
         REPORT_NAME: "moj-hr-a-04-nonsick"
 
     # === HR Sick Absence Reports ===
+    # Note - this one uses an internal schedule
     moj-hr-a-04-sick:
       env_vars:
         REPORT_NAME: "moj-hr-a-04-sick"
@@ -55,10 +58,30 @@ dag:
       env_vars:
         REPORT_NAME: "moj-hr-wf-60"
 
+    # === HR Remuneration Reports ===
+    # Note - all these use an internal scheduling logic in the repo.
+    cts-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "cts-hr-rew-02"
+    laa-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "laa-hr-rew-02"
+    nms-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "nms-hr-rew-02"
+    opg-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "opg-hr-rew-02"
+    moj-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "moj-hr-rew-02"
+
     # === HR Staffing Reports ===
     moj-hr-wf-59-leavers:
       env_vars:
         REPORT_NAME: "moj-hr-wf-59"
+
+    # Note - this one uses an internal schedule
     moj-hr-wf-62-sip:
       env_vars:
         REPORT_NAME: "moj-hr-wf-62"
