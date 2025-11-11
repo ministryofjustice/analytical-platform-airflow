@@ -13,7 +13,7 @@ dag:
     CACHE_DIRECTORY: >-
       s3://alpha-mojap-curated-laa/pda/cache
     ERROR_SUMMARY_DIR: >-
-      s3://alpha-mojap-curated-laa-dev/pda/error_summaries
+      s3://alpha-mojap-curated-laa/pda/error_summaries
     QUERY_RESULT_BUCKET: >-
       s3://aws-athena-query-results-593291632749-eu-west-1
     ATHENA_WORK_GROUP: "primary"
