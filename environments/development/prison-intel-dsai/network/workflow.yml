@@ -1,13 +1,13 @@
 dag:
   repository: moj-analytical-services/airflow-prison-network-app
-  tag: 1.7.3
+  tag: 1.7.7
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 1
   retries: 3
   retry_delay: 100
-  schedule: None
+  schedule: "30 9 * * *"
   start_date: "2025-04-21"
   tasks:
     task:
@@ -46,7 +46,7 @@ notifications:
   slack_channel: intel-app-maintenance
 
 maintainers:
-  - mattfunnell
+  - MattFunnell
   - d-lundie
 
 tags:

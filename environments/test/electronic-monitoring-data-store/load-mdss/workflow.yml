@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.2.98_mdss_test_patch
+  tag: v0.3.15-test-1
   compute_profile: general-on-demand-4vcpu-16gb
   catchup: False
   depends_on_past: False
@@ -21,7 +21,7 @@ dag:
 
 notifications:
   emails:
-    - matt.heery@justice.gov.uk
+    - EMDataEngineering@justice.gov.uk
   slack_channel: electronic-monitoring-data-hub-test-notifications
 
 iam:
@@ -30,7 +30,8 @@ iam:
 maintainers:
   - matt-heery
   - kraihanmoj
+  - lucy-astley-jones
 
 tags:
   business_unit: HMPPS
-  owner: matt.heery@justice.gov.uk # for now....
+  owner: EMDataEngineering@justice.gov.uk

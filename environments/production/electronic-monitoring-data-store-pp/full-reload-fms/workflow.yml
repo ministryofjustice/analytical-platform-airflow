@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.3.0-preprod1
+  tag: v0.3.20_fms_preprod_run
   compute_profile: gpu-on-demand-16vcpu-64gb
   catchup: false
   depends_on_past: false

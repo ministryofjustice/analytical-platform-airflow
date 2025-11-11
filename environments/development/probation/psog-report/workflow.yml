@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
-  tag: v1.1.65-dev6
+  tag: v1.1.65-dev10
 
 iam:
   athena: write
@@ -17,7 +17,7 @@ iam:
 
 maintainers:
   - lalithanagarur
-  - antonyjscott
+  - AntonyJScott
 
 notifications:
   emails:
