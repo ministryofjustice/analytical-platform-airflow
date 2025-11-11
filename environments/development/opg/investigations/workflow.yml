@@ -22,26 +22,26 @@ dag:
   tasks:
     to_land:
       env_vars:
-        STEP: "to_land"
+        STEP: "land"
       compute_profile: "general-on-demand-1vcpu-4gb"
     land_to_raw_hist:
       env_vars:
-        STEP: "land_to_raw_hist"
+        STEP: "raw_hist"
       compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [to_land]
     raw_hist_to_processed:
       env_vars:
-        STEP: "raw_hist_to_processed"
+        STEP: "processed"
       compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [land_to_raw_hist]
     processed_to_curated:
       env_vars:
-        STEP: "processed_to_curated"
+        STEP: "curated"
       compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [raw_hist_to_processed]
     create_curated_database:
       env_vars:
-        STEP: "create_curated_database"
+        STEP: "curated_database"
       compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [processed_to_curated]
 
