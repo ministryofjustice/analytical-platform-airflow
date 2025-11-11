@@ -9,8 +9,8 @@ from airflow.providers.cncf.kubernetes.secret import (
 
 REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
 REPOSITORY_TAG = "PLACEHOLDER_REPOSITORY_TAG"
-PROJECT = "PLACEHOLDER_PROJECT"
-WORKFLOW = "PLACEHOLDER_WORKFLOW"
+PROJECT = "bold_rr_essex_police"
+WORKFLOW = "load"
 ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
 OWNER = "PLACEHOLDER_OWNER"
 
@@ -68,7 +68,7 @@ default_args = {
 
 
 dag = DAG(
-    dag_id="bold_rr_essex_police.load",
+    dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=default_args,
     start_date=datetime(2025, 11, 11),
     schedule_interval="30 5 * * *",
