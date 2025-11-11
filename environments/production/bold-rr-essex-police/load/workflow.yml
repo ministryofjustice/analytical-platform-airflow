@@ -11,7 +11,7 @@ iam:
     - mojap-land/bold/essex-police/*
     - mojap-raw-hist/bold/essex-police/*
     - mojap-data-production-bold-egress-production/essex-police/*
-    - alpha-bold-data-shares/bold/*
+    - alpha-bold-data-shares/bold-prod/*
 
 secrets:
   - gov-notify-key
