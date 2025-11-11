@@ -18,6 +18,7 @@ iam:
   glue: true
   s3_read_only:
     - alpha-hmpps-workforce-stats/Data/Lookup Files/*
+    - alpha-dag-sop-data-engineering/derived-testing/*
 
   s3_read_write:
     - alpha-dag-sop-data-engineering/hmpps_career_grades-testing/*
