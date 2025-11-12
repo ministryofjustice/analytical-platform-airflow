@@ -2,6 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-contracts-etl
   tag: "v2.8.11"
+  python_dag: true
   retries: 3
   retry_delay: 150
   schedule: "0 8 * * *"
