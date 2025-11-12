@@ -36,13 +36,7 @@ default_params = {
 
 # --- Auth Secret ---
 # This secret definition is based on the example.py and the
-# service_account_name ('airflow-dev-contracts-etl') from the original file.
-auth_secret = Secret(
-    deploy_type="env",
-    deploy_target="SECRET_SERVICE_ACCOUNT_TOKEN",
-    secret="airflow-dev-contracts-etl",  # From old SERVICE_ACCOUNT_NAME
-    key="data",
-)
+# service_account_name ('airflow-dev-contracts-etl') from the original file
 
 # --- DAG ---
 dag = DAG(
@@ -89,7 +83,6 @@ for db in dbs:
             "AWS_DEFAULT_REGION": "eu-west-1",
             "GITHUB_TAG": REPOSITORY_TAG,
         },
-        secrets=[auth_secret],
     )
 
     task_id = f"lint_{DATABASE_NAME}"
@@ -112,7 +105,7 @@ for db in dbs:
             "AWS_DEFAULT_REGION": "eu-west-1",
             "GITHUB_TAG": REPOSITORY_TAG,
         },
-        secrets=[auth_secret],
+
     )
 
     task_id = f"process_{DATABASE_NAME}"
@@ -136,7 +129,7 @@ for db in dbs:
             "GITHUB_TAG": REPOSITORY_TAG,
             "PROD_DB_ENV": "preprod",
         },
-        secrets=[auth_secret],
+
     )
 
     task_id = f"create_{DATABASE_NAME}_db"
@@ -161,7 +154,7 @@ for db in dbs:
             "GITHUB_TAG": REPOSITORY_TAG,
             "PROD_DB_ENV": "live",
         },
-        secrets=[auth_secret],
+
     )
 
     task_id = f"create_{DATABASE_NAME}_extracts"
@@ -185,7 +178,7 @@ for db in dbs:
             "GITHUB_TAG": REPOSITORY_TAG,
             "PROD_DB_ENV": "live",
         },
-        secrets=[auth_secret],
+
     )
 
 # these are tables we run extracts from and can get preprod
@@ -225,7 +218,7 @@ for table in tables:
             "GITHUB_TAG": REPOSITORY_TAG,
             "PROD_DB_ENV": "preprod",
         },
-        secrets=[auth_secret],
+
     )
 
     task_id = f"copy_preprod_to_live_{table[0]}"
@@ -250,7 +243,7 @@ for table in tables:
             "GITHUB_TAG": REPOSITORY_TAG,
             "PROD_DB_ENV": "live",
         },
-        secrets=[auth_secret],
+
     )
 
 # change env var for different db
@@ -278,7 +271,7 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
         "GITHUB_TAG": REPOSITORY_TAG,
         "PROD_DB_ENV": "live",
     },
-    secrets=[auth_secret],
+
 )
 
 # create overall database with all data
@@ -306,7 +299,7 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
         "GITHUB_TAG": REPOSITORY_TAG,
         "PROD_DB_ENV": "preprod",
     },
-    secrets=[auth_secret],
+
 )
 
 task_id = "create_live_db"
@@ -331,7 +324,7 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
         "GITHUB_TAG": REPOSITORY_TAG,
         "PROD_DB_ENV": "live",
     },
-    secrets=[auth_secret],
+
 )
 
 task_id = "preprod_checks"
@@ -356,7 +349,7 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
         "GITHUB_TAG": REPOSITORY_TAG,
         "PROD_DB_ENV": "preprod",
     },
-    secrets=[auth_secret],
+
 )
 
 task_id = "jaggaer_preprocess"
@@ -381,7 +374,7 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
         "GITHUB_TAG": REPOSITORY_TAG,
         "PROD_DB_ENV": "preprod",
     },
-    secrets=[auth_secret],
+
 )
 
 # --- Task Dependencies ---
