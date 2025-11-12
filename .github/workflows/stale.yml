@@ -19,3 +19,6 @@ jobs:
           days-before-close: 7
           stale-pr-label: 'stale'
           exempt-issue-labels: 'dependencies'
+          exempt-draft-pr: true
+          days-before-issue-stale: -1  # Disable issue processing
+
