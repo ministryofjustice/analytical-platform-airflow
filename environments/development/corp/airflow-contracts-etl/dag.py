@@ -36,8 +36,7 @@ default_params = {
 
 # --- Auth Secret ---
 # This secret definition is based on the example.py and the
-# service_account_name ('airflow-dev-contracts-etl') from the original file.
-
+# service_account_name ('airflow-dev-contracts-etl') from the original file
 
 # --- DAG ---
 dag = DAG(
@@ -84,7 +83,6 @@ for db in dbs:
             "AWS_DEFAULT_REGION": "eu-west-1",
             "GITHUB_TAG": REPOSITORY_TAG,
         },
-
     )
 
     task_id = f"lint_{DATABASE_NAME}"
