@@ -8,6 +8,8 @@ on:
 jobs:
   stale:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
       - name: Mark 30 days stale Pull Requests and close after 7 days
         uses: actions/stale@5f858e3efba33a5ca4407a664cc011ad407f2008 # v10.1.0
