@@ -5,6 +5,8 @@ on:
     - cron: "0 2 * * *" # Runs daily at 02:00 UTC
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   stale:
     runs-on: ubuntu-latest
@@ -23,4 +25,3 @@ jobs:
           exempt-issue-labels: "dependencies"
           exempt-draft-pr: true
           days-before-issue-stale: -1 # Disable issue processing
-
