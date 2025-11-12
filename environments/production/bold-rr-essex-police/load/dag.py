@@ -23,7 +23,7 @@ DB_VERSION = "v1"
 
 # check_file task
 # needs to match the release tag in airflow-bold-rr-essex-police
-CHECK_FILE_VERSION = "v1.2.16"
+CHECK_FILE_VERSION = "v1.2.19"
 CHECK_FILE_IMAGE = (
     f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/"
     f"airflow-bold-rr-essex-police:{CHECK_FILE_VERSION}"
@@ -68,9 +68,9 @@ default_args = {
 
 
 dag = DAG(
-    dag_id="bold_rr_essex_police.load",
+    dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=default_args,
-    start_date=datetime(2025, 11, 6),
+    start_date=datetime(2025, 11, 11),
     schedule_interval="30 5 * * *",
 )
 

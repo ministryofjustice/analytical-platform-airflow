@@ -169,8 +169,20 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
     secrets=[
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_SERVICE_ACCOUNT_TOKEN",
-            secret=f"{PROJECT}-{WORKFLOW}-service-account-token",
+            deploy_target="SECRET_DB_PWD",
+            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_USER_ID",
+            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_DSN",
+            secret=f"{PROJECT}-{WORKFLOW}-db-dsn",
             key="data"
         )
     ]
@@ -189,8 +201,20 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
     secrets=[
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_SERVICE_ACCOUNT_TOKEN",
-            secret=f"{PROJECT}-{WORKFLOW}-service-account-token",
+            deploy_target="SECRET_DB_PWD",
+            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_USER_ID",
+            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_DSN",
+            secret=f"{PROJECT}-{WORKFLOW}-db-dsn",
             key="data"
         )
     ]
@@ -226,8 +250,20 @@ tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
     secrets=[
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_SERVICE_ACCOUNT_TOKEN",
-            secret=f"{PROJECT}-{WORKFLOW}-service-account-token",
+            deploy_target="SECRET_DB_PWD",
+            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_USER_ID",
+            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_DSN",
+            secret=f"{PROJECT}-{WORKFLOW}-db-dsn",
             key="data"
         )
     ]
@@ -251,8 +287,20 @@ tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
     secrets=[
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_SERVICE_ACCOUNT_TOKEN",
-            secret=f"{PROJECT}-{WORKFLOW}-service-account-token",
+            deploy_target="SECRET_DB_PWD",
+            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_USER_ID",
+            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_DSN",
+            secret=f"{PROJECT}-{WORKFLOW}-db-dsn",
             key="data"
         )
     ]
