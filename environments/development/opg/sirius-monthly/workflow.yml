@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.7.0-test-27
+  tag: v3.7.0-test-28
   python_dag: true
 
 iam:
