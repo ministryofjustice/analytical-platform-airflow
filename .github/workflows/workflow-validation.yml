@@ -140,6 +140,11 @@ jobs:
               body: 'The workflow directory name contains underscores. Please use hyphens instead of underscores.'
             })
 
+      - name: Run script # this will be refactored, just chucking it anywhere for now to test
+        id: github_user_validation
+        run: |
+          bash "scripts/github/user-validation.sh"
+
       - name: Check Computed IAM Role Name Length
         id: check_iam_role_length
         env:
@@ -650,11 +655,6 @@ jobs:
           fi
 
           echo "eligible=${eligible}" >>"${GITHUB_OUTPUT}"
-
-      - name: Run script # this will be refactored, just chucking it anywhere for now to test
-        id: github_user_validation
-        run: |
-          bash "scripts/github/user-validation.sh"
 
       - name: Comment on Automatic Approval Check Status
         id: comment_on_automatic_approval_check
