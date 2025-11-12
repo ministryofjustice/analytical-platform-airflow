@@ -70,16 +70,6 @@ dag:
         REPORT_NAME: "nms-iexp01"
         REPORT_PARAM_FROM_DATE_PAID: "01-Dec-2023"
         REPORT_PARAM_TO_DATE_PAID: "31-Dec-2023"
-    nms-sep-2024:
-      env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Sep-2024"
-        REPORT_PARAM_TO_DATE_PAID: "30-Sep-2024"
-    nms-nov-2024:
-      env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Nov-2024"
-        REPORT_PARAM_TO_DATE_PAID: "30-Nov-2024"
 
 iam:
   s3_read_write:
