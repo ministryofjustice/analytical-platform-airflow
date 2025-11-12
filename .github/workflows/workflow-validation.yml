@@ -142,8 +142,10 @@ jobs:
 
       - name: Run script # this will be refactored, just chucking it anywhere for now to test
         id: github_user_validation
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
-          bash "scripts/github/user-validation.sh"
+          bash "scripts/github/user-validation.sh" "${WORKFLOW_DIRECTORY}/workflow.yml"
 
       - name: Check Computed IAM Role Name Length
         id: check_iam_role_length
