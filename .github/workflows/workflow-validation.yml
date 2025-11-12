@@ -651,6 +651,11 @@ jobs:
 
           echo "eligible=${eligible}" >>"${GITHUB_OUTPUT}"
 
+      - name: Run script # this will be refactored, just chucking it anywhere for now to test
+        id: github_user_validation
+        run: |
+          bash "scripts/github/user-validation.sh"
+
       - name: Comment on Automatic Approval Check Status
         id: comment_on_automatic_approval_check
         if: steps.automatic_approval_check.outputs.automatic_approval_paused == 'true'
