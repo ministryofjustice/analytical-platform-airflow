@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/airflow-export-sop-to-idam
-  tag: v4.4.0
+  tag: v4.4.1
   schedule: "0 9 * * *"
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-2"
@@ -11,6 +11,9 @@ iam:
     - mojap-data-production-shared-services-client-team-gov-29148/cgi-ssct-sop/*
     - mojap-processed/corporate/fieldglass/*
     - mojap-derived-tables/prod/models/domain_name=people/database_name=contingent_labour_datamarts/*
+
+  s3_read_write:
+    - mojap-athena-query-dump/*
 
   athena: read
   glue: true
