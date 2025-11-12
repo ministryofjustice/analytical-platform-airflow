@@ -68,7 +68,7 @@ default_args = {
 
 
 dag = DAG(
-    dag_id="bold_rr_essex_police.load",
+    dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=default_args,
     start_date=datetime(2025, 11, 11),
     schedule_interval="30 5 * * *",
