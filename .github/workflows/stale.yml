@@ -2,7 +2,7 @@ name: Mark and Close Stale Pull Requests
 
 on:
   schedule:
-    - cron: '0 2 * * *' # Runs daily at 02:00 UTC
+    - cron: "0 2 * * *" # Runs daily at 02:00 UTC
   workflow_dispatch:
 
 jobs:
@@ -13,12 +13,12 @@ jobs:
         uses: actions/stale@5f858e3efba33a5ca4407a664cc011ad407f2008 # v10.1.0
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
-          stale-pr-message: 'This Pull Request has been marked as stale because it has been open for over 30 days with no activity. It will be closed in 7 days if no further activity occurs.'
-          close-pr-message: 'Closing this Pull Request due to inactivity. Feel free to reopen if needed.'
+          stale-pr-message: "This Pull Request has been marked as stale because it has been open for over 30 days with no activity. It will be closed in 7 days if no further activity occurs."
+          close-pr-message: "Closing this Pull Request due to inactivity. Feel free to reopen if needed."
           days-before-stale: 30
           days-before-close: 7
-          stale-pr-label: 'stale'
-          exempt-issue-labels: 'dependencies'
+          stale-pr-label: "stale"
+          exempt-issue-labels: "dependencies"
           exempt-draft-pr: true
-          days-before-issue-stale: -1  # Disable issue processing
+          days-before-issue-stale: -1 # Disable issue processing
 
