@@ -1,0 +1,44 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-contracts-etl
+  tag: "v2.8.11"
+  python_dag: true
+  retries: 3
+  retry_delay: 150
+  schedule: "0 8 * * *"
+  params:
+    iam_role_name: airflow_dev_contracts_etl
+    athena:
+      write: true
+      dump_bucket:
+        - mojap-athena-query-dump
+    s3:
+      read_write:
+        - mojap-land/contracts/*
+        - alpha-contracts-etl/*
+        - alpha-app-commuter-contracts/*
+        - alpha-sop-commercial-land/*
+      write_only:
+        - alpha-app-scorecard-form/jaggaer/*
+        - alpha-app-scorecard-form-dev/jaggaer/*
+        - alpha-app-scorecard-form/rio/*
+        - alpha-app-scorecard-form-dev/rio/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - philip.neale@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - moj-supratikc
+  - pdnmoji
+
+# The secrets key expects a list of secret names to be created in Kubernetes.
+# If you don't have any specific secrets to add, you can provide an empty list.
+secrets: []
+
+tags:
+  business_unit: Central Digital
+  owner: William.Orr@justice.gov.uk
