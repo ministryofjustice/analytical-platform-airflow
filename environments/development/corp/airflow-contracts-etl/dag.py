@@ -15,9 +15,7 @@ ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
 OWNER = "PLACEHOLDER_OWNER"
 
 # --- Image ---
-IMAGE = (
-    f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
-)
+IMAGE = (f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}")
 
 # --- Email ---
 DAG_EMAIL = ["philip.neale@justice.gov.uk"]
@@ -77,7 +75,7 @@ for db in dbs:
         task_id=task_id,
         name=task_id,
         compute_profile="general-on-demand-1vcpu-4gb",  # Added default
-        image=IMAGE,
+        image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
         environment=ENVIRONMENT,
         project=PROJECT,
         workflow=WORKFLOW,
