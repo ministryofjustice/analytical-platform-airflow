@@ -43,8 +43,13 @@ def get_installation_token():
         raise ValueError("Missing environment variable: githubAppPrivateKey")
 
     try:
-        # Decode base64-encoded private key
-        private_key = base64.b64decode(private_key_b64).decode("utf-8")
+        # The private key might be base64-encoded or plain PEM format
+        # Try to decode as base64 first, if that fails, use it as-is
+        try:
+            private_key = base64.b64decode(private_key_b64).decode("utf-8")
+        except Exception:
+            # Assume it's already in PEM format
+            private_key = private_key_b64
 
         # Create GitHub Integration using new Auth API
         auth = Auth.AppAuth(app_id, private_key)
