@@ -1,13 +1,13 @@
 dag:
   repository: moj-analytical-services/airflow-load-em-data
-  tag: v0.2.124
+  tag: v0.2.125
   compute_profile: general-spot-1vcpu-4gb
   catchup: false
   depends_on_past: false
   max_active_runs: 1
   env_vars:
     SUPPLIER_NAME: "g4s"
-    SYSTEM_NAME: "tasking-second-dump"
+    SYSTEM_NAME: "tasking"
     DATASET_NAME: "g4s_tasking"
     DELIVERY_DATE: "2025-05-21"
     AWS_METADATA_SERVICE_TIMEOUT: 60
@@ -190,7 +190,7 @@ notifications:
   slack_channel: em-engineers-moj-madetech
 
 iam:
-  external_role: arn:aws:iam::976799291502:role/airflow-prod-load-scram-alcohol-monitoring
+  external_role: arn:aws:iam::976799291502:role/airflow-prod-load-g4s_tasking
 
 maintainers:
   - matt-heery
