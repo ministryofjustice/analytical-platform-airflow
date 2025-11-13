@@ -10,3 +10,4 @@ pylint==2.3.0
 pyyaml==6.0.2
 zizmor==1.16.1
 deepdiff==8.6.1
+pygithub==2.4.0
