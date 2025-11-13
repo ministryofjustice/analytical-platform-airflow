@@ -51,6 +51,9 @@ def get_installation_token():
             # Assume it's already in PEM format
             private_key = private_key_b64
 
+        # Replace escaped newlines with actual newlines (common in JSON-stored PEM keys)
+        private_key = private_key.replace("\\n", "\n")
+
         # Create GitHub Integration using new Auth API
         auth = Auth.AppAuth(app_id, private_key)
         integration = GithubIntegration(auth=auth)
