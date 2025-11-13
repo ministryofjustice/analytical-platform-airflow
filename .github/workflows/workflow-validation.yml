@@ -148,7 +148,7 @@ jobs:
               body: 'The workflow directory name contains underscores. Please use hyphens instead of underscores.'
             })
 
-      - name: Run script # this will be refactored, just chucking it anywhere for now to test
+      - name: Maintainer GitHub Username Validation
         id: github_user_validation
         env:
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
