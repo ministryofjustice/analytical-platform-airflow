@@ -96,7 +96,7 @@ dag:
     load_table_eai_service:
       env_vars:
         TABLE_NAME: "tblEAI_Service"
-        
+
     load_table_eai_service_name:
       env_vars:
         TABLE_NAME: "tblEAI_ServiceName"
@@ -186,7 +186,7 @@ notifications:
     - Matt.Heery@justice.gov.uk
     - Luke.Williams6@justice.gov.uk
     - Jono.Basford@justice.gov.uk
-  
+
   slack_channel: em-engineers-moj-madetech
 
 iam:
