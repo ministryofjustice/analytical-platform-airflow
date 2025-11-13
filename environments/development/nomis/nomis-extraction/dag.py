@@ -225,8 +225,20 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
         ),
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_DB_DSN",
-            secret=f"{PROJECT}-{WORKFLOW}-db-dsn",
+            deploy_target="SECRET_DB_IP",
+            secret=f"{PROJECT}-{WORKFLOW}-db-ip",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_PORT",
+            secret=f"{PROJECT}-{WORKFLOW}-db-port",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_SERVICE_NAME",
+            secret=f"{PROJECT}-{WORKFLOW}-db-service-name",
             key="data"
         )
     ]
@@ -274,8 +286,20 @@ tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
         ),
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_DB_DSN",
-            secret=f"{PROJECT}-{WORKFLOW}-db-dsn",
+            deploy_target="SECRET_DB_IP",
+            secret=f"{PROJECT}-{WORKFLOW}-db-ip",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_PORT",
+            secret=f"{PROJECT}-{WORKFLOW}-db-port",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_SERVICE_NAME",
+            secret=f"{PROJECT}-{WORKFLOW}-db-service-name",
             key="data"
         )
     ]
@@ -311,8 +335,20 @@ tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
         ),
         Secret(
             deploy_type="env",
-            deploy_target="SECRET_DB_DSN",
-            secret=f"{PROJECT}-{WORKFLOW}-db-dsn",
+            deploy_target="SECRET_DB_IP",
+            secret=f"{PROJECT}-{WORKFLOW}-db-ip",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_PORT",
+            secret=f"{PROJECT}-{WORKFLOW}-db-port",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_SERVICE_NAME",
+            secret=f"{PROJECT}-{WORKFLOW}-db-service-name",
             key="data"
         )
     ]
