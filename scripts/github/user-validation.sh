@@ -22,7 +22,7 @@ githubAppPrivateKey=$(aws secretsmanager get-secret-value --region "${AWS_REGION
 export githubAppPrivateKey
 
 # Generate installation access token using Python helper
-GH_TOKEN=$(python3 scripts/github/auth_helper.py)
+GH_TOKEN=$(python scripts/github/auth_helper.py)
 export GH_TOKEN
 
 # Extract GitHub usernames from the maintainers array in the workflow file
