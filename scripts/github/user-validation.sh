@@ -35,6 +35,13 @@ for memberGitHub in ${usernames}; do
   # Check if the user is an active member
   if [[ "$(echo "${githubMembershipStatus}" | jq -r '.state')" == "active" ]]; then
     echo "  User found in GitHub organisation"
+
+    # Check if the username casing matches exactly
+    actualUsername=$(echo "${githubMembershipStatus}" | jq -r '.user.login')
+    if [[ "${memberGitHub}" != "${actualUsername}" ]]; then
+      echo "  Error: Username casing mismatch. Expected '${actualUsername}' but got '${memberGitHub}'"
+      exit 1
+    fi
   elif [[ "$(echo "${githubMembershipStatus}" | jq -r '.status')" == "404" ]]; then
     echo "  User not found in GitHub organisation"
     exit 1
