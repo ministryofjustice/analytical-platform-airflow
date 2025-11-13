@@ -1,0 +1,203 @@
+dag:
+  repository: moj-analytical-services/airflow-load-em-data
+  tag: v0.2.125
+  compute_profile: general-spot-1vcpu-4gb
+  catchup: false
+  depends_on_past: false
+  max_active_runs: 1
+  env_vars:
+    SUPPLIER_NAME: "g4s"
+    SYSTEM_NAME: "tasking"
+    DATASET_NAME: "g4s_tasking"
+    DELIVERY_DATE: "2025-05-21"
+    AWS_METADATA_SERVICE_TIMEOUT: 60
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: 5
+    AWS_DEFAULT_REGION: "eu-west-2"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-2"
+
+  tasks:
+    load_list_countries:
+      env_vars:
+        TABLE_NAME: "List_Counties"
+
+    load_list_monitoring_order_status:
+      env_vars:
+        TABLE_NAME: "List_MonitoringOrderStatus"
+
+    load_list_order_type_desc:
+      env_vars:
+        TABLE_NAME: "List_OrderTypeDescr"
+
+    load_list_order_type:
+      env_vars:
+        TABLE_NAME: "List_OrderTypes"
+
+    load_list_probation_areas:
+      env_vars:
+        TABLE_NAME: "List_ProbationAreas"
+
+    load_list_service_type:
+      env_vars:
+        TABLE_NAME: "List_ServiceTypes"
+
+    load_list_titles:
+      env_vars:
+        TABLE_NAME: "List_Titles"
+
+    load_table_actions:
+      env_vars:
+        TABLE_NAME: "tblActions"
+
+    load_table_actions_types:
+      env_vars:
+        TABLE_NAME: "tblActionTypes"
+
+    load_table_answers:
+      env_vars:
+        TABLE_NAME: "tblAnswers"
+
+    load_table_area_codes:
+      env_vars:
+        TABLE_NAME: "tblAreaCodes"
+
+    load_table_at_tasks:
+      env_vars:
+        TABLE_NAME: "tblAT_Tasks"
+
+    load_table_at_visits:
+      env_vars:
+        TABLE_NAME: "tblAt_Visits"
+
+    load_table_branches:
+      env_vars:
+        TABLE_NAME: "tblBranches"
+
+    load_table_crew_members:
+      env_vars:
+        TABLE_NAME: "tblCrewMembers"
+
+    load_table_crews:
+      env_vars:
+        TABLE_NAME: "tblCrews"
+
+    load_table_curfewee_era:
+      env_vars:
+        TABLE_NAME: "tblCurfeweeEra"
+
+    load_table_curfewees:
+      env_vars:
+        TABLE_NAME: "tblCurfewees"
+
+    load_table_eai_order:
+      env_vars:
+        TABLE_NAME: "tblEAI_Order"
+
+    load_table_eai_service:
+      env_vars:
+        TABLE_NAME: "tblEAI_Service"
+
+    load_table_eai_service_name:
+      env_vars:
+        TABLE_NAME: "tblEAI_ServiceName"
+
+    load_table_eai_site_service_link:
+      env_vars:
+        TABLE_NAME: "tblEAI_SiteServiceLink"
+
+    load_table_equipment_types:
+      env_vars:
+        TABLE_NAME: "tblEquipmentTypes"
+
+    load_table_era:
+      env_vars:
+        TABLE_NAME: "tblEra"
+
+    load_table_incidents:
+      env_vars:
+        TABLE_NAME: "tblIncidents"
+
+    load_table_incident_types:
+      env_vars:
+        TABLE_NAME: "tblIncidentTypes"
+
+    load_table_locations:
+      env_vars:
+        TABLE_NAME: "tblLocations"
+
+    load_table_outcome_types:
+      env_vars:
+        TABLE_NAME: "tblOutcomeTypes"
+
+    load_table_questions:
+      env_vars:
+        TABLE_NAME: "tblQuestions"
+
+    load_table_schedule_objects:
+      env_vars:
+        TABLE_NAME: "tblScheduledObjects"
+
+    load_table_sites:
+      env_vars:
+        TABLE_NAME: "tblSites"
+
+    load_tables_site_xref:
+      env_vars:
+        TABLE_NAME: "tblSiteXRef"
+
+    load_table_task_and_incident_xref:
+      env_vars:
+        TABLE_NAME: "tblTaskAndIncidentXRef"
+
+    load_table_task_and_outcome_xref:
+      env_vars:
+        TABLE_NAME: "tblTaskAndOutcomeXRef"
+
+    load_table_task_categories:
+      env_vars:
+        TABLE_NAME: "tblTaskCategories"
+
+    load_table_tasks:
+      env_vars:
+        TABLE_NAME: "tblTasks"
+
+    load_table_task_types:
+      env_vars:
+        TABLE_NAME: "tblTaskTypes"
+
+    load_table_user_groups:
+      env_vars:
+        TABLE_NAME: "tblUserGroups"
+
+    load_table_valid_responses:
+      env_vars:
+        TABLE_NAME: "tblValidResponses"
+
+    load_table_vist_estimated_duration:
+      env_vars:
+        TABLE_NAME: "tblVisitEstimatedDuration"
+
+    load_table_visit:
+      env_vars:
+        TABLE_NAME: "tblVisits"
+
+notifications:
+  emails:
+    - Matt.Heery@justice.gov.uk
+    - Luke.Williams6@justice.gov.uk
+    - Jono.Basford@justice.gov.uk
+
+  slack_channel: em-engineers-moj-madetech
+
+iam:
+  external_role: arn:aws:iam::976799291502:role/airflow-prod-load-g4s_tasking
+
+maintainers:
+  - matt-heery
+  - kraihanmoj
+  - luke-a-williams
+  - jono-basford-moj
+
+tags:
+  business_unit: HMPPS
+  owner: matt.heery@justice.gov.uk # for now....
