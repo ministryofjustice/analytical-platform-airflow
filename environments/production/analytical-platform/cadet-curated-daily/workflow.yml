@@ -1,0 +1,31 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.1.12
+  compute_profile: general-on-demand-8vcpu-32gb
+  schedule: "0 6 * * *"
+  outlets: ["s3://mojap-derived-tables/prod/curated-daily/"]
+  env_vars:
+    DEPLOY_ENV: sandpit
+    DBT_PROFILE_WORKGROUP: dbt-curated-daily
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-curated-daily
+    DBT_SELECT_CRITERIA: tag:curated
+    BRANCH: main
+    MODE: build
+
+maintainers:
+  - jhpyke
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/prod/*
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
