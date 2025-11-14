@@ -1,0 +1,21 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-report-extractor
+  tag: v0.0.1
+  schedule: "* * * * *"
+  env_vars:
+    AWS_DEFAULT_REGION: "eu-west-1"
+  max_active_runs: 1
+
+iam:
+  s3_read_write:
+    - alpha-corp-data-staging/*
+
+maintainers:
+  - williamorrie
+  - moj-supratikc
+  - ltd-pa
+
+tags:
+  business_unit: Central Digital
+  owner: supratik.chowdhury@justice.gov.uk
