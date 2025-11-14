@@ -2,7 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-report-extractor
   tag: v0.0.1
-  schedule: "*/2 * * * *"
+  schedule: "0-59 * * * *"
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
   max_active_runs: 1
