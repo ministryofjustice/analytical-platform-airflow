@@ -166,7 +166,7 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
  #       "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
-   
+
 )
 
 tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
@@ -227,7 +227,7 @@ tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
     #   "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
-   
+
 )
 
 (
