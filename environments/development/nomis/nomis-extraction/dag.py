@@ -138,6 +138,38 @@ dag = DAG(
     start_date=datetime(2025, 11, 1),
     schedule="00 01 * * *",
     catchup=False,
+    secrets=[
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_PWD",
+            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_USER_ID",
+            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_IP",
+            secret=f"{PROJECT}-{WORKFLOW}-db-ip",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_PORT",
+            secret=f"{PROJECT}-{WORKFLOW}-db-port",
+            key="data"
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_SERVICE_NAME",
+            secret=f"{PROJECT}-{WORKFLOW}-db-service-name",
+            key="data"
+        )
+    ],
 )
 
 tasks = {}
@@ -165,39 +197,7 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
         "DAG_ID": dag.dag_id,
  #       "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
-    },
-    secrets=[
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PWD",
-            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_USER_ID",
-            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_IP",
-            secret=f"{PROJECT}-{WORKFLOW}-db-ip",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PORT",
-            secret=f"{PROJECT}-{WORKFLOW}-db-port",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_SERVICE_NAME",
-            secret=f"{PROJECT}-{WORKFLOW}-db-service-name",
-            key="data"
-        )
-    ]
+    }
 )
 
 tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
@@ -209,39 +209,7 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
         "DAG_ID": dag.dag_id,
   #      "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
-    },
-    secrets=[
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PWD",
-            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_USER_ID",
-            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_IP",
-            secret=f"{PROJECT}-{WORKFLOW}-db-ip",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PORT",
-            secret=f"{PROJECT}-{WORKFLOW}-db-port",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_SERVICE_NAME",
-            secret=f"{PROJECT}-{WORKFLOW}-db-service-name",
-            key="data"
-        )
-    ]
+    }
 )
 
 # Set dependencies
@@ -270,39 +238,7 @@ tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
         "DAG_ID": dag.dag_id,
    #    "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
-    },
-    secrets=[
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PWD",
-            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_USER_ID",
-            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_IP",
-            secret=f"{PROJECT}-{WORKFLOW}-db-ip",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PORT",
-            secret=f"{PROJECT}-{WORKFLOW}-db-port",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_SERVICE_NAME",
-            secret=f"{PROJECT}-{WORKFLOW}-db-service-name",
-            key="data"
-        )
-    ]
+    }
 )
 
 #   tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
@@ -319,39 +255,7 @@ tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
         "DAG_ID": dag.dag_id,
     #   "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
-    },
-    secrets=[
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PWD",
-            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_USER_ID",
-            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_IP",
-            secret=f"{PROJECT}-{WORKFLOW}-db-ip",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PORT",
-            secret=f"{PROJECT}-{WORKFLOW}-db-port",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_SERVICE_NAME",
-            secret=f"{PROJECT}-{WORKFLOW}-db-service-name",
-            key="data"
-        )
-    ]
+    }
 )
 
 (
