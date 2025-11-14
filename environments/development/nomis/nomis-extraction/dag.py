@@ -116,41 +116,36 @@ PK_EXTRACTIONS = {
     ],
 }
 
-nomis_secret_1=[Secret(
+nomis_secret_1=Secret(
         deploy_type="env",
         deploy_target="SECRET_DB_PWD",
         secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
         key="data"
     )
-]
-nomis_secret_2=[Secret(
+nomis_secret_2=Secret(
         deploy_type="env",
         deploy_target="SECRET_DB_USER_ID",
         secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
         key="data"
     )
-]
-nomis_secret_3=[Secret(
+nomis_secret_3=Secret(
         deploy_type="env",
         deploy_target="SECRET_DB_IP",
         secret=f"{PROJECT}-{WORKFLOW}-db-ip",
         key="data"
     )
-]
-nomis_secret_4=[Secret(
+nomis_secret_4=Secret(
         deploy_type="env",
         deploy_target="SECRET_DB_PORT",
         secret=f"{PROJECT}-{WORKFLOW}-db-port",
         key="data"
     )
-]
-nomis_secret_5=[Secret(
+nomis_secret_5=Secret(
         deploy_type="env",
         deploy_target="SECRET_DB_SERVICE_NAME",
         secret=f"{PROJECT}-{WORKFLOW}-db-service-name",
         key="data"
     )
-]
 
 task_args = {
     "compute_profile": "general-on-demand-1vcpu-4gb",
