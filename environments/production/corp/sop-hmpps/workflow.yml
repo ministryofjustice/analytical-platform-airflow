@@ -3,7 +3,6 @@ dag:
   repository: moj-analytical-services/airflow-sop-mi
   tag: v4.5.0-test-14
   env_vars:
-    SOP_TESTING: "testing"
     IMAGE_VERSION: tag
   params:
     UPDATE_CAREER_GRADES_HISTORIES: "False"
@@ -18,10 +17,10 @@ iam:
   glue: true
   s3_read_only:
     - alpha-hmpps-workforce-stats/Data/Lookup Files/*
-    - alpha-dag-sop-data-engineering/derived-testing/*
+    - alpha-dag-sop-data-engineering/derived/*
 
   s3_read_write:
-    - alpha-dag-sop-data-engineering/hmpps_career_grades-testing/*
+    - alpha-dag-sop-data-engineering/hmpps_career_grades/*
 
 notifications:
   slack_channel: dmet-corp-notifications
