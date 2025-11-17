@@ -283,7 +283,6 @@ dag:
         S3_TABLE_NAME: "verdict"
         FILENAME_TABLE_NAME: "verdict"
     
-
 iam:
   athena: write
   s3_read_write:
