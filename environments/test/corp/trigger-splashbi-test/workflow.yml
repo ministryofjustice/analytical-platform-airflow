@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.0.6-Secret-Keys
+  tag: v1.0.7-Secret-Keys
   schedule: "0 7 * * *"
   env_vars:
     REPORT_APP: "splashbi"
