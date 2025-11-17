@@ -40,6 +40,7 @@ secrets:
 
 notifications:
   slack_channel: dmet-corp-notifications
+
   emails:
     - chris.sheldon@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
