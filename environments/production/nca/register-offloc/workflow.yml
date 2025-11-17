@@ -8,7 +8,7 @@ dag:
   retries: 1
   retry_delay: 150
   schedule: None
-  start_date: "2025-08-07"
+  start_date: "2025-11-13"
   tasks:
     task:
       compute_profile: "general-on-demand-1vcpu-4gb"
@@ -17,8 +17,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-hub-exports/p1_nomis_TEST/*
-    - moj-reg-dev/landing/offloc-dev/*
+    - moj-reg-prod/landing/offloc-prod/*
 
 secrets:
   - user

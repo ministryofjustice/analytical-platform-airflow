@@ -116,6 +116,36 @@ PK_EXTRACTIONS = {
     ],
 }
 
+nomis_secret_1=Secret(
+        deploy_type="env",
+        deploy_target="SECRET_DB_PWD",
+        secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
+        key="data"
+    )
+nomis_secret_2=Secret(
+        deploy_type="env",
+        deploy_target="SECRET_DB_USER_ID",
+        secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
+        key="data"
+    )
+nomis_secret_3=Secret(
+        deploy_type="env",
+        deploy_target="SECRET_DB_IP",
+        secret=f"{PROJECT}-{WORKFLOW}-db-ip",
+        key="data"
+    )
+nomis_secret_4=Secret(
+        deploy_type="env",
+        deploy_target="SECRET_DB_PORT",
+        secret=f"{PROJECT}-{WORKFLOW}-db-port",
+        key="data"
+    )
+nomis_secret_5=Secret(
+        deploy_type="env",
+        deploy_target="SECRET_DB_SERVICE_NAME",
+        secret=f"{PROJECT}-{WORKFLOW}-db-service-name",
+        key="data"
+    )
 
 task_args = {
     "compute_profile": "general-on-demand-1vcpu-4gb",
@@ -159,6 +189,7 @@ tasks["initialise-dag"] = AnalyticalPlatformStandardOperator(
 tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
     dag=dag,
     task_id="nomis-delta-extract",
+    secrets=[nomis_secret_1, nomis_secret_2, nomis_secret_3, nomis_secret_4, nomis_secret_5],
     env_vars={
         "PYTHON_SCRIPT_NAME": "nomis_delta_extract.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
@@ -166,31 +197,13 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
  #       "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
-    secrets=[
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PWD",
-            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_USER_ID",
-            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_DSN",
-            secret=f"{PROJECT}-{WORKFLOW}-db-dsn",
-            key="data"
-        )
-    ]
+
 )
 
 tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
     dag=dag,
     task_id="nomis-delta-extract-check",
+    secrets=[nomis_secret_1, nomis_secret_2, nomis_secret_3, nomis_secret_4, nomis_secret_5],
     env_vars={
         "PYTHON_SCRIPT_NAME": "test_extraction_outputs_and_move_to_raw.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
@@ -198,26 +211,7 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
   #      "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
-    secrets=[
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PWD",
-            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_USER_ID",
-            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_DSN",
-            secret=f"{PROJECT}-{WORKFLOW}-db-dsn",
-            key="data"
-        )
-    ]
+
 )
 
 # Set dependencies
@@ -237,6 +231,7 @@ tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
     dag=dag,
 #   task_id=f"nomis-pk-deletes-extracts-{i}",
     task_id="nomis-pk-deletes-extract",
+    secrets=[nomis_secret_1, nomis_secret_2, nomis_secret_3, nomis_secret_4, nomis_secret_5],
     env_vars={
 #        "PK_EXTRACT_TABLES": tables_string,
         "PYTHON_SCRIPT_NAME": "nomis_deletes_extract.py",
@@ -247,26 +242,7 @@ tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
    #    "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
-    secrets=[
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PWD",
-            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_USER_ID",
-            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_DSN",
-            secret=f"{PROJECT}-{WORKFLOW}-db-dsn",
-            key="data"
-        )
-    ]
+
 )
 
 #   tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
@@ -274,6 +250,7 @@ tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
     dag=dag,
 #   task_id=f"nomis-pk-deletes-extract-check-{i}",
     task_id="nomis-pk-deletes-extract-check",
+    secrets=[nomis_secret_1, nomis_secret_2, nomis_secret_3, nomis_secret_4, nomis_secret_5],
     env_vars={
 #        "PK_EXTRACT_TABLES": tables_string,
         "PYTHON_SCRIPT_NAME": "test_deletes_extraction_outputs_and_move_to_raw.py",
@@ -284,26 +261,7 @@ tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
     #   "ENV": "PRODUCTION",
         "ENV": "DEVELOPMENT",
     },
-    secrets=[
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_PWD",
-            secret=f"{PROJECT}-{WORKFLOW}-db-pwd",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_USER_ID",
-            secret=f"{PROJECT}-{WORKFLOW}-db-user-id",
-            key="data"
-        ),
-        Secret(
-            deploy_type="env",
-            deploy_target="SECRET_DB_DSN",
-            secret=f"{PROJECT}-{WORKFLOW}-db-dsn",
-            key="data"
-        )
-    ]
+
 )
 
 (
