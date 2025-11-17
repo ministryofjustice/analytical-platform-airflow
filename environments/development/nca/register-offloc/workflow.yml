@@ -7,7 +7,7 @@ dag:
   max_active_runs: 1
   retries: 1
   retry_delay: 150
-  schedule: None
+  schedule: "30 2 * * *"
   start_date: "2025-08-07"
   tasks:
     task:
@@ -17,7 +17,6 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-hub-exports/p1_nomis_TEST/*
     - moj-reg-dev/landing/offloc-dev/*
 
 secrets:
