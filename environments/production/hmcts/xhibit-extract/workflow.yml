@@ -75,7 +75,7 @@ dag:
     xhibit_extract_court_room_usage:
       env_vars:
         TABLE_NAME: "court-room-usage"
-        S3_TABLE_NAME: "court_room_usage
+        S3_TABLE_NAME: "court_room_usage"
         FILENAME_TABLE_NAME: "court_room_usage"
     xhibit_extract_def_hearing_record:
       env_vars:
