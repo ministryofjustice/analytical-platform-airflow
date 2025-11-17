@@ -22,11 +22,6 @@ dag:
     HIST_FOLDER: "hmcts/xhibit/"
     CUT_OFF: "2022-08-21"
   tasks:
-    xhibit_extract_[TEMPLATE]:
-      env_vars:
-        TABLE_NAME: "allocated-listings"
-        S3_TABLE_NAME: "allocated_listings"
-        FILENAME_TABLE_NAME: "allocated_listings"
     xhibit_extract_address:
       env_vars:
         TABLE_NAME: "address"
