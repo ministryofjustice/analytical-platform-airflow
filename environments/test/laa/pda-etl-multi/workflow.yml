@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa_cwa_providers
-  tag: 1.6.7-alpha
+  tag: 1.7.1
   retries: 1
   retry_delay: 150
   compute_profile: general-on-demand-8vcpu-32gb
@@ -26,22 +26,22 @@ dag:
     API_BASE_URL: >-
       https://laa-provider-details-api-preprod.apps.live.cloud-platform.service.justice.gov.uk/
     PIPELINE_DIR: providers_details_dev/
-    DATABASE_NAME: laa_provider_raw_dev_v2
+    DATABASE_NAME: laa_provider_raw_dev
   tasks:
     extract-contract-details:
       env_vars:
-        PIPELINE_NAME: "providers_prod_contract_details_v2"
-        API_ENDPOINTS: "contract_details"
+        PIPELINE_NAME: providers_dev_contract_details
+        API_ENDPOINTS: contract_details
 
     extract-provider-office-users:
       env_vars:
-        PIPELINE_NAME: "providers_prod_office_users_v2"
-        API_ENDPOINTS: "provider_office_users"
+        PIPELINE_NAME: providers_dev_office_users
+        API_ENDPOINTS: provider_office_users
 
     extract-provider-office-schedules:
       env_vars:
-        PIPELINE_NAME: "providers_prod_office_schedules_v2"
-        API_ENDPOINTS: "provider_office_schedules"
+        PIPELINE_NAME: providers_dev_office_schedules
+        API_ENDPOINTS: provider_office_schedules
 
 iam:
   athena: write
