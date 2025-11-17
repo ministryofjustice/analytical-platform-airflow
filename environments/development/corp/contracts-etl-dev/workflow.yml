@@ -1,0 +1,35 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-contracts-etl
+  tag: "v2.8.14"
+  python_dag: true
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land/contracts/*
+    - alpha-contracts-etl/*
+    - alpha-app-commuter-contracts/*
+    - alpha-sop-commercial-land/*
+  s3_write_only:
+    - alpha-app-scorecard-form/jaggaer/*
+    - alpha-app-scorecard-form-dev/jaggaer/*
+    - alpha-app-scorecard-form/rio/*
+    - alpha-app-scorecard-form-dev/rio/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+  emails:
+    - philip.neale@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+secrets:
+  - airflow-dev-contracts-etl
+
+maintainers:
+  - moj-supratikc
+  - pdnmoji
+
+tags:
+  business_unit: Central Digital
+  owner: William.Orr@justice.gov.uk
