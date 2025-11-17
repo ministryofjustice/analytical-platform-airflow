@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/prison-flows-analysis
-  tag: v0.4.3.dev1
+  tag: v0.4.4.dev3
   compute_profile: general-spot-2vcpu-8gb
   schedule: "0 7 * * 1"
 
@@ -20,7 +20,7 @@ iam:
 maintainers:
   - rolakeo-mojo
   - lhan1825
-  - saimon-khan
+  - Saimon-Khan
   - fernbeedle
 
 tags:
