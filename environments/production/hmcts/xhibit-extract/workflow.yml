@@ -292,10 +292,9 @@ dag:
 iam:
   athena: write
   s3_read_write:
-    - mojap-land-dev/hmcts/common-platform/*
-    - mojap-raw-hist-dev/hmcts/common-platform/*
+    - mojap-land/hmcts/xhibit/*
   s3_read_only:
-    - alpha-mojap-common-platform/*
+    - alpha-mojap-curated-xhibit/ors/v2/*
     - alpha-mojap-ccd/*
 
 secrets:
