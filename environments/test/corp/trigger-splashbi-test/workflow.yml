@@ -7,7 +7,6 @@ dag:
     REPORT_APP: "splashbi"
     REPORT_RUNTIME_ENV: "test"
     REPORT_RUN_MODE: "trigger"
-
   tasks:
     cts-gl22:
       env_vars:
