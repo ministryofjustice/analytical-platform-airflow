@@ -1,13 +1,14 @@
 ---
 dag:
   repository: moj-analytical-services/mbpr-airflow-pipelines
-  tag: v1.1.6
+  tag: v1.1.7
   env_vars:
     MODE: "smart-survey"
 
 maintainers:
   - mikeAdamsMOJ
   - calumabarnett
+  - salabi28
 
 iam:
   s3_read_write:

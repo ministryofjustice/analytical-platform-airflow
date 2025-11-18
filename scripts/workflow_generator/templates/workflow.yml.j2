@@ -118,10 +118,10 @@
       environment: {{ meta.environment }}
       project: {{ meta.project }}
       workflow: {{ meta.workflow }}
-      {%- if inlets %}
-      inlets: {{ inlets }}
+      {%- if dag.inlets %}
+      inlets: {{ dag.inlets }}
       {%- endif %}
-      {%- if outlets %}
-      outlets: {{ outlets }}
+      {%- if dag.outlets %}
+      outlets: {{ dag.outlets }}
       {%- endif %}
     {%- endif %}

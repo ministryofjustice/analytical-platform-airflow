@@ -2,10 +2,14 @@
 dag:
   repository: ministryofjustice/airflow-export-sop-to-idam
   tag: v1.0.1-test-02
+  env_vars:
+    AWS_DEFAULT_REGION: "eu-west-2"
 
 iam:
   s3_read_only:
     - mojap-data-production-shared-services-client-team-gov-29148/cgi-ssct-sop/*
+  kms:
+    - arn:aws:kms:eu-west-2:593291632749:key/62503ba6-316e-473d-ae4b-042f8420dd07
 
 secrets:
   - sharepoint-client-secret

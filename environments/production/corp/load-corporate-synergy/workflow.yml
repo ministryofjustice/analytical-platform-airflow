@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.25
+  tag: v0.0.24-test-5
   schedule: "0 8 1-3 * *"
   env_vars:
     AFFILE_ENV: "prod"
@@ -25,7 +25,15 @@ dag:
     load-supplier_sites:
       env_vars:
         AFFILE_PIPELINE_NAME: "supplier_sites"
-
+    load-customer_sites:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "customer_sites"
+    load-customer_headers:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "customer_headers"
+    load-sba_mo_locations:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ssba_mo_locations"
 iam:
   athena: write
   glue: true
