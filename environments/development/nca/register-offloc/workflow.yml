@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/p1-offloc-export
-  tag: v6.0.0
+  tag: v6.0.1
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -17,7 +17,6 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-hub-exports/p1_nomis_TEST/*
     - moj-reg-dev/landing/offloc-dev/*
 
 secrets:
