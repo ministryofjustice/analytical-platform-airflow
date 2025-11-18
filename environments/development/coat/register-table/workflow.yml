@@ -9,11 +9,8 @@ dag:
     MODE: "dev"
 
 maintainers:
-  - tamsinforbes
   - connormaglynn
   - abachleda-baca
-  - stefanskyhristov
-  - ratna-kurapati-moj
   - antonybishop
   - andyrogers1973
   - levgorbunov1
