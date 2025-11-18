@@ -55,6 +55,36 @@ tasks = {}
 PRODUCTION_ENV = "preprod"
 DATABASE_VERSION = "dev"  # From old file, used in env_vars
 
+debug_task = AnalyticalPlatformStandardOperator(
+    dag=dag,
+    task_id="debug_file_list",
+    name="debug-file-list",
+    
+    # 1. You MUST provide a script_name to satisfy the Operator's requirements,
+    # but it will be ignored by our override below.
+    script_name="ignore_me.py", 
+    
+    # 2. Use the same image version you are testing
+    image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
+    image_pull_policy="Always", # Force pull to avoid cache
+    
+    environment=ENVIRONMENT,
+    project=PROJECT,
+    workflow=WORKFLOW,
+    
+    # 3. THE OVERRIDE: 
+    # This tells the container: "Do not run python. Run Bash instead."
+    # This overrides the ENTRYPOINT in your Dockerfile.
+    cmds=["/bin/bash", "-c"],
+    
+    # 4. THE COMMAND:
+    # List all files recursively (-R) in the /opt directory
+    arguments=["ls -laR /opt/analyticalplatform"],
+    
+    # Ensure logs are shown
+    get_logs=True
+)
+
 # --- Task Definitions ---
 
 # create jaggaer and rio tasks
