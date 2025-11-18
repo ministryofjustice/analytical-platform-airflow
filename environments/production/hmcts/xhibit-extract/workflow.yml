@@ -1,0 +1,303 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v3.0.1
+  retries: 1
+  retry_delay: 150
+  hmcts_sdp_networking: True
+  max_active_runs: 3
+  env_vars:
+    TASK: "extract"
+    LOG_LEVEL: "DEBUG"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    SDP_TABLE_PREFIX: "v3-cgi-vde-xhibit-xhb"
+    PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
+    COPY_MODE: "new"
+    CHECK_MODE: "hist"
+    FILENAME_COL_NAME: "mojap_unpacked_filename"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    DATABASE_NAME: "xhibit_preprocessed"
+    LAND_BUCKET: "s3://mojap-land"
+    HIST_BUCKET: "s3://mojap-raw-hist"
+    LAND_FOLDER: "hmcts/xhibit/"
+    HIST_FOLDER: "hmcts/xhibit/"
+    CUT_OFF: "2022-08-21"
+  tasks:
+    xhibit_extract_address:
+      env_vars:
+        TABLE_NAME: "address"
+        S3_TABLE_NAME: "address"
+        FILENAME_TABLE_NAME: "address"
+    xhibit_extract_breach:
+      env_vars:
+        TABLE_NAME: "breach"
+        S3_TABLE_NAME: "breach"
+        FILENAME_TABLE_NAME: "breach"
+    xhibit_extract_bw_history:
+      env_vars:
+        TABLE_NAME: "bw-history"
+        S3_TABLE_NAME: "bw_history"
+        FILENAME_TABLE_NAME: "bw_history"
+    xhibit_extract_case_diary_fixture:
+      env_vars:
+        TABLE_NAME: "case-diary-fixture"
+        S3_TABLE_NAME: "case_diary_fixture"
+        FILENAME_TABLE_NAME: "case_diary_fixture"
+    xhibit_extract_case_listing_entry:
+      env_vars:
+        TABLE_NAME: "case-listing-entry"
+        S3_TABLE_NAME: "case_listing_entry"
+        FILENAME_TABLE_NAME: "case_listing_entry"
+    xhibit_extract_case_on_list:
+      env_vars:
+        TABLE_NAME: "case-on-list"
+        S3_TABLE_NAME: "case_on_list"
+        FILENAME_TABLE_NAME: "case_on_list"
+    xhibit_extract_case_prosecutor_agency:
+      env_vars:
+        TABLE_NAME: "case-prosecutor-agency"
+        S3_TABLE_NAME: "case_prosecutor_agency"
+        FILENAME_TABLE_NAME: "case_prosecutor_agency"
+    xhibit_extract_cases:
+      env_vars:
+        TABLE_NAME: "case"
+        S3_TABLE_NAME: "cases"
+        FILENAME_TABLE_NAME: "cases"
+    xhibit_extract_charge:
+      env_vars:
+        TABLE_NAME: "charge"
+        S3_TABLE_NAME: "charge"
+        FILENAME_TABLE_NAME: "charge"
+    xhibit_extract_court:
+      env_vars:
+        TABLE_NAME: "court"
+        S3_TABLE_NAME: "court"
+        FILENAME_TABLE_NAME: "court"
+    xhibit_extract_court_room_usage:
+      env_vars:
+        TABLE_NAME: "court-room-usage"
+        S3_TABLE_NAME: "court_room_usage"
+        FILENAME_TABLE_NAME: "court_room_usage"
+    xhibit_extract_def_hearing_record:
+      env_vars:
+        TABLE_NAME: "def-hearing-record"
+        S3_TABLE_NAME: "def_hearing_record"
+        FILENAME_TABLE_NAME: "def_hearing_record"
+    xhibit_extract_def_on_case_ref_sol_firm:
+      env_vars:
+        TABLE_NAME: "def-on-case-ref-sol-firm"
+        S3_TABLE_NAME: "def_on_case_ref_sol_firm"
+        FILENAME_TABLE_NAME: "def_on_case_ref_sol_firm"
+    xhibit_extract_defendant:
+      env_vars:
+        TABLE_NAME: "defendant"
+        S3_TABLE_NAME: "defendant"
+        FILENAME_TABLE_NAME: "defendant"
+    xhibit_extract_defendant_charge:
+      env_vars:
+        TABLE_NAME: "defendant-charge"
+        S3_TABLE_NAME: "defendant_charge"
+        FILENAME_TABLE_NAME: "defendant_charge"
+    xhibit_extract_defendant_history:
+      env_vars:
+        TABLE_NAME: "defendant-history"
+        S3_TABLE_NAME: "defendant_history"
+        FILENAME_TABLE_NAME: "defendant_history"
+    xhibit_extract_defendant_on_case:
+      env_vars:
+        TABLE_NAME: "defendant-on-case"
+        S3_TABLE_NAME: "defendant_on_case"
+        FILENAME_TABLE_NAME: "defendant_on_case"
+    xhibit_extract_defendant_on_case_history:
+      env_vars:
+        TABLE_NAME: "defendant-on-case-history"
+        S3_TABLE_NAME: "defendant_on_case_history"
+        FILENAME_TABLE_NAME: "defendant_on_case_history"
+    xhibit_extract_defendant_on_offence:
+      env_vars:
+        TABLE_NAME: "defendant-on-offence"
+        S3_TABLE_NAME: "defendant_on_offence"
+        FILENAME_TABLE_NAME: "defendant_on_offence"
+    xhibit_extract_defendant_reference:
+      env_vars:
+        TABLE_NAME: "defendant_reference"
+        S3_TABLE_NAME: "defendant_reference"
+        FILENAME_TABLE_NAME: "defendant_reference"
+    xhibit_extract_disposal2:
+      env_vars:
+        TABLE_NAME: "disposal2"
+        S3_TABLE_NAME: "disposal2"
+        FILENAME_TABLE_NAME: "disposal2"
+    xhibit_extract_disposal_line:
+      env_vars:
+        TABLE_NAME: "disposal-line"
+        S3_TABLE_NAME: "disposal_line"
+        FILENAME_TABLE_NAME: "disposal_line"
+    xhibit_extract_hearing:
+      env_vars:
+        TABLE_NAME: "hearing"
+        S3_TABLE_NAME: "hearing"
+        FILENAME_TABLE_NAME: "hearing"
+    xhibit_extract_hearing_leg_rep:
+      env_vars:
+        TABLE_NAME: "hearing-leg-rep"
+        S3_TABLE_NAME: "hearing_leg_rep"
+        FILENAME_TABLE_NAME: "hearing_leg_rep"
+    xhibit_extract_hearing_list:
+      env_vars:
+        TABLE_NAME: "hearing-list"
+        S3_TABLE_NAME: "hearing_list"
+        FILENAME_TABLE_NAME: "hearing_list"
+    xhibit_extract_indictment_log:
+      env_vars:
+        TABLE_NAME: "indictment-log"
+        S3_TABLE_NAME: "indictment_log"
+        FILENAME_TABLE_NAME: "indictment_log"
+    xhibit_extract_legal_aid_order:
+      env_vars:
+        TABLE_NAME: "legal-aid-order"
+        S3_TABLE_NAME: "legal_aid_order"
+        FILENAME_TABLE_NAME: "legal_aid_order"
+    xhibit_extract_list:
+      env_vars:
+        TABLE_NAME: "list"
+        S3_TABLE_NAME: "list"
+        FILENAME_TABLE_NAME: "list"
+    xhibit_extract_mis_event_log:
+      env_vars:
+        TABLE_NAME: "mis-event-log"
+        S3_TABLE_NAME: "mis_event_log"
+        FILENAME_TABLE_NAME: "mis_event_log"
+    xhibit_extract_monetary_order_tracking:
+      env_vars:
+        TABLE_NAME: "monetary-order-tracking"
+        S3_TABLE_NAME: "monetary_order_tracking"
+        FILENAME_TABLE_NAME: "monetary_order_tracking"
+    xhibit_extract_offence:
+      env_vars:
+        TABLE_NAME: "offence"
+        S3_TABLE_NAME: "offence"
+        FILENAME_TABLE_NAME: "offence"
+    xhibit_extract_plea:
+      env_vars:
+        TABLE_NAME: "plea"
+        S3_TABLE_NAME: "plea"
+        FILENAME_TABLE_NAME: "plea"
+    xhibit_extract_ref_advocate:
+      env_vars:
+        TABLE_NAME: "ref-advocate"
+        S3_TABLE_NAME: "ref_advocate"
+        FILENAME_TABLE_NAME: "ref_advocate"
+    xhibit_extract_ref_app_result:
+      env_vars:
+        TABLE_NAME: "ref-app-result"
+        S3_TABLE_NAME: "ref_app_result"
+        FILENAME_TABLE_NAME: "ref_app_result"
+    xhibit_extract_ref_court:
+      env_vars:
+        TABLE_NAME: "ref-court"
+        S3_TABLE_NAME: "ref_court"
+        FILENAME_TABLE_NAME: "ref_court"
+    xhibit_extract_ref_cracked_effective:
+      env_vars:
+        TABLE_NAME: "ref-cracked-effective"
+        S3_TABLE_NAME: "ref_cracked_effective"
+        FILENAME_TABLE_NAME: "ref_cracked_effective"
+    xhibit_extract_ref_disposal_line:
+      env_vars:
+        TABLE_NAME: "ref-disposal-line"
+        S3_TABLE_NAME: "ref_dispoal_line"
+        FILENAME_TABLE_NAME: "ref_disposal_line"
+    xhibit_extract_ref_disposal_type:
+      env_vars:
+        TABLE_NAME: "ref-disposal-type"
+        S3_TABLE_NAME: "ref_disposal_type"
+        FILENAME_TABLE_NAME: "ref_disposal_type"
+    xhibit_extract_ref_event_description:
+      env_vars:
+        TABLE_NAME: "ref-event-description"
+        S3_TABLE_NAME: "ref_event_description"
+        FILENAME_TABLE_NAME: "ref_event_description"
+    xhibit_extract_ref_hearing_type:
+      env_vars:
+        TABLE_NAME: "ref-hearing-type"
+        S3_TABLE_NAME: "ref_hearing_type"
+        FILENAME_TABLE_NAME: "ref_hearing_type"
+    xhibit_extract_ref_judge:
+      env_vars:
+        TABLE_NAME: "ref-judge"
+        S3_TABLE_NAME: "ref_judge"
+        FILENAME_TABLE_NAME: "ref_judge"
+    xhibit_extract_ref_legal_representative:
+      env_vars:
+        TABLE_NAME: "ref-legal-representative"
+        S3_TABLE_NAME: "ref_legal_representative"
+        FILENAME_TABLE_NAME: "ref_legal_representative"
+    xhibit_extract_ref_listing_data:
+      env_vars:
+        TABLE_NAME: "ref-listing-data"
+        S3_TABLE_NAME: "ref_listing_data"
+        FILENAME_TABLE_NAME: "ref_listing_data"
+    xhibit_extract_ref_offence:
+      env_vars:
+        TABLE_NAME: "ref-offence"
+        S3_TABLE_NAME: "ref_offence"
+        FILENAME_TABLE_NAME: "ref_offence"
+    xhibit_extract_ref_solicitor_firm:
+      env_vars:
+        TABLE_NAME: "ref-solicitor-firm"
+        S3_TABLE_NAME: "ref_solicitor_firm"
+        FILENAME_TABLE_NAME: "ref_solicitor_firm"
+    xhibit_extract_ref_system_code:
+      env_vars:
+        TABLE_NAME: "ref-system-code"
+        S3_TABLE_NAME: "ref_system_code"
+        FILENAME_TABLE_NAME: "ref_system_code"
+    xhibit_extract_sched_hearing_defendant:
+      env_vars:
+        TABLE_NAME: "sched-hearing-defendant"
+        S3_TABLE_NAME: "sched_hearing_defendant"
+        FILENAME_TABLE_NAME: "sched_hearing_defendant"
+    xhibit_extract_scheduled_hearing:
+      env_vars:
+        TABLE_NAME: "scheduled-hearing"
+        S3_TABLE_NAME: "scheduled_hearing"
+        FILENAME_TABLE_NAME: "scheduled_hearing"
+    xhibit_extract_sh_leg_rep:
+      env_vars:
+        TABLE_NAME: "sh-leg-rep"
+        S3_TABLE_NAME: "sh_leg_rep"
+        FILENAME_TABLE_NAME: "sh_leg_rep"
+    xhibit_extract_sitting:
+      env_vars:
+        TABLE_NAME: "sitting"
+        S3_TABLE_NAME: "sitting"
+        FILENAME_TABLE_NAME: "sitting"
+    xhibit_extract_terminal:
+      env_vars:
+        TABLE_NAME: "terminal"
+        S3_TABLE_NAME: "terminal"
+        FILENAME_TABLE_NAME: "terminal"
+    xhibit_extract_verdict:
+      env_vars:
+        TABLE_NAME: "verdict"
+        S3_TABLE_NAME: "verdict"
+        FILENAME_TABLE_NAME: "verdict"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land/hmcts/xhibit/*
+  s3_read_only:
+    - alpha-mojap-curated-xhibit/ors/v2/*
+    - alpha-mojap-ccd/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - Andy-Cook
+  - jovita-brundziene
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
