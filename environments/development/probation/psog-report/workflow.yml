@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
-  tag: v1.1.65-dev11
+  tag: v1.1.65-dev12
 
 iam:
   athena: write
