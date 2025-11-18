@@ -199,12 +199,14 @@ dag:
 iam:
   athena: write
   s3_read_write:
-    - mojap-land-dev/hmcts/common-platform/*
-    - mojap-raw-hist-dev/hmcts/common-platform/*
-    - alpha-mojap-common-platform/*
+    - mojap-land/hmcts/xhibit/*
+    - mojap-raw-hist/hmcts/xhibit/*
+    - alpha-mojap-curated-xhibit/ors/v2/*
 
 maintainers:
-  - andy-cook
+  - Andy-Cook
+  - jovita-brundziene
+
 
 tags:
   business_unit: Central Digital
