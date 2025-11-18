@@ -16,7 +16,7 @@ dag:
     DBT_SELECT_CRITERIA: tag:daily tag:weekly
     BRANCH: main
     MODE: build
-    IS_SUNDAY_RUN: true
+    IS_SUNDAY_DEPLOY: true
 
 maintainers:
   - jhpyke
