@@ -4,7 +4,9 @@ dag:
   tag: 1.1.13
   compute_profile: general-on-demand-8vcpu-32gb
   schedule: "0 6 * * *"
-  outlets: ["s3://mojap-derived-tables/prod/curated-daily/"]
+  catchup: false
+  outlets:
+    - "s3://mojap-derived-tables/prod/curated-daily/"
   env_vars:
     DEPLOY_ENV: sandpit
     DBT_PROFILE_WORKGROUP: dbt-curated-daily
