@@ -4,6 +4,7 @@ from analytical_platform.standard_operator import AnalyticalPlatformStandardOper
 from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
+from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesPodOperator
 
 # --- Placeholders ---
 
@@ -51,6 +52,34 @@ dag = DAG(
 )
 
 tasks = {}
+
+2. Define the debug task using the raw operator
+debug_task = KubernetesPodOperator(
+    dag=dag,
+    task_id="debug_file_list",
+    name="debug-file-list",
+    
+    # Use your image variables
+    image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
+    
+    # This is the key: KPO allows us to force the pull
+    image_pull_policy="Always",
+    
+    # Override the Docker entrypoint to list files
+    cmds=["/bin/bash", "-c"],
+    arguments=["ls -laR /opt/analyticalplatform"],
+    
+    # Basic configuration to ensure it runs on your cluster
+    namespace="airflow",  # Adjust if your DAGs run in a different namespace
+    service_account_name="airflow", # Standard for MOJ Analytical Platform
+    get_logs=True,
+    
+    # Minimal resources to get it scheduled fast
+    resources={
+        'request_cpu': '100m',
+        'request_memory': '128Mi',
+    },
+)
 
 PRODUCTION_ENV = "preprod"
 DATABASE_VERSION = "dev"  # From old file, used in env_vars
@@ -379,6 +408,7 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
 
 # --- Task Dependencies ---
 # This is copied directly from your old file, as all task_ids match.
+debug_task >> tasks['extract_jaggaer']
 
 tasks["extract_jaggaer"] >> tasks["jaggaer_preprocess"]
 tasks["jaggaer_preprocess"] >> tasks["lint_jaggaer"]
