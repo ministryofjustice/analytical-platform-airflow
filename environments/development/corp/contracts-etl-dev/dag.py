@@ -55,6 +55,42 @@ tasks = {}
 PRODUCTION_ENV = "preprod"
 DATABASE_VERSION = "dev"  # From old file, used in env_vars
 
+# 1. Ensure you have this import at the top of your file
+from airflow.providers.cncf.kubernetes.operators.kubernetes_pod import KubernetesPodOperator
+
+# ... inside your DAG definition ...
+
+# 2. Define the debug task using the raw operator
+debug_task = KubernetesPodOperator(
+    dag=dag,
+    task_id="debug_file_list",
+    name="debug-file-list",
+    
+    # Use your image variables
+    image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
+    
+    # This is the key: KPO allows us to force the pull
+    image_pull_policy="Always",
+    
+    # Override the Docker entrypoint to list files
+    cmds=["/bin/bash", "-c"],
+    arguments=["ls -laR /opt/analyticalplatform"],
+    
+    # Basic configuration to ensure it runs on your cluster
+    namespace="airflow",  # Adjust if your DAGs run in a different namespace
+    service_account_name="airflow", # Standard for MOJ Analytical Platform
+    get_logs=True,
+    
+    # Minimal resources to get it scheduled fast
+    resources={
+        'request_cpu': '100m',
+        'request_memory': '128Mi',
+    },
+)
+
+# 3. Link it to your failing task so it runs first
+# debug_task >> tasks['extract_jaggaer']
+
 # --- Task Definitions ---
 
 # create jaggaer and rio tasks
