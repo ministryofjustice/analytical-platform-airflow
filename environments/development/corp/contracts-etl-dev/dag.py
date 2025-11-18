@@ -75,6 +75,7 @@ for db in dbs:
         workflow=WORKFLOW,
         env_vars={
             "PYTHON_SCRIPT_NAME": f"{DATABASE_NAME}_to_land.py",
+            "AIRFLOW__CORE__LOGGING_LEVEL": "DEBUG",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
             "IMAGE_VERSION": REPOSITORY_TAG,
