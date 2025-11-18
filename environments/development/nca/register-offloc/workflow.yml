@@ -1,13 +1,13 @@
 dag:
   repository: moj-analytical-services/p1-offloc-export
-  tag: v6.0.0
+  tag: v6.0.1
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 1
   retries: 1
   retry_delay: 150
-  schedule: "30 2 * * *"
+  schedule: None # "30 2 * * *"
   start_date: "2025-08-07"
   tasks:
     task:
