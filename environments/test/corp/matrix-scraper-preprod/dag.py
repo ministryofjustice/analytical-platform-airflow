@@ -1,15 +1,15 @@
-from datetime import datetime, timedelta
+from datetime import datetime
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 
 
-REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
-REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
-PROJECT="PLACEHOLDER_PROJECT"
-WORKFLOW="PLACEHOLDER_WORKFLOW"
-ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
-OWNER="PLACEHOLDER_OWNER"
-DATE=datetime.today().strftime('%Y-%m-%d')
+REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
+REPOSITORY_TAG = "PLACEHOLDER_REPOSITORY_TAG"
+PROJECT = "PLACEHOLDER_PROJECT"
+WORKFLOW = "PLACEHOLDER_WORKFLOW"
+ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
+OWNER = "PLACEHOLDER_OWNER"
+DATE = datetime.today().strftime("%Y-%m-%d")
 
 DAG_EMAIL = [
     "Supratik.Chowdhury@justice.gov.uk",
@@ -22,7 +22,7 @@ default_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "owner": f"{OWNER}",
-    "email": DAG_EMAIL
+    "email": DAG_EMAIL,
 }
 
 default_params = {
@@ -39,29 +39,26 @@ dag = DAG(
 )
 
 
-
-
 def create_kubernetes_operator(task_id, run_function, dag, scrape_date=DATE):
     return AnalyticalPlatformStandardOperator(
-        dag = dag,
-        task_id = task_id,
-        name = f"{PROJECT}.{WORKFLOW}.{task_id}",
-        compute_profile = "general-on-demand-1vcpu-4gb",
-        image = f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
-        environment = f"{ENVIRONMENT}",
-        project = f"{PROJECT}",
-        workflow = f"{WORKFLOW}",
-        env_vars = {
+        dag=dag,
+        task_id=task_id,
+        name=f"{PROJECT}.{WORKFLOW}.{task_id}",
+        compute_profile="general-on-demand-1vcpu-4gb",
+        image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
+        environment=f"{ENVIRONMENT}",
+        project=f"{PROJECT}",
+        workflow=f"{WORKFLOW}",
+        env_vars={
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "AWS_DEFAULT_REGION": "eu-west-1"
+            "AWS_DEFAULT_REGION": "eu-west-1",
         },
-        cmds = ["bash", "-c"],
-        arguments = [
+        cmds=["bash", "-c"],
+        arguments=[
             f"""uv run python_scripts/main.py --scrape_date {scrape_date} \
             --env preprod --function {run_function}""",
         ],
-
     )
 
 
