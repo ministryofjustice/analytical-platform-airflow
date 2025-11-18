@@ -49,6 +49,33 @@ dag = DAG(
     catchup=False,
     max_active_tasks=1,
 )
+debug_task = AnalyticalPlatformStandardOperator(
+    dag=dag,
+    task_id="debug_file_list",
+    name="debug-file-list",
+    
+    # --- MANDATORY ARGUMENTS ---
+    script_name="ignore_me.py",  # Dummy value (ignored by our override)
+    compute_profile="general-on-demand-1vcpu-4gb", 
+    
+    # --- IMAGE CONFIG ---
+    image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
+    image_pull_policy="Always",  # Force pull to ensure we see the newest build
+    
+    # --- METADATA ---
+    environment=ENVIRONMENT,
+    project=PROJECT,
+    workflow=WORKFLOW,
+    
+    # --- THE OVERRIDE (List Files) ---
+    # This ignores the script_name and runs 'ls' instead
+    cmds=["/bin/bash", "-c"],
+    arguments=["ls -laR /opt/analyticalplatform"],
+    
+    # Ensure we see the output
+    get_logs=True
+)
+
 
 tasks = {}
 
@@ -378,8 +405,10 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
 )
 
 # --- Task Dependencies ---
-# This is copied directly from your old file, as all task_ids match.
+# 
 
+
+debug_task >> tasks['extract_jaggaer']
 tasks["extract_jaggaer"] >> tasks["jaggaer_preprocess"]
 tasks["jaggaer_preprocess"] >> tasks["lint_jaggaer"]
 tasks["lint_jaggaer"] >> tasks["process_jaggaer"]
