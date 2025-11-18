@@ -15,7 +15,7 @@ dag:
     opg-gl22:
       env_vars:
         REPORT_NAME: "opg_gl22"
-        REPORT_SECRET_ID: "chris-sbi-creds"
+        REPORT_SECRET_ID: "supratik-sbi-creds"
 
 iam:
   s3_read_write:
