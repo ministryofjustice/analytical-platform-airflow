@@ -30,7 +30,6 @@ dag = DAG(
     description="Contracts ETL Pipeline",
     start_date=datetime(2022, 5, 20),
     catchup=False,
-    max_active_tasks=1,
 )
 
 
