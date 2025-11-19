@@ -135,6 +135,11 @@ iam:
     - alpha-vast/keys/*
     - alpha-vast/models/*
 
+notifications:
+  emails:
+    - alex.gower@justice.gov.uk
+  slack_channel: vast-lightgbm-alerts
+
 maintainers:
   - alexgower
 
