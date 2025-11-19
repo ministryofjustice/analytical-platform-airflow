@@ -1,0 +1,143 @@
+dag:
+  repository: moj-analytical-services/vast-lightgbm
+  tag: 0.1.2          # <-- keep this in sync with your successful GitHub release tag
+  max_active_runs: 1
+
+  env_vars:
+    AWS_REGION: eu-west-1
+    AWS_DEFAULT_REGION: eu-west-1
+    ATHENA_DB: vast_training_data
+    ATHENA_TABLE: x_structured_y
+    AWS_ATHENA_S3_STAGING_DIR: s3://alpha-vast/athena-staging/
+
+    OUT_BASE:  s3://alpha-vast/bins
+    CSV_BASE:  s3://alpha-vast/csv
+    KEYS_BASE: s3://alpha-vast/keys
+
+    MODEL_BASE:   s3://alpha-vast/models
+    MODEL_FAMILY: lightgbm
+
+    TARGETS: "y_h7_any y_h14_any"
+    GROUP_COLS: "agy_loc_id,index_date"
+
+    # keep build/train aligned:
+    MAX_BIN: "127"
+
+  # ---- DAG parameters: can be overridden in the Airflow UI when triggering a run ----
+  params:
+    # naming / versioning
+    dataset_suffix: x_structured_y_bins127_train_pos_10000
+    model_run: "first_run"
+
+    # build / sampling
+    neg_multiplier: 20
+    train_max_pos: 10000
+    val_max: null
+    test_max: null
+    heldout_max: null
+    two_round: true
+    bin_construct_sample_cnt: null
+
+    # training hyperparameters
+    num_boost_round: 2000
+    early_stopping_rounds: 200
+    learning_rate: 0.05
+    num_leaves: 63
+    max_depth: 6          # -1 for no max depth
+    min_data_in_leaf: 60
+    feature_fraction: 0.8
+    bagging_fraction: 0.8
+    bagging_freq: 1
+    lambda_l1: 0.0
+    lambda_l2: 5.0
+    scale_pos_weight: 20.0
+    num_threads: 0
+    verbosity: 1
+    seed: 42
+    boosting: gbdt
+    valid_heldout: true
+    # dart / gpu toggles (leave as null/false unless you need them)
+    drop_rate: 0.1
+    max_drop: 50
+    skip_drop: 0.5
+    use_gpu: false
+    gpu_device: 0
+
+    # evaluation
+    eval_target: y_h7_any
+    ks: "0.5,1,2,5,10"
+    sample_train_days: 100
+    sample_val_days: 10
+    sample_test_days: 10
+    sample_heldout_days: 50
+    eval_seed: 42
+    chunksize: 20000
+
+  compute_profile: general-spot-4vcpu-16gb
+
+  tasks:
+    build_bins:
+      env_vars:
+        STEP: "build"
+        NEG_MULTIPLIER: "{{ params.neg_multiplier }}"
+        TRAIN_MAX_POS: "{{ params.train_max_pos }}"
+        VAL_MAX: "{{ params.val_max }}"
+        TEST_MAX: "{{ params.test_max }}"
+        HELDOUT_MAX: "{{ params.heldout_max }}"
+        TWO_ROUND: "{{ params.two_round | int }}"   # '1' or '0'
+        BIN_CONSTRUCT_SAMPLE_CNT: "{{ params.bin_construct_sample_cnt }}"
+
+    train:
+      dependencies: [build_bins]
+      env_vars:
+        STEP: "train"
+        NUM_BOOST_ROUND: "{{ params.num_boost_round }}"
+        EARLY_STOPPING_ROUNDS: "{{ params.early_stopping_rounds }}"
+        LEARNING_RATE: "{{ params.learning_rate }}"
+        NUM_LEAVES: "{{ params.num_leaves }}"
+        MAX_DEPTH: "{{ params.max_depth }}"
+        MIN_DATA_IN_LEAF: "{{ params.min_data_in_leaf }}"
+        FEATURE_FRACTION: "{{ params.feature_fraction }}"
+        BAGGING_FRACTION: "{{ params.bagging_fraction }}"
+        BAGGING_FREQ: "{{ params.bagging_freq }}"
+        LAMBDA_L1: "{{ params.lambda_l1 }}"
+        LAMBDA_L2: "{{ params.lambda_l2 }}"
+        SCALE_POS_WEIGHT: "{{ params.scale_pos_weight }}"
+        NUM_THREADS: "{{ params.num_threads }}"
+        VERBOSITY: "{{ params.verbosity }}"
+        SEED: "{{ params.seed }}"
+        BOOSTING: "{{ params.boosting }}"
+        VALID_HELDOUT: "{{ params.valid_heldout | int }}"
+        DROP_RATE: "{{ params.drop_rate }}"
+        MAX_DROP: "{{ params.max_drop }}"
+        SKIP_DROP: "{{ params.skip_drop }}"
+        USE_GPU: "{{ params.use_gpu | int }}"
+        GPU_DEVICE: "{{ params.gpu_device }}"
+
+    evaluate:
+      dependencies: [train]
+      env_vars:
+        STEP: "eval"
+        EVAL_TARGET: "{{ params.eval_target }}"
+        KS: "{{ params.ks }}"
+        SAMPLE_TRAIN_DAYS: "{{ params.sample_train_days }}"
+        SAMPLE_VAL_DAYS: "{{ params.sample_val_days }}"
+        SAMPLE_TEST_DAYS: "{{ params.sample_test_days }}"
+        SAMPLE_HELDOUT_DAYS: "{{ params.sample_heldout_days }}"
+        SEED: "{{ params.eval_seed }}"
+        CHUNKSIZE: "{{ params.chunksize }}"
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-vast/bins/*
+    - alpha-vast/csv/*
+    - alpha-vast/keys/*
+    - alpha-vast/models/*
+
+maintainers:
+  - alexgower
+
+tags:
+  business_unit: HQ
+  owner: alex.gower@justice.gov.uk
