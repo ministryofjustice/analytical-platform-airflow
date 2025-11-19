@@ -14,7 +14,6 @@ IMAGE = f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSI
 DEFAULT_DB_ENV = "dev"
 RETRIES=0
 
-
 # --- Default Args ---
 default_args = {
     "depends_on_past": False,
