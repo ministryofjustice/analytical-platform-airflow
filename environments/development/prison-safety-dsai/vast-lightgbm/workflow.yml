@@ -1,7 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.3  # keep this in sync with your successful GitHub release tag
+  tag: 0.1.3
+  # Keep this in sync with your successful GitHub release tag
   max_active_runs: 1
 
   env_vars:
@@ -21,16 +22,16 @@ dag:
     TARGETS: "y_h7_any y_h14_any"
     GROUP_COLS: "agy_loc_id,index_date"
 
-    # keep build/train aligned:
+    # Keep build/train aligned:
     MAX_BIN: "127"
 
   # ---- DAG parameters: can be overridden in the Airflow UI when triggering a run ----
   params:
-    # naming / versioning
+    # Naming / versioning
     dataset_suffix: x_structured_y_bins127_train_pos_10000
-    model_run: "first_run"
+    model_run: first_run
 
-    # build / sampling
+    # Build / sampling
     neg_multiplier: 20
     train_max_pos: 10000
     val_max: null
@@ -39,12 +40,12 @@ dag:
     two_round: true
     bin_construct_sample_cnt: null
 
-    # training hyperparameters
+    # Training hyperparameters
     num_boost_round: 2000
     early_stopping_rounds: 200
     learning_rate: 0.05
     num_leaves: 63
-    max_depth: 6          # -1 for no max depth
+    max_depth: 6 # Use -1 for no max depth
     min_data_in_leaf: 60
     feature_fraction: 0.8
     bagging_fraction: 0.8
@@ -57,14 +58,15 @@ dag:
     seed: 42
     boosting: gbdt
     valid_heldout: true
-    # dart / gpu toggles (leave as null/false unless you need them)
+
+    # Dart / GPU toggles (leave as defaults unless needed)
     drop_rate: 0.1
     max_drop: 50
     skip_drop: 0.5
     use_gpu: false
     gpu_device: 0
 
-    # evaluation
+    # Evaluation
     eval_target: y_h7_any
     ks: "0.5,1,2,5,10"
     sample_train_days: 100
@@ -79,19 +81,20 @@ dag:
   tasks:
     build_bins:
       env_vars:
-        STEP: "build"
+        STEP: build
         NEG_MULTIPLIER: "{{ params.neg_multiplier }}"
         TRAIN_MAX_POS: "{{ params.train_max_pos }}"
         VAL_MAX: "{{ params.val_max }}"
         TEST_MAX: "{{ params.test_max }}"
         HELDOUT_MAX: "{{ params.heldout_max }}"
-        TWO_ROUND: "{{ params.two_round | int }}"   # '1' or '0'
+        TWO_ROUND: "{{ params.two_round | int }}"
         BIN_CONSTRUCT_SAMPLE_CNT: "{{ params.bin_construct_sample_cnt }}"
 
     train:
-      dependencies: [build_bins]
+      dependencies:
+        - build_bins
       env_vars:
-        STEP: "train"
+        STEP: train
         NUM_BOOST_ROUND: "{{ params.num_boost_round }}"
         EARLY_STOPPING_ROUNDS: "{{ params.early_stopping_rounds }}"
         LEARNING_RATE: "{{ params.learning_rate }}"
@@ -116,9 +119,10 @@ dag:
         GPU_DEVICE: "{{ params.gpu_device }}"
 
     evaluate:
-      dependencies: [train]
+      dependencies:
+        - train
       env_vars:
-        STEP: "eval"
+        STEP: eval
         EVAL_TARGET: "{{ params.eval_target }}"
         KS: "{{ params.ks }}"
         SAMPLE_TRAIN_DAYS: "{{ params.sample_train_days }}"
