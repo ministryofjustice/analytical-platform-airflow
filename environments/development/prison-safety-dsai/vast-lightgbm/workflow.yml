@@ -135,6 +135,7 @@ dag:
 iam:
   athena: write
   s3_read_write:
+    - alpha-vast/athena-staging/*
     - alpha-vast/bins/*
     - alpha-vast/csv/*
     - alpha-vast/keys/*
