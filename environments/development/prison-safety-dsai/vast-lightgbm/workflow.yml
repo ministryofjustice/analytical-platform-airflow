@@ -34,11 +34,11 @@ dag:
     # Build / sampling
     neg_multiplier: 20
     train_max_pos: 10000
-    val_max: null
-    test_max: null
-    heldout_max: null
+    val_max: -1
+    test_max: -1
+    heldout_max: -1
     two_round: true
-    bin_construct_sample_cnt: null
+    bin_construct_sample_cnt: -1
 
     # Training hyperparameters
     num_boost_round: 2000
