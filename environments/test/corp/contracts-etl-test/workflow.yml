@@ -12,6 +12,7 @@ iam:
     - alpha-contracts-etl/*
     - alpha-app-commuter-contracts/*
     - alpha-sop-commercial-land/*
+    - mojap-athena-query-dump/*
   s3_write_only:
     - alpha-app-scorecard-form/jaggaer/*
     - alpha-app-scorecard-form-dev/jaggaer/*

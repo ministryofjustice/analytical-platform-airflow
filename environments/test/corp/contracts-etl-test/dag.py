@@ -10,69 +10,43 @@ PROJECT = "PLACEHOLDER_PROJECT"
 WORKFLOW = "PLACEHOLDER_WORKFLOW"
 ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
 OWNER = "PLACEHOLDER_OWNER"
+IMAGE = (
+    f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}"
+)
+DEFAULT_DB_ENV = "dev"
+RETRIES = 0
 
-# --- Image ---
-IMAGE = (f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}")
-
-# --- Email ---
-DAG_EMAIL = ["supratik.chowdhury@justice.gov.uk"]
 
 # --- Default Args ---
 default_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "owner": f"{OWNER}",
-    "email": DAG_EMAIL
+    "email": "supratik.chowdhury@justice.gov.uk",
 }
 
 # --- DAG ---
 dag = DAG(
     dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=default_args,
-    description="Contracts data pipeline",
+    description="Contracts ETL Pipeline",
     start_date=datetime(2022, 5, 20),
     catchup=False,
-    max_active_tasks=1,
 )
 
-tasks = {}
-
-PRODUCTION_ENV = "preprod"
-DATABASE_VERSION = "dev"  # From old file, used in env_vars
 
 # --- Task Definitions ---
 
-# create jaggaer and rio tasks
-dbs = [("jaggaer", "raw_to_curated.py"), ("rio", "rio_raw_hist_to_curated.py")]
 
-for db in dbs:
-    DATABASE_NAME = db[0]
-
-    task_id = f"extract_{DATABASE_NAME}"
-    tasks[task_id] = AnalyticalPlatformStandardOperator(
-        dag=dag,
-        task_id=task_id,
-        name=task_id,
-        compute_profile="general-on-demand-1vcpu-4gb",  # Added default
-        image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
-        environment=ENVIRONMENT,
-        project=PROJECT,
-        workflow=WORKFLOW,
-        env_vars={
-            "PYTHON_SCRIPT_NAME": f"{DATABASE_NAME}_to_land.py",
-            "AIRFLOW__CORE__LOGGING_LEVEL": "DEBUG",
-            "AWS_METADATA_SERVICE_TIMEOUT": "60",
-            "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "IMAGE_VERSION": REPOSITORY_TAG,
-            "DEFAULT_DB_ENV": DATABASE_VERSION,
-            "SOURCE_DB_ENV": DATABASE_NAME,
-            "AWS_DEFAULT_REGION": "eu-west-1",
-            "GITHUB_TAG": REPOSITORY_TAG,
-        },
-    )
-
-    task_id = f"lint_{DATABASE_NAME}"
-    tasks[task_id] = AnalyticalPlatformStandardOperator(
+def create_task(
+    task_id,
+    python_script_name,
+    source_db_env,
+    prod_db_env=None,
+    table_name_env=None,
+    trigger_rule=None,
+):
+    return AnalyticalPlatformStandardOperator(
         dag=dag,
         task_id=task_id,
         name=task_id,
@@ -81,291 +55,173 @@ for db in dbs:
         environment=ENVIRONMENT,
         project=PROJECT,
         workflow=WORKFLOW,
+        trigger_rule=trigger_rule or "all_success",
+        retries=RETRIES,
         env_vars={
-            "PYTHON_SCRIPT_NAME": "land_to_raw_hist.py",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "IMAGE_VERSION": REPOSITORY_TAG,
-            "DEFAULT_DB_ENV": DATABASE_VERSION,
-            "SOURCE_DB_ENV": DATABASE_NAME,
             "AWS_DEFAULT_REGION": "eu-west-1",
+            "IMAGE_VERSION": REPOSITORY_TAG,
             "GITHUB_TAG": REPOSITORY_TAG,
+            "DEFAULT_DB_ENV": DEFAULT_DB_ENV,
+            "PYTHON_SCRIPT_NAME": python_script_name,
+            "SOURCE_DB_ENV": source_db_env,
+            **({"PROD_DB_ENV": prod_db_env} if prod_db_env else {}),
+            **({"TABLE_NAME_ENV": table_name_env} if table_name_env else {}),
         },
-
     )
 
-    task_id = f"process_{DATABASE_NAME}"
-    tasks[task_id] = AnalyticalPlatformStandardOperator(
-        dag=dag,
-        task_id=task_id,
-        name=task_id,
-        compute_profile="general-on-demand-1vcpu-4gb",
-        image=IMAGE,
-        environment=ENVIRONMENT,
-        project=PROJECT,
-        workflow=WORKFLOW,
-        env_vars={
-            "PYTHON_SCRIPT_NAME": db[1],
-            "AWS_METADATA_SERVICE_TIMEOUT": "60",
-            "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "IMAGE_VERSION": REPOSITORY_TAG,
-            "DEFAULT_DB_ENV": DATABASE_VERSION,
-            "SOURCE_DB_ENV": DATABASE_NAME,
-            "AWS_DEFAULT_REGION": "eu-west-1",
-            "GITHUB_TAG": REPOSITORY_TAG,
-            "PROD_DB_ENV": "preprod",
-        },
 
-    )
+tasks = {}
 
-    task_id = f"create_{DATABASE_NAME}_db"
-    tasks[task_id] = AnalyticalPlatformStandardOperator(
-        dag=dag,
-        task_id=task_id,
-        name=task_id,
-        trigger_rule="all_done",
-        compute_profile="general-on-demand-1vcpu-4gb",
-        image=IMAGE,
-        environment=ENVIRONMENT,
-        project=PROJECT,
-        workflow=WORKFLOW,
-        env_vars={
-            "PYTHON_SCRIPT_NAME": "create_db.py",
-            "AWS_METADATA_SERVICE_TIMEOUT": "60",
-            "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "IMAGE_VERSION": REPOSITORY_TAG,
-            "DEFAULT_DB_ENV": DATABASE_VERSION,
-            "SOURCE_DB_ENV": DATABASE_NAME,
-            "AWS_DEFAULT_REGION": "eu-west-1",
-            "GITHUB_TAG": REPOSITORY_TAG,
-            "PROD_DB_ENV": "live",
-        },
+# Jagger Extract Tasks ----
+SOURCE_DB_ENV = "jaggaer"
+tasks[f"extract_{SOURCE_DB_ENV}"] = create_task(
+    task_id=f"extract_{SOURCE_DB_ENV}",
+    python_script_name=f"{SOURCE_DB_ENV}_to_land.py",
+    source_db_env=SOURCE_DB_ENV,
+)
 
-    )
+tasks["jaggaer_preprocess"] = create_task(
+    task_id="jaggaer_preprocess",
+    python_script_name="pre_process_jaggaer.py",
+    source_db_env=SOURCE_DB_ENV,
+    prod_db_env="preprod",
+)
 
-    task_id = f"create_{DATABASE_NAME}_extracts"
-    tasks[task_id] = AnalyticalPlatformStandardOperator(
-        dag=dag,
-        task_id=task_id,
-        name=task_id,
-        compute_profile="general-on-demand-1vcpu-4gb",
-        image=IMAGE,
-        environment=ENVIRONMENT,
-        project=PROJECT,
-        workflow=WORKFLOW,
-        env_vars={
-            "PYTHON_SCRIPT_NAME": "create_app_extracts.py",
-            "AWS_METADATA_SERVICE_TIMEOUT": "60",
-            "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "IMAGE_VERSION": REPOSITORY_TAG,
-            "DEFAULT_DB_ENV": DATABASE_VERSION,
-            "SOURCE_DB_ENV": DATABASE_NAME,
-            "AWS_DEFAULT_REGION": "eu-west-1",
-            "GITHUB_TAG": REPOSITORY_TAG,
-            "PROD_DB_ENV": "live",
-        },
+tasks[f"lint_{SOURCE_DB_ENV}"] = create_task(
+    task_id=f"lint_{SOURCE_DB_ENV}",
+    python_script_name="land_to_raw_hist.py",
+    source_db_env=SOURCE_DB_ENV,
+)
 
-    )
+tasks[f"process_{SOURCE_DB_ENV}"] = create_task(
+    task_id=f"process_{SOURCE_DB_ENV}",
+    python_script_name="raw_to_curated.py",
+    source_db_env=SOURCE_DB_ENV,
+    prod_db_env="preprod",
+)
 
-# these are tables we run extracts from and can get preprod
-# check results for each independently
+tasks[f"create_{SOURCE_DB_ENV}_db"] = create_task(
+    task_id=f"create_{SOURCE_DB_ENV}_db",
+    python_script_name="create_db.py",
+    source_db_env=SOURCE_DB_ENV,
+    prod_db_env="live",
+    trigger_rule="all_done",
+)
+
+tasks[f"create_{SOURCE_DB_ENV}_extracts"] = create_task(
+    task_id=f"create_{SOURCE_DB_ENV}_extracts",
+    python_script_name="create_app_extracts.py",
+    source_db_env=SOURCE_DB_ENV,
+    prod_db_env="live",
+)
+
+
+# Rio Extract Tasks ----
+SOURCE_DB_ENV = "rio"
+tasks[f"extract_{SOURCE_DB_ENV}"] = create_task(
+    task_id=f"extract_{SOURCE_DB_ENV}",
+    python_script_name=f"{SOURCE_DB_ENV}_to_land.py",
+    source_db_env=SOURCE_DB_ENV,
+)
+
+tasks[f"lint_{SOURCE_DB_ENV}"] = create_task(
+    task_id=f"lint_{SOURCE_DB_ENV}",
+    python_script_name="land_to_raw_hist.py",
+    source_db_env=SOURCE_DB_ENV,
+)
+
+tasks[f"process_{SOURCE_DB_ENV}"] = create_task(
+    task_id=f"process_{SOURCE_DB_ENV}",
+    python_script_name="rio_raw_hist_to_curated.py",
+    source_db_env=SOURCE_DB_ENV,
+    prod_db_env="preprod",
+)
+
+tasks[f"create_{SOURCE_DB_ENV}_db"] = create_task(
+    task_id=f"create_{SOURCE_DB_ENV}_db",
+    python_script_name="create_db.py",
+    source_db_env=SOURCE_DB_ENV,
+    prod_db_env="live",
+    trigger_rule="all_done",
+)
+
+tasks[f"create_{SOURCE_DB_ENV}_extracts"] = create_task(
+    task_id=f"create_{SOURCE_DB_ENV}_extracts",
+    python_script_name="create_app_extracts.py",
+    source_db_env=SOURCE_DB_ENV,
+    prod_db_env="live",
+)
+
+# Table Tasks ----
+
 tables = [
     ("claims", "jaggaer"),
     ("contracts", "jaggaer"),
     ("light_touch_scorecards", "jaggaer"),
     ("spend", "jaggaer"),
     ("rio", "rio"),
-    ("risk_category", "rio"),
 ]
 
 for table in tables:
-    DATABASE_NAME = table[1]
+    SOURCE_DB_ENV = table[1]
+    TABLE_NAME_ENV = table[0]
 
-    task_id = f"preprod_check_staus_{table[0]}"
-    tasks[task_id] = AnalyticalPlatformStandardOperator(
-        dag=dag,
-        task_id=task_id,
-        name=task_id,
-        retries=1,  # Note: Preserved task-specific retry from old file
-        compute_profile="general-on-demand-1vcpu-4gb",
-        image=IMAGE,
-        environment=ENVIRONMENT,
-        project=PROJECT,
-        workflow=WORKFLOW,
-        env_vars={
-            "PYTHON_SCRIPT_NAME": "get_preprod_check_status.py",
-            "AWS_METADATA_SERVICE_TIMEOUT": "60",
-            "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "IMAGE_VERSION": REPOSITORY_TAG,
-            "DEFAULT_DB_ENV": DATABASE_VERSION,
-            "SOURCE_DB_ENV": DATABASE_NAME,
-            "TABLE_NAME_ENV": table[0],
-            "AWS_DEFAULT_REGION": "eu-west-1",
-            "GITHUB_TAG": REPOSITORY_TAG,
-            "PROD_DB_ENV": "preprod",
-        },
-
+    name = f"preprod_check_status_{table[0]}"
+    tasks[name] = create_task(
+        task_id=name,
+        python_script_name="get_preprod_check_status.py",
+        source_db_env=SOURCE_DB_ENV,
+        table_name_env=TABLE_NAME_ENV,
+        prod_db_env="preprod",
     )
 
-    task_id = f"copy_preprod_to_live_{table[0]}"
-    tasks[task_id] = AnalyticalPlatformStandardOperator(
-        dag=dag,
-        task_id=task_id,
-        name=task_id,
-        compute_profile="general-on-demand-1vcpu-4gb",
-        image=IMAGE,
-        environment=ENVIRONMENT,
-        project=PROJECT,
-        workflow=WORKFLOW,
-        env_vars={
-            "PYTHON_SCRIPT_NAME": "copy_preprod_to_live.py",
-            "AWS_METADATA_SERVICE_TIMEOUT": "60",
-            "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-            "IMAGE_VERSION": REPOSITORY_TAG,
-            "DEFAULT_DB_ENV": DATABASE_VERSION,
-            "SOURCE_DB_ENV": DATABASE_NAME,
-            "TABLE_NAME_ENV": table[0],
-            "AWS_DEFAULT_REGION": "eu-west-1",
-            "GITHUB_TAG": REPOSITORY_TAG,
-            "PROD_DB_ENV": "live",
-        },
-
+    name = f"copy_preprod_to_live_{table[0]}"
+    tasks[name] = create_task(
+        task_id=name,
+        python_script_name="copy_preprod_to_live.py",
+        source_db_env=SOURCE_DB_ENV,
+        table_name_env=TABLE_NAME_ENV,
+        prod_db_env="live",
     )
 
-# change env var for different db
-DATABASE_NAME = "ext"
-
-# create db for external tables
-task_id = "create_ext_db"
-tasks[task_id] = AnalyticalPlatformStandardOperator(
-    dag=dag,
-    task_id=task_id,
-    name=task_id,
-    compute_profile="general-on-demand-1vcpu-4gb",
-    image=IMAGE,
-    environment=ENVIRONMENT,
-    project=PROJECT,
-    workflow=WORKFLOW,
-    env_vars={
-        "PYTHON_SCRIPT_NAME": "create_db.py",
-        "AWS_METADATA_SERVICE_TIMEOUT": "60",
-        "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-        "IMAGE_VERSION": REPOSITORY_TAG,
-        "DEFAULT_DB_ENV": DATABASE_VERSION,
-        "SOURCE_DB_ENV": DATABASE_NAME,
-        "AWS_DEFAULT_REGION": "eu-west-1",
-        "GITHUB_TAG": REPOSITORY_TAG,
-        "PROD_DB_ENV": "live",
-    },
-
+# Ext Database task
+tasks["create_ext_db"] = create_task(
+    task_id="create_ext_db",
+    python_script_name="create_db.py",
+    source_db_env="ext",
+    prod_db_env="live",
 )
 
-# create overall database with all data
-DATABASE_NAME = "all"
+# Overall Database tasks
+SOURCE_DB_ENV = "all"
 
-task_id = "create_preprod_db"
-tasks[task_id] = AnalyticalPlatformStandardOperator(
-    dag=dag,
-    task_id=task_id,
-    name=task_id,
+tasks["create_preprod_db"] = create_task(
+    task_id="create_preprod_db",
+    python_script_name="create_db.py",
+    source_db_env=SOURCE_DB_ENV,
+    prod_db_env="preprod",
     trigger_rule="all_done",
-    compute_profile="general-on-demand-1vcpu-4gb",
-    image=IMAGE,
-    environment=ENVIRONMENT,
-    project=PROJECT,
-    workflow=WORKFLOW,
-    env_vars={
-        "PYTHON_SCRIPT_NAME": "create_db.py",
-        "AWS_METADATA_SERVICE_TIMEOUT": "60",
-        "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-        "IMAGE_VERSION": REPOSITORY_TAG,
-        "DEFAULT_DB_ENV": DATABASE_VERSION,
-        "SOURCE_DB_ENV": DATABASE_NAME,
-        "AWS_DEFAULT_REGION": "eu-west-1",
-        "GITHUB_TAG": REPOSITORY_TAG,
-        "PROD_DB_ENV": "preprod",
-    },
-
 )
 
-task_id = "create_live_db"
-tasks[task_id] = AnalyticalPlatformStandardOperator(
-    dag=dag,
-    task_id=task_id,
-    name=task_id,
+tasks["create_live_db"] = create_task(
+    task_id="create_live_db",
+    python_script_name="create_db.py",
+    source_db_env=SOURCE_DB_ENV,
+    prod_db_env="live",
     trigger_rule="all_done",
-    compute_profile="general-on-demand-1vcpu-4gb",
-    image=IMAGE,
-    environment=ENVIRONMENT,
-    project=PROJECT,
-    workflow=WORKFLOW,
-    env_vars={
-        "PYTHON_SCRIPT_NAME": "create_db.py",
-        "AWS_METADATA_SERVICE_TIMEOUT": "60",
-        "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-        "IMAGE_VERSION": REPOSITORY_TAG,
-        "DEFAULT_DB_ENV": DATABASE_VERSION,
-        "SOURCE_DB_ENV": DATABASE_NAME,
-        "AWS_DEFAULT_REGION": "eu-west-1",
-        "GITHUB_TAG": REPOSITORY_TAG,
-        "PROD_DB_ENV": "live",
-    },
-
 )
 
-task_id = "preprod_checks"
-tasks[task_id] = AnalyticalPlatformStandardOperator(
-    dag=dag,
-    task_id=task_id,
-    name=task_id,
-    retries=0,  # Note: Preserved task-specific retry from old file
-    compute_profile="general-on-demand-1vcpu-4gb",
-    image=IMAGE,
-    environment=ENVIRONMENT,
-    project=PROJECT,
-    workflow=WORKFLOW,
-    env_vars={
-        "PYTHON_SCRIPT_NAME": "run_preprod_checks.py",
-        "AWS_METADATA_SERVICE_TIMEOUT": "60",
-        "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-        "IMAGE_VERSION": REPOSITORY_TAG,
-        "DEFAULT_DB_ENV": DATABASE_VERSION,
-        "SOURCE_DB_ENV": DATABASE_NAME,
-        "AWS_DEFAULT_REGION": "eu-west-1",
-        "GITHUB_TAG": REPOSITORY_TAG,
-        "PROD_DB_ENV": "preprod",
-    },
-
+tasks["preprod_checks"] = create_task(
+    task_id="preprod_checks",
+    python_script_name="run_preprod_checks.py",
+    source_db_env=SOURCE_DB_ENV,
+    prod_db_env="preprod",
 )
 
-task_id = "jaggaer_preprocess"
-tasks[task_id] = AnalyticalPlatformStandardOperator(
-    dag=dag,
-    task_id=task_id,
-    name=task_id,
-    retries=0,  # Note: Preserved task-specific retry from old file
-    compute_profile="general-on-demand-1vcpu-4gb",
-    image=IMAGE,
-    environment=ENVIRONMENT,
-    project=PROJECT,
-    workflow=WORKFLOW,
-    env_vars={
-        "PYTHON_SCRIPT_NAME": "pre_process_jaggaer.py",
-        "AWS_METADATA_SERVICE_TIMEOUT": "60",
-        "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-        "IMAGE_VERSION": REPOSITORY_TAG,
-        "DEFAULT_DB_ENV": DATABASE_VERSION,
-        "SOURCE_DB_ENV": "jaggaer",
-        "AWS_DEFAULT_REGION": "eu-west-1",
-        "GITHUB_TAG": REPOSITORY_TAG,
-        "PROD_DB_ENV": "preprod",
-    },
 
-)
-
-# --- Task Dependencies ---
-# This is copied directly from your old file, as all task_ids match.
-
+# Task Dependencies ---
 tasks["extract_jaggaer"] >> tasks["jaggaer_preprocess"]
 tasks["jaggaer_preprocess"] >> tasks["lint_jaggaer"]
 tasks["lint_jaggaer"] >> tasks["process_jaggaer"]
@@ -376,21 +232,21 @@ tasks["lint_rio"] >> tasks["process_rio"]
 [tasks["process_jaggaer"], tasks["process_rio"]] >> tasks["create_preprod_db"]
 tasks["create_preprod_db"] >> tasks["preprod_checks"]
 tasks["preprod_checks"] >> [
-    tasks["preprod_check_staus_claims"],
-    tasks["preprod_check_staus_contracts"],
-    tasks["preprod_check_staus_light_touch_scorecards"],
-    tasks["preprod_check_staus_spend"],
-    tasks["preprod_check_staus_rio"],
+    tasks["preprod_check_status_claims"],
+    tasks["preprod_check_status_contracts"],
+    tasks["preprod_check_status_light_touch_scorecards"],
+    tasks["preprod_check_status_spend"],
+    tasks["preprod_check_status_rio"],
 ]
 
-tasks["preprod_check_staus_claims"] >> tasks["copy_preprod_to_live_claims"]
-tasks["preprod_check_staus_contracts"] >> tasks["copy_preprod_to_live_contracts"]
+tasks["preprod_check_status_claims"] >> tasks["copy_preprod_to_live_claims"]
+tasks["preprod_check_status_contracts"] >> tasks["copy_preprod_to_live_contracts"]
 (
-    tasks["preprod_check_staus_light_touch_scorecards"]
+    tasks["preprod_check_status_light_touch_scorecards"]
     >> tasks["copy_preprod_to_live_light_touch_scorecards"]
 )
-tasks["preprod_check_staus_spend"] >> tasks["copy_preprod_to_live_spend"]
-tasks["preprod_check_staus_rio"] >> tasks["copy_preprod_to_live_rio"]
+tasks["preprod_check_status_spend"] >> tasks["copy_preprod_to_live_spend"]
+tasks["preprod_check_status_rio"] >> tasks["copy_preprod_to_live_rio"]
 
 [
     tasks["copy_preprod_to_live_claims"],
