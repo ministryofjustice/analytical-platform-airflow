@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa_cwa_providers
-  tag: 1.7.0
+  tag: 1.7.2
   retries: 2
   retry_delay: 150
   compute_profile: general-on-demand-8vcpu-32gb
