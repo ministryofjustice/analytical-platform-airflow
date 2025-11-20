@@ -14,131 +14,135 @@ dag:
     moj-iexp01:
       env_vars:
         REPORT_NAME: "moj-iexp01"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     laa-iexp01:
       env_vars:
         REPORT_NAME: "laa-iexp01"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     opg-iexp01:
       env_vars:
         REPORT_NAME: "opg-iexp01"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     cts-iexp01:
       env_vars:
         REPORT_NAME: "cts-iexp01"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     nms-iexp01:
       env_vars:
         REPORT_NAME: "nms-iexp01"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
 
     # === HR Non Sickness Absence Reports ===
     cts-hr-a-01-nonsick:
       env_vars:
         REPORT_NAME: "cts-hr-a-01"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     laa-hr-a-01-nonsick:
       env_vars:
         REPORT_NAME: "laa-hr-a-01"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     nms-hr-a-01-nonsick:
       env_vars:
         REPORT_NAME: "nms-hr-a-01"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     opg-hr-a-01-nonsick:
       env_vars:
         REPORT_NAME: "opg-hr-a-01"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     moj-hr-a-01-nonsick:
       env_vars:
         REPORT_NAME: "moj-hr-a-01"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
 
     # Note - this one uses an internal schedule
     moj-hr-a-04-nonsick:
       env_vars:
         REPORT_NAME: "moj-hr-a-04-nonsick"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
 
     # === HR Sick Absence Reports ===
     # Note - this one uses an internal schedule
     moj-hr-a-04-sick:
       env_vars:
         REPORT_NAME: "moj-hr-a-04-sick"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     moj-hr-wf-60-sickleave:
       env_vars:
         REPORT_NAME: "moj-hr-wf-60"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
 
     # === HR Remuneration Reports ===
     # Note - all these use an internal scheduling logic in the repo.
     cts-hr-rew-02-remuneration:
       env_vars:
         REPORT_NAME: "cts-hr-rew-02"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     laa-hr-rew-02-remuneration:
       env_vars:
         REPORT_NAME: "laa-hr-rew-02"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     nms-hr-rew-02-remuneration:
       env_vars:
         REPORT_NAME: "nms-hr-rew-02"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     opg-hr-rew-02-remuneration:
       env_vars:
         REPORT_NAME: "opg-hr-rew-02"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     moj-hr-rew-02-remuneration:
       env_vars:
         REPORT_NAME: "moj-hr-rew-02"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
 
     # === HR Staffing Reports ===
     moj-hr-wf-59-leavers:
       env_vars:
         REPORT_NAME: "moj-hr-wf-59"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
         
     # === Finance GL Reports ===
     cts-gl22:
       env_vars:
         REPORT_NAME: "cts_gl22"
-        REPORT_SECRET_ID: "chris-sbi-creds"
+        REPORT_SECRET_ID: "csheldon155-sbi-creds"
     laa-gl22:
       env_vars:
         REPORT_NAME: "laa_gl22"
-        REPORT_SECRET_ID: "chris-sbi-creds"
+        REPORT_SECRET_ID: "csheldon155-sbi-creds"
     moj-gl22:
       env_vars:
         REPORT_NAME: "moj_gl22"
-        REPORT_SECRET_ID: "chris-sbi-creds"
+        REPORT_SECRET_ID: "csheldon155-sbi-creds"
     noms-gl22:
       env_vars:
         REPORT_NAME: "noms_gl22"
-        REPORT_SECRET_ID: "chris-sbi-creds"
+        REPORT_SECRET_ID: "csheldon155-sbi-creds"
     opg-gl22:
       env_vars:
         REPORT_NAME: "opg_gl22"
-        REPORT_SECRET_ID: "chris-sbi-creds"
+        REPORT_SECRET_ID: "csheldon155-sbi-creds"
 
     # Note - this one uses an internal schedule
     moj-hr-wf-62-sip:
       env_vars:
         REPORT_NAME: "moj-hr-wf-62"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
     moj-hr-wf-64-starters:
       env_vars:
         REPORT_NAME: "moj-hr-wf-64"
-        REPORT_SECRET_ID: "supratik-sbi-creds"
+        REPORT_SECRET_ID: "mojsupratik-sbi-creds"
 
 iam:
   s3_read_write:
     - mojap-land/corporate/report_extractor_prod/splashbi/*
 
 secrets:
-  - chris-sbi-creds
-  - supratik-sbi-creds
+  - csheldon155-sbi-creds
+  - mojsupratik-sbi-creds
+  - ltdpa-sbi-creds
+  - morezwan-sbi-creds
+  - williamorrie-sbi-creds
+  - spare-sbi-creds
 
 notifications:
   slack_channel: dmet-corp-notifications
