@@ -136,10 +136,12 @@ iam:
   athena: write
   s3_read_write:
     - alpha-vast/athena-staging/*
+    - alpha-vast/athena_staging/*
     - alpha-vast/bins/*
     - alpha-vast/csv/*
     - alpha-vast/keys/*
     - alpha-vast/models/*
+    - alpha-vast/vast_training_data/*
 
 notifications:
   emails:
