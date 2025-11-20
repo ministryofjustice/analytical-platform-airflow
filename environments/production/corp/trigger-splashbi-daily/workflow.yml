@@ -14,6 +14,7 @@ dag:
     moj-iexp01:
       env_vars:
         REPORT_NAME: "moj-iexp01"
+        REPORT_SECRET_ID: "supratik-sbi-creds"
     laa-iexp01:
       env_vars:
         REPORT_NAME: "laa-iexp01"
