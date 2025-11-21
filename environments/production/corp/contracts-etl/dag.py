@@ -14,7 +14,7 @@ IMAGE = (
     f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}"
 )
 DEFAULT_DB_ENV = "v1"
-RETRIES = 0
+RETRIES = 5
 
 
 # --- Default Args ---
