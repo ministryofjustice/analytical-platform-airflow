@@ -79,7 +79,7 @@ dag:
     # DAG
     skip_build_bins: false
 
-  compute_profile: general-spot-4vcpu-16gb
+  compute_profile: general-spot-32vcpu-128gb
 
   tasks:
     build_bins:
