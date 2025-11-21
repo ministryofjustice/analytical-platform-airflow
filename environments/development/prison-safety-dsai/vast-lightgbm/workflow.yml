@@ -53,7 +53,7 @@ dag:
     lambda_l1: 0.0
     lambda_l2: 5.0
     scale_pos_weight: 20.0
-    num_threads: 0
+    num_threads: 4
     verbosity: 1
     seed: 42
     boosting: gbdt
