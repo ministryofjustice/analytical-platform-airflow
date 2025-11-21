@@ -5,6 +5,7 @@ from airflow.providers.slack.notifications.slack import send_slack_notification
 from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
+import os
 
 REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
 REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
@@ -184,6 +185,9 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
     task_id="nomis-delta-extract",
     secrets=[nomis_secret],
     env_vars={
+        "DB_USER_ID": os.getenv("DB_USER_ID"),
+        "DB_USER_PWD": os.getenv("DB_USER_PWD"),
+        "DB_DSN": os.getenv("DB_DSN"),
         "PYTHON_SCRIPT_NAME": "nomis_delta_extract.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
         "DAG_ID": dag.dag_id,
@@ -210,8 +214,8 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
 # Set dependencies
 (
     tasks["nomis-delta-extract"]
-    >> tasks["nomis-delta-extract-check"]
-    >> tasks["initialise-dag"]
+    # >> tasks["nomis-delta-extract-check"]
+    # >> tasks["initialise-dag"]
 )
 
 # Deletes
@@ -257,11 +261,11 @@ tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
 
 )
 
-(
-    tasks["nomis-pk-deletes-extract"]
-    >> tasks["nomis-pk-deletes-extract-check"]
-#   tasks[f"nomis-pk-deletes-extract-{i}"]
-#   >> tasks[f"nomis-pk-deletes-extract-check-{i}"]
-    >> tasks["initialise-dag"]
+# (
+#     tasks["nomis-pk-deletes-extract"]
+#     >> tasks["nomis-pk-deletes-extract-check"]
+# #   tasks[f"nomis-pk-deletes-extract-{i}"]
+# #   >> tasks[f"nomis-pk-deletes-extract-check-{i}"]
+#     >> tasks["initialise-dag"]
 
-)
+# )
