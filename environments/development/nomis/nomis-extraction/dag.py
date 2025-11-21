@@ -5,7 +5,6 @@ from airflow.providers.slack.notifications.slack import send_slack_notification
 from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
-import os
 
 REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
 REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
@@ -183,11 +182,8 @@ tasks["initialise-dag"] = AnalyticalPlatformStandardOperator(
 tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
     dag=dag,
     task_id="nomis-delta-extract",
-    secrets=[nomis_secret],
+    secrets=[db_user, db_pwd, db_dsn],
     env_vars={
-        "DB_USER_ID": os.getenv("DB_USER_ID"),
-        "DB_USER_PWD": os.getenv("DB_USER_PWD"),
-        "DB_DSN": os.getenv("DB_DSN"),
         "PYTHON_SCRIPT_NAME": "nomis_delta_extract.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
         "DAG_ID": dag.dag_id,
