@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.10
+  tag: v1.3.0
   schedule: "0 7-18 * * 1-5"
   env_vars:
     REPORT_APP: "splashbi"
@@ -12,81 +12,129 @@ dag:
     moj-iexp01:
       env_vars:
         REPORT_NAME: "moj-iexp01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     laa-iexp01:
       env_vars:
         REPORT_NAME: "laa-iexp01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     opg-iexp01:
       env_vars:
         REPORT_NAME: "opg-iexp01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     cts-iexp01:
       env_vars:
         REPORT_NAME: "cts-iexp01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     nms-iexp01:
       env_vars:
         REPORT_NAME: "nms-iexp01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
 
     # === HR Non Sickness Absence Reports ===
     cts-hr-a-01-nonsick:
       env_vars:
         REPORT_NAME: "cts-hr-a-01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     laa-hr-a-01-nonsick:
       env_vars:
         REPORT_NAME: "laa-hr-a-01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     nms-hr-a-01-nonsick:
       env_vars:
         REPORT_NAME: "nms-hr-a-01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     opg-hr-a-01-nonsick:
       env_vars:
         REPORT_NAME: "opg-hr-a-01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     moj-hr-a-01-nonsick:
       env_vars:
         REPORT_NAME: "moj-hr-a-01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     moj-hr-a-04-nonsick:
       env_vars:
         REPORT_NAME: "moj-hr-a-04-nonsick"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
 
     # === HR Sick Absence Reports ===
     moj-hr-a-04-sick:
       env_vars:
         REPORT_NAME: "moj-hr-a-04-sick"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     moj-hr-wf-60-sickleave:
       env_vars:
         REPORT_NAME: "moj-hr-wf-60"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
 
     # === HR Remuneration Reports ===
     cts-hr-rew-02-remuneration:
       env_vars:
         REPORT_NAME: "cts-hr-rew-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     laa-hr-rew-02-remuneration:
       env_vars:
         REPORT_NAME: "laa-hr-rew-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     nms-hr-rew-02-remuneration:
       env_vars:
         REPORT_NAME: "nms-hr-rew-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     opg-hr-rew-02-remuneration:
       env_vars:
         REPORT_NAME: "opg-hr-rew-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     moj-hr-rew-02-remuneration:
       env_vars:
         REPORT_NAME: "moj-hr-rew-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
 
     # === HR Staffing Reports ===
     moj-hr-wf-59-leavers:
       env_vars:
         REPORT_NAME: "moj-hr-wf-59"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     moj-hr-wf-62-sip:
       env_vars:
         REPORT_NAME: "moj-hr-wf-62"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
     moj-hr-wf-64-starters:
       env_vars:
         REPORT_NAME: "moj-hr-wf-64"
+        REPORT_SECRET_ID: "sbi-user-mojsupratik"
+
+    # === Finance GL Reports ===
+    cts-gl22:
+      env_vars:
+        REPORT_NAME: "cts_gl22"
+        REPORT_SECRET_ID: "sbi-user-csheldon"
+    laa-gl22:
+      env_vars:
+        REPORT_NAME: "laa_gl22"
+        REPORT_SECRET_ID: "sbi-user-csheldon"
+    moj-gl22:
+      env_vars:
+        REPORT_NAME: "moj_gl22"
+        REPORT_SECRET_ID: "sbi-user-csheldon"
+    noms-gl22:
+      env_vars:
+        REPORT_NAME: "noms_gl22"
+        REPORT_SECRET_ID: "sbi-user-csheldon"
+    opg-gl22:
+      env_vars:
+        REPORT_NAME: "opg_gl22"
+        REPORT_SECRET_ID: "sbi-user-csheldon"
 
 iam:
   s3_read_write:
     - mojap-land/corporate/report_extractor_prod/splashbi/*
 
 secrets:
-  - splashbi-credentials
+  - sbi-user-csheldon
+  - sbi-user-mojsupratik
+  - sbi-user-ltdpa
+  - sbi-user-morezwan
+  - sbi-user-williamorrie
+  - sbi-user-spare
 
 notifications:
   slack_channel: dmet-corp-notifications
@@ -101,6 +149,7 @@ maintainers:
   - moj-supratikc
   - morezwan
   - ltd-pa
+  - Csheldon155
 
 tags:
   business_unit: Central Digital
