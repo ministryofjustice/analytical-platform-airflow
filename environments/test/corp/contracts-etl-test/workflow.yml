@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-contracts-etl
-  tag: "v2.10.15"
+  tag: "v2.10.16"
   python_dag: true
 
 iam:
