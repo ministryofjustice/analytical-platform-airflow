@@ -30,7 +30,8 @@ dag = DAG(
     dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=default_args,
     description="Contracts ETL Pipeline",
-    start_date=datetime(2022, 5, 20),
+    start_date=datetime(2025, 11, 25),
+    schedule_interval="0 4 * * *",
     catchup=False,
 )
 
