@@ -99,7 +99,7 @@ dag:
       env_vars:
         REPORT_NAME: "moj-hr-wf-59"
         REPORT_SECRET_ID: "mojsupratik-sbi-creds"
-        
+
     # === Finance GL Reports ===
     cts-gl22:
       env_vars:
