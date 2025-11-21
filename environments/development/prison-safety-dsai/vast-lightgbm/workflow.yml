@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.5
+  tag: 0.1.6
   # Keep this in sync with your successful GitHub release tag
   max_active_runs: 1
 
@@ -76,6 +76,9 @@ dag:
     eval_seed: 42
     chunksize: 20000
 
+    # DAG
+    skip_build_bins: false
+
   compute_profile: general-spot-4vcpu-16gb
 
   tasks:
@@ -89,6 +92,7 @@ dag:
         HELDOUT_MAX: "{{ params.heldout_max }}"
         TWO_ROUND: "{{ params.two_round | int }}"
         BIN_CONSTRUCT_SAMPLE_CNT: "{{ params.bin_construct_sample_cnt }}"
+        SKIP_BUILD_BINS: "{{ params.skip_build_bins | int }}"
 
     train:
       dependencies:
