@@ -130,14 +130,14 @@ db_pwd = Secret(
             deploy_target="DB_PWD",
             secret=f"{PROJECT}-{WORKFLOW}-db-user-password-dsn",
             key="db_user_password"
-    )   
+    )
 
 db_dsn = Secret(
             deploy_type="env",
             deploy_target="DB_DSN",
             secret=f"{PROJECT}-{WORKFLOW}-db-user-password-dsn",
             key="db_dsn"
-    )   
+    )
 
 
 task_args = {
