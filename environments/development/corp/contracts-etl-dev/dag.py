@@ -5,6 +5,7 @@ from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
 
+
 # --- Placeholders ---
 
 REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
@@ -35,8 +36,21 @@ default_params = {
 }
 
 # --- Auth Secret ---
-# This secret definition is based on the example.py and the
-# service_account_name ('airflow-dev-contracts-etl') from the original file
+# The deploy_type must be set to 'env' to inject the secret as an environment variable
+API_SECRET = Secret(
+    # The type of secret (e.g., 'env', 'volume')
+    deploy_type='env', #
+    # The environment variable name (e.g., 'SECRET_API_KEY')
+    deploy_target='SECRET_CONTRACTS_KEY',
+    # The name of the Kubernetes Secret resource
+    secret=f"{PROJECT}-{WORKFLOW}-CONTRACTS_KEY", # Use a specific secret name if known, or a placeholder
+    # The key within the Secret resource to pull the value from
+    key='jag_private_key', # Use a specific key name if known, or a placeholder
+)
+
+# A list of secrets to be applied to all tasks
+SECRETS = [API_SECRET]
+
 
 # --- DAG ---
 dag = DAG(
@@ -73,6 +87,7 @@ for db in dbs:
         environment=ENVIRONMENT,
         project=PROJECT,
         workflow=WORKFLOW,
+        secrets=SECRETS,
         env_vars={
             "PYTHON_SCRIPT_NAME": f"{DATABASE_NAME}_to_land.py",
             "AIRFLOW__CORE__LOGGING_LEVEL": "DEBUG",
@@ -96,6 +111,7 @@ for db in dbs:
         environment=ENVIRONMENT,
         project=PROJECT,
         workflow=WORKFLOW,
+        secrets=SECRETS,
         env_vars={
             "PYTHON_SCRIPT_NAME": "land_to_raw_hist.py",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -119,6 +135,7 @@ for db in dbs:
         environment=ENVIRONMENT,
         project=PROJECT,
         workflow=WORKFLOW,
+        secrets=SECRETS,
         env_vars={
             "PYTHON_SCRIPT_NAME": db[1],
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -144,6 +161,7 @@ for db in dbs:
         environment=ENVIRONMENT,
         project=PROJECT,
         workflow=WORKFLOW,
+        secrets=SECRETS,
         env_vars={
             "PYTHON_SCRIPT_NAME": "create_db.py",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -168,6 +186,7 @@ for db in dbs:
         environment=ENVIRONMENT,
         project=PROJECT,
         workflow=WORKFLOW,
+        secrets=SECRETS,
         env_vars={
             "PYTHON_SCRIPT_NAME": "create_app_extracts.py",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -207,6 +226,7 @@ for table in tables:
         environment=ENVIRONMENT,
         project=PROJECT,
         workflow=WORKFLOW,
+        secrets=SECRETS,
         env_vars={
             "PYTHON_SCRIPT_NAME": "get_preprod_check_status.py",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -232,6 +252,7 @@ for table in tables:
         environment=ENVIRONMENT,
         project=PROJECT,
         workflow=WORKFLOW,
+        secrets=SECRETS,
         env_vars={
             "PYTHON_SCRIPT_NAME": "copy_preprod_to_live.py",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -261,6 +282,7 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
     environment=ENVIRONMENT,
     project=PROJECT,
     workflow=WORKFLOW,
+    secrets=SECRETS,
     env_vars={
         "PYTHON_SCRIPT_NAME": "create_db.py",
         "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -289,6 +311,7 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
     environment=ENVIRONMENT,
     project=PROJECT,
     workflow=WORKFLOW,
+    secrets=SECRETS,
     env_vars={
         "PYTHON_SCRIPT_NAME": "create_db.py",
         "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -314,6 +337,7 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
     environment=ENVIRONMENT,
     project=PROJECT,
     workflow=WORKFLOW,
+    secrets=SECRETS,
     env_vars={
         "PYTHON_SCRIPT_NAME": "create_db.py",
         "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -339,6 +363,7 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
     environment=ENVIRONMENT,
     project=PROJECT,
     workflow=WORKFLOW,
+    secrets=SECRETS,
     env_vars={
         "PYTHON_SCRIPT_NAME": "run_preprod_checks.py",
         "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -364,6 +389,7 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
     environment=ENVIRONMENT,
     project=PROJECT,
     workflow=WORKFLOW,
+    secrets=SECRETS,
     env_vars={
         "PYTHON_SCRIPT_NAME": "pre_process_jaggaer.py",
         "AWS_METADATA_SERVICE_TIMEOUT": "60",
