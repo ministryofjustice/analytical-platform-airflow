@@ -1,4 +1,5 @@
 """Script to generate Airflow workflow from YAML configuration files."""
+
 import json
 import os
 import sys
@@ -7,6 +8,7 @@ import yaml
 from jinja2 import Environment, FileSystemLoader
 
 from airflow.providers.cncf.kubernetes.secret import Secret
+
 
 # Custom filter to merge dictionaries
 def merge_dicts(dict1, dict2):
@@ -17,7 +19,7 @@ def merge_dicts(dict1, dict2):
 
 # Load Jinja template
 env = Environment(loader=FileSystemLoader("."))
-env.filters['merge_dicts'] = merge_dicts
+env.filters["merge_dicts"] = merge_dicts
 template = env.get_template("scripts/workflow_generator/templates/workflow.yml.j2")
 
 workflow_file = sys.argv[1]
@@ -54,7 +56,9 @@ if config.get("dag", {}).get("python_dag", False):
     print("Replacing placeholders")
     with open(f"{SOURCE_DIR}/dag.py", "r", encoding="utf-8") as file:
         dag_content = file.read()
-        dag_content = dag_content.replace("PLACEHOLDER_REPOSITORY_NAME", repository_name)
+        dag_content = dag_content.replace(
+            "PLACEHOLDER_REPOSITORY_NAME", repository_name
+        )
         dag_content = dag_content.replace("PLACEHOLDER_REPOSITORY_TAG", repository_tag)
         dag_content = dag_content.replace("PLACEHOLDER_PROJECT", project)
         dag_content = dag_content.replace("PLACEHOLDER_WORKFLOW", workflow)

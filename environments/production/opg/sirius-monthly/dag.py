@@ -3,14 +3,14 @@ from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 
 
-REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
-REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
-PROJECT="PLACEHOLDER_PROJECT"
-WORKFLOW="PLACEHOLDER_WORKFLOW"
-ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
-OWNER="PLACEHOLDER_OWNER"
+REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
+REPOSITORY_TAG = "PLACEHOLDER_REPOSITORY_TAG"
+PROJECT = "PLACEHOLDER_PROJECT"
+WORKFLOW = "PLACEHOLDER_WORKFLOW"
+ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
+OWNER = "PLACEHOLDER_OWNER"
 
-start_date=datetime(2025, 9, 1)
+start_date = datetime(2025, 9, 1)
 total_workers = 10
 
 default_args = {
@@ -18,7 +18,7 @@ default_args = {
     "email_on_failure": True,
     "owner": f"{OWNER}",
     "retries": 1,
-    "retry_delay":150
+    "retry_delay": 150,
 }
 
 dag = DAG(
@@ -29,7 +29,7 @@ dag = DAG(
     catchup=False,
 )
 
-base_env_vars={
+base_env_vars = {
     "DATABASE": "sirius",
     "PIPELINE_NAME": f"{WORKFLOW}",
     "DATABASE_VERSION": "prod",
@@ -38,8 +38,12 @@ base_env_vars={
     "START_DATE": start_date.strftime("%Y-%m-%d"),
 }
 
-def update_env_vars(env_vars: dict[str, str], updates: dict[str, str]) -> dict[str, str]:
+
+def update_env_vars(
+    env_vars: dict[str, str], updates: dict[str, str]
+) -> dict[str, str]:
     return {**env_vars, **updates}
+
 
 tasks = {}
 
@@ -52,7 +56,7 @@ tasks["to_land"] = AnalyticalPlatformStandardOperator(
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}",
-    env_vars=update_env_vars(base_env_vars, {"STEP": "to_land"})
+    env_vars=update_env_vars(base_env_vars, {"STEP": "to_land"}),
 )
 
 tasks["raw_to_curated"] = AnalyticalPlatformStandardOperator(
@@ -64,7 +68,7 @@ tasks["raw_to_curated"] = AnalyticalPlatformStandardOperator(
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}",
-    env_vars=update_env_vars(base_env_vars, {"STEP": "raw_to_curated"})
+    env_vars=update_env_vars(base_env_vars, {"STEP": "raw_to_curated"}),
 )
 
 raw_tables = [
@@ -80,7 +84,6 @@ raw_tables = [
 
 
 for table in raw_tables:
-
     tasks[f"land_to_raw_init_{table}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
         task_id=f"land_to_raw_init_{table}",
@@ -90,7 +93,15 @@ for table in raw_tables:
         environment=f"{ENVIRONMENT}",
         project=f"{PROJECT}",
         workflow=f"{WORKFLOW}",
-        env_vars=update_env_vars(base_env_vars, {"STEP": "land_to_raw", "TOTAL_WORKERS": total_workers, "CLOSE": False, "TABLE": table})
+        env_vars=update_env_vars(
+            base_env_vars,
+            {
+                "STEP": "land_to_raw",
+                "TOTAL_WORKERS": total_workers,
+                "CLOSE": False,
+                "TABLE": table,
+            },
+        ),
     )
     tasks["to_land"] >> tasks[f"land_to_raw_init_{table}"]
 
@@ -103,12 +114,20 @@ for table in raw_tables:
         environment=f"{ENVIRONMENT}",
         project=f"{PROJECT}",
         workflow=f"{WORKFLOW}",
-        env_vars=update_env_vars(base_env_vars, {"STEP": "land_to_raw", "TOTAL_WORKERS": total_workers, "CLOSE": True, "TABLE": table})
+        env_vars=update_env_vars(
+            base_env_vars,
+            {
+                "STEP": "land_to_raw",
+                "TOTAL_WORKERS": total_workers,
+                "CLOSE": True,
+                "TABLE": table,
+            },
+        ),
     )
 
     compute = "-16vcpu-64gb" if table == "documents" else "-1vcpu-4gb"
 
-    for batch in range (total_workers):
+    for batch in range(total_workers):
         tasks[f"land_to_raw_{table}_{batch}"] = AnalyticalPlatformStandardOperator(
             dag=dag,
             task_id=f"land_to_raw_{table}_{batch}",
@@ -118,7 +137,16 @@ for table in raw_tables:
             environment=f"{ENVIRONMENT}",
             project=f"{PROJECT}",
             workflow=f"{WORKFLOW}",
-            env_vars=update_env_vars(base_env_vars, {"STEP": "land_to_raw", "TOTAL_WORKERS": total_workers, "CLOSE": False, "CURRENT_WORKER": batch, "TABLE": table})
+            env_vars=update_env_vars(
+                base_env_vars,
+                {
+                    "STEP": "land_to_raw",
+                    "TOTAL_WORKERS": total_workers,
+                    "CLOSE": False,
+                    "CURRENT_WORKER": batch,
+                    "TABLE": table,
+                },
+            ),
         )
         tasks[f"land_to_raw_init_{table}"] >> tasks[f"land_to_raw_{table}_{batch}"]
         tasks[f"land_to_raw_{table}_{batch}"] >> tasks[f"land_to_raw_close_{table}"]
@@ -134,6 +162,6 @@ tasks["create_curated_database"] = AnalyticalPlatformStandardOperator(
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}",
-    env_vars=update_env_vars(base_env_vars, {"STEP": "create_curated_database"})
+    env_vars=update_env_vars(base_env_vars, {"STEP": "create_curated_database"}),
 )
 tasks["raw_to_curated"] >> tasks["create_curated_database"]
