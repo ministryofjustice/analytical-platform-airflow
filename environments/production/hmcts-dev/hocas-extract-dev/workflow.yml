@@ -15,8 +15,9 @@ dag:
     EXCLUDED_FILES_REGEXPR: "(?i)^.*test.*$"
 
   tasks:
-    env_vars:
-      TABLE_NAME: "baiscontainer"
+    hocas_extract:
+      env_vars:
+        TABLE_NAME: "baiscontainer"
 
 iam:
   athena: write
