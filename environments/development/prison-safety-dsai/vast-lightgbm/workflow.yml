@@ -22,7 +22,6 @@ dag:
     TARGETS: "y_h7_any y_h14_any"
     GROUP_COLS: "agy_loc_id,index_date"
 
-
   # ---- DAG parameters: can be overridden in the Airflow UI when triggering a run ----
   params:
     # Naming / versioning
