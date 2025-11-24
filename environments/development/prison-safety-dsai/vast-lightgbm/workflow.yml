@@ -1,9 +1,9 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.9
+  tag: 0.1.10
   # Keep this in sync with your successful GitHub release tag
-  max_active_runs: 1
+  max_active_runs: 8
 
   env_vars:
     AWS_REGION: eu-west-1
@@ -19,7 +19,7 @@ dag:
     MODEL_BASE: s3://alpha-vast/models
     MODEL_FAMILY: lightgbm
 
-    TARGETS: "y_h7_any y_h14_any"
+    TARGETS: "y_h7_any"
     GROUP_COLS: "agy_loc_id,index_date"
 
   # ---- DAG parameters: can be overridden in the Airflow UI when triggering a run ----
