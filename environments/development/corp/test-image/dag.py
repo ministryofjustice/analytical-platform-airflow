@@ -71,9 +71,9 @@ failure_task = AnalyticalPlatformStandardOperator(
     on_failure_callback=[
         send_slack_notification(
             text=":airflow: *Airflow {{ var.value.environment | capitalize }}*\n"
-                 ":x: {{ dag.dag_id }} has failed.\n"
-                 "*Task*: {{ ti.task_id }}\n"
-                 "*Logs*: {{ ti.log_url }}",
+            ":x: {{ dag.dag_id }} has failed.\n"
+            "*Task*: {{ ti.task_id }}\n"
+            "*Logs*: {{ ti.log_url }}",
             channel=SLACK_CHANNEL,
         )
     ],

@@ -6,12 +6,12 @@ from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
 
-REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
-REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
-PROJECT="PLACEHOLDER_PROJECT"
-WORKFLOW="PLACEHOLDER_WORKFLOW"
-ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
-OWNER="PLACEHOLDER_OWNER"
+REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
+REPOSITORY_TAG = "PLACEHOLDER_REPOSITORY_TAG"
+PROJECT = "PLACEHOLDER_PROJECT"
+WORKFLOW = "PLACEHOLDER_WORKFLOW"
+ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
+OWNER = "PLACEHOLDER_OWNER"
 
 default_args = {
     "depends_on_past": False,
@@ -49,7 +49,7 @@ task = AnalyticalPlatformStandardOperator(
             deploy_type="env",
             deploy_target="SECRET_EXAMPLE",
             secret=f"{PROJECT}-{WORKFLOW}-example",
-            key="data"
+            key="data",
         )
     ],
     on_success_callback=[

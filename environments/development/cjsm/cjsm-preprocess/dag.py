@@ -5,20 +5,18 @@ from airflow.operators.python import BranchPythonOperator
 from airflow.operators.empty import EmptyOperator
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 
-REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
-REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
-PROJECT="PLACEHOLDER_PROJECT"
-WORKFLOW="PLACEHOLDER_WORKFLOW"
-ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
-OWNER="PLACEHOLDER_OWNER"
+REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
+REPOSITORY_TAG = "PLACEHOLDER_REPOSITORY_TAG"
+PROJECT = "PLACEHOLDER_PROJECT"
+WORKFLOW = "PLACEHOLDER_WORKFLOW"
+ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
+OWNER = "PLACEHOLDER_OWNER"
 
 default_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "owner": f"{OWNER}",
-    "email": [
-        "dugald.hepburn@justice.gov.uk"
-    ],
+    "email": ["dugald.hepburn@justice.gov.uk"],
 }
 
 
@@ -31,15 +29,14 @@ dag = DAG(
     catchup=False,
 )
 
+
 # Function to decide the next step based on XCom output
 def decide_next_step(**kwargs):
     # Extract task instance (ti) from kwargs
     ti = kwargs["ti"]
 
     # Pull the value from XCom using the specified key and task ID
-    next_step = ti.xcom_pull(
-        task_ids=kwargs["xcom_push_id"]
-    )
+    next_step = ti.xcom_pull(task_ids=kwargs["xcom_push_id"])
 
     print(f"next_step value: {next_step}")
     # Determine the next task based on the retrieved XCom value

@@ -71,7 +71,7 @@ def get_compute_profile(compute_profile="general-spot-1vcpu-4gb"):
             "requests_memory": "512Gi",
             "limits_cpu": "128",
             "limits_memory": "512Gi",
-        }
+        },
     }
 
     for flavour in flavours.keys():
