@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.6
+  tag: 0.1.8
   # Keep this in sync with your successful GitHub release tag
   max_active_runs: 1
 
@@ -22,13 +22,10 @@ dag:
     TARGETS: "y_h7_any y_h14_any"
     GROUP_COLS: "agy_loc_id,index_date"
 
-    # Keep build/train aligned:
-    MAX_BIN: "127"
-
   # ---- DAG parameters: can be overridden in the Airflow UI when triggering a run ----
   params:
     # Naming / versioning
-    dataset_suffix: x_structured_y_bins127_train_pos_10000
+    dataset_suffix: x_structured_y_bins63_train_pos_10000
     model_run: first_run
 
     # Build / sampling
@@ -39,6 +36,7 @@ dag:
     heldout_max: null
     two_round: true
     bin_construct_sample_cnt: null
+    max_bin: 63
 
     # Training hyperparameters
     num_boost_round: 2000
@@ -57,7 +55,7 @@ dag:
     verbosity: 1
     seed: 42
     boosting: gbdt
-    valid_heldout: true
+    valid_heldout: false
 
     # Dart / GPU toggles (leave as defaults unless needed)
     drop_rate: 0.1
@@ -79,12 +77,13 @@ dag:
     # DAG
     skip_build_bins: false
 
-  compute_profile: general-spot-4vcpu-16gb
+  compute_profile: general-spot-8vcpu-32gb
 
   tasks:
     build_bins:
       env_vars:
         STEP: build
+        MAX_BIN: "{{ params.max_bin | int }}"
         NEG_MULTIPLIER: "{{ params.neg_multiplier }}"
         TRAIN_MAX_POS: "{{ params.train_max_pos }}"
         VAL_MAX: "{{ params.val_max }}"
@@ -99,6 +98,7 @@ dag:
         - build_bins
       env_vars:
         STEP: train
+        MAX_BIN: "{{ params.max_bin | int }}"
         NUM_BOOST_ROUND: "{{ params.num_boost_round }}"
         EARLY_STOPPING_ROUNDS: "{{ params.early_stopping_rounds }}"
         LEARNING_RATE: "{{ params.learning_rate }}"
