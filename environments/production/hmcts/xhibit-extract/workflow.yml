@@ -119,7 +119,7 @@ dag:
         FILENAME_TABLE_NAME: "defendant_on_offence"
     xhibit_extract_defendant_reference:
       env_vars:
-        TABLE_NAME: "defendant_reference"
+        TABLE_NAME: "defendant-reference"
         S3_TABLE_NAME: "defendant_reference"
         FILENAME_TABLE_NAME: "defendant_reference"
     xhibit_extract_disposal2:
