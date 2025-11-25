@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.1
+  tag: v4.0.2
   retries: 1
   retry_delay: 150
   max_active_runs: 5
@@ -11,7 +11,7 @@ dag:
     BASE_LOC: "s3://alpha-mojap-curated-xhibit/ors/v2/"
     BASE_DB_NAME: "xhibit_preprocessed"
     SERVICE: "xhibit"
-    CHUNK_SIZE: "500MB"
+    CHUNK_SIZE: "131072"
     DAG_INTERVAL_END: "{{ data_interval_end }}"
 
   tasks:
