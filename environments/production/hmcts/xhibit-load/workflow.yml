@@ -60,7 +60,7 @@ dag:
       compute_profile: general-spot-32vcpu-128gb
     xhibit_load_def_case_on_ref_sol_firm:
       env_vars:
-        TABLE: "def_case_on_ref_sol_firm"
+        TABLE: "def_on_case_ref_sol_firm"
     xhibit_load_defendant:
       env_vars:
         TABLE: "defendant"
