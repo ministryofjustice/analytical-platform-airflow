@@ -5,7 +5,7 @@ dag:
   retry_delay: 150
   max_active_runs: 5
   env_vars:
-    LOG_LEVEL: "DEBUG"
+    LOG_LEVEL: "INFO"
     LAND: "s3://mojap-land/hmcts/xhibit"
     RAW_HIST: "s3://mojap-raw-hist/hmcts/xhibit"
     BASE_LOC: "s3://alpha-mojap-curated-xhibit/ors/v2/"
