@@ -128,14 +128,14 @@ db_user = Secret(
 db_pwd = Secret(
             deploy_type="env",
             deploy_target="SECRET_DB_PWD",
-            secret=f"{PROJECT}-{WORKFLOW}-db-pwd-prod",
+            secret=f"{PROJECT}-{WORKFLOW}-db-pwd-prod-new",
             key="data"
     )
 
 db_dsn = Secret(
             deploy_type="env",
             deploy_target="SECRET_DB_DSN",
-            secret=f"{PROJECT}-{WORKFLOW}-db-dsn-prod",
+            secret=f"{PROJECT}-{WORKFLOW}-db-dsn-prod-new",
             key="data"
     )
 
