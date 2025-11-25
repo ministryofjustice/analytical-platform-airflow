@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-geography
-  tag: v1.3.35
+  tag: v1.3.36
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
