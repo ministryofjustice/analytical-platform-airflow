@@ -165,18 +165,18 @@ dag = DAG(
 
 tasks = {}
 
-tasks["initialise-dag"] = AnalyticalPlatformStandardOperator(
-    dag=dag,
-    task_id="initialise-dag",
-    env_vars={
-        "PYTHON_SCRIPT_NAME": "initialise_dag.py",
-        "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
-        "DAG_ID": dag.dag_id,
-#        "ENV": "PRODUCTION",
-        "ENV": "DEVELOPMENT",
-        "DAG_RUN_UTC_UNIXTIME": str(int(datetime.utcnow().timestamp())),
-    },
-)
+# tasks["initialise-dag"] = AnalyticalPlatformStandardOperator(
+#     dag=dag,
+#     task_id="initialise-dag",
+#     env_vars={
+#         "PYTHON_SCRIPT_NAME": "initialise_dag.py",
+#         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
+#         "DAG_ID": dag.dag_id,
+# #        "ENV": "PRODUCTION",
+#         "ENV": "DEVELOPMENT",
+#         "DAG_RUN_UTC_UNIXTIME": str(int(datetime.utcnow().timestamp())),
+#     },
+# )
 
 
 tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
@@ -193,19 +193,19 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
 
 )
 
-tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
-    dag=dag,
-    task_id="nomis-delta-extract-check",
-    secrets=[db_user, db_pwd, db_dsn],
-    env_vars={
-        "PYTHON_SCRIPT_NAME": "test_extraction_outputs_and_move_to_raw.py",
-        "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
-        "DAG_ID": dag.dag_id,
-  #      "ENV": "PRODUCTION",
-        "ENV": "DEVELOPMENT",
-    },
+# tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
+#     dag=dag,
+#     task_id="nomis-delta-extract-check",
+#     secrets=[db_user, db_pwd, db_dsn],
+#     env_vars={
+#         "PYTHON_SCRIPT_NAME": "test_extraction_outputs_and_move_to_raw.py",
+#         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
+#         "DAG_ID": dag.dag_id,
+#   #      "ENV": "PRODUCTION",
+#         "ENV": "DEVELOPMENT",
+#     },
 
-)
+# )
 
 # Set dependencies
 (
@@ -220,42 +220,42 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
 #        continue
 #    tables_string = ",".join(L)
 #   tasks[f"nomis-pk-deletes-extracts-{i}"] = AnalyticalPlatformStandardOperator(
-tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
-    dag=dag,
-#   task_id=f"nomis-pk-deletes-extracts-{i}",
-    task_id="nomis-pk-deletes-extract",
-    secrets=[db_user, db_pwd, db_dsn],
-    env_vars={
-#        "PK_EXTRACT_TABLES": tables_string,
-        "PYTHON_SCRIPT_NAME": "nomis_deletes_extract.py",
-        "NOMIS_T62_FETCH_SIZE": RM_FETCH_SIZE,
-        "AWS_METADATA_SERVICE_TIMEOUT": "60",
-        "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-        "DAG_ID": dag.dag_id,
-   #    "ENV": "PRODUCTION",
-        "ENV": "DEVELOPMENT",
-    },
+# tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
+#     dag=dag,
+# #   task_id=f"nomis-pk-deletes-extracts-{i}",
+#     task_id="nomis-pk-deletes-extract",
+#     secrets=[db_user, db_pwd, db_dsn],
+#     env_vars={
+# #        "PK_EXTRACT_TABLES": tables_string,
+#         "PYTHON_SCRIPT_NAME": "nomis_deletes_extract.py",
+#         "NOMIS_T62_FETCH_SIZE": RM_FETCH_SIZE,
+#         "AWS_METADATA_SERVICE_TIMEOUT": "60",
+#         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
+#         "DAG_ID": dag.dag_id,
+#    #    "ENV": "PRODUCTION",
+#         "ENV": "DEVELOPMENT",
+#     },
 
-)
+# )
 
 #   tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
-tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
-    dag=dag,
-#   task_id=f"nomis-pk-deletes-extract-check-{i}",
-    task_id="nomis-pk-deletes-extract-check",
-    secrets=[db_user, db_pwd, db_dsn],
-    env_vars={
-#        "PK_EXTRACT_TABLES": tables_string,
-        "PYTHON_SCRIPT_NAME": "test_deletes_extraction_outputs_and_move_to_raw.py",
-        "NOMIS_T62_FETCH_SIZE": RM_FETCH_SIZE,
-        "AWS_METADATA_SERVICE_TIMEOUT": "60",
-        "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
-        "DAG_ID": dag.dag_id,
-    #   "ENV": "PRODUCTION",
-        "ENV": "DEVELOPMENT",
-    },
+# tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
+#     dag=dag,
+# #   task_id=f"nomis-pk-deletes-extract-check-{i}",
+#     task_id="nomis-pk-deletes-extract-check",
+#     secrets=[db_user, db_pwd, db_dsn],
+#     env_vars={
+# #        "PK_EXTRACT_TABLES": tables_string,
+#         "PYTHON_SCRIPT_NAME": "test_deletes_extraction_outputs_and_move_to_raw.py",
+#         "NOMIS_T62_FETCH_SIZE": RM_FETCH_SIZE,
+#         "AWS_METADATA_SERVICE_TIMEOUT": "60",
+#         "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
+#         "DAG_ID": dag.dag_id,
+#     #   "ENV": "PRODUCTION",
+#         "ENV": "DEVELOPMENT",
+#     },
 
-)
+# )
 
 # (
 #     tasks["nomis-pk-deletes-extract"]
