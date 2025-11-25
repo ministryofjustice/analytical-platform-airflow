@@ -121,21 +121,21 @@ PK_EXTRACTIONS = {
 db_user = Secret(
             deploy_type="env",
             deploy_target="SECRET_DB_USER",
-            secret=f"{PROJECT}-{WORKFLOW}-db-user-password-dsn",
+            secret=f"{PROJECT}-{WORKFLOW}-db-user",
             key="data"
     )
 
 db_pwd = Secret(
             deploy_type="env",
             deploy_target="SECRET_DB_PWD",
-            secret=f"{PROJECT}-{WORKFLOW}-db-user-password-dsn",
+            secret=f"{PROJECT}-{WORKFLOW}-db-pwd-prod",
             key="data"
     )
 
 db_dsn = Secret(
             deploy_type="env",
             deploy_target="SECRET_DB_DSN",
-            secret=f"{PROJECT}-{WORKFLOW}-db-user-password-dsn",
+            secret=f"{PROJECT}-{WORKFLOW}-db-dsn-prod",
             key="data"
     )
 
