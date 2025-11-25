@@ -22,7 +22,9 @@ iam:
     - alpha-nomis-preprod/processed_nomis_t62/*
 
 secrets:
-  - db-user-password-dsn
+  - db-user
+  - db-pwd
+  - db-dsn
 
 notifications:
   slack_channel: hmpps-data-notifications
