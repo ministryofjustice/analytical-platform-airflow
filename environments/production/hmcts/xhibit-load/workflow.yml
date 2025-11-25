@@ -5,13 +5,13 @@ dag:
   retry_delay: 150
   max_active_runs: 5
   env_vars:
-    LOG_LEVEL: "DEBUG"
+    LOG_LEVEL: "INFO"
     LAND: "s3://mojap-land/hmcts/xhibit"
     RAW_HIST: "s3://mojap-raw-hist/hmcts/xhibit"
     BASE_LOC: "s3://alpha-mojap-curated-xhibit/ors/v2/"
     BASE_DB_NAME: "xhibit_preprocessed"
     SERVICE: "xhibit"
-    CHUNK_SIZE: "131072"
+    CHUNK_SIZE: "1000000"
     DAG_INTERVAL_END: "{{ data_interval_end }}"
 
   tasks:
