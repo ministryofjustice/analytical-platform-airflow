@@ -120,23 +120,23 @@ PK_EXTRACTIONS = {
 # Database user, password and DSN secrets
 db_user = Secret(
             deploy_type="env",
-            deploy_target="DB_USER",
+            deploy_target="SECRET_DB_USER",
             secret=f"{PROJECT}-{WORKFLOW}-db-user-password-dsn",
-            key="db_user_id"
+            key="data"
     )
 
 db_pwd = Secret(
             deploy_type="env",
-            deploy_target="DB_PWD",
+            deploy_target="SECRET_DB_PWD",
             secret=f"{PROJECT}-{WORKFLOW}-db-user-password-dsn",
-            key="db_user_password"
+            key="data"
     )
 
 db_dsn = Secret(
             deploy_type="env",
-            deploy_target="DB_DSN",
+            deploy_target="SECRET_DB_DSN",
             secret=f"{PROJECT}-{WORKFLOW}-db-user-password-dsn",
-            key="db_dsn"
+            key="data"
     )
 
 
