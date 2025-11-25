@@ -23,8 +23,8 @@ iam:
 
 secrets:
   - db-user
-  - db-pwd
-  - db-dsn
+  - db-pwd-prod
+  - db-dsn-prod
 
 notifications:
   slack_channel: hmpps-data-notifications
