@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.21
+  tag: 0.1.22
   # Keep this in sync with your successful GitHub release tag
   max_active_runs: 8
 
