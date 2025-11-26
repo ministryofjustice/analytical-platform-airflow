@@ -238,7 +238,7 @@ tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
 
 )
 
-tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
+# tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
 tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
     dag=dag,
 #   task_id=f"nomis-pk-deletes-extract-check-{i}",
