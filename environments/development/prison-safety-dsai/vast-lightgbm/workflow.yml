@@ -22,6 +22,8 @@ dag:
     TARGETS: "y_h7_any"
     GROUP_COLS: "agy_loc_id,index_date"
 
+    WANDB_PROJECT: vast
+
   # ---- DAG parameters: can be overridden in the Airflow UI when triggering a run ----
   params:
     # Naming / versioning
@@ -77,6 +79,12 @@ dag:
     # DAG
     skip_build_bins: false
 
+    # WANDB
+    wandb_project: vast-lightgbm
+    wandb_entity: alex-gower-moj-ministry-of-justice-uk
+    wandb_run_name: null
+    no_wandb: false
+
   compute_profile: general-spot-16vcpu-64gb
 
   tasks:
@@ -121,6 +129,10 @@ dag:
         SKIP_DROP: "{{ params.skip_drop }}"
         USE_GPU: "{{ params.use_gpu | int }}"
         GPU_DEVICE: "{{ params.gpu_device }}"
+        WANDB_PROJECT: "{{ params.wandb_project }}"
+        WANDB_ENTITY: "{{ params.wandb_entity }}"
+        WANDB_RUN_NAME: "{{ params.wandb_run_name }}"
+        NO_WANDB: "{{ params.no_wandb | int }}"
 
     evaluate:
       dependencies:
@@ -135,6 +147,9 @@ dag:
         SAMPLE_HELDOUT_DAYS: "{{ params.sample_heldout_days }}"
         SEED: "{{ params.eval_seed }}"
         CHUNKSIZE: "{{ params.chunksize }}"
+
+secrets:
+  - WANDB_API_KEY
 
 iam:
   athena: write
