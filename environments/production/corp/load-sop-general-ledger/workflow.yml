@@ -34,24 +34,30 @@ dag:
 iam:
   athena: write
   glue: true
+
   s3_read_only:
     - mojap-land/corporate/report_extractor_prod/splashbi/*
+
   s3_read_write:
     - mojap-processed/domain__finance/env__prod/sop_general_ledgers/*
     - mojap-processed/domain__finance/env__prod/sop_general_ledgers_staging/*
     - mojap-processed/domain__finance/env__prod/athena_query_dump/*
+
 notifications:
   slack_channel: dmet-corp-notifications
+
   emails:
     - chris.sheldon@justice.gov.uk
     - Laurence.Droy@justice.gov.uk
     - William.Orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
+
 maintainers:
   - Csheldon155
   - ltd-pa
   - williamorrie
   - moj-supratikc
+
 tags:
   business_unit: Central Digital
   owner: Laurence.Droy@justice.gov.uk
