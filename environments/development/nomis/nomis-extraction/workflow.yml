@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-nomis-extraction
-  tag: v0.27
+  tag: v0.28
   python_dag: true
 
 iam:
@@ -32,6 +32,7 @@ notifications:
 maintainers:
   - AnthonyCody
   - andrewc-moj
+  - guywheeler
 
 tags:
   business_unit: HQ
