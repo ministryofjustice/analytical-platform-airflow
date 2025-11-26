@@ -18,19 +18,19 @@ dag:
   tasks:
     load-sop__moj_gl22:
       env_vars:
-        AFFILE_PIPELINE_NAME: moj_gl22
+        AFFILE_PIPELINE_NAME: "moj_gl22"
     load-sop__noms_gl22:
       env_vars:
-        AFFILE_PIPELINE_NAME: noms_gl22
+        AFFILE_PIPELINE_NAME: "noms_gl22"
     load-sop__cts_gl22:
       env_vars:
-        AFFILE_PIPELINE_NAME: cts_gl22
+        AFFILE_PIPELINE_NAME: "cts_gl22"
     load-sop__laa_gl22:
       env_vars:
-        AFFILE_PIPELINE_NAME: laa_gl22
+        AFFILE_PIPELINE_NAME: "laa_gl22"
     load-sop__opg_gl22:
       env_vars:
-        AFFILE_PIPELINE_NAME: opg_gl22
+        AFFILE_PIPELINE_NAME: "opg_gl22"
 iam:
   athena: write
   glue: true
