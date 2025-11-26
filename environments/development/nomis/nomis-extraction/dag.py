@@ -226,7 +226,7 @@ tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
     task_id="nomis-pk-deletes-extract",
     secrets=[db_user, db_pwd, db_dsn],
     env_vars={
-        "PK_EXTRACT_TABLES": tables_string,
+#        "PK_EXTRACT_TABLES": tables_string,
         "PYTHON_SCRIPT_NAME": "nomis_deletes_extract.py",
         "NOMIS_T62_FETCH_SIZE": RM_FETCH_SIZE,
         "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -245,7 +245,7 @@ tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
     task_id="nomis-pk-deletes-extract-check",
     secrets=[db_user, db_pwd, db_dsn],
     env_vars={
-        "PK_EXTRACT_TABLES": tables_string,
+#        "PK_EXTRACT_TABLES": tables_string,
         "PYTHON_SCRIPT_NAME": "test_deletes_extraction_outputs_and_move_to_raw.py",
         "NOMIS_T62_FETCH_SIZE": RM_FETCH_SIZE,
         "AWS_METADATA_SERVICE_TIMEOUT": "60",
