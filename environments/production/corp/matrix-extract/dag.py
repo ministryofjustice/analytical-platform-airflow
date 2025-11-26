@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 
@@ -9,7 +9,7 @@ PROJECT = "PLACEHOLDER_PROJECT"
 WORKFLOW = "PLACEHOLDER_WORKFLOW"
 ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
 OWNER = "PLACEHOLDER_OWNER"
-DATE = datetime.today().strftime("%Y-%m-%d")
+DATE = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
 
 DAG_EMAIL = [
     "Supratik.Chowdhury@justice.gov.uk",
