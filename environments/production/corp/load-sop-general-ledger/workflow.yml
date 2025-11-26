@@ -2,15 +2,15 @@
 dag:
   repository: moj-analytical-services/airflow-file
   tag: v0.1.0
-  schedule: "30 8 * * 1-5"
+  schedule: 30 8 * * 1-5
   is_paused_upon_creation: true
   env_vars:
     AFFILE_ALLOW_PROD: "true"
-    AFFILE_ENV: "prod"
-    AFFILE_SCHEMA_CONTRACT: "freeze"
-    AWS_DEFAULT_REGION: "eu-west-1"
-    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
-    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+    AFFILE_ENV: prod
+    AFFILE_SCHEMA_CONTRACT: freeze
+    AWS_DEFAULT_REGION: eu-west-1
+    AWS_ATHENA_QUERY_EXTRACT_REGION: eu-west-1
+    AWS_DEFAULT_EXTRACT_REGION: eu-west-1
   catchup: false
   max_active_runs: 1
   retries: 0
@@ -18,48 +18,40 @@ dag:
   tasks:
     load-sop__moj_gl22:
       env_vars:
-        AFFILE_PIPELINE_NAME: "moj_gl22"
+        AFFILE_PIPELINE_NAME: moj_gl22
     load-sop__noms_gl22:
       env_vars:
-        AFFILE_PIPELINE_NAME: "noms_gl22"
+        AFFILE_PIPELINE_NAME: noms_gl22
     load-sop__cts_gl22:
       env_vars:
-        AFFILE_PIPELINE_NAME: "cts_gl22"
+        AFFILE_PIPELINE_NAME: cts_gl22
     load-sop__laa_gl22:
       env_vars:
-        AFFILE_PIPELINE_NAME: "laa_gl22"
-    load-sop__cts_gl22:
+        AFFILE_PIPELINE_NAME: laa_gl22
+    load-sop__opg_gl22:
       env_vars:
-        AFFILE_PIPELINE_NAME: "cts_gl22"
-
-
+        AFFILE_PIPELINE_NAME: opg_gl22
 iam:
   athena: write
   glue: true
-
   s3_read_only:
     - mojap-land/corporate/report_extractor_prod/splashbi/*
-
   s3_read_write:
     - mojap-processed/domain__finance/env__prod/sop_general_ledgers/*
     - mojap-processed/domain__finance/env__prod/sop_general_ledgers_staging/*
     - mojap-processed/domain__finance/env__prod/athena_query_dump/*
-
 notifications:
   slack_channel: dmet-corp-notifications
-
   emails:
     - chris.sheldon@justice.gov.uk
     - Laurence.Droy@justice.gov.uk
     - William.Orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
-
 maintainers:
   - Csheldon155
   - ltd-pa
   - williamorrie
   - moj-supratikc
-
 tags:
   business_unit: Central Digital
   owner: Laurence.Droy@justice.gov.uk
