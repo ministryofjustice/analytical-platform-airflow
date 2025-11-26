@@ -3,6 +3,8 @@ dag:
   tag: v1.5.7
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT" #to be changed to dev once we have a prod DAG running
+  inlets:
+        - "s3://alpha-safety-mi/prisons_ds/dev_selfharm_proc/"
 
 iam:
   athena: write
