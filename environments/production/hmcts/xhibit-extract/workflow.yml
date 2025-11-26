@@ -20,7 +20,7 @@ dag:
     HIST_BUCKET: "s3://mojap-raw-hist"
     LAND_FOLDER: "hmcts/xhibit/"
     HIST_FOLDER: "hmcts/xhibit/"
-    CUT_OFF: "2022-08-21"
+    CUT_OFF: "2024-06-01"
   tasks:
     xhibit_extract_address:
       env_vars:
