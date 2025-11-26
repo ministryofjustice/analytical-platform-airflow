@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.19
+  tag: 0.1.20
   # Keep this in sync with your successful GitHub release tag
   max_active_runs: 8
 
@@ -149,7 +149,7 @@ dag:
         CHUNKSIZE: "{{ params.chunksize }}"
 
 secrets:
-  - WANDB_API_KEY
+  - wandb-api-key
 
 iam:
   athena: write
