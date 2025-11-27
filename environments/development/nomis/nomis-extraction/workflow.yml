@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-nomis-extraction
-  tag: v0.30
+  tag: v0.31
   python_dag: true
 
 iam:
@@ -25,6 +25,8 @@ secrets:
   - db-user
   - db-pwd-prod-new
   - db-dsn-prod-new
+  - db-prod-host
+  - db-prod-service
 
 notifications:
   slack_channel: hmpps-data-notifications
