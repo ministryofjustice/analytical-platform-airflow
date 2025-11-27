@@ -1,6 +1,9 @@
 from datetime import datetime
 from airflow import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
+# You must import the Secret class for this to work
+from airflow.providers.cncf.kubernetes.secret import Secret 
+
 
 # --- Placeholders ---
 
@@ -24,6 +27,40 @@ default_args = {
     "owner": f"{OWNER}",
     "email": "supratik.chowdhury@justice.gov.uk",
 }
+AWS_SECRET_ARN = "arn:aws:secretsmanager:eu-west-2:593291632749:secret:/airflow/development/corp/contracts-etl-dev/airflow-dev-contracts-etl-7RywJy"
+
+# Global list of secrets to be injected (all reference the same ARN)
+GLOBAL_SECRETS_LIST = [
+    # Extracts the 'db_user' field
+    Secret(
+        deploy_type="env",
+        deploy_target="DB_USER",
+        secret=AWS_SECRET_ARN,
+        key="db_user"
+    ),
+    # Extracts the 'db_password' field
+    Secret(
+        deploy_type="env",
+        deploy_target="DB_PASSWORD",
+        secret=AWS_SECRET_ARN,
+        key="db_password"
+    ),
+    # Extracts the 'jag_private_key' field
+    Secret(
+        deploy_type="env",
+        deploy_target="JAG_PRIVATE_KEY",
+        secret=AWS_SECRET_ARN,
+        key="jag_private_key"
+    ),
+    # Extracts the 'jag_host_key' field
+    Secret(
+        deploy_type="env",
+        deploy_target="JAG_HOST_KEY",
+        secret=AWS_SECRET_ARN,
+        key="jag_host_key"
+    ),
+]
+
 
 # --- DAG ---
 dag = DAG(
@@ -34,9 +71,9 @@ dag = DAG(
     catchup=False,
 )
 
-
-# --- Task Definitions ---
-
+# ----------------------------------------------------------------------
+# ## Task Definitions (with Secret Injection Logic)
+# ----------------------------------------------------------------------
 
 def create_task(
     task_id,
@@ -45,7 +82,13 @@ def create_task(
     prod_db_env=None,
     table_name_env=None,
     trigger_rule=None,
+    # NEW: Optional parameter to inject secrets
+    secret_list=None, 
 ):
+    """
+    Creates an AnalyticalPlatformStandardOperator task, conditionally injecting 
+    the necessary environment variables and Kubernetes secrets.
+    """
     return AnalyticalPlatformStandardOperator(
         dag=dag,
         task_id=task_id,
@@ -57,6 +100,8 @@ def create_task(
         workflow=WORKFLOW,
         trigger_rule=trigger_rule or "all_success",
         retries=RETRIES,
+        # INJECTION POINT: Add the secrets list if provided
+        secrets=secret_list or [], 
         env_vars={
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
@@ -74,12 +119,17 @@ def create_task(
 
 tasks = {}
 
-# Jagger Extract Tasks ----
+# ----------------------------------------------------------------------
+# ## Jaggaer Extract Tasks (Require Credentials)
+# ----------------------------------------------------------------------
 SOURCE_DB_ENV = "jaggaer"
+JAG_SECRETS = GLOBAL_SECRETS_LIST # Shorthand for tasks needing Jaggaer creds
+
 tasks[f"extract_{SOURCE_DB_ENV}"] = create_task(
     task_id=f"extract_{SOURCE_DB_ENV}",
     python_script_name=f"{SOURCE_DB_ENV}_to_land.py",
     source_db_env=SOURCE_DB_ENV,
+    secret_list=JAG_SECRETS, # Inject secrets here
 )
 
 tasks["jaggaer_preprocess"] = create_task(
@@ -87,6 +137,7 @@ tasks["jaggaer_preprocess"] = create_task(
     python_script_name="pre_process_jaggaer.py",
     source_db_env=SOURCE_DB_ENV,
     prod_db_env="preprod",
+    secret_list=JAG_SECRETS, # Inject secrets here (if processing requires credentials)
 )
 
 tasks[f"lint_{SOURCE_DB_ENV}"] = create_task(
@@ -101,6 +152,7 @@ tasks[f"process_{SOURCE_DB_ENV}"] = create_task(
     source_db_env=SOURCE_DB_ENV,
     prod_db_env="preprod",
 )
+# ... (rest of Jaggaer tasks do not typically need direct extraction credentials) ...
 
 tasks[f"create_{SOURCE_DB_ENV}_db"] = create_task(
     task_id=f"create_{SOURCE_DB_ENV}_db",
@@ -117,15 +169,16 @@ tasks[f"create_{SOURCE_DB_ENV}_extracts"] = create_task(
     prod_db_env="live",
 )
 
-
-# Rio Extract Tasks ----
+# ----------------------------------------------------------------------
+# ## Rio Extract Tasks (Assuming they do NOT need the Jaggaer secrets)
+# ----------------------------------------------------------------------
 SOURCE_DB_ENV = "rio"
 tasks[f"extract_{SOURCE_DB_ENV}"] = create_task(
     task_id=f"extract_{SOURCE_DB_ENV}",
     python_script_name=f"{SOURCE_DB_ENV}_to_land.py",
     source_db_env=SOURCE_DB_ENV,
 )
-
+# ... (rest of Rio tasks) ...
 tasks[f"lint_{SOURCE_DB_ENV}"] = create_task(
     task_id=f"lint_{SOURCE_DB_ENV}",
     python_script_name="land_to_raw_hist.py",
@@ -154,8 +207,9 @@ tasks[f"create_{SOURCE_DB_ENV}_extracts"] = create_task(
     prod_db_env="live",
 )
 
-# Table Tasks ----
-
+# ----------------------------------------------------------------------
+# ## Table Tasks (Only require secrets if the script accesses the source directly)
+# ----------------------------------------------------------------------
 tables = [
     ("claims", "jaggaer"),
     ("contracts", "jaggaer"),
@@ -167,6 +221,9 @@ tables = [
 for table in tables:
     SOURCE_DB_ENV = table[1]
     TABLE_NAME_ENV = table[0]
+    
+    # Conditionally set secrets: only Jaggaer tables might need the Jaggaer credentials
+    current_secrets = GLOBAL_SECRETS_LIST if SOURCE_DB_ENV == "jaggaer" else None
 
     name = f"preprod_check_status_{table[0]}"
     tasks[name] = create_task(
@@ -175,6 +232,7 @@ for table in tables:
         source_db_env=SOURCE_DB_ENV,
         table_name_env=TABLE_NAME_ENV,
         prod_db_env="preprod",
+        secret_list=current_secrets,
     )
 
     name = f"copy_preprod_to_live_{table[0]}"
@@ -184,9 +242,12 @@ for table in tables:
         source_db_env=SOURCE_DB_ENV,
         table_name_env=TABLE_NAME_ENV,
         prod_db_env="live",
+        secret_list=current_secrets,
     )
 
-# Ext Database task
+# ----------------------------------------------------------------------
+# ## Overall Database tasks (No direct secret access required)
+# ----------------------------------------------------------------------
 tasks["create_ext_db"] = create_task(
     task_id="create_ext_db",
     python_script_name="create_db.py",
@@ -194,7 +255,6 @@ tasks["create_ext_db"] = create_task(
     prod_db_env="live",
 )
 
-# Overall Database tasks
 SOURCE_DB_ENV = "all"
 
 tasks["create_preprod_db"] = create_task(
@@ -221,7 +281,9 @@ tasks["preprod_checks"] = create_task(
 )
 
 
-# Task Dependencies ---
+# ----------------------------------------------------------------------
+# ## Task Dependencies (Unchanged)
+# ----------------------------------------------------------------------
 tasks["extract_jaggaer"] >> tasks["jaggaer_preprocess"]
 tasks["jaggaer_preprocess"] >> tasks["lint_jaggaer"]
 tasks["lint_jaggaer"] >> tasks["process_jaggaer"]
