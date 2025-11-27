@@ -277,4 +277,4 @@ with DAG(
 
     tasks["create_jaggaer_db"] >> [tasks["create_jaggaer_extracts"]]
 
-    tasks["create_rio_db"] >> tasks["create_rio_extracts"]git 
+    tasks["create_rio_db"] >> tasks["create_rio_extracts"]
