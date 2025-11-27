@@ -1,5 +1,5 @@
 dag:
-  repository: moj-analytical-services/va_dashboard_update
+  repository: moj-analytical-services/va-dashboard-update
   tag: v0.0.8_dev
 
 maintainers:
