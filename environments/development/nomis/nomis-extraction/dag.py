@@ -116,12 +116,29 @@ PK_EXTRACTIONS = {
     ],
 }
 
-nomis_secret=Secret(
-        deploy_type="env",
-        deploy_target="SECRET_CONNECT_STRING",
-        secret=f"{PROJECT}-{WORKFLOW}-connect-string",
-        key="data"
-)
+
+# Database user, password and DSN secrets
+db_user = Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_USER",
+            secret=f"{PROJECT}-{WORKFLOW}-db-user",
+            key="data"
+    )
+
+db_pwd = Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_PWD_PROD_NEW",
+            secret=f"{PROJECT}-{WORKFLOW}-db-pwd-prod-new",
+            key="data"
+    )
+
+db_dsn = Secret(
+            deploy_type="env",
+            deploy_target="SECRET_DB_DSN_PROD_NEW",
+            secret=f"{PROJECT}-{WORKFLOW}-db-dsn-prod-new",
+            key="data"
+    )
+
 
 task_args = {
     "compute_profile": "general-on-demand-1vcpu-4gb",
@@ -133,7 +150,7 @@ task_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "email_on_retry": False,
-    "retries": 2,
+    "retries": 1,
     "retry_delay": 300,
 }
 
@@ -165,7 +182,7 @@ tasks["initialise-dag"] = AnalyticalPlatformStandardOperator(
 tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
     dag=dag,
     task_id="nomis-delta-extract",
-    secrets=[nomis_secret],
+    secrets=[db_user, db_pwd, db_dsn],
     env_vars={
         "PYTHON_SCRIPT_NAME": "nomis_delta_extract.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
@@ -179,7 +196,7 @@ tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
 tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
     dag=dag,
     task_id="nomis-delta-extract-check",
-    secrets=[nomis_secret],
+    secrets=[db_user, db_pwd, db_dsn],
     env_vars={
         "PYTHON_SCRIPT_NAME": "test_extraction_outputs_and_move_to_raw.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
@@ -199,15 +216,15 @@ tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
 
 # Deletes
 #for i, L in PK_EXTRACTIONS.items():
-#    if i in PK_EXCEPTIONS and datetime.now().day not in PK_EXCEPTIONS[i]:
-#        continue
-#    tables_string = ",".join(L)
-#   tasks[f"nomis-pk-deletes-extracts-{i}"] = AnalyticalPlatformStandardOperator(
+#   if i in PK_EXCEPTIONS and datetime.now().day not in PK_EXCEPTIONS[i]:
+#       continue
+#   tables_string = ",".join(L)
+#  tasks[f"nomis-pk-deletes-extracts-{i}"] = AnalyticalPlatformStandardOperator(
 tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
     dag=dag,
 #   task_id=f"nomis-pk-deletes-extracts-{i}",
     task_id="nomis-pk-deletes-extract",
-    secrets=[nomis_secret],
+    secrets=[db_user, db_pwd, db_dsn],
     env_vars={
 #        "PK_EXTRACT_TABLES": tables_string,
         "PYTHON_SCRIPT_NAME": "nomis_deletes_extract.py",
@@ -221,12 +238,12 @@ tasks["nomis-pk-deletes-extract"] = AnalyticalPlatformStandardOperator(
 
 )
 
-#   tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
+# tasks[f"nomis-pk-deletes-extract-check-{i}"] = AnalyticalPlatformStandardOperator(
 tasks["nomis-pk-deletes-extract-check"] = AnalyticalPlatformStandardOperator(
     dag=dag,
 #   task_id=f"nomis-pk-deletes-extract-check-{i}",
     task_id="nomis-pk-deletes-extract-check",
-    secrets=[nomis_secret],
+    secrets=[db_user, db_pwd, db_dsn],
     env_vars={
 #        "PK_EXTRACT_TABLES": tables_string,
         "PYTHON_SCRIPT_NAME": "test_deletes_extraction_outputs_and_move_to_raw.py",

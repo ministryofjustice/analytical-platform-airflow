@@ -20,7 +20,7 @@ dag:
     HIST_BUCKET: "s3://mojap-raw-hist"
     LAND_FOLDER: "hmcts/xhibit/"
     HIST_FOLDER: "hmcts/xhibit/"
-    CUT_OFF: "2022-08-21"
+    CUT_OFF: "2024-06-01"
   tasks:
     xhibit_extract_address:
       env_vars:
@@ -119,7 +119,7 @@ dag:
         FILENAME_TABLE_NAME: "defendant_on_offence"
     xhibit_extract_defendant_reference:
       env_vars:
-        TABLE_NAME: "defendant_reference"
+        TABLE_NAME: "defendant-reference"
         S3_TABLE_NAME: "defendant_reference"
         FILENAME_TABLE_NAME: "defendant_reference"
     xhibit_extract_disposal2:

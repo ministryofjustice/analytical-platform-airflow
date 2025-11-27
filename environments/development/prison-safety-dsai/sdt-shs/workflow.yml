@@ -1,8 +1,12 @@
 dag:
   repository: moj-analytical-services/airflow-shs-qual
-  tag: v1.5.7
+  tag: v1.5.8
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT" #to be changed to dev once we have a prod DAG running
+  inlets:
+    - "s3://alpha-safety-mi/prisons_ds/dev_selfharm_proc/"
+  outlets:
+    - "s3://alpha-app-safety-diagnostic-tool/development/txt_sh_pop.feather"
 
 iam:
   athena: write

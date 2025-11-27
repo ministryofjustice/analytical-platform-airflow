@@ -1,0 +1,10 @@
+dag:
+  repository: moj-analytical-services/va-dashboard-update
+  tag: v0.0.8_dev
+
+maintainers:
+  - np4465
+
+tags:
+  business_unit: HQ
+  owner: Nicholas.Popplewell@justice.gov.uk
