@@ -8,7 +8,7 @@ dag:
     AWS_REGION: eu-west-1
     AWS_DEFAULT_REGION: eu-west-1
     ATHENA_DB: vast_training_data
-    
+
     AWS_ATHENA_S3_STAGING_DIR: s3://alpha-vast/athena-staging/
     OUT_BASE: s3://alpha-vast/bins
     CSV_BASE: s3://alpha-vast/csv
@@ -30,7 +30,7 @@ dag:
     athena_table: "x_structured_y"
     targets: "y_h7_any"
     eval_target: y_h7_any
-    
+
     # Build / sampling
     skip_build_bins: false
     neg_multiplier: 20
@@ -88,7 +88,7 @@ dag:
     wandb_project: vast-lightgbm
     wandb_entity: alex-gower-moj-ministry-of-justice-uk
     no_wandb: false
-    
+
   compute_profile: general-spot-16vcpu-64gb
 
   tasks:
