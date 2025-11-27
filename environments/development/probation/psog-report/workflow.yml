@@ -1,6 +1,17 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
   tag: v1.1.65-dev12
+  schedule:
+    datasets:
+      - s3://mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board/table_name=cases_referred_outstanding_review_types/*
+      - s3://mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board/table_name=cases_timeliness/*
+      - s3://mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board/table_name=directions/*
+      - s3://mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board/table_name=hearing_to_release/*
+      - s3://mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board/table_name=mca_timeliness/*
+      - s3://mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board/table_name=oh_timeliness/*
+      - s3://mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board/table_name=pre_mca/*
+      - s3://mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board/table_name=referral_to_release/*
+      - s3://mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board/table_name=releases_timeliness/*
 
 iam:
   athena: write
