@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/va_dashboard_update
-  tag: v0.0.7_dev
+  tag: v0.0.8_dev
 
 maintainers:
   - np4465
