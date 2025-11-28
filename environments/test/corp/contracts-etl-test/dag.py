@@ -8,7 +8,7 @@ import boto3
 import json
 import logging
 
-# --- CONFIGURATION FOR SYNC TASK ---
+# --- CONFIGURATION FOR SYNC TASK ---pdn
 # These are the S3 source and Secrets Manager target locations
 S3_SECRET_BUCKET = "alpha-contracts-etl"
 S3_SECRET_KEY = "secrets/secrets.json"
