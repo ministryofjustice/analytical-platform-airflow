@@ -1,8 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow-spells-correction
-  tag: v1.1.2
+  tag: v1.1.3
   env_vars:
-    AIRFLOW_ENVIRONMENT: "DEVELOPMENT" #to be changed to dev once we have a prod DAG running
+    AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
 
 iam:
   athena: write
@@ -29,6 +29,7 @@ notifications:
 
 maintainers:
   - miller-william
+  - lauratraceymoj
 
 tags:
   business_unit: HMPPS
