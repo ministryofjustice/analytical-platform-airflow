@@ -16,7 +16,9 @@ ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
 OWNER = "PLACEHOLDER_OWNER"
 
 # --- Image ---
-IMAGE = (f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}")
+IMAGE = (
+    f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}"
+)
 
 # --- Email ---
 DAG_EMAIL = ["philip.neale@justice.gov.uk"]
@@ -39,13 +41,13 @@ default_params = {
 # The deploy_type must be set to 'env' to inject the secret as an environment variable
 API_SECRET = Secret(
     # The type of secret (e.g., 'env', 'volume')
-    deploy_type='env', #
+    deploy_type="env",  #
     # The environment variable name (e.g., 'SECRET_API_KEY')
-    deploy_target='SECRET_CONTRACTS_KEY',
+    deploy_target="SECRET_CONTRACTS_KEY",
     # The name of the Kubernetes Secret resource
-    secret=f"{PROJECT}-{WORKFLOW}-CONTRACTS_KEY", # Use a specific secret name if known, or a placeholder
+    secret=f"{PROJECT}-{WORKFLOW}-CONTRACTS_KEY",  # Use a specific secret name if known, or a placeholder
     # The key within the Secret resource to pull the value from
-    key='jag_private_key', # Use a specific key name if known, or a placeholder
+    key="jag_private_key",  # Use a specific key name if known, or a placeholder
 )
 
 # A list of secrets to be applied to all tasks
@@ -122,7 +124,6 @@ for db in dbs:
             "AWS_DEFAULT_REGION": "eu-west-1",
             "GITHUB_TAG": REPOSITORY_TAG,
         },
-
     )
 
     task_id = f"process_{DATABASE_NAME}"
@@ -147,7 +148,6 @@ for db in dbs:
             "GITHUB_TAG": REPOSITORY_TAG,
             "PROD_DB_ENV": "preprod",
         },
-
     )
 
     task_id = f"create_{DATABASE_NAME}_db"
@@ -173,7 +173,6 @@ for db in dbs:
             "GITHUB_TAG": REPOSITORY_TAG,
             "PROD_DB_ENV": "live",
         },
-
     )
 
     task_id = f"create_{DATABASE_NAME}_extracts"
@@ -198,7 +197,6 @@ for db in dbs:
             "GITHUB_TAG": REPOSITORY_TAG,
             "PROD_DB_ENV": "live",
         },
-
     )
 
 # these are tables we run extracts from and can get preprod
@@ -239,7 +237,6 @@ for table in tables:
             "GITHUB_TAG": REPOSITORY_TAG,
             "PROD_DB_ENV": "preprod",
         },
-
     )
 
     task_id = f"copy_preprod_to_live_{table[0]}"
@@ -265,7 +262,6 @@ for table in tables:
             "GITHUB_TAG": REPOSITORY_TAG,
             "PROD_DB_ENV": "live",
         },
-
     )
 
 # change env var for different db
@@ -294,7 +290,6 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
         "GITHUB_TAG": REPOSITORY_TAG,
         "PROD_DB_ENV": "live",
     },
-
 )
 
 # create overall database with all data
@@ -323,7 +318,6 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
         "GITHUB_TAG": REPOSITORY_TAG,
         "PROD_DB_ENV": "preprod",
     },
-
 )
 
 task_id = "create_live_db"
@@ -349,7 +343,6 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
         "GITHUB_TAG": REPOSITORY_TAG,
         "PROD_DB_ENV": "live",
     },
-
 )
 
 task_id = "preprod_checks"
@@ -375,7 +368,6 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
         "GITHUB_TAG": REPOSITORY_TAG,
         "PROD_DB_ENV": "preprod",
     },
-
 )
 
 task_id = "jaggaer_preprocess"
@@ -401,7 +393,6 @@ tasks[task_id] = AnalyticalPlatformStandardOperator(
         "GITHUB_TAG": REPOSITORY_TAG,
         "PROD_DB_ENV": "preprod",
     },
-
 )
 
 # --- Task Dependencies ---

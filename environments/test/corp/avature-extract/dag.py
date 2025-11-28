@@ -5,12 +5,12 @@ from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
 
-REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
-REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
-PROJECT="PLACEHOLDER_PROJECT"
-WORKFLOW="PLACEHOLDER_WORKFLOW"
-ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
-OWNER="PLACEHOLDER_OWNER"
+REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
+REPOSITORY_TAG = "PLACEHOLDER_REPOSITORY_TAG"
+PROJECT = "PLACEHOLDER_PROJECT"
+WORKFLOW = "PLACEHOLDER_WORKFLOW"
+ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
+OWNER = "PLACEHOLDER_OWNER"
 
 DAG_EMAIL = [
     "Supratik.Chowdhury@justice.gov.uk",
@@ -23,7 +23,7 @@ default_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "owner": f"{OWNER}",
-    "email": DAG_EMAIL
+    "email": DAG_EMAIL,
 }
 
 default_params = {
@@ -58,7 +58,7 @@ task = AnalyticalPlatformStandardOperator(
             deploy_type="env",
             deploy_target="SECRET_SERVICE_ACCOUNT_TOKEN",
             secret=f"{PROJECT}-{WORKFLOW}-service-account-token",
-            key="data"
+            key="data",
         )
-    ]
+    ],
 )

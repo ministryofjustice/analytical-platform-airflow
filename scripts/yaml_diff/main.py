@@ -32,22 +32,27 @@ diff = DeepDiff(main_data, pr_data, ignore_order=True)
 # Check for changes in the entire file
 if diff:
     # Check if the only change is in `dag.tag`
-    dag_tag_changes = diff.get('values_changed', {}).get("root['dag']['tag']", None)
+    dag_tag_changes = diff.get("values_changed", {}).get("root['dag']['tag']", None)
     other_changes = any(
-        key != "root['dag']['tag']"
-        for key in diff.get('values_changed', {}).keys()
+        key != "root['dag']['tag']" for key in diff.get("values_changed", {}).keys()
     )
-    additions = diff.get('dictionary_item_added', None)
-    removals = diff.get('dictionary_item_removed', None)
-    iterable_item_added = diff.get('iterable_item_added', None)
-    iterable_item_removed = diff.get('iterable_item_removed', None)
-    type_changes = diff.get('type_changes', None)
-    set_item_added = diff.get('set_item_added', None)
-    set_item_removed = diff.get('set_item_removed', None)
+    additions = diff.get("dictionary_item_added", None)
+    removals = diff.get("dictionary_item_removed", None)
+    iterable_item_added = diff.get("iterable_item_added", None)
+    iterable_item_removed = diff.get("iterable_item_removed", None)
+    type_changes = diff.get("type_changes", None)
+    set_item_added = diff.get("set_item_added", None)
+    set_item_removed = diff.get("set_item_removed", None)
 
     if (
-        other_changes or additions or removals or iterable_item_added or
-        iterable_item_removed or type_changes or set_item_added or set_item_removed
+        other_changes
+        or additions
+        or removals
+        or iterable_item_added
+        or iterable_item_removed
+        or type_changes
+        or set_item_added
+        or set_item_removed
     ):
         print("Warning: Changes detected outside dag.tag")
         print(f"Differences: {diff}")

@@ -31,8 +31,12 @@ def get_installation_token():
     """
     # Get credentials from environment
     app_id = os.getenv("githubAppId")  # noqa: SIM112 comes from upstream script
-    installation_id = os.getenv("githubAppInstallationId")  # noqa: SIM112 comes from upstream script
-    private_key_b64 = os.getenv("githubAppPrivateKey")  # noqa: SIM112 comes from upstream script
+    installation_id = os.getenv(
+        "githubAppInstallationId"
+    )  # noqa: SIM112 comes from upstream script
+    private_key_b64 = os.getenv(
+        "githubAppPrivateKey"
+    )  # noqa: SIM112 comes from upstream script
 
     # Validate credentials
     if not app_id:
