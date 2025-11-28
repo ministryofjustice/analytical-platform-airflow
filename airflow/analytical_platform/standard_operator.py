@@ -9,6 +9,7 @@ from airflow.providers.cncf.kubernetes.utils.xcom_sidecar import (
 from analytical_platform.compute_profiles import get_compute_profile
 from kubernetes.client import models as k8s_models
 
+
 def override_xcom_sidecar_defaults():
     """Override the default sidecar container for XCom in KubernetesPodOperator"""
     PodDefaults.SIDECAR_CONTAINER.image = "ghcr.io/ministryofjustice/analytical-platform-airflow-xcom-sidecar:1.1.0@sha256:fb7f6851569a630aea800a3bddb5ce11586cb6f479503ae952cb8f0eb01a1146"
@@ -19,6 +20,7 @@ def override_xcom_sidecar_defaults():
         seccomp_profile=k8s_models.V1SeccompProfile(type="RuntimeDefault"),
         capabilities=k8s_models.V1Capabilities(drop=["ALL"]),
     )
+
 
 class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
     def __init__(
@@ -54,7 +56,7 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
                 # Ingress and Egress is capped at 175M so workloads
                 # don't saturate the network link between MoJ and HMCTS
                 "kubernetes.io/ingress-bandwidth": "175M",
-                "kubernetes.io/egress-bandwidth": "175M"
+                "kubernetes.io/egress-bandwidth": "175M",
             }
 
             annotations.update(hmcts_sdp_networking_annotations)
@@ -63,64 +65,64 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
             hmcts_sdp_networking_host_aliases = [
                 {
                     "ip": "10.168.4.13",
-                    "hostnames": ["mipersistentithc.blob.core.windows.net"]
+                    "hostnames": ["mipersistentithc.blob.core.windows.net"],
                 },
                 {
                     "ip": "10.168.4.5",
-                    "hostnames": ["miexportithc.blob.core.windows.net"]
+                    "hostnames": ["miexportithc.blob.core.windows.net"],
                 },
                 {
                     "ip": "10.168.3.8",
-                    "hostnames": ["mipersistentstg.blob.core.windows.net"]
+                    "hostnames": ["mipersistentstg.blob.core.windows.net"],
                 },
                 {
                     "ip": "10.168.3.7",
-                    "hostnames": ["miexportstg.blob.core.windows.net"]
+                    "hostnames": ["miexportstg.blob.core.windows.net"],
                 },
                 {
                     "ip": "10.168.5.13",
-                    "hostnames": ["mipersistentprod.blob.core.windows.net"]
+                    "hostnames": ["mipersistentprod.blob.core.windows.net"],
                 },
                 {
                     "ip": "10.168.5.8",
-                    "hostnames": ["miexportprod.blob.core.windows.net"]
+                    "hostnames": ["miexportprod.blob.core.windows.net"],
                 },
                 {
                     "ip": "10.225.251.100",
-                    "hostnames": ["baisbaumojapnle.blob.core.windows.net"]
+                    "hostnames": ["baisbaumojapnle.blob.core.windows.net"],
                 },
                 {
                     "ip": "10.224.251.100",
-                    "hostnames": ["baisbaumojapprod.blob.core.windows.net"]
+                    "hostnames": ["baisbaumojapprod.blob.core.windows.net"],
                 },
                 {
                     "ip": "10.168.5.4",
-                    "hostnames": ["miadhoclandingprod.blob.core.windows.net"]
+                    "hostnames": ["miadhoclandingprod.blob.core.windows.net"],
                 },
                 {
                     "ip": "10.168.1.14",
-                    "hostnames": ["mi-synapse-dev.sql.azuresynapse.net"]
+                    "hostnames": ["mi-synapse-dev.sql.azuresynapse.net"],
                 },
                 {
                     "ip": "10.168.1.15",
-                    "hostnames": ["mi-synapse-dev.dev.azuresynapse.net"]
+                    "hostnames": ["mi-synapse-dev.dev.azuresynapse.net"],
                 },
                 {
                     "ip": "10.168.1.16",
-                    "hostnames": ["mi-synapse-dev-ondemand.sql.azuresynapse.net"]
+                    "hostnames": ["mi-synapse-dev-ondemand.sql.azuresynapse.net"],
                 },
                 {
                     "ip": "10.168.5.16",
-                    "hostnames": ["mi-synapse-prod.sql.azuresynapse.net"]
+                    "hostnames": ["mi-synapse-prod.sql.azuresynapse.net"],
                 },
                 {
                     "ip": "10.168.5.17",
-                    "hostnames": ["mi-synapse-prod-ondemand.sql.azuresynapse.net"]
+                    "hostnames": ["mi-synapse-prod-ondemand.sql.azuresynapse.net"],
                 },
                 {
                     "ip": "10.168.5.18",
-                    "hostnames": ["mi-synapse-prod.dev.azuresynapse.net"]
-                }
+                    "hostnames": ["mi-synapse-prod.dev.azuresynapse.net"],
+                },
             ]
 
         # Environment Variables
@@ -145,7 +147,6 @@ class AnalyticalPlatformStandardOperator(KubernetesPodOperator):
 
         # Convert all values to strings
         env_vars = {k: str(v) for k, v in env_vars.items()}
-
 
         super().__init__(
             # Airflow Configuration

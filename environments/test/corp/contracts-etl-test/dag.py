@@ -2,6 +2,7 @@ from datetime import datetime
 from airflow import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 from airflow.providers.cncf.kubernetes.secret import Secret
+
 # We need standard Python libraries for the sync task
 import os
 import boto3
@@ -33,20 +34,21 @@ SM_TARGET_ARN = AWS_SECRET_ARN
 # 🐍 Python Sync Function (Executed by the new sync task)
 # ----------------------------------------------------------------------
 
+
 def sync_s3_to_secrets_manager():
     """Reads secrets.json from S3 and updates the Secrets Manager ARN."""
     logging.basicConfig(level=logging.INFO)
 
     # Clients rely on the worker's IAM role for credentials
-    s3_client = boto3.client('s3', region_name=AWS_REGION)
-    sm_client = boto3.client('secretsmanager', region_name=AWS_REGION)
+    s3_client = boto3.client("s3", region_name=AWS_REGION)
+    sm_client = boto3.client("secretsmanager", region_name=AWS_REGION)
 
     # 1. Read S3 Content
     try:
         response = s3_client.get_object(Bucket=S3_SECRET_BUCKET, Key=S3_SECRET_KEY)
         # Read the entire JSON content as a single string
-        json_string = response['Body'].read().decode('utf-8')
-        json.loads(json_string) # Validate JSON structure
+        json_string = response["Body"].read().decode("utf-8")
+        json.loads(json_string)  # Validate JSON structure
         logging.info("S3 content successfully read and validated.")
     except Exception as e:
         raise Exception(f"Failed to read or validate S3 secret: {e}")
@@ -54,17 +56,11 @@ def sync_s3_to_secrets_manager():
     # 2. Update/Create Secret Manager Entry
     try:
         # We use update_secret for atomicity, and catch ResourceNotFoundException to create
-        sm_client.update_secret(
-            SecretId=SM_TARGET_ARN,
-            SecretString=json_string
-        )
+        sm_client.update_secret(SecretId=SM_TARGET_ARN, SecretString=json_string)
         logging.info(f"✅ Successfully updated secret at ARN: {SM_TARGET_ARN}")
     except sm_client.exceptions.ResourceNotFoundException:
         # If the secret doesn't exist, create it (using the path as the Name)
-        sm_client.create_secret(
-            Name=SM_TARGET_ARN,
-            SecretString=json_string
-        )
+        sm_client.create_secret(Name=SM_TARGET_ARN, SecretString=json_string)
         logging.info(f"✅ Successfully created new secret at ARN: {SM_TARGET_ARN}")
     except Exception as e:
         raise Exception(f"Failed to sync to Secrets Manager: {e}")
@@ -82,10 +78,30 @@ default_args = {
 # 🔑 Global Secrets List (Unchanged)
 # ----------------------------------------------------------------------
 GLOBAL_SECRETS_LIST = [
-    Secret(deploy_type="env", deploy_target="CLIENT_ID", secret=AWS_SECRET_ARN, key="client_id"),
-    Secret(deploy_type="env", deploy_target="CLIENT_SECRET", secret=AWS_SECRET_ARN, key="client_secret"),
-    Secret(deploy_type="env", deploy_target="JAG_PRIVATE_KEY", secret=AWS_SECRET_ARN, key="jag_private_key"),
-    Secret(deploy_type="env", deploy_target="JAG_HOST_KEY", secret=AWS_SECRET_ARN, key="jag_host_key"),
+    Secret(
+        deploy_type="env",
+        deploy_target="CLIENT_ID",
+        secret=AWS_SECRET_ARN,
+        key="client_id",
+    ),
+    Secret(
+        deploy_type="env",
+        deploy_target="CLIENT_SECRET",
+        secret=AWS_SECRET_ARN,
+        key="client_secret",
+    ),
+    Secret(
+        deploy_type="env",
+        deploy_target="JAG_PRIVATE_KEY",
+        secret=AWS_SECRET_ARN,
+        key="jag_private_key",
+    ),
+    Secret(
+        deploy_type="env",
+        deploy_target="JAG_HOST_KEY",
+        secret=AWS_SECRET_ARN,
+        key="jag_host_key",
+    ),
 ]
 
 
@@ -98,14 +114,13 @@ with DAG(
     catchup=False,
 ) as dag:
 
-
     # ----------------------------------------------------------------------
     # 🥇 NEW TASK: S3 to Secrets Manager Sync
     # ----------------------------------------------------------------------
     from airflow.operators.python import PythonOperator
 
     sync_secrets_task = PythonOperator(
-        task_id='sync_secrets_to_sm',
+        task_id="sync_secrets_to_sm",
         python_callable=sync_s3_to_secrets_manager,
         # Ensure the execution environment has S3 read and SecretsManager write permissions
     )
@@ -147,10 +162,8 @@ with DAG(
             },
         )
 
-
     tasks = {}
     JAG_SECRETS = GLOBAL_SECRETS_LIST
-
 
     # --- Jaggaer Extract Tasks (APPLY SECRETS) ----
     SOURCE_DB_ENV = "jaggaer"
@@ -323,7 +336,6 @@ with DAG(
         tasks["copy_preprod_to_live_spend"],
         tasks["copy_preprod_to_live_rio"],
     ] >> tasks["create_live_db"]
-
 
     tasks["create_ext_db"]
 
