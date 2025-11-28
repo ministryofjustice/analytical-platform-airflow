@@ -2,22 +2,19 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
   tag: 1.1.17
-  compute_profile: general-on-demand-16vcpu-64gb
-  schedule: "0 12 * * 0"
+  compute_profile: general-on-demand-8vcpu-32gb
+  schedule: "0 9 * * *"
   catchup: false
   outlets:
-    - "s3://mojap-derived-tables/prod/monthly/"
-    - "s3://mojap-derived-tables/prod/weekly/"
-    - "s3://mojap-derived-tables/prod/daily/"
+    - "s3://mojap-derived-tables/prod/nomis-daily/"
   env_vars:
     DEPLOY_ENV: sandpit
-    DBT_PROFILE_WORKGROUP: dbt-monthly
+    DBT_PROFILE_WORKGROUP: dbt-nomis-daily
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-monthly
-    DBT_SELECT_CRITERIA: tag:daily tag:weekly tag:monthly
+    WORKFLOW_NAME: nomis-daily
+    DBT_SELECT_CRITERIA: tag:nomis_daily
     BRANCH: main
     MODE: build
-    IS_SUNDAY_DEPLOY: true
 
 maintainers:
   - jhpyke

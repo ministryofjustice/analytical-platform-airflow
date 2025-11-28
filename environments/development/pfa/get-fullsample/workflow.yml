@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/prison-flows-analysis
-  tag: v0.4.4.dev4.2
+  tag: v0.4.4.dev5.2
   compute_profile: general-spot-4vcpu-16gb
   schedule: "0 8 * * 1"
 
