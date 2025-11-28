@@ -25,7 +25,10 @@ IMAGE = (
     f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}"
 )
 
-
+# Define the ARN constant early
+AWS_SECRET_ARN = "arn:aws:secretsmanager:eu-west-2:593291632749:secret:/airflow/development/corp/contracts-etl-dev/airflow-dev-contracts-etl-7RywJy"
+# If used, define the target ARN for the sync function here too
+SM_TARGET_ARN = AWS_SECRET_ARN
 # ----------------------------------------------------------------------
 # 🐍 Python Sync Function (Executed by the new sync task)
 # ----------------------------------------------------------------------
