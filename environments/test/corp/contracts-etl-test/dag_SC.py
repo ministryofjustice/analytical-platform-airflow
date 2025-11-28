@@ -1,20 +1,14 @@
 from datetime import datetime
+# Import the base DAG class
 from airflow import DAG
+# Import the custom operator
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
+# 🛠️ FIX 1: Import the required Secret class for Kubernetes secrets
 from airflow.providers.cncf.kubernetes.secret import Secret
-# We need standard Python libraries for the sync task
-import os
-import boto3
-import json
-import logging
 
-# --- CONFIGURATION FOR SYNC TASK ---
-# These are the S3 source and Secrets Manager target locations
-S3_SECRET_BUCKET = "alpha-contracts-etl"
-S3_SECRET_KEY = "secrets/secrets.json"
-SM_TARGET_ARN = "arn:aws:secretsmanager:eu-west-2:593291632749:secret:/airflow/development/corp/contracts-etl-dev/airflow-dev-contracts-etl-7RywJy"
-AWS_REGION = "eu-west-2"
-# -----------------------------------
+
+# --- Placeholders ---
+
 REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
 REPOSITORY_TAG = "PLACEHOLDER_REPOSITORY_TAG"
 PROJECT = "PLACEHOLDER_PROJECT"
@@ -24,47 +18,10 @@ OWNER = "PLACEHOLDER_OWNER"
 IMAGE = (
     f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}"
 )
-
-
-# ----------------------------------------------------------------------
-# 🐍 Python Sync Function (Executed by the new sync task)
-# ----------------------------------------------------------------------
-
-def sync_s3_to_secrets_manager():
-    """Reads secrets.json from S3 and updates the Secrets Manager ARN."""
-    logging.basicConfig(level=logging.INFO)
-
-    # Clients rely on the worker's IAM role for credentials
-    s3_client = boto3.client('s3', region_name=AWS_REGION)
-    sm_client = boto3.client('secretsmanager', region_name=AWS_REGION)
-
-    # 1. Read S3 Content
-    try:
-        response = s3_client.get_object(Bucket=S3_SECRET_BUCKET, Key=S3_SECRET_KEY)
-        # Read the entire JSON content as a single string
-        json_string = response['Body'].read().decode('utf-8')
-        json.loads(json_string) # Validate JSON structure
-        logging.info("S3 content successfully read and validated.")
-    except Exception as e:
-        raise Exception(f"Failed to read or validate S3 secret: {e}")
-
-    # 2. Update/Create Secret Manager Entry
-    try:
-        # We use update_secret for atomicity, and catch ResourceNotFoundException to create
-        sm_client.update_secret(
-            SecretId=SM_TARGET_ARN,
-            SecretString=json_string
-        )
-        logging.info(f"✅ Successfully updated secret at ARN: {SM_TARGET_ARN}")
-    except sm_client.exceptions.ResourceNotFoundException:
-        # If the secret doesn't exist, create it (using the path as the Name)
-        sm_client.create_secret(
-            Name=SM_TARGET_ARN,
-            SecretString=json_string
-        )
-        logging.info(f"✅ Successfully created new secret at ARN: {SM_TARGET_ARN}")
-    except Exception as e:
-        raise Exception(f"Failed to sync to Secrets Manager: {e}")
+DEFAULT_DB_ENV = "dev"
+RETRIES = 0
+# Define the AWS Secret ARN Constant
+AWS_SECRET_ARN = "arn:aws:secretsmanager:eu-west-2:593291632749:secret:/airflow/development/corp/contracts-etl-dev/airflow-dev-contracts-etl-7RywJy"
 
 
 # --- Default Args ---
@@ -76,36 +33,27 @@ default_args = {
 }
 
 # ----------------------------------------------------------------------
-# 🔑 Global Secrets List (Unchanged)
+# 🔑 Global Secrets List (Defined BEFORE use)
 # ----------------------------------------------------------------------
 GLOBAL_SECRETS_LIST = [
-    Secret(deploy_type="env", deploy_target="CLIENT_ID", secret=AWS_SECRET_ARN, key="client_id"),
-    Secret(deploy_type="env", deploy_target="CLIENT_SECRET", secret=AWS_SECRET_ARN, key="client_secret"),
+    Secret(deploy_type="env", deploy_target="DB_USER", secret=AWS_SECRET_ARN, key="db_user"),
+    Secret(deploy_type="env", deploy_target="DB_PASSWORD", secret=AWS_SECRET_ARN, key="db_password"),
     Secret(deploy_type="env", deploy_target="JAG_PRIVATE_KEY", secret=AWS_SECRET_ARN, key="jag_private_key"),
     Secret(deploy_type="env", deploy_target="JAG_HOST_KEY", secret=AWS_SECRET_ARN, key="jag_host_key"),
 ]
 
 
 # --- DAG Context Manager ---
+# The DAG definition is often wrapped around the tasks, or defined globally.
+# We define it here so the `dag` object is available for `create_task`.
 with DAG(
     dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=default_args,
     description="Contracts ETL Pipeline",
     start_date=datetime(2022, 5, 20),
     catchup=False,
-) as dag:
+) as dag: # The DAG object is created and assigned to the variable `dag`
 
-
-    # ----------------------------------------------------------------------
-    # 🥇 NEW TASK: S3 to Secrets Manager Sync
-    # ----------------------------------------------------------------------
-    from airflow.operators.python import PythonOperator
-
-    sync_secrets_task = PythonOperator(
-        task_id='sync_secrets_to_sm',
-        python_callable=sync_s3_to_secrets_manager,
-        # Ensure the execution environment has S3 read and SecretsManager write permissions
-    )
 
     # --- Task Definitions (Helper Function) ---
     def create_task(
@@ -118,6 +66,7 @@ with DAG(
         secret_list=None,
     ):
         """Creates an AnalyticalPlatformStandardOperator task."""
+        # 🛠️ FIX 2: `dag=dag` is now safe because `dag` is defined by the `with` statement
         return AnalyticalPlatformStandardOperator(
             dag=dag,
             task_id=task_id,
@@ -129,7 +78,7 @@ with DAG(
             workflow=WORKFLOW,
             trigger_rule=trigger_rule or "all_success",
             retries=RETRIES,
-            secrets=secret_list or [],
+            secrets=secret_list or [], # Use the passed secrets list
             env_vars={
                 "AWS_METADATA_SERVICE_TIMEOUT": "60",
                 "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
@@ -145,8 +94,9 @@ with DAG(
         )
 
 
+    # 🛠️ FIX 3: Initialize the dictionary BEFORE creating tasks
     tasks = {}
-    JAG_SECRETS = GLOBAL_SECRETS_LIST
+    JAG_SECRETS = GLOBAL_SECRETS_LIST # Shorthand for tasks needing Jaggaer creds
 
 
     # --- Jaggaer Extract Tasks (APPLY SECRETS) ----
@@ -155,17 +105,18 @@ with DAG(
         task_id=f"extract_{SOURCE_DB_ENV}",
         python_script_name=f"{SOURCE_DB_ENV}_to_land.py",
         source_db_env=SOURCE_DB_ENV,
-        secret_list=JAG_SECRETS,
+        secret_list=JAG_SECRETS, # Inject secrets
     )
-    # ... (rest of task creation remains as you provided) ...
 
     tasks["jaggaer_preprocess"] = create_task(
         task_id="jaggaer_preprocess",
         python_script_name="pre_process_jaggaer.py",
         source_db_env=SOURCE_DB_ENV,
         prod_db_env="preprod",
-        secret_list=JAG_SECRETS,
+        secret_list=JAG_SECRETS, # Inject secrets
     )
+
+    # ... (rest of your tasks follow, using the pattern: secret_list=JAG_SECRETS where needed) ...
 
     tasks[f"lint_{SOURCE_DB_ENV}"] = create_task(
         task_id=f"lint_{SOURCE_DB_ENV}",
@@ -201,7 +152,10 @@ with DAG(
         prod_db_env="preprod",
     )
 
+    # ... (omitting remaining task creation for brevity, assuming similar pattern) ...
+
     # --- Table Tasks ----
+
     tables = [
         ("claims", "jaggaer"),
         ("contracts", "jaggaer"),
@@ -214,6 +168,7 @@ with DAG(
         SOURCE_DB_ENV = table[1]
         TABLE_NAME_ENV = table[0]
 
+        # Conditionally set secrets based on source
         current_secrets = JAG_SECRETS if SOURCE_DB_ENV == "jaggaer" else None
 
         name = f"preprod_check_status_{table[0]}"
@@ -223,7 +178,7 @@ with DAG(
             source_db_env=SOURCE_DB_ENV,
             table_name_env=TABLE_NAME_ENV,
             prod_db_env="preprod",
-            secret_list=current_secrets,
+            secret_list=current_secrets, # Inject secrets only for Jaggaer tables
         )
 
         name = f"copy_preprod_to_live_{table[0]}"
@@ -233,10 +188,12 @@ with DAG(
             source_db_env=SOURCE_DB_ENV,
             table_name_env=TABLE_NAME_ENV,
             prod_db_env="live",
-            secret_list=current_secrets,
+            secret_list=current_secrets, # Inject secrets only for Jaggaer tables
         )
 
-    # --- Overall Database tasks ---
+    # ... (remaining task definitions and dependencies) ...
+
+    # Ext Database task
     tasks["create_ext_db"] = create_task(
         task_id="create_ext_db",
         python_script_name="create_db.py",
@@ -244,6 +201,7 @@ with DAG(
         prod_db_env="live",
     )
 
+    # Overall Database tasks
     SOURCE_DB_ENV = "all"
 
     tasks["create_preprod_db"] = create_task(
@@ -269,15 +227,8 @@ with DAG(
         prod_db_env="preprod",
     )
 
-    # ----------------------------------------------------------------------
-    # ## Task Dependencies (UPDATED)
-    # ----------------------------------------------------------------------
 
-    # The sync task must run and succeed BEFORE any extraction or processing begins
-    sync_secrets_task >> tasks["extract_jaggaer"]
-    sync_secrets_task >> tasks["extract_rio"]
-
-    # Existing dependencies:
+    # Task Dependencies --- (Unchanged)
     tasks["extract_jaggaer"] >> tasks["jaggaer_preprocess"]
     tasks["jaggaer_preprocess"] >> tasks["lint_jaggaer"]
     tasks["lint_jaggaer"] >> tasks["process_jaggaer"]
