@@ -151,7 +151,7 @@ for table in raw_tables:
         )
         tasks[f"land_to_raw_init_{table}"] >> tasks[f"land_to_raw_{table}_{batch}"]
         tasks[f"land_to_raw_{table}_{batch}"] >> tasks[f"land_to_raw_close_{table}"]
-        tasks[f"land_to_raw_close_{table}"] >> tasks[f"raw_to_curated"]
+        tasks[f"land_to_raw_close_{table}"] >> tasks["raw_to_curated"]
 
 
 tasks["create_curated_database"] = AnalyticalPlatformStandardOperator(
