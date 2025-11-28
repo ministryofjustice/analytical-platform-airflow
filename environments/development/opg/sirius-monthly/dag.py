@@ -71,9 +71,9 @@ tasks["raw_to_curated"] = AnalyticalPlatformStandardOperator(
     env_vars=update_env_vars(base_env_vars, {"STEP": "curated"}),
 )
 
-tasks[f"land_to_raw_init"] = AnalyticalPlatformStandardOperator(
+tasks["land_to_raw_init"] = AnalyticalPlatformStandardOperator(
     dag=dag,
-    task_id=f"land_to_raw_init",
+    task_id="land_to_raw_init",
     name=f"{PROJECT}.{WORKFLOW}",
     compute_profile="general-spot-1vcpu-4gb",
     image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
@@ -84,11 +84,11 @@ tasks[f"land_to_raw_init"] = AnalyticalPlatformStandardOperator(
         base_env_vars, {"STEP": "raw", "TOTAL_WORKERS": total_workers, "CLOSE": False}
     ),
 )
-tasks["to_land"] >> tasks[f"land_to_raw_init"]
+tasks["to_land"] >> tasks["land_to_raw_init"]
 
-tasks[f"land_to_raw_close"] = AnalyticalPlatformStandardOperator(
+tasks["land_to_raw_close"] = AnalyticalPlatformStandardOperator(
     dag=dag,
-    task_id=f"land_to_raw_close",
+    task_id="land_to_raw_close",
     name=f"{PROJECT}.{WORKFLOW}",
     compute_profile="general-spot-1vcpu-4gb",
     image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
@@ -105,7 +105,7 @@ for batch in range(total_workers):
         dag=dag,
         task_id=f"land_to_raw_{batch}",
         name=f"{PROJECT}.{WORKFLOW}",
-        compute_profile=f"general-spot-16vcpu-64gb",
+        compute_profile="general-spot-16vcpu-64gb",
         image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
         environment=f"{ENVIRONMENT}",
         project=f"{PROJECT}",
@@ -120,9 +120,9 @@ for batch in range(total_workers):
             },
         ),
     )
-    tasks[f"land_to_raw_init"] >> tasks[f"land_to_raw_{batch}"]
-    tasks[f"land_to_raw_{batch}"] >> tasks[f"land_to_raw_close"]
-    tasks[f"land_to_raw_close"] >> tasks[f"raw_to_curated"]
+    tasks["land_to_raw_init"] >> tasks[f"land_to_raw_{batch}"]
+    tasks[f"land_to_raw_{batch}"] >> tasks["land_to_raw_close"]
+    tasks["land_to_raw_close"] >> tasks["raw_to_curated"]
 
 
 tasks["create_curated_database"] = AnalyticalPlatformStandardOperator(

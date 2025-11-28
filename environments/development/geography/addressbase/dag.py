@@ -82,9 +82,9 @@ tasks["create_curated_database"] = AnalyticalPlatformStandardOperator(
     env_vars=update_env_vars(base_env_vars, {"STEP": "create_curated_database"}),
 )
 
-tasks[f"land_to_raw_hist"] = AnalyticalPlatformStandardOperator(
+tasks["land_to_raw_hist"] = AnalyticalPlatformStandardOperator(
     dag=dag,
-    task_id=f"land_to_raw_hist",
+    task_id="land_to_raw_hist",
     name=f"{PROJECT}.{WORKFLOW}",
     compute_profile="general-spot-64vcpu-256gb",
     image=f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}",
@@ -93,7 +93,7 @@ tasks[f"land_to_raw_hist"] = AnalyticalPlatformStandardOperator(
     workflow=f"{WORKFLOW}",
     env_vars=update_env_vars(base_env_vars, {"STEP": "land_to_raw_hist"}),
 )
-tasks["to_land"] >> tasks[f"land_to_raw_hist"]
+tasks["to_land"] >> tasks["land_to_raw_hist"]
 
 
 raw_tables = ["addressbasepremium"]
@@ -120,7 +120,7 @@ for table in raw_tables:
             },
         ),
     )
-    tasks[f"land_to_raw_hist"] >> tasks[f"raw_hist_to_curated_init_{table}"]
+    tasks["land_to_raw_hist"] >> tasks[f"raw_hist_to_curated_init_{table}"]
 
     tasks[f"raw_hist_to_curated_close_{table}"] = AnalyticalPlatformStandardOperator(
         dag=dag,
@@ -173,4 +173,4 @@ for table in raw_tables:
             tasks[f"raw_hist_to_curated_{table}_{batch}"]
             >> tasks[f"raw_hist_to_curated_close_{table}"]
         )
-        tasks[f"raw_hist_to_curated_close_{table}"] >> tasks[f"create_curated_database"]
+        tasks[f"raw_hist_to_curated_close_{table}"] >> tasks["create_curated_database"]

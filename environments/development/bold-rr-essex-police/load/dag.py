@@ -1,8 +1,6 @@
-import os
 from datetime import datetime
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
-from airflow.providers.slack.notifications.slack import send_slack_notification
 from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )

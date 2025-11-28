@@ -7,7 +7,6 @@ import sys
 import yaml
 from jinja2 import Environment, FileSystemLoader
 
-from airflow.providers.cncf.kubernetes.secret import Secret
 
 
 # Custom filter to merge dictionaries
