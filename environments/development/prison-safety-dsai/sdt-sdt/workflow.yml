@@ -1,9 +1,20 @@
 dag:
   repository: moj-analytical-services/airflow-sdt
-  tag: v4.3.4
+  tag: v4.3.5
   compute_profile: "general-spot-2vcpu-8gb"
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+  inlets:
+    - ["s3://alpha-viper/scores_2_dev",
+      "s3://alpha-safety-mi/test/assaults_proc/assaults_proc.csv",
+      "s3://alpha-app-safety-diagnostic-tool/development/txt_sh_pop.feather",
+      "s3://alpha-app-safety-diagnostic-tool/vio-summary/summary_dev.csv]
+    schedule:
+      datasets:
+        - ["s3://alpha-viper/scores_2_dev",
+          "s3://alpha-safety-mi/test/assaults_proc/assaults_proc.csv",
+          "s3://alpha-app-safety-diagnostic-tool/development/txt_sh_pop.feather",
+          "s3://alpha-app-safety-diagnostic-tool/vio-summary/summary_dev.csv]
 
 iam:
   athena: write
@@ -30,6 +41,7 @@ notifications:
 
 maintainers:
   - miller-william
+  - lauratraceymoj
 
 tags:
   business_unit: HMPPS
