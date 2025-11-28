@@ -4,7 +4,7 @@ from analytical_platform.standard_operator import AnalyticalPlatformStandardOper
 from airflow.providers.cncf.kubernetes.secret import (
     Secret,
 )
-
+import timedelta # <- Import timedelta
 
 # --- Placeholders ---
 
@@ -50,6 +50,7 @@ API_SECRET = Secret(
 
 # A list of secrets to be applied to all tasks
 SECRETS = [API_SECRET]
+
 
 
 # --- DAG ---
@@ -441,6 +442,15 @@ tasks["preprod_check_staus_rio"] >> tasks["copy_preprod_to_live_rio"]
 ] >> tasks["create_jaggaer_db"]
 
 tasks["copy_preprod_to_live_rio"] >> tasks["create_rio_db"]
+
+
+tasks["copy_preprod_to_live_claims"] >> tasks["create_live_db"]
+tasks["copy_preprod_to_live_contracts"]  >> tasks["create_live_db"]
+tasks["copy_preprod_to_live_light_touch_scorecards"]  >> tasks["create_live_db"]
+tasks["copy_preprod_to_live_spend"] >> tasks["create_live_db"]
+tasks["copy_preprod_to_live_rio"] >> tasks["create_live_db"]
+
+
 
 [
     tasks["copy_preprod_to_live_claims"],
