@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.7.3-test-4
+  tag: v3.7.3-test-5
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -26,12 +26,12 @@ dag:
       compute_profile: "general-on-demand-4vcpu-16gb"
     processed_to_curated:
       env_vars:
-        STEP: "processed"
+        STEP: "curated"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [land_to_processed]
     create_curated_database:
       env_vars:
-        STEP: "curated"
+        STEP: "curated_database"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [processed_to_curated]
 
