@@ -89,7 +89,7 @@ dag:
     wandb_entity: alex-gower-moj-ministry-of-justice-uk
     no_wandb: false
 
-  compute_profile: general-spot-16vcpu-64gb
+  compute_profile: general-spot-32vcpu-128gb
 
   tasks:
     build_bins:
