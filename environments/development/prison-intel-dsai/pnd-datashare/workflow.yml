@@ -26,9 +26,9 @@ iam:
     - alpha-athena-query-dump/*
 
 secrets:
-  - egress_user
-  - egress_pass
-  - gpg_key_pass
+  - egress-user
+  - egress-pass
+  - gpg-key-pass
   - fingerprint
 
 notifications:
