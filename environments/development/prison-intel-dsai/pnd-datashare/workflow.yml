@@ -25,6 +25,12 @@ iam:
     - alpha-athena-dump/*
     - alpha-athena-query-dump/*
 
+secrets:
+  - egress_user
+  - egress_pass
+  - gpg_key_pass
+  - fingerprint
+
 notifications:
   emails:
     - matthew.funnell@justice.gov.uk
