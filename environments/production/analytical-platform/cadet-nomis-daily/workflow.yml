@@ -1,8 +1,8 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.1.17
-  compute_profile: general-on-demand-8vcpu-32gb
+  tag: 1.1.18
+  compute_profile: general-on-demand-16vcpu-64gb
   schedule: "0 9 * * *"
   catchup: false
   outlets:
@@ -15,6 +15,7 @@ dag:
     DBT_SELECT_CRITERIA: tag:nomis_daily
     BRANCH: main
     MODE: build
+    THREAD_COUNT: 10
 
 maintainers:
   - jhpyke
