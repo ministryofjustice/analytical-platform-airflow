@@ -18,8 +18,10 @@ from analytical_platform.standard_operator import AnalyticalPlatformStandardOper
 S3_SECRET_BUCKET = "alpha-contracts-etl"
 S3_SECRET_KEY = "secrets/secrets.json"
 AWS_REGION = "eu-west-2"
-AWS_SECRET_ARN = "arn:aws:secretsmanager:eu-west-2:593291632749:secret:/airflow/development/corp/contracts-etl-dev/airflow-dev-contracts-etl-7RywJy"
-
+AWS_SECRET_ARN = (
+    "arn:aws:secretsmanager:eu-west-2:593291632749:secret:"
+    "/airflow/development/corp/contracts-etl-dev/airflow-dev-contracts-etl-7RywJy"
+)
 # Project Constants
 REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
 REPOSITORY_TAG = "PLACEHOLDER_REPOSITORY_TAG"
@@ -27,9 +29,12 @@ PROJECT = "PLACEHOLDER_PROJECT"
 WORKFLOW = "PLACEHOLDER_WORKFLOW"
 ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
 OWNER = "PLACEHOLDER_OWNER"
-IMAGE = f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}"
+IMAGE = (
+    f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}"
+)
 DEFAULT_DB_ENV = "dev"
 RETRIES = 0
+
 
 # --- 🐍 Python Sync Function ---
 # This runs strictly on the worker, preventing Scheduler overload.
@@ -63,6 +68,7 @@ def sync_s3_to_secrets_manager():
     except Exception as e:
         raise Exception(f"Failed to sync to Secrets Manager: {e}")
 
+
 # --- Default Args ---
 default_args = {
     "depends_on_past": False,
@@ -75,10 +81,30 @@ default_args = {
 # This is safe at top level because Secret() is a declarative object,
 # it does not make API calls during parsing.
 GLOBAL_SECRETS_LIST = [
-    Secret(deploy_type="env", deploy_target="CLIENT_ID", secret=AWS_SECRET_ARN, key="client_id"),
-    Secret(deploy_type="env", deploy_target="CLIENT_SECRET", secret=AWS_SECRET_ARN, key="client_secret"),
-    Secret(deploy_type="env", deploy_target="JAG_PRIVATE_KEY", secret=AWS_SECRET_ARN, key="jag_private_key"),
-    Secret(deploy_type="env", deploy_target="JAG_HOST_KEY", secret=AWS_SECRET_ARN, key="jag_host_key"),
+    Secret(
+        deploy_type="env",
+        deploy_target="CLIENT_ID",
+        secret=AWS_SECRET_ARN,
+        key="client_id",
+    ),
+    Secret(
+        deploy_type="env",
+        deploy_target="CLIENT_SECRET",
+        secret=AWS_SECRET_ARN,
+        key="client_secret",
+    ),
+    Secret(
+        deploy_type="env",
+        deploy_target="JAG_PRIVATE_KEY",
+        secret=AWS_SECRET_ARN,
+        key="jag_private_key",
+    ),
+    Secret(
+        deploy_type="env",
+        deploy_target="JAG_HOST_KEY",
+        secret=AWS_SECRET_ARN,
+        key="jag_host_key",
+    ),
 ]
 
 # --- DAG Definition ---
@@ -99,8 +125,15 @@ with DAG(
     )
 
     # --- Task Helper ---
-    def create_task(task_id, python_script_name, source_db_env, prod_db_env=None,
-                    table_name_env=None, trigger_rule="all_success", secret_list=None):
+    def create_task(
+        task_id,
+        python_script_name,
+        source_db_env,
+        prod_db_env=None,
+        table_name_env=None,
+        trigger_rule="all_success",
+        secret_list=None,
+    ):
         return AnalyticalPlatformStandardOperator(
             dag=dag,
             task_id=task_id,
@@ -220,16 +253,38 @@ with DAG(
         )
 
     # --- DB Creation Tasks ---
-    tasks["create_ext_db"] = create_task("create_ext_db", "create_db.py", "ext", prod_db_env="live")
-    tasks["create_preprod_db"] = create_task("create_preprod_db", "create_db.py", "all", prod_db_env="preprod", trigger_rule="all_done")
-    tasks["create_live_db"] = create_task("create_live_db", "create_db.py", "all", prod_db_env="live", trigger_rule="all_done")
+    tasks["create_ext_db"] = create_task(
+        "create_ext_db", "create_db.py", "ext", prod_db_env="live"
+    )
+    tasks["create_preprod_db"] = create_task(
+        "create_preprod_db",
+        "create_db.py",
+        "all",
+        prod_db_env="preprod",
+        trigger_rule="all_done",
+    )
+    tasks["create_live_db"] = create_task(
+        "create_live_db",
+        "create_db.py",
+        "all",
+        prod_db_env="live",
+        trigger_rule="all_done",
+    )
 
     # Added these definitions to fix KeyError in dependencies
-    tasks["create_jaggaer_db"] = create_task("create_jaggaer_db", "create_db.py", "jaggaer", prod_db_env="live")
-    tasks["create_rio_db"] = create_task("create_rio_db", "create_db.py", "rio", prod_db_env="live")
+    tasks["create_jaggaer_db"] = create_task(
+        "create_jaggaer_db", "create_db.py", "jaggaer", prod_db_env="live"
+    )
+    tasks["create_rio_db"] = create_task(
+        "create_rio_db", "create_db.py", "rio", prod_db_env="live"
+    )
 
-    tasks["create_jaggaer_extracts"] = create_task("create_jaggaer_extracts", "create_extracts.py", "jaggaer")
-    tasks["create_rio_extracts"] = create_task("create_rio_extracts", "create_extracts.py", "rio")
+    tasks["create_jaggaer_extracts"] = create_task(
+        "create_jaggaer_extracts", "create_extracts.py", "jaggaer"
+    )
+    tasks["create_rio_extracts"] = create_task(
+        "create_rio_extracts", "create_extracts.py", "rio"
+    )
 
     # --- Preprod Checks ---
     tasks["preprod_checks"] = create_task(
@@ -272,7 +327,10 @@ with DAG(
     # Status Checks -> Copy to Live
     tasks["preprod_check_status_claims"] >> tasks["copy_preprod_to_live_claims"]
     tasks["preprod_check_status_contracts"] >> tasks["copy_preprod_to_live_contracts"]
-    tasks["preprod_check_status_light_touch_scorecards"] >> tasks["copy_preprod_to_live_light_touch_scorecards"]
+    (
+        tasks["preprod_check_status_light_touch_scorecards"]
+        >> tasks["copy_preprod_to_live_light_touch_scorecards"]
+    )
     tasks["preprod_check_status_spend"] >> tasks["copy_preprod_to_live_spend"]
     tasks["preprod_check_status_rio"] >> tasks["copy_preprod_to_live_rio"]
 
