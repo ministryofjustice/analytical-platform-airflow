@@ -15,7 +15,7 @@ dag:
     DBT_SELECT_CRITERIA: tag:nomis_daily
     BRANCH: main
     MODE: build
-    THREAD_COUNT: 50
+    THREAD_COUNT: 10
 
 maintainers:
   - jhpyke
