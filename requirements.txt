@@ -11,3 +11,4 @@ pyyaml==6.0.2
 zizmor==1.17.0
 deepdiff==8.6.1
 pygithub==2.4.0
+boto3
