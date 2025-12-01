@@ -11,3 +11,4 @@ pyyaml
 zizmor
 deepdiff
 pygithub
+boto3
