@@ -17,6 +17,7 @@ iam:
   glue: true
   s3_read_only:
     - mojap-land/corporate/epm/*
+    - alpha-corp-secrets/epm/*
   s3_read_write:
     - mojap-processed/domain__hr/env__dev/epm_dev/*
     - mojap-processed/domain__hr/env__dev/epm_dev_staging/*
