@@ -7,6 +7,7 @@ dag:
     REPORT_APP: "splashbi"
     REPORT_RUNTIME_ENV: "prod"
     REPORT_RUN_MODE: "extract"
+    DISABLE_SCHEDULING: True
   tasks:
     # === HR iExpenses Reports ===
     moj-iexp01:
