@@ -3,7 +3,7 @@ dag:
   tag: v1.1.65-dev12
   schedule:
     datasets:
-      - "s3://mojap-derived-tables/prod/nomis_daily"
+      - "s3://ap_bucket/this_is_a_test_dataset.json"
 
 iam:
   athena: write
