@@ -4,6 +4,8 @@ dag:
   compute_profile: "general-spot-2vcpu-8gb"
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+  outlets:
+    - "s3://alpha-app-safety-diagnostic-tool/development/"
   inlets:
     - "s3://alpha-viper/scores_2_dev"
     - "s3://alpha-safety-mi/test/assaults_proc/assaults_proc.csv"
