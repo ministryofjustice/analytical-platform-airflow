@@ -1,6 +1,8 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
   tag: v1.1.12
+  env_vars:
+    DBT_ENV: "prod"
   schedule:
     datasets:
       - "s3://mojap-derived-tables/prod/nomis-daily/"
