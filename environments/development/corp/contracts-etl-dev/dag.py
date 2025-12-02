@@ -37,20 +37,50 @@ default_params = {
 
 # --- Auth Secret ---
 # The deploy_type must be set to 'env' to inject the secret as an environment variable
-API_SECRET = Secret(
+JAG_PRIVATE_SECRET = Secret(
     # The type of secret (e.g., 'env', 'volume')
     deploy_type='env', #
     # The environment variable name (e.g., 'SECRET_API_KEY')
-    deploy_target='SECRET_CONTRACTS_KEY',
+    deploy_target='SECRET_JAG_PRIVATE_KEY',
     # The name of the Kubernetes Secret resource
-    secret=f"{PROJECT}-{WORKFLOW}-CONTRACTS_KEY", # Use a specific secret name if known, or a placeholder
+    secret=f"{PROJECT}-{WORKFLOW}-JAG_CONTRACTS_KEY", # Use a specific secret name if known, or a placeholder
     # The key within the Secret resource to pull the value from
     key='jag_private_key', # Use a specific key name if known, or a placeholder
-)
+),
+JAG_HOST_SECRET = Secret(
+    # The type of secret (e.g., 'env', 'volume')
+    deploy_type='env', #
+    # The environment variable name (e.g., 'SECRET_API_KEY')
+    deploy_target='SECRET_JAG_HOST_KEY',
+    # The name of the Kubernetes Secret resource
+    secret=f"{PROJECT}-{WORKFLOW}-HOST_KEY", # Use a specific secret name if known, or a placeholder
+    # The key within the Secret resource to pull the value from
+    key='jag_host_key', # Use a specific key name if known, or a placeholder
+),
+CLIENT_ID_SECRET = Secret(
+    # The type of secret (e.g., 'env', 'volume')
+    deploy_type='env', #
+    # The environment variable name (e.g., 'SECRET_API_KEY')
+    deploy_target='SECRET_CLIENT_ID_KEY',
+    # The name of the Kubernetes Secret resource
+    secret=f"{PROJECT}-{WORKFLOW}-CLIENT_ID_KEY", # Use a specific secret name if known, or a placeholder
+    # The key within the Secret resource to pull the value from
+    key='CLIENT_ID_SECRET', # Use a specific key name if known, or a placeholder
+),
+CLIENT_SECRET = Secret(
+    # The type of secret (e.g., 'env', 'volume')
+    deploy_type='env', #
+    # The environment variable name (e.g., 'SECRET_API_KEY')
+    deploy_target='SECRET_CLIENT_KEY',
+    # The name of the Kubernetes Secret resource
+    secret=f"{PROJECT}-{WORKFLOW}-CLIENT_KEY", # Use a specific secret name if known, or a placeholder
+    # The key within the Secret resource to pull the value from
+    key='CLIENT_SECRET', # Use a specific key name if known, or a placeholder
+),
+
 
 # A list of secrets to be applied to all tasks
-SECRETS = [API_SECRET]
-
+SECRETS = [JAG_PRIVATE_SECRET :=Secret,JAG_HOST_SECRET :=Secret,JAG_HOST_SECRET :=Secret,CLIENT_ID_SECRET :=Secret,CLIENT_SECRET :=Secret]
 
 # --- DAG ---
 dag = DAG(
