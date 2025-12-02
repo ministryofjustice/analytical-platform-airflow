@@ -15,7 +15,7 @@ dag:
         PYTHON_SCRIPT_NAME: "run_preprocess.py"
       dependencies: [data_validation]
     derived:
-      compute_profile: "general-on-demand-2vcpu-8gb"
+      compute_profile: "general-on-demand-4vcpu-16gb"
       env_vars:
         PYTHON_SCRIPT_NAME: "run_derived.py"
         COSTCENTRE_BODGE: False
