@@ -6,7 +6,6 @@ dag:
   env_vars:
     AIRFLOW_TASK: probation_arrest_notification
     R_CONFIG_ACTIVE: dev
-    
 
 iam:
   athena: write
