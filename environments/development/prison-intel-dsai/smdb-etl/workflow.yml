@@ -15,14 +15,14 @@ dag:
 
 iam:
   athena: write
-  
+
   s3_read_only:
     - alpha-nomis/nomis_dn/*
     - mojap-derived-tables/seeds/nomis_dn/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
-  
+
   s3_read_write:
     - alpha-app-bentham-app/raw_excel_files/*
     - alpha-app-bentham-app/data/*
