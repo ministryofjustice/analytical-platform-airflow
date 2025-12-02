@@ -1,0 +1,30 @@
+dag:
+  repository: moj-analytical-services/pb_wrangling
+  tag: v1.1.12
+  schedule:
+    datasets:
+      - "s3://mojap-derived-tables/prod/nomis-daily/"
+
+iam:
+  athena: write
+
+  s3_read_write:
+    - alpha-parole-board/prod/*
+    - mojap-athena-query-dump/*-airflow_prod_parole_board/*
+    - alpha-athena-query-dump/*
+
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board*
+
+maintainers:
+  - lalithanagarur
+  - AntonyJScott
+
+notifications:
+  emails:
+    - lalitha.nagarur3@justice.gov.uk
+    - antony.scott@justice.gov.uk
+
+tags:
+  business_unit: HMPPS
+  owner: lalitha.nagarur3@justice.gov.uk
