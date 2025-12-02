@@ -3,14 +3,14 @@ dag:
   repository: moj-analytical-services/airflow-file
   tag: v0.0.27-test-1
   env_vars:
-    env: dev
+    AFFILE_ENV: dev
   tasks:
     removed_cases_moj:
       env_vars:
-        pipeline_name: removed_cases_moj
+        AFFILE_PIPELINE_NAME: removed_cases_moj
     appeals_hmpps:
       env_vars:
-        pipeline_name: appeals_hmpps
+        AFFILE_PIPELINE_NAME: appeals_hmpps
 
 iam:
   athena: write
