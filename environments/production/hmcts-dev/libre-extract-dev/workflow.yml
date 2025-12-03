@@ -1,10 +1,8 @@
 dag:
   repository: moj-analytical-services/hmcts-dlt-pipeline
-  tag: v0.3.4
+  tag: v1.0.2
   retries: 1
   retry_delay: 150
-  #start_date: "2025-07-09"
-  #schedule: 30 6 * * 1
   max_active_runs: 3
   hmcts_sdp_networking: true
   env_vars:
@@ -443,18 +441,19 @@ tasks:
 
 iam:
   athena: write
-  glue: true #check with Andy
+  glue: true
   s3_read_write:
     - mojap-land-dev/hmcts/libre/*
 
 secrets:
-  - pds #check with Andy
+  - pds
 
 notifications:
   slack_channel: dmet-hmcts-notifications
 
 maintainers:
   - jovita-brundziene
+  - Andy-Cook
 
 tags:
   business_unit: Central Digital
