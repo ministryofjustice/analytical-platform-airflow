@@ -80,7 +80,13 @@ CLIENT_SECRET = Secret(
 
 
 # A list of secrets to be applied to all tasks
-SECRETS = [JAG_PRIVATE_SECRET :=Secret,JAG_HOST_SECRET :=Secret,JAG_HOST_SECRET :=Secret,CLIENT_ID_SECRET :=Secret,CLIENT_SECRET :=Secret]
+
+SECRETS = [
+    JAG_PRIVATE_SECRET,
+    JAG_HOST_SECRET,
+    CLIENT_ID_SECRET,
+    CLIENT_SECRET
+]
 
 # --- DAG ---
 dag = DAG(
