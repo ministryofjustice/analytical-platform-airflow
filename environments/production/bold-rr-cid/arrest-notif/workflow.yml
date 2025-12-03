@@ -1,0 +1,28 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-bold-case-info-dashboard
+  tag: v1.0.65
+
+  env_vars:
+    AIRFLOW_TASK: probation_arrest_notification
+    R_CONFIG_ACTIVE: prod
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-delius-prod/delius/*
+    - mojap-delius-prod/live/tables/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
+    - mojap-derived-tables/prod/models/domain_name=bold/database_name=bold_rr_essex_police_data/*
+    - alpha-bold-rr-case-info-dashboard-usage/audit/prod/*
+
+secrets:
+  - cid-notify-api-key-prod
+
+maintainers:
+  - guyvw1
+
+tags:
+  business_unit: Central Digital
+  owner: guy.wheeler@justice.gov.uk
