@@ -2,6 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-bold-case-info-dashboard
   tag: v1.0.71
+  schedule: "0 6 * * *"
 
   env_vars:
     AIRFLOW_TASK: lao_audit
