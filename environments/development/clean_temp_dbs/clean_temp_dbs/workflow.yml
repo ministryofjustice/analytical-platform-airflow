@@ -1,0 +1,16 @@
+dag:
+  repository: moj-analytical-services/airflow-clean-temp-dbs
+  tag: v0.3.0
+
+
+maintainers:
+  - thomas-hirsch
+
+iam:
+  athena: true
+  s3_read_write:
+    - mojap-athena-query-dump/*
+
+tags:
+  business_unit: Centre of Excellence
+  owner: thomas.hirsch@justice.gov.uk
