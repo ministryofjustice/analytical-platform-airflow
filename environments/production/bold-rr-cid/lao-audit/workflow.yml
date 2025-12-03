@@ -4,7 +4,7 @@ dag:
   tag: v1.0.71
 
   env_vars:
-    AIRFLOW_TASK: probation_arrest_notification
+    AIRFLOW_TASK: lao_audit
     R_CONFIG_ACTIVE: prod
 
 iam:
@@ -19,6 +19,7 @@ iam:
 
 secrets:
   - cid-notify-api-key-prod
+  - audit-key-password-prod
 
 maintainers:
   - guyvw1
