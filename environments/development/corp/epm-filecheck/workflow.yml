@@ -1,6 +1,6 @@
 ---
 dag:
-  repository: moj-analytical-services/airflow-file
+  repository: moj-analytical-services/epm-filecheck
   tag: v0.0.1-test-01
 iam:
   s3_read_only:
