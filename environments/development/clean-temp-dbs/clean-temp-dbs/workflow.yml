@@ -1,10 +1,11 @@
+---
 dag:
   repository: moj-analytical-services/airflow-clean-temp-dbs
   tag: v0.3.0
 
 
 maintainers:
-  - thomas-hirsch
+  - Thomas-Hirsch
 
 iam:
   athena: true
