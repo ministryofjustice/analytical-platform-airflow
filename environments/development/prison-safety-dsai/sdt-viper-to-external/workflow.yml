@@ -9,7 +9,7 @@ dag:
     - "s3://alpha-viper/scores_2_dev/"
   schedule:
     datasets:
-        - "s3://alpha-viper/scores_2_dev/"
+      - "s3://alpha-viper/scores_2_dev/"
 
 iam:
   athena: write
