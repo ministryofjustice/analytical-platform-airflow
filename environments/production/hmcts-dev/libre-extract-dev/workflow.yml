@@ -10,7 +10,7 @@ dag:
     DESTINATION_PATH: "s3://mojap-land-dev/hmcts/libre/"
     ATHENA_DATABASE_NAME: "libre_v3_prod"
 
-tasks:
+  tasks:
     process-v3-cgi-libra-addresses:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-addresses"
