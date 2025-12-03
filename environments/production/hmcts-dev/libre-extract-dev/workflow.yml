@@ -386,7 +386,7 @@ dag:
     process-v3-cgi-libra-vehicles:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-vehicles"
-    
+
     process-v3-cgi-libraapp-app-list-entry-fee-id:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libraapp-app-list-entry-fee-id"
