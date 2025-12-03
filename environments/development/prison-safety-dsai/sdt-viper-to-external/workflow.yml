@@ -1,10 +1,15 @@
 dag:
   repository: moj-analytical-services/airflow-viper-to-external-ds
-  tag: v1.1.1
+  tag: v1.1.2
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT" #to be changed to dev once we have a prod DAG running
     INTERNAL_BUCKET: "alpha-viper"
     EXTERNAL_BUCKET: "cloud-platform-c504369937d1f1cd634905e8d28d65b1"
+  inlets:
+    - "s3://alpha-viper/scores_2_dev/"
+  schedule:
+    datasets:
+      - "s3://alpha-viper/scores_2_dev/"
 
 iam:
   athena: write
@@ -22,6 +27,7 @@ notifications:
 
 maintainers:
   - miller-william
+  - lauratraceymoj
 
 tags:
   business_unit: HMPPS

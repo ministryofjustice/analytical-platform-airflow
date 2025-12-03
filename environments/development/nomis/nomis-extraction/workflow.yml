@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-nomis-extraction
-  tag: v0.30
+  tag: v0.42
   python_dag: true
 
 iam:
@@ -14,7 +14,7 @@ iam:
     - mojap-raw-hist-preprod/hmpps/nomis_t62_deletes/extraction_logs/*
     - alpha-nomis-preprod/logs/*
     - alpha-nomis-preprod/nomis_unixtime/*
-    - alpha-anvil/dag_tools/new_nomis_extraction/*
+    - alpha-anvil/dag_tools/nomis.nomis-extraction/*
 
   s3_write_only:
     - mojap-raw-hist-preprod/hmpps/nomis_t62/*
@@ -25,6 +25,8 @@ secrets:
   - db-user
   - db-pwd-prod-new
   - db-dsn-prod-new
+  - db-prod-host
+  - db-prod-service
 
 notifications:
   slack_channel: hmpps-data-notifications

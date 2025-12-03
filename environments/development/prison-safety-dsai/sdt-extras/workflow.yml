@@ -1,8 +1,13 @@
 dag:
   repository: moj-analytical-services/airflow-sdt-extras
-  tag: v1.2.4
+  tag: v1.2.6
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT" #to be changed to dev once we have a prod DAG running
+  inlets:
+    - "s3://alpha-app-safety-diagnostic-tool/development/"
+  schedule:
+    datasets:
+      - "s3://alpha-app-safety-diagnostic-tool/development/"
 
 iam:
   athena: write
@@ -22,6 +27,7 @@ notifications:
 
 maintainers:
   - miller-william
+  - lauratraceymoj
 
 tags:
   business_unit: HMPPS
