@@ -54,7 +54,7 @@ surveys_to_s3 = AnalyticalPlatformStandardOperator(
     },
     cmds=["bash", "-c"],
     arguments=[
-        "python main.py "
+        "python3 main.py "
         "--scrape_type=daily "
         "--scrape_datetime='{{ts}}' "
         "--next_execution_date='{{next_execution_date}}'"
