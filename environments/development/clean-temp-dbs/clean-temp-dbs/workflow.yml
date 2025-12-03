@@ -8,7 +8,7 @@ maintainers:
   - Thomas-Hirsch
 
 iam:
-  athena: true
+  athena: write
   s3_read_write:
     - mojap-athena-query-dump/*
 
