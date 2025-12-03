@@ -2,6 +2,7 @@
 dag:
   repository: moj-analytical-services/epm-filecheck
   tag: v0.0.1-test-03
+  schedule: "0 7 3-31 * ? *"
 iam:
   s3_read_only:
     - mojap-land/corporate/epm/*
