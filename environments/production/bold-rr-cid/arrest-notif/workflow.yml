@@ -2,6 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-bold-case-info-dashboard
   tag: v1.0.71
+  schedule: "0 8 * * *"
 
   env_vars:
     AIRFLOW_TASK: probation_arrest_notification
