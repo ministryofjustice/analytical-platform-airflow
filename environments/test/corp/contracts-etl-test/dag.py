@@ -43,7 +43,7 @@ JAG_PRIVATE_SECRET = Secret(
     # The environment variable name (e.g., 'SECRET_API_KEY')
     deploy_target='SECRET_JAG_PRIVATE_KEY',
     # The name of the Kubernetes Secret resource
-    secret=f"{PROJECT}-{WORKFLOW}-jag-contracts-key", # Use a specific secret name if known, or a placeholder
+    secret=f"{PROJECT}-{WORKFLOW}-jag-private-key", # Use a specific secret name if known, or a placeholder
     # The key within the Secret resource to pull the value from
     key='jag_private_key', # Use a specific key name if known, or a placeholder
 )
