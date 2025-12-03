@@ -46,7 +46,7 @@ JAG_PRIVATE_SECRET = Secret(
     secret=f"{PROJECT}-{WORKFLOW}-JAG_CONTRACTS_KEY", # Use a specific secret name if known, or a placeholder
     # The key within the Secret resource to pull the value from
     key='jag_private_key', # Use a specific key name if known, or a placeholder
-),
+)
 JAG_HOST_SECRET = Secret(
     # The type of secret (e.g., 'env', 'volume')
     deploy_type='env', #
@@ -56,7 +56,7 @@ JAG_HOST_SECRET = Secret(
     secret=f"{PROJECT}-{WORKFLOW}-HOST_KEY", # Use a specific secret name if known, or a placeholder
     # The key within the Secret resource to pull the value from
     key='jag_host_key', # Use a specific key name if known, or a placeholder
-),
+)
 CLIENT_ID_SECRET = Secret(
     # The type of secret (e.g., 'env', 'volume')
     deploy_type='env', #
@@ -66,7 +66,7 @@ CLIENT_ID_SECRET = Secret(
     secret=f"{PROJECT}-{WORKFLOW}-CLIENT_ID_KEY", # Use a specific secret name if known, or a placeholder
     # The key within the Secret resource to pull the value from
     key='CLIENT_ID_SECRET', # Use a specific key name if known, or a placeholder
-),
+)
 CLIENT_SECRET = Secret(
     # The type of secret (e.g., 'env', 'volume')
     deploy_type='env', #
@@ -76,7 +76,7 @@ CLIENT_SECRET = Secret(
     secret=f"{PROJECT}-{WORKFLOW}-CLIENT_KEY", # Use a specific secret name if known, or a placeholder
     # The key within the Secret resource to pull the value from
     key='CLIENT_SECRET', # Use a specific key name if known, or a placeholder
-),
+)
 
 
 # A list of secrets to be applied to all tasks
