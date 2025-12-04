@@ -3,7 +3,6 @@ dag:
   repository: moj-analytical-services/airflow-clean-temp-dbs
   tag: v0.3.0
 
-
 maintainers:
   - Thomas-Hirsch
 
