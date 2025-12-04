@@ -1,28 +1,75 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v0.0.11-test
-  schedule: "0 7 * * 1-5"
+  tag: v1.2.0
+  schedule: "30 6 * * 1-5"
+  retries: 1
+  retry_delay: 60
   env_vars:
     REPORT_APP: "splashbi"
     REPORT_RUNTIME_ENV: "test"
     REPORT_RUN_MODE: "trigger"
   tasks:
-    moj-iexp01:
-      env_vars:
-        REPORT_NAME: "moj-iexp01"
-    laa-iexp01:
-      env_vars:
-        REPORT_NAME: "laa-iexp01"
-    opg-iexp01:
-      env_vars:
-        REPORT_NAME: "opg-iexp01"
-    cts-iexp01:
-      env_vars:
-        REPORT_NAME: "cts-iexp01"
-    nms-iexp01:
+    nms-jan-2020:
       env_vars:
         REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Jan-2020"
+        REPORT_PARAM_TO_DATE_PAID: "31-Jan-2020"
+    nms-feb-2020:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Feb-2020"
+        REPORT_PARAM_TO_DATE_PAID: "28-Feb-2020"
+    nms-mar-2020:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Mar-2020"
+        REPORT_PARAM_TO_DATE_PAID: "31-Mar-2020"
+    nms-apr-2020:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Apr-2020"
+        REPORT_PARAM_TO_DATE_PAID: "30-Apr-2020"
+    nms-may-2020:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-May-2020"
+        REPORT_PARAM_TO_DATE_PAID: "31-May-2020"
+    nms-jun-2020:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Jun-2020"
+        REPORT_PARAM_TO_DATE_PAID: "30-Jun-2020"
+    nms-jul-2020:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Jul-2020"
+        REPORT_PARAM_TO_DATE_PAID: "31-Jul-2020"
+    nms-aug-2020:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Aug-2020"
+        REPORT_PARAM_TO_DATE_PAID: "31-Aug-2020"
+    nms-sep-2020:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Sep-2020"
+        REPORT_PARAM_TO_DATE_PAID: "30-Sep-2020"
+    nms-oct-2020:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Oct-2020"
+        REPORT_PARAM_TO_DATE_PAID: "31-Oct-2020"
+    nms-nov-2020:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Nov-2020"
+        REPORT_PARAM_TO_DATE_PAID: "30-Nov-2020"
+    nms-dec-2020:
+      env_vars:
+        REPORT_NAME: "nms-iexp01"
+        REPORT_PARAM_FROM_DATE_PAID: "01-Dec-2020"
+        REPORT_PARAM_TO_DATE_PAID: "31-Dec-2020"
 
 iam:
   s3_read_write:

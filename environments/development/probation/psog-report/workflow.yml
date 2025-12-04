@@ -1,6 +1,9 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
-  tag: v1.1.10
+  tag: v1.1.12
+  schedule:
+    datasets:
+      - "s3://ap_bucket/this_is_a_test_dataset.json"
 
 iam:
   athena: write
@@ -12,12 +15,10 @@ iam:
 
   s3_read_only:
     - mojap-derived-tables/dev/models/domain_name=prison/database_name=parole_board*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=parole_board*
-    - moj-reg-prod-curated/data-eng-uploader-prod/data/database_name=ppud*
 
 maintainers:
   - lalithanagarur
-  - antonyjscott
+  - AntonyJScott
 
 notifications:
   emails:

@@ -1,0 +1,212 @@
+dag:
+  repository: moj-analytical-services/airflow-create-a-pipeline
+  tag: v4.0.2
+  retries: 1
+  retry_delay: 150
+  max_active_runs: 5
+  env_vars:
+    LOG_LEVEL: "INFO"
+    LAND: "s3://mojap-land/hmcts/xhibit"
+    RAW_HIST: "s3://mojap-raw-hist/hmcts/xhibit"
+    BASE_LOC: "s3://alpha-mojap-curated-xhibit/ors/v2/"
+    BASE_DB_NAME: "xhibit_preprocessed"
+    SERVICE: "xhibit"
+    CHUNK_SIZE: "1000000"
+    DAG_INTERVAL_END: "{{ data_interval_end }}"
+
+  tasks:
+    xhibit_load_address:
+      env_vars:
+        TABLE: "address"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_breach:
+      env_vars:
+        TABLE: "breach"
+      compute_profile: general-spot-4vcpu-16gb
+    xhibit_load_bw_history:
+      env_vars:
+        TABLE: "bw_history"
+      compute_profile: general-spot-4vcpu-16gb
+    xhibit_load_case_diary_fixture:
+      env_vars:
+        TABLE: "case_diary_fixture"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_case_listing_entry:
+      env_vars:
+        TABLE: "case_listing_entry"
+    xhibit_load_case_on_list:
+      env_vars:
+        TABLE: "case_on_list"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_case_prosecutor_agency:
+      env_vars:
+        TABLE: "case_prosecutor_agency"
+    xhibit_load_cases:
+      env_vars:
+        TABLE: "cases"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_charge:
+      env_vars:
+        TABLE: "charge"
+    xhibit_load_court:
+      env_vars:
+        TABLE: "court"
+    xhibit_load_court_room_usage:
+      env_vars:
+        TABLE: "court_room_usage"
+    xhibit_load_def_hearing_record:
+      env_vars:
+        TABLE: "def_hearing_record"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_def_case_on_ref_sol_firm:
+      env_vars:
+        TABLE: "def_on_case_ref_sol_firm"
+    xhibit_load_defendant:
+      env_vars:
+        TABLE: "defendant"
+    xhibit_load_defendant_charge:
+      env_vars:
+        TABLE: "defendant_charge"
+    xhibit_load_defendant_history:
+      env_vars:
+        TABLE: "defendant_history"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_defendant_on_case:
+      env_vars:
+        TABLE: "defendant_on_case"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_defendant_on_case_history:
+      env_vars:
+        TABLE: "defendant_on_case_history"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_defendant_on_offence:
+      env_vars:
+        TABLE: "defendant_on_offence"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_defendant_reference:
+      env_vars:
+        TABLE: "defendant_reference"
+    xhibit_load_disposal2:
+      env_vars:
+        TABLE: "disposal2"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_disposal_line:
+      env_vars:
+        TABLE: "disposal_line"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_hearing:
+      env_vars:
+        TABLE: "hearing"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_hearing_leg_rep:
+      env_vars:
+        TABLE: "hearing_leg_rep"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_hearing_list:
+      env_vars:
+        TABLE: "hearing_list"
+    xhibit_load_indictment_log:
+      env_vars:
+        TABLE: "indictment_log"
+    xhibit_load_legal_aid_order:
+      env_vars:
+        TABLE: "legal_aid_order"
+    xhibit_load_list:
+      env_vars:
+        TABLE: "list"
+    xhibit_load_mis_event_log:
+      env_vars:
+        TABLE: "mis_event_log"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_monetary_order_tracking:
+      env_vars:
+        TABLE: "monetary_order_tracking"
+    xhibit_load_offence:
+      env_vars:
+        TABLE: "offence"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_plea:
+      env_vars:
+        TABLE: "plea"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_ref_advocate:
+      env_vars:
+        TABLE: "ref_advocate"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_ref_app_result:
+      env_vars:
+        TABLE: "ref_app_result"
+    xhibit_load_ref_court:
+      env_vars:
+        TABLE: "ref_court"
+    xhibit_load_ref_cracked_effective:
+      env_vars:
+        TABLE: "ref_cracked_effective"
+    xhibit_load_ref_disposal_line:
+      env_vars:
+        TABLE: "ref_disposal_line"
+    xhibit_load_ref_disposal_type:
+      env_vars:
+        TABLE: "ref_disposal_type"
+    xhibit_load_ref_event_description:
+      env_vars:
+        TABLE: "ref_event_description"
+    xhibit_load_ref_hearing_type:
+      env_vars:
+        TABLE: "ref_hearing_type"
+    xhibit_load_ref_judge:
+      env_vars:
+        TABLE: "ref_judge"
+    xhibit_load_ref_legal_representative:
+      env_vars:
+        TABLE: "ref_legal_representative"
+    xhibit_load_ref_listing_data:
+      env_vars:
+        TABLE: "ref_listing_data"
+    xhibit_load_ref_offence:
+      env_vars:
+        TABLE: "ref_offence"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_ref_solicitor_firm:
+      env_vars:
+        TABLE: "ref_solicitor_firm"
+    xhibit_load_ref_system_code:
+      env_vars:
+        TABLE: "ref_system_code"
+    xhibit_load_sched_hearing_defendant:
+      env_vars:
+        TABLE: "sched_hearing_defendant"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_scheduled_hearing:
+      env_vars:
+        TABLE: "scheduled_hearing"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_sh_leg_rep:
+      env_vars:
+        TABLE: "sh_leg_rep"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_load_sitting:
+      env_vars:
+        TABLE: "sitting"
+      compute_profile: general-spot-4vcpu-16gb
+    xhibit_load_terminal:
+      env_vars:
+        TABLE: "terminal"
+    xhibit_load_verdict:
+      env_vars:
+        TABLE: "verdict"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land/hmcts/xhibit/*
+    - mojap-raw-hist/hmcts/xhibit/*
+    - alpha-mojap-curated-xhibit/ors/v2/*
+
+maintainers:
+  - Andy-Cook
+  - jovita-brundziene
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk

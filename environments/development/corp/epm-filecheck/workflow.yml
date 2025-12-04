@@ -1,0 +1,25 @@
+---
+dag:
+  repository: moj-analytical-services/epm-filecheck
+  tag: v0.0.1-test-03
+  schedule: "0 7 3-31 * ? *"
+iam:
+  s3_read_only:
+    - mojap-land/corporate/epm/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - ltd-pa
+  - williamorrie
+  - moj-supratikc
+
+tags:
+  business_unit: Central Digital
+  owner: william.orr@justice.gov.uk

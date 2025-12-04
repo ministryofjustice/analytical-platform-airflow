@@ -1,0 +1,39 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-sop-mi
+  tag: v4.5.0-test-14
+  env_vars:
+    IMAGE_VERSION: tag
+  params:
+    UPDATE_CAREER_GRADES_HISTORIES: "False"
+    RUN_DATE: ""
+  tasks:
+    sop_process:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_hmpps_career_grades_histories.py"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_only:
+    - alpha-hmpps-workforce-stats/Data/Lookup Files/*
+    - alpha-dag-sop-data-engineering/derived/*
+
+  s3_read_write:
+    - alpha-dag-sop-data-engineering/hmpps_career_grades/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - moj-supratikc
+  - williamorrie
+
+tags:
+  business_unit: Central Digital
+  owner: William.Orr@justice.gov.uk

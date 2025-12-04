@@ -1,11 +1,13 @@
 dag:
   repository: moj-analytical-services/airflow-sh-location
-  tag: v4.4.8
+  tag: v4.4.11
   env_vars:
-    AIRFLOW_ENVIRONMENT: "PRODUCTION"
+    AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
   tasks:
     task:
       compute_profile: "general-spot-8vcpu-32gb"
+      outlets:
+        - "s3://alpha-safety-mi/prisons_ds/dev_selfharm_proc/"
 
 iam:
   athena: write
@@ -35,6 +37,7 @@ notifications:
 
 maintainers:
   - miller-william
+  - lauratraceymoj
 
 tags:
   business_unit: HMPPS

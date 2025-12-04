@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v1.1.0
+  tag: v1.1.2
   retries: 3
   retry_delay: 120
   schedule: "37 2 * * *"
@@ -46,6 +46,31 @@ dag:
         KEY_REGION: "South Central"
         SCRIPT: "extract_pipeline.py"
       dependencies: [init]
+    east-midlands:
+      env_vars:
+        KEY_REGION: "East Midlands"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    north-east:
+      env_vars:
+        KEY_REGION: "North East"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    north-west:
+      env_vars:
+        KEY_REGION: "North West"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    south-west:
+      env_vars:
+        KEY_REGION: "South West"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
+    york-humb:
+      env_vars:
+        KEY_REGION: "York Humb"
+        SCRIPT: "extract_pipeline.py"
+      dependencies: [init]
 
 secrets:
   - api-key-wales
@@ -55,6 +80,11 @@ secrets:
   - api-key-west-midlands
   - api-key-ken-sur-sus
   - api-key-south-central
+  - api-key-east-midlands
+  - api-key-north-east
+  - api-key-north-west
+  - api-key-south-west
+  - api-key-york-humb
 
 iam:
   athena: write
