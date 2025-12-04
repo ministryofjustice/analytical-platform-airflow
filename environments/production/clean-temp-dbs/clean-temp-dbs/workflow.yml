@@ -1,0 +1,21 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-clean-temp-dbs
+  tag: v0.3.0
+  schedule: "0 4 * * *"
+
+maintainers:
+  - Thomas-Hirsch
+
+notifications:
+  emails:
+    - thomas.hirsch@justice.gov.uk
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-athena-query-dump/*
+
+tags:
+  business_unit: HQ
+  owner: thomas.hirsch@justice.gov.uk
