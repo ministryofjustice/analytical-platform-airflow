@@ -2,6 +2,9 @@
 dag:
   repository: moj-analytical-services/airflow-bold-rr-essex-police
   tag: v1.2.10-dev
+  schedule:
+    datasets:
+      - "s3://ap_bucket/this_is_a_test_dataset.json"
 
   env_vars:
     DBT_ENV: dev
