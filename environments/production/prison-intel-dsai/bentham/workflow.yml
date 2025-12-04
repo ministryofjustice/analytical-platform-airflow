@@ -39,7 +39,7 @@ notifications:
   slack_channel: intel-app-maintenance
 
 maintainers:
-  - mattfunnell
+  - MattFunnell
   - d-lundie
 
 tags:
