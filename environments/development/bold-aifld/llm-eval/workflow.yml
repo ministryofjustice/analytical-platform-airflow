@@ -1,8 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-bold-aifld-llm-eval
-  tag: v1.0.7
-  compute_profile: gpu-on-demand-32vcpu-128gb
+  tag: v1.0.8-rc
+  # compute_profile: gpu-on-demand-32vcpu-128gb
 
 maintainers:
   - tpoconnor-14
