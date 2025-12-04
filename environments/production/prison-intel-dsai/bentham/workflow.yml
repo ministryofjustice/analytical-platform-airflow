@@ -1,13 +1,15 @@
 dag:
   repository: moj-analytical-services/airflow-bentham-app
-  tag: 1.5.0
+  tag: 1.5.1
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 1
   retries: 3
   retry_delay: 100
-  schedule: "0 9 * * *"
+  schedule:
+    datasets:
+      - "s3://mojap-derived-tables/prod/nomis-daily/"
   start_date: "2025-04-04"
   tasks:
     task:
@@ -37,7 +39,7 @@ notifications:
   slack_channel: intel-app-maintenance
 
 maintainers:
-  - mattfunnell
+  - MattFunnell
   - d-lundie
 
 tags:
