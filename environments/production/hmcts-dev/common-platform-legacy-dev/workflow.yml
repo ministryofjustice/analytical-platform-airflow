@@ -43,12 +43,9 @@ dag:
     extract_case_person:
       env_vars:
         TABLE_NAME: "case-person"
-    extract_court_person:
-      env_vars:
-        TABLE_NAME: "court-person"
     extract_court_schedule:
       env_vars:
-        TABLE_NAME: "court_schedule"
+        TABLE_NAME: "court-schedule"
     extract_court_schedule_judiciary:
       env_vars:
         TABLE_NAME: "court-schedule-judiciary"
@@ -57,7 +54,7 @@ dag:
         TABLE_NAME: "court-session"
     extract_court_session_detail:
       env_vars:
-        TABLE_NAME: "court_session_detail"
+        TABLE_NAME: "court-session-detail"
     extract_court_session_judiciary:
       env_vars:
         TABLE_NAME: "court-session-judiciary"
@@ -105,7 +102,7 @@ dag:
         TABLE_NAME: "hearing"
     extract_hearing_attendance:
       env_vars:
-        TABLE_NAME: "hearing_attendance"
+        TABLE_NAME: "hearing-attendance"
     extract_hearing_case_application:
       env_vars:
         TABLE_NAME: "hearing-case-application"
