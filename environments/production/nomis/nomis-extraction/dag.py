@@ -176,11 +176,12 @@ dag = DAG(
 
 tasks = {}
 
-tasks["initialise-dag"] = AnalyticalPlatformStandardOperator(
+tasks["main"] = AnalyticalPlatformStandardOperator(
     dag=dag,
-    task_id="initialise-dag",
+    task_id="main",
+    secrets=[db_user, db_pwd, db_dsn, db_host, db_service],
     env_vars={
-        "PYTHON_SCRIPT_NAME": "initialise_dag.py",
+        "PYTHON_SCRIPT_NAME": "__main__.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
         "DAG_ID": dag.dag_id,
 #        "ENV": "PRODUCTION",
@@ -189,41 +190,56 @@ tasks["initialise-dag"] = AnalyticalPlatformStandardOperator(
     },
 )
 
+( tasks["main"] )
 
-tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
-    dag=dag,
-    task_id="nomis-delta-extract",
-    secrets=[db_user, db_pwd, db_dsn, db_host, db_service],
-    env_vars={
-        "PYTHON_SCRIPT_NAME": "nomis_delta_extract.py",
-        "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
-        "DAG_ID": dag.dag_id,
- #       "ENV": "PRODUCTION",
-        "ENV": "DEVELOPMENT",
-    },
+# tasks["initialise-dag"] = AnalyticalPlatformStandardOperator(
+#     dag=dag,
+#     task_id="initialise-dag",
+#     env_vars={
+#         "PYTHON_SCRIPT_NAME": "initialise_dag.py",
+#         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
+#         "DAG_ID": dag.dag_id,
+# #        "ENV": "PRODUCTION",
+#         "ENV": "DEVELOPMENT",
+#         "DAG_RUN_UTC_UNIXTIME": str(int(datetime.utcnow().timestamp())),
+#     },
+# )
 
-)
 
-tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
-    dag=dag,
-    task_id="nomis-delta-extract-check",
-    secrets=[db_user, db_pwd, db_dsn, db_host, db_service],
-    env_vars={
-        "PYTHON_SCRIPT_NAME": "test_extraction_outputs_and_move_to_raw.py",
-        "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
-        "DAG_ID": dag.dag_id,
-  #      "ENV": "PRODUCTION",
-        "ENV": "DEVELOPMENT",
-    },
+# tasks["nomis-delta-extract"] = AnalyticalPlatformStandardOperator(
+#     dag=dag,
+#     task_id="nomis-delta-extract",
+#     secrets=[db_user, db_pwd, db_dsn, db_host, db_service],
+#     env_vars={
+#         "PYTHON_SCRIPT_NAME": "nomis_delta_extract.py",
+#         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
+#         "DAG_ID": dag.dag_id,
+#  #       "ENV": "PRODUCTION",
+#         "ENV": "DEVELOPMENT",
+#     },
 
-)
+# )
 
-# Set dependencies
-(
-    tasks["nomis-delta-extract"]
-    >> tasks["nomis-delta-extract-check"]
-    >> tasks["initialise-dag"]
-)
+# tasks["nomis-delta-extract-check"] = AnalyticalPlatformStandardOperator(
+#     dag=dag,
+#     task_id="nomis-delta-extract-check",
+#     secrets=[db_user, db_pwd, db_dsn, db_host, db_service],
+#     env_vars={
+#         "PYTHON_SCRIPT_NAME": "test_extraction_outputs_and_move_to_raw.py",
+#         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
+#         "DAG_ID": dag.dag_id,
+#   #      "ENV": "PRODUCTION",
+#         "ENV": "DEVELOPMENT",
+#     },
+
+# )
+
+# # Set dependencies
+# (
+#     tasks["nomis-delta-extract"]
+#     >> tasks["nomis-delta-extract-check"]
+#     >> tasks["initialise-dag"]
+# )
 
 # # Deletes
 # for i, L in PK_EXTRACTIONS.items():
