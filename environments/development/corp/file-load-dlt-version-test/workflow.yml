@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.25-test
+  tag: v0.0.25-test-2
   is_paused_upon_creation: true
   env_vars:
     AFFILE_PIPELINE_NAME: "test_csv_v2"
