@@ -15,10 +15,6 @@ dag:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-addresses"
 
-    process-v3-cgi-libra-business-type-facilities:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-libra-business-type-facilities"
-
     process-v3-cgi-libra-business-types:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-business-types"
@@ -34,6 +30,7 @@ dag:
     process-v3-cgi-libra-case-defendants:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-case-defendants"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-libra-case-entity-roles:
       env_vars:
@@ -58,6 +55,7 @@ dag:
     process-v3-cgi-libra-case-offence-results-t:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-case-offence-results-t"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-libra-case-offences:
       env_vars:
@@ -66,6 +64,7 @@ dag:
     process-v3-cgi-libra-cases:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-cases"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-libra-cg-ref-codes:
       env_vars:
@@ -114,6 +113,7 @@ dag:
     process-v3-cgi-libra-driver-details:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-driver-details"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-libra-enforcement-account-types:
       env_vars:
@@ -139,10 +139,6 @@ dag:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-entity-roles"
 
-    process-v3-cgi-libra-facilities:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-libra-facilities"
-
     process-v3-cgi-libra-functional-areas:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-functional-areas"
@@ -150,10 +146,12 @@ dag:
     process-v3-cgi-libra-hearing-entity-roles:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-hearing-entity-roles"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-libra-hearings-all:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-hearings-all"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-libra-joint-charge-links:
       env_vars:
@@ -178,10 +176,6 @@ dag:
     process-v3-cgi-libra-link-addresses:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-link-addresses"
-
-    process-v3-cgi-libra-location-facilities:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-libra-location-facilities"
 
     process-v3-cgi-libra-locations:
       env_vars:
@@ -210,6 +204,7 @@ dag:
     process-v3-cgi-libra-notes:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-notes"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-libra-occupations:
       env_vars:
@@ -258,6 +253,7 @@ dag:
     process-v3-cgi-libra-persons:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-persons"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-libra-petty-sessional-areas:
       env_vars:
@@ -350,10 +346,12 @@ dag:
     process-v3-cgi-libra-session-blocks:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-session-blocks"
+      ompute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-libra-sessions:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-sessions"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-libra-solicitors:
       env_vars:
@@ -362,10 +360,6 @@ dag:
     process-v3-cgi-libra-standard-informants:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-standard-informants"
-
-    process-v3-cgi-libra-supp-documents:
-      env_vars:
-        CONTAINER_NAME: "v3-cgi-libra-supp-documents"
 
     process-v3-cgi-libra-supplementary-items:
       env_vars:
