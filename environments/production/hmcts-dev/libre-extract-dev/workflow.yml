@@ -346,7 +346,7 @@ dag:
     process-v3-cgi-libra-session-blocks:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-session-blocks"
-      ompute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-on-demand-16vcpu-64gb
 
     process-v3-cgi-libra-sessions:
       env_vars:
