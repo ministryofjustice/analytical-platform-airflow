@@ -2,7 +2,7 @@ dag:
   repository: moj-analytical-services/airflow-spells-correction
   tag: v1.1.3
   env_vars:
-    AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+    AIRFLOW_ENVIRONMENT: "PRODUCTION"
 
 iam:
   athena: write

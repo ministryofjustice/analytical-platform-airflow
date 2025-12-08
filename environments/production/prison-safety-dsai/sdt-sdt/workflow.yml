@@ -3,7 +3,7 @@ dag:
   tag: v4.3.5
   compute_profile: "general-spot-2vcpu-8gb"
   env_vars:
-    AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+    AIRFLOW_ENVIRONMENT: "PRODUCTION"
   outlets:
     - "s3://alpha-app-safety-diagnostic-tool/development/"
   inlets:

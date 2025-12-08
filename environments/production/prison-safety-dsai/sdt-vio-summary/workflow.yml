@@ -2,7 +2,7 @@ dag:
   repository: moj-analytical-services/airflow-vio-summary
   tag: v1.1.9
   env_vars:
-    AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+    AIRFLOW_ENVIRONMENT: "PRODUCTION"
   outlets:
     - "s3://alpha-app-safety-diagnostic-tool/vio-summary/summary_dev.csv"
 
