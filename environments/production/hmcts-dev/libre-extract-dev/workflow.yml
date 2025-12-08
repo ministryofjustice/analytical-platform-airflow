@@ -30,7 +30,7 @@ dag:
     process-v3-cgi-libra-case-defendants:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-case-defendants"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-spot-16vcpu-64gb
 
     process-v3-cgi-libra-case-entity-roles:
       env_vars:
@@ -55,7 +55,7 @@ dag:
     process-v3-cgi-libra-case-offence-results-t:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-case-offence-results-t"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-spot-32vcpu-128gb
 
     process-v3-cgi-libra-case-offences:
       env_vars:
@@ -64,7 +64,7 @@ dag:
     process-v3-cgi-libra-cases:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-cases"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-spot-16vcpu-64gb
 
     process-v3-cgi-libra-cg-ref-codes:
       env_vars:
@@ -113,7 +113,7 @@ dag:
     process-v3-cgi-libra-driver-details:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-driver-details"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-spot-16vcpu-64gb
 
     process-v3-cgi-libra-enforcement-account-types:
       env_vars:
@@ -146,12 +146,12 @@ dag:
     process-v3-cgi-libra-hearing-entity-roles:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-hearing-entity-roles"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-spot-16vcpu-64gb
 
     process-v3-cgi-libra-hearings-all:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-hearings-all"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-spot-16vcpu-64gb
 
     process-v3-cgi-libra-joint-charge-links:
       env_vars:
@@ -204,7 +204,7 @@ dag:
     process-v3-cgi-libra-notes:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-notes"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-spot-16vcpu-64gb
 
     process-v3-cgi-libra-occupations:
       env_vars:
@@ -253,7 +253,7 @@ dag:
     process-v3-cgi-libra-persons:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-persons"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-spot-16vcpu-64gb
 
     process-v3-cgi-libra-petty-sessional-areas:
       env_vars:
@@ -346,12 +346,12 @@ dag:
     process-v3-cgi-libra-session-blocks:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-session-blocks"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-spot-16vcpu-64gb
 
     process-v3-cgi-libra-sessions:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-sessions"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-spot-16vcpu-64gb
 
     process-v3-cgi-libra-solicitors:
       env_vars:
