@@ -5,17 +5,17 @@ dag:
   env_vars:
     AIRFLOW_ENVIRONMENT: "PRODUCTION"
   outlets:
-    - "s3://alpha-app-safety-diagnostic-tool/development/"
+    - "s3://alpha-app-safety-diagnostic-tool/production/"
   inlets:
     - "s3://alpha-viper/scores_2_dev"
     - "s3://alpha-safety-mi/test/assaults_proc/assaults_proc.csv"
-    - "s3://alpha-app-safety-diagnostic-tool/development/txt_sh_pop.feather"
+    - "s3://alpha-app-safety-diagnostic-tool/production/txt_sh_pop.feather"
     - "s3://alpha-app-safety-diagnostic-tool/vio-summary/summary_dev.csv"
   schedule:
     datasets:
       - "s3://alpha-viper/scores_2_dev"
       - "s3://alpha-safety-mi/test/assaults_proc/assaults_proc.csv"
-      - "s3://alpha-app-safety-diagnostic-tool/development/txt_sh_pop.feather"
+      - "s3://alpha-app-safety-diagnostic-tool/production/txt_sh_pop.feather"
       - "s3://alpha-app-safety-diagnostic-tool/vio-summary/summary_dev.csv"
 
 iam:

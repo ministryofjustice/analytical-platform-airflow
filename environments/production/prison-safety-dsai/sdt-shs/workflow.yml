@@ -9,7 +9,7 @@ dag:
   inlets:
     - "s3://alpha-safety-mi/prisons_ds/dev_selfharm_proc/"
   outlets:
-    - "s3://alpha-app-safety-diagnostic-tool/development/txt_sh_pop.feather"
+    - "s3://alpha-app-safety-diagnostic-tool/production/txt_sh_pop.feather"
 
 iam:
   athena: write
