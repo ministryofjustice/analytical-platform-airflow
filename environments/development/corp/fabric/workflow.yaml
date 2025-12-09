@@ -7,7 +7,7 @@ dag:
 
 secrets:
   - azure-client-secret
-  
+
 maintainers:
   - moj-supratikc
   - DanJ-MOJ
