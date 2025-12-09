@@ -5,6 +5,11 @@ dag:
     AIRFLOW_ENVIRONMENT: "PRODUCTION"
   outlets:
     - "s3://alpha-app-safety-diagnostic-tool/vio-summary/VIO_SUMMARY.csv"
+  inlets:
+    - "s3://mojap-derived-tables/prod/nomis-daily/"
+  schedule:
+    datasets:
+      - "s3://mojap-derived-tables/prod/nomis-daily/"
 
 iam:
   athena: write
