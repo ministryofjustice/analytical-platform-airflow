@@ -247,10 +247,7 @@ tasks["main"] = AnalyticalPlatformStandardOperator(
 # )
 
 # # Deletes
-for i, L in PK_EXTRACTIONS.items():
-    if i in PK_EXCEPTIONS and datetime.now().day not in PK_EXCEPTIONS[i]:
-        continue
-    tables_string = ",".join(L)
+
 # tasks[f"nomis-pk-deletes-extracts-{i}"] = AnalyticalPlatformStandardOperator(
 #     dag=dag,
 #     task_id=f"nomis-pk-deletes-extracts-{i}",
