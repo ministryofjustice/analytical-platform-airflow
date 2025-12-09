@@ -1,0 +1,32 @@
+dag:
+  repository: ministryofjustice/coat-cur-enriched-data-pipeline
+  tag: v0.1.2-dev
+  max_active_runs: 1
+  retries: 2
+  retry_delay: 120
+  schedule: "0 3 * * 1"
+  env_vars:
+    MODE: "dev"
+
+maintainers:
+  - connormaglynn
+  - abachleda-baca
+  - AntonyBishop
+  - andyrogers1973
+  - levgorbunov1
+  - mamonu
+  - FolarinOyenuga
+
+iam:
+  athena: write
+  glue: true
+  s3_read_only:
+    - mojap-data-production-coat-cur-reports-v2-hourly-enriched/*
+  kms:
+    - arn:aws:kms:eu-west-1:593291632749:key/0d21d1cf-b9da-43f3-999b-da7f0d376bfd
+tags:
+  business_unit: Platforms
+  owner: anthony.bishop@justice.gov.uk
+
+notifications:
+  slack_channel: coat-notifications
