@@ -1,0 +1,10 @@
+dag:
+  repository: moj-analytical-services/YRO_ISS_Pilot_Eval
+  tag: v0.0.1.dev3
+
+maintainers:
+  - dorgou1
+
+tags:
+  business_unit: HQ
+  owner: doran.gouveia@justice.gov.uk
