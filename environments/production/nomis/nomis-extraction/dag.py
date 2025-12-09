@@ -113,6 +113,10 @@ PK_EXTRACTIONS = {
     ],
 }
 
+for i, L in PK_EXTRACTIONS.items():
+    if i in PK_EXCEPTIONS and datetime.now().day not in PK_EXCEPTIONS[i]:
+        continue
+    tables_string = ",".join(L)
 
 # Database user, password and DSN secrets
 db_user = Secret(
