@@ -1,0 +1,13 @@
+dag:
+  repository: ministryofjustice/replicate-athena-to-fabric
+  tag: v0.0.2
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+
+secrets:
+  - azure-client-secret
+  
+maintainers:
+  - moj-supratikc
+  - DanJ-MOJ
