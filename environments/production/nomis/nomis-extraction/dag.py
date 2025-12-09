@@ -181,6 +181,7 @@ tasks["main"] = AnalyticalPlatformStandardOperator(
     task_id="main",
     secrets=[db_user, db_pwd, db_dsn, db_host, db_service],
     env_vars={
+        "PK_EXTRACT_TABLES": tables_string,
         "PYTHON_SCRIPT_NAME": "__main__.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
         "DAG_ID": dag.dag_id,
