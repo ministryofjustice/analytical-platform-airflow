@@ -55,7 +55,7 @@ dag:
     process-v3-cgi-libra-case-offence-results-t:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-case-offence-results-t"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-on-demand-32vcpu-128gb
 
     process-v3-cgi-libra-case-offences:
       env_vars:
