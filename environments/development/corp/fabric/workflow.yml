@@ -6,6 +6,12 @@ dag:
   max_active_runs: 1
   retries: 0
 
+iam:
+  athena: read
+  glue: true
+  s3_read_write:
+    - alpha-corp-data-staging/athena_queries/*
+
 secrets:
   - azure-client-secret
 
