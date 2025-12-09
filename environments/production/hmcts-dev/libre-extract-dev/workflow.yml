@@ -7,7 +7,7 @@ dag:
   hmcts_sdp_networking: true
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
-    DESTINATION_PATH: "s3://mojap-land-dev/hmcts/libre/"
+    DESTINATION_PATH: "s3://mojap-land-dev/hmcts/libre"
     ATHENA_DATABASE_NAME: "libre_v3_prod"
 
   tasks:
