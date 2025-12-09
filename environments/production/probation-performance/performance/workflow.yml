@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/probation-performance-extraction
-  tag: v0.0.13
+  tag: v0.1.0
   schedule: "30 6 * * *"
 
 iam:
