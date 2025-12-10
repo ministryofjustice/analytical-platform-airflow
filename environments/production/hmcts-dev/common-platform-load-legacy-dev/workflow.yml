@@ -7,7 +7,6 @@ dag:
   max_active_runs: 3
   env_vars:
     IMAGE_TAG: "dev_sdp_v3_test"
-    IMAGE_VERSION: core env?
     LAND: "s3://mojap-land-dev"
     RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/common-platform/dev_sdp_v3_test/
     BASE_LOC: "s3://alpha-mojap-common-platform/dev_sdp_v3_test/
