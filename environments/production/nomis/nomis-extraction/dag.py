@@ -113,6 +113,10 @@ PK_EXTRACTIONS = {
     ],
 }
 
+for i, L in PK_EXTRACTIONS.items():
+    if i in PK_EXCEPTIONS and datetime.now().day not in PK_EXCEPTIONS[i]:
+        continue
+    tables_string = ",".join(L)
 
 # Database user, password and DSN secrets
 db_user = Secret(
@@ -181,6 +185,7 @@ tasks["main"] = AnalyticalPlatformStandardOperator(
     task_id="main",
     secrets=[db_user, db_pwd, db_dsn, db_host, db_service],
     env_vars={
+        "PK_EXTRACT_TABLES": tables_string,
         "PYTHON_SCRIPT_NAME": "__main__.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
         "DAG_ID": dag.dag_id,
@@ -242,10 +247,7 @@ tasks["main"] = AnalyticalPlatformStandardOperator(
 # )
 
 # # Deletes
-# for i, L in PK_EXTRACTIONS.items():
-#     if i in PK_EXCEPTIONS and datetime.now().day not in PK_EXCEPTIONS[i]:
-#         continue
-#     tables_string = ",".join(L)
+
 # tasks[f"nomis-pk-deletes-extracts-{i}"] = AnalyticalPlatformStandardOperator(
 #     dag=dag,
 #     task_id=f"nomis-pk-deletes-extracts-{i}",
