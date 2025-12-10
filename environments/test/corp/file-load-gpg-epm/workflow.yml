@@ -1,0 +1,41 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: v0.0.27-test-2
+  env_vars:
+    AFFILE_ENV: test
+  tasks:
+    removed_cases_moj:
+      env_vars:
+        AFFILE_PIPELINE_NAME: cbf_appeals_hmpps
+
+iam:
+  athena: write
+  glue: true
+  s3_read_only:
+    - mojap-land/corporate/epm/*
+
+  s3_read_write:
+    - mojap-processed/domain__hr/env__test/corporate_epm_test/*
+    - mojap-processed/domain__hr/env__test/corporate_epm_test_staging/*
+    - mojap-processed/domain__hr/env__test/athena_query_dump/*
+
+secrets:
+  - pgp-privatekey-b64
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Laurence.Droy@justice.gov.uk
+    - William.Orr@justice.gov.uk
+    - Supratik.Chowdhury@justice.gov.uk
+
+maintainers:
+  - ltd-pa
+  - williamorrie
+  - moj-supratikc
+
+tags:
+  business_unit: Central Digital
+  owner: william.orr@justice.gov.uk
