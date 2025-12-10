@@ -3,13 +3,12 @@ dag:
   tag: v1.0.0-alpha.6dc1970
   retries: 1
   retry_delay: 150
-  hmcts_sdp_networking: True
   max_active_runs: 3
   env_vars:
     IMAGE_TAG: "dev_sdp_v3_test"
     LAND: "s3://mojap-land-dev"
-    RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/common-platform/dev_sdp_v3_test/
-    BASE_LOC: "s3://alpha-mojap-common-platform/dev_sdp_v3_test/
+    RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/common-platform/dev_sdp_v3_test/"
+    BASE_LOC: "s3://alpha-mojap-common-platform/dev_sdp_v3_test/"
     PREPROCESS_DB: "common_platform_dev_sdp_v3_dev_pp"
     CURATED_DB: "common_platform_dev_sdp_v3_dev"
     MAX_SIMULTANEOUS_FILES: "0"
