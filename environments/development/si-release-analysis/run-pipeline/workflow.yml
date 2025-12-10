@@ -10,7 +10,6 @@ dag:
     BUCKET: "mojap-data-production-datasync-laa-ingress-production"
     TEST_ENV: "True"
 
-
 maintainers:
   - df-just
   - chloepugh
@@ -30,5 +29,3 @@ iam:
 
   s3_read_write:
     - mojap-data-production-datasync-laa-ingress-production/analysis_outputs/*
-
-
