@@ -7,7 +7,7 @@ dag:
   hmcts_sdp_networking: true
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
-    DESTINATION_PATH: "s3://mojap-land-dev/hmcts/libre/"
+    DESTINATION_PATH: "s3://mojap-land-dev/hmcts/libre"
     ATHENA_DATABASE_NAME: "libre_v3_prod"
 
   tasks:
@@ -55,7 +55,7 @@ dag:
     process-v3-cgi-libra-case-offence-results-t:
       env_vars:
         CONTAINER_NAME: "v3-cgi-libra-case-offence-results-t"
-      compute_profile: general-on-demand-16vcpu-64gb
+      compute_profile: general-on-demand-32vcpu-128gb
 
     process-v3-cgi-libra-case-offences:
       env_vars:

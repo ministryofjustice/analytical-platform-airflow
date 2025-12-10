@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-nomis-extraction
-  tag: v0.49
+  tag: v0.58
   python_dag: true
 
 iam:
@@ -15,6 +15,7 @@ iam:
     - alpha-nomis-preprod/logs/*
     - alpha-nomis-preprod/nomis_unixtime/*
     - alpha-anvil/dag_tools/nomis.nomis-extraction/*
+    - alpha-anvil/dag_tools/nomis.nomis-extraction-preprod/*
 
   s3_write_only:
     - mojap-raw-hist-preprod/hmpps/nomis_t62/*
