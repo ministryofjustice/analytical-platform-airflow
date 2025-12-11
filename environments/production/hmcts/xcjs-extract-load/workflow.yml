@@ -45,7 +45,7 @@ dag:
 
 notifications:
   emails:
-    - parminder.thindal@justice.gov.uk
+    - saimon.khan@justice.gov.uk
   slack_channel: xcjs-de-alerts
 
 iam:
@@ -64,7 +64,8 @@ maintainers:
   - ThomasHepworth
   - Andy-Cook
   - george-w-jenkins
+  - Saimon-Khan
 
 tags:
   business_unit: HMCTS
-  owner: parminder.thindal@justice.gov.uk
+  owner: saimon.khan@justice.gov.uk
