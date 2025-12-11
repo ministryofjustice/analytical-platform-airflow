@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline-legacy
-  tag: v1.0.0-alpha.84db665
+  tag: v1.0.0-alpha.c4fa115
   retries: 1
   retry_delay: 150
   max_active_runs: 3
