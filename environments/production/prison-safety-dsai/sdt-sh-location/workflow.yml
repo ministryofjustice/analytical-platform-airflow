@@ -7,7 +7,7 @@ dag:
     task:
       compute_profile: "general-spot-8vcpu-32gb"
       outlets:
-        - "s3://alpha-safety-mi/prisons_ds/dev_selfharm_proc/"
+        - "s3://alpha-safety-mi/prisons_ds/selfharm_proc/"
 
 iam:
   athena: write
