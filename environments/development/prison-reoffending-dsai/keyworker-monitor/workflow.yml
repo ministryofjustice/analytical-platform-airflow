@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-keyworker-casenote-monitoring
-  tag: v2.0.9
+  tag: v2.0.10
   start_date: "2025-04-10"
   tasks:
     task:
