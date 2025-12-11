@@ -8,11 +8,12 @@ dag:
 
 notifications:
   emails:
-    - alice.oleary@justice.gov.uk
+    - Laura.Williams2@justice.gov.uk
 
 maintainers:
   - aliceoleary0
   - laura-williams2
+  - evanssharon
 
 tags:
   business_unit: HQ
