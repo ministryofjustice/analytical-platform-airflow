@@ -4,10 +4,10 @@ dag:
   env_vars:
     AIRFLOW_ENVIRONMENT: "PRODUCTION" #to be changed to dev once we have a prod DAG running
   inlets:
-    - "s3://alpha-app-safety-diagnostic-tool/production/"
+    - "s3://alpha-app-safety-diagnostic-tool/"
   schedule:
     datasets:
-      - "s3://alpha-app-safety-diagnostic-tool/production/"
+      - "s3://alpha-app-safety-diagnostic-tool/"
 
 iam:
   athena: write
