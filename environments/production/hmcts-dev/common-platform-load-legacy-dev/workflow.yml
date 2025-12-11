@@ -6,7 +6,7 @@ dag:
   max_active_runs: 3
   env_vars:
     IMAGE_TAG: "dev_sdp_v3_test"
-    LAND: "s3://mojap-land-dev"
+    LAND: "s3://mojap-land-dev/hmcts/common-platform/dev_sdp_v3"
     RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/common-platform/dev_sdp_v3_test/"
     BASE_LOC: "s3://alpha-mojap-common-platform/dev_sdp_v3_test/"
     PREPROCESS_DB: "common_platform_dev_sdp_v3_dev_pp"
