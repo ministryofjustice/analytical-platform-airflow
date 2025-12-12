@@ -380,7 +380,6 @@ iam:
   s3_read_write:
     - mojap-land-dev/hmcts/common-platform/*
     - mojap-raw-hist-dev/hmcts/common-platform/*
-  s3_read_only:
     - alpha-mojap-common-platform/*
 
 maintainers:
