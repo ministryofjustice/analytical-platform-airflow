@@ -33,31 +33,26 @@ dag:
       env_vars:
         PIPELINE_NAME: "providers_prod_offices"
         API_ENDPOINTS: "provider_offices"
-      dependencies: [extract-provider-firms]
 
     extract-fee-earners:
       env_vars:
         PIPELINE_NAME: "providers_prod_fee_earners"
         API_ENDPOINTS: "fee_earners"
-      dependencies: [extract-provider-firms]
 
     extract-mediation-outreach:
       env_vars:
         PIPELINE_NAME: "providers_prod_mediation_outreach"
         API_ENDPOINTS: "mediation_outreach"
-      dependencies: [extract-provider-firms]
 
     extract-nms-authorisation:
       env_vars:
         PIPELINE_NAME: "providers_prod_nms_authorisation"
         API_ENDPOINTS: "nms_authorisation"
-      dependencies: [extract-provider-firms]
 
     extract-provider-users:
       env_vars:
         PIPELINE_NAME: "providers_prod_users"
         API_ENDPOINTS: "provider_users"
-      dependencies: [extract-provider-firms]
 
 iam:
   athena: write
