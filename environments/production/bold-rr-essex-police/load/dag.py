@@ -23,7 +23,7 @@ DB_VERSION = "v1"
 
 # check_file task
 # needs to match the release tag in airflow-bold-rr-essex-police
-CHECK_FILE_VERSION = "v1.2.19"
+CHECK_FILE_VERSION = "v1.2.24"
 CHECK_FILE_IMAGE = (
     f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/"
     f"airflow-bold-rr-essex-police:{CHECK_FILE_VERSION}"
