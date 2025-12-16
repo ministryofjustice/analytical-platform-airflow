@@ -2,7 +2,7 @@
 # https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html
 dag:
   repository: moj-analytical-services/airflow-cross-cjs-data
-  tag: v1.0.1
+  tag: v1.0.3
   catchup: false
   compute_profile: "general-spot-8vcpu-32gb"
   depends_on_past: false
@@ -45,7 +45,7 @@ dag:
 
 notifications:
   emails:
-    - parminder.thindal@justice.gov.uk
+    - saimon.khan@justice.gov.uk
   slack_channel: xcjs-de-alerts
 
 iam:
@@ -64,7 +64,8 @@ maintainers:
   - ThomasHepworth
   - Andy-Cook
   - george-w-jenkins
+  - Saimon-Khan
 
 tags:
   business_unit: HMCTS
-  owner: parminder.thindal@justice.gov.uk
+  owner: saimon.khan@justice.gov.uk
