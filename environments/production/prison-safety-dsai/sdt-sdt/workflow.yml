@@ -14,7 +14,7 @@ dag:
   schedule:
     datasets:
       - "s3://alpha-viper/scores_2/"
-      - "s3://alpha-safety-mi/prisons_ds/assaults_proc/assaults_proc.csv"
+      - "s3://alpha-safety-mi/prisons_ds/assaults_proc_locations/assaults_proc.csv"
       - "s3://alpha-app-safety-diagnostic-tool/txt_sh_pop.feather"
       - "s3://alpha-app-safety-diagnostic-tool/vio-summary/VIO_SUMMARY.csv"
 
