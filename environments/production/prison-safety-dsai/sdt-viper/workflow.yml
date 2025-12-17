@@ -2,9 +2,14 @@ dag:
   repository: moj-analytical-services/airflow-viper-2
   tag: v1.1.17
   env_vars:
-    AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+    AIRFLOW_ENVIRONMENT: "PRODUCTION"
   outlets:
-    - "s3://alpha-viper/scores_2_dev/"
+    - "s3://alpha-viper/scores_2/"
+  inlets:
+    - "s3://alpha-safety-mi/prisons_ds/offender_location_fix/"
+  schedule:
+    datasets:
+      - "s3://alpha-safety-mi/prisons_ds/offender_location_fix/"
 
 iam:
   athena: write

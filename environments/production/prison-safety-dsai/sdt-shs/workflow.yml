@@ -1,30 +1,29 @@
 dag:
-  repository: moj-analytical-services/airflow-viper-2
-  tag: v1.1.17
+  repository: moj-analytical-services/airflow-shs-qual
+  tag: v1.5.9
+  schedule:
+    datasets:
+      - "s3://alpha-safety-mi/prisons_ds/selfharm_proc/"
   env_vars:
-    AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+    AIRFLOW_ENVIRONMENT: "PRODUCTION"
+  inlets:
+    - "s3://alpha-safety-mi/prisons_ds/selfharm_proc/"
   outlets:
-    - "s3://alpha-viper/scores_2_dev/"
+    - "s3://alpha-app-safety-diagnostic-tool/txt_sh_pop.feather"
 
 iam:
   athena: write
 
   s3_read_only:
+    - alpha-nomis/nomis_dn/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - alpha-safety-mi/prisons_ds/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
     - mojap-derived-tables/seeds/nomis_dn/*
 
   s3_read_write:
-    - alpha-safety-mi/*
-    - alpha-viper/scores_2
-    - alpha-viper/scores_2/
-    - alpha-viper/scores_2/*
-    - alpha-viper/scores_2_dev
-    - alpha-viper/scores_2_dev/
-    - alpha-viper/scores_2_dev/*
-    - alpha-viper/monitoring/*
-    - alpha-app-viper-monitoring/*
+    - alpha-app-safety-diagnostic-tool/*
 
 notifications:
   emails:
@@ -32,7 +31,6 @@ notifications:
 
 maintainers:
   - miller-william
-  - lauratraceymoj
 
 tags:
   business_unit: HMPPS

@@ -1,26 +1,25 @@
 dag:
-  repository: moj-analytical-services/airflow-vio-summary
-  tag: v1.1.10
+  repository: moj-analytical-services/airflow-sdt-extras
+  tag: v1.2.7
   env_vars:
-    AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
-  outlets:
-    - "s3://alpha-app-safety-diagnostic-tool/vio-summary/summary_dev.csv"
+    AIRFLOW_ENVIRONMENT: "PRODUCTION" #to be changed to dev once we have a prod DAG running
+  inlets:
+    - "s3://alpha-app-safety-diagnostic-tool/"
+  schedule:
+    datasets:
+      - "s3://alpha-app-safety-diagnostic-tool/"
 
 iam:
   athena: write
 
   s3_read_only:
     - alpha-safety-mi/prisons_ds/*
+    - alpha-viper/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
     - mojap-derived-tables/seeds/nomis_dn/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
-    - alpha-test-iam-builer/db/*
 
   s3_read_write:
     - alpha-app-safety-diagnostic-tool/*
-
-  bedrock: true
 
 notifications:
   emails:
