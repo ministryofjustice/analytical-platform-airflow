@@ -23,6 +23,8 @@ tags:
 
 iam:
   glue: true
+  kms:
+    - arn:aws:kms:eu-west-2:593291632749:key/fe4674f4-52dc-4b73-a7c5-259c282742ba
   s3_read_only:
     - mojap-data-production-datasync-laa-ingress-production/*
     - mojap-derived-tables/prod/seeds/*
