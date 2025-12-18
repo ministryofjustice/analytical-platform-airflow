@@ -200,6 +200,9 @@ iam:
     - alpha-vast/keys/*
     - alpha-vast/models/*
     - alpha-vast/vast_training_data/*
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=assaults/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=involvements/*
 
 notifications:
   emails:
