@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.28
+  tag: 0.1.41
   max_active_runs: 8
 
   env_vars:
@@ -76,6 +76,16 @@ dag:
     sample_heldout_days: 200
     eval_seed: 42
     chunksize: 20000
+
+    # Operational evaluation
+    op_splits: "val"
+    op_eval_splits: "val"
+    op_k_pct: "0.1,0.25,0.5,1,2,5,10"
+    op_burnin_days: 0
+    op_priority_threshold: 0.5
+    op_min_threshold: 0.2
+    op_no_amber_refresh: false
+    op_chunksize: 50000
 
     # Technical
     seed: 42
@@ -160,6 +170,22 @@ dag:
         CHUNKSIZE: "{{ params.chunksize }}"
         TARGETS: "{{ params.targets }}"
         ATHENA_TABLE: "{{ params.athena_table }}"
+
+    evaluate_operational:
+      dependencies:
+        - train
+      env_vars:
+        STEP: op_eval
+        EVAL_TARGET: "{{ params.eval_target }}"
+
+        OP_SPLITS: "{{ params.op_splits }}"
+        OP_EVAL_SPLITS: "{{ params.op_eval_splits }}"
+        OP_K_PCT: "{{ params.op_k_pct }}"
+        OP_BURNIN_DAYS: "{{ params.op_burnin_days }}"
+        OP_PRIORITY_THRESHOLD: "{{ params.op_priority_threshold }}"
+        OP_MIN_THRESHOLD: "{{ params.op_min_threshold }}"
+        OP_NO_AMBER_REFRESH: "{{ params.op_no_amber_refresh | int }}"
+        OP_CHUNKSIZE: "{{ params.op_chunksize }}"
 
 secrets:
   - wandb-api-key
