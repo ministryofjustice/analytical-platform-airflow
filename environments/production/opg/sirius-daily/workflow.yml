@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.7.4
+  tag: v3.5.20
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -13,7 +13,7 @@ dag:
     DATABASE: "sirius"
     PIPELINE_NAME: "sirius"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: "v3.7.4"
+    GITHUB_TAG: "v3.5.20"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-06-17"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -22,16 +22,16 @@ dag:
   tasks:
     to_land:
       env_vars:
-        STEP: "land"
+        STEP: "to_land"
       compute_profile: "general-on-demand-4vcpu-16gb"
     land_to_raw:
       env_vars:
-        STEP: "raw"
+        STEP: "land_to_raw"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [to_land]
     raw_to_curated:
       env_vars:
-        STEP: "curated"
+        STEP: "raw_to_curated"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [land_to_raw]
     create_curated_database:
@@ -41,7 +41,7 @@ dag:
       dependencies: [raw_to_curated]
     create_derived:
       env_vars:
-        STEP: "create_derived"
+        STEP: "create_curated_derived"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [raw_to_curated, create_curated_database]
 
