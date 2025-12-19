@@ -18,6 +18,9 @@ dag:
     EM_REMOVE_LIVE: true
     STATE_MODE: true
 
+secrets:
+  - github-key
+
 maintainers:
   - matt-heery
   - mrixson-moj
