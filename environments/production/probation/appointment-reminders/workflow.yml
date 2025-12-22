@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v1.1.2
+  tag: v1.1.3
   retries: 3
   retry_delay: 120
   schedule: "37 2 * * *"
@@ -21,9 +21,9 @@ dag:
         KEY_REGION: "London"
         SCRIPT: "extract_pipeline.py"
       dependencies: [init]
-    east-of-england:
+    east-of-england-a:
       env_vars:
-        KEY_REGION: "East of Eng"
+        KEY_REGION: "East of Eng A"
         SCRIPT: "extract_pipeline.py"
       dependencies: [init]
     greater-manchester:
@@ -75,7 +75,7 @@ dag:
 secrets:
   - api-key-wales
   - api-key-london
-  - api-key-east-of-eng
+  - api-key-east-of-eng-a
   - api-key-greater-manch
   - api-key-west-midlands
   - api-key-ken-sur-sus
@@ -93,7 +93,7 @@ iam:
     - alpha-govnotify-probation-messaging/appointment-reminders/*
 
 maintainers:
-  - antonyjscott
+  - AntonyJScott
   - lalithanagarur
 
 notifications:
