@@ -1,10 +1,11 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-bold-case-info-dashboard
-  tag: v1.0.33-dev
+  tag: v1.0.63-dev
 
   env_vars:
     AIRFLOW_TASK: probation_arrest_notification
+    R_CONFIG_ACTIVE: dev
 
 iam:
   athena: write

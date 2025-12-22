@@ -1,8 +1,10 @@
 dag:
   repository: moj-analytical-services/airflow-viper-2
-  tag: v1.1.14
+  tag: v1.1.17
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+  outlets:
+    - "s3://alpha-viper/scores_2_dev/"
 
 iam:
   athena: write
@@ -30,6 +32,7 @@ notifications:
 
 maintainers:
   - miller-william
+  - lauratraceymoj
 
 tags:
   business_unit: HMPPS

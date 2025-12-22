@@ -1,0 +1,40 @@
+dag:
+  repository: moj-analytical-services/airflow-vio-summary
+  tag: v1.1.10
+  env_vars:
+    AIRFLOW_ENVIRONMENT: "PRODUCTION"
+  outlets:
+    - "s3://alpha-app-safety-diagnostic-tool/vio-summary/VIO_SUMMARY.csv"
+  inlets:
+    - "s3://mojap-derived-tables/prod/nomis-daily/"
+  schedule:
+    datasets:
+      - "s3://mojap-derived-tables/prod/nomis-daily/"
+
+iam:
+  athena: write
+
+  s3_read_only:
+    - alpha-safety-mi/prisons_ds/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - alpha-test-iam-builer/db/*
+
+  s3_read_write:
+    - alpha-app-safety-diagnostic-tool/*
+
+  bedrock: true
+
+notifications:
+  emails:
+    - sdt-support@justice.gov.uk
+
+maintainers:
+  - miller-william
+  - lauratraceymoj
+
+tags:
+  business_unit: HMPPS
+  owner: william.miller1@justice.gov.uk

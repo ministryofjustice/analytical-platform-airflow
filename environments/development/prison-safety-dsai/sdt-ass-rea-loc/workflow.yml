@@ -1,8 +1,10 @@
 dag:
   repository: moj-analytical-services/airflow-assault-reasons-locations
-  tag: v0.5.7
+  tag: v0.5.9
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+  outlets:
+    - "s3://alpha-safety-mi/test/assaults_proc/assaults_proc.csv"
 
 iam:
   athena: write
@@ -24,6 +26,7 @@ notifications:
 
 maintainers:
   - miller-william
+  - lauratraceymoj
 
 tags:
   business_unit: HMPPS

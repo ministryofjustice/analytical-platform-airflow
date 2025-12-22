@@ -1,0 +1,30 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.1.20
+  compute_profile: general-on-demand-32vcpu-128gb
+  catchup: false
+  outlets:
+    - "s3://emds-prod-cadt/dev/data/"
+  env_vars:
+    DEPLOY_ENV: historic_dev
+    DBT_PROJECT: hmpps_electronic_monitoring_data_tables
+    S3_BUCKET: emds-prod-cadt
+    WORKFLOW_NAME: emds-historic-workflow
+    DBT_SELECT_CRITERIA: +tag:emd_historic+
+    BRANCH: em/centralise-gps-position-approach
+    MODE: build
+    AWS_DEFAULT_REGION: eu-west-2
+    EM_REMOVE_LIVE: true
+    STATE_MODE: true
+
+maintainers:
+  - matt-heery
+  - mrixson-moj
+
+iam:
+  external_role: arn:aws:iam::976799291502:role/prod-data-api-cross-account-role
+
+tags:
+  business_unit: HMPPS
+  owner: EMDataEngineering@justice.gov.uk

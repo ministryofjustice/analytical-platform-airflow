@@ -1,0 +1,33 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-si-release-analysis
+
+  tag: v0.0.7
+  compute_profile: general-on-demand-4vcpu-16gb
+  depends_on_past: false
+  schedule: None
+  env_vars:
+    BUCKET: "mojap-data-production-datasync-laa-ingress-production"
+    TEST_ENV: "True"
+
+maintainers:
+  - df-just
+  - chloepugh
+  - sheilz81
+  - r-mccormack
+  - dugaldhepburnmoj
+
+tags:
+  business_unit: HQ
+  owner: chloe.pugh1@justice.gov.uk
+
+iam:
+  glue: true
+  kms:
+    - arn:aws:kms:eu-west-2:593291632749:key/fe4674f4-52dc-4b73-a7c5-259c282742ba
+  s3_read_only:
+    - mojap-data-production-datasync-laa-ingress-production/*
+    - mojap-derived-tables/prod/seeds/*
+
+  s3_read_write:
+    - mojap-data-production-datasync-laa-ingress-production/analysis_outputs/*

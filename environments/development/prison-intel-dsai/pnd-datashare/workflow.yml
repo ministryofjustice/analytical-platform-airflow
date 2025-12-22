@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-pdsai-pnd-datashare
-  tag: 0.1.0
+  tag: 0.1.3
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -24,6 +24,12 @@ iam:
     - alpha-app-bentham-app/*
     - alpha-athena-dump/*
     - alpha-athena-query-dump/*
+
+secrets:
+  - egress-user
+  - egress-pass
+  - gpg-key-pass
+  - fingerprint
 
 notifications:
   emails:

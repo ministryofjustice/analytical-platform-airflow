@@ -1,88 +1,102 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.25
-  # Keep this in sync with your successful GitHub release tag
+  tag: 0.1.41
   max_active_runs: 8
 
   env_vars:
     AWS_REGION: eu-west-1
     AWS_DEFAULT_REGION: eu-west-1
     ATHENA_DB: vast_training_data
-    ATHENA_TABLE: x_structured_y
-    AWS_ATHENA_S3_STAGING_DIR: s3://alpha-vast/athena-staging/
 
+    AWS_ATHENA_S3_STAGING_DIR: s3://alpha-vast/athena-staging/
     OUT_BASE: s3://alpha-vast/bins
     CSV_BASE: s3://alpha-vast/csv
     KEYS_BASE: s3://alpha-vast/keys
-
     MODEL_BASE: s3://alpha-vast/models
     MODEL_FAMILY: lightgbm
 
-    TARGETS: "y_h7_any"
     GROUP_COLS: "agy_loc_id,index_date"
-
     WANDB_PROJECT: vast
 
   # ---- DAG parameters: can be overridden in the Airflow UI when triggering a run ----
   params:
     # Naming / versioning
-    dataset_suffix: x_structured_y_bins63_train_pos_10000
-    model_run: first_run
+    dataset_suffix: x_structured_y_train_pos_all_2025_bins_255_neg_multiplier_20
+    model_run: train_pos_all_2025_bins_255_neg_multiplier_20
+    wandb_run_name: train_pos_all_2025_bins_255_neg_multiplier_20
+
+    # Targets
+    athena_table: "x_structured_y"
+    targets: "y_h7_any"
+    eval_target: y_h7_any
 
     # Build / sampling
+    skip_build_bins: false
     neg_multiplier: 20
-    train_max_pos: 10000
-    val_max: null
-    test_max: null
-    heldout_max: null
+    train_max_pos: -1
+    val_max: -1
+    test_max: -1
+    heldout_max: -1
     two_round: true
-    bin_construct_sample_cnt: null
-    max_bin: 63
+    bin_construct_sample_cnt: -1
+    max_bin: 255
 
-    # Training hyperparameters
+    # Tree hyperparameters
     num_boost_round: 2000
     early_stopping_rounds: 200
-    learning_rate: 0.05
-    num_leaves: 63
-    max_depth: 6 # Use -1 for no max depth
-    min_data_in_leaf: 60
-    feature_fraction: 0.8
-    bagging_fraction: 0.8
+    learning_rate: 0.005
+    num_leaves: 31
+    max_depth: -1
+    min_data_in_leaf: 150
+    feature_fraction: 0.7
+    bagging_fraction: 0.6
     bagging_freq: 1
-    lambda_l1: 0.0
-    lambda_l2: 5.0
+    lambda_l1: 5.0
+    lambda_l2: 10.0
     scale_pos_weight: 20.0
-    num_threads: 0
-    verbosity: 1
-    seed: 42
-    boosting: gbdt
-    valid_heldout: false
 
-    # Dart / GPU toggles (leave as defaults unless needed)
+    # Focal Loss
+    use_focal_loss: false
+    focal_gamma: 2.0
+    focal_alpha: 0.25
+
+    # DART
+    boosting: gbdt
     drop_rate: 0.1
     max_drop: 50
     skip_drop: 0.5
-    use_gpu: false
-    gpu_device: 0
 
     # Evaluation
-    eval_target: y_h7_any
-    ks: "0.5,1,2,5,10"
-    sample_train_days: 100
-    sample_val_days: 10
-    sample_test_days: 10
-    sample_heldout_days: 50
+    valid_heldout: false
+    ks: "0.1,0.25,0.5,1,2,5,10"
+    sample_train_days: 200
+    sample_val_days: 30
+    sample_test_days: 30
+    sample_heldout_days: 200
     eval_seed: 42
     chunksize: 20000
 
-    # DAG
-    skip_build_bins: false
+    # Operational evaluation
+    op_splits: "val"
+    op_eval_splits: "val"
+    op_k_pct: "0.1,0.25,0.5,1,2,5,10"
+    op_burnin_days: 0
+    op_priority_threshold: 0.5
+    op_min_threshold: 0.2
+    op_no_amber_refresh: false
+    op_chunksize: 50000
+
+    # Technical
+    seed: 42
+    num_threads: 0
+    verbosity: 1
+    use_gpu: false
+    gpu_device: 0
 
     # WANDB
     wandb_project: vast-lightgbm
     wandb_entity: alex-gower-moj-ministry-of-justice-uk
-    wandb_run_name: null
     no_wandb: false
 
   compute_profile: general-spot-16vcpu-64gb
@@ -100,6 +114,8 @@ dag:
         TWO_ROUND: "{{ params.two_round | int }}"
         BIN_CONSTRUCT_SAMPLE_CNT: "{{ params.bin_construct_sample_cnt }}"
         SKIP_BUILD_BINS: "{{ params.skip_build_bins | int }}"
+        TARGETS: "{{ params.targets }}"
+        ATHENA_TABLE: "{{ params.athena_table }}"
 
     train:
       dependencies:
@@ -133,6 +149,11 @@ dag:
         WANDB_ENTITY: "{{ params.wandb_entity }}"
         WANDB_RUN_NAME: "{{ params.wandb_run_name }}"
         NO_WANDB: "{{ params.no_wandb | int }}"
+        TARGETS: "{{ params.targets }}"
+        USE_FOCAL_LOSS: "{{ params.use_focal_loss | int }}"
+        FOCAL_GAMMA: "{{ params.focal_gamma }}"
+        FOCAL_ALPHA: "{{ params.focal_alpha }}"
+        ATHENA_TABLE: "{{ params.athena_table }}"
 
     evaluate:
       dependencies:
@@ -147,6 +168,24 @@ dag:
         SAMPLE_HELDOUT_DAYS: "{{ params.sample_heldout_days }}"
         SEED: "{{ params.eval_seed }}"
         CHUNKSIZE: "{{ params.chunksize }}"
+        TARGETS: "{{ params.targets }}"
+        ATHENA_TABLE: "{{ params.athena_table }}"
+
+    evaluate_operational:
+      dependencies:
+        - train
+      env_vars:
+        STEP: op_eval
+        EVAL_TARGET: "{{ params.eval_target }}"
+
+        OP_SPLITS: "{{ params.op_splits }}"
+        OP_EVAL_SPLITS: "{{ params.op_eval_splits }}"
+        OP_K_PCT: "{{ params.op_k_pct }}"
+        OP_BURNIN_DAYS: "{{ params.op_burnin_days }}"
+        OP_PRIORITY_THRESHOLD: "{{ params.op_priority_threshold }}"
+        OP_MIN_THRESHOLD: "{{ params.op_min_threshold }}"
+        OP_NO_AMBER_REFRESH: "{{ params.op_no_amber_refresh | int }}"
+        OP_CHUNKSIZE: "{{ params.op_chunksize }}"
 
 secrets:
   - wandb-api-key
@@ -161,6 +200,9 @@ iam:
     - alpha-vast/keys/*
     - alpha-vast/models/*
     - alpha-vast/vast_training_data/*
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=assaults/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=involvements/*
 
 notifications:
   emails:
