@@ -207,7 +207,7 @@ dag:
     xhibit_extract_ref_disposal_line:
       env_vars:
         TABLE_NAME: "ref-disposal-line"
-        S3_TABLE_NAME: "ref_dispoal_line"
+        S3_TABLE_NAME: "ref_disposal_line"
         FILENAME_TABLE_NAME: "ref_disposal_line"
     xhibit_extract_ref_disposal_type:
       env_vars:
