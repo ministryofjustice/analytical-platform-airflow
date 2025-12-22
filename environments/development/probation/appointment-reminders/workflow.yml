@@ -18,9 +18,9 @@ dag:
         KEY_REGION: "London"
         SCRIPT: "extract_pipeline.py"
       dependencies: [init]
-    east-of-england:
+    east-of-england-v2:
       env_vars:
-        KEY_REGION: "East of Eng"
+        KEY_REGION: "East of Eng v2"
         SCRIPT: "extract_pipeline.py"
       dependencies: [init]
     greater-manchester:
@@ -72,7 +72,7 @@ dag:
 secrets:
   - api-key-wales
   - api-key-london
-  - api-key-east-of-eng
+  - api-key-east-of-eng-v2
   - api-key-greater-manch
   - api-key-west-midlands
   - api-key-ken-sur-sus
@@ -90,7 +90,7 @@ iam:
     - alpha-govnotify-probation-messaging/appointment-reminders/*
 
 maintainers:
-  - antonyjscott
+  - AntonyJScott
   - lalithanagarur
 
 notifications:
