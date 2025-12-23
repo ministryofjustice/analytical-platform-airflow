@@ -9,7 +9,7 @@ dag:
     AWS_DEFAULT_REGION: eu-west-1
     ATHENA_DB: vast_training_data
 
-    AWS_ATHENA_S3_STAGING_DIR: s3://alpha-vast/athena-staging/
+    AWS_ATHENA_S3_STAGING_DIR: s3://alpha-vast/athena_staging/
     OUT_BASE: s3://alpha-vast/bins
     CSV_BASE: s3://alpha-vast/csv
     KEYS_BASE: s3://alpha-vast/keys
