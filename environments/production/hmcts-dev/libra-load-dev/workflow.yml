@@ -1,0 +1,455 @@
+dag:
+  repository: moj-analytical-services/airflow-create-a-pipeline
+  tag: v4.0.3
+  retries: 1
+  retry_delay: 150
+  start_date: "2025-12-23"
+  max_active_runs: 5
+  env_vars:
+    LOG_LEVEL: "INFO"
+    LAND: "s3://mojap-land-dev/hmcts/libra"
+    RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/libra"
+    BASE_LOC: "s3://alpha-mojap-curated-libra/dev/v1/"
+    BASE_DB_NAME: "libra_preprocessed_dev"
+    SERVICE: "libra"
+    CHUNK_SIZE: "1000000"
+    DAG_INTERVAL_END: "{{ data_interval_end }}"
+
+  tasks:
+    libra-load-addresses:
+      env_vars:
+        TABLE: "addresses"
+
+    libra-load-business-types:
+      env_vars:
+        TABLE: "business-types"
+
+    libra-load-business-unit-types:
+      env_vars:
+        TABLE: "business-unit-types"
+
+    libra-load-business-units:
+      env_vars:
+        TABLE: "business-units"
+
+    libra-load-case-defendants:
+      env_vars:
+        TABLE: "case-defendants"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-load-case-entity-roles:
+      env_vars:
+        TABLE: "case-entity-roles"
+
+    libra-load-case-flag-types:
+      env_vars:
+        TABLE: "case-flag-types"
+
+    libra-load-case-management-rep-units:
+      env_vars:
+        TABLE: "case-management-rep-units"
+
+    libra-load-case-management-units:
+      env_vars:
+        TABLE: "case-management-units"
+
+    libra-load-case-offence-hearings:
+      env_vars:
+        TABLE: "case-offence-hearings"
+
+    libra-load-case-offence-results-t:
+      env_vars:
+        TABLE: "case-offence-results-t"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    libra-load-case-offences:
+      env_vars:
+        TABLE: "case-offences"
+
+    libra-load-cases:
+      env_vars:
+        TABLE: "cases"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-load-cg-ref-codes:
+      env_vars:
+        TABLE: "cg-ref-codes"
+
+    libra-load-co-result-term-responses:
+      env_vars:
+        TABLE: "co-result-term-responses"
+
+    libra-load-co-terminal-responses:
+      env_vars:
+        TABLE: "co-terminal-responses"
+
+    libra-load-commission-areas:
+      env_vars:
+        TABLE: "commission-areas"
+
+    libra-load-court-houses:
+      env_vars:
+        TABLE: "court-houses"
+
+    libra-load-court-room-types:
+      env_vars:
+        TABLE: "court-room-types"
+
+    libra-load-court-rooms:
+      env_vars:
+        TABLE: "court-rooms"
+
+    libra-load-defendants:
+      env_vars:
+        TABLE: "defendants"
+
+    libra-load-diary-management-units:
+      env_vars:
+        TABLE: "diary-management-units"
+
+    libra-load-diary-template-sessions:
+      env_vars:
+        TABLE: "diary-template-sessions"
+
+    libra-load-document-set-headers:
+      env_vars:
+        TABLE: "document-set-headers"
+
+    libra-load-driver-details:
+      env_vars:
+        TABLE: "driver-details"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-load-enforcement-account-types:
+      env_vars:
+        TABLE: "enforcement-account-types"
+
+    libra-load-enforcement-headers:
+      env_vars:
+        TABLE: "enforcement-headers"
+
+    libra-load-enforcement-report-headers:
+      env_vars:
+        TABLE: "enforcement-report-headers"
+
+    libra-load-enforcer-allocations:
+      env_vars:
+        TABLE: "enforcer-allocations"
+
+    libra-load-entity-nationalities:
+      env_vars:
+        TABLE: "entity-nationalities"
+
+    libra-load-entity-roles:
+      env_vars:
+        TABLE: "entity-roles"
+
+    libra-load-functional-areas:
+      env_vars:
+        TABLE: "functional-areas"
+
+    libra-load-hearing-entity-roles:
+      env_vars:
+        TABLE: "hearing-entity-roles"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-load-hearings-all:
+      env_vars:
+        TABLE: "hearings-all"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-load-joint-charge-links:
+      env_vars:
+        TABLE: "joint-charge-links"
+
+    libra-load-joint-charges:
+      env_vars:
+        TABLE: "joint-charges"
+
+    libra-load-judiciaries:
+      env_vars:
+        TABLE: "judiciaries"
+
+    libra-load-judiciary-assignments:
+      env_vars:
+        TABLE: "judiciary-assignments"
+
+    libra-load-legal-advisors:
+      env_vars:
+        TABLE: "legal-advisors"
+
+    libra-load-link-addresses:
+      env_vars:
+        TABLE: "link-addresses"
+
+    libra-load-locations:
+      env_vars:
+        TABLE: "locations"
+
+    libra-load-mag-court-committees:
+      env_vars:
+        TABLE: "mag-court-committees"
+
+    libra-load-map-offence-type:
+      env_vars:
+        TABLE: "map-offence-type"
+
+    libra-load-names:
+      env_vars:
+        TABLE: "names"
+
+    libra-load-national-court-houses:
+      env_vars:
+        TABLE: "national-court-houses"
+
+    libra-load-nationalities:
+      env_vars:
+        TABLE: "nationalities"
+
+    libra-load-notes:
+      env_vars:
+        TABLE: "notes"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-load-occupations:
+      env_vars:
+        TABLE: "occupations"
+
+    libra-load-offence-acts-and-sections:
+      env_vars:
+        TABLE: "offence-acts-and-sections"
+
+    libra-load-offence-headers:
+      env_vars:
+        TABLE: "offence-headers"
+
+    libra-load-offence-revisions:
+      env_vars:
+        TABLE: "offence-revisions"
+
+    libra-load-offence-statements-of-fact:
+      env_vars:
+        TABLE: "offence-statements-of-fact"
+
+    libra-load-offence-terminal-entries:
+      env_vars:
+        TABLE: "offence-terminal-entries"
+
+    libra-load-offence-wordings:
+      env_vars:
+        TABLE: "offence-wordings"
+
+    libra-load-organisation-names:
+      env_vars:
+        TABLE: "organisation-names"
+
+    libra-load-organisations:
+      env_vars:
+        TABLE: "organisations"
+
+    libra-load-panel-types:
+      env_vars:
+        TABLE: "panel-types"
+
+    libra-load-panels:
+      env_vars:
+        TABLE: "panels"
+
+    libra-load-persons:
+      env_vars:
+        TABLE: "persons"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-load-petty-sessional-areas:
+      env_vars:
+        TABLE: "petty-sessional-areas"
+
+    libra-load-plea-types:
+      env_vars:
+        TABLE: "plea-types"
+
+    libra-load-pleas:
+      env_vars:
+        TABLE: "pleas"
+
+    libra-load-police-force-codes:
+      env_vars:
+        TABLE: "police-force-codes"
+
+    libra-load-reasons:
+      env_vars:
+        TABLE: "reasons"
+
+    libra-load-result-code-groups:
+      env_vars:
+        TABLE: "result-code-groups"
+
+    libra-load-result-groups:
+      env_vars:
+        TABLE: "result-groups"
+
+    libra-load-result-headers:
+      env_vars:
+        TABLE: "result-headers"
+
+    libra-load-result-report-headers:
+      env_vars:
+        TABLE: "result-report-headers"
+
+    libra-load-result-revisions:
+      env_vars:
+        TABLE: "result-revisions"
+
+    libra-load-result-sets:
+      env_vars:
+        TABLE: "result-sets"
+
+    libra-load-result-terminal-entries:
+      env_vars:
+        TABLE: "result-terminal-entries"
+
+    libra-load-role-case-types:
+      env_vars:
+        TABLE: "role-case-types"
+
+    libra-load-roles:
+      env_vars:
+        TABLE: "roles"
+
+    libra-load-rte-element-definitions:
+      env_vars:
+        TABLE: "rte-element-definitions"
+
+    libra-load-rte-menu-option-elements:
+      env_vars:
+        TABLE: "rte-menu-option-elements"
+
+    libra-load-rte-menu-options:
+      env_vars:
+        TABLE: "rte-menu-options"
+
+    libra-load-rte-menus:
+      env_vars:
+        TABLE: "rte-menus"
+
+    libra-load-rtr-application-details:
+      env_vars:
+        TABLE: "rtr-application-details"
+
+    libra-load-rtr-application-offences:
+      env_vars:
+        TABLE: "rtr-application-offences"
+
+    libra-load-rtr-applications:
+      env_vars:
+        TABLE: "rtr-applications"
+
+    libra-load-rtr-reasons:
+      env_vars:
+        TABLE: "rtr-reasons"
+
+    libra-load-session-blocks:
+      env_vars:
+        TABLE: "session-blocks"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-load-sessions:
+      env_vars:
+        TABLE: "sessions"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-load-solicitors:
+      env_vars:
+        TABLE: "solicitors"
+
+    libra-load-standard-informants:
+      env_vars:
+        TABLE: "standard-informants"
+
+    libra-load-supplementary-items:
+      env_vars:
+        TABLE: "supplementary-items"
+
+    libra-load-suppress-overrides:
+      env_vars:
+        TABLE: "suppress-overrides"
+
+    libra-load-tvlo-headers:
+      env_vars:
+        TABLE: "tvlo-headers"
+
+    libra-load-vehicle-links:
+      env_vars:
+        TABLE: "vehicle-links"
+
+    libra-load-vehicles:
+      env_vars:
+        TABLE: "vehicles"
+
+    libraapp-load-app-list-entry-fee-id:
+      env_vars:
+        TABLE: "app-list-entry-fee-id"
+
+    libraapp-load-app-list-entry-fee-status:
+      env_vars:
+        TABLE: "app-list-entry-fee-status"
+
+    libraapp-load-app-list-entry-official:
+      env_vars:
+        TABLE: "app-list-entry-official"
+
+    libraapp-load-app-list-entry-resolutions:
+      env_vars:
+        TABLE: "app-list-entry-resolutions"
+
+    libraapp-load-application-codes:
+      env_vars:
+        TABLE: "application-codes"
+
+    libraapp-load-application-list-entries:
+      env_vars:
+        TABLE: "application-list-entries"
+
+    libraapp-load-application-lists:
+      env_vars:
+        TABLE: "application-lists"
+
+    libraapp-load-application-register:
+      env_vars:
+        TABLE: "application-register"
+
+    libraapp-load-criminal-justice-area:
+      env_vars:
+        TABLE: "criminal-justice-area"
+
+    libraapp-load-fee:
+      env_vars:
+        TABLE: "fee"
+
+    libraapp-load-name-address:
+      env_vars:
+        TABLE: "name-address"
+
+    libraapp-load-resolution-codes:
+      env_vars:
+        TABLE: "resolution-codes"
+
+    libraapp-load-standard-applicants:
+      env_vars:
+        TABLE: "standard-applicants"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-dev/hmcts/libra/*
+    - mojap-raw-hist-dev/hmcts/libra/*
+    - alpha-mojap-curated-libra/dev/v1/*
+
+maintainers:
+  - jovita-brundziene
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: jovita.brundziene@justice.gov.uk
