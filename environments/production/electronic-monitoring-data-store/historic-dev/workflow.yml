@@ -18,7 +18,6 @@ dag:
     AWS_DEFAULT_REGION: eu-west-2
     EM_REMOVE_LIVE: true
     STATE_MODE: true
-    RUN_AIRFLOW: true
 secrets:
   - github-key
 
