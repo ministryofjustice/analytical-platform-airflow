@@ -5,6 +5,13 @@ dag:
 maintainers:
   - np4465
 
+iam:
+  athena: read
+  bedrock: true
+  glue: true
+  s3_read_write:
+    - alpha-data-improvement-team/*
+
 tags:
   business_unit: HQ
   owner: Nicholas.Popplewell@justice.gov.uk
