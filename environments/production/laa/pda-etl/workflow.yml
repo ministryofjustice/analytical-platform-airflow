@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa_cwa_providers
-  tag: 1.9.2
+  tag: 1.9.3
   retries: 2
   retry_delay: 150
   compute_profile: general-on-demand-8vcpu-32gb
@@ -96,12 +96,10 @@ secrets:
 
 notifications:
   emails:
-    - Ihuoma.Panton@justice.gov.uk
     - Damilola.Oyebade@justice.gov.uk
   slack_channel: laa-de-alerts
 
 maintainers:
-  - oplaa-collab
   - dami-moj
 
 tags:
