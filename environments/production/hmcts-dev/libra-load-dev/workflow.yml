@@ -19,6 +19,7 @@ dag:
     libra-load-addresses:
       env_vars:
         TABLE: "addresses"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-business-types:
       env_vars:
@@ -27,10 +28,12 @@ dag:
     libra-load-business-unit-types:
       env_vars:
         TABLE: "business_unit_types"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-business-units:
       env_vars:
         TABLE: "business_units"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-case-defendants:
       env_vars:
@@ -40,6 +43,7 @@ dag:
     libra-load-case-entity-roles:
       env_vars:
         TABLE: "case_entity_roles"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-case-flag-types:
       env_vars:
@@ -56,6 +60,7 @@ dag:
     libra-load-case-offence-hearings:
       env_vars:
         TABLE: "case_offence_hearings"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-case-offence-results-t:
       env_vars:
@@ -65,6 +70,7 @@ dag:
     libra-load-case-offences:
       env_vars:
         TABLE: "case_offences"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-cases:
       env_vars:
@@ -78,10 +84,12 @@ dag:
     libra-load-co-result-term-responses:
       env_vars:
         TABLE: "co_result_term_responses"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-co-terminal-responses:
       env_vars:
         TABLE: "co_terminal_responses"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-commission-areas:
       env_vars:
@@ -90,10 +98,12 @@ dag:
     libra-load-court-houses:
       env_vars:
         TABLE: "court_houses"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-court-room-types:
       env_vars:
         TABLE: "court_room_types"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-court-rooms:
       env_vars:
@@ -102,6 +112,7 @@ dag:
     libra-load-defendants:
       env_vars:
         TABLE: "defendants"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-diary-management-units:
       env_vars:
@@ -110,6 +121,7 @@ dag:
     libra-load-diary-template-sessions:
       env_vars:
         TABLE: "diary_template_sessions"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-document-set-headers:
       env_vars:
@@ -127,6 +139,7 @@ dag:
     libra-load-enforcement-headers:
       env_vars:
         TABLE: "enforcement_headers"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-enforcement-report-headers:
       env_vars:
@@ -143,6 +156,7 @@ dag:
     libra-load-entity-roles:
       env_vars:
         TABLE: "entity_roles"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-functional-areas:
       env_vars:
@@ -165,22 +179,27 @@ dag:
     libra-load-joint-charges:
       env_vars:
         TABLE: "joint_charges"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-judiciaries:
       env_vars:
         TABLE: "judiciaries"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-judiciary-assignments:
       env_vars:
         TABLE: "judiciary_assignments"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-legal-advisors:
       env_vars:
         TABLE: "legal_advisors"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-link-addresses:
       env_vars:
         TABLE: "link_addresses"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-locations:
       env_vars:
@@ -189,6 +208,7 @@ dag:
     libra-load-mag-court-committees:
       env_vars:
         TABLE: "mag_court_committees"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-map-offence-type:
       env_vars:
@@ -197,6 +217,7 @@ dag:
     libra-load-names:
       env_vars:
         TABLE: "names"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-national-court-houses:
       env_vars:
@@ -238,6 +259,7 @@ dag:
     libra-load-offence-wordings:
       env_vars:
         TABLE: "offence_wordings"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-organisation-names:
       env_vars:
@@ -271,6 +293,7 @@ dag:
     libra-load-pleas:
       env_vars:
         TABLE: "pleas"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-police-force-codes:
       env_vars:
@@ -369,6 +392,7 @@ dag:
     libra-load-supplementary-items:
       env_vars:
         TABLE: "supplementary_items"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libra-load-suppress-overrides:
       env_vars:
@@ -393,10 +417,12 @@ dag:
     libraapp-load-app-list-entry-fee-status:
       env_vars:
         TABLE: "app_list_entry_fee_status"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libraapp-load-app-list-entry-official:
       env_vars:
         TABLE: "app_list_entry_official"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libraapp-load-app-list-entry-resolutions:
       env_vars:
@@ -405,10 +431,12 @@ dag:
     libraapp-load-application-codes:
       env_vars:
         TABLE: "application_codes"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libraapp-load-application-list-entries:
       env_vars:
         TABLE: "application_list_entries"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libraapp-load-application-lists:
       env_vars:
@@ -417,6 +445,7 @@ dag:
     libraapp-load-application-register:
       env_vars:
         TABLE: "application_register"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libraapp-load-criminal-justice-area:
       env_vars:
@@ -425,10 +454,12 @@ dag:
     libraapp-load-fee:
       env_vars:
         TABLE: "fee"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libraapp-load-name-address:
       env_vars:
         TABLE: "name_address"
+      compute_profile: general-on-demand-16vcpu-64gb
 
     libraapp-load-resolution-codes:
       env_vars:
