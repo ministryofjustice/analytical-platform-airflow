@@ -1,0 +1,134 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v3.0.4
+  retries: 0
+  retry_delay: 150
+  hmcts_sdp_networking: True
+  max_active_runs: 3
+  env_vars:
+    TASK: "extract"
+    LOG_LEVEL: "INFO"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    SDP_TABLE_PREFIX: "v3-cgi-caseman"
+    PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
+    COPY_MODE: "new"
+    CHECK_MODE: "table"
+    FILENAME_COL_NAME: "mojap_unpacked_filename"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    DATABASE_NAME: "caseman_ap_sdp_preprocessed_pp"
+    LAND_BUCKET: "s3://mojap-land-dev"
+    HIST_BUCKET: "s3://mojap-raw-hist-dev"
+    LAND_FOLDER: "hmcts/caseman_sdp/v3"
+    HIST_FOLDER: "hmcts/caseman_sdp/v3"
+    CUT_OFF: "2025-12-20"
+  tasks:
+    caseman_extract_address_types:
+      env_vars:
+        TABLE_NAME: "address-types"
+        S3_TABLE_NAME: "address_types"
+        FILENAME_TABLE_NAME: "address_types"
+    caseman_extract_ae_events:
+      env_vars:
+        TABLE_NAME: "ae-events"
+        S3_TABLE_NAME: "ae_events"
+        FILENAME_TABLE_NAME: "ae_events"
+    caseman_extract_cases:
+      env_vars:
+        TABLE_NAME: "cases"
+        S3_TABLE_NAME: "cases"
+        FILENAME_TABLE_NAME: "cases"
+    caseman_extract_case_events:
+      env_vars:
+        TABLE_NAME: "case-events"
+        S3_TABLE_NAME: "case_events"
+        FILENAME_TABLE_NAME: "case_events"
+    caseman_extract_case_party_roles:
+      env_vars:
+        TABLE_NAME: "case-party-roles"
+        S3_TABLE_NAME: "case_party_roles"
+        FILENAME_TABLE_NAME: "case_party_roles"
+    caseman_extract_coded_parties:
+      env_vars:
+        TABLE_NAME: "coded-parties"
+        S3_TABLE_NAME: "coded_parties"
+        FILENAME_TABLE_NAME: "coded_parties"
+    caseman_extract_courts:
+      env_vars:
+        TABLE_NAME: "courts"
+        S3_TABLE_NAME: "courts"
+        FILENAME_TABLE_NAME: "courts"
+    caseman_extract_cpr_to_cpr_relationship:
+      env_vars:
+        TABLE_NAME: "cpr-to-cpr-relationship"
+        S3_TABLE_NAME: "cpr_to_cpr_relationship"
+        FILENAME_TABLE_NAME: "cpr_to_cpr_relationship"
+    caseman_extract_given_addresses:
+      env_vars:
+        TABLE_NAME: "given-addresses"
+        S3_TABLE_NAME: "given_addresses"
+        FILENAME_TABLE_NAME: "given_addresses"
+    caseman_extract_hearings:
+      env_vars:
+        TABLE_NAME: "hearings"
+        S3_TABLE_NAME: "hearings"
+        FILENAME_TABLE_NAME: "hearings"
+    caseman_extract_judgments:
+      env_vars:
+        TABLE_NAME: "judgments"
+        S3_TABLE_NAME: "judgments"
+        FILENAME_TABLE_NAME: "judgments"
+    caseman_extract_order_types:
+      env_vars:
+        TABLE_NAME: "order-types"
+        S3_TABLE_NAME: "order_types"
+        FILENAME_TABLE_NAME: "order_types"
+    caseman_extract_parties:
+      env_vars:
+        TABLE_NAME: "parties"
+        S3_TABLE_NAME: "parties"
+        FILENAME_TABLE_NAME: "parties"
+    caseman_extract_party_roles:
+      env_vars:
+        TABLE_NAME: "party-roles"
+        S3_TABLE_NAME: "party_roles"
+        FILENAME_TABLE_NAME: "party_roles"
+    caseman_extract_party_types:
+      env_vars:
+        TABLE_NAME: "party-types"
+        S3_TABLE_NAME: "party_types"
+        FILENAME_TABLE_NAME: "party_types"
+    caseman_extract_standard_eents:
+      env_vars:
+        TABLE_NAME: "standard-events"
+        S3_TABLE_NAME: "standard_events"
+        FILENAME_TABLE_NAME: "standard_events"
+    caseman_extract_tasks:
+      env_vars:
+        TABLE_NAME: "warrants"
+        S3_TABLE_NAME: "warrants"
+        FILENAME_TABLE_NAME: "warrants"
+    caseman_extract_warrant_returns:
+      env_vars:
+        TABLE_NAME: "warrant-returns"
+        S3_TABLE_NAME: "warrant_returns"
+        FILENAME_TABLE_NAME: "warrant_returns"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/hmcts/caseman_sdp/*
+    - mojap-raw-hist-dev/hmcts/caseman_sdp/*
+    - alpha-mojap-civil/caseman_ap_sdp/preprocessed/*
+  s3_read_only:
+    - alpha-mojap-ccd/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - Andy-Cook
+  - DanJ-MOJ
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
