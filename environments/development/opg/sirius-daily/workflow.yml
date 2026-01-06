@@ -42,7 +42,7 @@ dag:
     create_derived:
       env_vars:
         STEP: "create_derived"
-      compute_profile: "general-on-demand-4vcpu-16gb"
+      compute_profile: "general-on-demand-16vcpu-64gb"
       dependencies: [raw_to_curated, create_curated_database]
 
 iam:
