@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-shs-qual
-  tag: v1.5.11
+  tag: v1.6.0
   schedule:
     datasets:
       - "s3://alpha-safety-mi/prisons_ds/dev_selfharm_proc/"
