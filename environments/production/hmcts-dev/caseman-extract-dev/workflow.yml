@@ -118,7 +118,7 @@ iam:
   s3_read_write:
     - mojap-land-dev/hmcts/caseman_sdp/*
     - mojap-raw-hist-dev/hmcts/caseman_sdp/*
-    - alpha-mojap-civil/caseman_ap_sdp/preprocessed/*
+    - alpha-mojap-civil/dev/caseman_ap_sdp/preprocessed/*
   s3_read_only:
     - alpha-mojap-ccd/*
 
