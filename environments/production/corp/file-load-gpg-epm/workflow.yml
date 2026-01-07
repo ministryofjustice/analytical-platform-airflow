@@ -90,6 +90,9 @@ iam:
     - mojap-processed/domain__hr/env__prod/corporate_epm_staging/*
     - mojap-processed/domain__hr/env__prod/athena_query_dump/*
 
+secrets:
+  - pgp-privatekey-base
+
 notifications:
   slack_channel: dmet-corp-notifications
 
