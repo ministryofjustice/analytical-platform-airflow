@@ -104,6 +104,11 @@ dag:
         FILENAME_TABLE_NAME: "standard_events"
     caseman_extract_tasks:
       env_vars:
+        TABLE_NAME: "tasks"
+        S3_TABLE_NAME: "tasks"
+        FILENAME_TABLE_NAME: "tasks"
+    caseman_extract_warrants:
+      env_vars:
         TABLE_NAME: "warrants"
         S3_TABLE_NAME: "warrants"
         FILENAME_TABLE_NAME: "warrants"
