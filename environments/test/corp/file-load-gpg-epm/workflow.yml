@@ -1,9 +1,10 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.27-test-9
+  tag: v0.0.27
   env_vars:
-    AFFILE_ENV: test
+    AFFILE_ENV: "test"
+    AFFILE_SCHEMA_CONTRACT: "evolve"
   tasks:
     appeals_hmpps:
       env_vars:
