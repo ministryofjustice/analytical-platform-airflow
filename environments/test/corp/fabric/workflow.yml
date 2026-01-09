@@ -1,0 +1,25 @@
+---
+dag:
+  repository: ministryofjustice/replicate-athena-to-fabric
+  tag: v0.0.2
+  catchup: false
+  compute_profile: general-on-demand-2vcpu-8gb
+  max_active_runs: 1
+  retries: 0
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-corp-data-staging/athena_queries/*
+
+secrets:
+  - azure-client-secret
+
+maintainers:
+  - moj-supratikc
+  - DanJ-MOJ
+
+tags:
+  business_unit: Central Digital
+  owner: supratik.chowdhury@justice.gov.uk

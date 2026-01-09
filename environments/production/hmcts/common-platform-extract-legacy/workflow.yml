@@ -1,0 +1,361 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction-legacy
+  tag: v1.0.0
+  retries: 1
+  retry_delay: 150
+  start_date: "2025-12-19"
+  schedule: 0 18 * * 6
+  hmcts_sdp_networking: True
+  max_active_runs: 3
+  env_vars:
+    TASK: "extract"
+    LOG_LEVEL: "DEBUG"
+    DB_VERSION: "dev_sdp_v3"
+    SDP_TABLE_PREFIX: "v2-cp"
+    CHECK_MODE: "hist"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    LAND_BUCKET: "s3://mojap-land"
+    LAND_FOLDER: "hmcts/common-platform/dev_sdp_v3"
+    HIST_BUCKET: "s3://mojap-raw-hist"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    CUT_OFF: "2022-08-21"
+
+  tasks:
+    extract_allocated_listings:
+      env_vars:
+        TABLE_NAME: "allocated-listings"
+    extract_application:
+      env_vars:
+        TABLE_NAME: "application"
+    extract_application_person:
+      env_vars:
+        TABLE_NAME: "application-person"
+    extract_associated_person:
+      env_vars:
+        TABLE_NAME: "associated-person"
+    extract_case_detail:
+      env_vars:
+        TABLE_NAME: "case-detail"
+    extract_case_link_split_merge:
+      env_vars:
+        TABLE_NAME: "case-link-split-merge"
+    extract_case_marker:
+      env_vars:
+        TABLE_NAME: "case-marker"
+    extract_case_person:
+      env_vars:
+        TABLE_NAME: "case-person"
+    extract_court_schedule:
+      env_vars:
+        TABLE_NAME: "court-schedule"
+    extract_court_schedule_judiciary:
+      env_vars:
+        TABLE_NAME: "court-schedule-judiciary"
+    extract_court_session:
+      env_vars:
+        TABLE_NAME: "court-session"
+    extract_court_session_detail:
+      env_vars:
+        TABLE_NAME: "court-session-detail"
+    extract_court_session_judiciary:
+      env_vars:
+        TABLE_NAME: "court-session-judiciary"
+    extract_cpp_user:
+      env_vars:
+        TABLE_NAME: "cpp-user"
+    extract_custody_status:
+      env_vars:
+        TABLE_NAME: "custody-status"
+    extract_defence_assoc_access_grant:
+      env_vars:
+        TABLE_NAME: "defence-assoc-access-grant"
+    extract_defence_association:
+      env_vars:
+        TABLE_NAME: "defence-association"
+    extract_defendant_defence_association:
+      env_vars:
+        TABLE_NAME: "defendant-defence-association"
+    extract_defence_idpc_access:
+      env_vars:
+        TABLE_NAME: "defence-idpc-access"
+    extract_defendant_alias:
+      env_vars:
+        TABLE_NAME: "defendant-alias"
+    extract_defendant_detail:
+      env_vars:
+        TABLE_NAME: "defendant-detail"
+    extract_defendant_employer:
+      env_vars:
+        TABLE_NAME: "defendant-employer"
+    extract_defendants_matched:
+      env_vars:
+        TABLE_NAME: "defendants-matched"
+    extract_financial_imposition:
+      env_vars:
+        TABLE_NAME: "financial-imposition"
+    extract_financial_means:
+      env_vars:
+        TABLE_NAME: "financial-means"
+    extract_financial_means_outgoing:
+      env_vars:
+        TABLE_NAME: "financial-means-outgoing"
+    extract_hearing:
+      env_vars:
+        TABLE_NAME: "hearing"
+    extract_hearing_attendance:
+      env_vars:
+        TABLE_NAME: "hearing-attendance"
+    extract_hearing_case_application:
+      env_vars:
+        TABLE_NAME: "hearing-case-application"
+    extract_hearing_date:
+      env_vars:
+        TABLE_NAME: "hearing-date"
+    extract_hearing_defence_counsel:
+      env_vars:
+        TABLE_NAME: "hearing-defence-counsel"
+    extract_hearing_detail:
+      env_vars:
+        TABLE_NAME: "hearing-detail"
+    extract_hearing_effectiveness:
+      env_vars:
+        TABLE_NAME: "hearing-effectiveness"
+    extract_hearing_event_log:
+      env_vars:
+        TABLE_NAME: "hearing-event-log"
+    extract_hearing_interpreter_intermediary:
+      env_vars:
+        TABLE_NAME: "hearing-interpreter-intermediary"
+    extract_hearing_judiciary:
+      env_vars:
+        TABLE_NAME: "hearing-judiciary"
+    extract_hearing_prosecution_counsel:
+      env_vars:
+        TABLE_NAME: "hearing-prosecution-counsel"
+    extract_hearing_result:
+      env_vars:
+        TABLE_NAME: "hearing-result"
+    extract_hearing_result_prompt:
+      env_vars:
+        TABLE_NAME: "hearing-result-prompt"
+    extract_legal_entity:
+      env_vars:
+        TABLE_NAME: "legal-entity"
+    extract_offence_detail:
+      env_vars:
+        TABLE_NAME: "offence-detail"
+    extract_offence_plea:
+      env_vars:
+        TABLE_NAME: "offence-plea"
+    extract_organisation_person:
+      env_vars:
+        TABLE_NAME: "organisation-person"
+    extract_person:
+      env_vars:
+        TABLE_NAME: "person"
+    extract_referencedata_action_plan_reason_category:
+      env_vars:
+        TABLE_NAME: "referencedata-action-plan-reason-category"
+    extract_referencedata_amendment_reason:
+      env_vars:
+        TABLE_NAME: "referencedata-amendment-reason"
+    extract_referencedata_application_type_category:
+      env_vars:
+        TABLE_NAME: "referencedata-application-type-category"
+    extract_referencedata_bail_status:
+      env_vars:
+        TABLE_NAME: "referencedata-bail-status"
+    extract_referencedata_case_marker:
+      env_vars:
+        TABLE_NAME: "referencedata-case-marker"
+    extract_referencedata_cjs_it_system_code:
+      env_vars:
+        TABLE_NAME: "referencedata-cjs-it-system-code"
+    extract_referencedata_cjs_verdict_code:
+      env_vars:
+        TABLE_NAME: "referencedata-cjs-verdict-code"
+    extract_referencedata_country_nationality:
+      env_vars:
+        TABLE_NAME: "referencedata-country-nationality"
+    extract_referencedata_court_room_session_allocation:
+      env_vars:
+        TABLE_NAME: "referencedata-court-room-session-allocation"
+    extract_referencedata_courtroom:
+      env_vars:
+        TABLE_NAME: "referencedata-courtroom"
+    extract_referencedata_cracked_ineffective_vacated_trial_type:
+      env_vars:
+        TABLE_NAME: "referencedata-cracked-ineffective-vacated-trial-type"
+    extract_referencedata_custory_suites:
+      env_vars:
+        TABLE_NAME: "referencedata-custody-suites"
+    extract_referencedata_enforcement_action:
+      env_vars:
+        TABLE_NAME: "referencedata-enforcement-action"
+    extract_referencedata_enforcement_area:
+      env_vars:
+        TABLE_NAME: "referencedata-enforcement-area"
+    extract_referencedata_ethnicity:
+      env_vars:
+        TABLE_NAME: "referencedata-ethnicity"
+    extract_referencedata_fixed_list:
+      env_vars:
+        TABLE_NAME: "referencedata-fixed-list"
+    extract_referencedata_gender:
+      env_vars:
+        TABLE_NAME: "referencedata-gender"
+    extract_referencedata_hearing_type:
+      env_vars:
+        TABLE_NAME: "referencedata-hearing-type"
+    extract_referencedata_initiation_type:
+      env_vars:
+        TABLE_NAME: "referencedata-initiation-type"
+    extract_referencedata_judiciary:
+      env_vars:
+        TABLE_NAME: "referencedata-judiciary"
+    extract_referencedata_judiciary_lja_mapping:
+      env_vars:
+        TABLE_NAME: "referencedata-judiciary-lja-mapping"
+    extract_referencedata_language:
+      env_vars:
+        TABLE_NAME: "referencedata-language"
+    extract_referencedata_legal_status:
+      env_vars:
+        TABLE_NAME: "referencedata-legal-status"
+    extract_referencedata_licence_code:
+      env_vars:
+        TABLE_NAME: "referencedata-licence-code"
+    extract_referencedata_local_justice_area:
+      env_vars:
+        TABLE_NAME: "referencedata-local-justice-area"
+    extract_referencedata_local_justice_area_court_prosecutor_mapping:
+      env_vars:
+        TABLE_NAME: "referencedata-local-justice-area-court-prosecutor-mapping"
+    extract_referencedata_local_justice_area_postcodes:
+      env_vars:
+        TABLE_NAME: "referencedata-local-justice-area-postcodes"
+    extract_referencedata_mode_of_trial_reason:
+      env_vars:
+        TABLE_NAME: "referencedata-mode-of-trial-reason"
+    extract_referencedata_now_meta_data:
+      env_vars:
+        TABLE_NAME: "referencedata-now-meta-data"
+    extract_referencedata_observed_ethnicity:
+      env_vars:
+        TABLE_NAME: "referencedata-observed-ethnicity"
+    extract_referencedata_offence:
+      env_vars:
+        TABLE_NAME: "referencedata-offence"
+    extract_referencedata_offence_category:
+      env_vars:
+        TABLE_NAME: "referencedata-offence-category"
+    extract_referencedata_offence_date_code:
+      env_vars:
+        TABLE_NAME: "referencedata-offence-date-code"
+    extract_referencedata_offence_withdraw_request_reason:
+      env_vars:
+        TABLE_NAME: "referencedata-offence-withdraw-request-reason"
+    extract_referencedata_offender_code:
+      env_vars:
+        TABLE_NAME: "referencedata-offender-code"
+    extract_referencedata_organisation_unit:
+      env_vars:
+        TABLE_NAME: "referencedata-organisation-unit"
+    extract_referencedata_oucode_courtrooms:
+      env_vars:
+        TABLE_NAME: "referencedata-oucode-courtrooms"
+    extract_referencedata_plea_status:
+      env_vars:
+        TABLE_NAME: "referencedata-plea-status"
+    extract_referencedata_plea_type:
+      env_vars:
+        TABLE_NAME: "referencedata-plea-type"
+    extract_referencedata_police_force:
+      env_vars:
+        TABLE_NAME: "referencedata-police-force"
+    extract_referencedata_police_rank:
+      env_vars:
+        TABLE_NAME: "referencedata-police-rank"
+    extract_referencedata_prosecutor:
+      env_vars:
+        TABLE_NAME: "referencedata-prosecutor"
+    extract_referencedata_referral_reason:
+      env_vars:
+        TABLE_NAME: "referencedata-referral-reason"
+    extract_referencedata_result:
+      env_vars:
+        TABLE_NAME: "referencedata-result"
+    extract_referencedata_result_definition:
+      env_vars:
+        TABLE_NAME: "referencedata-result-definition"
+    extract_referencedata_rota_business_type:
+      env_vars:
+        TABLE_NAME: "referencedata-rota-business-type"
+    extract_referencedata_scottish_ni_court:
+      env_vars:
+        TABLE_NAME: "referencedata-scottish-ni-court"
+    extract_referencedata_sentencing_indication:
+      env_vars:
+        TABLE_NAME: "referencedata-sentencing-indication"
+    extract_referencedata_summons_code:
+      env_vars:
+        TABLE_NAME: "referencedata-summons-code"
+    extract_referencedata_vehicle_code:
+      env_vars:
+        TABLE_NAME: "referencedata-vehicle-code"
+    extract_referencedata_verdict_type:
+      env_vars:
+        TABLE_NAME: "referencedata-verdict-type"
+    extract_referencedata_victim_surcharge:
+      env_vars:
+        TABLE_NAME: "referencedata-victim-surcharge"
+    extract_referencedata_youth_court:
+      env_vars:
+        TABLE_NAME: "referencedata-youth-court"
+    extract_referencedata_youth_offending_team:
+      env_vars:
+        TABLE_NAME: "referencedata-youth-offending-team"
+    extract_scan_document:
+      env_vars:
+        TABLE_NAME: "scan-document"
+    extract_scan_envelope:
+      env_vars:
+        TABLE_NAME: "scan-envelope"
+    extract_sjp_decision:
+      env_vars:
+        TABLE_NAME: "sjp-decision"
+    extract_sjp_session:
+      env_vars:
+        TABLE_NAME: "sjp-session"
+    extract_spi_case_error:
+      env_vars:
+        TABLE_NAME: "spi-case-error"
+    extract_spi_case_error_detail:
+      env_vars:
+        TABLE_NAME: "spi-case-error-detail"
+    extract_spi_defendant_error:
+      env_vars:
+        TABLE_NAME: "spi-defendant-error"
+    extract_spi_defendant_error_detail:
+      env_vars:
+        TABLE_NAME: "spi-defendant-error-detail"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land/hmcts/common-platform/*
+    - mojap-raw-hist/hmcts/common-platform/*
+  s3_read_only:
+    - alpha-mojap-common-platform/*
+    - alpha-mojap-ccd/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - Andy-Cook
+  - jovita-brundziene
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk

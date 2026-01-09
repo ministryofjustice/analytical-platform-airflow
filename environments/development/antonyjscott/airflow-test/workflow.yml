@@ -1,9 +1,12 @@
 dag:
   repository: moj-analytical-services/asc-test-airflow
-  tag: 1.0.0
+  tag: v1.0.1.dev3
 
 maintainers:
-  - antonyjscott
+  - AntonyJScott
+
+notifications:
+  slack_channel: de-probation-airflow-dev
 
 tags:
   business_unit: HQ
