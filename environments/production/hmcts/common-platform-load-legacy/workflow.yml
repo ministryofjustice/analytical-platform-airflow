@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline-legacy
-  tag: v1.0.0
+  tag: v1.0.1
   retries: 1
   retry_delay: 150
   start_date: "2025-12-19"
