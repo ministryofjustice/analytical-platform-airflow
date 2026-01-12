@@ -152,6 +152,134 @@ dag:
       env_vars:
         REPORT_NAME: "wls-customer_sites"
 
+    # === Commercial Synergy PO ===
+
+    cts-po_lines:
+      env_vars:
+        REPORT_NAME: "cts-po_lines"
+    laa-po_lines:
+      env_vars:
+        REPORT_NAME: "laa-po_lines"
+    opg-po_lines:
+      env_vars:
+        REPORT_NAME: "opg-po_lines"
+    yjb-po_lines:
+      env_vars:
+        REPORT_NAME: "yjb-po_lines"
+    ima-po_lines:
+      env_vars:
+        REPORT_NAME: "ima-po_lines"
+    moj-po_lines:
+      env_vars:
+        REPORT_NAME: "moj-po_lines"
+    pbd-po_lines:
+      env_vars:
+        REPORT_NAME: "pbd-po_lines"
+    jac-po_lines:
+      env_vars:
+        REPORT_NAME: "jac-po_lines"
+    nms-po_lines:
+      env_vars:
+        REPORT_NAME: "nms-po_lines"
+    wls-po_lines:
+      env_vars:
+        REPORT_NAME: "wls-po_lines"
+
+    cts-po_headers:
+      env_vars:
+        REPORT_NAME: "cts-po_headers"
+    laa-po_headers:
+      env_vars:
+        REPORT_NAME: "laa-po_headers"
+    opg-po_headers:
+      env_vars:
+        REPORT_NAME: "opg-po_headers"
+    yjb-po_headers:
+      env_vars:
+        REPORT_NAME: "yjb-po_headers"
+    ima-po_headers:
+      env_vars:
+        REPORT_NAME: "ima-po_headers"
+    moj-po_headers:
+      env_vars:
+        REPORT_NAME: "moj-po_headers"
+    pbd-po_headers:
+      env_vars:
+        REPORT_NAME: "pbd-po_headers"
+    jac-po_headers:
+      env_vars:
+        REPORT_NAME: "jac-po_headers"
+    nms-po_headers:
+      env_vars:
+        REPORT_NAME: "nms-po_headers"
+    wls-po_headers:
+      env_vars:
+        REPORT_NAME: "wls-po_headers"
+
+    # === Commercial Synergy Invoice ===
+
+    cts-invoice_lines:
+      env_vars:
+        REPORT_NAME: "cts-invoice_lines"
+    laa-invoice_lines:
+      env_vars:
+        REPORT_NAME: "laa-invoice_lines"
+    opg-invoice_lines:
+      env_vars:
+        REPORT_NAME: "opg-invoice_lines"
+    yjb-invoice_lines:
+      env_vars:
+        REPORT_NAME: "yjb-invoice_lines"
+    ima-invoice_lines:
+      env_vars:
+        REPORT_NAME: "ima-invoice_lines"
+    moj-invoice_lines:
+      env_vars:
+        REPORT_NAME: "moj-invoice_lines"
+    pbd-invoice_lines:
+      env_vars:
+        REPORT_NAME: "pbd-invoice_lines"
+    jac-invoice_lines:
+      env_vars:
+        REPORT_NAME: "jac-invoice_lines"
+    nms-invoice_lines:
+      env_vars:
+        REPORT_NAME: "nms-invoice_lines"
+    wls-invoice_lines:
+      env_vars:
+        REPORT_NAME: "wls-invoice_lines"
+
+    cts-invoice_headers:
+      env_vars:
+        REPORT_NAME: "cts-invoice_headers"
+    laa-invoice_headers:
+      env_vars:
+        REPORT_NAME: "laa-invoice_headers"
+    opg-invoice_headers:
+      env_vars:
+        REPORT_NAME: "opg-invoice_headers"
+    yjb-invoice_headers:
+      env_vars:
+        REPORT_NAME: "yjb-invoice_headers"
+    ima-invoice_headers:
+      env_vars:
+        REPORT_NAME: "ima-invoice_headers"
+    moj-invoice_headers:
+      env_vars:
+        REPORT_NAME: "moj-invoice_headers"
+    pbd-invoice_headers:
+      env_vars:
+        REPORT_NAME: "pbd-invoice_headers"
+    jac-invoice_headers:
+      env_vars:
+        REPORT_NAME: "jac-invoice_headers"
+    nms-invoice_headers:
+      env_vars:
+        REPORT_NAME: "nms-invoice_headers"
+    wls-invoice_headers:
+      env_vars:
+        REPORT_NAME: "wls-invoice_headers"
+
 iam:
   s3_read_write:
     - mojap-land/corporate/report_extractor_prod/splashbi/*
