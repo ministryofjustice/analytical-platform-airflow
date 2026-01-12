@@ -71,6 +71,9 @@ dag:
 
     # Operational evaluation
     op_splits: "val"
+    op_max_coverage: 0.10
+    op_min_capture: 0.10
+    op_save_intervals: false
     op_burnin_days: -1
     op_min_threshold: 0.2
     op_chunksize: 50000
@@ -93,6 +96,7 @@ dag:
     build_bins:
       env_vars:
         STEP: build
+        SKIP_BUILD_BINS: "{{ params.skip_build_bins | int }}"
         MAX_BIN: "{{ params.max_bin | int }}"
         NEG_MULTIPLIER: "{{ params.neg_multiplier }}"
         TRAIN_MAX_POS: "{{ params.train_max_pos }}"
@@ -101,11 +105,9 @@ dag:
         HELDOUT_MAX: "{{ params.heldout_max }}"
         TWO_ROUND: "{{ params.two_round | int }}"
         BIN_CONSTRUCT_SAMPLE_CNT: "{{ params.bin_construct_sample_cnt }}"
-        SKIP_BUILD_BINS: "{{ params.skip_build_bins | int }}"
         TARGETS: "{{ params.targets }}"
         ATHENA_TABLE: "{{ params.athena_table }}"
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
-        PARAM_MODEL_RUN: "{{ params.model_run }}"
 
     train:
       dependencies:
@@ -114,7 +116,7 @@ dag:
         STEP: train
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
         PARAM_MODEL_RUN: "{{ params.model_run }}"
-        MODEL_RUN_NAME: "{{ params.model_run }}"
+        TARGETS: "{{ params.targets }}"
         MAX_BIN: "{{ params.max_bin | int }}"
         NUM_BOOST_ROUND: "{{ params.num_boost_round }}"
         EARLY_STOPPING_ROUNDS: "{{ params.early_stopping_rounds }}"
@@ -142,11 +144,9 @@ dag:
         WANDB_ENTITY: "{{ params.wandb_entity }}"
         WANDB_RUN_NAME: "{{ params.wandb_run_name }}"
         NO_WANDB: "{{ params.no_wandb | int }}"
-        TARGETS: "{{ params.targets }}"
         USE_FOCAL_LOSS: "{{ params.use_focal_loss | int }}"
         FOCAL_GAMMA: "{{ params.focal_gamma }}"
         FOCAL_ALPHA: "{{ params.focal_alpha }}"
-        ATHENA_TABLE: "{{ params.athena_table }}"
 
     evaluate:
       dependencies:
@@ -155,7 +155,6 @@ dag:
         STEP: eval
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
         PARAM_MODEL_RUN: "{{ params.model_run }}"
-        MODEL_RUN_NAME: "{{ params.model_run }}"
         EVAL_TARGET: "{{ params.eval_target }}"
         KS: "{{ params.ks }}"
         SAMPLE_TRAIN_DAYS: "{{ params.sample_train_days }}"
@@ -172,16 +171,15 @@ dag:
         STEP: op_eval
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
         PARAM_MODEL_RUN: "{{ params.model_run }}"
-        MODEL_RUN_NAME: "{{ params.model_run }}"
         EVAL_TARGET: "{{ params.eval_target }}"
         OP_SPLITS: "{{ params.op_splits }}"
         OP_BURNIN_DAYS: "{{ params.op_burnin_days }}"
         OP_MIN_THRESHOLD: "{{ params.op_min_threshold }}"
         OP_CHUNKSIZE: "{{ params.op_chunksize }}"
         KS: "{{ params.ks }}"
-        OP_MAX_COVERAGE: "0.10"
-        OP_MIN_CAPTURE: "0.10"
-        OP_SAVE_INTERVALS: "0"
+        OP_MAX_COVERAGE: "{{ params.op_max_coverage }}"
+        OP_MIN_CAPTURE: "{{ params.op_min_capture }}"
+        OP_SAVE_INTERVALS: "{{ params.op_save_intervals | int }}"
         WANDB_RUN_NAME: "{{ params.wandb_run_name }}"
         WANDB_PROJECT: "{{ params.wandb_project }}"
 
@@ -191,13 +189,7 @@ secrets:
 iam:
   athena: write
   s3_read_write:
-    - alpha-vast/athena-staging/*
-    - alpha-vast/athena_staging/*
-    - alpha-vast/bins/*
-    - alpha-vast/csv/*
-    - alpha-vast/keys/*
-    - alpha-vast/models/*
-    - alpha-vast/vast_training_data/*
+    - alpha-vast/*
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=assaults/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=involvements/*
