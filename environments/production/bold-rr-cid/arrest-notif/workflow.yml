@@ -27,3 +27,10 @@ maintainers:
 tags:
   business_unit: Central Digital
   owner: guy.wheeler@justice.gov.uk
+
+notifications:
+  emails:
+    - guy.wheeler@justice.gov.uk
+    - andreas.soteriades@justice.gov.uk
+
+  slack_channel: bold-data-engineering-notifications
