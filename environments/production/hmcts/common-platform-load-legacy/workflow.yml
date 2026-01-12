@@ -115,6 +115,7 @@ dag:
     load_hearing_attendance:
       env_vars:
         AZ_TABLE: "hearing-attendance"
+      compute_profile: general-spot-32vcpu-128gb
     load_hearing_case_application:
       env_vars:
         AZ_TABLE: "hearing-case-application"
@@ -270,6 +271,7 @@ dag:
     load_referencedata_local_justice_area_postcodes:
       env_vars:
         AZ_TABLE: "referencedata-local-justice-area-postcodes"
+      compute_profile: general-spot-32vcpu-128gb
     load_referencedata_mode_of_trial_reason:
       env_vars:
         AZ_TABLE: "referencedata-mode-of-trial-reason"
