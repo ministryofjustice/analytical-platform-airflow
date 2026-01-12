@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction-legacy
-  tag: v1.0.0-alpha.1b6d5f5
+  tag: v1.0.1-alpha.cc8cba0
   retries: 1
   retry_delay: 150
   start_date: "2025-12-19"
