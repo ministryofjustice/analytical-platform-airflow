@@ -31,29 +31,29 @@ dag:
     load_case_detail:
       env_vars:
         AZ_TABLE: "case-detail"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "7"
+      compute_profile: general-spot-32vcpu-128gb
     load_case_link_split_merge:
       env_vars:
         AZ_TABLE: "case-link-split-merge"
     load_case_marker:
       env_vars:
         AZ_TABLE: "case-marker"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_case_person:
       env_vars:
         AZ_TABLE: "case-person"
     load_court_schedule:
       env_vars:
         AZ_TABLE: "court-schedule"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_court_schedule_judiciary:
       env_vars:
         AZ_TABLE: "court-schedule-judiciary"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_court_session:
       env_vars:
         AZ_TABLE: "court-session"
@@ -84,8 +84,8 @@ dag:
     load_defendant_alias:
       env_vars:
         AZ_TABLE: "defendant-alias"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_defendant_detail:
       env_vars:
         AZ_TABLE: "defendant-detail"
@@ -98,8 +98,8 @@ dag:
     load_financial_imposition:
       env_vars:
         AZ_TABLE: "financial-imposition"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_financial_means:
       env_vars:
         AZ_TABLE: "financial-means"
@@ -109,8 +109,8 @@ dag:
     load_hearing:
       env_vars:
         AZ_TABLE: "hearing"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "7"
+      compute_profile: general-spot-32vcpu-128gb
     load_hearing_attendance:
       env_vars:
         AZ_TABLE: "hearing-attendance"
@@ -120,66 +120,66 @@ dag:
     load_hearing_date:
       env_vars:
         AZ_TABLE: "hearing-date"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_hearing_defence_counsel:
       env_vars:
         AZ_TABLE: "hearing-defence-counsel"
     load_hearing_detail:
       env_vars:
         AZ_TABLE: "hearing-detail"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "7"
+      compute_profile: general-spot-32vcpu-128gb
     load_hearing_effectiveness:
       env_vars:
         AZ_TABLE: "hearing-effectiveness"
     load_hearing_event_log:
       env_vars:
         AZ_TABLE: "hearing-event-log"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_hearing_interpreter_intermediary:
       env_vars:
         AZ_TABLE: "hearing-interpreter-intermediary"
     load_hearing_judiciary:
       env_vars:
         AZ_TABLE: "hearing-judiciary"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_hearing_prosecution_counsel:
       env_vars:
         AZ_TABLE: "hearing-prosecution-counsel"
     load_hearing_result:
       env_vars:
         AZ_TABLE: "hearing-result"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_hearing_result_prompt:
       env_vars:
         AZ_TABLE: "hearing-result-prompt"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_legal_entity:
       env_vars:
         AZ_TABLE: "legal-entity"
     load_offence_detail:
       env_vars:
         AZ_TABLE: "offence-detail"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_offence_plea:
       env_vars:
         AZ_TABLE: "offence-plea"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_organisation_person:
       env_vars:
         AZ_TABLE: "organisation-person"
     load_person:
       env_vars:
         AZ_TABLE: "person"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_referencedata_action_plan_reason_category:
       env_vars:
         AZ_TABLE: "referencedata-action-plan-reason-category"
@@ -207,8 +207,8 @@ dag:
     load_referencedata_court_room_session_allocation:
       env_vars:
         AZ_TABLE: "referencedata-court-room-session-allocation"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_referencedata_courtroom:
       env_vars:
         AZ_TABLE: "referencedata-courtroom"
@@ -242,13 +242,13 @@ dag:
     load_referencedata_judiciary:
       env_vars:
         AZ_TABLE: "referencedata-judiciary"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_referencedata_judiciary_lja_mapping:
       env_vars:
         AZ_TABLE: "referencedata-judiciary-lja-mapping"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_referencedata_language:
       env_vars:
         AZ_TABLE: "referencedata-language"
@@ -279,8 +279,8 @@ dag:
     load_referencedata_offence:
       env_vars:
         AZ_TABLE: "referencedata-offence"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_referencedata_offence_category:
       env_vars:
         AZ_TABLE: "referencedata-offence-category"
@@ -323,8 +323,8 @@ dag:
     load_referencedata_result_definition:
       env_vars:
         AZ_TABLE: "referencedata-result-definition"
-        compute_profile: general-spot-32vcpu-128gb
         MAX_SIMULTANEOUS_FILES: "1"
+      compute_profile: general-spot-32vcpu-128gb
     load_referencedata_rota_business_type:
       env_vars:
         AZ_TABLE: "referencedata-rota-business-type"
