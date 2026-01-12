@@ -63,6 +63,7 @@ dag:
     load_court_session_judiciary:
       env_vars:
         AZ_TABLE: "court-session-judiciary"
+      compute_profile: general-spot-32vcpu-128gb
     load_cpp_user:
       env_vars:
         AZ_TABLE: "cpp-user"
@@ -212,6 +213,7 @@ dag:
     load_referencedata_courtroom:
       env_vars:
         AZ_TABLE: "referencedata-courtroom"
+      compute_profile: general-spot-32vcpu-128gb
     load_referencedata_cracked_ineffective_vacated_trial_type:
       env_vars:
         AZ_TABLE: "referencedata-cracked-ineffective-vacated-trial-type"
@@ -230,6 +232,7 @@ dag:
     load_referencedata_fixed_list:
       env_vars:
         AZ_TABLE: "referencedata-fixed-list"
+      compute_profile: general-spot-32vcpu-128gb
     load_referencedata_gender:
       env_vars:
         AZ_TABLE: "referencedata-gender"
@@ -296,9 +299,11 @@ dag:
     load_referencedata_organisation_unit:
       env_vars:
         AZ_TABLE: "referencedata-organisation-unit"
+      compute_profile: general-spot-32vcpu-128gb
     load_referencedata_oucode_courtrooms:
       env_vars:
         AZ_TABLE: "referencedata-oucode-courtrooms"
+      compute_profile: general-spot-32vcpu-128gb
     load_referencedata_plea_status:
       env_vars:
         AZ_TABLE: "referencedata-plea-status"
