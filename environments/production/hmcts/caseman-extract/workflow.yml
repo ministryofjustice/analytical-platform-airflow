@@ -132,6 +132,9 @@ iam:
 secrets:
   - sdp-pass
 
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
 maintainers:
   - Andy-Cook
   - DanJ-MOJ
