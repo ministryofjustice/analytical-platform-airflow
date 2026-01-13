@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.49
+  tag: 0.1.51
   max_active_runs: 50
 
   env_vars:
@@ -16,7 +16,6 @@ dag:
     # Naming / versioning
     dataset_suffix: x_structured_y_train_pos_all_bins_255_neg_multiplier_20
     model_run: first_test
-    wandb_run_name: first_test
 
     # Targets
     athena_table: "x_structured_y"
@@ -142,7 +141,6 @@ dag:
         GPU_DEVICE: "{{ params.gpu_device }}"
         WANDB_PROJECT: "{{ params.wandb_project }}"
         WANDB_ENTITY: "{{ params.wandb_entity }}"
-        WANDB_RUN_NAME: "{{ params.wandb_run_name }}"
         NO_WANDB: "{{ params.no_wandb | int }}"
         USE_FOCAL_LOSS: "{{ params.use_focal_loss | int }}"
         FOCAL_GAMMA: "{{ params.focal_gamma }}"
@@ -180,7 +178,6 @@ dag:
         OP_MAX_COVERAGE: "{{ params.op_max_coverage }}"
         OP_MIN_CAPTURE: "{{ params.op_min_capture }}"
         OP_SAVE_INTERVALS: "{{ params.op_save_intervals | int }}"
-        WANDB_RUN_NAME: "{{ params.wandb_run_name }}"
         WANDB_PROJECT: "{{ params.wandb_project }}"
 
 secrets:
