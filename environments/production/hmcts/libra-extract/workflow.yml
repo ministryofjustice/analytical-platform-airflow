@@ -1,0 +1,683 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v3.0.5
+  retries: 1
+  retry_delay: 150
+  max_active_runs: 3
+  hmcts_sdp_networking: true
+  env_vars:
+    TASK: "extract"
+    LOG_LEVEL: "DEBUG"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    SDP_TABLE_PREFIX: "v3-cgi-libra"
+    PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
+    COPY_MODE: "new"
+    CHECK_MODE: "hist"
+    FILENAME_COL_NAME: "mojap_unpacked_filename"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    DATABASE_NAME: "libra_preprocessed"
+    LAND_BUCKET: "s3://mojap-land"
+    HIST_BUCKET: "s3://mojap-raw-hist"
+    LAND_FOLDER: "hmcts/libra/"
+    HIST_FOLDER: "hmcts/libra/"
+
+  tasks:
+    libra-extract-addresses:
+      env_vars:
+        TABLE_NAME: "addresses"
+        S3_TABLE_NAME: "addresses"
+        FILENAME_TABLE_NAME: "addresses"
+
+    libra-extract-business-types:
+      env_vars:
+        TABLE_NAME: "business-types"
+        S3_TABLE_NAME: "business_types"
+        FILENAME_TABLE_NAME: "business_types"
+
+    libra-extract-business-unit-types:
+      env_vars:
+        TABLE_NAME: "business-unit-types"
+        S3_TABLE_NAME: "business_unit_types"
+        FILENAME_TABLE_NAME: "business_unit_types"
+
+    libra-extract-business-units:
+      env_vars:
+        TABLE_NAME: "business-units"
+        S3_TABLE_NAME: "business_units"
+        FILENAME_TABLE_NAME: "business_units"
+
+    libra-extract-case-defendants:
+      env_vars:
+        TABLE_NAME: "case-defendants"
+        S3_TABLE_NAME: "case_defendants"
+        FILENAME_TABLE_NAME: "case_defendants"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-extract-case-entity-roles:
+      env_vars:
+        TABLE_NAME: "case-entity-roles"
+        S3_TABLE_NAME: "case_entity_roles"
+        FILENAME_TABLE_NAME: "case_entity_roles"
+
+    libra-extract-case-flag-types:
+      env_vars:
+        TABLE_NAME: "case-flag-types"
+        S3_TABLE_NAME: "case_flag_types"
+        FILENAME_TABLE_NAME: "case_flag_types"
+
+    libra-extract-case-management-rep-units:
+      env_vars:
+        TABLE_NAME: "case-management-rep-units"
+        S3_TABLE_NAME: "case_management_rep_units"
+        FILENAME_TABLE_NAME: "case_management_rep_units"
+
+    libra-extract-case-management-units:
+      env_vars:
+        TABLE_NAME: "case-management-units"
+        S3_TABLE_NAME: "case_management_units"
+        FILENAME_TABLE_NAME: "case_management_units"
+
+    libra-extract-case-offence-hearings:
+      env_vars:
+        TABLE_NAME: "case-offence-hearings"
+        S3_TABLE_NAME: "case_offence_hearings"
+        FILENAME_TABLE_NAME: "case_offence_hearings"
+
+    libra-extract-case-offence-results-t:
+      env_vars:
+        TABLE_NAME: "case-offence-results-t"
+        S3_TABLE_NAME: "case_offence_results_t"
+        FILENAME_TABLE_NAME: "case_offence_results_t"
+      compute_profile: general-on-demand-32vcpu-128gb
+
+    libra-extract-case-offences:
+      env_vars:
+        TABLE_NAME: "case-offences"
+        S3_TABLE_NAME: "case_offences"
+        FILENAME_TABLE_NAME: "case_offences"
+
+    libra-extract-cases:
+      env_vars:
+        TABLE_NAME: "cases"
+        S3_TABLE_NAME: "cases"
+        FILENAME_TABLE_NAME: "cases"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-extract-cg-ref-codes:
+      env_vars:
+        TABLE_NAME: "cg-ref-codes"
+        S3_TABLE_NAME: "cg_ref_codes"
+        FILENAME_TABLE_NAME: "cg_ref_codes"
+
+    libra-extract-co-result-term-responses:
+      env_vars:
+        TABLE_NAME: "co-result-term-responses"
+        S3_TABLE_NAME: "co_result_term_responses"
+        FILENAME_TABLE_NAME: "co_result_term_responses"
+
+    libra-extract-co-terminal-responses:
+      env_vars:
+        TABLE_NAME: "co-terminal-responses"
+        S3_TABLE_NAME: "co_terminal_responses"
+        FILENAME_TABLE_NAME: "co_terminal_responses"
+
+    libra-extract-commission-areas:
+      env_vars:
+        TABLE_NAME: "commission-areas"
+        S3_TABLE_NAME: "commission_areas"
+        FILENAME_TABLE_NAME: "commission_areas"
+
+    libra-extract-court-houses:
+      env_vars:
+        TABLE_NAME: "court-houses"
+        S3_TABLE_NAME: "court_houses"
+        FILENAME_TABLE_NAME: "court_houses"
+
+    libra-extract-court-room-types:
+      env_vars:
+        TABLE_NAME: "court-room-types"
+        S3_TABLE_NAME: "court_room_types"
+        FILENAME_TABLE_NAME: "court_room_types"
+
+    libra-extract-court-rooms:
+      env_vars:
+        TABLE_NAME: "court-rooms"
+        S3_TABLE_NAME: "court_rooms"
+        FILENAME_TABLE_NAME: "court_rooms"
+
+    libra-extract-defendants:
+      env_vars:
+        TABLE_NAME: "defendants"
+        S3_TABLE_NAME: "defendants"
+        FILENAME_TABLE_NAME: "defendants"
+
+    libra-extract-diary-management-units:
+      env_vars:
+        TABLE_NAME: "diary-management-units"
+        S3_TABLE_NAME: "diary_management_units"
+        FILENAME_TABLE_NAME: "diary_management_units"
+
+    libra-extract-diary-template-sessions:
+      env_vars:
+        TABLE_NAME: "diary-template-sessions"
+        S3_TABLE_NAME: "diary_template_sessions"
+        FILENAME_TABLE_NAME: "diary_template_sessions"
+
+    libra-extract-document-set-headers:
+      env_vars:
+        TABLE_NAME: "document-set-headers"
+        S3_TABLE_NAME: "document_set_headers"
+        FILENAME_TABLE_NAME: "document_set_headers"
+
+    libra-extract-driver-details:
+      env_vars:
+        TABLE_NAME: "driver-details"
+        S3_TABLE_NAME: "driver_details"
+        FILENAME_TABLE_NAME: "driver_details"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-extract-enforcement-account-types:
+      env_vars:
+        TABLE_NAME: "enforcement-account-types"
+        S3_TABLE_NAME: "enforcement_account_types"
+        FILENAME_TABLE_NAME: "enforcement_account_types"
+
+    libra-extract-enforcement-headers:
+      env_vars:
+        TABLE_NAME: "enforcement-headers"
+        S3_TABLE_NAME: "enforcement_headers"
+        FILENAME_TABLE_NAME: "enforcement_headers"
+
+    libra-extract-enforcement-report-headers:
+      env_vars:
+        TABLE_NAME: "enforcement-report-headers"
+        S3_TABLE_NAME: "enforcement_report_headers"
+        FILENAME_TABLE_NAME: "enforcement_report_headers"
+
+    libra-extract-enforcer-allocations:
+      env_vars:
+        TABLE_NAME: "enforcer-allocations"
+        S3_TABLE_NAME: "enforcer_allocations"
+        FILENAME_TABLE_NAME: "enforcer_allocations"
+
+    libra-extract-entity-nationalities:
+      env_vars:
+        TABLE_NAME: "entity-nationalities"
+        S3_TABLE_NAME: "entity_nationalities"
+        FILENAME_TABLE_NAME: "entity_nationalities"
+
+    libra-extract-entity-roles:
+      env_vars:
+        TABLE_NAME: "entity-roles"
+        S3_TABLE_NAME: "entity_roles"
+        FILENAME_TABLE_NAME: "entity_roles"
+
+    libra-extract-functional-areas:
+      env_vars:
+        TABLE_NAME: "functional-areas"
+        S3_TABLE_NAME: "functional_areas"
+        FILENAME_TABLE_NAME: "functional_areas"
+
+    libra-extract-hearing-entity-roles:
+      env_vars:
+        TABLE_NAME: "hearing-entity-roles"
+        S3_TABLE_NAME: "hearing_entity_roles"
+        FILENAME_TABLE_NAME: "hearing_entity_roles"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-extract-hearings-all:
+      env_vars:
+        TABLE_NAME: "hearings-all"
+        S3_TABLE_NAME: "hearings_all"
+        FILENAME_TABLE_NAME: "hearings_all"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-extract-joint-charge-links:
+      env_vars:
+        TABLE_NAME: "joint-charge-links"
+        S3_TABLE_NAME: "joint_charge_links"
+        FILENAME_TABLE_NAME: "joint_charge_links"
+
+    libra-extract-joint-charges:
+      env_vars:
+        TABLE_NAME: "joint-charges"
+        S3_TABLE_NAME: "joint_charges"
+        FILENAME_TABLE_NAME: "joint_charges"
+
+    libra-extract-judiciaries:
+      env_vars:
+        TABLE_NAME: "judiciaries"
+        S3_TABLE_NAME: "judiciaries"
+        FILENAME_TABLE_NAME: "judiciaries"
+
+    libra-extract-judiciary-assignments:
+      env_vars:
+        TABLE_NAME: "judiciary-assignments"
+        S3_TABLE_NAME: "judiciary_assignments"
+        FILENAME_TABLE_NAME: "judiciary_assignments"
+
+    libra-extract-legal-advisors:
+      env_vars:
+        TABLE_NAME: "legal-advisors"
+        S3_TABLE_NAME: "legal_advisors"
+        FILENAME_TABLE_NAME: "legal_advisors"
+
+    libra-extract-link-addresses:
+      env_vars:
+        TABLE_NAME: "link-addresses"
+        S3_TABLE_NAME: "link_addresses"
+        FILENAME_TABLE_NAME: "link_addresses"
+
+    libra-extract-locations:
+      env_vars:
+        TABLE_NAME: "locations"
+        S3_TABLE_NAME: "locations"
+        FILENAME_TABLE_NAME: "locations"
+
+    libra-extract-mag-court-committees:
+      env_vars:
+        TABLE_NAME: "mag-court-committees"
+        S3_TABLE_NAME: "mag_court_committees"
+        FILENAME_TABLE_NAME: "mag_court_committees"
+
+    libra-extract-map-offence-type:
+      env_vars:
+        TABLE_NAME: "map-offence-type"
+        S3_TABLE_NAME: "map_offence_type"
+        FILENAME_TABLE_NAME: "map_offence_type"
+
+    libra-extract-names:
+      env_vars:
+        TABLE_NAME: "names"
+        S3_TABLE_NAME: "names"
+        FILENAME_TABLE_NAME: "names"
+
+    libra-extract-national-court-houses:
+      env_vars:
+        TABLE_NAME: "national-court-houses"
+        S3_TABLE_NAME: "national_court_houses"
+        FILENAME_TABLE_NAME: "national_court_houses"
+
+    libra-extract-nationalities:
+      env_vars:
+        TABLE_NAME: "nationalities"
+        S3_TABLE_NAME: "nationalities"
+        FILENAME_TABLE_NAME: "nationalities"
+
+    libra-extract-notes:
+      env_vars:
+        TABLE_NAME: "notes"
+        S3_TABLE_NAME: "notes"
+        FILENAME_TABLE_NAME: "notes"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-extract-occupations:
+      env_vars:
+        TABLE_NAME: "occupations"
+        S3_TABLE_NAME: "occupations"
+        FILENAME_TABLE_NAME: "occupations"
+
+    libra-extract-offence-acts-and-sections:
+      env_vars:
+        TABLE_NAME: "offence-acts-and-sections"
+        S3_TABLE_NAME: "offence_acts_and_sections"
+        FILENAME_TABLE_NAME: "offence_acts_and_sections"
+
+    libra-extract-offence-headers:
+      env_vars:
+        TABLE_NAME: "offence-headers"
+        S3_TABLE_NAME: "offence_headers"
+        FILENAME_TABLE_NAME: "offence_headers"
+
+    libra-extract-offence-revisions:
+      env_vars:
+        TABLE_NAME: "offence-revisions"
+        S3_TABLE_NAME: "offence_revisions"
+        FILENAME_TABLE_NAME: "offence_revisions"
+
+    libra-extract-offence-statements-of-fact:
+      env_vars:
+        TABLE_NAME: "offence-statements-of-fact"
+        S3_TABLE_NAME: "offence_statements_of_fact"
+        FILENAME_TABLE_NAME: "offence_statements_of_fact"
+
+    libra-extract-offence-terminal-entries:
+      env_vars:
+        TABLE_NAME: "offence-terminal-entries"
+        S3_TABLE_NAME: "offence_terminal_entries"
+        FILENAME_TABLE_NAME: "offence_terminal_entries"
+
+    libra-extract-offence-wordings:
+      env_vars:
+        TABLE_NAME: "offence-wordings"
+        S3_TABLE_NAME: "offence_wordings"
+        FILENAME_TABLE_NAME: "offence_wordings"
+
+    libra-extract-organisation-names:
+      env_vars:
+        TABLE_NAME: "organisation-names"
+        S3_TABLE_NAME: "organisation_names"
+        FILENAME_TABLE_NAME: "organisation_names"
+
+    libra-extract-organisations:
+      env_vars:
+        TABLE_NAME: "organisations"
+        S3_TABLE_NAME: "organisations"
+        FILENAME_TABLE_NAME: "organisations"
+
+    libra-extract-panel-types:
+      env_vars:
+        TABLE_NAME: "panel-types"
+        S3_TABLE_NAME: "panel_types"
+        FILENAME_TABLE_NAME: "panel_types"
+
+    libra-extract-panels:
+      env_vars:
+        TABLE_NAME: "panels"
+        S3_TABLE_NAME: "panels"
+        FILENAME_TABLE_NAME: "panels"
+
+    libra-extract-persons:
+      env_vars:
+        TABLE_NAME: "persons"
+        S3_TABLE_NAME: "persons"
+        FILENAME_TABLE_NAME: "persons"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-extract-petty-sessional-areas:
+      env_vars:
+        TABLE_NAME: "petty-sessional-areas"
+        S3_TABLE_NAME: "petty_sessional_areas"
+        FILENAME_TABLE_NAME: "petty_sessional_areas"
+
+    libra-extract-plea-types:
+      env_vars:
+        TABLE_NAME: "plea-types"
+        S3_TABLE_NAME: "plea_types"
+        FILENAME_TABLE_NAME: "plea_types"
+
+    libra-extract-pleas:
+      env_vars:
+        TABLE_NAME: "pleas"
+        S3_TABLE_NAME: "pleas"
+        FILENAME_TABLE_NAME: "pleas"
+
+    libra-extract-police-force-codes:
+      env_vars:
+        TABLE_NAME: "police-force-codes"
+        S3_TABLE_NAME: "police_force_codes"
+        FILENAME_TABLE_NAME: "police_force_codes"
+
+    libra-extract-reasons:
+      env_vars:
+        TABLE_NAME: "reasons"
+        S3_TABLE_NAME: "reasons"
+        FILENAME_TABLE_NAME: "reasons"
+
+    libra-extract-result-code-groups:
+      env_vars:
+        TABLE_NAME: "result-code-groups"
+        S3_TABLE_NAME: "result_code_groups"
+        FILENAME_TABLE_NAME: "result_code_groups"
+
+    libra-extract-result-groups:
+      env_vars:
+        TABLE_NAME: "result-groups"
+        S3_TABLE_NAME: "result_groups"
+        FILENAME_TABLE_NAME: "result_groups"
+
+    libra-extract-result-headers:
+      env_vars:
+        TABLE_NAME: "result-headers"
+        S3_TABLE_NAME: "result_headers"
+        FILENAME_TABLE_NAME: "result_headers"
+
+    libra-extract-result-report-headers:
+      env_vars:
+        TABLE_NAME: "result-report-headers"
+        S3_TABLE_NAME: "result_report_headers"
+        FILENAME_TABLE_NAME: "result_report_headers"
+
+    libra-extract-result-revisions:
+      env_vars:
+        TABLE_NAME: "result-revisions"
+        S3_TABLE_NAME: "result_revisions"
+        FILENAME_TABLE_NAME: "result_revisions"
+
+    libra-extract-result-sets:
+      env_vars:
+        TABLE_NAME: "result-sets"
+        S3_TABLE_NAME: "result_sets"
+        FILENAME_TABLE_NAME: "result_sets"
+
+    libra-extract-result-terminal-entries:
+      env_vars:
+        TABLE_NAME: "result-terminal-entries"
+        S3_TABLE_NAME: "result_terminal_entries"
+        FILENAME_TABLE_NAME: "result_terminal_entries"
+
+    libra-extract-role-case-types:
+      env_vars:
+        TABLE_NAME: "role-case-types"
+        S3_TABLE_NAME: "role_case_types"
+        FILENAME_TABLE_NAME: "role_case_types"
+
+    libra-extract-roles:
+      env_vars:
+        TABLE_NAME: "roles"
+        S3_TABLE_NAME: "roles"
+        FILENAME_TABLE_NAME: "roles"
+
+    libra-extract-rte-element-definitions:
+      env_vars:
+        TABLE_NAME: "rte-element-definitions"
+        S3_TABLE_NAME: "rte_element_definitions"
+        FILENAME_TABLE_NAME: "rte_element_definitions"
+
+    libra-extract-rte-menu-option-elements:
+      env_vars:
+        TABLE_NAME: "rte-menu-option-elements"
+        S3_TABLE_NAME: "rte_menu_option_elements"
+        FILENAME_TABLE_NAME: "rte_menu_option_elements"
+
+    libra-extract-rte-menu-options:
+      env_vars:
+        TABLE_NAME: "rte-menu-options"
+        S3_TABLE_NAME: "rte_menu_options"
+        FILENAME_TABLE_NAME: "rte_menu_options"
+
+    libra-extract-rte-menus:
+      env_vars:
+        TABLE_NAME: "rte-menus"
+        S3_TABLE_NAME: "rte_menus"
+        FILENAME_TABLE_NAME: "rte_menus"
+
+    libra-extract-rtr-application-details:
+      env_vars:
+        TABLE_NAME: "rtr-application-details"
+        S3_TABLE_NAME: "rtr_application_details"
+        FILENAME_TABLE_NAME: "rtr_application_details"
+
+    libra-extract-rtr-application-offences:
+      env_vars:
+        TABLE_NAME: "rtr-application-offences"
+        S3_TABLE_NAME: "rtr_application_offences"
+        FILENAME_TABLE_NAME: "rtr_application_offences"
+
+    libra-extract-rtr-applications:
+      env_vars:
+        TABLE_NAME: "rtr-applications"
+        S3_TABLE_NAME: "rtr_applications"
+        FILENAME_TABLE_NAME: "rtr_applications"
+
+    libra-extract-rtr-reasons:
+      env_vars:
+        TABLE_NAME: "rtr-reasons"
+        S3_TABLE_NAME: "rtr_reasons"
+        FILENAME_TABLE_NAME: "rtr_reasons"
+
+    libra-extract-session-blocks:
+      env_vars:
+        TABLE_NAME: "session-blocks"
+        S3_TABLE_NAME: "session_blocks"
+        FILENAME_TABLE_NAME: "session_blocks"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-extract-sessions:
+      env_vars:
+        TABLE_NAME: "sessions"
+        S3_TABLE_NAME: "sessions"
+        FILENAME_TABLE_NAME: "sessions"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    libra-extract-solicitors:
+      env_vars:
+        TABLE_NAME: "solicitors"
+        S3_TABLE_NAME: "solicitors"
+        FILENAME_TABLE_NAME: "solicitors"
+
+    libra-extract-standard-informants:
+      env_vars:
+        TABLE_NAME: "standard-informants"
+        S3_TABLE_NAME: "standard_informants"
+        FILENAME_TABLE_NAME: "standard_informants"
+
+    libra-extract-supplementary-items:
+      env_vars:
+        TABLE_NAME: "supplementary-items"
+        S3_TABLE_NAME: "supplementary_items"
+        FILENAME_TABLE_NAME: "supplementary_items"
+
+    libra-extract-suppress-overrides:
+      env_vars:
+        TABLE_NAME: "suppress-overrides"
+        S3_TABLE_NAME: "suppress_overrides"
+        FILENAME_TABLE_NAME: "suppress_overrides"
+
+    libra-extract-tvlo-headers:
+      env_vars:
+        TABLE_NAME: "tvlo-headers"
+        S3_TABLE_NAME: "tvlo_headers"
+        FILENAME_TABLE_NAME: "tvlo_headers"
+
+    libra-extract-vehicle-links:
+      env_vars:
+        TABLE_NAME: "vehicle-links"
+        S3_TABLE_NAME: "vehicle_links"
+        FILENAME_TABLE_NAME: "vehicle_links"
+
+    libra-extract-vehicles:
+      env_vars:
+        TABLE_NAME: "vehicles"
+        S3_TABLE_NAME: "vehicles"
+        FILENAME_TABLE_NAME: "vehicles"
+
+    libraapp-extract-app-list-entry-fee-id:
+      env_vars:
+        TABLE_NAME: "app-list-entry-fee-id"
+        S3_TABLE_NAME: "app_list_entry_fee_id"
+        FILENAME_TABLE_NAME: "app_list_entry_fee_id"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-app-list-entry-fee-status:
+      env_vars:
+        TABLE_NAME: "app-list-entry-fee-status"
+        S3_TABLE_NAME: "app_list_entry_fee_status"
+        FILENAME_TABLE_NAME: "app_list_entry_fee_status"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-app-list-entry-official:
+      env_vars:
+        TABLE_NAME: "app-list-entry-official"
+        S3_TABLE_NAME: "app_list_entry_official"
+        FILENAME_TABLE_NAME: "app_list_entry_official"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-app-list-entry-resolutions:
+      env_vars:
+        TABLE_NAME: "app-list-entry-resolutions"
+        S3_TABLE_NAME: "app_list_entry_resolutions"
+        FILENAME_TABLE_NAME: "app_list_entry_resolutions"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-application-codes:
+      env_vars:
+        TABLE_NAME: "application-codes"
+        S3_TABLE_NAME: "application_codes"
+        FILENAME_TABLE_NAME: "application_codes"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-application-list-entries:
+      env_vars:
+        TABLE_NAME: "application-list-entries"
+        S3_TABLE_NAME: "application_list_entries"
+        FILENAME_TABLE_NAME: "application_list_entries"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-application-lists:
+      env_vars:
+        TABLE_NAME: "application-lists"
+        S3_TABLE_NAME: "application_lists"
+        FILENAME_TABLE_NAME: "application_lists"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-application-register:
+      env_vars:
+        TABLE_NAME: "application-register"
+        S3_TABLE_NAME: "application_register"
+        FILENAME_TABLE_NAME: "application_register"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-criminal-justice-area:
+      env_vars:
+        TABLE_NAME: "criminal-justice-area"
+        S3_TABLE_NAME: "criminal_justice_area"
+        FILENAME_TABLE_NAME: "criminal_justice_area"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-fee:
+      env_vars:
+        TABLE_NAME: "fee"
+        S3_TABLE_NAME: "fee"
+        FILENAME_TABLE_NAME: "fee"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-name-address:
+      env_vars:
+        TABLE_NAME: "name-address"
+        S3_TABLE_NAME: "name_address"
+        FILENAME_TABLE_NAME: "name_address"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-resolution-codes:
+      env_vars:
+        TABLE_NAME: "resolution-codes"
+        S3_TABLE_NAME: "resolution_codes"
+        FILENAME_TABLE_NAME: "resolution_codes"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+    libraapp-extract-standard-applicants:
+      env_vars:
+        TABLE_NAME: "standard-applicants"
+        S3_TABLE_NAME: "standard_applicants"
+        FILENAME_TABLE_NAME: "standard_applicants"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land/hmcts/libra/*
+  s3_read_only:
+    - alpha-mojap-curated-libra/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - jovita-brundziene
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: jovita.brundziene@justice.gov.uk
