@@ -22,7 +22,7 @@ dag:
 iam:
   athena: write
   s3_read_write:
-    - mojap-land-dev/hmcts/cad/*
+    - mojap-land-dev/hmcts/bais_nle/*
 
 secrets:
   - sdp-pass
