@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.5.4
+  tag: v1.5.5
   schedule: "0 7-18 * * 1-5"
   env_vars:
     REPORT_APP: "splashbi"
@@ -93,6 +93,10 @@ dag:
     moj-hr-wf-59-leavers:
       env_vars:
         REPORT_NAME: "moj-hr-wf-59"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+    moj-hr-04-secondments:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-04"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
     moj-hr-wf-62-sip:
       env_vars:
