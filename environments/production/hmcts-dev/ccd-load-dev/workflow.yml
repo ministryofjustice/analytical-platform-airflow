@@ -20,6 +20,7 @@ dag:
     ccd_load_probate_grantofrepresentation:
       env_vars:
         TABLE: "probate_grantofrepresentation"
+      compute_profile: general-spot-32vcpu-128gb
     ccd_load_probate_probate_exceptionrecord:
       env_vars:
         TABLE: "probate_probate_exceptionrecord"
