@@ -52,7 +52,7 @@ dag:
         TABLE_NAME: "probate-legacysearch"
         S3_TABLE_NAME: "probate_legacysearch"
         FILENAME_TABLE_NAME: "probate_legacysearch"
-    
+
 iam:
   athena: write
   s3_read_write:
