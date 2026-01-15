@@ -1,0 +1,50 @@
+dag:
+  repository: moj-analytical-services/airflow-create-a-pipeline
+  tag: v4.0.7
+  retries: 0
+  retry_delay: 150
+  max_active_runs: 5
+  env_vars:
+    LOG_LEVEL: "INFO"
+    LAND: "s3://mojap-land-dev/hmcts/ccd/dev_v2"
+    RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/ccd/dev_v2"
+    BASE_LOC: "s3://alpha-mojap-ccd/dev_v2/"
+    BASE_DB_NAME: "ccd_dev_v2"
+    SERVICE: "ccd"
+    CHUNK_SIZE: "1000000"
+    DAG_INTERVAL_END: "{{ data_interval_end }}"
+  tasks:
+    ccd_load_probate_caveat:
+      env_vars:
+        TABLE: "probate_caveat"
+    ccd_load_probate_grantofrepresentation:
+      env_vars:
+        TABLE: "probate_grantofrepresentation"
+      compute_profile: general-spot-32vcpu-128gb
+    ccd_load_probate_probate_exceptionrecord:
+      env_vars:
+        TABLE: "probate_probate_exceptionrecord"
+    ccd_load_probate_standingsearch:
+      env_vars:
+        TABLE: "probate_standingsearch"
+    ccd_load_probate_willlodgement:
+      env_vars:
+        TABLE: "probate_willlodgement"
+    ccd_load_probate_legacysearch:
+      env_vars:
+        TABLE: "probate_legacysearch"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/hmcts/ccd/dev_v2/*
+    - mojap-raw-hist-dev/hmcts/ccd/dev_v2/*
+    - alpha-mojap-ccd/dev_v2/*
+
+maintainers:
+  - Andy-Cook
+  - DanJ-MOJ
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
