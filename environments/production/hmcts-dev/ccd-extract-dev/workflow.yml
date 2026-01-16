@@ -10,7 +10,7 @@ dag:
     LOG_LEVEL: "INFO"
     ENDPOINT: "MI_PERSISTENT_PROD"
     SDP_TABLE_PREFIX: "v3-ccd"
-    PRESERVE_SDP_FOLDER_STRUCT: "preserve_path"
+    PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
     COPY_MODE: "new"
     CHECK_MODE: "table"
     FILENAME_COL_NAME: "mojap_unpacked_filename"
