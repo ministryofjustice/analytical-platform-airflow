@@ -1,0 +1,73 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v3.0.6
+  retries: 0
+  retry_delay: 150
+  hmcts_sdp_networking: True
+  max_active_runs: 3
+  env_vars:
+    TASK: "extract"
+    LOG_LEVEL: "INFO"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    SDP_TABLE_PREFIX: "v3-ccd"
+    PRESERVE_SDP_FOLDER_STRUCT: "preserve_path"
+    COPY_MODE: "new"
+    CHECK_MODE: "table"
+    FILENAME_COL_NAME: "mojap_unpacked_filename"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    DATABASE_NAME: "ccd_v1"
+    LAND_BUCKET: "s3://mojap-land-dev"
+    HIST_BUCKET: "s3://mojap-raw-hist-dev"
+    LAND_FOLDER: "hmcts/ccd/dev_v2"
+    HIST_FOLDER: "hmcts/ccd/dev_v2"
+    CUT_OFF: "2025-12-20"
+  tasks:
+    ccd_extract_probate_caveat:
+      env_vars:
+        TABLE_NAME: "probate-caveat"
+        S3_TABLE_NAME: "probate_caveat"
+        FILENAME_TABLE_NAME: "probate_caveat"
+    ccd_extract_probate_grantofrepresentation:
+      env_vars:
+        TABLE_NAME: "probate-grantofrepresentation"
+        S3_TABLE_NAME: "probate_grantofrepresentation"
+        FILENAME_TABLE_NAME: "probate_grantofrepresentation"
+    ccd_extract_probate_probate_exceptionrecord:
+      env_vars:
+        TABLE_NAME: "probate-probate-exceptionrecord"
+        S3_TABLE_NAME: "probate_probate_exceptionrecord"
+        FILENAME_TABLE_NAME: "probate_probate_exceptionrecord"
+    ccd_extract_probate_standingsearch:
+      env_vars:
+        TABLE_NAME: "probate-standingsearch"
+        S3_TABLE_NAME: "probate_standingsearch"
+        FILENAME_TABLE_NAME: "probate_standingsearch"
+    ccd_extract_probate_willlodgement:
+      env_vars:
+        TABLE_NAME: "probate-willlodgement"
+        S3_TABLE_NAME: "probate_willlodgement"
+        FILENAME_TABLE_NAME: "probate_willlodgement"
+    ccd_extract_probate_legacysearch:
+      env_vars:
+        TABLE_NAME: "probate-legacysearch"
+        S3_TABLE_NAME: "probate_legacysearch"
+        FILENAME_TABLE_NAME: "probate_legacysearch"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/hmcts/ccd/dev_v2/*
+    - mojap-raw-hist-dev/hmcts/ccd/dev_v2/*
+  s3_read_only:
+    - alpha-mojap-ccd/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - Andy-Cook
+  - DanJ-MOJ
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
