@@ -15,12 +15,12 @@ dag:
     CHECK_MODE: "table"
     FILENAME_COL_NAME: "mojap_unpacked_filename"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
-    DATABASE_NAME: "ccd_v1"
+    DATABASE_NAME: "ccd_dev_v2"
     LAND_BUCKET: "s3://mojap-land-dev"
     HIST_BUCKET: "s3://mojap-raw-hist-dev"
     LAND_FOLDER: "hmcts/ccd/dev_v2"
     HIST_FOLDER: "hmcts/ccd/dev_v2"
-    CUT_OFF: "2025-12-20"
+    CUT_OFF: "2026-01-10"
   tasks:
     ccd_extract_probate_caveat:
       env_vars:
