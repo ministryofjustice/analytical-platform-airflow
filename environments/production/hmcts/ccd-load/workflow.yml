@@ -41,6 +41,9 @@ iam:
     - mojap-raw-hist/hmcts/ccd/v1/*
     - alpha-mojap-ccd/v1/*
 
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
 maintainers:
   - Andy-Cook
   - DanJ-MOJ
