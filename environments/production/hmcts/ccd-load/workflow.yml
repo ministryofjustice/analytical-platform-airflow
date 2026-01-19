@@ -3,7 +3,9 @@ dag:
   tag: v4.0.8
   retries: 0
   retry_delay: 150
-  max_active_runs: 5
+  start_date: "2026-01-19"
+  schedule: 0 20 * * *
+  max_active_runs: 1
   env_vars:
     LOG_LEVEL: "INFO"
     LAND: "s3://mojap-land/hmcts/ccd/v1"
