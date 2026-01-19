@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-prison-network-app
-  tag: 1.7.10
+  tag: 1.7.11
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
