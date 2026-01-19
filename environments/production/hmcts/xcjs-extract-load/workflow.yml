@@ -60,7 +60,6 @@ secrets:
   - decryption-token
 
 maintainers:
-  - parminder-thindal-moj
   - ThomasHepworth
   - Andy-Cook
   - george-w-jenkins
