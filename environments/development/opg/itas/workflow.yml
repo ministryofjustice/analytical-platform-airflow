@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.7.6-test-6
+  tag: v3.7.6-test-7
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -13,7 +13,7 @@ dag:
     DATABASE: "itas"
     PIPELINE_NAME: "itas"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.7.6-test-6"
+    GITHUB_TAG: "v3.7.6-test-7"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2026-01-18"
     AWS_DEFAULT_REGION: "eu-west-1"
