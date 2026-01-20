@@ -90,9 +90,9 @@ dag:
     no_wandb: false
 
     # Sweep parameters
-    sweep_id: ""  # Set this when running sweep workers (from init_sweep.py output)
-    sweep_optimization_mode: fast  # fast or thorough
-    sweep_count: 5     # Number of sweep runs per worker (20 workers × count = total runs)
+    sweep_id: ""
+    sweep_optimization_mode: fast
+    sweep_count: 5
 
   compute_profile: general-spot-16vcpu-64gb
 
@@ -185,7 +185,6 @@ dag:
         OP_SAVE_INTERVALS: "{{ params.op_save_intervals | int }}"
         WANDB_PROJECT: "{{ params.wandb_project }}"
 
-    # Sweep workers (20 parallel tasks) - only enabled when sweep_id is set
     sweep_worker_01:
       dependencies:
         - build_bins
