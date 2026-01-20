@@ -150,7 +150,7 @@ secrets:
   - sbi-user-spare
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-splashbi-notifications
 
   emails:
     - william.orr@justice.gov.uk
