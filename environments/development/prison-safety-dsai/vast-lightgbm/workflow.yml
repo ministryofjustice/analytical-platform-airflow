@@ -188,7 +188,6 @@ dag:
     sweep_worker_01:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -203,7 +202,6 @@ dag:
     sweep_worker_02:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -218,7 +216,6 @@ dag:
     sweep_worker_03:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -233,7 +230,6 @@ dag:
     sweep_worker_04:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -248,7 +244,6 @@ dag:
     sweep_worker_05:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -263,7 +258,6 @@ dag:
     sweep_worker_06:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -278,7 +272,6 @@ dag:
     sweep_worker_07:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -293,7 +286,6 @@ dag:
     sweep_worker_08:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -308,7 +300,6 @@ dag:
     sweep_worker_09:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -323,7 +314,6 @@ dag:
     sweep_worker_10:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -338,7 +328,6 @@ dag:
     sweep_worker_11:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -353,7 +342,6 @@ dag:
     sweep_worker_12:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -368,7 +356,6 @@ dag:
     sweep_worker_13:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -383,7 +370,6 @@ dag:
     sweep_worker_14:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -398,7 +384,6 @@ dag:
     sweep_worker_15:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -413,7 +398,6 @@ dag:
     sweep_worker_16:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -428,7 +412,6 @@ dag:
     sweep_worker_17:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -443,7 +426,6 @@ dag:
     sweep_worker_18:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -458,7 +440,6 @@ dag:
     sweep_worker_19:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
@@ -473,7 +454,6 @@ dag:
     sweep_worker_20:
       dependencies:
         - build_bins
-      skip_when_expression: "{{ params.sweep_id == '' }}"
       env_vars:
         STEP: sweep_worker
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
