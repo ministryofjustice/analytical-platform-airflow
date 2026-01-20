@@ -1,8 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v3.0.6
+  tag: v3.0.7
   retries: 0
-  start_date: "2026-01-19"
+  start_date: "2026-01-20"
   schedule: 0 18 * * *
   hmcts_sdp_networking: True
   max_active_runs: 1
