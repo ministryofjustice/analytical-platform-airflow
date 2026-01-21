@@ -6,6 +6,12 @@ dag:
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
   retries: 0
+  env_vars:
+    CONFIG_FILE: "athena_queries"
+    ATHENA_QUERY_LIMIT: 1000
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    
 
 iam:
   athena: write
