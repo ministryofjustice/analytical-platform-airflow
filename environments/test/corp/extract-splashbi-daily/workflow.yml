@@ -1,8 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v0.0.11-test
-  schedule: "0 7-18 * * 1-5"
+  tag: v1.6.0-test-1
   env_vars:
     REPORT_APP: "splashbi"
     REPORT_RUNTIME_ENV: "test"
