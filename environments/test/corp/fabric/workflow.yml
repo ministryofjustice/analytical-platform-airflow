@@ -11,7 +11,6 @@ dag:
     ATHENA_QUERY_LIMIT: 1000
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
-    
 
 iam:
   athena: write
