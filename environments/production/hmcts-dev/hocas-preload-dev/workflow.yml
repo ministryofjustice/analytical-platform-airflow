@@ -18,7 +18,6 @@ dag:
           - "s3://alpha-mojap-ccde/datasets/hocas-extract.json"
       env_vars:
         TASK: "load"
-        DEBUG: "True"
 
 iam:
   athena: write
