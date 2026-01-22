@@ -16,6 +16,8 @@ dag:
 
   tasks:
     hocas_extract:
+      outlets:
+        - "s3://alpha-mojap-ccde/datasets/hocas-extract.json"
       env_vars:
         TABLE_NAME: "baiscontainer"
 
