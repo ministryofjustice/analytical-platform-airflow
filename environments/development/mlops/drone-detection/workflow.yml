@@ -30,5 +30,5 @@ notifications:
     - james.baker2@justice.gov.uk
 
 tags:
-  business_unit: Central Digital
+  business_unit: HQ
   owner: james.baker2@justice.gov.uk
