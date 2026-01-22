@@ -25,8 +25,6 @@ dag:
         IS_DATASET_CHECK: true
       outlets:
         - "s3://mojap-derived-tables/prod/bentham"
-      
-    
 
 maintainers:
   - jhpyke
