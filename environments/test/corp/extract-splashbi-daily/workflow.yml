@@ -17,6 +17,7 @@ dag:
         REPORT_NAME: "moj-iexp01"
         REPORT_SECRET_ID: "sbi-user-williamorrie"
         REPORT_RUN_MODE: "extract"
+        
     laa-iexp01:
       dependencies: [cred-check-william]
       env_vars:
@@ -29,7 +30,7 @@ iam:
     - mojap-land/corporate/report_extractor_test/splashbi/*
 
 secrets:
-  - splashbi-credentials
+  - sbi-user-williamorrie
 
 notifications:
   slack_channel: dmet-corp-notifications
