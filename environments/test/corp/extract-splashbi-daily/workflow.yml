@@ -17,7 +17,6 @@ dag:
         REPORT_NAME: "moj-iexp01"
         REPORT_SECRET_ID: "sbi-user-williamorrie"
         REPORT_RUN_MODE: "extract"
-        
     laa-iexp01:
       dependencies: [cred-check-william]
       env_vars:
