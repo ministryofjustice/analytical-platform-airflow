@@ -4,6 +4,9 @@ dag:
   retries: 0
   hmcts_sdp_networking: True
   max_active_runs: 1
+  schedule:
+    datasets:
+      - "s3://alpha-mojap-ccde/datasets/hocas-extract.json"
   env_vars:
     LAND_BUCKET: "mojap-land-dev"
     LAND_PREFIX: "hmcts/cad/"
@@ -11,6 +14,8 @@ dag:
     TARGET_PREFIX: "mags-dev/source-data-files/"
   tasks:
     hocas_preload:
+      inlets:
+          - "s3://alpha-mojap-ccde/datasets/hocas-extract.json"
       env_vars:
         TASK: "load"
         DEBUG: "True"
