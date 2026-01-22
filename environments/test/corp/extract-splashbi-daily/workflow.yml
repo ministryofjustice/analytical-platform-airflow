@@ -29,7 +29,7 @@ iam:
     - mojap-land/corporate/report_extractor_test/splashbi/*
 
 secrets:
-  - splashbi-credentials
+  - sbi-user-williamorrie
 
 notifications:
   slack_channel: dmet-corp-notifications
