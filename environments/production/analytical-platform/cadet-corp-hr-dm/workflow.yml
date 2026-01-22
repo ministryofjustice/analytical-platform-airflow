@@ -6,7 +6,7 @@ dag:
   schedule: "0 10 * * *"
   catchup: false
   outlets:
-    - "s3://mojap-derived-tables/prod/corporate/"
+    - "s3://mojap-derived-tables/prod/deploy-corporate-hr-dm/"
   env_vars:
     DEPLOY_ENV: prod
     DBT_PROFILE_WORKGROUP: dbt-corporate
