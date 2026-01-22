@@ -15,7 +15,7 @@ dag:
   tasks:
     hocas_preload:
       inlets:
-          - "s3://alpha-mojap-ccde/datasets/hocas-extract.json"
+        - "s3://alpha-mojap-ccde/datasets/hocas-extract.json"
       env_vars:
         TASK: "load"
 
