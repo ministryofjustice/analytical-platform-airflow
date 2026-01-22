@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-court-proceedings-load
-  tag: v
+  tag: v1.0.0-alpha2.03776b2
   retries: 0
   hmcts_sdp_networking: True
   max_active_runs: 1
