@@ -1,28 +1,28 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v0.0.11-test
-  schedule: "0 7-18 * * 1-5"
+  tag: v1.6.0-test-2
   env_vars:
     REPORT_APP: "splashbi"
     REPORT_RUNTIME_ENV: "test"
-    REPORT_RUN_MODE: "extract"
+    DISABLE_SCHEDULING: True
   tasks:
+    cred-check-william:
+      env_vars:
+        REPORT_RUN_MODE: "check_credentials"
+    # === HR iExpenses Reports ===
     moj-iexp01:
+      dependencies: [cred-check-william]
       env_vars:
         REPORT_NAME: "moj-iexp01"
+        REPORT_SECRET_ID: "sbi-user-williamorrie"
+        REPORT_RUN_MODE: "extract"
     laa-iexp01:
+      dependencies: [cred-check-william]
       env_vars:
         REPORT_NAME: "laa-iexp01"
-    opg-iexp01:
-      env_vars:
-        REPORT_NAME: "opg-iexp01"
-    cts-iexp01:
-      env_vars:
-        REPORT_NAME: "cts-iexp01"
-    nms-iexp01:
-      env_vars:
-        REPORT_NAME: "nms-iexp01"
+        REPORT_SECRET_ID: "sbi-user-williamorrie"
+        REPORT_RUN_MODE: "extract"
 
 iam:
   s3_read_write:
