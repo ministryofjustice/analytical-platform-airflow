@@ -20,7 +20,7 @@ maintainers:
   - ltd-pa
   - williamorrie
   - moj-supratikc
-  - jhypke
+  - jhpyke
 
 secrets:
   - github-key
