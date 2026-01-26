@@ -119,6 +119,7 @@ dag:
     load_hearing_case_application:
       env_vars:
         AZ_TABLE: "hearing-case-application"
+      compute_profile: general-spot-2vcpu-8gb
     load_hearing_date:
       env_vars:
         AZ_TABLE: "hearing-date"
