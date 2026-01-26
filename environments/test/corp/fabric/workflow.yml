@@ -1,16 +1,30 @@
 ---
 dag:
   repository: ministryofjustice/replicate-athena-to-fabric
-  tag: v1.0
+  tag: v1.1.0
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
-  retries: 0
+  retries: 1
   env_vars:
-    CONFIG_FILE: "athena_queries"
-    ATHENA_QUERY_LIMIT: 1000
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    DATABASE: "athena_queries"
+  tasks:
+    top-1000-users:
+      env_vars:
+        TABLE: "queries_by_user"
+        ATHENA_QUERY_LIMIT: "1000"
+    top-100-databases:
+      env_vars:
+        TABLE: "queries_by_db"
+        ATHENA_QUERY_LIMIT: "100"
+    statuses:
+      env_vars:
+        TABLE: "query_stauses"
+    runtime-metrics:
+      env_vars:
+        TABLE: "query_time_metrics"
 
 iam:
   athena: write
@@ -22,6 +36,8 @@ secrets:
   - azure-client-id
   - azure-tenant-id
   - azure-client-secret
+  - fabric-warehouse-endpoint
+  - fabric-warehouse-name
 
 maintainers:
   - moj-supratikc
