@@ -9,7 +9,7 @@ dag:
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
-    DATABASE: "athena_queries"
+    DATABASE: "athena_query_executions"
   tasks:
     top-1000-users:
       env_vars:
