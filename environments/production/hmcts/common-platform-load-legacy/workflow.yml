@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline-legacy
-  tag: v1.0.1
+  tag: v1.0.2
   retries: 1
   retry_delay: 150
   start_date: "2025-12-19"
@@ -119,6 +119,7 @@ dag:
     load_hearing_case_application:
       env_vars:
         AZ_TABLE: "hearing-case-application"
+      compute_profile: general-spot-2vcpu-8gb
     load_hearing_date:
       env_vars:
         AZ_TABLE: "hearing-date"
