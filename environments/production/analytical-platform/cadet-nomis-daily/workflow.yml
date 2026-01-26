@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.1.24
+  tag: 1.1.25
   schedule: "0 9 * * *"
   catchup: false
   env_vars:
