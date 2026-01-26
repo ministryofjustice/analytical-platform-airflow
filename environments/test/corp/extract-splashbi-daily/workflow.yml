@@ -10,6 +10,7 @@ dag:
     cred-check-william:
       env_vars:
         REPORT_RUN_MODE: "check_credentials"
+        REPORT_SECRET_ID: "sbi-user-williamorrie"
     # === HR iExpenses Reports ===
     moj-iexp01:
       dependencies: [cred-check-william]
