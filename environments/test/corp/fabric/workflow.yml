@@ -32,7 +32,6 @@ iam:
   s3_read_write:
     - alpha-corp-data-staging/athena_queries/*
     - mojap-athena-query-dump/*
-    
 
 secrets:
   - azure-client-id
