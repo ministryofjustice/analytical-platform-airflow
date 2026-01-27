@@ -1,21 +1,21 @@
 dag:
   repository: moj-analytical-services/airflow-geography
-  tag: v1.5.1
+  tag: v1.3.52
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
   max_active_runs: 4
   retries: 1
   retry_delay: 150
-  start_date: "2026-01-30"
+  start_date: "2025-08-05"
   schedule: None
   env_vars:
     DATABASE: "nspl_reference"
     PIPELINE_NAME: "nspl_reference"
-    DATABASE_VERSION: "prod"
-    GITHUB_TAG: "v1.5.1"
+    DATABASE_VERSION: "dev"
+    GITHUB_TAG: "v1.2.2"
     ATHENA_DB_PREFIX: "geog"
-    START_DATE: "2026-01-30"
+    START_DATE: "2025-08-05"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
@@ -49,7 +49,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - alpha-geography/prod/nspl_reference/*
+    - alpha-geography/dev/nspl_reference/*
 
 maintainers:
   - p-sin
