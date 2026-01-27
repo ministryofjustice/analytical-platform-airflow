@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/replicate-athena-to-fabric
-  tag: v1.1.0
+  tag: v1.1.1
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
