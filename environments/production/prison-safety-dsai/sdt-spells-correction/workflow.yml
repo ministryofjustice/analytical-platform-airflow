@@ -1,6 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-spells-correction
-  tag: v1.1.5
+  tag: v1.1.6
+  compute_profile: "general-spot-2vcpu-8gb"
   env_vars:
     AIRFLOW_ENVIRONMENT: "PRODUCTION"
   outlets:

@@ -1,13 +1,83 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.27-test-6
+  tag: v1.0.1
   env_vars:
-    AFFILE_ENV: test
+    AFFILE_ENV: "test"
+    AFFILE_SCHEMA_CONTRACT: "evolve"
   tasks:
-    removed_cases_moj:
+    appeals_hmpps:
+      env_vars:
+        AFFILE_PIPELINE_NAME: appeals_hmpps
+    appeals_moj:
+      env_vars:
+        AFFILE_PIPELINE_NAME: appeals_moj
+    cbf_appeals_hmpps:
       env_vars:
         AFFILE_PIPELINE_NAME: cbf_appeals_hmpps
+    conduct_discipline_hmpps:
+      env_vars:
+        AFFILE_PIPELINE_NAME: conduct_discipline_hmpps
+    conduct_discipline_hmpps_analytical:
+      env_vars:
+        AFFILE_PIPELINE_NAME: conduct_discipline_hmpps_analytical
+    conduct_discipline_hmpps_new:
+      env_vars:
+        AFFILE_PIPELINE_NAME: conduct_discipline_hmpps_new
+    conduct_discipline_moj:
+      env_vars:
+        AFFILE_PIPELINE_NAME: conduct_discipline_moj
+    conduct_discipline_moj_new:
+      env_vars:
+        AFFILE_PIPELINE_NAME: conduct_discipline_moj_new
+    grievances_hmpps:
+      env_vars:
+        AFFILE_PIPELINE_NAME: grievances_hmpps
+    grievances_hmpps_new:
+      env_vars:
+        AFFILE_PIPELINE_NAME: grievances_hmpps_new
+    grievances_moj:
+      env_vars:
+        AFFILE_PIPELINE_NAME: grievances_moj
+    grievances_moj_new:
+      env_vars:
+        AFFILE_PIPELINE_NAME: grievances_moj_new
+    investigations_fraud_hmpps:
+      env_vars:
+        AFFILE_PIPELINE_NAME: investigations_fraud_hmpps
+    investigations_hmpps:
+      env_vars:
+        AFFILE_PIPELINE_NAME: investigations_hmpps
+    investigations_hmpps_analytical:
+      env_vars:
+        AFFILE_PIPELINE_NAME: investigations_hmpps_analytical
+    investigations_hmpps_new:
+      env_vars:
+        AFFILE_PIPELINE_NAME: investigations_hmpps_new
+    investigations_moj:
+      env_vars:
+        AFFILE_PIPELINE_NAME: investigations_moj
+    investigations_moj_new:
+      env_vars:
+        AFFILE_PIPELINE_NAME: investigations_moj_new
+    performance_hmpps:
+      env_vars:
+        AFFILE_PIPELINE_NAME: performance_hmpps
+    performance_hmpps_new:
+      env_vars:
+        AFFILE_PIPELINE_NAME: performance_hmpps_new
+    performance_moj:
+      env_vars:
+        AFFILE_PIPELINE_NAME: performance_moj
+    performance_moj_new:
+      env_vars:
+        AFFILE_PIPELINE_NAME: performance_moj_new
+    probation_moj:
+      env_vars:
+        AFFILE_PIPELINE_NAME: probation_moj
+    removed_cases_moj:
+      env_vars:
+        AFFILE_PIPELINE_NAME: removed_cases_moj
 
 iam:
   athena: write

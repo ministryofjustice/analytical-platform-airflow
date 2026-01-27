@@ -11,7 +11,7 @@ module "airflow" {
     aws.analytical-platform-data-production-eu-west-2 = aws.analytical-platform-data-production-eu-west-2
   }
 
-  project       = format("%s", split("/", each.key)[0])
+  project       = replace(format("%s", split("/", each.key)[0]), "electronic-monitoring-data-store", "emds")
   workflow      = format("%s", split("/", each.key)[1])
   environment   = terraform.workspace
   configuration = yamldecode(file("../environments/${terraform.workspace}/${each.key}/workflow.yml"))

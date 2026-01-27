@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction-legacy
-  tag: v1.0.0-alpha.2196fac
+  tag: v1.0.3-alpha2.e8db73d
   retries: 1
   retry_delay: 150
   hmcts_sdp_networking: True
@@ -16,6 +16,8 @@ dag:
 
   tasks:
     hocas_extract:
+      outlets:
+        - "s3://alpha-mojap-ccde/datasets/hocas-extract.json"
       env_vars:
         TABLE_NAME: "baiscontainer"
 

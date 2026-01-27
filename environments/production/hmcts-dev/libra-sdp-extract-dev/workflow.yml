@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v3.0.2
+  tag: v3.0.3
   retries: 1
   retry_delay: 150
   max_active_runs: 3
@@ -24,9 +24,9 @@ dag:
   tasks:
     libra-extract-addresses:
       env_vars:
-        TABLE_NAME: "address"
-        S3_TABLE_NAME: "address"
-        FILENAME_TABLE_NAME: "address"
+        TABLE_NAME: "addresses"
+        S3_TABLE_NAME: "addresses"
+        FILENAME_TABLE_NAME: "addresses"
 
     libra-extract-business-types:
       env_vars:
@@ -572,83 +572,96 @@ dag:
         S3_TABLE_NAME: "vehicles"
         FILENAME_TABLE_NAME: "vehicles"
 
-    libra-extract-app-list-entry-fee-id:
+    libraapp-extract-app-list-entry-fee-id:
       env_vars:
         TABLE_NAME: "app-list-entry-fee-id"
         S3_TABLE_NAME: "app_list_entry_fee_id"
         FILENAME_TABLE_NAME: "app_list_entry_fee_id"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-app-list-entry-fee-status:
+    libraapp-extract-app-list-entry-fee-status:
       env_vars:
         TABLE_NAME: "app-list-entry-fee-status"
         S3_TABLE_NAME: "app_list_entry_fee_status"
         FILENAME_TABLE_NAME: "app_list_entry_fee_status"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-app-list-entry-official:
+    libraapp-extract-app-list-entry-official:
       env_vars:
         TABLE_NAME: "app-list-entry-official"
         S3_TABLE_NAME: "app_list_entry_official"
         FILENAME_TABLE_NAME: "app_list_entry_official"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-app-list-entry-resolutions:
+    libraapp-extract-app-list-entry-resolutions:
       env_vars:
         TABLE_NAME: "app-list-entry-resolutions"
         S3_TABLE_NAME: "app_list_entry_resolutions"
         FILENAME_TABLE_NAME: "app_list_entry_resolutions"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-application-codes:
+    libraapp-extract-application-codes:
       env_vars:
         TABLE_NAME: "application-codes"
         S3_TABLE_NAME: "application_codes"
         FILENAME_TABLE_NAME: "application_codes"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-application-list-entries:
+    libraapp-extract-application-list-entries:
       env_vars:
         TABLE_NAME: "application-list-entries"
         S3_TABLE_NAME: "application_list_entries"
         FILENAME_TABLE_NAME: "application_list_entries"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-application-lists:
+    libraapp-extract-application-lists:
       env_vars:
         TABLE_NAME: "application-lists"
         S3_TABLE_NAME: "application_lists"
         FILENAME_TABLE_NAME: "application_lists"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-application-register:
+    libraapp-extract-application-register:
       env_vars:
         TABLE_NAME: "application-register"
         S3_TABLE_NAME: "application_register"
         FILENAME_TABLE_NAME: "application_register"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-criminal-justice-area:
+    libraapp-extract-criminal-justice-area:
       env_vars:
         TABLE_NAME: "criminal-justice-area"
         S3_TABLE_NAME: "criminal_justice_area"
         FILENAME_TABLE_NAME: "criminal_justice_area"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-fee:
+    libraapp-extract-fee:
       env_vars:
         TABLE_NAME: "fee"
         S3_TABLE_NAME: "fee"
         FILENAME_TABLE_NAME: "fee"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-name-address:
+    libraapp-extract-name-address:
       env_vars:
         TABLE_NAME: "name-address"
         S3_TABLE_NAME: "name_address"
         FILENAME_TABLE_NAME: "name_address"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-resolution-codes:
+    libraapp-extract-resolution-codes:
       env_vars:
         TABLE_NAME: "resolution-codes"
         S3_TABLE_NAME: "resolution_codes"
         FILENAME_TABLE_NAME: "resolution_codes"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
-    libra-extract-standard-applicants:
+    libraapp-extract-standard-applicants:
       env_vars:
         TABLE_NAME: "standard-applicants"
         S3_TABLE_NAME: "standard_applicants"
         FILENAME_TABLE_NAME: "standard_applicants"
+        SDP_TABLE_PREFIX: "v3-cgi-libraapp"
 
 iam:
   athena: write
