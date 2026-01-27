@@ -10,7 +10,7 @@ dag:
     DEPLOY_ENV: historic_dev
     DBT_PROJECT: hmpps_electronic_monitoring_data_tables
     S3_BUCKET: emds-prod-cadt
-    WORKFLOW_NAME: emds-historic-workflow
+    WORKFLOW_NAME: emds-export-artefacts
     DBT_PROFILE_WORKGROUP: create-a-derived-table-historic-dev
     DBT_SELECT_CRITERIA: +tag:emd_historic+
     BRANCH: em/centralise-gps-position-approach
