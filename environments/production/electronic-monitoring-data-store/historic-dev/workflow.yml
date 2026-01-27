@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.1.20
+  tag: 1.1.23
   compute_profile: general-on-demand-32vcpu-128gb
   catchup: false
   outlets:
