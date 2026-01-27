@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.23
+  tag: v1.1.0
   schedule: "30 8 * * 1-5"
   is_paused_upon_creation: true
   env_vars:
@@ -38,6 +38,9 @@ dag:
     load-sop__snapshots_hra04_sickness_absence:
       env_vars:
         AFFILE_PIPELINE_NAME: "sop__snapshots_hra04_sickness_absence"
+    load-sop__wf04_secondments:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "sop__wf04_secondments"
 
 iam:
   athena: write
