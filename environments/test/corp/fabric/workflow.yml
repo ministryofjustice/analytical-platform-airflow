@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/replicate-athena-to-fabric
-  tag: v1.1.1
+  tag: v1.1.2
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
@@ -31,6 +31,8 @@ iam:
   glue: true
   s3_read_write:
     - alpha-corp-data-staging/athena_queries/*
+    - mojap-athena-query-dump/*
+    
 
 secrets:
   - azure-client-id
