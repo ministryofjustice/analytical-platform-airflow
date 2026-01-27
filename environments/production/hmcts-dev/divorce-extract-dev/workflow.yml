@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v3.0.7
+  tag: v3.0.8
   retries: 0
   hmcts_sdp_networking: True
   max_active_runs: 1
@@ -71,7 +71,6 @@ dag:
         TABLE_NAME: "divorce-no-fault-divorce-bulkaction"
         S3_TABLE_NAME: "divorce_no_fault_divorce_bulkaction"
         FILENAME_TABLE_NAME: "divorce_no_fault_divorce_bulkaction"
-
 
 iam:
   athena: write
