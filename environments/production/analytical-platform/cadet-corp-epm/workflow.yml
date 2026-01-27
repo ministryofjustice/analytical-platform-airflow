@@ -3,7 +3,7 @@ dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
   tag: 1.1.25
   compute_profile: general-on-demand-16vcpu-64gb
-  schedule: "0 10 * * *"
+  schedule: "0 12 * * *"
   catchup: false
   outlets:
     - "s3://mojap-derived-tables/prod/deploy-corporate-epm/"
