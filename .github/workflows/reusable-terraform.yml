@@ -55,7 +55,7 @@ jobs:
           name: terraform-check-path-filter
           path: .github/path-filter/workflows.yml
           overwrite: true
-  
+
   tag-only-check:
     if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
     name: 🛂 Tag Only Changes Check
