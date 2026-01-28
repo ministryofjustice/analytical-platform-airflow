@@ -118,7 +118,7 @@ jobs:
       - name: Tag Only Changes Check
         id: tag_only_changes_check
         env:
-          GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
