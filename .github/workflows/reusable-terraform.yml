@@ -52,8 +52,9 @@ jobs:
         id: upload_path_filter
         uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
-          name: workflows-path-filter
+          name: terraform-check-path-filter
           path: .github/path-filter/workflows.yml
+          overwrite: true
   
   tag-only-check:
     if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
@@ -101,7 +102,7 @@ jobs:
         id: download_path_filters
         uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
         with:
-          name: workflows-path-filter
+          name: terraform-check-path-filter
           path: .github/path-filter
 
       - name: Set Workflow Directory
