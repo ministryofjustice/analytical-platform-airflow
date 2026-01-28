@@ -1,10 +1,10 @@
 dag:
   repository: moj-analytical-services/sa26-dashboard-analysis
-  tag: 2.0.0
+  tag: test_jg
 
 maintainers:
   - joannagent
 
 tags:
-  business_unit: Sentencing and Offender Management Analysis
+  business_unit: HQ
   owner: joanna.gent@justice.gov.uk
