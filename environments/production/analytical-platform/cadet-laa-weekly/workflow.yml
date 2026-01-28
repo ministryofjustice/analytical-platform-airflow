@@ -15,6 +15,7 @@ dag:
     DBT_SELECT_CRITERIA: tag:laa_crime
     BRANCH: main
     MODE: build
+    IS_SUNDAY_BUILD: "true"
 
 maintainers:
   - jhpyke
@@ -27,6 +28,7 @@ iam:
   glue: true
   s3_read_write:
     - mojap-derived-tables/prod/*
+    - mojap-derived-tables/sandpit/*
 
 tags:
   business_unit: Central Digital
