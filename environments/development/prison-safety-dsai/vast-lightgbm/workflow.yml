@@ -1,35 +1,26 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.42
-  max_active_runs: 8
+  tag: 0.1.71
+  max_active_runs: 50
 
   env_vars:
     AWS_REGION: eu-west-1
     AWS_DEFAULT_REGION: eu-west-1
     ATHENA_DB: vast_training_data
-
     AWS_ATHENA_S3_STAGING_DIR: s3://alpha-vast/athena-staging/
-    OUT_BASE: s3://alpha-vast/bins
-    CSV_BASE: s3://alpha-vast/csv
-    KEYS_BASE: s3://alpha-vast/keys
-    MODEL_BASE: s3://alpha-vast/models
-    MODEL_FAMILY: lightgbm
-
-    GROUP_COLS: "agy_loc_id,index_date"
-    WANDB_PROJECT: vast
+    DATASET_BASE: s3://alpha-vast
 
   # ---- DAG parameters: can be overridden in the Airflow UI when triggering a run ----
   params:
     # Naming / versioning
-    dataset_suffix: x_structured_y_train_pos_all_2025_bins_255_neg_multiplier_20
-    model_run: train_pos_all_2025_bins_255_neg_multiplier_20
-    wandb_run_name: train_pos_all_2025_bins_255_neg_multiplier_20
+    dataset_suffix: x_structured_y_train_pos_all_bins_255_neg_multiplier_20
+    model_run: first_test
 
     # Targets
     athena_table: "x_structured_y"
-    targets: "y_h7_any"
-    eval_target: y_h7_any
+    targets: "y_h7_any y_h14_any y_h28_any"
+    eval_target: y_h7_any y_h14_any y_h28_any
 
     # Build / sampling
     skip_build_bins: false
@@ -69,22 +60,21 @@ dag:
 
     # Evaluation
     valid_heldout: false
-    ks: "0.1,0.25,0.5,1,2,5,10"
-    sample_train_days: 200
-    sample_val_days: 30
-    sample_test_days: 30
-    sample_heldout_days: 200
+    ks: "0.1,0.25,0.5,1,2,5,7.5,10"
+    sample_train_days: -1
+    sample_val_days: -1
+    sample_test_days: -1
+    sample_heldout_days: -1
     eval_seed: 42
-    chunksize: 20000
+    chunksize: 50000
 
     # Operational evaluation
     op_splits: "val"
-    op_eval_splits: "val"
-    op_k_pct: "0.1,0.25,0.5,1,2,5,10"
-    op_burnin_days: 0
-    op_priority_threshold: 0.5
+    op_max_coverage: 0.10
+    op_min_capture: 0.10
+    op_save_intervals: false
+    op_burnin_days: -1
     op_min_threshold: 0.2
-    op_no_amber_refresh: false
     op_chunksize: 50000
 
     # Technical
@@ -99,12 +89,18 @@ dag:
     wandb_entity: alex-gower-moj-ministry-of-justice-uk
     no_wandb: false
 
+    # Sweep parameters
+    sweep_id: ""
+    sweep_optimization_mode: fast
+    sweep_count: 5
+
   compute_profile: general-spot-16vcpu-64gb
 
   tasks:
     build_bins:
       env_vars:
         STEP: build
+        SKIP_BUILD_BINS: "{{ params.skip_build_bins | int }}"
         MAX_BIN: "{{ params.max_bin | int }}"
         NEG_MULTIPLIER: "{{ params.neg_multiplier }}"
         TRAIN_MAX_POS: "{{ params.train_max_pos }}"
@@ -113,15 +109,18 @@ dag:
         HELDOUT_MAX: "{{ params.heldout_max }}"
         TWO_ROUND: "{{ params.two_round | int }}"
         BIN_CONSTRUCT_SAMPLE_CNT: "{{ params.bin_construct_sample_cnt }}"
-        SKIP_BUILD_BINS: "{{ params.skip_build_bins | int }}"
         TARGETS: "{{ params.targets }}"
         ATHENA_TABLE: "{{ params.athena_table }}"
+        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
 
     train:
       dependencies:
         - build_bins
       env_vars:
         STEP: train
+        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
+        PARAM_MODEL_RUN: "{{ params.model_run }}"
+        TARGETS: "{{ params.targets }}"
         MAX_BIN: "{{ params.max_bin | int }}"
         NUM_BOOST_ROUND: "{{ params.num_boost_round }}"
         EARLY_STOPPING_ROUNDS: "{{ params.early_stopping_rounds }}"
@@ -147,19 +146,18 @@ dag:
         GPU_DEVICE: "{{ params.gpu_device }}"
         WANDB_PROJECT: "{{ params.wandb_project }}"
         WANDB_ENTITY: "{{ params.wandb_entity }}"
-        WANDB_RUN_NAME: "{{ params.wandb_run_name }}"
         NO_WANDB: "{{ params.no_wandb | int }}"
-        TARGETS: "{{ params.targets }}"
         USE_FOCAL_LOSS: "{{ params.use_focal_loss | int }}"
         FOCAL_GAMMA: "{{ params.focal_gamma }}"
         FOCAL_ALPHA: "{{ params.focal_alpha }}"
-        ATHENA_TABLE: "{{ params.athena_table }}"
 
     evaluate:
       dependencies:
         - train
       env_vars:
         STEP: eval
+        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
+        PARAM_MODEL_RUN: "{{ params.model_run }}"
         EVAL_TARGET: "{{ params.eval_target }}"
         KS: "{{ params.ks }}"
         SAMPLE_TRAIN_DAYS: "{{ params.sample_train_days }}"
@@ -168,24 +166,66 @@ dag:
         SAMPLE_HELDOUT_DAYS: "{{ params.sample_heldout_days }}"
         SEED: "{{ params.eval_seed }}"
         CHUNKSIZE: "{{ params.chunksize }}"
-        TARGETS: "{{ params.targets }}"
-        ATHENA_TABLE: "{{ params.athena_table }}"
 
     evaluate_operational:
       dependencies:
         - train
       env_vars:
         STEP: op_eval
+        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
+        PARAM_MODEL_RUN: "{{ params.model_run }}"
         EVAL_TARGET: "{{ params.eval_target }}"
-
         OP_SPLITS: "{{ params.op_splits }}"
-        OP_EVAL_SPLITS: "{{ params.op_eval_splits }}"
-        OP_K_PCT: "{{ params.op_k_pct }}"
         OP_BURNIN_DAYS: "{{ params.op_burnin_days }}"
-        OP_PRIORITY_THRESHOLD: "{{ params.op_priority_threshold }}"
         OP_MIN_THRESHOLD: "{{ params.op_min_threshold }}"
-        OP_NO_AMBER_REFRESH: "{{ params.op_no_amber_refresh | int }}"
         OP_CHUNKSIZE: "{{ params.op_chunksize }}"
+        KS: "{{ params.ks }}"
+        OP_MAX_COVERAGE: "{{ params.op_max_coverage }}"
+        OP_MIN_CAPTURE: "{{ params.op_min_capture }}"
+        OP_SAVE_INTERVALS: "{{ params.op_save_intervals | int }}"
+        WANDB_PROJECT: "{{ params.wandb_project }}"
+
+    sweep_worker_01:
+      dependencies:
+        - build_bins
+      env_vars:
+        STEP: sweep_worker
+        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
+        PARAM_MODEL_RUN: "{{ params.model_run }}"
+        TARGETS: "{{ params.targets }}"
+        SWEEP_ID: "{{ params.sweep_id }}"
+        SWEEP_OPTIMIZATION_MODE: "{{ params.sweep_optimization_mode }}"
+        SWEEP_COUNT: "{{ params.sweep_count }}"
+        WANDB_PROJECT: "{{ params.wandb_project }}"
+        WANDB_ENTITY: "{{ params.wandb_entity }}"
+
+    sweep_worker_02:
+      dependencies:
+        - build_bins
+      env_vars:
+        STEP: sweep_worker
+        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
+        PARAM_MODEL_RUN: "{{ params.model_run }}"
+        TARGETS: "{{ params.targets }}"
+        SWEEP_ID: "{{ params.sweep_id }}"
+        SWEEP_OPTIMIZATION_MODE: "{{ params.sweep_optimization_mode }}"
+        SWEEP_COUNT: "{{ params.sweep_count }}"
+        WANDB_PROJECT: "{{ params.wandb_project }}"
+        WANDB_ENTITY: "{{ params.wandb_entity }}"
+
+    sweep_worker_03:
+      dependencies:
+        - build_bins
+      env_vars:
+        STEP: sweep_worker
+        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
+        PARAM_MODEL_RUN: "{{ params.model_run }}"
+        TARGETS: "{{ params.targets }}"
+        SWEEP_ID: "{{ params.sweep_id }}"
+        SWEEP_OPTIMIZATION_MODE: "{{ params.sweep_optimization_mode }}"
+        SWEEP_COUNT: "{{ params.sweep_count }}"
+        WANDB_PROJECT: "{{ params.wandb_project }}"
+        WANDB_ENTITY: "{{ params.wandb_entity }}"
 
 secrets:
   - wandb-api-key
@@ -193,13 +233,7 @@ secrets:
 iam:
   athena: write
   s3_read_write:
-    - alpha-vast/athena-staging/*
-    - alpha-vast/athena_staging/*
-    - alpha-vast/bins/*
-    - alpha-vast/csv/*
-    - alpha-vast/keys/*
-    - alpha-vast/models/*
-    - alpha-vast/vast_training_data/*
+    - alpha-vast/*
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=assaults/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=involvements/*

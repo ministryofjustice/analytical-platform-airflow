@@ -1,10 +1,11 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.4.0
+  tag: v1.5.6
   schedule: "0 7 * * 1-5"
   retries: 1
   retry_delay: 60
+  compute_profile: general-on-demand-2vcpu-8gb
   env_vars:
     REPORT_APP: "splashbi"
     REPORT_RUNTIME_ENV: "prod"
@@ -99,6 +100,10 @@ dag:
       env_vars:
         REPORT_NAME: "moj-hr-wf-59"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+    moj-hr-04-secondments:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-04"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
 
     # Note - this one uses an internal schedule
     moj-hr-wf-62-sip:
@@ -145,7 +150,7 @@ secrets:
   - sbi-user-spare
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-splashbi-notifications
 
   emails:
     - william.orr@justice.gov.uk

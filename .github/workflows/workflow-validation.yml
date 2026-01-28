@@ -61,7 +61,7 @@ jobs:
 
       - name: Upload path-filters File
         id: upload_path_filter
-        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5.0.0
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
         with:
           name: workflows-path-filter
           path: .github/path-filter/workflows.yml
@@ -97,7 +97,7 @@ jobs:
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@ed21f2f24f8dd64503750218de024bcf64c7250a # v7.1.5
+        uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0
         with:
           activate-environment: true
           version: "latest"
@@ -110,7 +110,7 @@ jobs:
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: workflows-path-filter
           path: .github/path-filter
@@ -299,7 +299,7 @@ jobs:
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: workflows-path-filter
           path: .github/path-filter
@@ -488,7 +488,7 @@ jobs:
             echo "image-version-match=true" >>"${GITHUB_ENV}"
           fi
 
-          curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/tags/${imageVersion}/.trivyignore" --output "runtime-trivyignore"
+          curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/heads/main/.trivyignore" --output "runtime-trivyignore"
 
           if [[ ! -f .trivyignore ]]; then
             mv "runtime-trivyignore" .trivyignore
@@ -565,7 +565,7 @@ jobs:
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@ed21f2f24f8dd64503750218de024bcf64c7250a # v7.1.5
+        uses: astral-sh/setup-uv@61cb8a9741eeb8a550a1b8544337180c0fc8476b # v7.2.0
         with:
           activate-environment: true
           version: "latest"
@@ -578,7 +578,7 @@ jobs:
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
         with:
           name: workflows-path-filter
           path: .github/path-filter

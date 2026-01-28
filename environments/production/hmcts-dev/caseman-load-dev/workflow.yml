@@ -87,8 +87,8 @@ dag:
 iam:
   athena: write
   s3_read_write:
-    - mojap-land/hmcts/caseman/*
-    - mojap-raw-hist/hmcts/caseman/*
+    - mojap-land-dev/hmcts/caseman_sdp/*
+    - mojap-raw-hist-dev/hmcts/caseman_sdp/*
     - alpha-mojap-civil/dev/caseman_ap_sdp/*
 
 maintainers:
