@@ -189,8 +189,7 @@ tasks["main"] = AnalyticalPlatformStandardOperator(
         "PYTHON_SCRIPT_NAME": "__main__.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
         "DAG_ID": dag.dag_id,
-#        "ENV": "PRODUCTION",
-        "ENV": "DEVELOPMENT",
+        "ENV": "PRODUCTION",
         "DAG_RUN_UTC_UNIXTIME": str(int(datetime.utcnow().timestamp())),
     },
 )

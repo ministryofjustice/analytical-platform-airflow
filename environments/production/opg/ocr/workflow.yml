@@ -7,57 +7,44 @@ dag:
   max_active_runs: 4
   retries: 1
   retry_delay: 150
-  start_date: "2025-06-17"
-  schedule: 0 5 * * *
+  start_date: "2025-08-28"
+  schedule: None
   env_vars:
-    DATABASE: "sirius"
-    PIPELINE_NAME: "sirius"
+    DATABASE: "ocr"
+    PIPELINE_NAME: "ocr"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: "v3.7.4"
+    GITHUB_TAG: "v3.7.6"
     ATHENA_DB_PREFIX: "opg"
-    START_DATE: "2025-06-17"
+    START_DATE: "2025-08-28"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
   tasks:
-    to_land:
+    land_to_processed:
       env_vars:
         STEP: "land"
       compute_profile: "general-on-demand-4vcpu-16gb"
-    land_to_raw:
-      env_vars:
-        STEP: "raw"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [to_land]
-    raw_to_curated:
+    processed_to_curated:
       env_vars:
         STEP: "curated"
       compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [land_to_raw]
+      dependencies: [land_to_processed]
     create_curated_database:
       env_vars:
         STEP: "curated_database"
       compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [raw_to_curated]
-    create_derived:
-      env_vars:
-        STEP: "create_derived"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [raw_to_curated, create_curated_database]
+      dependencies: [processed_to_curated]
 
 iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-land/opg/prod/sirius/*
-    - mojap-raw/opg/prod/sirius/*
-    - alpha-opg-etl/prod/sirius/*
-    - mojap-athena-query-dump/*airflow-production-opg-sirius-daily/*
-
-  s3_read_only:
-    - mojap-land/opg/sirius/*
-    - alpha-opg-etl/prod/nspl_reference/curated/*
-    - alpha-opg-mi-dashboard/working/*
+    - mojap-land/opg/prod/ocr/*
+    - mojap-raw/opg/prod/ocr/*
+    - mojap-raw-hist/opg/prod/ocr/*
+    - mojap-processed/opg/prod/ocr/*
+    - alpha-opg-etl/prod/ocr/*
+    - mojap-athena-query-dump/*airflow-production-opg-ocr/*
 
 maintainers:
   - p-sin
