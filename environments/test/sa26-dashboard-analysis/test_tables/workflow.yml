@@ -6,6 +6,11 @@ dag:
   schedule: "0 11 * * *"
   max_active_runs: 1
 
+  iam:
+  athena: read
+  s3_read_write:
+    - alpha-sa26-monitoring/*
+
 maintainers:
   - joannagent
 
