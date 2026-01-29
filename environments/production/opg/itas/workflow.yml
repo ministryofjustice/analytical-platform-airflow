@@ -1,0 +1,75 @@
+dag:
+  repository: moj-analytical-services/airflow-opg-etl
+  tag: v3.7.6
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 4
+  retries: 1
+  retry_delay: 150
+  start_date: "2026-01-18"
+  schedule: None
+  env_vars:
+    DATABASE: "itas"
+    PIPELINE_NAME: "itas"
+    DATABASE_VERSION: "prod"
+    GITHUB_TAG: "v3.7.6"
+    ATHENA_DB_PREFIX: "opg"
+    START_DATE: "2026-01-18"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_METADATA_SERVICE_TIMEOUT: "60"
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
+  tasks:
+    to_land:
+      env_vars:
+        STEP: "land"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+    land_to_raw_hist:
+      env_vars:
+        STEP: "raw_hist"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [to_land]
+    raw_hist_to_processed:
+      env_vars:
+        STEP: "processed"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [land_to_raw_hist]
+    processed_to_curated:
+      env_vars:
+        STEP: "curated"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [raw_hist_to_processed]
+    create_curated_database:
+      env_vars:
+        STEP: "curated_database"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [processed_to_curated]
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-opg-etl/prod/itas/*
+    - mojap-athena-query-dump/*airflow-production-opg-itas/*
+  s3_read_only:
+    - mojap-data-production-datasync-opg-ingress-production/ITAS/Database/ITAS Database/*
+    - alpha-opg-etl/prod/nspl_reference/curated/*
+    - alpha-opg-mi-dashboard/working/*
+  kms:
+    - arn:aws:kms:eu-west-2:593291632749:key/96eb04fe-8393-402c-b1f9-71fcece99e75
+
+secrets:
+  - dom-file-password
+
+maintainers:
+  - p-sin
+  - gwionap
+
+tags:
+  business_unit: OPG
+  owner: philip.sinfield@justice.gov.uk
+
+notifications:
+  emails:
+    - philip.sinfield@justice.gov.uk
+  slack_channel: opg-deds
