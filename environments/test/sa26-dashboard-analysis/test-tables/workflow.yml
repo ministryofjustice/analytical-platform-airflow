@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/sa26-dashboard-analysis
-  tag: test_jg
+  tag: test_jg2
   catchup: false
   depends_on_past: false
   schedule: "0 14 * * *"
