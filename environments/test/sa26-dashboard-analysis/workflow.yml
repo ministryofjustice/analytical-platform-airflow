@@ -3,7 +3,7 @@ dag:
   tag: test_jg
   catchup: False
   depends_on_past: False
-  schedule: "0 3 * * *"
+  schedule: "0 11 * * *"
   max_active_runs: 1
 
 maintainers:
