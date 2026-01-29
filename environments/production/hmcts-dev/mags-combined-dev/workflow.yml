@@ -85,7 +85,7 @@ dag:
     closedown_mags:
       env_vars:
         PYTHON_SCRIPT_NAME: "closedown_curated_db_run.py"
-      dependencies: [hocas_all_appearance-redacted, hocas_defendant, hocas_tar_lookup]
+      dependencies: [hocas_all_appearance_redacted, hocas_defendant, hocas_tar_lookup]
 
 iam:
   athena: write
