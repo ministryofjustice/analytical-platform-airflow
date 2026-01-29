@@ -1,6 +1,10 @@
 dag:
   repository: moj-analytical-services/sa26-dashboard-analysis
   tag: test_jg
+  catchup: False
+  depends_on_past: False
+  schedule: "0 3 * * *"
+  max_active_runs: 1
 
 maintainers:
   - joannagent
