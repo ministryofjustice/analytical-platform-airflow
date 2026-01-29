@@ -8,7 +8,7 @@ dag:
   retries: 1
   retry_delay: 150
   start_date: "2026-01-18"
-  schedule: None
+  schedule: 0 5 * * *
   env_vars:
     DATABASE: "itas"
     PIPELINE_NAME: "itas"
