@@ -1,15 +1,15 @@
 dag:
   repository: moj-analytical-services/sa26-dashboard-analysis
   tag: test_jg
-  catchup: False
-  depends_on_past: False
-  schedule: "0 11 * * *"
+  catchup: false
+  depends_on_past: false
+  schedule: "0 14 * * *"
   max_active_runs: 1
 
   iam:
-  athena: read
-  s3_read_write:
-    - alpha-sa26-monitoring/*
+    athena: read
+    s3_read_write:
+      - alpha-sa26-monitoring/*
 
 maintainers:
   - joannagent
