@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-magistrates-tar-preprocess
-  tag: v1.0.0-alpha.829c47e
+  tag: v1.0.0-alpha.a574d2a
   retries: 0
   env_vars:
     DB_VERSION: "v3_AP_dev"
