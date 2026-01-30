@@ -257,14 +257,12 @@ secrets:
   - splashbi-credentials
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-splashbi-notifications
   emails:
-    - william.orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
     - mohammed.ahad1@justice.gov.uk
 
 maintainers:
-  - williamorrie
   - moj-supratikc
   - morezwan
 
