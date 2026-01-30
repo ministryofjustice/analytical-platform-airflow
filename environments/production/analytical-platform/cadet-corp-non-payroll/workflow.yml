@@ -1,25 +1,25 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.1.26
+  tag: 1.1.25-1
   compute_profile: general-on-demand-16vcpu-64gb
-  schedule: "0 12 * * 0"
+  schedule: "0 11 * * *"
   catchup: false
   outlets:
-    - "s3://mojap-derived-tables/prod/monthly/"
-    - "s3://mojap-derived-tables/prod/weekly/"
-    - "s3://mojap-derived-tables/prod/daily/"
+    - "s3://mojap-derived-tables/prod/deploy-corporate-non-payroll/"
   env_vars:
-    DEPLOY_ENV: sandpit
-    DBT_PROFILE_WORKGROUP: dbt-monthly
+    DEPLOY_ENV: prod
+    DBT_PROFILE_WORKGROUP: airflow-prod-workgroup-corp
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-monthly
-    DBT_SELECT_CRITERIA: tag:daily tag:weekly tag:monthly
+    WORKFLOW_NAME: deploy-corporate-non-payroll
+    DBT_SELECT_CRITERIA: tag:corporate_non_payroll
     BRANCH: main
     MODE: build
-    IS_SUNDAY_DEPLOY: true
 
 maintainers:
+  - ltd-pa
+  - williamorrie
+  - moj-supratikc
   - jhpyke
 
 secrets:
@@ -33,4 +33,4 @@ iam:
 
 tags:
   business_unit: Central Digital
-  owner: analytical-platform@justice.gov.uk
+  owner: Laurence.Droy@justice.gov.uk
