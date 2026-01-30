@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.1.24
+  tag: 1.1.25-1
   compute_profile: general-on-demand-16vcpu-64gb
   schedule: "0 10 * * *"
   catchup: false
@@ -30,6 +30,9 @@ iam:
   glue: true
   s3_read_write:
     - mojap-derived-tables/prod/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
 
 tags:
   business_unit: Central Digital

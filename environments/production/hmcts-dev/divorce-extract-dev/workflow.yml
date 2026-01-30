@@ -19,7 +19,7 @@ dag:
     HIST_BUCKET: "s3://mojap-raw-hist-dev"
     LAND_FOLDER: "hmcts/ccd-divorce/v1"
     HIST_FOLDER: "hmcts/ccd-divorce/v1"
-    CUT_OFF: "2026-01-27"
+    CUT_OFF: "2026-01-20"
   tasks:
     ccd_extract_divorce_divorce:
       env_vars:
