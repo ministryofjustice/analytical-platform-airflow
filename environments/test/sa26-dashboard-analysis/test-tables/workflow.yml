@@ -1,0 +1,19 @@
+dag:
+  repository: moj-analytical-services/sa26-dashboard-analysis
+  tag: v0-9
+  catchup: false
+  depends_on_past: false
+  schedule: "0 14 * * *"
+  max_active_runs: 1
+
+iam:
+  athena: read
+  s3_read_write:
+    - alpha-sa26-monitoring/*
+
+maintainers:
+  - joannagent
+
+tags:
+  business_unit: HQ
+  owner: joanna.gent@justice.gov.uk
