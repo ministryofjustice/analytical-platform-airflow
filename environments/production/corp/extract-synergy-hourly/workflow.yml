@@ -212,69 +212,38 @@ dag:
       env_vars:
         REPORT_NAME: "wls-po_headers"
 
-    # === Commercial Synergy Invoice ===
+    # === Commercial Synergy Supplier Bank Accounts ===
 
-    cts-invoice_lines:
+    cts-supplier_bank_accounts:
       env_vars:
-        REPORT_NAME: "cts-invoice_lines"
-    laa-invoice_lines:
+        REPORT_NAME: "cts-supplier_bank_accounts"
+    laa-supplier_bank_accounts:
       env_vars:
-        REPORT_NAME: "laa-invoice_lines"
-    opg-invoice_lines:
+        REPORT_NAME: "laa-supplier_bank_accounts"
+    opg-supplier_bank_accounts:
       env_vars:
-        REPORT_NAME: "opg-invoice_lines"
-    yjb-invoice_lines:
+        REPORT_NAME: "opg-supplier_bank_accounts"
+    yjb-supplier_bank_accounts:
       env_vars:
-        REPORT_NAME: "yjb-invoice_lines"
-    ima-invoice_lines:
+        REPORT_NAME: "yjb-supplier_bank_accounts"
+    ima-supplier_bank_accounts:
       env_vars:
-        REPORT_NAME: "ima-invoice_lines"
-    moj-invoice_lines:
+        REPORT_NAME: "ima-supplier_bank_accounts"
+    moj-supplier_bank_accounts:
       env_vars:
-        REPORT_NAME: "moj-invoice_lines"
-    pbd-invoice_lines:
+        REPORT_NAME: "moj-supplier_bank_accounts"
+    pbd-supplier_bank_accounts:
       env_vars:
-        REPORT_NAME: "pbd-invoice_lines"
-    jac-invoice_lines:
+        REPORT_NAME: "pbd-supplier_bank_accounts"
+    jac-supplier_bank_accounts:
       env_vars:
-        REPORT_NAME: "jac-invoice_lines"
-    nms-invoice_lines:
+        REPORT_NAME: "jac-supplier_bank_accounts"
+    nms-supplier_bank_accounts:
       env_vars:
-        REPORT_NAME: "nms-invoice_lines"
-    wls-invoice_lines:
+        REPORT_NAME: "nms-supplier_bank_accounts"
+    wls-supplier_bank_accounts:
       env_vars:
-        REPORT_NAME: "wls-invoice_lines"
-
-    cts-invoice_headers:
-      env_vars:
-        REPORT_NAME: "cts-invoice_headers"
-    laa-invoice_headers:
-      env_vars:
-        REPORT_NAME: "laa-invoice_headers"
-    opg-invoice_headers:
-      env_vars:
-        REPORT_NAME: "opg-invoice_headers"
-    yjb-invoice_headers:
-      env_vars:
-        REPORT_NAME: "yjb-invoice_headers"
-    ima-invoice_headers:
-      env_vars:
-        REPORT_NAME: "ima-invoice_headers"
-    moj-invoice_headers:
-      env_vars:
-        REPORT_NAME: "moj-invoice_headers"
-    pbd-invoice_headers:
-      env_vars:
-        REPORT_NAME: "pbd-invoice_headers"
-    jac-invoice_headers:
-      env_vars:
-        REPORT_NAME: "jac-invoice_headers"
-    nms-invoice_headers:
-      env_vars:
-        REPORT_NAME: "nms-invoice_headers"
-    wls-invoice_headers:
-      env_vars:
-        REPORT_NAME: "wls-invoice_headers"
+        REPORT_NAME: "wls-supplier_bank_accounts"
 
 iam:
   s3_read_write:
@@ -284,18 +253,14 @@ secrets:
   - splashbi-credentials
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-splashbi-notifications
   emails:
-    - william.orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
     - mohammed.ahad1@justice.gov.uk
-    - laurence.droy@justice.gov.uk
 
 maintainers:
-  - williamorrie
   - moj-supratikc
   - morezwan
-  - ltd-pa
 
 tags:
   business_unit: Central Digital
