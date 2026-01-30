@@ -19,6 +19,30 @@ dag:
     load-po_sscl_details:
       env_vars:
         AFFILE_PIPELINE_NAME: "po_sscl_details"
+    load-supplier_headers:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "supplier_headers"
+    load-supplier_sites:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "supplier_sites"
+    load-customer_sites:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "customer_sites"
+    load-customer_headers:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "customer_headers"
+    load-sba_mo_locations:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "sba_mo_locations"
+    load-po_lines:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "po_lines"
+    load-po_headers:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "po_headers"
+    load-supplier_bank_accounts:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "supplier_bank_accounts"
 
 iam:
   athena: write
@@ -36,7 +60,7 @@ iam:
     - mojap-processed/domain__commercial/env__prod/athena_query_dump/*
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-splashbi-notifications
 
   emails:
     - mohammed.ahad1@justice.gov.uk
