@@ -1,0 +1,43 @@
+dag:
+  repository: moj-analytical-services/airflow-magistrates-tar-preprocess
+  tag: v1.0.0-alpha.829c47e
+  retries: 0
+  env_vars:
+    DB_VERSION: "v3_AP_dev"
+  schedule:
+    datasets:
+      - "s3://hmcts-dev/mags-combined-hocas-preprocess-dev.json"
+  tasks:
+    tar_preprocess:
+      inlets:
+        - "s3://hmcts-dev/mags-combined-hocas-preprocess-dev.json"
+      outlets:
+        - "s3://hmcts-dev/mags-combined-tar-preprocess-dev.json"
+      env_vars:
+        PYTHON_SCRIPT_NAME: "tar_raw_to_preprocessed.py"
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-mojap-curated-mags/*
+    - alpha-mojap-processed-tar/*
+    - alpha-mojap-processed-hocas/*
+    - mojap-land/hmcts/tar/*
+    - mojap-land/hmcts/hocas/*
+    - mojap-raw-hist/hmcts/tar*
+    - mojap-raw-hist/hmcts/hocas*
+    - alpha-magistrates-development-tests/*
+  s3_read_only:
+    - alpha-lookup-cjsq/*
+    - mojap-derived-tables/prod/seeds/domain_name=courts/database_name=lookup_offence/*
+    - mojap-derived-tables/seeds/lookup_offence/*
+    - mojap-derived-tables/prod/models/domain_name=general/database_name=lookup_offence_v2/*
+    - alpha-criminal-courts-data/SAS_files/Timeliness/monthly_tar/*
+
+maintainers:
+  - Andy-Cook
+  - jovita-brundziene
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
