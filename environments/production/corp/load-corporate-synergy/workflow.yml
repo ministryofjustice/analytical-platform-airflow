@@ -40,7 +40,9 @@ dag:
     load-po_headers:
       env_vars:
         AFFILE_PIPELINE_NAME: "po_headers"
-
+    load-supplier_bank_accounts:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "supplier_bank_accounts"
 
 iam:
   athena: write
@@ -58,7 +60,7 @@ iam:
     - mojap-processed/domain__commercial/env__prod/athena_query_dump/*
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-splashbi-notifications
 
   emails:
     - mohammed.ahad1@justice.gov.uk
