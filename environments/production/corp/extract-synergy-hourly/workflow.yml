@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.12
+  tag: v1.5.7
   schedule: "0 7-18 * * 1-5"
   env_vars:
     REPORT_APP: "splashbi"
@@ -148,6 +148,103 @@ dag:
       env_vars:
         REPORT_NAME: "wls-customer_sites"
 
+    # === Commercial Synergy PO ===
+
+    cts-po_lines:
+      env_vars:
+        REPORT_NAME: "cts-po_lines"
+    laa-po_lines:
+      env_vars:
+        REPORT_NAME: "laa-po_lines"
+    opg-po_lines:
+      env_vars:
+        REPORT_NAME: "opg-po_lines"
+    yjb-po_lines:
+      env_vars:
+        REPORT_NAME: "yjb-po_lines"
+    ima-po_lines:
+      env_vars:
+        REPORT_NAME: "ima-po_lines"
+    moj-po_lines:
+      env_vars:
+        REPORT_NAME: "moj-po_lines"
+    pbd-po_lines:
+      env_vars:
+        REPORT_NAME: "pbd-po_lines"
+    jac-po_lines:
+      env_vars:
+        REPORT_NAME: "jac-po_lines"
+    nms-po_lines:
+      env_vars:
+        REPORT_NAME: "nms-po_lines"
+    wls-po_lines:
+      env_vars:
+        REPORT_NAME: "wls-po_lines"
+
+    cts-po_headers:
+      env_vars:
+        REPORT_NAME: "cts-po_headers"
+    laa-po_headers:
+      env_vars:
+        REPORT_NAME: "laa-po_headers"
+    opg-po_headers:
+      env_vars:
+        REPORT_NAME: "opg-po_headers"
+    yjb-po_headers:
+      env_vars:
+        REPORT_NAME: "yjb-po_headers"
+    ima-po_headers:
+      env_vars:
+        REPORT_NAME: "ima-po_headers"
+    moj-po_headers:
+      env_vars:
+        REPORT_NAME: "moj-po_headers"
+    pbd-po_headers:
+      env_vars:
+        REPORT_NAME: "pbd-po_headers"
+    jac-po_headers:
+      env_vars:
+        REPORT_NAME: "jac-po_headers"
+    nms-po_headers:
+      env_vars:
+        REPORT_NAME: "nms-po_headers"
+    wls-po_headers:
+      env_vars:
+        REPORT_NAME: "wls-po_headers"
+
+    # === Commercial Synergy Supplier Bank Accounts ===
+
+    cts-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "cts-supplier_bank_accounts"
+    laa-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "laa-supplier_bank_accounts"
+    opg-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "opg-supplier_bank_accounts"
+    yjb-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "yjb-supplier_bank_accounts"
+    ima-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "ima-supplier_bank_accounts"
+    moj-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "moj-supplier_bank_accounts"
+    pbd-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "pbd-supplier_bank_accounts"
+    jac-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "jac-supplier_bank_accounts"
+    nms-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "nms-supplier_bank_accounts"
+    wls-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "wls-supplier_bank_accounts"
+
 iam:
   s3_read_write:
     - mojap-land/corporate/report_extractor_prod/splashbi/*
@@ -156,18 +253,14 @@ secrets:
   - splashbi-credentials
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-splashbi-notifications
   emails:
-    - william.orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
     - mohammed.ahad1@justice.gov.uk
-    - laurence.droy@justice.gov.uk
 
 maintainers:
-  - williamorrie
   - moj-supratikc
   - morezwan
-  - ltd-pa
 
 tags:
   business_unit: Central Digital
