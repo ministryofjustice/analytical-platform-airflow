@@ -23,8 +23,41 @@ dag:
       env_vars:
         DATASET_TARGET: bentham.bentham_app_airflow
         IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
       outlets:
         - "s3://mojap-derived-tables/prod/bentham"
+    drugs_app:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        DATASET_TARGET: drugs_app.drugs_app_airflow
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/prod/drugs_app"
+    prison_network:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        DATASET_TARGET: prison-network.prison-network-app
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/prod/prison-network-app"
+    sdt:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        DATASET_TARGET: sdt.sdt
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/prod/sdt"
+    psog_reports:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        DATASET_TARGET: parole_board.psog_reports
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/prod/psog_reports"
 
 maintainers:
   - jhpyke
