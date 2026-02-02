@@ -8,12 +8,10 @@ dag:
 
 iam:
   athena: read
-  
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=probation_derived/*
-  
   s3_read_write:
     - alpha-sa26-monitoring/*
 
