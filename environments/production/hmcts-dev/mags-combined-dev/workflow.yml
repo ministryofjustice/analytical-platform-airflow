@@ -11,16 +11,14 @@ dag:
       - "s3://hmcts-dev/mags-combined-tar-preprocess-dev.json"
   tasks:
     hocas_preprocess:
-      outlets:
-        - "s3://hmcts-dev/mags-combined-hocas-preprocess-dev.json"
       env_vars:
         PYTHON_SCRIPT_NAME: "hocas_raw_to_preprocessed.py"
+      inlets:
+        - "s3://hmcts-dev/mags-combined-tar-preprocess-dev.json"
     rebuild_databases:
       env_vars:
         PYTHON_SCRIPT_NAME: "rebuild_databases.py"
         DBS_TO_REBUILD: "hocas_preprocessed,tar_preprocessed,mags_curated"
-      inlets:
-        - "s3://hmcts-dev/mags-combined-tar-preprocess-dev.json"
       dependencies: [hocas_preprocess]
     curated_databases:
       env_vars:
