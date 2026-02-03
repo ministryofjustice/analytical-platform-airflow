@@ -3,7 +3,7 @@ dag:
   tag: v1.0.0-alpha.a574d2a
   retries: 0
   env_vars:
-    DB_VERSION: "v3_AP_dev"
+    DB_VERSION: "v3_ap_dev"
   schedule:
     datasets:
       - "s3://hmcts-dev/mags-combined-hocas-preprocess-dev.json"
