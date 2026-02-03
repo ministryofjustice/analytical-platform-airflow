@@ -4,13 +4,8 @@ dag:
   retries: 0
   env_vars:
     DB_VERSION: "v3_ap_dev"
-  schedule:
-    datasets:
-      - "s3://hmcts-dev/mags-combined-hocas-preprocess-dev.json"
   tasks:
     tar_preprocess:
-      inlets:
-        - "s3://hmcts-dev/mags-combined-hocas-preprocess-dev.json"
       outlets:
         - "s3://hmcts-dev/mags-combined-tar-preprocess-dev.json"
       env_vars:
