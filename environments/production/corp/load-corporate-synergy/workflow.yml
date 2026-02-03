@@ -53,7 +53,7 @@ iam:
 
   s3_read_write:
     - mojap-processed/domain__synergy/env__prod/synergy_grni/*
-    - mojap-processed/domain__synergy/env__prod/synergy_grini_staging/*
+    - mojap-processed/domain__synergy/env__prod/synergy_grni_staging/*
     - mojap-processed/domain__synergy/env__prod/athena_query_dump/*
     - mojap-processed/domain__commercial/env__prod/synergy_sop/*
     - mojap-processed/domain__commercial/env__prod/synergy_sop_staging/*
