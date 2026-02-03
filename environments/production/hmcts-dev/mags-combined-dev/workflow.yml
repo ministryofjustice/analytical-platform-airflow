@@ -88,6 +88,7 @@ dag:
 
 iam:
   athena: write
+  glue: true
   s3_read_write:
     - alpha-mojap-curated-mags/*
     - alpha-mojap-processed-tar/*
