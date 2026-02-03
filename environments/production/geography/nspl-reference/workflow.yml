@@ -7,15 +7,15 @@ dag:
   max_active_runs: 4
   retries: 1
   retry_delay: 150
-  start_date: "2026-01-30"
+  start_date: "2025-10-30"
   schedule: None
   env_vars:
     DATABASE: "nspl_reference"
     PIPELINE_NAME: "nspl_reference"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: "v1.5.1"
+    GITHUB_TAG: "v1.5.5"
     ATHENA_DB_PREFIX: "geog"
-    START_DATE: "2026-01-30"
+    START_DATE: "2025-10-30"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
