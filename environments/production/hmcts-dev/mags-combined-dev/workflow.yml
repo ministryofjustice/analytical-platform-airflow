@@ -3,7 +3,7 @@ dag:
   tag: v5.0.0-alpha.b0f590d
   retries: 0
   env_vars:
-    DB_VERSION: "v3_AP_dev"
+    DB_VERSION: "v3_ap_dev"
     GLUE_JOB_ROLE: "airflow-production-hmcts-dev-mags-combined-dev"
     GLUE_JOB_BUCKET: "alpha-mojap-curated-mags"
   schedule:
