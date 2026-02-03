@@ -3,12 +3,12 @@ dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
   tag: 1.1.26
   compute_profile: general-on-demand-32vcpu-128gb
-  schedule: "0 12 * * 1-6"
+  schedule: "0 3 * * 1-6"
   catchup: false
   outlets:
     - "s3://mojap-derived-tables/prod/daily/"
   env_vars:
-    DEPLOY_ENV: sandpit
+    DEPLOY_ENV: prod
     DBT_PROFILE_WORKGROUP: dbt-daily
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-daily
