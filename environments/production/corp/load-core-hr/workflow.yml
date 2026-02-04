@@ -13,7 +13,7 @@ dag:
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
   catchup: false
   max_active_runs: 1
-  retries: 1
+  retries: 2
   compute_profile: general-on-demand-2vcpu-8gb
   tasks:
     load-sop__snapshots_wf_62_sip:
