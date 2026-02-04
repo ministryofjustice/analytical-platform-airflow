@@ -2,7 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-file
   tag: v0.0.26-2
-  schedule: "00 13 * * 1-5"
+  schedule: "30 * * * *"
   is_paused_upon_creation: true
   env_vars:
     AFFILE_PIPELINE_NAME: "sop__remuneration"
@@ -14,7 +14,7 @@ dag:
     AFFILE_ALLOW_PROD: "true"
   catchup: false
   max_active_runs: 1
-  retries: 0
+  retries: 1
   compute_profile: general-on-demand-2vcpu-8gb
 
 iam:
