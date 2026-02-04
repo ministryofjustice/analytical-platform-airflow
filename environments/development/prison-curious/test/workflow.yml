@@ -1,5 +1,6 @@
 dag:
-  repository: moj-analytical-services/airflow-curious-example
+  repository: moj-analytical-services/airflow-curious-2-pipeline
+
   tag: v0.1.11
 
 iam:
