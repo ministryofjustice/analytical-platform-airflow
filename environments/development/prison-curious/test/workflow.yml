@@ -7,7 +7,12 @@ iam:
   glue: true
   s3_read_write:
     - mojap-land/hmpps/prison-curious/proof-of-concept/*
+    - mojap-land-preprod/hmpps/prison-curious2/*
+    - mojap-raw-hist-preprod/hmpps/prison-curious2/*
 
+secrets:
+  - curious_azure_credential
+  
 maintainers:
   - iainborsbey-mj
   - anthonycody
@@ -19,4 +24,5 @@ tags:
 
 notifications:
   emails:
+    - andrew.craik@justice.gov.uk
     - iain.borsbey@justice.gov.uk
