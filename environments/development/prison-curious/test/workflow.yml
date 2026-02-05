@@ -2,6 +2,15 @@ dag:
   repository: moj-analytical-services/airflow-curious-2-pipeline
 
   tag: v0.1.14
+  env_vars:
+    "ENV": "preprod"
+    "S3_LANDING_BUCKET": "mojap-land-preprod"
+    "S3_LANDING_PREFIX": "hmpps/prison-curious2"
+  tasks:
+    extract_and_upload:
+      env_vars:
+        STEP: "extract_and_upload"
+      compute_profile: "general-on-demand-1vcpu-4gb"
 
 iam:
   athena: write
