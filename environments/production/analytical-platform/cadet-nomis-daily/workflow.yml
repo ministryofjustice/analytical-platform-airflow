@@ -2,10 +2,10 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
   tag: 1.2.0-pre
-  schedule: "0 9 * * *"
+  schedule: "0 5 * * *"
   catchup: false
   env_vars:
-    DEPLOY_ENV: sandpit
+    DEPLOY_ENV: prod
     DBT_PROFILE_WORKGROUP: dbt-nomis-daily
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: nomis-daily
