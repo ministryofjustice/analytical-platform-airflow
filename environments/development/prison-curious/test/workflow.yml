@@ -12,7 +12,7 @@ iam:
     - mojap-raw-hist-preprod/hmpps/prison-curious2/*
 
 secrets:
-  - curious_azure_credential
+  - curious-azure-credential
 
 maintainers:
   - iainborsbey-mj
