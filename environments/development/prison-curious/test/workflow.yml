@@ -1,16 +1,22 @@
 dag:
-  repository: moj-analytical-services/airflow-curious-example
-  tag: v0.1.11
+  repository: moj-analytical-services/airflow-curious-2-pipeline
+
+  tag: v0.1.14
 
 iam:
   athena: write
   glue: true
   s3_read_write:
     - mojap-land/hmpps/prison-curious/proof-of-concept/*
+    - mojap-land-preprod/hmpps/prison-curious2/*
+    - mojap-raw-hist-preprod/hmpps/prison-curious2/*
+
+secrets:
+  - curious-azure-credential
 
 maintainers:
   - iainborsbey-mj
-  - anthonycody
+  - AnthonyCody
   - andrewc-moj
 
 tags:
@@ -19,4 +25,5 @@ tags:
 
 notifications:
   emails:
+    - andrew.craik@justice.gov.uk
     - iain.borsbey@justice.gov.uk
