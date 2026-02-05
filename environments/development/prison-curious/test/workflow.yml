@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-curious-example
 
-  tag: v0.1.12
+  tag: v0.1.11
 
 iam:
   athena: write
