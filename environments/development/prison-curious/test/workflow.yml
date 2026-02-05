@@ -13,7 +13,7 @@ iam:
 
 secrets:
   - curious_azure_credential
-  
+
 maintainers:
   - iainborsbey-mj
   - anthonycody
