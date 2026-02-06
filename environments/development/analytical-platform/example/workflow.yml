@@ -20,6 +20,7 @@ maintainers:
   - jacobwoffenden
   - jhpyke
   - Gary-H9
+  - michaeljcollinsuk
 
 secrets:
   - api-key
