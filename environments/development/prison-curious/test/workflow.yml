@@ -9,7 +9,7 @@ dag:
   env_vars:
     "ENV": "preprod"
     "S3_LANDING_BUCKET": "mojap-land-preprod"
-    "S3_LANDING_PREFIX": "hmpps/prison-curious2"
+    "S3_LANDING_KEY_PREFIX": "hmpps/prison-curious2"
   tasks:
     extract_and_upload:
       env_vars:
