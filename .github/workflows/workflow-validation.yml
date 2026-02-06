@@ -522,6 +522,7 @@ jobs:
           skip-dirs: "/home/analyticalplatform/.cache/R,/usr/local/lib/R/site-library/openssl/doc"
           timeout: 10m0s
           exit-code: 1
+          vuln-type: "library"
 
       - name: Comment on Scan Failure
         id: comment_on_scan_failure
