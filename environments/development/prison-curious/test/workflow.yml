@@ -5,7 +5,7 @@ dag:
 
   schedule: "0 5 * * *"
   catchup: false
-  
+
   env_vars:
     "ENV": "preprod"
     "S3_LANDING_BUCKET": "mojap-land-preprod"
