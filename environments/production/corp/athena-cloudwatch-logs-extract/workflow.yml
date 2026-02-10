@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cloudwatch-logs
-  tag: v1.0.0
+  tag: v1.1.0
   compute_profile: "general-on-demand-2vcpu-8gb"
   schedule: "0 6 * * *"
   env_vars:
@@ -12,13 +12,9 @@ dag:
     cloudwatch-extract:
       env_vars:
         SOURCE: "cloudwatch_athena_logs"
-        TASK: "cloudwatch"
-        PYTHON_SCRIPT_NAME: "main.py"
     athena-extract:
       env_vars:
         SOURCE: "athena_queries"
-        TASK: "athena"
-        PYTHON_SCRIPT_NAME: "main.py"
 
 iam:
   athena: write
@@ -28,7 +24,6 @@ iam:
   s3_read_write:
     - mojap-land/athena_query_executions/prod/cloudwatch_athena_logs/*
     - mojap-land/athena_query_executions/prod/athena_queries/*
-
 
 notifications:
   slack_channel: dmet-corp-notifications
