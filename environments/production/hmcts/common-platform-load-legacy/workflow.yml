@@ -85,6 +85,7 @@ dag:
     load_defence_idpc_access:
       env_vars:
         AZ_TABLE: "defence-idpc-access"
+      compute_profile: general-spot-2vcpu-8gb
     load_defendant_alias:
       env_vars:
         AZ_TABLE: "defendant-alias"
@@ -110,6 +111,7 @@ dag:
     load_financial_means_outgoing:
       env_vars:
         AZ_TABLE: "financial-means-outgoing"
+      compute_profile: general-spot-2vcpu-8gb
     load_hearing:
       env_vars:
         AZ_TABLE: "hearing"
