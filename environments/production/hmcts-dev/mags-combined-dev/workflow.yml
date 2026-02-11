@@ -1,10 +1,10 @@
 dag:
   repository: moj-analytical-services/airflow-magistrates-data-engineering
-  tag: v5.0.0-alpha.b0f590d
+  tag: v5.0.0-alpha.6ef1f5a
   retries: 0
   env_vars:
     DB_VERSION: "v3_ap_dev"
-    GLUE_JOB_ROLE: "airflow-production-hmcts-dev-mags-combined-dev"
+    GLUE_JOB_ROLE: "airflow_prod_mags_data_processor"
     GLUE_JOB_BUCKET: "alpha-mojap-curated-mags"
   schedule:
     datasets:
