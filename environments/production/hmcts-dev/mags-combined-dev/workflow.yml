@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-magistrates-data-engineering
-  tag: v5.0.0-alpha.6ef1f5a
+  tag: v5.0.0-alpha.8180c0a
   retries: 0
   env_vars:
     DB_VERSION: "v3_ap_dev"
