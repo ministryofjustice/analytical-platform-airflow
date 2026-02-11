@@ -173,7 +173,6 @@ data "aws_iam_policy_document" "iam_policy" {
       "arn:aws:secretsmanager:eu-west-1:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*"
     ]
   }
-
  
   /* Lake Formation */
   dynamic "statement" {
