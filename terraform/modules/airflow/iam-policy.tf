@@ -173,6 +173,18 @@ data "aws_iam_policy_document" "iam_policy" {
       "arn:aws:secretsmanager:eu-west-1:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*"
     ]
   }
+
+ 
+  /* Lake Formation */
+  dynamic "statement" {
+    for_each = local.iam_lake_formation ? [1] : []
+    content {
+      sid       = "LakeFormationGetDataAccess"
+      effect    = "Allow"
+      actions   = ["lakeformation:GetDataAccess"]
+      resources = ["*"]
+    }
+  }
 }
 
 module "iam_policy" {
