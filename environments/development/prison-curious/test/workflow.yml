@@ -6,6 +6,7 @@ dag:
   schedule: "0 5 * * *"
   catchup: false
 
+
   env_vars:
     "ENV": "preprod"
     "S3_LANDING_BUCKET": "mojap-land-preprod"
@@ -18,6 +19,7 @@ dag:
 
 iam:
   athena: write
+  lakeformation: true
   glue: true
   s3_read_write:
     - mojap-land-preprod/hmpps/prison-curious2/*
