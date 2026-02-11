@@ -19,7 +19,7 @@ dag:
 
 iam:
   athena: write
-  lakeformation: true
+  lake_formation: true
   glue: true
   s3_read_write:
     - mojap-land-preprod/hmpps/prison-curious2/*
