@@ -118,7 +118,7 @@ for i, L in PK_EXTRACTIONS.items():
     if i in PK_EXCEPTIONS and datetime.now().day not in PK_EXCEPTIONS[i]:
         continue
     full_table_list_pk.extend(L)
-    tables_string = ",".join(full_table_list_pk)
+tables_string = ",".join(full_table_list_pk)
 
 
 # Database user, password and DSN secrets
