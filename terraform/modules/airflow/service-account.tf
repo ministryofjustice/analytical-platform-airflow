@@ -1,4 +1,4 @@
-resource "kubernetes_service_account" "this" {
+resource "kubernetes_service_account_v1" "this" {
   metadata {
     namespace = "mwaa"
     name      = "${var.project}-${var.workflow}"
