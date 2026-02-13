@@ -2,7 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-cloudwatch-logs
   tag: v1.4.0
-  compute_profile: "general-on-demand-4vcpu-16gb"
+  compute_profile: "general-on-demand-8vcpu-32gb"
   schedule: "0 6 * * *"
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
