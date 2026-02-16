@@ -1,0 +1,50 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: v1.2.2
+  schedule: "0 7 * * *"
+  is_paused_upon_creation: true
+  env_vars:
+    AFFILE_ALLOW_PROD: "true"
+    AFFILE_ENV: "prod"
+    AFFILE_SCHEMA_CONTRACT: "freeze"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+  catchup: false
+  max_active_runs: 1
+  retries: 2
+  compute_profile: general-on-demand-2vcpu-8gb
+  tasks:
+    load-cloudwatch_athena_logs:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "cloudwatch_athena_logs"
+    load-athena_queries:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "athena_queries"
+
+iam:
+  athena: write
+  glue: true
+
+  s3_read_only:
+    - mojap-land/athena_query_executions/prod/cloudwatch_athena_logs/*
+    - mojap-land/athena_query_executions/prod/athena_queries/*
+
+  s3_read_write:
+    - mojap-processed/domain__value_engineering/env__prod/cloudwatch_athena_query_logs/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Supratik.Chowdhury@justice.gov.uk
+    - sai.dasari3@justice.gov.uk
+
+maintainers:
+  - moj-supratikc
+  - sdasarimoj
+
+tags:
+  business_unit: Central Digital
+  owner: Supratik.Chowdhury@justice.gov.uk
