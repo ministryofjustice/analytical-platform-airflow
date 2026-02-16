@@ -23,7 +23,6 @@ dag:
       env_vars:
         AFFILE_PIPELINE_NAME: "athena_queries"
 
-
 iam:
   athena: write
   glue: true
