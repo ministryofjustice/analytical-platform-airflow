@@ -4,8 +4,6 @@ dag:
   tag: 1.2.2
   schedule: "0 9-11 * * *"
   catchup: false
-  outlets:
-    - "s3://mojap-derived-tables/prod/cica-daily/"
   env_vars:
     DEPLOY_ENV: sandpit
     DBT_PROFILE_WORKGROUP: dbt-cica
