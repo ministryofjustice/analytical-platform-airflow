@@ -1,26 +1,21 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.1.25-1
+  tag: 1.2.1
   compute_profile: general-on-demand-16vcpu-64gb
-  schedule: "0 12 * * *"
   catchup: false
-  outlets:
-    - "s3://mojap-derived-tables/prod/deploy-corporate-epm/"
   env_vars:
     DEPLOY_ENV: prod
-    DBT_PROFILE_WORKGROUP: airflow-prod-workgroup-corp
+    DBT_PROFILE_WORKGROUP: dbt-xhibit
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-corporate-epm
-    DBT_SELECT_CRITERIA: tag:corporate_epm
+    WORKFLOW_NAME: deploy-one-crown
+    DBT_SELECT_CRITERIA: tag:xhibit
     BRANCH: main
     MODE: build
 
 maintainers:
-  - ltd-pa
-  - williamorrie
-  - moj-supratikc
-  - jhpyke
+  - jovita-brundziene
+  - Andy-Cook
 
 secrets:
   - github-key
@@ -31,9 +26,6 @@ iam:
   s3_read_write:
     - mojap-derived-tables/prod/*
 
-notifications:
-  slack_channel: dmet-corp-notifications
-
 tags:
   business_unit: Central Digital
-  owner: Laurence.Droy@justice.gov.uk
+  owner: jovita.brundzienem@justice.gov.uk

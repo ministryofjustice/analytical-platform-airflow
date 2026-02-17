@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline-legacy
-  tag: v1.0.2
-  retries: 1
+  tag: v1.0.4
+  retries: 0
   retry_delay: 150
   start_date: "2025-12-19"
   schedule: 0 20 * * 6
@@ -22,9 +22,11 @@ dag:
     load_application:
       env_vars:
         AZ_TABLE: "application"
+      compute_profile: general-spot-2vcpu-8gb
     load_application_person:
       env_vars:
         AZ_TABLE: "application-person"
+      compute_profile: general-spot-4vcpu-16gb
     load_associated_person:
       env_vars:
         AZ_TABLE: "associated-person"
@@ -60,6 +62,7 @@ dag:
     load_court_session_detail:
       env_vars:
         AZ_TABLE: "court-session-detail"
+      compute_profile: general-spot-2vcpu-8gb
     load_court_session_judiciary:
       env_vars:
         AZ_TABLE: "court-session-judiciary"
@@ -82,6 +85,7 @@ dag:
     load_defence_idpc_access:
       env_vars:
         AZ_TABLE: "defence-idpc-access"
+      compute_profile: general-spot-2vcpu-8gb
     load_defendant_alias:
       env_vars:
         AZ_TABLE: "defendant-alias"
@@ -107,6 +111,7 @@ dag:
     load_financial_means_outgoing:
       env_vars:
         AZ_TABLE: "financial-means-outgoing"
+      compute_profile: general-spot-2vcpu-8gb
     load_hearing:
       env_vars:
         AZ_TABLE: "hearing"
