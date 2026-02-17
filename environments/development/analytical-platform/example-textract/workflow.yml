@@ -9,7 +9,7 @@ notifications:
     - lauren.taylor-brown@justice.gov.uk
 
 maintainers:
-  - laurentb
+  - laurentb4
 
 iam:
   textract: true
