@@ -32,7 +32,9 @@ iam:
     - mojap-land/athena_query_executions/prod/athena_queries/*
 
   s3_read_write:
+    - mojap-processed/domain__value_engineering/env__prod/cloudwatch_athena_query_logs_staging/*
     - mojap-processed/domain__value_engineering/env__prod/cloudwatch_athena_query_logs/*
+    - mojap-processed/domain__value_engineering/env__prod/athena_query_dump/*
 
 notifications:
   slack_channel: dmet-corp-notifications
