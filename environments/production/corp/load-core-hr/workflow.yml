@@ -3,7 +3,7 @@ dag:
   repository: moj-analytical-services/airflow-file
   tag: v1.2.1
   schedule: "30 * * * *"
-  is_paused_upon_creation: false
+  is_paused_upon_creation: true
   env_vars:
     AFFILE_ALLOW_PROD: "true"
     AFFILE_ENV: "prod"
