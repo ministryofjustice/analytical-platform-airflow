@@ -1,0 +1,21 @@
+---
+dag:
+  repository: moj-analytical-services/analytical-platform-airflow-python-example
+  tag: 1.0.0
+  retries: 3
+
+notifications:
+  emails:
+    - lauren.taylor-brown@justice.gov.uk
+
+iam:
+  textract: true
+  s3_read_only:
+    - analytical-platform-airflow-testing/*
+
+maintainers:
+  - laurentb4
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
