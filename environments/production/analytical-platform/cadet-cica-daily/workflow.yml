@@ -23,7 +23,6 @@ dag:
       outlets:
         - "s3://mojap-derived-tables/prod/cica-daily"
 
-
 maintainers:
   - jhpyke
 
