@@ -4,8 +4,6 @@ dag:
   tag: 1.2.2
   schedule: "0 12 * * *"
   catchup: false
-  outlets:
-    - "s3://mojap-derived-tables/prod/deploy-corporate-epm/"
   env_vars:
     DEPLOY_ENV: prod
     DBT_PROFILE_WORKGROUP: airflow-prod-workgroup-corp
@@ -22,6 +20,8 @@ dag:
       env_vars:
         IS_DATASET_CHECK: true
       dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/prod/deploy-corporate-epm/"
 
 maintainers:
   - ltd-pa
