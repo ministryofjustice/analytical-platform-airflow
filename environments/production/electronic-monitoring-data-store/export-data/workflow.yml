@@ -5,6 +5,7 @@ dag:
   compute_profile: gpu-spot-8vcpu-32gb
   catchup: false
   depends_on_past: false
+  start_date: "2024-01-01"
   schedule: "0 7 * * *"
   max_active_runs: 1
   env_vars:
