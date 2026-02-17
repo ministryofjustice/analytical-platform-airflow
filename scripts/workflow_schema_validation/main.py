@@ -21,8 +21,31 @@ with open(workflow_file, "r", encoding="utf-8") as yaml_file:
 
 v = Validator(schema)
 
+def validate_textract_s3(config):
+    iam_config = config.get("iam", {}) if isinstance(config, dict) else {}
+    if not iam_config.get("textract"):
+        return {}
+
+    s3_read_only = iam_config.get("s3_read_only")
+    if not s3_read_only:
+        return {
+            "iam": {
+                "s3_read_only": ["required when iam.textract is true"]
+            }
+        }
+
+    return {}
+
 # Validate the document
-if v.validate(yaml.safe_load(yaml_document)):
+config = yaml.safe_load(yaml_document)
+
+if v.validate(config):
+    extra_errors = validate_textract_s3(config)
+    if extra_errors:
+        print(f"Configuration {workflow_file} is invalid")
+        print(json.dumps(extra_errors, indent=4))
+        sys.exit(1)
+
     print(f"Configuration {workflow_file} is valid")
     print(json.dumps(v.document, indent=4))
 else:
