@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v1.2.1
+  tag: v1.2.3
   schedule: "30 * * * *"
   is_paused_upon_creation: true
   env_vars:
@@ -44,6 +44,9 @@ dag:
     load-sop__remuneration:
       env_vars:
         AFFILE_PIPELINE_NAME: "sop__remuneration"
+    load-sop__remuneration:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "sop__all_time_wf02_tra_allowances"
 
 iam:
   athena: write
