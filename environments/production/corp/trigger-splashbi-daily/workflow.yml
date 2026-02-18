@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.5.8
+  tag: v1.5.11
   schedule: "0 7 * * 1-5"
   retries: 1
   retry_delay: 60
@@ -113,6 +113,32 @@ dag:
     moj-hr-wf-64-starters:
       env_vars:
         REPORT_NAME: "moj-hr-wf-64"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+
+    # === TRA Allowance Reports ===
+    moj-hr-wf-02-tra:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-64"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+
+    nms-hr-wf-02-tra:
+      env_vars:
+        REPORT_NAME: "nms-hr-wf-64"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+
+    cts-hr-wf-02-tra:
+      env_vars:
+        REPORT_NAME: "cts-hr-wf-64"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+
+    opg-hr-wf-02-tra:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-64"
+        REPORT_SECRET_ID: "opg-user-mojsupratikc"
+
+    laa-hr-wf-02-tra:
+      env_vars:
+        REPORT_NAME: "laa-hr-wf-64"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
 
     # === Finance GL Reports ===
