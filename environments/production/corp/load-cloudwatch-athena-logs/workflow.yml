@@ -19,7 +19,6 @@ dag:
       env_vars:
         AFFILE_PIPELINE_NAME: "cloudwatch_athena_logs"
     load-athena_queries:
-      dependencies: [load-cloudwatch_athena_logs]
       env_vars:
         AFFILE_PIPELINE_NAME: "athena_queries"
 
