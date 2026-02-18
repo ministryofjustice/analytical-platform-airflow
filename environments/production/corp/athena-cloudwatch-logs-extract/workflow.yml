@@ -13,6 +13,7 @@ dag:
       env_vars:
         SOURCE: "cloudwatch_athena_logs"
     athena-extract:
+      dependencies: [cloudwatch-extract]
       env_vars:
         SOURCE: "athena_queries"
 
