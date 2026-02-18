@@ -37,6 +37,7 @@ iam:
   glue: true
   s3_read_write:
     - mojap-derived-tables/prod/*
+    - mojap-athena-query-dump/*
 
 notifications:
   slack_channel: dmet-corp-notifications
