@@ -6,6 +6,7 @@ on:
     branches:
       - main
     paths:
+      - environments/**
       - terraform/**
       - .github/workflows/terraform.yml
       - .github/workflows/reusable-terraform.yml
