@@ -141,7 +141,6 @@ dag:
         REPORT_NAME: "laa-hr-wf-64"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
 
-
     # === Finance GL Reports ===
     cts-gl22:
       env_vars:
