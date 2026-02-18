@@ -37,7 +37,9 @@ iam:
   glue: true
   s3_read_write:
     - mojap-derived-tables/prod/*
+    - mojap-athena-query-dump/*
 
 tags:
   business_unit: Central Digital
   owner: Laurence.Droy@justice.gov.uk
+
