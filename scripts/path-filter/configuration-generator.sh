@@ -24,10 +24,10 @@ folders=$(find "${FOLDER_PREFIX}" -type f -name "${SEARCH_PATTERN}" -exec dirnam
 # Also find deleted workflow folders by checking git diff against origin/main
 deleted_folders=""
 if git rev-parse --verify origin/main >/dev/null 2>&1; then
-  deleted_folders=$(git diff --name-status origin/main -- "${FOLDER_PREFIX}" | \
-    grep "^D.*${SEARCH_PATTERN}$" | \
-    awk '{print $2}' | \
-    xargs -I {} dirname {} 2>/dev/null | \
+  deleted_folders=$(git diff --name-status origin/main -- "${FOLDER_PREFIX}" |
+    grep "^D.*${SEARCH_PATTERN}$" |
+    awk '{print $2}' |
+    xargs -I {} dirname {} 2>/dev/null |
     sort -h | uniq)
 
   if [[ -n "${deleted_folders}" ]]; then
