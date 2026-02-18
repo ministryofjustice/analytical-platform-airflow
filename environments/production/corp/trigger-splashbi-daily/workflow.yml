@@ -118,27 +118,27 @@ dag:
     # === TRA Allowance Reports ===
     moj-hr-wf-02-tra:
       env_vars:
-        REPORT_NAME: "moj-hr-wf-64"
+        REPORT_NAME: "moj-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
 
     nms-hr-wf-02-tra:
       env_vars:
-        REPORT_NAME: "nms-hr-wf-64"
+        REPORT_NAME: "nms-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
 
     cts-hr-wf-02-tra:
       env_vars:
-        REPORT_NAME: "cts-hr-wf-64"
+        REPORT_NAME: "cts-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
 
     opg-hr-wf-02-tra:
       env_vars:
-        REPORT_NAME: "moj-hr-wf-64"
+        REPORT_NAME: "opg-hr-wf-02"
         REPORT_SECRET_ID: "opg-user-mojsupratikc"
 
     laa-hr-wf-02-tra:
       env_vars:
-        REPORT_NAME: "laa-hr-wf-64"
+        REPORT_NAME: "laa-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
 
     # === Finance GL Reports ===
