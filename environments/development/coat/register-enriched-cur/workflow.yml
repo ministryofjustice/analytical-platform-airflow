@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/coat-cur-enriched-data-pipeline
-  tag: v1.0.7
+  tag: v1.0.6
   max_active_runs: 1
   retries: 2
   retry_delay: 120
