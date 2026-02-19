@@ -1,0 +1,57 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag:  v1.2.5-alpha.8608178
+  is_paused_upon_creation: true
+  env_vars:
+    AFFILE_ENV: "dev"
+    AFFILE_SCHEMA_CONTRACT: "evolve"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-2vcpu-8gb
+  tasks:
+    ccd_load_divorce_divorce:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_divorce"
+    ccd_load_divorce_divorce_bulkaction:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_divorce_bulkaction"
+    ccd_load_divorce_financialremedycontested:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_financialremedycontested"
+    ccd_load_divorce_financialremedymvp2:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_financialremedymvp2"
+    ccd_load_divorce_finrem_exceptionrecord:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_finrem_exceptionrecord"
+    ccd_load_divorce_nfd:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_nfd"
+    ccd_load_divorce_nfd_exceptionrecord:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_nfd_exceptionrecord"
+    ccd_load_divorce_no_fault_divorce_bulkaction:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_no_fault_divorce_bulkaction"
+
+iam:
+  athena: write
+  glue: true
+
+  s3_read_only:
+    - mojap-land-dev/hmcts/ccd-divorce/v1/*
+
+  s3_read_write:
+    - mojap-processed/domain__divorce/env__dev/*
+
+maintainers:
+  - DanJ-MOJ
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: daniel.johnstone@justice.gov.uk
