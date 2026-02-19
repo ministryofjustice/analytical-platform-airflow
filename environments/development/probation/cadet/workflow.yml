@@ -21,6 +21,12 @@ maintainers:
   - lalithanagarur
   - AntonyJScott
 
+notifications:
+  emails:
+    - lalitha.nagarur3@justice.gov.uk
+    - antony.scott@justice.gov.uk
+  slack_channel: de-probation-airflow-dev
+
 iam:
   external_role: arn:aws:iam::189157455002:role/probation-cadet-airflow-dev-20260219152905326700000001
 
