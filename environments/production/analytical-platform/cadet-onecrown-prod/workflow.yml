@@ -1,26 +1,21 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.0-pre
+  tag: 1.2.1
   compute_profile: general-on-demand-16vcpu-64gb
-  schedule: "0 3 * * 0"
   catchup: false
-  outlets:
-    - "s3://mojap-derived-tables/prod/monthly/"
-    - "s3://mojap-derived-tables/prod/weekly/"
-    - "s3://mojap-derived-tables/prod/daily/"
   env_vars:
     DEPLOY_ENV: prod
-    DBT_PROFILE_WORKGROUP: dbt-monthly
+    DBT_PROFILE_WORKGROUP: dbt-xhibit
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-monthly
-    DBT_SELECT_CRITERIA: tag:daily tag:weekly tag:monthly
+    WORKFLOW_NAME: deploy-one-crown
+    DBT_SELECT_CRITERIA: tag:xhibit
     BRANCH: main
     MODE: build
-    IS_SUNDAY_DEPLOY: true
 
 maintainers:
-  - jhpyke
+  - jovita-brundziene
+  - Andy-Cook
 
 secrets:
   - github-key
@@ -33,4 +28,4 @@ iam:
 
 tags:
   business_unit: Central Digital
-  owner: analytical-platform@justice.gov.uk
+  owner: jovita.brundzienem@justice.gov.uk

@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-magistrates-data-engineering
-  tag: v5.0.0-alpha.b0f590d
+  tag: v5.0.0-alpha.8180c0a
   retries: 0
   env_vars:
     DB_VERSION: "v3_ap_dev"
@@ -88,6 +88,7 @@ dag:
 
 iam:
   athena: write
+  glue: true
   s3_read_write:
     - alpha-mojap-curated-mags/*
     - alpha-mojap-processed-tar/*
