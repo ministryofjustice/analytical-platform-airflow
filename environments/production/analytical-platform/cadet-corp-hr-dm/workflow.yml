@@ -6,7 +6,7 @@ dag:
   catchup: false
   env_vars:
     DEPLOY_ENV: prod
-    DBT_PROFILE_WORKGROUP: airflow-prod-workgroup-corp
+    DBT_PROFILE_WORKGROUP: dbt-daily
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-corporate-hr-dm
     DBT_SELECT_CRITERIA: tag:corporate_hr_dm
