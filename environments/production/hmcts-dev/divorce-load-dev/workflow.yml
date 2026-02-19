@@ -22,6 +22,7 @@ dag:
     ccd_load_divorce_financialremedycontested:
       env_vars:
         AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_financialremedycontested"
+      compute_profile: general-spot-32vcpu-128gb
     ccd_load_divorce_financialremedymvp2:
       env_vars:
         AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_financialremedymvp2"
@@ -31,6 +32,7 @@ dag:
     ccd_load_divorce_nfd:
       env_vars:
         AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_nfd"
+      compute_profile: general-spot-32vcpu-128gb
     ccd_load_divorce_nfd_exceptionrecord:
       env_vars:
         AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_nfd_exceptionrecord"
