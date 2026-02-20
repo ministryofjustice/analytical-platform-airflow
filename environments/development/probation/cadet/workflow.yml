@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.3
+  tag: 1.2.4
   compute_profile: general-on-demand-32vcpu-128gb
   catchup: false
   outlets:
@@ -14,6 +14,8 @@ dag:
     DBT_SELECT_CRITERIA: tag:ppud
     MODE: build
     AWS_DEFAULT_REGION: eu-west-2
+    DBT_PROFILE: probation
+    BRANCH: cadet-probation-airflow-testing
 secrets:
   - github-key
 
