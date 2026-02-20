@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdt-usage
-  tag: v1.0.1
+  tag: v1.0.2
   schedule: "0 19 1 * *"
 
 iam:
