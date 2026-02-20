@@ -4,14 +4,14 @@ dag:
   compute_profile: general-on-demand-32vcpu-128gb
   catchup: false
   outlets:
-    - "s3://probation-datalake-dev-20251218164046759500000001/dev/data/"
+    - "s3://probation-datalake-prod-20260112145345979100000002/dev/data/"
   env_vars:
-    DEPLOY_ENV: dev
+    DEPLOY_ENV: prod
     DBT_PROJECT: hmpps_probation_data_tables
-    S3_BUCKET: probation-datalake-dev-20251218164046759500000001
+    S3_BUCKET: probation-datalake-prod-20260112145345979100000002
     WORKFLOW_NAME: deploy-curated-probation-data-tables
-    DBT_PROFILE_WORKGROUP: dbt-probation-dev
-    DBT_SELECT_CRITERIA: tag:ppud
+    DBT_PROFILE_WORKGROUP: dbt-probation-prod
+    DBT_SELECT_CRITERIA: tag:ppud_derived
     MODE: build
     AWS_DEFAULT_REGION: eu-west-2
     DBT_PROFILE: probation
@@ -26,10 +26,10 @@ notifications:
   emails:
     - lalitha.nagarur3@justice.gov.uk
     - antony.scott@justice.gov.uk
-  slack_channel: de-probation-airflow-dev
+  slack_channel: de-probation-airflow-prod
 
 iam:
-  external_role: arn:aws:iam::189157455002:role/probation-cadet-dev
+  external_role: arn:aws:iam::189157455002:role/probation-cadet-prod
 
 tags:
   business_unit: HMPPS
