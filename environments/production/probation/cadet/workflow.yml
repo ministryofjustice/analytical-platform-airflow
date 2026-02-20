@@ -9,9 +9,9 @@ dag:
     DEPLOY_ENV: prod
     DBT_PROJECT: hmpps_probation_data_tables
     S3_BUCKET: probation-datalake-prod-20260112145345979100000002
-    WORKFLOW_NAME: deploy-curated-probation-data-tables
+    WORKFLOW_NAME: deploy-probation-data-tables
     DBT_PROFILE_WORKGROUP: dbt-probation-prod
-    DBT_SELECT_CRITERIA: tag:ppud_derived
+    DBT_SELECT_CRITERIA: tag:ppud tag:ppud_derived
     MODE: build
     AWS_DEFAULT_REGION: eu-west-2
     DBT_PROFILE: probation
