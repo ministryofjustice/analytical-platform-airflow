@@ -1,4 +1,4 @@
-resource "kubernetes_service_account" "this" {
+resource "kubernetes_service_account_v1" "this" {
   metadata {
     namespace = "mwaa"
     name      = "${var.project}-${var.workflow}"
@@ -11,4 +11,9 @@ resource "kubernetes_service_account" "this" {
       "eks.amazonaws.com/role-arn" = try(module.iam_role[0].iam_role_arn, local.iam_external_role)
     }
   }
+}
+
+moved {
+  from = kubernetes_service_account.this
+  to   = kubernetes_service_account_v1.this
 }
