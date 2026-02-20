@@ -1,6 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow-sdt-usage
-  tag: v1.0.0
+  tag: v1.0.1
+  env_vars:
+    AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
 
 iam:
   athena: write
