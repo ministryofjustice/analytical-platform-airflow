@@ -4,7 +4,7 @@ dag:
   compute_profile: general-on-demand-32vcpu-128gb
   catchup: false
   outlets:
-    - "s3://probation-datalake-prod-20260112145345979100000002/dev/data/"
+    - "s3://probation-datalake-prod-20260112145345979100000002/data/prod"
   env_vars:
     DEPLOY_ENV: prod
     DBT_PROJECT: hmpps_probation_data_tables
