@@ -1,0 +1,24 @@
+dag:
+  repository: moj-analytical-services/airflow-sdt-usage
+  tag: v1.0.1
+  schedule: "0 19 1 * *"
+
+iam:
+  athena: write
+
+  s3_read_write:
+    - alpha-app-safety-diagnostic-tool-log/*
+    - alpha-app-safety-diagnostic-tool/*
+    - alpha-app-sdt-usage/*
+
+notifications:
+  emails:
+    - sdt-support@justice.gov.uk
+
+maintainers:
+  - miller-william
+  - lauratraceymoj
+
+tags:
+  business_unit: HMPPS
+  owner: william.miller1@justice.gov.uk
