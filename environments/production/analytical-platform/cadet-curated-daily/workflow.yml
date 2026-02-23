@@ -24,7 +24,7 @@ dag:
         IS_DATASET_CHECK: true
         UNIQUE_IDS: "model.mojap_derived_tables.bold_rr_pnc_ids__pnc_ids_to_send"
       outlets:
-        - "s3://mojap-derived-tables/prod/curated-daily/bold-rr/"
+        - "s3://mojap-derived-tables/prod/bold-rr/"
       dependencies: [table_deploy]
 
 maintainers:
