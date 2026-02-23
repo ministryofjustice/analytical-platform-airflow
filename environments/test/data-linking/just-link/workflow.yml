@@ -9,27 +9,27 @@ dag:
       env_vars:
         PIPELINE_STAGE: source_nodes
         PIPELINE_DATASET: mags_hocas
-        PIPELINE_VERSION: test
+        PIPELINE_VERSION: dev
     standardised_nodes_mags_hocas:
       compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: mags_hocas
-        PIPELINE_VERSION: test
+        PIPELINE_VERSION: dev
       dependencies: [source_nodes_mags_hocas]
     model_training_mags_hocas:
       compute_profile: general-spot-64vcpu-256gb
       env_vars:
         PIPELINE_STAGE: model_training
         PIPELINE_DATASET: mags_hocas
-        PIPELINE_VERSION: test
+        PIPELINE_VERSION: dev
       dependencies: [standardised_nodes_mags_hocas]
     edge_generation_mags_hocas:
       compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mags_hocas
-        PIPELINE_VERSION: test
+        PIPELINE_VERSION: dev
       dependencies: [model_training_mags_hocas]
 
 iam:
