@@ -1,10 +1,9 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
   tag: 1.2.4
-  compute_profile: general-on-demand-32vcpu-128gb
   catchup: false
   outlets:
-    - "s3://probation-datalake-dev-20251218164046759500000001/dev/data/"
+    - "s3://probation-datalake-dev-20251218164046759500000001/data/dev"
   env_vars:
     DEPLOY_ENV: dev
     DBT_PROJECT: hmpps_probation_data_tables
@@ -30,7 +29,7 @@ notifications:
   slack_channel: de-probation-airflow-dev
 
 iam:
-  external_role: arn:aws:iam::189157455002:role/probation-cadet-airflow-dev-20260219152905326700000001
+  external_role: arn:aws:iam::189157455002:role/probation-cadet-dev
 
 tags:
   business_unit: HMPPS
