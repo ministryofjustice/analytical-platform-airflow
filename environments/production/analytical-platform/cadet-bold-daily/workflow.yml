@@ -12,7 +12,7 @@ dag:
     DBT_SELECT_CRITERIA: tag:bold_daily
     BRANCH: main
     MODE: build
-    VARS: 'bold_rr_pnc_ids_process_date: current_date'
+    VARS: "bold_rr_pnc_ids_process_date: current_date"
   tasks:
     table_deploy:
       compute_profile: general-on-demand-8vcpu-32gb
