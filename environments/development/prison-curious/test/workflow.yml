@@ -14,6 +14,7 @@ dag:
     extract_and_upload:
       env_vars:
         STEP: "extract_and_upload"
+        STEP: "validate_raw_data"
       compute_profile: "general-on-demand-1vcpu-4gb"
 
 iam:
