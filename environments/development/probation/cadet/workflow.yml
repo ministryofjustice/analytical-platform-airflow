@@ -15,6 +15,7 @@ dag:
     MODE: build
     AWS_DEFAULT_REGION: eu-west-2
     DBT_PROFILE: probation
+    BRANCH: cadet-probation-airflow-testing
 secrets:
   - github-key
 
