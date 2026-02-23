@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev4
+  tag: v5.0.0.dev5
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -11,18 +11,21 @@ dag:
         PIPELINE_DATASET: mags_hocas
         PIPELINE_VERSION: test
     standardised_nodes_mags_hocas:
+      compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: mags_hocas
         PIPELINE_VERSION: test
       dependencies: [source_nodes_mags_hocas]
     model_training_mags_hocas:
+      compute_profile: general-spot-64vcpu-256gb
       env_vars:
         PIPELINE_STAGE: model_training
         PIPELINE_DATASET: mags_hocas
         PIPELINE_VERSION: test
       dependencies: [standardised_nodes_mags_hocas]
     edge_generation_mags_hocas:
+      compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mags_hocas
