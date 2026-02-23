@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.5
+  tag: 1.2.6
   schedule: "s3://mojap-derived-tables/prod/bold-rr/"
   catchup: false
   env_vars:
