@@ -1,0 +1,62 @@
+dag:
+  repository: moj-analytical-services/data_linking
+  tag: v5.0.0.dev5
+  retries: 0
+  retry_delay: 150
+  max_active_runs: 1
+  tasks:
+    source_nodes_mags_hocas:
+      env_vars:
+        PIPELINE_STAGE: source_nodes
+        PIPELINE_DATASET: mags_hocas
+        PIPELINE_VERSION: dev
+    standardised_nodes_mags_hocas:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: standardised_nodes
+        PIPELINE_DATASET: mags_hocas
+        PIPELINE_VERSION: dev
+      dependencies: [source_nodes_mags_hocas]
+    model_training_mags_hocas:
+      compute_profile: general-spot-64vcpu-256gb
+      env_vars:
+        PIPELINE_STAGE: model_training
+        PIPELINE_DATASET: mags_hocas
+        PIPELINE_VERSION: dev
+      dependencies: [standardised_nodes_mags_hocas]
+    edge_generation_mags_hocas:
+      compute_profile: general-spot-64vcpu-256gb
+      env_vars:
+        PIPELINE_STAGE: edge_generation
+        PIPELINE_DATASET: mags_hocas
+        PIPELINE_VERSION: dev
+      dependencies: [model_training_mags_hocas]
+
+iam:
+  athena: write
+  s3_read_only:
+    - alpha-mojap-curated-mags/*
+    - alpha-mojap-curated-xhibit/*
+    - alpha-nomis/*
+    - alpha-mojap-curated-open-data/*
+    - moj-analytics-lookup-tables/*
+    - moj-analytics-s3-logs/alpha-data-linking/*
+    - moj-analytics-s3-logs/alpha-data-linking-anonymised/*
+    - mojap-derived-tables/prod/*
+    - alpha-mojap-common-platform/dev*/database/*
+    - alpha-mojap-derived-family/*
+    - alpha-mojap-civil/*
+    - alpha-geography/prod/*/curated/*
+    - alpha-enforcement-data-engineering/db_v2/live/*
+
+  s3_read_write:
+    - alpha-data-linking/*
+    - alpha-data-linking-anonymised/*
+
+maintainers:
+  - ThomasHepworth
+  - samnlindsay
+
+tags:
+  business_unit: Central Digital
+  owner: thomas.hepworth@justice.gov.uk
