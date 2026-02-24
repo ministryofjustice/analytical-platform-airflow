@@ -1,11 +1,10 @@
----
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
   tag: 2.18.0
   params:
     example_param: underscored
   env_vars:
-    DAG_RUN_ID: "{{ run_id }}"
+    DAG_RUN_ID: '{{ run_id }}'
 
 notifications:
   emails:
@@ -15,6 +14,9 @@ notifications:
 iam:
   cloudwatch_logs_read_only:
     - arn:aws:logs:eu-west-2:593291632749:log-group:cloudtrail-athena-events:*
+  textract: true
+  s3_read_only:
+    - mojap-airflow-sandpit
 
 maintainers:
   - jacobwoffenden
