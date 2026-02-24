@@ -25,7 +25,7 @@ dag:
         PIPELINE_VERSION: dev
       dependencies: [standardised_nodes_mags_hocas]
     edge_generation_mags_hocas:
-      compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-64vcpu-256gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mags_hocas
