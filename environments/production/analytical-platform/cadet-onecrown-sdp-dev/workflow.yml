@@ -19,9 +19,9 @@ maintainers:
   - Andy-Cook
 
 secrets:
-  - sdp-dev-pool-client-id
-  - sdp-dev-pool-client-secret
-  - sdp-tenant-id
+  - sdp-id-dev
+  - sdp-sec-dev
+  - sdp-ten-id
 
 iam:
   athena: write
