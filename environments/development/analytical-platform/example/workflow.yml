@@ -1,10 +1,11 @@
+---
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
   tag: 2.18.0
   params:
     example_param: underscored
   env_vars:
-    DAG_RUN_ID: '{{ run_id }}'
+    DAG_RUN_ID: "{{ run_id }}"
 
 notifications:
   emails:
