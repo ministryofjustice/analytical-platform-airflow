@@ -20,7 +20,7 @@ maintainers:
 
 secrets:
   - sdp-id-dev
-  - sdp-sec-dev
+  - sdp-sc-dev
   - sdp-ten-id
 
 iam:
