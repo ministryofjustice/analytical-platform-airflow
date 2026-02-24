@@ -23,6 +23,7 @@ maintainers:
   - jacobwoffenden
   - jhpyke
   - Gary-H9
+  - laurentb4
 
 secrets:
   - api-key
