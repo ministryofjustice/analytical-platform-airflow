@@ -179,36 +179,36 @@ dag:
     # -----------------------
     # OASIS DEDUPE JOB (~2m)
     # -----------------------
-    source_nodes_prison_oasis:
+    source_nodes_prison_oasys:
       compute_profile: general-spot-1vcpu-4gb
       env_vars:
         PIPELINE_STAGE: source_nodes
-        PIPELINE_DATASET: prison_oasis
+        PIPELINE_DATASET: prison_oasys
         PIPELINE_VERSION: dev
 
-    standardised_nodes_prison_oasis:
+    standardised_nodes_prison_oasys:
       compute_profile: general-spot-8vcpu-32gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
-        PIPELINE_DATASET: prison_oasis
+        PIPELINE_DATASET: prison_oasys
         PIPELINE_VERSION: dev
-      dependencies: [source_nodes_prison_oasis]
+      dependencies: [source_nodes_prison_oasys]
 
-    model_training_prison_oasis:
+    model_training_prison_oasys:
       compute_profile: general-spot-16vcpu-64gb
       env_vars:
         PIPELINE_STAGE: model_training
-        PIPELINE_DATASET: prison_oasis
+        PIPELINE_DATASET: prison_oasys
         PIPELINE_VERSION: dev
-      dependencies: [standardised_nodes_prison_oasis]
+      dependencies: [standardised_nodes_prison_oasys]
 
-    edge_generation_prison_oasis:
+    edge_generation_prison_oasys:
       compute_profile: general-spot-16vcpu-64gb
       env_vars:
         PIPELINE_STAGE: edge_generation
-        PIPELINE_DATASET: prison_oasis
+        PIPELINE_DATASET: prison_oasys
         PIPELINE_VERSION: dev
-      dependencies: [model_training_prison_oasis]
+      dependencies: [model_training_prison_oasys]
 
     # -----------------------
     # DELIUS DEDUPE JOB (~2.5m)
