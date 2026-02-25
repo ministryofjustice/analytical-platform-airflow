@@ -1,0 +1,88 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-offender
+  tag: v4.1.32-dev
+
+  env_vars:
+    AIRFLOW_TASK: probation_arrest_notification
+    R_CONFIG_ACTIVE: case_info_dashboard
+    AWS_DEFAULT_REGION: eu-west-1
+
+  tasks:
+    delius:
+      env_vars:
+        MODULE_TO_RUN: "delius"
+    nomis:
+      env_vars:
+        MODULE_TO_RUN: "nomis"
+    nomis_ao:
+      env_vars:
+        MODULE_TO_RUN: "nomis_ao"
+    nomis_sens:
+      env_vars:
+        MODULE_TO_RUN: "nomis_sens"
+    oasys:
+      env_vars:
+        MODULE_TO_RUN: "oasys"
+iam:
+  athena: write
+  glue: true  
+  s3_read_write:
+    - alpha-bold-rr-offender-management/dev/*
+    - alpha-bold-rr-ops/dev/*
+    - mojap-athena-query-dump/AROAYUIXP4BWQHHLJMK7I:*/*
+
+  s3_read_only:
+    - alpha-data-linking-anonymised/v4/products/internal/*
+    - alpha-data-linking/v4/products/internal/*
+    - alpha-data-linking/v5/products/internal/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
+    - alpha-mojap-curated-mags/v2/hocas_all_appearance/*
+    - alpha-mojap-curated-mags/v2/hocas_all_off_disp/*
+    - alpha-mojap-curated-mags/v2/hocas_defendant/*
+    - alpha-mojap-curated-mags/v2/hocas_flatfile/*
+    - alpha-mojap-curated-mags/v2/tar/*
+    - alpha-mojap-curated-mags/v2/hocas_tar_lookup/*
+    - alpha-mojap-curated-mags/dev*
+    - alpha-mojap-curated-mags/new_lookup/*
+    - alpha-nomis/nomis_denormalised/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+    - alpha-nomis/nomis_unixtime/*
+    - mojap-derived-tables/prod/models/domain_name=risk/database_name=oasys/*
+    - mojap-derived-tables/prod/models/domain_name=risk/database_name=derived_oasys/*
+    - alpha-mojap-curated-xhibit/*
+    - alpha-mojap-curated-xhibit/xhibit_*
+    - alpha-mojap-curated-xhibit/v2/xhibit_der/*
+    - alpha-dag-xhibit-data-engineering/schemas/xhibit_schema/*
+    - alpha-dag-xhibit-data-engineering/schemas/mapping/*
+    - alpha-mojap-curated-xhibit/v1/xhibit/address/*
+    - alpha-mojap-curated-xhibit/v1/xhibit/defendant_history/*
+    - alpha-mojap-curated-xhibit/v1/xhibit/defendant_reference/*
+    - alpha-mojap-curated-xhibit/v1/xhibit/defendant/*
+    - alpha-mojap-curated-xhibit/v1/xhibit/ref_solicitor_firm/*
+    - alpha-mojap-curated-xhibit/v1/xhibit/indictment_log/*
+    - alpha-mojap-curated-xhibit/v1/xhibit/mis_event_log/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/table_name=core/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/table_name=offences/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/table_name=sentences/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/table_name=regimes/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/table_name=rpt_ao_core_hist/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/table_name=rpt_ao_offences_hist/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/table_name=rpt_ao_sentences_hist/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/table_name=rpt_ao_regimes_hist/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=backup_nomis_ao/table_name=core/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=backup_nomis_ao/table_name=offences/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=backup_nomis_ao/table_name=sentences/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=backup_nomis_ao/table_name=regimes/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - mojap-athena-query-dump/*
+    - alpha-nomis/nomis/*
+
+maintainers:
+  - guyvw1
+
+tags:
+  business_unit: BOLD
+  owner: guy.wheeler@justice.gov.uk
