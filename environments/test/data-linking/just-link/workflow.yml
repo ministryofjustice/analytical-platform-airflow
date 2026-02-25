@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev5
+  tag: v5.0.0.dev6
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -175,40 +175,6 @@ dag:
         PIPELINE_DATASET: prison_oasys
         PIPELINE_VERSION: dev
       dependencies: [model_training_prison_oasys]
-
-    # -----------------------
-    # OASIS DEDUPE JOB (~2m)
-    # -----------------------
-    source_nodes_prison_oasis:
-      compute_profile: general-spot-1vcpu-4gb
-      env_vars:
-        PIPELINE_STAGE: source_nodes
-        PIPELINE_DATASET: prison_oasis
-        PIPELINE_VERSION: dev
-
-    standardised_nodes_prison_oasis:
-      compute_profile: general-spot-8vcpu-32gb
-      env_vars:
-        PIPELINE_STAGE: standardised_nodes
-        PIPELINE_DATASET: prison_oasis
-        PIPELINE_VERSION: dev
-      dependencies: [source_nodes_prison_oasis]
-
-    model_training_prison_oasis:
-      compute_profile: general-spot-16vcpu-64gb
-      env_vars:
-        PIPELINE_STAGE: model_training
-        PIPELINE_DATASET: prison_oasis
-        PIPELINE_VERSION: dev
-      dependencies: [standardised_nodes_prison_oasis]
-
-    edge_generation_prison_oasis:
-      compute_profile: general-spot-16vcpu-64gb
-      env_vars:
-        PIPELINE_STAGE: edge_generation
-        PIPELINE_DATASET: prison_oasis
-        PIPELINE_VERSION: dev
-      dependencies: [model_training_prison_oasis]
 
     # -----------------------
     # DELIUS DEDUPE JOB (~2.5m)
