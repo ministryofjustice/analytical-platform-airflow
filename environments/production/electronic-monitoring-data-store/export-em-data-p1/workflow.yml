@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-export-em-data-p1
-  tag: v1.0.1-rc
+  tag: v1.0.1-rc2
   compute_profile: gpu-spot-8vcpu-32gb
   catchup: false
   depends_on_past: false
@@ -9,7 +9,7 @@ dag:
   schedule: "0 7 * * *"
   max_active_runs: 1
   env_vars:
-    START_DATE: "2024-01-01"
+    START_DATE: "{{ data_interval_start }}"
     END_DATE: "{{ data_interval_end }}"
     AWS_DEFAULT_REGION: "eu-west-2"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-2"

@@ -1,21 +1,21 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.4
+  tag: 1.2.2
   compute_profile: general-on-demand-16vcpu-64gb
   catchup: false
   env_vars:
     DEPLOY_ENV: prod
-    DBT_PROFILE_WORKGROUP: dbt-xhibit
+    DBT_PROFILE_WORKGROUP: dbt-performance
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-one-crown-prod
-    DBT_SELECT_CRITERIA: tag:xhibit
+    WORKFLOW_NAME: deploy-performance-dashboard
+    DBT_SELECT_CRITERIA: tag:performance-dashboard
     BRANCH: main
     MODE: build
 
 maintainers:
-  - jovita-brundziene
-  - Andy-Cook
+  - jhpyke
+  - swalla-moj
 
 secrets:
   - github-key
@@ -28,4 +28,4 @@ iam:
 
 tags:
   business_unit: Central Digital
-  owner: jovita.brundzienem@justice.gov.uk
+  owner: analytical-platform@justice.gov.uk

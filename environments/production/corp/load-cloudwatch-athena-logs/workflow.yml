@@ -13,7 +13,6 @@ dag:
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
   catchup: false
   max_active_runs: 1
-  retries: 2
   compute_profile: general-on-demand-2vcpu-8gb
   tasks:
     load-cloudwatch_athena_logs:
@@ -30,6 +29,7 @@ iam:
   s3_read_only:
     - mojap-land/athena_query_executions/prod/cloudwatch_athena_logs/*
     - mojap-land/athena_query_executions/prod/athena_queries/*
+    - aws-athena-query-results-593291632749-eu-west-1/*
 
   s3_read_write:
     - mojap-processed/domain__value_engineering/env__prod/cloudwatch_athena_query_logs_staging/*

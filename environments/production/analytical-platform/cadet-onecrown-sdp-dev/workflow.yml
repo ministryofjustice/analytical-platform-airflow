@@ -4,13 +4,14 @@ dag:
   tag: 1.2.4
   compute_profile: general-on-demand-16vcpu-64gb
   catchup: false
+  hmcts_sdp_networking: true
   env_vars:
-    DEPLOY_ENV: prod
+    DEPLOY_ENV: dev
     DBT_PROFILE_WORKGROUP: dbt-xhibit
-    DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-one-crown-prod
-    DBT_SELECT_CRITERIA: tag:xhibit
-    BRANCH: main
+    DBT_PROJECT: sdp_tables
+    WORKFLOW_NAME: deploy-one-crown-sdp-dev
+    DBT_SELECT_CRITERIA: "+path:models/customers +path:models/orders"
+    BRANCH: feature/sdp-dev-pool-airflow
     MODE: build
 
 maintainers:
@@ -18,13 +19,15 @@ maintainers:
   - Andy-Cook
 
 secrets:
-  - github-key
+  - sdp-id-dev
+  - sdp-sc-dev
+  - sdp-ten-id
 
 iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-derived-tables/prod/*
+    - mojap-derived-tables/dev/*
 
 tags:
   business_unit: Central Digital
