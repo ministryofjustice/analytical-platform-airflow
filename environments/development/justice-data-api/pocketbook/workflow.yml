@@ -1,0 +1,17 @@
+---
+dag:
+  repository: moj-analytical-services/jin-tables
+  tag: v0.0.1
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-jin-pocketbook/*
+
+maintainers:
+  - phil-hall-moj
+
+tags:
+  business_unit: HQ
+  owner: philip.hall@justice.gov.uk
