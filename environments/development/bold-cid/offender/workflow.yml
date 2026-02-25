@@ -26,7 +26,7 @@ dag:
         MODULE_TO_RUN: "oasys"
 iam:
   athena: write
-  glue: true  
+  glue: true
   s3_read_write:
     - alpha-bold-rr-offender-management/dev/*
     - alpha-bold-rr-ops/dev/*
