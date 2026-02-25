@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-curious-2-pipeline
 
-  tag: v1.0.1
+  tag: v1.0.2
 
   schedule: "0 5 * * *"
   catchup: false
