@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/probation-performance-extraction
-  tag: v0.1.0
+  tag: v0.2.0
   schedule: "30 6 * * *"
 
 iam:
@@ -8,6 +8,7 @@ iam:
 
   s3_write_only:
     - alpha-probation-performance-extracts/*
+    - alpha-app-probation-performance-extracts/*
 
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
