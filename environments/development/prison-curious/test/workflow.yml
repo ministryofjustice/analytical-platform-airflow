@@ -15,6 +15,11 @@ dag:
       env_vars:
         STEP: "extract_and_upload"
       compute_profile: "general-on-demand-1vcpu-4gb"
+    validate_raw_data:
+      env_vars:
+        STEP: "validate_raw_data"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [extract_and_upload]
 
 iam:
   athena: write
