@@ -1,0 +1,35 @@
+dag:
+  repository: moj-analytical-services/airflow-create-a-pipeline
+  tag: v4.0.12
+  retries: 0
+  max_active_runs: 1
+  env_vars:
+    LOG_LEVEL: "INFO"
+    LAND: "s3://mojap-land-dev/hmcts/xhibit"
+    RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/xhibit"
+    BASE_LOC: "s3://alpha-mojap-curated-xhibit/ors/v2_dev/"
+    BASE_DB_NAME: "xhibit_preprocessed_dev"
+    SERVICE: "xhibit"
+    CHUNK_SIZE: "1000000"
+    DAG_INTERVAL_END: "{{ data_interval_end }}"
+
+  tasks:
+    xhibit_load_address:
+      env_vars:
+        TABLE: "address"
+      compute_profile: general-spot-32vcpu-128gb
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/hmcts/xhibit/*
+    - mojap-raw-hist-dev/hmcts/xhibit/*
+    - alpha-mojap-curated-xhibit/ors/v2_dev/*
+
+maintainers:
+  - Andy-Cook
+  - jovita-brundziene
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
