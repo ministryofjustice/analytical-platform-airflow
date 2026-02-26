@@ -1,0 +1,35 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-laa-data-extractor
+  tag: v0.3.0
+  retries: 2
+  retry_delay: 300
+  env_vars:
+    ORACLE_DSN: "rds.mojfin.laa-development.modernisation-platform.service.justice.gov.uk:1521/mojfin"
+    LANDING_FOLDER: "s3://mojap-land-dev/laa/mojfin/stats/raw"
+    METADATA_FOLDER: "s3://mojap-land-dev/laa/mojfin/stats/metadata"
+    ORACLE_USER: "ANY_PLATFORM"
+    DATABASE_NAME: "laa_stats_dev"
+    TABLES: "DIM_OFFICES"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-dev/laa/mojfin/stats/*
+
+secrets:
+  - username
+  - password
+
+notifications:
+  emails:
+    - Damilola.Oyebade@justice.gov.uk
+  slack_channel: laa-de-alerts
+
+maintainers:
+  - dami-moj
+
+tags:
+  business_unit: LAA
+  owner: Damilola.Oyebade@justice.gov.uk
