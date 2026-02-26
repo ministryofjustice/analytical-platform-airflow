@@ -20,14 +20,14 @@ dag:
       compute_profile: general-on-demand-8vcpu-32gb
       outlets:
         - "s3://mojap-derived-tables/prod/bold-daily"
-      bold-rr-check:
-        compute_profile: general-spot-2vcpu-8gb
-        env_vars:
-          IS_DATASET_CHECK: true
-          UNIQUE_IDS: "model.mojap_derived_tables.bold_rr_pnc_ids__pnc_ids_to_send"
-        outlets:
-          - "s3://mojap-derived-tables/prod/bold-rr/"
-        dependencies: [table_deploy]
+    bold-rr-check:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        IS_DATASET_CHECK: true
+        UNIQUE_IDS: "model.mojap_derived_tables.bold_rr_pnc_ids__pnc_ids_to_send"
+      outlets:
+        - "s3://mojap-derived-tables/prod/bold-rr/"
+      dependencies: [table_deploy]
 
 maintainers:
   - jhpyke
