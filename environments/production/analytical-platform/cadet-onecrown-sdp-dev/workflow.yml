@@ -19,6 +19,7 @@ maintainers:
   - Andy-Cook
 
 secrets:
+  - github-key
   - sdp-id-dev
   - sdp-sc-dev
   - sdp-ten-id
