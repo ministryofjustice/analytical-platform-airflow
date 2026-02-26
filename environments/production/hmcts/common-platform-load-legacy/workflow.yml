@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline-legacy
-  tag: v1.0.4
+  tag: v1.0.5
   retries: 0
   retry_delay: 150
   start_date: "2025-12-19"
@@ -262,6 +262,7 @@ dag:
     load_referencedata_language:
       env_vars:
         AZ_TABLE: "referencedata-language"
+      compute_profile: general-spot-2vcpu-8gb
     load_referencedata_legal_status:
       env_vars:
         AZ_TABLE: "referencedata-legal-status"
@@ -397,6 +398,9 @@ iam:
     - mojap-raw-hist/hmcts/common-platform/*
     - alpha-mojap-common-platform/*
     - alpha-mojap-ccd/*
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
 
 maintainers:
   - Andy-Cook

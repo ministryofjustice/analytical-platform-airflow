@@ -1,20 +1,27 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.1.25-1
-  compute_profile: general-on-demand-16vcpu-64gb
-  schedule: "0 11 * * *"
+  tag: 1.2.2
+  schedule: "30 00 * * *"
   catchup: false
-  outlets:
-    - "s3://mojap-derived-tables/prod/deploy-corporate-non-payroll/"
   env_vars:
     DEPLOY_ENV: prod
-    DBT_PROFILE_WORKGROUP: airflow-prod-workgroup-corp
+    DBT_PROFILE_WORKGROUP: dbt-daily
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-corporate-non-payroll
     DBT_SELECT_CRITERIA: tag:corporate_non_payroll
     BRANCH: main
     MODE: build
+  tasks:
+    table_deploy:
+      compute_profile: general-on-demand-8vcpu-32gb
+    all_passed:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/prod/deploy-corporate-non-payroll/"
 
 maintainers:
   - ltd-pa

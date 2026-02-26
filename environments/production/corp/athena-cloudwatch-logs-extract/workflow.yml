@@ -1,8 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cloudwatch-logs
-  tag: v1.4.0
-  compute_profile: "general-on-demand-2vcpu-8gb"
+  tag: v1.6.0
+  compute_profile: "general-on-demand-4vcpu-16gb"
   schedule: "0 6 * * *"
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -13,6 +13,7 @@ dag:
       env_vars:
         SOURCE: "cloudwatch_athena_logs"
     athena-extract:
+      dependencies: [cloudwatch-extract]
       env_vars:
         SOURCE: "athena_queries"
 
