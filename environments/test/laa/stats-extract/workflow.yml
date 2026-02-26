@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-laa-data-extractor
-  tag: v0.3.0
+  tag: v0.3.1
   retries: 2
   retry_delay: 300
   env_vars:
