@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-curious-2-pipeline
 
-  tag: v1.0.0
+  tag: v1.0.3
 
   schedule: "0 5 * * *"
   catchup: false
@@ -10,11 +10,20 @@ dag:
     "ENV": "preprod"
     "S3_LANDING_BUCKET": "mojap-land-preprod"
     "S3_LANDING_KEY_PREFIX": "hmpps/prison-curious2"
+    "S3_RAW_HIST_BUCKET": "mojap-raw-hist-preprod"
+    "S3_RAW_HIST_KEY_PREFIX": "hmpps/prison-curious2/raw-history"
+    "S3_FAILED_BUCKET": "mojap-land-fail-preprod"
+
   tasks:
     extract_and_upload:
       env_vars:
         STEP: "extract_and_upload"
       compute_profile: "general-on-demand-1vcpu-4gb"
+    validate_raw_data:
+      env_vars:
+        STEP: "validate_raw_data"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [extract_and_upload]
 
 iam:
   athena: write
@@ -22,6 +31,7 @@ iam:
   s3_read_write:
     - mojap-land-preprod/hmpps/prison-curious2/*
     - mojap-raw-hist-preprod/hmpps/prison-curious2/*
+    - mojap-land-fail-preprod/hmpps/prison-curious2/*
 
 secrets:
   - curious-azure-credential
@@ -39,3 +49,4 @@ notifications:
   emails:
     - andrew.craik@justice.gov.uk
     - iain.borsbey@justice.gov.uk
+    - anthony.cody@justice.gov.uk
