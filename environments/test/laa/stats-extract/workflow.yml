@@ -1,13 +1,15 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-laa-data-extractor
-  tag: v0.3.2
+  tag: v0.3.3
   retries: 2
   retry_delay: 300
   env_vars:
     ORACLE_DSN: "rds.mojfin.laa-development.modernisation-platform.service.justice.gov.uk:1521/mojfin"
     LANDING_FOLDER: "s3://mojap-land-dev/laa/mojfin/stats/raw"
     METADATA_FOLDER: "s3://mojap-land-dev/laa/mojfin/stats/metadata"
+    ATHENA_LANDING_FOLDER: "s3://mojap-land-dev/laa/mojfin/stats/curated"
+    SERVICE: "athena"
     ORACLE_USER: "ANY_PLATFORM"
     DATABASE_NAME: "laa_stats_dev"
     TABLES: "DIM_OFFICES"
