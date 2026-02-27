@@ -13,7 +13,7 @@ dag:
     "S3_RAW_HIST_BUCKET": "mojap-raw-hist-preprod"
     "S3_RAW_HIST_KEY_PREFIX": "hmpps/prison-curious2/raw-history"
     "S3_FAILED_BUCKET": "mojap-land-fail-preprod"
-    
+
   tasks:
     extract_and_upload:
       env_vars:
