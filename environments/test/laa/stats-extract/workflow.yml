@@ -12,7 +12,7 @@ dag:
     SERVICE: "athena"
     ORACLE_USER: "ANY_PLATFORM"
     DATABASE_NAME: "laa_stats_dev"
-    TABLES: "DIM_OFFICES"
+    TABLE_PREFIX: "DIM_OUTCOME"
 
 iam:
   athena: write
