@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev6
+  tag: v5.0.0.dev7
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -209,6 +209,33 @@ dag:
         PIPELINE_DATASET: probation_delius
         PIPELINE_VERSION: dev
       dependencies: [model_training_probation_delius]
+
+    # -----------------------
+    # CJS LINK JOB (~30m)
+    # -----------------------
+    standardised_nodes_cjs:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: standardised_nodes
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: dev
+      dependencies: [standardised_nodes_mags_hocas, standardised_nodes_crown_xhibit, standardised_nodes_common_platform, standardised_nodes_prison_nomis, standardised_nodes_prison_oasys, standardised_nodes_probation_delius]
+    
+    model_training_cjs:
+      compute_profile: general-spot-64vcpu-256gb
+      env_vars:
+        PIPELINE_STAGE: model_training
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: dev
+      dependencies: [standardised_nodes_cjs]
+
+    edge_generation_cjs:
+      compute_profile: general-spot-64vcpu-256gb
+      env_vars:
+        PIPELINE_STAGE: edge_generation
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: dev
+      dependencies: [model_training_cjs, edge_generation_mags_hocas, edge_generation_crown_xhibit, edge_generation_common_platform, edge_generation_prison_nomis, edge_generation_prison_oasys, edge_generation_probation_delius]
 
 iam:
   athena: write
