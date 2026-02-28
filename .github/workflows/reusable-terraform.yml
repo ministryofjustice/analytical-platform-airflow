@@ -13,9 +13,190 @@ concurrency:
   group: terraform
 
 jobs:
+  detect-changes:
+    name: 🔍 Detect Changes
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    outputs:
+      workflows: ${{ steps.detect_changes.outputs.changes }}
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build path-filters File
+        id: build_path_filters
+        run: bash scripts/path-filter/configuration-generator.sh workflows
+
+      - name: Detect Changes
+        id: detect_changes
+        uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36 # v3.0.2
+        with:
+          filters: .github/path-filter/workflows.yml
+
+      - name: Check Changed Length
+        id: check_changed_length
+        env:
+          CHANGES: ${{ steps.detect_changes.outputs.changes }}
+        run: |
+          if [[ "$(jq 'length > 1' <<< "${CHANGES}")" == "true" ]]; then
+            echo "Multiple workflows changed, exiting..."
+            exit 1
+          fi
+
+      - name: Upload path-filters File
+        id: upload_path_filter
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: terraform-check-path-filter
+          path: .github/path-filter/workflows.yml
+          overwrite: true
+
+  tag-only-check:
+    if: ${{ needs.detect-changes.outputs.workflows != '[]' }}
+    name: 🛂 Tag Only Changes Check
+    runs-on: ubuntu-latest
+    needs: detect-changes
+    outputs:
+      eligible: ${{ steps.tag_only_changes_check.outputs.eligible }}
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    strategy:
+      fail-fast: false
+      matrix:
+        workflow: ${{ fromJson(needs.detect-changes.outputs.workflows) }}
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        with:
+          persist-credentials: false
+
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials
+        uses: aws-actions/configure-aws-credentials@61815dcd50bd041e203e49132bacad1fd04d2708 # v5.1.1
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::509399598587:role/analytical-platform-github-actions
+
+      - name: Set Up UV
+        id: setup_uv
+        uses: astral-sh/setup-uv@681c641aba71e4a1c380be3ab5e12ad51f415867 # v7.1.6
+        with:
+          activate-environment: true
+          version: "latest"
+          python-version: "3.11"
+
+      - name: Install Requirements
+        id: install_requirements
+        run: |
+          uv pip install --requirements requirements.txt
+
+      - name: Download path-filters File
+        id: download_path_filters
+        uses: actions/download-artifact@018cc2cf5baa6db3ef3c5f8a56943fffe632ef53 # v6.0.0
+        with:
+          name: terraform-check-path-filter
+          path: .github/path-filter
+
+      - name: Set Workflow Directory
+        id: set_workflow_directory
+        env:
+          WORKFLOW: ${{ matrix.workflow }}
+        run: |
+          workflowDirectory=$(yq -e ".${WORKFLOW}" .github/path-filter/workflows.yml | sed 's/.\{3\}$//')
+          export workflowDirectory
+
+          echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
+
+      - name: Tag Only Changes Check
+        id: tag_only_changes_check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+        run: |
+          git fetch origin main
+
+          changed_files="$(git diff --name-only origin/main)"
+          changed_files_status="$(git diff --name-status origin/main | awk '{ print $1 }')"
+
+          echo "${changed_files}"
+          echo "${changed_files_status}"
+
+          # Default to true
+          eligible="true"
+
+          # Check if any files were added or deleted
+          for status in ${changed_files_status}; do
+            if [[ "${status}" != "M" ]]; then
+              echo "File status ${status} detected, not eligible for automatic approval"
+              exit 0
+            fi
+          done
+
+          # Check if the workflow file has been modified, and in what way
+          if [[ "$(git diff --name-status origin/main "${WORKFLOW_DIRECTORY}/workflow.yml" | awk '{ print $1 }')" == "M" ]]; then
+            echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, eligible for automatic approval depending on changes"
+            gh api "repos/${GITHUB_REPOSITORY}/contents/${WORKFLOW_DIRECTORY}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${WORKFLOW_DIRECTORY}/workflow-main.yml"
+
+            if [[ $(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml") == "Only dag.tag has changed" ]]; then
+              echo "Only dag.tag has changed, eligible for automatic approval"
+            else
+              echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, not eligible for automatic approval"
+              exit 0
+            fi
+          fi
+
+          # Check if any environments/**/dag.py files have changed
+          for file in ${changed_files}; do
+            if [[ "${file}" =~ ^environments/.*/dag\.py$ ]]; then
+              echo "File (${file}) is a dag.py file, not eligible for automatic approval"
+              exit 0
+            fi
+          done
+
+          # Check if any files outside environments/(development|test|production) have changed
+          for file in ${changed_files}; do
+            if [[ ! "${file}" =~ ^environments/(development|test|production)/.*$ ]]; then
+              echo "File (${file}) has changed outside the specified path (environments/(development|test|production)), not eligible for automatic approval"
+              exit 0
+            fi
+          done
+
+          # Check if pull request author is maintainer of the workflow
+          if [[ "$(yq --output-format=json "${WORKFLOW_DIRECTORY}/workflow.yml" | jq --arg GITHUB_ACTOR "${GITHUB_ACTOR}" '.maintainers | any(. == $GITHUB_ACTOR)')" == "true" ]]; then
+            echo "${GITHUB_ACTOR} is a maintainer, eligible for automatic approval"
+          else
+            echo "${GITHUB_ACTOR} is not a maintainer, not eligible for automatic approval"
+            exit 0
+          fi
+
+          # Check automatic approval status in DynamoDB
+          automatic_approval_dynamodb_status="$(aws dynamodb get-item --table-name analytical-platform-airflow-auto-approval --key '{"approval_status": {"S": "status"}}' --query 'Item.value.S' --output text)"
+
+          echo "Automatic approval DynamoDB status: ${automatic_approval_dynamodb_status}"
+
+          if [[ "${automatic_approval_dynamodb_status}" == "active" ]]; then
+            echo "Automatic approval is active"
+          elif [[ "${automatic_approval_dynamodb_status}" == "paused" ]]; then
+            echo "Automatic approval is paused"
+            echo "automatic_approval_paused=true" >>"${GITHUB_OUTPUT}"
+            eligible="false"
+          fi
+
+          echo "eligible=${eligible}" >>"${GITHUB_OUTPUT}"
   terraform:
     name: Terraform
     runs-on: ubuntu-latest
+    needs: tag-only-check
+    if: needs.tag-only-check.outputs.eligible != 'true'
     permissions:
       contents: read
       id-token: write
