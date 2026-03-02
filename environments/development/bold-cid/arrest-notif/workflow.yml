@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-bold-case-info-dashboard
-  tag: v1.0.63-dev
+  tag: v1.0.74-dev
 
   env_vars:
     AIRFLOW_TASK: probation_arrest_notification
@@ -12,7 +12,7 @@ iam:
   glue: true
   s3_read_write:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
-    - mojap-derived-tables/seeds/bold_rr_seeds_dev_dbt/dummy_probation_notification/*
+    - mojap-derived-tables/seeds/bold_rr_seeds_dev_dbt/dummy_probation_notification_v2/*
     - alpha-bold-rr-case-info-dashboard-usage/audit/dev/*
 
 secrets:

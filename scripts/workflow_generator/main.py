@@ -30,6 +30,8 @@ environment = folder.split("/")[1]
 print(f"Environment: {environment}")
 
 project = folder.split("/")[2]
+if project == "electronic-monitoring-data-store":
+    project = "emds"
 print(f"Project: {project}")
 
 workflow = folder.split("/")[3]

@@ -1,0 +1,100 @@
+dag:
+  repository: moj-analytical-services/airflow-create-a-pipeline
+  tag: v4.0.5
+  retries: 0
+  retry_delay: 150
+  max_active_runs: 5
+  env_vars:
+    LOG_LEVEL: "INFO"
+    LAND: "s3://mojap-land-dev/hmcts/caseman_sdp/v3"
+    RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/caseman_sdp/v3"
+    BASE_LOC: "s3://alpha-mojap-civil/dev/caseman_ap_sdp/preprocessed/v3/"
+    BASE_DB_NAME: "caseman_ap_sdp_preprocessed"
+    SERVICE: "caseman"
+    CHUNK_SIZE: "1000000"
+    DAG_INTERVAL_END: "{{ data_interval_end }}"
+
+  tasks:
+    caseman_load_address_types:
+      env_vars:
+        TABLE: "address_types"
+    caseman_load_ae_events:
+      env_vars:
+        TABLE: "ae_events"
+      compute_profile: general-spot-32vcpu-128gb
+    caseman_load_cases:
+      env_vars:
+        TABLE: "cases"
+      compute_profile: general-spot-32vcpu-128gb
+    caseman_load_case_events:
+      env_vars:
+        TABLE: "case_events"
+      compute_profile: general-spot-32vcpu-128gb
+    caseman_load_case_party_roles:
+      env_vars:
+        TABLE: "case_party_roles"
+      compute_profile: general-spot-32vcpu-128gb
+    caseman_load_coded_parties:
+      env_vars:
+        TABLE: "coded_parties"
+    caseman_load_courts:
+      env_vars:
+        TABLE: "courts"
+    caseman_load_cpr_to_cpr_relationship:
+      env_vars:
+        TABLE: "cpr_to_cpr_relationship"
+      compute_profile: general-spot-32vcpu-128gb
+    caseman_load_given_addresses:
+      env_vars:
+        TABLE: "given_addresses"
+      compute_profile: general-spot-32vcpu-128gb
+    caseman_load_hearings:
+      env_vars:
+        TABLE: "hearings"
+      compute_profile: general-spot-32vcpu-128gb
+    caseman_load_judgments:
+      env_vars:
+        TABLE: "judgments"
+      compute_profile: general-spot-32vcpu-128gb
+    caseman_load_order_types:
+      env_vars:
+        TABLE: "order_types"
+    caseman_load_parties:
+      env_vars:
+        TABLE: "parties"
+      compute_profile: general-spot-32vcpu-128gb
+    caseman_load_party_roles:
+      env_vars:
+        TABLE: "party_roles"
+    caseman_load_party_types:
+      env_vars:
+        TABLE: "party_types"
+    caseman_load_standard_events:
+      env_vars:
+        TABLE: "standard_events"
+    caseman_load_tasks:
+      env_vars:
+        TABLE: "tasks"
+    caseman_load_warrants:
+      env_vars:
+        TABLE: "warrants"
+      compute_profile: general-spot-32vcpu-128gb
+    caseman_load_warrant_returns:
+      env_vars:
+        TABLE: "warrant_returns"
+      compute_profile: general-spot-32vcpu-128gb
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/hmcts/caseman_sdp/*
+    - mojap-raw-hist-dev/hmcts/caseman_sdp/*
+    - alpha-mojap-civil/dev/caseman_ap_sdp/*
+
+maintainers:
+  - Andy-Cook
+  - DanJ-MOJ
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk

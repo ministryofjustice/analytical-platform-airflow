@@ -10,6 +10,7 @@ locals {
   iam_s3_read_only              = try(local.iam_configuration.s3_read_only, [])
   iam_s3_read_write             = try(local.iam_configuration.s3_read_write, [])
   iam_s3_write_only             = try(local.iam_configuration.s3_write_only, [])
+  iam_textract                  = try(local.iam_configuration.textract, false)
 
   secrets_configuration = try(var.configuration.secrets, [])
 

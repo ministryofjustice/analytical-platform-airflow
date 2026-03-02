@@ -1,0 +1,31 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.2.2
+  compute_profile: general-on-demand-16vcpu-64gb
+  catchup: false
+  env_vars:
+    DEPLOY_ENV: prod
+    DBT_PROFILE_WORKGROUP: dbt-performance
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-performance-dashboard
+    DBT_SELECT_CRITERIA: tag:performance-dashboard
+    BRANCH: main
+    MODE: build
+
+maintainers:
+  - jhpyke
+  - swalla-moj
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/prod/*
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk

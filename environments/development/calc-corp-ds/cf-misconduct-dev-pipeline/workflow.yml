@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v8.4
+  tag: testing-v1.1
   catchup: false
   tasks:
     db-prep-compare-labels:
@@ -19,14 +19,14 @@ dag:
       env_vars:
         EXEC_SCRIPT: "run-pipeline"
         CHECK: "process_sscl_reports"
-        SCRIPT: "src/misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py"
+        SCRIPT: "packages/misconduct_nlp/src/misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py"
       compute_profile: gpu-spot-8vcpu-32gb
       dependencies: [db-prep-copy-db]
     merged-tables:
       env_vars:
         EXEC_SCRIPT: "run-pipeline"
         CHECK: "merged_tables"
-        SCRIPT: "src/misconduct_nlp/process_inv_cd_data/create_merged_tables.py"
+        SCRIPT: "packages/misconduct_nlp/src/misconduct_nlp/process_inv_cd_data/create_merged_tables.py"
       dependencies: [process-sscl-reports]
     tag-and-review-data:
       env_vars:
@@ -45,7 +45,7 @@ dag:
       env_vars:
         EXEC_SCRIPT: "run-pipeline"
         CHECK: "generate_reports"
-        SCRIPT: "src/misconduct_nlp/etl_subtasks/generate_all_reports.py"
+        SCRIPT: "packages/misconduct_nlp/src/misconduct_nlp/etl_subtasks/generate_all_reports.py"
       dependencies: [create-tagged-employee-data]
     model-metrics-evidently:
       env_vars:

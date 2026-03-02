@@ -1,0 +1,42 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction-legacy
+  tag: v1.0.3
+  retries: 0
+  start_date: "2026-01-24"
+  schedule: 0 16 * * 1
+  hmcts_sdp_networking: True
+  max_active_runs: 1
+  env_vars:
+    TASK: "extract"
+    LOG_LEVEL: "DEBUG"
+    ENDPOINT: "BAIS_BAU_PROD"
+    COPY_MODE: "all"
+    LAND_BUCKET: "s3://mojap-land"
+    LAND_FOLDER: "hmcts/cad"
+    EXCLUDED_FILES_REGEXPR: "(?i)^.*test.*$"
+
+  tasks:
+    hocas_extract:
+      outlets:
+        - "s3://hmcts/datasets/mags-hocas-extract.json"
+      env_vars:
+        TABLE_NAME: "baiscontainer"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land/hmcts/cad/*
+
+secrets:
+  - sdp-pass
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
+maintainers:
+  - Andy-Cook
+  - jovita-brundziene
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk

@@ -113,10 +113,13 @@ PK_EXTRACTIONS = {
     ],
 }
 
+full_table_list_pk = []
 for i, L in PK_EXTRACTIONS.items():
     if i in PK_EXCEPTIONS and datetime.now().day not in PK_EXCEPTIONS[i]:
         continue
-    tables_string = ",".join(L)
+    full_table_list_pk.extend(L)
+tables_string = ",".join(full_table_list_pk)
+
 
 # Database user, password and DSN secrets
 db_user = Secret(
@@ -189,8 +192,7 @@ tasks["main"] = AnalyticalPlatformStandardOperator(
         "PYTHON_SCRIPT_NAME": "__main__.py",
         "NOMIS_T62_FETCH_SIZE": DELTA_FETCH_SIZE,
         "DAG_ID": dag.dag_id,
-#        "ENV": "PRODUCTION",
-        "ENV": "DEVELOPMENT",
+        "ENV": "PRODUCTION",
         "DAG_RUN_UTC_UNIXTIME": str(int(datetime.utcnow().timestamp())),
     },
 )

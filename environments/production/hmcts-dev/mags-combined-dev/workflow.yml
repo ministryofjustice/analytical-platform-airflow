@@ -1,0 +1,114 @@
+dag:
+  repository: moj-analytical-services/airflow-magistrates-data-engineering
+  tag: v5.0.0-alpha.8180c0a
+  retries: 0
+  env_vars:
+    DB_VERSION: "v3_ap_dev"
+    GLUE_JOB_ROLE: "airflow-production-hmcts-dev-mags-combined-dev"
+    GLUE_JOB_BUCKET: "alpha-mojap-curated-mags"
+  schedule:
+    datasets:
+      - "s3://hmcts-dev/mags-combined-tar-preprocess-dev.json"
+  tasks:
+    hocas_preprocess:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "hocas_raw_to_preprocessed.py"
+      inlets:
+        - "s3://hmcts-dev/mags-combined-tar-preprocess-dev.json"
+    rebuild_databases:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "rebuild_databases.py"
+        DBS_TO_REBUILD: "hocas_preprocessed,tar_preprocessed,mags_curated"
+      dependencies: [hocas_preprocess]
+    curated_databases:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "init_db_curated_run.py"
+      dependencies: [rebuild_databases]
+    curated_tar:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_glue_job.py"
+        AIRFLOW_JOB_NAME: "airflow_curated_tar"
+        ALLOCATED_CAPACITY: "4"
+        GLUE_JOB_FOLDER_NAME: "curated_tar"
+        MAGS_DATA_TYPE: "tar"
+      dependencies: [curated_databases]
+    pre_hocas_all_appearance:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_glue_job.py"
+        AIRFLOW_JOB_NAME: "airflow_pre_hocas_all_appearance"
+        ALLOCATED_CAPACITY: "4"
+        GLUE_JOB_FOLDER_NAME: "pre_hocas_all_appearance"
+        MAGS_DATA_TYPE: "hocas"
+      dependencies: [curated_databases]
+    hocas_all_appearance:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_glue_job.py"
+        AIRFLOW_JOB_NAME: "airflow_hocas_all_appearance"
+        ALLOCATED_CAPACITY: "8"
+        GLUE_JOB_FOLDER_NAME: "hocas_all_appearance"
+        MAGS_DATA_TYPE: "hocas"
+      dependencies: [pre_hocas_all_appearance]
+    hocas_all_appearance_redacted:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_glue_job.py"
+        AIRFLOW_JOB_NAME: "airflow_hocas_all_appearance_redacted"
+        ALLOCATED_CAPACITY: "4"
+        GLUE_JOB_FOLDER_NAME: "hocas_all_appearance_redacted"
+        MAGS_DATA_TYPE: "hocas"
+      dependencies: [hocas_all_appearance]
+    hocas_all_off_disp:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_glue_job.py"
+        AIRFLOW_JOB_NAME: "airflow_hocas_all_off_disp"
+        ALLOCATED_CAPACITY: "4"
+        GLUE_JOB_FOLDER_NAME: "hocas_all_off_disp"
+        MAGS_DATA_TYPE: "hocas"
+      dependencies: [hocas_all_appearance]
+    hocas_defendant:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_glue_job.py"
+        AIRFLOW_JOB_NAME: "airflow_hocas_defendant"
+        ALLOCATED_CAPACITY: "4"
+        GLUE_JOB_FOLDER_NAME: "hocas_defendant"
+        MAGS_DATA_TYPE: "hocas"
+      dependencies: [hocas_all_appearance]
+    hocas_tar_lookup:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "run_glue_job.py"
+        AIRFLOW_JOB_NAME: "airflow_hocas_tar_lookup"
+        ALLOCATED_CAPACITY: "4"
+        GLUE_JOB_FOLDER_NAME: "hocas_tar_lookup"
+        MAGS_DATA_TYPE: "hocas"
+      dependencies: [hocas_all_off_disp, curated_tar]
+    closedown_mags:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "closedown_curated_db_run.py"
+      dependencies:
+        [hocas_all_appearance_redacted, hocas_defendant, hocas_tar_lookup]
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-mojap-curated-mags/*
+    - alpha-mojap-processed-tar/*
+    - alpha-mojap-processed-hocas/*
+    - mojap-land/hmcts/tar/*
+    - mojap-land/hmcts/hocas/*
+    - mojap-raw-hist/hmcts/tar*
+    - mojap-raw-hist/hmcts/hocas*
+    - alpha-magistrates-development-tests/*
+  s3_read_only:
+    - alpha-lookup-cjsq/*
+    - mojap-derived-tables/prod/seeds/domain_name=courts/database_name=lookup_offence/*
+    - mojap-derived-tables/seeds/lookup_offence/*
+    - mojap-derived-tables/prod/models/domain_name=general/database_name=lookup_offence_v2/*
+    - alpha-criminal-courts-data/SAS_files/Timeliness/monthly_tar/*
+
+maintainers:
+  - Andy-Cook
+  - jovita-brundziene
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
