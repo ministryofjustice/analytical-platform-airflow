@@ -6,26 +6,18 @@ dag:
   schedule: "0 6 * * *"
   catchup: false
   outlets:
-    - "s3://mojap-derived-tables/prod/curated-daily/"
+    - "s3://mojap-derived-tables/dev/oasys-question-curated-daily/"
   env_vars:
     DEPLOY_ENV: sandpit
-    DBT_PROFILE_WORKGROUP: dbt-curated-daily
+    DBT_PROFILE_WORKGROUP: dbt-oasys-question
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-curated-daily
-    DBT_SELECT_CRITERIA: tag:curated
+    WORKFLOW_NAME: deploy-oasys-question
+    DBT_SELECT_CRITERIA: tag:oasys_question_only
     BRANCH: main
     MODE: build
   tasks:
     table_deploy:
       compute_profile: general-on-demand-8vcpu-32gb
-    bold-rr-check:
-      compute_profile: general-spot-2vcpu-8gb
-      env_vars:
-        IS_DATASET_CHECK: true
-        UNIQUE_IDS: "model.mojap_derived_tables.derived_oasys_stg__oasys_question"
-      outlets:
-        - "s3://mojap-derived-tables/dev/risk/"
-      dependencies: [table_deploy]
 
 maintainers:
   - AntonyJScott
