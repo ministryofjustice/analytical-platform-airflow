@@ -40,5 +40,5 @@ iam:
     - mojap-derived-tables/dev/*
 
 tags:
-  business_unit: MoJ HQ
+  business_unit: HQ
   owner: antony.scott@justice.gov.uk
