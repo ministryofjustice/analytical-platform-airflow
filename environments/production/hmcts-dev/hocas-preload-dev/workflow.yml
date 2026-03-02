@@ -1,0 +1,34 @@
+dag:
+  repository: moj-analytical-services/airflow-court-proceedings-load
+  tag: v1.0.0-alpha2.03776b2
+  retries: 0
+  hmcts_sdp_networking: True
+  max_active_runs: 1
+  schedule:
+    datasets:
+      - "s3://alpha-mojap-ccde/datasets/hocas-extract.json"
+  env_vars:
+    LAND_BUCKET: "mojap-land-dev"
+    LAND_PREFIX: "hmcts/cad/"
+    TARGET_BUCKET: "alpha-mojap-ccde"
+    TARGET_PREFIX: "mags-dev/source-data-files/"
+  tasks:
+    hocas_preload:
+      inlets:
+        - "s3://alpha-mojap-ccde/datasets/hocas-extract.json"
+      env_vars:
+        TASK: "load"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/hmcts/cad/*
+    - alpha-mojap-ccde/mags-dev/*
+
+maintainers:
+  - Andy-Cook
+  - jovita-brundziene
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk

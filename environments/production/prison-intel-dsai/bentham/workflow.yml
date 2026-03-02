@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-bentham-app
-  tag: 1.5.4
+  tag: 1.5.5
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -9,7 +9,7 @@ dag:
   retry_delay: 100
   schedule:
     datasets:
-      - "s3://mojap-derived-tables/prod/nomis-daily/"
+      - "s3://mojap-derived-tables/prod/bentham"
   start_date: "2025-04-04"
   tasks:
     task:

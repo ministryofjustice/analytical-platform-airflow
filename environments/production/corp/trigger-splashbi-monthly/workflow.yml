@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.12
+  tag: v1.5.7
   start_date: "2025-09-29"
   schedule: "0 7 1 * *"
   retries: 2
@@ -15,142 +15,311 @@ dag:
     po_sscl_details:
       env_vars:
         REPORT_NAME: "po_sscl_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
 
     # === Commercial Synergy Supplier Headers ===
     cts-supplier_headers:
       env_vars:
         REPORT_NAME: "cts-supplier_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     laa-supplier_headers:
       env_vars:
         REPORT_NAME: "laa-supplier_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     opg-supplier_headers:
       env_vars:
         REPORT_NAME: "opg-supplier_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     yjb-supplier_headers:
       env_vars:
         REPORT_NAME: "yjb-supplier_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     ima-supplier_headers:
       env_vars:
         REPORT_NAME: "ima-supplier_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     moj-supplier_headers:
       env_vars:
         REPORT_NAME: "moj-supplier_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     pbd-supplier_headers:
       env_vars:
         REPORT_NAME: "pbd-supplier_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     jac-supplier_headers:
       env_vars:
         REPORT_NAME: "jac-supplier_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     nms-supplier_headers:
       env_vars:
         REPORT_NAME: "nms-supplier_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     wls-supplier_headers:
       env_vars:
         REPORT_NAME: "wls-supplier_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
 
     # === Commercial Synergy Supplier Sites ===
 
     cts-supplier_sites:
       env_vars:
         REPORT_NAME: "cts-supplier_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     jac-supplier_sites:
       env_vars:
         REPORT_NAME: "jac-supplier_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     moj-supplier_sites:
       env_vars:
         REPORT_NAME: "moj-supplier_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     opg-supplier_sites:
       env_vars:
         REPORT_NAME: "opg-supplier_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     wls-supplier_sites:
       env_vars:
         REPORT_NAME: "wls-supplier_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     ima-supplier_sites:
       env_vars:
         REPORT_NAME: "ima-supplier_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     laa-supplier_sites:
       env_vars:
         REPORT_NAME: "laa-supplier_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     nms-supplier_sites:
       env_vars:
         REPORT_NAME: "nms-supplier_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     pbd-supplier_sites:
       env_vars:
         REPORT_NAME: "pbd-supplier_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     yjb-supplier_sites:
       env_vars:
         REPORT_NAME: "yjb-supplier_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
 
     # === HR Locations ===
     sba-mo-locations:
       env_vars:
         REPORT_NAME: "sba-mo-locations"
+        REPORT_SECRET_ID: "splashbi-credentials"
 
     # === Commercial Synergy custome headers ===
 
     cts-customer_headers:
       env_vars:
         REPORT_NAME: "cts-customer_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     laa-customer_headers:
       env_vars:
         REPORT_NAME: "laa-customer_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     opg-customer_headers:
       env_vars:
         REPORT_NAME: "opg-customer_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     yjb-customer_headers:
       env_vars:
         REPORT_NAME: "yjb-customer_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     ima-customer_headers:
       env_vars:
         REPORT_NAME: "ima-customer_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     moj-customer_headers:
       env_vars:
         REPORT_NAME: "moj-customer_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     pbd-customer_headers:
       env_vars:
         REPORT_NAME: "pbd-customer_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     jac-customer_headers:
       env_vars:
         REPORT_NAME: "jac-customer_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     nms-customer_headers:
       env_vars:
         REPORT_NAME: "nms-customer_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
     wls-customer_headers:
       env_vars:
         REPORT_NAME: "wls-customer_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
 
     # === Commercial Synergy customer sites ===
 
     cts-customer_sites:
       env_vars:
         REPORT_NAME: "cts-customer_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     laa-customer_sites:
       env_vars:
         REPORT_NAME: "laa-customer_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     opg-customer_sites:
       env_vars:
         REPORT_NAME: "opg-customer_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     yjb-customer_sites:
       env_vars:
         REPORT_NAME: "yjb-customer_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     ima-customer_sites:
       env_vars:
         REPORT_NAME: "ima-customer_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     moj-customer_sites:
       env_vars:
         REPORT_NAME: "moj-customer_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     pbd-customer_sites:
       env_vars:
         REPORT_NAME: "pbd-customer_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     jac-customer_sites:
       env_vars:
         REPORT_NAME: "jac-customer_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     nms-customer_sites:
       env_vars:
         REPORT_NAME: "nms-customer_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
     wls-customer_sites:
       env_vars:
         REPORT_NAME: "wls-customer_sites"
+        REPORT_SECRET_ID: "splashbi-credentials"
+
+    # === Commercial Synergy PO ===
+
+    cts-po_lines:
+      env_vars:
+        REPORT_NAME: "cts-po_lines"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    laa-po_lines:
+      env_vars:
+        REPORT_NAME: "laa-po_lines"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    opg-po_lines:
+      env_vars:
+        REPORT_NAME: "opg-po_lines"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    yjb-po_lines:
+      env_vars:
+        REPORT_NAME: "yjb-po_lines"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    ima-po_lines:
+      env_vars:
+        REPORT_NAME: "ima-po_lines"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    moj-po_lines:
+      env_vars:
+        REPORT_NAME: "moj-po_lines"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    pbd-po_lines:
+      env_vars:
+        REPORT_NAME: "pbd-po_lines"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    jac-po_lines:
+      env_vars:
+        REPORT_NAME: "jac-po_lines"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    nms-po_lines:
+      env_vars:
+        REPORT_NAME: "nms-po_lines"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    wls-po_lines:
+      env_vars:
+        REPORT_NAME: "wls-po_lines"
+        REPORT_SECRET_ID: "splashbi-credentials"
+
+    cts-po_headers:
+      env_vars:
+        REPORT_NAME: "cts-po_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    laa-po_headers:
+      env_vars:
+        REPORT_NAME: "laa-po_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    opg-po_headers:
+      env_vars:
+        REPORT_NAME: "opg-po_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    yjb-po_headers:
+      env_vars:
+        REPORT_NAME: "yjb-po_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    ima-po_headers:
+      env_vars:
+        REPORT_NAME: "ima-po_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    moj-po_headers:
+      env_vars:
+        REPORT_NAME: "moj-po_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    pbd-po_headers:
+      env_vars:
+        REPORT_NAME: "pbd-po_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    jac-po_headers:
+      env_vars:
+        REPORT_NAME: "jac-po_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    nms-po_headers:
+      env_vars:
+        REPORT_NAME: "nms-po_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    wls-po_headers:
+      env_vars:
+        REPORT_NAME: "wls-po_headers"
+        REPORT_SECRET_ID: "splashbi-credentials"
+
+    # === Commercial Synergy Supplier Bank Accounts ===
+
+    cts-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "cts-supplier_bank_accounts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    laa-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "laa-supplier_bank_accounts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    opg-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "opg-supplier_bank_accounts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    yjb-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "yjb-supplier_bank_accounts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    ima-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "ima-supplier_bank_accounts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    moj-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "moj-supplier_bank_accounts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    pbd-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "pbd-supplier_bank_accounts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    jac-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "jac-supplier_bank_accounts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    nms-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "nms-supplier_bank_accounts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+    wls-supplier_bank_accounts:
+      env_vars:
+        REPORT_NAME: "wls-supplier_bank_accounts"
+        REPORT_SECRET_ID: "splashbi-credentials"
 
 iam:
   s3_read_write:
@@ -160,14 +329,12 @@ secrets:
   - splashbi-credentials
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-splashbi-notifications
   emails:
-    - william.orr@justice.gov.uk
     - Supratik.Chowdhury@justice.gov.uk
     - mohammed.ahad1@justice.gov.uk
 
 maintainers:
-  - williamorrie
   - moj-supratikc
   - morezwan
 

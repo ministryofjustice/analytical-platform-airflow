@@ -1,0 +1,44 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.2.6
+  compute_profile: general-on-demand-16vcpu-64gb
+  schedule: "0 6 * * *"
+  catchup: false
+  outlets:
+    - "s3://mojap-derived-tables/prod/curated-daily/"
+  env_vars:
+    DEPLOY_ENV: sandpit
+    DBT_PROFILE_WORKGROUP: dbt-curated-daily
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-curated-daily
+    DBT_SELECT_CRITERIA: tag:curated
+    BRANCH: main
+    MODE: build
+  tasks:
+    table_deploy:
+      compute_profile: general-on-demand-8vcpu-32gb
+    bold-rr-check:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        IS_DATASET_CHECK: true
+        UNIQUE_IDS: "model.mojap_derived_tables.derived_oasys_stg__oasys_question"
+      outlets:
+        - "s3://mojap-derived-tables/dev/risk/"
+      dependencies: [table_deploy]
+
+maintainers:
+  - AntonyJScott
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/dev/*
+
+tags:
+  business_unit: MoJ HQ
+  owner: antony.scott@justice.gov.uk

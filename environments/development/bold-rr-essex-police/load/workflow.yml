@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-bold-rr-essex-police
-  tag: v1.2.24-dev
+  tag: v1.3.0-dev
   python_dag: true
 
 iam:

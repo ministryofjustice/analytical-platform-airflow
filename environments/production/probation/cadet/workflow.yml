@@ -1,0 +1,38 @@
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.2.4
+  compute_profile: general-on-demand-16vcpu-64gb
+  schedule: "0 3 * * *"
+  start_date: "2026-02-23"
+  catchup: false
+  outlets:
+    - "s3://probation-datalake-prod-20260112145345979100000002/data/prod"
+  env_vars:
+    DEPLOY_ENV: prod
+    DBT_PROJECT: hmpps_probation_data_tables
+    S3_BUCKET: probation-datalake-prod-20260112145345979100000002
+    WORKFLOW_NAME: deploy-probation-data-tables
+    DBT_PROFILE_WORKGROUP: dbt-probation-prod
+    DBT_SELECT_CRITERIA: tag:ppud tag:ppud_derived
+    MODE: build
+    AWS_DEFAULT_REGION: eu-west-2
+    DBT_PROFILE: probation
+secrets:
+  - github-key
+
+maintainers:
+  - lalithanagarur
+  - AntonyJScott
+
+notifications:
+  emails:
+    - lalitha.nagarur3@justice.gov.uk
+    - antony.scott@justice.gov.uk
+  slack_channel: de-probation-airflow-prod
+
+iam:
+  external_role: arn:aws:iam::189157455002:role/probation-cadet-prod
+
+tags:
+  business_unit: HMPPS
+  owner: ProbationDataEngineering@justice.gov.uk

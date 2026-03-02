@@ -1,9 +1,9 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
-  tag: v1.1.13-test
+  tag: v1.1.22-dev
   schedule:
     datasets:
-      - "s3://ap_bucket/this_is_a_test_dataset.json"
+      - "s3://mojap-derived-tables/prod/psog_reports"
 
 iam:
   athena: write

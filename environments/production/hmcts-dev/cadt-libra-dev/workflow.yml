@@ -1,0 +1,33 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.1.20
+  compute_profile: general-on-demand-16vcpu-64gb
+  catchup: false
+  outlets:
+    - "s3://mojap-derived-tables/dev/libra-curated/"
+  env_vars:
+    DEPLOY_ENV: sandpit
+    DBT_PROFILE_WORKGROUP: dbt-xhibit
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-libra-curated
+    DBT_SELECT_CRITERIA: tag:libra
+    BRANCH: main
+    MODE: build
+
+maintainers:
+  - jovita-brundziene
+  - Andy-Cook
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/dev/*
+
+tags:
+  business_unit: Central Digital
+  owner: jovita.brundzienem@justice.gov.uk
