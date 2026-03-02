@@ -163,6 +163,25 @@ data "aws_iam_policy_document" "iam_policy" {
     }
   }
 
+  /* Textract */
+  dynamic "statement" {
+    for_each = local.iam_textract ? [1] : []
+    content {
+      sid    = "Textract"
+      effect = "Allow"
+      actions = [
+        "textract:AnalyzeDocument",
+        "textract:AnalyzeID",
+        "textract:DetectDocumentText",
+        "textract:GetDocumentAnalysis",
+        "textract:GetDocumentTextDetection",
+        "textract:StartDocumentAnalysis",
+        "textract:StartDocumentTextDetection"
+      ]
+      resources = ["*"]
+    }
+  }
+
   /* Secrets Manager */
   statement {
     sid     = "SecretsManager"
