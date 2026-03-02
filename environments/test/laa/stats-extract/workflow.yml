@@ -12,7 +12,19 @@ dag:
     SERVICE: "athena"
     ORACLE_USER: "ANY_PLATFORM"
     DATABASE_NAME: "laa_stats_dev"
-    TABLE_PREFIX: "DIM_OUTCOME"
+  tasks:
+    extract-dim-outcome:
+      env_vars:
+        TABLE_PREFIX: "DIM_OUTCOME_"
+    extract-dim-police:
+      env_vars:
+        TABLE_PREFIX: "DIM_POLICE_"
+    extract-dim-offices:
+      env_vars:
+        TABLES: "DIM_OFFICES"
+    extract-dim-submissions:
+      env_vars:
+        TABLES: "DIM_SUBMISSIONS"
 
 iam:
   athena: write
