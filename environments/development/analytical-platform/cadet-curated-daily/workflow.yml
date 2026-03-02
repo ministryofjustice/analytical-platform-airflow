@@ -1,12 +1,10 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.6
-  compute_profile: general-on-demand-16vcpu-64gb
-  schedule: "0 6 * * *"
+  tag: 1.2.7
   catchup: false
   outlets:
-    - "s3://mojap-derived-tables/dev/oasys-question-curated-daily/"
+    - "s3://mojap-derived-tables/sandpit/oasys-question-curated-daily/"
   env_vars:
     DEPLOY_ENV: sandpit
     DBT_PROFILE_WORKGROUP: dbt-oasys-question
@@ -15,9 +13,6 @@ dag:
     DBT_SELECT_CRITERIA: tag:oasys_question_only
     BRANCH: main
     MODE: build
-  tasks:
-    table_deploy:
-      compute_profile: general-on-demand-8vcpu-32gb
 
 maintainers:
   - AntonyJScott
@@ -29,7 +24,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-derived-tables/dev/*
+    - mojap-derived-tables/sandpit/*
 
 tags:
   business_unit: HQ
