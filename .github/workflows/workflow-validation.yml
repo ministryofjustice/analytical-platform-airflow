@@ -523,6 +523,7 @@ jobs:
           timeout: 10m0s
           exit-code: 1
           vuln-type: "library"
+          version: "v0.69.2"
 
       - name: Comment on Scan Failure
         id: comment_on_scan_failure
