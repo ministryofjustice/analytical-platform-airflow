@@ -25,6 +25,7 @@ jobs:
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
+          fetch-depth: 0
 
       - name: Build path-filters File
         id: build_path_filters
@@ -125,8 +126,24 @@ jobs:
 
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
+      - name: Check if Workflow is Deletion
+        id: check_deletion
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+        run: |
+          if [[ ! -d "${WORKFLOW_DIRECTORY}" ]]; then
+            echo "Workflow directory does not exist - this is a deletion"
+            echo "is-deletion=true" >>"${GITHUB_ENV}"
+            echo "is-deletion=true" >>"${GITHUB_OUTPUT}"
+          else
+            echo "Workflow directory exists"
+            echo "is-deletion=false" >>"${GITHUB_ENV}"
+            echo "is-deletion=false" >>"${GITHUB_OUTPUT}"
+          fi
+
       - name: Check if Workflow Directory Includes Underscore
         id: check_workflow_directory_underscore
+        if: env.is-deletion == 'false'
         env:
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
@@ -150,6 +167,7 @@ jobs:
 
       - name: Maintainer GitHub Username Validation
         id: github_user_validation
+        if: env.is-deletion == 'false'
         env:
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
@@ -157,6 +175,7 @@ jobs:
 
       - name: Check Computed IAM Role Name Length
         id: check_iam_role_length
+        if: env.is-deletion == 'false'
         env:
           IAM_ROLE_NAME_PREFIX: "airflow"
           IAM_ROLE_NAME_MAX_LENGTH: 64
@@ -203,6 +222,7 @@ jobs:
 
       - name: Check if DAG is Python
         id: dag_is_python
+        if: env.is-deletion == 'false'
         env:
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
@@ -219,6 +239,7 @@ jobs:
 
       - name: Validate Schema
         id: validate_schema
+        if: env.is-deletion == 'false'
         env:
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
@@ -226,6 +247,7 @@ jobs:
 
       - name: Generate Workflow
         id: generate_workflow
+        if: env.is-deletion == 'false'
         env:
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
@@ -233,6 +255,7 @@ jobs:
 
       - name: Validate Workflow
         id: validate_workflow
+        if: env.is-deletion == 'false'
         env:
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
           DAG_IS_PYTHON: ${{ env.dag-is-python }}
@@ -325,8 +348,21 @@ jobs:
 
           echo "workflow-directory=${workflowDirectory}" >>"${GITHUB_ENV}"
 
+      - name: Check if Workflow is Deletion
+        id: check_deletion
+        env:
+          WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+        run: |
+          if [[ ! -d "${WORKFLOW_DIRECTORY}" ]]; then
+            echo "Workflow directory does not exist - this is a deletion, skipping image check"
+            echo "is-deletion=true" >>"${GITHUB_ENV}"
+          else
+            echo "is-deletion=false" >>"${GITHUB_ENV}"
+          fi
+
       - name: Set ECR Repository
         id: set_ecr_repository
+        if: env.is-deletion == 'false'
         env:
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
@@ -344,6 +380,7 @@ jobs:
 
       - name: Check Image Exists
         id: check_image_exists
+        if: env.is-deletion == 'false'
         env:
           ECR_REPOSITORY: ${{ env.ecr-repository }}
           IMAGE_TAG: ${{ env.image-tag }}
@@ -365,6 +402,7 @@ jobs:
 
       - name: Pull Image and Check Size
         id: pull_image_and_check_size
+        if: env.is-deletion == 'false'
         shell: bash
         env:
           IMAGE: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
@@ -392,18 +430,20 @@ jobs:
 
       - name: Clean Actions Runner
         id: clean_actions_runner
-        if: env.clean-runner == 'true'
+        if: env.is-deletion == 'false' && env.clean-runner == 'true'
         uses: ministryofjustice/action-clean-runner@390530713a326ddc099b2114f38dd0f2f8eac6da # v1.1.0
         with:
           confirm: true
 
       - name: Fetch Container Structure Test
         id: fetch_container_structure_test
+        if: env.is-deletion == 'false'
         run: |
           curl --silent --show-error --location https://raw.githubusercontent.com/ministryofjustice/analytical-platform-airflow-github-actions/refs/heads/main/assets/container-structure-test/container-structure-test.yml --output container-structure-test.yml
 
       - name: Container Structure Test
         id: container_structure_test
+        if: env.is-deletion == 'false'
         shell: bash
         env:
           ECR_REPOSITORY: ${{ env.ecr-repository }}
@@ -426,6 +466,7 @@ jobs:
 
       - name: Generate Trivy Ignore
         id: generate_trivy_ignore
+        if: env.is-deletion == 'false'
         env:
           GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
@@ -498,7 +539,7 @@ jobs:
 
       - name: Comment on Image Version Mismatch
         id: comment_on_image_version_mismatch
-        if: env.image-version-match == 'false'
+        if: env.is-deletion == 'false' && env.image-version-match == 'false'
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
           script: |
