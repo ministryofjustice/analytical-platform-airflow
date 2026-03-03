@@ -4,7 +4,7 @@ dag:
   tag: v4.1.32-dev
 
   env_vars:
-    "CASE_INFO_DASHBOARD_TESTING": "no"
+    CASE_INFO_DASHBOARD_TESTING: "no"
 
   tasks:
     delius:
