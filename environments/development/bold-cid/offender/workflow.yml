@@ -4,7 +4,7 @@ dag:
   tag: v4.1.32-dev
 
   env_vars:
-    AWS_DEFAULT_REGION: eu-west-1
+    "CASE_INFO_DASHBOARD_TESTING": "no"
 
   tasks:
     delius:
