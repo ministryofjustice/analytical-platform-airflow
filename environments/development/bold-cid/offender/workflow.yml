@@ -4,8 +4,6 @@ dag:
   tag: v4.1.32-dev
 
   env_vars:
-    AIRFLOW_TASK: probation_arrest_notification
-    R_CONFIG_ACTIVE: case_info_dashboard
     AWS_DEFAULT_REGION: eu-west-1
 
   tasks:
