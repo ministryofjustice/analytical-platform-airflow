@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.6
+  tag: 1.2.7
   compute_profile: general-on-demand-16vcpu-64gb
   catchup: false
   env_vars:
@@ -16,6 +16,7 @@ dag:
 maintainers:
   - owenrbuckley
   - p-sin
+  - jhpyke
 
 secrets:
   - github-key
@@ -33,4 +34,3 @@ tags:
 notifications:
   emails:
     - owen.buckley@justice.gov.uk
-  slack_channel: opg-deds
