@@ -2,10 +2,9 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
   tag: 1.2.7
-  schedule: "0 1 * * *"
   catchup: false
   env_vars:
-    DEPLOY_ENV: sandpit
+    DEPLOY_ENV: prod
     DBT_PROFILE_WORKGROUP: dbt-oasys-question
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-oasys-question
@@ -16,6 +15,7 @@ dag:
 maintainers:
   - AntonyJScott
   - jhpyke
+  - lalithanagarur
 
 secrets:
   - github-key
@@ -25,6 +25,12 @@ iam:
   glue: true
   s3_read_write:
     - mojap-derived-tables/prod/*
+
+notifications:
+  emails:
+    - lalitha.nagarur3@justice.gov.uk
+    - antony.scott@justice.gov.uk
+  slack_channel: de-probation-airflow-prod
 
 tags:
   business_unit: HQ
