@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/replicate-athena-to-fabric
-  tag: v1.0
+  tag: v1.1.3
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
@@ -9,7 +9,6 @@ dag:
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
-    DATABASE: "athena_query_executions"
   tasks:
     central_dims:
       env_vars:
@@ -43,8 +42,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - alpha-corp-data-staging/athena_queries/*
-    - mojap-athena-query-dump/*
+    - mojap-derived-tables/dev/models/domain_name=finance/*
 
 secrets:
   - azure-client-id
