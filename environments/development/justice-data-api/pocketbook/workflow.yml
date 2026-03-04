@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/jin-tables
-  tag: v0.1.1
+  tag: v0.1.2
 
 iam:
   athena: write
