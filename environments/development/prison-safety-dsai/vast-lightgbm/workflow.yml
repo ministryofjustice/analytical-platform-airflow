@@ -11,18 +11,14 @@ dag:
     AWS_ATHENA_S3_STAGING_DIR: s3://alpha-vast/athena-staging/
     DATASET_BASE: s3://alpha-vast
 
-  # ---- DAG parameters: can be overridden in the Airflow UI when triggering a run ----
   params:
-    # Naming / versioning
     dataset_suffix: x_structured_y_train_pos_all_bins_255_neg_multiplier_20
     model_run: first_test
 
-    # Targets
     athena_table: "x_structured_y"
     targets: "y_h7_any y_h14_any y_h28_any"
     eval_target: y_h7_any y_h14_any y_h28_any
 
-    # Build / sampling
     skip_build_bins: false
     neg_multiplier: 20
     train_max_pos: -1
@@ -33,7 +29,6 @@ dag:
     bin_construct_sample_cnt: -1
     max_bin: 255
 
-    # Tree hyperparameters
     num_boost_round: 2000
     early_stopping_rounds: 200
     learning_rate: 0.005
@@ -47,18 +42,15 @@ dag:
     lambda_l2: 10.0
     scale_pos_weight: 20.0
 
-    # Focal Loss
     use_focal_loss: false
     focal_gamma: 2.0
     focal_alpha: 0.25
 
-    # DART
     boosting: gbdt
     drop_rate: 0.1
     max_drop: 50
     skip_drop: 0.5
 
-    # Evaluation
     valid_heldout: false
     ks: "0.1,0.25,0.5,1,2,5,7.5,10"
     sample_train_days: -1
@@ -68,7 +60,6 @@ dag:
     eval_seed: 42
     chunksize: 50000
 
-    # Operational evaluation
     op_splits: "val"
     op_max_coverage: 0.10
     op_min_capture: 0.10
@@ -77,18 +68,15 @@ dag:
     op_min_threshold: 0.2
     op_chunksize: 50000
 
-    # Technical
     seed: 42
     num_threads: 0
     verbosity: 1
     use_gpu: false
     gpu_device: 0
 
-    # MLFlow
     mlflow_experiment: prison_ds__vast_lightgbm_tuning_dev
     no_mlflow: false
 
-    # Optuna sweep parameters
     n_sweep_trials: 50          # Total number of Optuna trials
     sweep_search_space: fast    # fast or thorough
     sweep_target: y_h7_any      # Target for sweep optimisation
