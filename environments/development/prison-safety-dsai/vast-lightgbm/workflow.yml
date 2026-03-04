@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.71
+  tag: 0.1.72
   max_active_runs: 50
 
   env_vars:
@@ -84,15 +84,16 @@ dag:
     use_gpu: false
     gpu_device: 0
 
-    # WANDB
-    wandb_project: vast-lightgbm
-    wandb_entity: alex-gower-moj-ministry-of-justice-uk
-    no_wandb: false
+    # MLFlow
+    mlflow_experiment: prison_ds__vast_lightgbm_tuning_dev
+    no_mlflow: false
 
-    # Sweep parameters
-    sweep_id: ""
-    sweep_optimization_mode: fast
-    sweep_count: 5
+    # Optuna sweep parameters
+    n_sweep_trials: 50          # Total number of Optuna trials
+    sweep_search_space: fast    # fast or thorough
+    sweep_target: y_h7_any      # Target for sweep optimisation
+    sweep_num_boost_round: 2000
+    sweep_early_stopping: 100
 
   compute_profile: general-spot-16vcpu-64gb
 
@@ -144,9 +145,9 @@ dag:
         SKIP_DROP: "{{ params.skip_drop }}"
         USE_GPU: "{{ params.use_gpu | int }}"
         GPU_DEVICE: "{{ params.gpu_device }}"
-        WANDB_PROJECT: "{{ params.wandb_project }}"
-        WANDB_ENTITY: "{{ params.wandb_entity }}"
-        NO_WANDB: "{{ params.no_wandb | int }}"
+        MLFLOW_EXPERIMENT: "{{ params.mlflow_experiment }}"
+        NO_MLFLOW: "{{ params.no_mlflow | int }}"
+        MLFLOW_TRACKING_URI: "https://mlflow.compute.development.analytical-platform.service.justice.gov.uk/"
         USE_FOCAL_LOSS: "{{ params.use_focal_loss | int }}"
         FOCAL_GAMMA: "{{ params.focal_gamma }}"
         FOCAL_ALPHA: "{{ params.focal_alpha }}"
@@ -183,52 +184,34 @@ dag:
         OP_MAX_COVERAGE: "{{ params.op_max_coverage }}"
         OP_MIN_CAPTURE: "{{ params.op_min_capture }}"
         OP_SAVE_INTERVALS: "{{ params.op_save_intervals | int }}"
-        WANDB_PROJECT: "{{ params.wandb_project }}"
+        MLFLOW_EXPERIMENT: "{{ params.mlflow_experiment }}"
+        MLFLOW_TRACKING_URI: "https://mlflow.compute.development.analytical-platform.service.justice.gov.uk/"
 
-    sweep_worker_01:
+    optuna_sweep:
       dependencies:
         - build_bins
       env_vars:
-        STEP: sweep_worker
+        STEP: optuna_sweep
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
         PARAM_MODEL_RUN: "{{ params.model_run }}"
         TARGETS: "{{ params.targets }}"
-        SWEEP_ID: "{{ params.sweep_id }}"
-        SWEEP_OPTIMIZATION_MODE: "{{ params.sweep_optimization_mode }}"
-        SWEEP_COUNT: "{{ params.sweep_count }}"
-        WANDB_PROJECT: "{{ params.wandb_project }}"
-        WANDB_ENTITY: "{{ params.wandb_entity }}"
-
-    sweep_worker_02:
-      dependencies:
-        - build_bins
-      env_vars:
-        STEP: sweep_worker
-        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
-        PARAM_MODEL_RUN: "{{ params.model_run }}"
-        TARGETS: "{{ params.targets }}"
-        SWEEP_ID: "{{ params.sweep_id }}"
-        SWEEP_OPTIMIZATION_MODE: "{{ params.sweep_optimization_mode }}"
-        SWEEP_COUNT: "{{ params.sweep_count }}"
-        WANDB_PROJECT: "{{ params.wandb_project }}"
-        WANDB_ENTITY: "{{ params.wandb_entity }}"
-
-    sweep_worker_03:
-      dependencies:
-        - build_bins
-      env_vars:
-        STEP: sweep_worker
-        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
-        PARAM_MODEL_RUN: "{{ params.model_run }}"
-        TARGETS: "{{ params.targets }}"
-        SWEEP_ID: "{{ params.sweep_id }}"
-        SWEEP_OPTIMIZATION_MODE: "{{ params.sweep_optimization_mode }}"
-        SWEEP_COUNT: "{{ params.sweep_count }}"
-        WANDB_PROJECT: "{{ params.wandb_project }}"
-        WANDB_ENTITY: "{{ params.wandb_entity }}"
+        SWEEP_TARGET: "{{ params.sweep_target }}"
+        N_SWEEP_TRIALS: "{{ params.n_sweep_trials }}"
+        SWEEP_SEARCH_SPACE: "{{ params.sweep_search_space }}"
+        SWEEP_NUM_BOOST_ROUND: "{{ params.sweep_num_boost_round }}"
+        SWEEP_EARLY_STOPPING: "{{ params.sweep_early_stopping }}"
+        MAX_BIN: "{{ params.max_bin | int }}"
+        SEED: "{{ params.seed }}"
+        NUM_THREADS: "{{ params.num_threads }}"
+        VALID_HELDOUT: "{{ params.valid_heldout | int }}"
+        USE_GPU: "{{ params.use_gpu | int }}"
+        GPU_DEVICE: "{{ params.gpu_device }}"
+        MLFLOW_EXPERIMENT: "{{ params.mlflow_experiment }}"
+        MLFLOW_TRACKING_URI: "https://mlflow.compute.development.analytical-platform.service.justice.gov.uk/"
 
 secrets:
-  - wandb-api-key
+  - mlflow-username
+  - mlflow-password
 
 iam:
   athena: write
