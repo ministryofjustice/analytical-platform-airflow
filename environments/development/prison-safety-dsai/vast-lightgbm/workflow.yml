@@ -84,7 +84,7 @@ dag:
     sweep_early_stopping: 100
 
   compute_profile: general-spot-16vcpu-64gb
-
+  
   tasks:
     build_bins:
       env_vars:
@@ -139,7 +139,7 @@ dag:
         USE_FOCAL_LOSS: "{{ params.use_focal_loss | int }}"
         FOCAL_GAMMA: "{{ params.focal_gamma }}"
         FOCAL_ALPHA: "{{ params.focal_alpha }}"
-
+        
     evaluate:
       dependencies:
         - train
