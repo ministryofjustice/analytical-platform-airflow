@@ -22,7 +22,7 @@ dag:
     # FULL NGD EXTRACT
     # -----------------------
     full_ngd_extract:
-      compute_profile: general-spot-8vcpu-32gb
+      compute_profile: general-spot-16vcpu-64gb
       env_vars:
         UKAM__RECIPE: full
 
