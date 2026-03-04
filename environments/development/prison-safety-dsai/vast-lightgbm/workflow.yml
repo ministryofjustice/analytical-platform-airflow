@@ -3,14 +3,14 @@ dag:
   repository: moj-analytical-services/vast-lightgbm
   tag: 0.1.73
   max_active_runs: 50
-
+  
   env_vars:
     AWS_REGION: eu-west-1
     AWS_DEFAULT_REGION: eu-west-1
     ATHENA_DB: vast_training_data
     AWS_ATHENA_S3_STAGING_DIR: s3://alpha-vast/athena-staging/
     DATASET_BASE: s3://alpha-vast
-    
+
   params:
     dataset_suffix: x_structured_y_train_pos_all_bins_255_neg_multiplier_20
     model_run: first_test
@@ -84,7 +84,7 @@ dag:
     sweep_early_stopping: 100
 
   compute_profile: general-spot-16vcpu-64gb
-  
+
   tasks:
     build_bins:
       env_vars:
@@ -139,7 +139,7 @@ dag:
         USE_FOCAL_LOSS: "{{ params.use_focal_loss | int }}"
         FOCAL_GAMMA: "{{ params.focal_gamma }}"
         FOCAL_ALPHA: "{{ params.focal_alpha }}"
-        
+
     evaluate:
       dependencies:
         - train
