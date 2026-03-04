@@ -10,7 +10,7 @@ dag:
     ATHENA_DB: vast_training_data
     AWS_ATHENA_S3_STAGING_DIR: s3://alpha-vast/athena-staging/
     DATASET_BASE: s3://alpha-vast
-
+    
   params:
     dataset_suffix: x_structured_y_train_pos_all_bins_255_neg_multiplier_20
     model_run: first_test
