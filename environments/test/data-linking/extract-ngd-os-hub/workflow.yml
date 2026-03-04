@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-prepare-ngd-for-address-matching
-  tag: v1.0.0.dev2
+  tag: v1.0.0.dev3
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -22,7 +22,7 @@ dag:
     # FULL NGD EXTRACT
     # -----------------------
     full_ngd_extract:
-      compute_profile: general-spot-8vcpu-32gb
+      compute_profile: general-spot-16vcpu-64gb
       env_vars:
         UKAM__RECIPE: full
 

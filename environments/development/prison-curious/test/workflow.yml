@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-curious-2-pipeline
 
-  tag: v1.0.3
+  tag: v1.1.0
 
   schedule: "0 5 * * *"
   catchup: false
@@ -13,6 +13,7 @@ dag:
     "S3_RAW_HIST_BUCKET": "mojap-raw-hist-preprod"
     "S3_RAW_HIST_KEY_PREFIX": "hmpps/prison-curious2/raw-history"
     "S3_FAILED_BUCKET": "mojap-land-fail-preprod"
+    "S3_FAILED_KEY_PREFIX": "hmpps/prison-curious2"
 
   tasks:
     extract_and_upload:
