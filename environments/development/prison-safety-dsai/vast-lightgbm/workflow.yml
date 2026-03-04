@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.73
+  tag: 0.1.74
   max_active_runs: 50
 
   env_vars:
@@ -77,9 +77,9 @@ dag:
     mlflow_experiment: prison_ds__vast_lightgbm_tuning_dev
     no_mlflow: false
 
-    n_sweep_trials: 50          # Total number of Optuna trials
-    sweep_search_space: fast    # fast or thorough
-    sweep_target: y_h7_any      # Target for sweep optimisation
+    n_sweep_trials: 50
+    sweep_search_space: fast
+    sweep_target: y_h7_any
     sweep_num_boost_round: 2000
     sweep_early_stopping: 100
 
