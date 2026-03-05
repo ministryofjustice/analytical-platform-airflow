@@ -11,7 +11,7 @@ dag:
     DBT_PROJECT: sdp_tables
     WORKFLOW_NAME: deploy-one-crown-sdp-dev
     DBT_SELECT_CRITERIA: "+path:models/customers.sql +path:models/orders.sql"
-    BRANCH: feature/sdp-dev-pool-secrets
+    BRANCH: feature/sdp-dev-pool
     MODE: build
 
 maintainers:
