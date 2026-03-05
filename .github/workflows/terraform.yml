@@ -27,4 +27,4 @@ jobs:
       pull-requests: write
     uses: ./.github/workflows/reusable-terraform.yml
     with:
-      environments: '["development", "test", "production"]'
+      environments: '["development", "test", "production", "internal-development"]'

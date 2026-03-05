@@ -25,7 +25,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [development, test, production]
+        environment: [development, test, production, internal-development]
         include:
           - environment: development
             account: 381491960855
@@ -33,6 +33,8 @@ jobs:
             account: 767397661611
           - environment: production
             account: 992382429243
+          - environment: internal-development
+            account: 381491960855
     steps:
       - name: Checkout
         id: checkout
