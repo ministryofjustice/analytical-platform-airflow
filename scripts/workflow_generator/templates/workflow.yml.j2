@@ -48,7 +48,7 @@
   {%- elif dag.schedule.hours %}
   schedule: {__type__ : datetime.timedelta, hours : {{ dag.schedule.hours }}}
   {%- else %}
-  schedule: {{ dag.schedule }}
+  schedule: "{{ dag.schedule }}"
   {%- endif %}
   {%- else %}
   schedule: {{ "None" }}
