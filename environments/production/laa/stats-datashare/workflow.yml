@@ -2,15 +2,26 @@
 dag:
   repository: moj-analytical-services/airflow-laa-data-extractor
   tag: v0.4.1.dev1
-  retries: 2
+  retries: 1
   retry_delay: 300
   env_vars:
     BUCKET: "alpha-mojap-laa"
     SERVICE: "athena"
     ORACLE_USER: "LAASTATS_ARC"
     DATABASE_NAME: "laa_datashare"
-    TABLE_PREFIX: "ZFOI_"
-    MOJAP_DB_VER: "v1"
+  tasks:
+    extract-agfs:
+      env_vars:
+        TABLES: "DSA_AGFS_SOL_2425"
+    extract-crime-lower:
+      env_vars:
+        TABLES: "DSA_CL_2425"
+    extract-lgfs:
+      env_vars:
+        TABLES: "DSA_LGFS_2425"
+    extract-vhcc:
+      env_vars:
+        TABLES: "DSA_VHCC_SOL_2425"
 
 iam:
   athena: write
