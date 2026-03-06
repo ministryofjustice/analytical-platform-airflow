@@ -10,8 +10,7 @@ dag:
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-opg-daily
     DBT_SELECT_CRITERIA: tag:opg_daily
-    VARS:
-      start_date: "2026-02-01"
+    THREAD_COUNT: 8
     BRANCH: main
     MODE: build
 
