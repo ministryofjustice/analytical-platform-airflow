@@ -14,7 +14,7 @@ dag:
     MODE: build
   tasks:
     table_deploy:
-      compute_profile: general-on-demand-16vcpu-64gb\
+      compute_profile: general-on-demand-16vcpu-64gb
       outlets:
         - "s3://mojap-derived-tables/prod/curated-daily/"
 
