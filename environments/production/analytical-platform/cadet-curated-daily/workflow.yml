@@ -4,8 +4,6 @@ dag:
   tag: 1.2.7
   schedule: "0 0 * * *"
   catchup: false
-  outlets:
-    - "s3://mojap-derived-tables/prod/curated-daily/"
   env_vars:
     DEPLOY_ENV: prod
     DBT_PROFILE_WORKGROUP: dbt-curated-daily
@@ -17,6 +15,8 @@ dag:
   tasks:
     table_deploy:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://mojap-derived-tables/prod/curated-daily/"
 
 maintainers:
   - jhpyke
