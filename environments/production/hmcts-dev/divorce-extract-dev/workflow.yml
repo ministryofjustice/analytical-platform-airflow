@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v3.0.8
+  tag: v3.0.10
   retries: 0
   hmcts_sdp_networking: True
   max_active_runs: 1
@@ -19,7 +19,7 @@ dag:
     HIST_BUCKET: "s3://mojap-raw-hist-dev"
     LAND_FOLDER: "hmcts/ccd-divorce/v1"
     HIST_FOLDER: "hmcts/ccd-divorce/v1"
-    CUT_OFF: "2026-01-20"
+    CUT_OFF: "2023-01-01"
   tasks:
     ccd_extract_divorce_divorce:
       env_vars:
