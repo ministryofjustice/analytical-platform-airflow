@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-court-proceedings-load
-  tag: v1.0.1
+  tag: v1.0.2-alpha.65c57df
   retries: 0
   max_active_runs: 1
   schedule:
