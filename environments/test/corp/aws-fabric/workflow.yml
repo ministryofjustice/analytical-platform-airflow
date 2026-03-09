@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/replicate-athena-to-fabric
-  tag: v1.2.3
+  tag: v1.2.4
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
@@ -19,6 +19,12 @@ dag:
     hmcts_tables:
       env_vars:
         TABLES: "hmcts"
+    hmcts_hyperion_metrics:
+      env_vars:
+        TABLES: "hmcts_hyperion_metrics"
+    hmcts_hyperion_metrics_full:
+      env_vars:
+        TABLES: "hmcts_hyperion_metrics_full"
     hmpps_tables:
       env_vars:
         TABLES: "hmpps"
