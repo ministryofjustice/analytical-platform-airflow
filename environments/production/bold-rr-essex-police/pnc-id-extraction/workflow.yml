@@ -1,7 +1,10 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-bold-rr-essex-police
-  tag: v1.2.24
+  tag: v1.3.2
+  schedule:
+    datasets:
+      - "s3://mojap-derived-tables/prod/bold-daily"
 
   env_vars:
     DBT_ENV: prod
