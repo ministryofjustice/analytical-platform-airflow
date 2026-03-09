@@ -4,7 +4,7 @@ dag:
   tag: v1.3.2
   schedule:
     datasets:
-      - "s3://mojap-derived-tables/prod/bold-daily
+      - "s3://mojap-derived-tables/prod/bold-daily"
 
   env_vars:
     DBT_ENV: prod
