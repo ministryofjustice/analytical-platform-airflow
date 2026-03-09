@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.77
+  tag: 0.1.78
   max_active_runs: 50
 
   env_vars:
