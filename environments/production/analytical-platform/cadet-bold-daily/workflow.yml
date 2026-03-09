@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.7
+  tag: 1.2.9
   schedule:
     datasets:
       - "s3://mojap-derived-tables/prod/curated-daily/"
@@ -26,6 +26,12 @@ dag:
         IS_DATASET_CHECK: true
       outlets:
         - "s3://mojap-derived-tables/prod/bold-rr/"
+      dependencies: [table_deploy]
+    bold-rr-check:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        IS_DATASET_CHECK: true
+        UNIQUE_IDS: "model.mojap_derived_tables.bold_rr_pnc_ids__pnc_ids_to_send"
       dependencies: [table_deploy]
 
 maintainers:
