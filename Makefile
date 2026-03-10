@@ -1,4 +1,4 @@
-.PHONY: clean schema_validation dags workflow_validation test
+.PHONY: clean schema_validation dags workflow_validation
 
 clean:
 	rm --force --recursive dist
@@ -11,6 +11,3 @@ dags: schema_validation clean
 
 workflow_validation: schema_validation dags
 	PYTHONPATH=airflow python scripts/workflow_validation/main.py
-
-test:
-	PYTHONPATH=airflow uv run pytest tests/ -v $(ARGS)
