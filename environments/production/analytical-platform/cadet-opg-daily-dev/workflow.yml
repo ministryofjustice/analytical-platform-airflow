@@ -11,8 +11,6 @@ dag:
     WORKFLOW_NAME: deploy-opg-daily
     DBT_SELECT_CRITERIA: tag:opg_daily
     THREAD_COUNT: 8
-    VARS:
-      start_date: "2026-02-01"
     BRANCH: main
     MODE: build
 
