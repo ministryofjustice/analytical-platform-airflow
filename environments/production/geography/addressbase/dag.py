@@ -28,7 +28,7 @@ dag = DAG(
     dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=default_args,
     start_date=start_date,
-    schedule=None,
+    schedule="0 15 1 * *",
     catchup=False,
 )
 
