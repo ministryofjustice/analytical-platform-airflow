@@ -23,8 +23,8 @@ iam:
   athena: write
   glue: true
   kms:
-    - arn:aws:kms:eu-west-2:593291632749:key/mrk-6933c22d7d814cc5806fb70655a97184
-    - arn:aws:kms:eu-west-1:593291632749:key/mrk-6933c22d7d814cc5806fb70655a97184
+    - arn:aws:kms:eu-west-2:593291632749:key/mrk-b72b542d94fd48bc98b706fc25281e71
+    - arn:aws:kms:eu-west-1:593291632749:key/mrk-b72b542d94fd48bc98b706fc25281e71
   s3_read_write:
     - alpha-bold-data-shares/reducing-reoffending/essex-police/pnc-id-extraction/*
     - mojap-data-production-bold-egress-production/essex-police/*
