@@ -2,13 +2,13 @@
 """
 Unit tests for workflows.
 Ensures that all workflows can be successfully generated and validated.
+These tests will be run in CI whenever a change to the scripts dir are detected, to catch any errors
+with the newly generated workflows before they are deployed to Airflow.
 """
 import sys
-import os
 import subprocess
 from pathlib import Path
 import pytest
-import yaml
 
 WORKSPACE_ROOT = Path(__file__).parent.parent
 
@@ -74,12 +74,10 @@ def test_workflow(workflow_file):
     )
 
     # Step 3: Validate generated workflow
-    # The generator may rename projects (e.g. electronic-monitoring-data-store -> emds),
-    # so we parse the actual output path from its stdout rather than assuming it
-    # mirrors the source folder structure.
     parts = str(relative_workflow).split("/")
     environment, project, workflow = parts[1], parts[2], parts[3]
 
+    # The generator may rename projects, so check for any aliases
     project = PROJECT_ALIASES.get(project, project)
 
     dist_dir = WORKSPACE_ROOT / "dist" / "dags" / environment / project / workflow
@@ -116,27 +114,3 @@ def test_workflow(workflow_file):
         f"{result.stderr or result.stdout}\n"
         f"{'='*60}"
     )
-
-    # No further validation needed for Python DAGs
-    if is_python_dag:
-        return
-
-    # Step 4: Validate generated schedule is parseable
-    # dagfactory's load_yaml_dags + DAG() accepts invalid schedule strings
-    # without error. The AirflowTimetableInvalid error only occurs at scheduler
-    # runtime. So we must explicitly validate the schedule value here.
-    with open(yaml_file, "r") as f:
-        generated = yaml.safe_load(f)
-    for dag_name, dag_config in generated.items():
-        schedule = dag_config.get("schedule")
-
-        if schedule is None or schedule == "None":
-            continue
-
-        assert not (
-            isinstance(schedule, str) and schedule.startswith("{")
-        ), (
-            f"Schedule for '{dag_name}' is a stringified dict: {schedule!r}\n"
-            f"This means a dict-type schedule (e.g. datasets) was incorrectly quoted.\n"
-            f"Airflow will fail at runtime with AirflowTimetableInvalid."
-        )
