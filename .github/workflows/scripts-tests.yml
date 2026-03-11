@@ -35,5 +35,5 @@ jobs:
         run: |
           uv pip install --requirements requirements.txt
 
-      - name: Run Example Workflow Tests
-        run: make test
+      - name: Run Workflow Tests
+        run: make test WORKERS=4

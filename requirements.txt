@@ -12,3 +12,4 @@ zizmor==1.22.0
 deepdiff==8.6.1
 pygithub==2.4.0
 pytest==8.3.3
+pytest-xdist==3.6.1

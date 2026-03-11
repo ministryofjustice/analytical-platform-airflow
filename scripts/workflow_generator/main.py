@@ -8,6 +8,11 @@ from jinja2 import Environment, FileSystemLoader
 
 from airflow.providers.cncf.kubernetes.secret import Secret
 
+# Also defined in tests/test_workflows.py
+PROJECT_ALIASES = {
+    "electronic-monitoring-data-store": "emds",
+}
+
 # Custom filter to merge dictionaries
 def merge_dicts(dict1, dict2):
     result = dict1.copy()
@@ -30,8 +35,7 @@ environment = folder.split("/")[1]
 print(f"Environment: {environment}")
 
 project = folder.split("/")[2]
-if project == "electronic-monitoring-data-store":
-    project = "emds"
+project = PROJECT_ALIASES.get(project, project)
 print(f"Project: {project}")
 
 workflow = folder.split("/")[3]
