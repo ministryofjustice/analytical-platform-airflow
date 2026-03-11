@@ -11,7 +11,7 @@ dag:
     WORKFLOW_NAME: deploy-opg-daily
     DBT_SELECT_CRITERIA: tag:opg_daily
     THREAD_COUNT: 8
-    BRANCH: main
+    BRANCH: opg/airflow-migration
     MODE: build
 
 maintainers:
