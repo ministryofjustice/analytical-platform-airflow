@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v4.0.0.dev5
+  tag: v4.0.0.dev6
   python_dag: true
 
 iam:
