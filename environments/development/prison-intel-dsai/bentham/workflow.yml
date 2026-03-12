@@ -16,6 +16,8 @@ dag:
 iam:
   athena: write
 
+  lake_formation: true
+
   s3_read_only:
     - alpha-app-kpi-s3-proxy/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
@@ -37,7 +39,7 @@ notifications:
   slack_channel: intel-app-maintenance
 
 maintainers:
-  - mattfunnell
+  - MattFunnell
   - d-lundie
 
 tags:
