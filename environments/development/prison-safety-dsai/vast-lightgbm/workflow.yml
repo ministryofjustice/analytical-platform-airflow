@@ -12,8 +12,8 @@ dag:
     DATASET_BASE: s3://alpha-vast
 
   params:
-    dataset_suffix: x_structured_y_train_pos_all_bins_255_neg_multiplier_20
-    model_run: first_test
+    dataset_suffix: first_test_no_establishment_train_cutoff
+    model_run: first_test_no_establishment_train_cutoff
 
     athena_table: "x_structured_y"
     targets: "y_h7_any y_h14_any y_h28_any"
@@ -65,7 +65,7 @@ dag:
     op_min_capture: 0.10
     op_save_intervals: false
     op_burnin_days: -1
-    op_min_threshold: 0.2
+    op_min_threshold: 0.0
     op_chunksize: 50000
 
     seed: 42
@@ -77,8 +77,8 @@ dag:
     mlflow_experiment: prison_ds__vast_lightgbm_tuning_dev
     no_mlflow: false
 
-    n_sweep_trials: 50
-    sweep_search_space: fast
+    n_sweep_trials: 1000
+    sweep_search_space: thorough
     sweep_target: y_h7_any
     sweep_num_boost_round: 2000
     sweep_early_stopping: 100
