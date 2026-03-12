@@ -249,6 +249,14 @@
       "slack_channel": {
         "type": "string",
         "required": false
+      },
+      "slack_events": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "allowed": ["failure", "success"]
+        },
+        "required": false
       }
     }
   },
