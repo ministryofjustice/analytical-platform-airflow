@@ -1,0 +1,11 @@
+dag:
+  repository: moj-analytical-services/airflow-scorecard-notify
+  tag: v3.0.1
+  python_dag: true
+
+maintainers:
+  - chrisbanbury
+
+tags:
+  business_unit: HQ
+  owner: ccmanalytics_asd@justice.gov.uk
