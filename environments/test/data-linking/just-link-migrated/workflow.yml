@@ -1,0 +1,33 @@
+dag:
+  repository: moj-analytical-services/data_linking
+  tag: v4.0.0.dev7
+  python_dag: true
+
+iam:
+  athena: write
+  s3_read_only:
+    - alpha-mojap-curated-mags/*
+    - alpha-mojap-curated-xhibit/*
+    - alpha-nomis/*
+    - alpha-mojap-curated-open-data/*
+    - moj-analytics-lookup-tables/*
+    - moj-analytics-s3-logs/alpha-data-linking/*
+    - moj-analytics-s3-logs/alpha-data-linking-anonymised/*
+    - mojap-derived-tables/prod/*
+    - alpha-mojap-common-platform/dev*/database/*
+    - alpha-mojap-derived-family/*
+    - alpha-mojap-civil/*
+    - alpha-geography/prod/*/curated/*
+    - alpha-enforcement-data-engineering/db_v2/live/*
+
+  s3_read_write:
+    - alpha-data-linking/*
+    - alpha-data-linking-anonymised/*
+
+maintainers:
+  - ThomasHepworth
+  - samnlindsay
+
+tags:
+  business_unit: Central Digital
+  owner: sam.lindsay1@justice.gov.uk
