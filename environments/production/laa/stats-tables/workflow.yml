@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-laa-data-extractor
-  tag: v0.4.2.alpha
+  tag: v0.4.3.dev
   retries: 2
   retry_delay: 300
   env_vars:
@@ -9,8 +9,8 @@ dag:
     SERVICE: "athena"
     ORACLE_USER: "LAASTATS_ARC"
     DATABASE_NAME: "laa_datashare"
-    TABLE_PREFIX: "DSA_SOL_"
-    MOJAP_DB_VER: "v1"
+    TABLE_PREFIX: "EXP_"
+    MOJAP_DB_VER: "v2"
 
 iam:
   athena: write
