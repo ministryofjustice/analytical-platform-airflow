@@ -1,0 +1,53 @@
+dag:
+  repository: moj-analytical-services/airflow-curious-2-pipeline
+
+  tag: v1.1.2
+
+  schedule: "0 5 * * *"
+  catchup: false
+
+  env_vars:
+    "ENV": "prod"
+    "S3_LANDING_BUCKET": "mojap-land"
+    "S3_LANDING_KEY_PREFIX": "hmpps/prison-curious2"
+    "S3_RAW_HIST_BUCKET": "mojap-raw-hist"
+    "S3_RAW_HIST_KEY_PREFIX": "hmpps/prison-curious2/raw-history"
+    "S3_FAILED_BUCKET": "mojap-land-fail"
+    "S3_FAILED_KEY_PREFIX": "hmpps/prison-curious2"
+
+  tasks:
+    extract_and_upload:
+      env_vars:
+        STEP: "extract_and_upload"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+    validate_raw_data:
+      env_vars:
+        STEP: "validate_raw_data"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [extract_and_upload]
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land/hmpps/prison-curious2/*
+    - mojap-raw-hist/hmpps/prison-curious2/*
+    - mojap-land-fail/hmpps/prison-curious2/*
+
+secrets:
+  - curious-azure-credential
+
+maintainers:
+  - iainborsbey-mj
+  - AnthonyCody
+  - andrewc-moj
+
+tags:
+  business_unit: HQ
+  owner: iain.borsbey@justice.gov.uk
+
+notifications:
+  emails:
+    - andrew.craik@justice.gov.uk
+    - iain.borsbey@justice.gov.uk
+    - anthony.cody@justice.gov.uk

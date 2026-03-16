@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-manage-offences-pipeline
-  tag: v2.0.0-alpha.555b6f9
+  tag: v2.0.0-beta.fb1ed37
   retries: 1
   retry_delay: 150
   max_active_runs: 1
@@ -22,7 +22,7 @@ secrets:
   - client-auth
 
 maintainers:
-  - andy-cook
+  - Andy-Cook
 
 tags:
   business_unit: Central Digital

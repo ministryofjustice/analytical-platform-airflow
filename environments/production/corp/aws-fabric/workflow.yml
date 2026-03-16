@@ -1,0 +1,65 @@
+---
+dag:
+  repository: ministryofjustice/replicate-athena-to-fabric
+  tag: v1.2.9
+  catchup: false
+  compute_profile: general-on-demand-2vcpu-8gb
+  max_active_runs: 1
+  retries: 1
+  env_vars:
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+  tasks:
+    central_dims:
+      env_vars:
+        TABLES: "central"
+    cica_tables:
+      env_vars:
+        TABLES: "cica"
+    hmcts_tables:
+      env_vars:
+        TABLES: "hmcts"
+    hmcts_hyperion_metrics:
+      env_vars:
+        TABLES: "hmcts_hyperion_metrics"
+    hmcts_hyperion_metrics_full:
+      env_vars:
+        TABLES: "hmcts_hyperion_metrics_full"
+    hmpps_tables:
+      env_vars:
+        TABLES: "hmpps"
+    laa_tables:
+      env_vars:
+        TABLES: "laa"
+    moj_digital_tables:
+      env_vars:
+        TABLES: "moj_digital"
+    moj_hq_tables:
+      env_vars:
+        TABLES: "moj_hq"
+    opg_tables:
+      env_vars:
+        TABLES: "opg"
+    stg_tables:
+      env_vars:
+        TABLES: "stg"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/prod/models/domain_name=finance/*
+
+secrets:
+  - azure-client-id
+  - azure-tenant-id
+  - azure-client-secret
+  - fabric-warehouse-endpoint
+
+maintainers:
+  - moj-supratikc
+  - Csheldon155
+
+tags:
+  business_unit: Central Digital
+  owner: supratik.chowdhury@justice.gov.uk

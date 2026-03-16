@@ -1,8 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.71
-  max_active_runs: 50
+  tag: 0.1.79
+  max_active_runs: 10
 
   env_vars:
     AWS_REGION: eu-west-1
@@ -11,18 +11,14 @@ dag:
     AWS_ATHENA_S3_STAGING_DIR: s3://alpha-vast/athena-staging/
     DATASET_BASE: s3://alpha-vast
 
-  # ---- DAG parameters: can be overridden in the Airflow UI when triggering a run ----
   params:
-    # Naming / versioning
-    dataset_suffix: x_structured_y_train_pos_all_bins_255_neg_multiplier_20
-    model_run: first_test
+    dataset_suffix: first_test_no_establishment_train_cutoff
+    model_run: first_test_no_establishment_train_cutoff
 
-    # Targets
     athena_table: "x_structured_y"
     targets: "y_h7_any y_h14_any y_h28_any"
     eval_target: y_h7_any y_h14_any y_h28_any
 
-    # Build / sampling
     skip_build_bins: false
     neg_multiplier: 20
     train_max_pos: -1
@@ -33,7 +29,6 @@ dag:
     bin_construct_sample_cnt: -1
     max_bin: 255
 
-    # Tree hyperparameters
     num_boost_round: 2000
     early_stopping_rounds: 200
     learning_rate: 0.005
@@ -47,18 +42,15 @@ dag:
     lambda_l2: 10.0
     scale_pos_weight: 20.0
 
-    # Focal Loss
     use_focal_loss: false
     focal_gamma: 2.0
     focal_alpha: 0.25
 
-    # DART
     boosting: gbdt
     drop_rate: 0.1
     max_drop: 50
     skip_drop: 0.5
 
-    # Evaluation
     valid_heldout: false
     ks: "0.1,0.25,0.5,1,2,5,7.5,10"
     sample_train_days: -1
@@ -68,33 +60,30 @@ dag:
     eval_seed: 42
     chunksize: 50000
 
-    # Operational evaluation
     op_splits: "val"
     op_max_coverage: 0.10
     op_min_capture: 0.10
     op_save_intervals: false
     op_burnin_days: -1
-    op_min_threshold: 0.2
+    op_min_threshold: 0.0
     op_chunksize: 50000
 
-    # Technical
     seed: 42
     num_threads: 0
     verbosity: 1
     use_gpu: false
     gpu_device: 0
 
-    # WANDB
-    wandb_project: vast-lightgbm
-    wandb_entity: alex-gower-moj-ministry-of-justice-uk
-    no_wandb: false
+    mlflow_experiment: prison_ds__vast_lightgbm_tuning_dev
+    no_mlflow: false
 
-    # Sweep parameters
-    sweep_id: ""
-    sweep_optimization_mode: fast
-    sweep_count: 5
+    n_sweep_trials: 1000
+    sweep_search_space: thorough
+    sweep_target: y_h7_any
+    sweep_num_boost_round: 2000
+    sweep_early_stopping: 100
 
-  compute_profile: general-spot-16vcpu-64gb
+  compute_profile: general-spot-8vcpu-32gb
 
   tasks:
     build_bins:
@@ -144,9 +133,9 @@ dag:
         SKIP_DROP: "{{ params.skip_drop }}"
         USE_GPU: "{{ params.use_gpu | int }}"
         GPU_DEVICE: "{{ params.gpu_device }}"
-        WANDB_PROJECT: "{{ params.wandb_project }}"
-        WANDB_ENTITY: "{{ params.wandb_entity }}"
-        NO_WANDB: "{{ params.no_wandb | int }}"
+        MLFLOW_EXPERIMENT: "{{ params.mlflow_experiment }}"
+        NO_MLFLOW: "{{ params.no_mlflow | int }}"
+        MLFLOW_TRACKING_URI: "https://mlflow.compute.development.analytical-platform.service.justice.gov.uk/"
         USE_FOCAL_LOSS: "{{ params.use_focal_loss | int }}"
         FOCAL_GAMMA: "{{ params.focal_gamma }}"
         FOCAL_ALPHA: "{{ params.focal_alpha }}"
@@ -183,52 +172,34 @@ dag:
         OP_MAX_COVERAGE: "{{ params.op_max_coverage }}"
         OP_MIN_CAPTURE: "{{ params.op_min_capture }}"
         OP_SAVE_INTERVALS: "{{ params.op_save_intervals | int }}"
-        WANDB_PROJECT: "{{ params.wandb_project }}"
+        MLFLOW_EXPERIMENT: "{{ params.mlflow_experiment }}"
+        MLFLOW_TRACKING_URI: "https://mlflow.compute.development.analytical-platform.service.justice.gov.uk/"
 
-    sweep_worker_01:
+    optuna_sweep:
       dependencies:
         - build_bins
       env_vars:
-        STEP: sweep_worker
+        STEP: optuna_sweep
         PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
         PARAM_MODEL_RUN: "{{ params.model_run }}"
         TARGETS: "{{ params.targets }}"
-        SWEEP_ID: "{{ params.sweep_id }}"
-        SWEEP_OPTIMIZATION_MODE: "{{ params.sweep_optimization_mode }}"
-        SWEEP_COUNT: "{{ params.sweep_count }}"
-        WANDB_PROJECT: "{{ params.wandb_project }}"
-        WANDB_ENTITY: "{{ params.wandb_entity }}"
-
-    sweep_worker_02:
-      dependencies:
-        - build_bins
-      env_vars:
-        STEP: sweep_worker
-        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
-        PARAM_MODEL_RUN: "{{ params.model_run }}"
-        TARGETS: "{{ params.targets }}"
-        SWEEP_ID: "{{ params.sweep_id }}"
-        SWEEP_OPTIMIZATION_MODE: "{{ params.sweep_optimization_mode }}"
-        SWEEP_COUNT: "{{ params.sweep_count }}"
-        WANDB_PROJECT: "{{ params.wandb_project }}"
-        WANDB_ENTITY: "{{ params.wandb_entity }}"
-
-    sweep_worker_03:
-      dependencies:
-        - build_bins
-      env_vars:
-        STEP: sweep_worker
-        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
-        PARAM_MODEL_RUN: "{{ params.model_run }}"
-        TARGETS: "{{ params.targets }}"
-        SWEEP_ID: "{{ params.sweep_id }}"
-        SWEEP_OPTIMIZATION_MODE: "{{ params.sweep_optimization_mode }}"
-        SWEEP_COUNT: "{{ params.sweep_count }}"
-        WANDB_PROJECT: "{{ params.wandb_project }}"
-        WANDB_ENTITY: "{{ params.wandb_entity }}"
+        SWEEP_TARGET: "{{ params.sweep_target }}"
+        N_SWEEP_TRIALS: "{{ params.n_sweep_trials }}"
+        SWEEP_SEARCH_SPACE: "{{ params.sweep_search_space }}"
+        SWEEP_NUM_BOOST_ROUND: "{{ params.sweep_num_boost_round }}"
+        SWEEP_EARLY_STOPPING: "{{ params.sweep_early_stopping }}"
+        MAX_BIN: "{{ params.max_bin | int }}"
+        SEED: "{{ params.seed }}"
+        NUM_THREADS: "{{ params.num_threads }}"
+        VALID_HELDOUT: "{{ params.valid_heldout | int }}"
+        USE_GPU: "{{ params.use_gpu | int }}"
+        GPU_DEVICE: "{{ params.gpu_device }}"
+        MLFLOW_EXPERIMENT: "{{ params.mlflow_experiment }}"
+        MLFLOW_TRACKING_URI: "https://mlflow.compute.development.analytical-platform.service.justice.gov.uk/"
 
 secrets:
-  - wandb-api-key
+  - mlflow-username
+  - mlflow-password
 
 iam:
   athena: write
