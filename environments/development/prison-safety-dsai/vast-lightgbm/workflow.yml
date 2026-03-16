@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.79
+  tag: 0.1.81
   max_active_runs: 10
 
   env_vars:
@@ -174,6 +174,22 @@ dag:
         OP_SAVE_INTERVALS: "{{ params.op_save_intervals | int }}"
         MLFLOW_EXPERIMENT: "{{ params.mlflow_experiment }}"
         MLFLOW_TRACKING_URI: "https://mlflow.compute.development.analytical-platform.service.justice.gov.uk/"
+
+    evaluate_viper:
+      dependencies:
+        - evaluate_operational
+      env_vars:
+        STEP: viper_eval
+        PARAM_DATASET_SUFFIX: "{{ params.dataset_suffix }}"
+        PARAM_MODEL_RUN: "{{ params.model_run }}"
+        EVAL_TARGET: "{{ params.eval_target }}"
+        OP_SPLITS: "{{ params.op_splits }}"
+        OP_BURNIN_DAYS: "{{ params.op_burnin_days }}"
+        OP_MIN_THRESHOLD: "{{ params.op_min_threshold }}"
+        KS: "{{ params.ks }}"
+        OP_MAX_COVERAGE: "{{ params.op_max_coverage }}"
+        OP_MIN_CAPTURE: "{{ params.op_min_capture }}"
+        OP_SAVE_INTERVALS: "{{ params.op_save_intervals | int }}"
 
     optuna_sweep:
       dependencies:
