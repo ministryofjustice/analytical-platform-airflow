@@ -16,8 +16,8 @@ concurrency:
   group: s3-deploy
 
 jobs:
-  s3-deploy:
-    name: S3 Deploy
+  s3-deploy-non-production:
+    name: S3 Deploy (Non-Production)
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -25,14 +25,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        environment: [development, test, production]
+        environment: [development, test]
         include:
           - environment: development
             account: 381491960855
           - environment: test
             account: 767397661611
-          - environment: production
-            account: 992382429243
     steps:
       - name: Checkout
         id: checkout
@@ -49,7 +47,7 @@ jobs:
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@5a095e7a2014a4212f075830d4f7277575a9d098 # v7.3.1
+        uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
         with:
           activate-environment: true
           version: "latest"
@@ -80,3 +78,67 @@ jobs:
           aws s3 sync airflow/analytical_platform s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/analytical_platform --delete
           aws s3 cp airflow/.airflowignore s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/.airflowignore
           aws s3 cp airflow/dag_factory.py s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/dag_factory.py
+
+  production-approval-gate:
+    name: Production Approval Gate
+    needs: [s3-deploy-non-production]
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Await Production Approval
+        run: echo "Production deployment approved"
+
+  s3-deploy-production:
+    name: S3 Deploy (Production)
+    needs: [production-approval-gate]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials
+        uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7 # v6.0.0
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::992382429243:role/github-actions-ministryofjustice-analytical-platform-airflow
+
+      - name: Set Up UV
+        id: setup_uv
+        uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+        with:
+          activate-environment: true
+          version: "latest"
+          python-version: "3.11"
+
+      - name: Install Requirements
+        id: install_requirements
+        shell: bash
+        run: |
+          uv pip install --requirements requirements.txt
+
+      - name: Generate Workflows
+        id: generate_workflows
+        shell: bash
+        run: |
+          bash scripts/generate-workflows/main.sh production
+
+      - name: Deploy DAGs
+        id: deploy_dags
+        shell: bash
+        run: |
+          aws s3 sync dist/dags/production s3://mojap-compute-production-mwaa/dags/production --delete
+
+      - name: Deploy Airflow Artefacts
+        id: deploy_airflow_artefacts
+        shell: bash
+        run: |
+          aws s3 sync airflow/analytical_platform s3://mojap-compute-production-mwaa/dags/analytical_platform --delete
+          aws s3 cp airflow/.airflowignore s3://mojap-compute-production-mwaa/dags/.airflowignore
+          aws s3 cp airflow/dag_factory.py s3://mojap-compute-production-mwaa/dags/dag_factory.py
