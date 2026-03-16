@@ -5,6 +5,7 @@ dag:
   env_vars:
     ENV: "development"
     BUCKET_NAME: "viewpoint-cde-prisons-20260311110623727300000001"
+    AWS_DEFAULT_REGION: "eu-west-2"
 
 maintainers:
   - zerj9
