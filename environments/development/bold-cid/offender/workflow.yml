@@ -26,7 +26,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - - alpha-bold-rr-ops/exp/*
+    - alpha-bold-rr-ops/exp/*
     - alpha-bold-rr-ops/dev/*
     - mojap-athena-query-dump/AROAYUIXP4BWQHHLJMK7I:*/*
 
