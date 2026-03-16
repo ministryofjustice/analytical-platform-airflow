@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.6.1
+  tag: v1.6.2
   schedule: "0 7-18 * * 1-5"
   compute_profile: general-on-demand-2vcpu-8gb
   env_vars:
