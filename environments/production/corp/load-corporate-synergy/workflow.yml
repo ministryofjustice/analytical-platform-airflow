@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v0.0.24-test-5
+  tag: v1.2.1
   schedule: "0 8 1-3 * *"
   env_vars:
     AFFILE_ENV: "prod"
@@ -33,7 +33,17 @@ dag:
         AFFILE_PIPELINE_NAME: "customer_headers"
     load-sba_mo_locations:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ssba_mo_locations"
+        AFFILE_PIPELINE_NAME: "sba_mo_locations"
+    load-po_lines:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "po_lines"
+    load-po_headers:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "po_headers"
+    load-supplier_bank_accounts:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "supplier_bank_accounts"
+
 iam:
   athena: write
   glue: true
@@ -43,14 +53,14 @@ iam:
 
   s3_read_write:
     - mojap-processed/domain__synergy/env__prod/synergy_grni/*
-    - mojap-processed/domain__synergy/env__prod/synergy_grini_staging/*
+    - mojap-processed/domain__synergy/env__prod/synergy_grni_staging/*
     - mojap-processed/domain__synergy/env__prod/athena_query_dump/*
     - mojap-processed/domain__commercial/env__prod/synergy_sop/*
     - mojap-processed/domain__commercial/env__prod/synergy_sop_staging/*
     - mojap-processed/domain__commercial/env__prod/athena_query_dump/*
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-splashbi-notifications
 
   emails:
     - mohammed.ahad1@justice.gov.uk

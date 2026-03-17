@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
-  tag: 2.17.0
+  tag: 2.18.0
   params:
     example_param: underscored
   env_vars:
@@ -11,6 +11,8 @@ notifications:
   emails:
     - jacob.woffenden@justice.gov.uk
   slack_channel: analytical-platform-airflow-testing
+  slack_events:
+    - failure
 
 iam:
   cloudwatch_logs_read_only:

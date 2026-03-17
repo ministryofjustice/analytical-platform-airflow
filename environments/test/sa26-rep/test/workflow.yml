@@ -1,0 +1,23 @@
+dag:
+  repository: moj-analytical-services/sa26-dashboard-analysis
+  tag: v0-10
+  catchup: false
+  depends_on_past: false
+  schedule: "0 14 * * *"
+  max_active_runs: 1
+
+iam:
+  athena: read
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=probation_derived/*
+  s3_read_write:
+    - alpha-sa26-monitoring/*
+
+maintainers:
+  - joannagent
+
+tags:
+  business_unit: HQ
+  owner: joanna.gent@justice.gov.uk

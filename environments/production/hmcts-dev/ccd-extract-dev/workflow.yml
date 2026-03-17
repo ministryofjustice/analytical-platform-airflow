@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v3.0.6
+  tag: v3.1.0-alpha.8286d38
   retries: 0
   retry_delay: 150
   hmcts_sdp_networking: True
@@ -20,7 +20,8 @@ dag:
     HIST_BUCKET: "s3://mojap-raw-hist-dev"
     LAND_FOLDER: "hmcts/ccd/dev_v2"
     HIST_FOLDER: "hmcts/ccd/dev_v2"
-    CUT_OFF: "2026-01-10"
+    CUT_OFF: "2026-02-01"
+    FAIL_ON_NO_FILES: "True"
   tasks:
     ccd_extract_probate_caveat:
       env_vars:

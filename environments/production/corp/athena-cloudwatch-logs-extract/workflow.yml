@@ -1,0 +1,42 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-cloudwatch-logs
+  tag: v1.6.0
+  compute_profile: "general-on-demand-4vcpu-16gb"
+  schedule: "0 6 * * *"
+  env_vars:
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_REGION: "eu-west-1"
+    ENVIRONMENT: "prod"
+  tasks:
+    cloudwatch-extract:
+      env_vars:
+        SOURCE: "cloudwatch_athena_logs"
+    athena-extract:
+      dependencies: [cloudwatch-extract]
+      env_vars:
+        SOURCE: "athena_queries"
+
+iam:
+  athena: write
+  glue: true
+  cloudwatch_logs_read_only:
+    - arn:aws:logs:eu-west-2:593291632749:log-group:cloudtrail-athena-events:*
+  s3_read_write:
+    - mojap-land/athena_query_executions/prod/cloudwatch_athena_logs/*
+    - mojap-land/athena_query_executions/prod/athena_queries/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - Supratik.Chowdhury@justice.gov.uk
+    - sai.dasari3@justice.gov.uk
+
+maintainers:
+  - moj-supratikc
+  - sdasarimoj
+
+tags:
+  business_unit: Central Digital
+  owner: Supratik.Chowdhury@justice.gov.uk

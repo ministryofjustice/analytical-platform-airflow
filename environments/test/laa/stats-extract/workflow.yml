@@ -1,0 +1,48 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-laa-data-extractor
+  tag: v0.4.1.dev1
+  retries: 2
+  retry_delay: 300
+  env_vars:
+    METADATA_FOLDER: "s3://mojap-land-dev/laa_stats_dev/stats/metadata"
+    BUCKET: "mojap-land-dev"
+    SERVICE: "athena"
+    ORACLE_USER: "ANY_PLATFORM"
+    DATABASE_NAME: "laa_stats_dev"
+  tasks:
+    extract-dim-outcome:
+      env_vars:
+        TABLE_PREFIX: "DIM_OUTCOME_"
+    extract-dim-police:
+      env_vars:
+        TABLE_PREFIX: "DIM_POLICE_"
+    extract-dim-offices:
+      env_vars:
+        TABLES: "DIM_OFFICES"
+    extract-dim-submissions:
+      env_vars:
+        TABLES: "DIM_SUBMISSIONS"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-dev/*
+
+secrets:
+  - username
+  - password
+  - db-dsn
+
+notifications:
+  emails:
+    - Damilola.Oyebade@justice.gov.uk
+  slack_channel: laa-de-alerts
+
+maintainers:
+  - dami-moj
+
+tags:
+  business_unit: LAA
+  owner: Damilola.Oyebade@justice.gov.uk

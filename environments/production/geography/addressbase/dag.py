@@ -13,7 +13,7 @@ WORKFLOW="PLACEHOLDER_WORKFLOW"
 ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
 OWNER="PLACEHOLDER_OWNER"
 
-start_date=datetime(2026, 1, 30)
+start_date=datetime(2025, 10, 30)
 total_workers = 20
 
 default_args = {
@@ -28,7 +28,7 @@ dag = DAG(
     dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=default_args,
     start_date=start_date,
-    schedule=None,
+    schedule="0 05 1 * *",
     catchup=False,
 )
 

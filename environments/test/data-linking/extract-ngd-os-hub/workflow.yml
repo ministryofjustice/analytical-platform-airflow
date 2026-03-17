@@ -1,0 +1,43 @@
+dag:
+  repository: moj-analytical-services/airflow-prepare-ngd-for-address-matching
+  tag: v1.0.0.dev3
+  retries: 0
+  retry_delay: 150
+  max_active_runs: 1
+
+  env_vars:
+    LOG_LEVEL: "INFO"
+    UKAM__S3_BUCKET: alpha-data-linking
+
+  tasks:
+    # -----------------------
+    # HACKNEY NGD EXTRACT
+    # -----------------------
+    hackney_ngd_extract:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        UKAM__RECIPE: hackney
+
+    # -----------------------
+    # FULL NGD EXTRACT
+    # -----------------------
+    full_ngd_extract:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        UKAM__RECIPE: full
+
+iam:
+  s3_read_write:
+    - alpha-data-linking/*
+
+secrets:
+  - os-api-key
+  - os-secret-id
+
+maintainers:
+  - ThomasHepworth
+  - RobinL
+
+tags:
+  business_unit: Central Digital
+  owner: thomas.hepworth@justice.gov.uk

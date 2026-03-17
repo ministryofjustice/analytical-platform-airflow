@@ -1,0 +1,30 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.2.7
+  catchup: false
+  env_vars:
+    DEPLOY_ENV: sandpit
+    DBT_PROFILE_WORKGROUP: dbt-oasys-question
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-oasys-question
+    DBT_SELECT_CRITERIA: tag:oasys_question_only
+    BRANCH: main
+    MODE: build
+
+maintainers:
+  - AntonyJScott
+  - jhpyke
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/sandpit/*
+
+tags:
+  business_unit: HQ
+  owner: antony.scott@justice.gov.uk
