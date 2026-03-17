@@ -1,0 +1,27 @@
+---
+dag:
+  repository: ministryofjustice/airflow-sp-poc
+  tag: v1.0.16-dev
+
+  env_vars:
+    BUCKET: alpha-opg-etl
+    S3_KEY: test_file.csv
+    SP_LIBRARY_NAME: Documents
+    SP_UPLOAD_PATH: test/
+
+iam:
+  s3_read_only:
+    - alpha-opg-etl/*
+
+secrets:
+  - azure-tenant-id
+  - azure-client-id
+  - azure-client-secret
+  - site-id
+
+maintainers:
+  - p-sin
+
+tags:
+  business_unit: OPG
+  owner: philip.sinfield@justice.gov.uk
