@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.4
+  tag: 1.2.7
   compute_profile: general-on-demand-16vcpu-64gb
   catchup: false
   hmcts_sdp_networking: true
@@ -10,8 +10,8 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-xhibit
     DBT_PROJECT: sdp_tables
     WORKFLOW_NAME: deploy-one-crown-sdp-dev
-    DBT_SELECT_CRITERIA: "+path:models/customers +path:models/orders"
-    BRANCH: feature/sdp-dev-pool-airflow
+    DBT_SELECT_CRITERIA: "+path:models/courts"
+    BRANCH: feature/sdp-dev-pool
     MODE: build
 
 maintainers:

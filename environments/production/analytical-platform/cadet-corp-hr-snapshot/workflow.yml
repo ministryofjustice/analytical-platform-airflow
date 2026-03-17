@@ -1,0 +1,46 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.2.6
+  is_paused_upon_creation: true
+  catchup: false
+  env_vars:
+    DEPLOY_ENV: prod
+    DBT_PROFILE_WORKGROUP: dbt-corporate
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-corporate-hr-snapshot
+    DBT_SELECT_CRITERIA: tag:corporate_hr_dm_snapshot
+    BRANCH: main
+    MODE: build
+  tasks:
+    table_deploy:
+      compute_profile: general-on-demand-8vcpu-32gb
+    all_passed:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/prod/deploy-corporate-hr-snapshot/"
+
+maintainers:
+  - ltd-pa
+  - williamorrie
+  - moj-supratikc
+  - jhpyke
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/prod/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+tags:
+  business_unit: Central Digital
+  owner: Laurence.Droy@justice.gov.uk

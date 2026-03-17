@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.5.7
+  tag: v1.6.4
   start_date: "2025-09-29"
   schedule: "0 7 1 * *"
   retries: 2
@@ -11,53 +11,70 @@ dag:
     REPORT_RUNTIME_ENV: "prod"
     REPORT_RUN_MODE: "trigger"
   tasks:
+    # === Credential Validation ===
+    validate-credentials:
+      env_vars:
+        REPORT_RUN_MODE: "check-credentials"
+        REPORT_SECRET_ID: "splashbi-credentials"
+
     # === Commercial Synergy GRNI ===
     po_sscl_details:
       env_vars:
         REPORT_NAME: "po_sscl_details"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
 
     # === Commercial Synergy Supplier Headers ===
     cts-supplier_headers:
       env_vars:
         REPORT_NAME: "cts-supplier_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     laa-supplier_headers:
       env_vars:
         REPORT_NAME: "laa-supplier_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     opg-supplier_headers:
       env_vars:
         REPORT_NAME: "opg-supplier_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     yjb-supplier_headers:
       env_vars:
         REPORT_NAME: "yjb-supplier_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     ima-supplier_headers:
       env_vars:
         REPORT_NAME: "ima-supplier_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     moj-supplier_headers:
       env_vars:
         REPORT_NAME: "moj-supplier_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     pbd-supplier_headers:
       env_vars:
         REPORT_NAME: "pbd-supplier_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     jac-supplier_headers:
       env_vars:
         REPORT_NAME: "jac-supplier_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     nms-supplier_headers:
       env_vars:
         REPORT_NAME: "nms-supplier_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     wls-supplier_headers:
       env_vars:
         REPORT_NAME: "wls-supplier_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
 
     # === Commercial Synergy Supplier Sites ===
 
@@ -65,48 +82,59 @@ dag:
       env_vars:
         REPORT_NAME: "cts-supplier_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     jac-supplier_sites:
       env_vars:
         REPORT_NAME: "jac-supplier_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     moj-supplier_sites:
       env_vars:
         REPORT_NAME: "moj-supplier_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     opg-supplier_sites:
       env_vars:
         REPORT_NAME: "opg-supplier_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     wls-supplier_sites:
       env_vars:
         REPORT_NAME: "wls-supplier_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     ima-supplier_sites:
       env_vars:
         REPORT_NAME: "ima-supplier_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     laa-supplier_sites:
       env_vars:
         REPORT_NAME: "laa-supplier_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     nms-supplier_sites:
       env_vars:
         REPORT_NAME: "nms-supplier_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     pbd-supplier_sites:
       env_vars:
         REPORT_NAME: "pbd-supplier_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     yjb-supplier_sites:
       env_vars:
         REPORT_NAME: "yjb-supplier_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
 
     # === HR Locations ===
     sba-mo-locations:
       env_vars:
         REPORT_NAME: "sba-mo-locations"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
 
     # === Commercial Synergy custome headers ===
 
@@ -114,42 +142,52 @@ dag:
       env_vars:
         REPORT_NAME: "cts-customer_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     laa-customer_headers:
       env_vars:
         REPORT_NAME: "laa-customer_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     opg-customer_headers:
       env_vars:
         REPORT_NAME: "opg-customer_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     yjb-customer_headers:
       env_vars:
         REPORT_NAME: "yjb-customer_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     ima-customer_headers:
       env_vars:
         REPORT_NAME: "ima-customer_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     moj-customer_headers:
       env_vars:
         REPORT_NAME: "moj-customer_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     pbd-customer_headers:
       env_vars:
         REPORT_NAME: "pbd-customer_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     jac-customer_headers:
       env_vars:
         REPORT_NAME: "jac-customer_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     nms-customer_headers:
       env_vars:
         REPORT_NAME: "nms-customer_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     wls-customer_headers:
       env_vars:
         REPORT_NAME: "wls-customer_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
 
     # === Commercial Synergy customer sites ===
 
@@ -157,42 +195,52 @@ dag:
       env_vars:
         REPORT_NAME: "cts-customer_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     laa-customer_sites:
       env_vars:
         REPORT_NAME: "laa-customer_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     opg-customer_sites:
       env_vars:
         REPORT_NAME: "opg-customer_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     yjb-customer_sites:
       env_vars:
         REPORT_NAME: "yjb-customer_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     ima-customer_sites:
       env_vars:
         REPORT_NAME: "ima-customer_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     moj-customer_sites:
       env_vars:
         REPORT_NAME: "moj-customer_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     pbd-customer_sites:
       env_vars:
         REPORT_NAME: "pbd-customer_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     jac-customer_sites:
       env_vars:
         REPORT_NAME: "jac-customer_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     nms-customer_sites:
       env_vars:
         REPORT_NAME: "nms-customer_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     wls-customer_sites:
       env_vars:
         REPORT_NAME: "wls-customer_sites"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
 
     # === Commercial Synergy PO ===
 
@@ -200,83 +248,103 @@ dag:
       env_vars:
         REPORT_NAME: "cts-po_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     laa-po_lines:
       env_vars:
         REPORT_NAME: "laa-po_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     opg-po_lines:
       env_vars:
         REPORT_NAME: "opg-po_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     yjb-po_lines:
       env_vars:
         REPORT_NAME: "yjb-po_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     ima-po_lines:
       env_vars:
         REPORT_NAME: "ima-po_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     moj-po_lines:
       env_vars:
         REPORT_NAME: "moj-po_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     pbd-po_lines:
       env_vars:
         REPORT_NAME: "pbd-po_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     jac-po_lines:
       env_vars:
         REPORT_NAME: "jac-po_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     nms-po_lines:
       env_vars:
         REPORT_NAME: "nms-po_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     wls-po_lines:
       env_vars:
         REPORT_NAME: "wls-po_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
 
     cts-po_headers:
       env_vars:
         REPORT_NAME: "cts-po_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     laa-po_headers:
       env_vars:
         REPORT_NAME: "laa-po_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     opg-po_headers:
       env_vars:
         REPORT_NAME: "opg-po_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     yjb-po_headers:
       env_vars:
         REPORT_NAME: "yjb-po_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     ima-po_headers:
       env_vars:
         REPORT_NAME: "ima-po_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     moj-po_headers:
       env_vars:
         REPORT_NAME: "moj-po_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     pbd-po_headers:
       env_vars:
         REPORT_NAME: "pbd-po_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     jac-po_headers:
       env_vars:
         REPORT_NAME: "jac-po_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     nms-po_headers:
       env_vars:
         REPORT_NAME: "nms-po_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     wls-po_headers:
       env_vars:
         REPORT_NAME: "wls-po_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
 
     # === Commercial Synergy Supplier Bank Accounts ===
 
@@ -284,42 +352,52 @@ dag:
       env_vars:
         REPORT_NAME: "cts-supplier_bank_accounts"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     laa-supplier_bank_accounts:
       env_vars:
         REPORT_NAME: "laa-supplier_bank_accounts"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     opg-supplier_bank_accounts:
       env_vars:
         REPORT_NAME: "opg-supplier_bank_accounts"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     yjb-supplier_bank_accounts:
       env_vars:
         REPORT_NAME: "yjb-supplier_bank_accounts"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     ima-supplier_bank_accounts:
       env_vars:
         REPORT_NAME: "ima-supplier_bank_accounts"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     moj-supplier_bank_accounts:
       env_vars:
         REPORT_NAME: "moj-supplier_bank_accounts"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     pbd-supplier_bank_accounts:
       env_vars:
         REPORT_NAME: "pbd-supplier_bank_accounts"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     jac-supplier_bank_accounts:
       env_vars:
         REPORT_NAME: "jac-supplier_bank_accounts"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     nms-supplier_bank_accounts:
       env_vars:
         REPORT_NAME: "nms-supplier_bank_accounts"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
     wls-supplier_bank_accounts:
       env_vars:
         REPORT_NAME: "wls-supplier_bank_accounts"
         REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
 
 iam:
   s3_read_write:

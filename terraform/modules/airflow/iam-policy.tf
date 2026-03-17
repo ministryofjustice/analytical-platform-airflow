@@ -163,6 +163,25 @@ data "aws_iam_policy_document" "iam_policy" {
     }
   }
 
+  /* Textract */
+  dynamic "statement" {
+    for_each = local.iam_textract ? [1] : []
+    content {
+      sid    = "Textract"
+      effect = "Allow"
+      actions = [
+        "textract:AnalyzeDocument",
+        "textract:AnalyzeID",
+        "textract:DetectDocumentText",
+        "textract:GetDocumentAnalysis",
+        "textract:GetDocumentTextDetection",
+        "textract:StartDocumentAnalysis",
+        "textract:StartDocumentTextDetection"
+      ]
+      resources = ["*"]
+    }
+  }
+
   /* Secrets Manager */
   statement {
     sid     = "SecretsManager"
@@ -172,6 +191,17 @@ data "aws_iam_policy_document" "iam_policy" {
       "arn:aws:secretsmanager:eu-west-2:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*",
       "arn:aws:secretsmanager:eu-west-1:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*"
     ]
+  }
+
+  /* Lake Formation */
+  dynamic "statement" {
+    for_each = local.iam_lake_formation ? [1] : []
+    content {
+      sid       = "LakeFormationGetDataAccess"
+      effect    = "Allow"
+      actions   = ["lakeformation:GetDataAccess"]
+      resources = ["*"]
+    }
   }
 }
 
