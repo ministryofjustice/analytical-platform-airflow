@@ -11,6 +11,8 @@ notifications:
   emails:
     - jacob.woffenden@justice.gov.uk
   slack_channel: analytical-platform-airflow-testing
+  slack_events:
+    - failure
 
 iam:
   cloudwatch_logs_read_only:

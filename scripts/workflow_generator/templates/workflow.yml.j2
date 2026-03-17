@@ -11,6 +11,8 @@
     {%- endif %}
     start_date: {{ dag.start_date|default("2025-01-01") }}
     {%- if notifications is defined and notifications.slack_channel %}
+    {%- set slack_events = notifications.slack_events|default(["failure", "success"]) %}
+    {%- if "failure" in slack_events %}
     on_failure_callback:
       callback: airflow.providers.slack.notifications.slack.send_slack_notification
       channel: {{ notifications.slack_channel }}
@@ -19,6 +21,8 @@
         :x: {{ meta.project }}.{{ meta.workflow }} has failed.
         *Task*: {% raw %}{{ ti.task_id }}{% endraw %}
         *Logs*: {% raw %}{{ ti.log_url }}{% endraw %}
+    {%- endif %}
+    {%- if "success" in slack_events %}
     on_success_callback:
       callback: airflow.providers.slack.notifications.slack.send_slack_notification
       channel: {{ notifications.slack_channel }}
@@ -27,6 +31,7 @@
         :white_check_mark: {{ meta.project }}.{{ meta.workflow }} has succeeded.
         *Task*: {% raw %}{{ ti.task_id }}{% endraw %}
         *Logs*: {% raw %}{{ ti.log_url }}{% endraw %}
+    {%- endif %}
     {%- endif %}
     {%- if notifications is defined and notifications.emails %}
     email: {{ notifications.emails }}
@@ -47,8 +52,10 @@
   schedule: {__type__ : datetime.timedelta, minutes : {{ dag.schedule.minutes }}}
   {%- elif dag.schedule.hours %}
   schedule: {__type__ : datetime.timedelta, hours : {{ dag.schedule.hours }}}
-  {%- else %}
+  {%- elif dag.schedule.datasets %}
   schedule: {{ dag.schedule }}
+  {%- else %}
+  schedule: "{{ dag.schedule }}"
   {%- endif %}
   {%- else %}
   schedule: {{ "None" }}
