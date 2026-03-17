@@ -52,8 +52,10 @@
   schedule: {__type__ : datetime.timedelta, minutes : {{ dag.schedule.minutes }}}
   {%- elif dag.schedule.hours %}
   schedule: {__type__ : datetime.timedelta, hours : {{ dag.schedule.hours }}}
-  {%- else %}
+  {%- elif dag.schedule.datasets %}
   schedule: {{ dag.schedule }}
+  {%- else %}
+  schedule: "{{ dag.schedule }}"
   {%- endif %}
   {%- else %}
   schedule: {{ "None" }}

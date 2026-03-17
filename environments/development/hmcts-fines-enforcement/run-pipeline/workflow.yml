@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-enforcement-data-engineering
-  tag: v3.2.6
+  tag: v3.2.7.dev3
   compute_profile: general-on-demand-4vcpu-16gb
   depends_on_past: false
   schedule: None
@@ -25,18 +25,34 @@ dag:
       env_vars:
         TASK: "extract"
         DATASET: "offences"
+    extract-balances:
+      env_vars:
+        TASK: "extract"
+        DATASET: "balances"
     full-schema:
       env_vars:
         TASK: "full-schema"
         DATASET: "transactions" # The dataset doesn't matter for this task
       dependencies:
-        [extract-live, extract-closed, extract-transactions, extract-offences]
+        [
+          extract-live,
+          extract-closed,
+          extract-transactions,
+          extract-offences,
+          extract-balances,
+        ]
     redact-schema:
       env_vars:
         TASK: "redact-schema"
         DATASET: "transactions" # The dataset doesn't matter for this task
       dependencies:
-        [extract-live, extract-closed, extract-transactions, extract-offences]
+        [
+          extract-live,
+          extract-closed,
+          extract-transactions,
+          extract-offences,
+          extract-balances,
+        ]
 
 maintainers:
   - chloepugh
@@ -59,6 +75,7 @@ iam:
     - alpha-enforcement-data-engineering/closed/closed_raw_test/*
     - alpha-enforcement-data-engineering/transactions/transactions_raw_test/*
     - alpha-enforcement-data-engineering/offences/offences_raw_test/*
+    - alpha-enforcement-data-engineering/balances/balances_raw_test/*
   s3_read_only:
     - alpha-enforcement-data-engineering/misc/*
     - mojap-derived-tables/prod/seeds/*

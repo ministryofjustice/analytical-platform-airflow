@@ -1,0 +1,39 @@
+---
+name: 🧪 Scripts Unit Tests
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - "scripts/**"
+      - "airflow/**"
+      - "tests/**"
+      - ".github/workflows/scripts-tests.yml"
+
+permissions: {}
+
+jobs:
+  test-example-workflows:
+    name: 🧪 Test Example Workflows
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+
+      - name: Set Up UV
+        uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+        with:
+          activate-environment: true
+          version: "latest"
+
+      - name: Install Requirements
+        run: |
+          uv pip install --requirements requirements.txt
+
+      - name: Run Workflow Tests
+        run: make test WORKERS=4
