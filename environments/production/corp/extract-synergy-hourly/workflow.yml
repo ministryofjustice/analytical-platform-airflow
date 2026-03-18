@@ -133,7 +133,7 @@ dag:
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
 
-      # === Commercial Synergy custome headers ===
+      # === Commercial Synergy custom headers ===
 
     cts-customer_headers:
       env_vars:
