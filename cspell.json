@@ -2,12 +2,6 @@
   "$schema": "https://raw.githubusercontent.com/streetsidesoftware/cspell/main/cspell.schema.json",
   "version": "0.2",
   "language": "en-GB",
-  "ignorePaths": [
-    ".github/workflows/super-linter.yml", 
-    "environments/**"
-  ],
-  "words": [
-    "pleas",
-    "ministryofjustice"
-  ]
+  "ignorePaths": [".github/workflows/super-linter.yml", "environments/**"],
+  "words": ["pleas", "ministryofjustice"]
 }
