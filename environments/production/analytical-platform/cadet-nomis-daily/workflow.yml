@@ -68,6 +68,7 @@ secrets:
 iam:
   athena: write
   glue: true
+  lakeformation: true
   s3_read_write:
     - mojap-derived-tables/prod/*
 
