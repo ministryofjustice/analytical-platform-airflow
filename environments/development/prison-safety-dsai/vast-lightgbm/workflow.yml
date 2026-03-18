@@ -1,8 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/vast-lightgbm
-  tag: 0.1.82
-  max_active_runs: 10
+  tag: 0.1.83
+  max_active_runs: 20
 
   env_vars:
     AWS_REGION: eu-west-1
@@ -83,7 +83,7 @@ dag:
     sweep_num_boost_round: 2000
     sweep_early_stopping: 100
 
-  compute_profile: general-spot-8vcpu-32gb
+  compute_profile: general-spot-16vcpu-64gb
 
   tasks:
     build_bins:
