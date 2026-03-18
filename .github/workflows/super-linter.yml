@@ -21,6 +21,7 @@ jobs:
       # VALIDATE_PYTHON_* are set to false as we need to revisit the Python from a linting perspective
       super-linter-variables: |
         {
+          "VALIDATE_SPELL_CODESPELL": false,
           "VALIDATE_JSCPD": false,
           "VALIDATE_KUBERNETES_KUBECONFORM": false,
           "VALIDATE_PYTHON": false,
