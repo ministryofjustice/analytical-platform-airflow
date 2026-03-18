@@ -83,7 +83,7 @@ dag:
     sweep_num_boost_round: 2000
     sweep_early_stopping: 100
 
-  compute_profile: general-spot-8vcpu-32gb
+  compute_profile: general-spot-16vcpu-64gb
 
   tasks:
     build_bins:
