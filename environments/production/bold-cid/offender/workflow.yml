@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-offender
-  tag: v4.1.33-dev
+  tag: v4.1.40
 
   env_vars:
     CASE_INFO_DASHBOARD_TESTING: "no"
@@ -27,7 +27,7 @@ iam:
   glue: true
   s3_read_write:
     - alpha-bold-rr-ops/exp/*
-    - alpha-bold-rr-ops/dev/*
+    - alpha-bold-rr-ops/prod/*
     - mojap-athena-query-dump/AROAYUIXP4BWQHHLJMK7I:*/*
 
   s3_read_only:
