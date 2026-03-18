@@ -1,7 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-offender
-  tag: v4.1.40
+  tag: v4.1.41
+  schedule: "0 6 * * *"
 
   env_vars:
     CASE_INFO_DASHBOARD_TESTING: "no"
