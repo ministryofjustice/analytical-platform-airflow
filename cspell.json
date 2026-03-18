@@ -3,9 +3,11 @@
   "version": "0.2",
   "language": "en-GB",
   "ignorePaths": [
+    ".github/workflows/super-linter.yml",
     "environments/**"
   ],
   "words": [
-    "pleas"
+    "pleas",
+    "ministryofjustice"
   ]
 }
