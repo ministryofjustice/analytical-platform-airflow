@@ -276,6 +276,7 @@ dag:
       dependencies: [j-e]
 
 iam:
+  glue: true
   athena: write
   s3_read_only:
     - alpha-mojap-curated-mags/*
