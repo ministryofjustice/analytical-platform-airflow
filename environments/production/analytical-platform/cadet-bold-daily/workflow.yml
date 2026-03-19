@@ -50,3 +50,6 @@ iam:
 tags:
   business_unit: Central Digital
   owner: analytical-platform@justice.gov.uk
+
+notifications:
+  slack_channel: bold-data-engineering-notifications
