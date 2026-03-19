@@ -1,0 +1,24 @@
+dag:
+  repository: moj-analytical-services/cde-restructure-pipeline
+  tag: v0.3.0
+  compute_profile: "general-on-demand-1vcpu-4gb"
+  env_vars:
+    ENV: "test"
+    BUCKET_NAME: "viewpoint-cde-prisons-20260317105708871100000001"
+    AWS_DEFAULT_REGION: "eu-west-2"
+
+maintainers:
+  - zerj9
+  - chedburgh
+
+secrets:
+  - username
+  - password
+  - application-id
+
+iam:
+  external_role: arn:aws:iam::198064151152:role/airflow-cde
+
+tags:
+  business_unit: Central Digital
+  owner: shanmugapriya.basker@justice.gov.uk
