@@ -85,6 +85,5 @@ maintainers:
 tags:
   business_unit: Central Digital
   owner: guy.wheeler@justice.gov.uk
-
 notifications:
   slack_channel: bold-data-engineering-notifications
