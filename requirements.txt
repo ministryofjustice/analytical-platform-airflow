@@ -8,7 +8,7 @@ jinja2==3.1.4
 mypy==1.9.0
 pylint==2.3.0
 pyyaml==6.0.2
-zizmor==1.22.0
+zizmor==1.23.1
 deepdiff==8.6.2
 pygithub==2.4.0
 pytest==8.3.3
