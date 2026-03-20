@@ -10,7 +10,7 @@ dag:
   schedule: "0 20 * * 7"
   env_vars:
     SNAPSHOT_DATE: "{{ (data_interval_end - macros.timedelta(hours=20)).strftime('%Y-%m-%d') }}"
-    GLUE_ROLE: airflow_prod_data_linking
+    GLUE_ROLE: airflow-test-data-linking-just-link-migrated
     VERSION: prod
 
   tasks:
