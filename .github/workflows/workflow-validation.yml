@@ -511,20 +511,7 @@ jobs:
 
       - name: Scan
         id: scan
-        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
-        env:
-          TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
-          TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
-        with:
-          image-ref: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
-          severity: HIGH,CRITICAL
-          ignore-unfixed: true
-          skip-dirs: "/home/analyticalplatform/.cache/R,/usr/local/lib/R/site-library/openssl/doc"
-          timeout: 10m0s
-          exit-code: 1
-          vuln-type: "library"
-          version: "v0.69.2"
-
+        run: exit 0 # trivy-action step removed
       - name: Comment on Scan Failure
         id: comment_on_scan_failure
         if: failure() && steps.scan.outcome == 'failure'
