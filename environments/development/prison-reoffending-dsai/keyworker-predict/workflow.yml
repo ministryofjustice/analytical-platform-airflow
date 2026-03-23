@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-keyworker-casenotes-prediction
-  tag: v4.0.6
+  tag: v4.0.7
   env_vars:
     ENVIRONMENT: "dev"
   catchup: true
