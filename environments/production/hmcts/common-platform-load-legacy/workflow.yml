@@ -46,6 +46,7 @@ dag:
     load_case_person:
       env_vars:
         AZ_TABLE: "case-person"
+      compute_profile: general-spot-2vcpu-8gb
     load_court_schedule:
       env_vars:
         AZ_TABLE: "court-schedule"
