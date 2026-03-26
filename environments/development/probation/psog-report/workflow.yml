@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
-  tag: v1.1.22-dev
+  tag: v1.1.13
   schedule:
     datasets:
       - "s3://mojap-derived-tables/prod/psog_reports"
