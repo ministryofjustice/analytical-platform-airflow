@@ -1,0 +1,65 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: v1.2.1
+  env_vars:
+    AFFILE_ENV: "dev"
+    AFFILE_SCHEMA_CONTRACT: "freeze"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-8vcpu-32gb
+  tasks:
+    load-all-civil-authorisations-nms:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all_civil_authorisations_nms"
+    load-all-civil-licence-and-devolved-powers-by-category:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all_civil_licence_and_devolved_powers_by_category"
+    load-all-crime-authorisations-since-2007:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all_crime_authorisations_since_2007"
+    load-all-crime-duty-solicitor-schemes:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all_crime_duty_solicitor_schemes"
+    load-all-cwa-contract-and-schedules:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all_cwa_contract_and_schedules"
+    load-all-mediation-offices-and-outreach:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all_mediation_offices_and_outreach"
+    load-all-provider-contact-emails:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all_provider_contact_emails"
+    load-all-provider-types-address-office:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "all_provider_types_address_office"
+    load-part-time-and-outreach-addresses-including-hlpas:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "part_time_and_outreach_addresses_including_hlpas"
+    load-cycle-metadata:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "cycle_metadata"
+
+iam:
+  athena: write
+  glue: true
+
+  s3_read_only:
+    - alpha-laa-cwa-extracts-landing/cwa_extracts/*
+
+  s3_read_write:
+    - alpha-laa-cwa-extracts-landing/domain__laa/env__dev/pcuam_cwa_dev/*
+    - alpha-laa-cwa-extracts-landing/domain__laa/env__dev/pcuam_cwa_dev_staging/*
+    - alpha-laa-cwa-extracts-landing/domain__laa/env__dev/athena_query_dump/*
+
+maintainers:
+  - sivabathina
+
+tags:
+  business_unit: LAA
+  owner: siva.bathina@justice.gov.uk
