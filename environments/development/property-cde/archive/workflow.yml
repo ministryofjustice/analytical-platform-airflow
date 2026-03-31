@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/cde-restructure-pipeline
-  tag: v0.4.0
+  tag: v0.5.0
   compute_profile: "general-on-demand-1vcpu-4gb"
   env_vars:
     ENVIRONMENT: "development"
