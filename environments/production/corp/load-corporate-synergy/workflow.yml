@@ -44,6 +44,25 @@ dag:
       env_vars:
         AFFILE_PIPELINE_NAME: "supplier_bank_accounts"
 
+      # === New Reports Added ===
+      load-aged_debt_analysis:
+        env_vars:
+          AFFILE_PIPELINE_NAME: "aged_debt_analysis"
+      load-invoice_headers_closed:
+        env_vars:
+          AFFILE_PIPELINE_NAME: "invoice_headers_closed"
+      load-invoice_headers_open:
+        env_vars:
+          AFFILE_PIPELINE_NAME: "invoice_headers_open"
+      load-unapplied_unidentified_receipts:
+        env_vars:
+          AFFILE_PIPELINE_NAME: "unapplied_unidentified_receipts"
+
+      # === Added invoice_lines report ===
+      load-invoice_lines:
+        env_vars:
+          AFFILE_PIPELINE_NAME: "invoice_lines"
+
 iam:
   athena: write
   glue: true
