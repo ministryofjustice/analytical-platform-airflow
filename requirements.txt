@@ -9,7 +9,7 @@ mypy==1.9.0
 pylint==2.3.0
 pyyaml==6.0.2
 zizmor==1.22.0
-deepdiff==8.6.2
+deepdiff==9.0.0
 pygithub==2.4.0
 pytest==8.3.3
 pytest-xdist==3.6.1
