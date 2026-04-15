@@ -1,19 +1,19 @@
 {
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:": {
-      "version": "2.12.3",
-      "resolved": "ghcr.io/devcontainers/features/docker-in-docker@sha256:c36ff66a35d1c40409a0fc1a7995616eaaa76574953b6ed675d8622e2d0bbcc5",
-      "integrity": "sha256:c36ff66a35d1c40409a0fc1a7995616eaaa76574953b6ed675d8622e2d0bbcc5"
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "2.16.1",
+      "resolved": "ghcr.io/devcontainers/features/docker-in-docker@sha256:ce078b7bf7d9ef3bcb9813b32103795d8d72172446890b64772cbe1dec6baafd",
+      "integrity": "sha256:ce078b7bf7d9ef3bcb9813b32103795d8d72172446890b64772cbe1dec6baafd"
     },
     "ghcr.io/ministryofjustice/devcontainer-feature/astral:1": {
       "version": "1.0.0",
       "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/astral@sha256:a6df118c6475e79fe15e63b815a5df591a24b0d25517ea941114cb6bee1af9a8",
       "integrity": "sha256:a6df118c6475e79fe15e63b815a5df591a24b0d25517ea941114cb6bee1af9a8"
     },
-    "ghcr.io/ministryofjustice/devcontainer-feature/aws:1": {
-      "version": "1.1.0",
-      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/aws@sha256:64240f48a66e28fc065d58d2c3aa75319106ec4293b0a0736402290317b256d5",
-      "integrity": "sha256:64240f48a66e28fc065d58d2c3aa75319106ec4293b0a0736402290317b256d5"
+    "ghcr.io/ministryofjustice/devcontainer-feature/aws:": {
+      "version": "1.1.1",
+      "resolved": "ghcr.io/ministryofjustice/devcontainer-feature/aws@sha256:e867962c11134137ef6eb267147e2e7e595360a3bef03c26526493eabb1914ce",
+      "integrity": "sha256:e867962c11134137ef6eb267147e2e7e595360a3bef03c26526493eabb1914ce"
     },
     "ghcr.io/ministryofjustice/devcontainer-feature/kubernetes:1": {
       "version": "1.1.0",
