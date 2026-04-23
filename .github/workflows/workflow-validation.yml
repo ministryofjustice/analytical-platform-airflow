@@ -4,7 +4,7 @@ name: 🛂 Workflow Validation
 on:
   pull_request:
     branches:
-      - main
+      - chore/s3-trivy
     paths:
       - environments/**
 
