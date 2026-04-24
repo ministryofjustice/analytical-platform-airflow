@@ -4,7 +4,7 @@ name: 🛂 Workflow Validation
 on:
   pull_request:
     branches:
-      - main
+      - "main"
     paths:
       - environments/**
 
@@ -507,7 +507,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `Provided image does not use the latest version (${process.env['upstream-image-version']}) of [${process.env['upstream-image-repo']}](https://github.com/${process.env['upstream-image-repo']}/releases/latest). Please ensure you are using the latest version of the base image in your Dockerfile.`
-            })\
+            })
 
       - name: Configure AWS Credentials
         id: configure_aws_credentials_s3
