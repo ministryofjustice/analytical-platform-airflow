@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/replicate-athena-to-fabric
-  tag: v1.2.6
+  tag: v1.3.0
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
@@ -48,7 +48,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-derived-tables/dev/models/domain_name=finance/*
+    - mojap-derived-tables/prod/models/domain_name=finance/*
 
 secrets:
   - azure-client-id

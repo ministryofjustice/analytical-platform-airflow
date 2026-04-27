@@ -1,0 +1,306 @@
+dag:
+  repository: moj-analytical-services/data_linking
+  tag: v4.0.0.dev12
+  retries: 4
+  retry_delay: 60
+  max_active_runs: 1
+  catchup: false
+  depends_on_past: false
+  start_date: "2024-05-19"
+  schedule: "0 20 * * 7"
+  env_vars:
+    SNAPSHOT_DATE: "{{ (data_interval_end - macros.timedelta(hours=20)).strftime('%Y-%m-%d') }}"
+    GLUE_ROLE: airflow-test-data-linking-just-link-migrated
+    VERSION: prod
+
+  tasks:
+    config:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 07_other_glue_jobs/get_closest_snapshot_dates
+
+    update-s3-logs:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 07_other_glue_jobs/update_s3_logs
+
+    product-monitoring:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 07_other_glue_jobs/product_monitoring
+      dependencies: [prod-int-cjs]
+
+    mh-src-n:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 01_node_generation/source_nodes/person/mags_hocas
+      dependencies: [config]
+
+    mh-std-n:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        JOB_PATH: 01_node_generation/standardised_nodes/person/mags_hocas
+      dependencies: [mh-src-n]
+
+    mh-e:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        JOB_PATH: 03_edge_generation/person/mags_hocas
+      dependencies: [mh-std-n]
+
+    cx-src-n:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 01_node_generation/source_nodes/person/crown_xhibit
+      dependencies: [config]
+
+    cx-std-n:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        JOB_PATH: 01_node_generation/standardised_nodes/person/crown_xhibit
+      dependencies: [cx-src-n]
+
+    cx-e:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        JOB_PATH: 03_edge_generation/person/crown_xhibit
+      dependencies: [cx-std-n]
+
+    cp-src-n:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 01_node_generation/source_nodes/person/common_platform
+      dependencies: [config]
+
+    cp-std-n:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        JOB_PATH: 01_node_generation/standardised_nodes/person/common_platform
+      dependencies: [cp-src-n]
+
+    cp-e:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        JOB_PATH: 03_edge_generation/person/common_platform
+      dependencies: [cp-std-n]
+
+    pn-src-n:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 01_node_generation/source_nodes/person/prison_nomis
+      dependencies: [config]
+
+    pn-std-n:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        JOB_PATH: 01_node_generation/standardised_nodes/person/prison_nomis
+      dependencies: [pn-src-n]
+
+    pn-e:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        JOB_PATH: 03_edge_generation/person/prison_nomis
+      dependencies: [pn-std-n]
+
+    po-src-n:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 01_node_generation/source_nodes/person/prison_oasys
+      dependencies: [config]
+
+    po-std-n:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        JOB_PATH: 01_node_generation/standardised_nodes/person/prison_oasys
+      dependencies: [po-src-n]
+
+    po-e:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        JOB_PATH: 03_edge_generation/person/prison_oasys
+      dependencies: [po-std-n]
+
+    pd-src-n:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 01_node_generation/source_nodes/person/probation_delius
+      dependencies: [config]
+
+    pd-std-n:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        JOB_PATH: 01_node_generation/standardised_nodes/person/probation_delius
+      dependencies: [pd-src-n]
+
+    pd-e:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        JOB_PATH: 03_edge_generation/person/probation_delius
+      dependencies: [pd-std-n]
+
+    fm-src-n:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 01_node_generation/source_nodes/person/familyman
+      dependencies: [config]
+
+    fm-std-n:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        JOB_PATH: 01_node_generation/standardised_nodes/person/familyman
+      dependencies: [fm-src-n]
+
+    fm-e:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        JOB_PATH: 03_edge_generation/person/familyman
+      dependencies: [fm-std-n]
+
+    ccp-src-n:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 01_node_generation/source_nodes/person/civil_caseman_pcol
+      dependencies: [config]
+
+    ccp-std-n:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        JOB_PATH: 01_node_generation/standardised_nodes/person/civil_caseman_pcol
+      dependencies: [ccp-src-n]
+
+    ccp-e:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        JOB_PATH: 03_edge_generation/person/civil_caseman_pcol
+      dependencies: [ccp-std-n]
+
+    cjs-std-n:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        JOB_PATH: 01_node_generation/standardised_nodes/person/cjs
+      dependencies:
+        - mh-std-n
+        - cx-std-n
+        - cp-std-n
+        - pn-std-n
+        - po-std-n
+        - pd-std-n
+
+    cjs-e:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        JOB_PATH: 03_edge_generation/person/cjs
+      dependencies: [cjs-std-n]
+
+    cjs-cl:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        JOB_PATH: 04_cluster_generation/person/cjs
+      dependencies:
+        - cjs-e
+        - mh-e
+        - cx-e
+        - cp-e
+        - pn-e
+        - po-e
+        - pd-e
+
+    prod-int-cjs:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        JOB_PATH: 06_products/internal/person/cjs
+      dependencies: [cjs-cl]
+
+    xjs-std-n:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        JOB_PATH: 01_node_generation/standardised_nodes/person/xjs
+      dependencies:
+        - cjs-std-n
+        - fm-std-n
+        - ccp-std-n
+
+    xjs-e:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        JOB_PATH: 03_edge_generation/person/xjs
+      dependencies: [xjs-std-n]
+
+    xjs-cl:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        JOB_PATH: 04_cluster_generation/person/xjs
+      dependencies:
+        - xjs-e
+        - mh-e
+        - cx-e
+        - cp-e
+        - pn-e
+        - po-e
+        - pd-e
+        - fm-e
+        - ccp-e
+        - cjs-e
+
+    prod-int-xjs:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        JOB_PATH: 06_products/internal/person/xjs
+      dependencies: [xjs-cl]
+
+    j-cx-src-n:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        JOB_PATH: 01_node_generation/source_nodes/journey/crown_xhibit
+      dependencies: [config]
+
+    j-std-n:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        JOB_PATH: 01_node_generation/standardised_nodes/journey/mh-cx
+      dependencies:
+        - j-cx-src-n
+        - mh-src-n
+        - cjs-cl
+
+    j-e:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        JOB_PATH: 03_edge_generation/journey/mh-cx
+      dependencies: [j-std-n]
+
+    prod-int-j:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        JOB_PATH: 06_products/internal/journey/mh-cx
+      dependencies: [j-e]
+
+iam:
+  glue: true
+  athena: write
+  s3_read_only:
+    - alpha-mojap-curated-mags/*
+    - alpha-mojap-curated-xhibit/*
+    - alpha-nomis/*
+    - alpha-mojap-curated-open-data/*
+    - moj-analytics-lookup-tables/*
+    - moj-analytics-s3-logs/alpha-data-linking/*
+    - moj-analytics-s3-logs/alpha-data-linking-anonymised/*
+    - mojap-derived-tables/prod/*
+    - alpha-mojap-common-platform/dev*/database/*
+    - alpha-mojap-derived-family/*
+    - alpha-mojap-civil/*
+    - alpha-geography/prod/*/curated/*
+    - alpha-enforcement-data-engineering/db_v2/live/*
+
+  s3_read_write:
+    - alpha-data-linking/*
+    - alpha-data-linking-anonymised/*
+
+maintainers:
+  - ThomasHepworth
+  - samnlindsay
+
+tags:
+  business_unit: Central Digital
+  owner: sam.lindsay1@justice.gov.uk
