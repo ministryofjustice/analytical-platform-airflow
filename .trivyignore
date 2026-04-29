@@ -7,3 +7,6 @@ AVD-AZU-0012
 
 # black
 CVE-2026-32274 exp:2026-04-13
+
+# pillow (METADATA)
+CVE-2026-40192 exp:2026-06-30

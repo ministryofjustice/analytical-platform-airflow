@@ -18,6 +18,10 @@
     "mojap",
     "analyticalplatform",
     "aquasecurity",
-    "Jinja"
+    "Jinja",
+    "venv",
+    "MWAA",
+    "mwaa",
+    "kubeconfig"
   ]
 }
