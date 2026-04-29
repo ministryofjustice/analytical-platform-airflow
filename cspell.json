@@ -7,5 +7,17 @@
     "environments/**",
     "requirements.txt"
   ],
-  "words": ["pleas", "ministryofjustice"]
+  "words": [
+    "pleas",
+    "ministryofjustice",
+    "dorny",
+    "PYTHONPATH",
+    "emds",
+    "elif",
+    "dags",
+    "mojap",
+    "analyticalplatform",
+    "aquasecurity",
+    "Jinja"
+  ]
 }
