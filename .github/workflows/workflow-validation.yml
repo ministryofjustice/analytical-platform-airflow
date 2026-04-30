@@ -61,7 +61,7 @@ jobs:
 
       - name: Upload path-filters File
         id: upload_path_filter
-        uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: workflows-path-filter
           path: .github/path-filter/workflows.yml
@@ -313,7 +313,7 @@ jobs:
 
       - name: Log in to Amazon ECR
         id: ecr_login
-        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2.0.1
+        uses: aws-actions/amazon-ecr-login@19d944daaa35f0fa1d3f7f8af1d3f2e5de25c5b7 # v2.1.4
 
       - name: Set Workflow Directory
         id: set_workflow_directory
