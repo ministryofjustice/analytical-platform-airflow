@@ -25,6 +25,8 @@
     "kubeconfig",
     "zizmor",
     "openssf",
-    "cooldown"
+    "cooldown",
+    "color",
+    "airflowignore"
   ]
 }
