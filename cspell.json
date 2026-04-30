@@ -20,10 +20,8 @@
     "aquasecurity",
     "Jinja",
     "venv",
-    "MWAA",
     "mwaa",
     "kubeconfig",
-    "Zizmor",
     "zizmor",
     "openssf"
   ]

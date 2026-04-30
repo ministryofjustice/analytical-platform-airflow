@@ -2,33 +2,18 @@
 version: 2
 
 updates:
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "daily"
-    commit-message:
-      prefix: ":dependabot: github-actions"
-      include: "scope"
-    cooldown:
-      default-days: 7
   - package-ecosystem: "devcontainers"
-    directory: "/"
-    schedule:
-      interval: "daily"
     commit-message:
+      include: "scope"
       prefix: ":dependabot: devcontainers"
-      include: "scope"
     cooldown:
       default-days: 7
-  - package-ecosystem: "pip"
+      exclude:
+        - "ghcr.io/ministryofjustice/devcontainer-feature/*"
     directory: "/"
+    open-pull-requests-limit: 15
     schedule:
       interval: "daily"
-    commit-message:
-      prefix: ":dependabot: pip"
-      include: "scope"
-    cooldown:
-      default-days: 7
   - package-ecosystem: "terraform"
     directory: "terraform"
     schedule:
@@ -38,3 +23,36 @@ updates:
       include: "scope"
     cooldown:
       default-days: 7
+    open-pull-requests-limit: 15
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: ":dependabot: pip"
+      include: "scope"
+    cooldown:
+      default-days: 7
+    open-pull-requests-limit: 15
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    commit-message:
+      prefix: ":dependabot: github-actions"
+      include: "scope"
+    cooldown:
+      default-days: 7
+      exclude:
+        - "ministryofjustice/action*"
+        - "ministryofjustice/analytical-platform-airflow-github-actions*"
+        - "ministryofjustice/analytical-platform-github-actions*"
+    groups:
+      analytical-platform-airflow-github-actions:
+        patterns:
+          - "ministryofjustice/analytical-platform-airflow-github-actions*"
+      analytical-platform-github-actions:
+        patterns:
+          - "ministryofjustice/analytical-platform-github-actions*"
+    open-pull-requests-limit: 15
+

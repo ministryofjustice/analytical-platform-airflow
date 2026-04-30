@@ -716,8 +716,10 @@ jobs:
         if: steps.automatic_approval_check.outputs.eligible == 'true'
         id: automatic_approval
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+        env:
+          GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
         with:
-          github-token: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          github-token: ${{ env.GH_TOKEN }}
           script: |
             github.rest.pulls.createReview({
               owner: context.repo.owner,
