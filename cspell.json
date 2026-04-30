@@ -23,6 +23,7 @@
     "mwaa",
     "kubeconfig",
     "zizmor",
-    "openssf"
+    "openssf",
+    "cooldown"
   ]
 }
