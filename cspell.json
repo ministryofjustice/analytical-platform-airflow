@@ -3,6 +3,7 @@
   "version": "0.2",
   "language": "en-GB",
   "ignorePaths": [
+    ".terraform.lock.hcl",
     ".github/workflows/super-linter.yml",
     "environments/**",
     "requirements.txt"
