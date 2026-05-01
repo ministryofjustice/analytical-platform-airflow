@@ -1,9 +1,9 @@
 dag:
   repository: moj-analytical-services/sa26-dashboard-analysis
-  tag: v0-10
+  tag: v0-31
   catchup: false
   depends_on_past: false
-  schedule: "0 14 * * *"
+  schedule: "0 13 * * 2,5"
   max_active_runs: 1
 
 iam:
@@ -12,11 +12,19 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=probation_derived/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offenders
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offender_imprison_statuses
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offender_bookings
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=agency_locations
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=reference_codes
   s3_read_write:
     - alpha-sa26-monitoring/*
 
 maintainers:
   - joannagent
+  - tom-allen-moj
 
 tags:
   business_unit: HQ
