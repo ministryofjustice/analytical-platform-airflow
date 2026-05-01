@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v3.0.10
+  tag: v3.0.11
   retries: 0
   hmcts_sdp_networking: True
   max_active_runs: 1
@@ -12,7 +12,7 @@ dag:
     PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
     COPY_MODE: "new"
     CHECK_MODE: "table"
-    FILENAME_COL_NAME: "mojap_unpacked_filename"
+    FILENAME_COL_NAME: "meta__source_file"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
     DATABASE_NAME: "ccd_divorce_dev_v1"
     LAND_BUCKET: "s3://mojap-land-dev"
