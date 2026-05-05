@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.6.4
+  tag: v1.6.6
   schedule: "0 7 * * *"
   retries: 1
   retry_delay: 60
@@ -194,12 +194,14 @@ notifications:
     - Supratik.Chowdhury@justice.gov.uk
     - laurence.droy@justice.gov.uk
     - chris.sheldon@justice.gov.uk
+    - Benjamin.Finucane@justice.gov.uk
 
 maintainers:
   - williamorrie
   - moj-supratikc
   - ltd-pa
   - Csheldon155
+  - benjamin-finucane
 
 tags:
   business_unit: Central Digital

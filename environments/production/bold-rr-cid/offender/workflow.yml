@@ -5,6 +5,7 @@ dag:
   schedule: "0 6 * * *"
 
   env_vars:
+    R_CONFIG_ACTIVE: "case_info_dashboard"
     CASE_INFO_DASHBOARD_TESTING: "no"
 
   tasks:
