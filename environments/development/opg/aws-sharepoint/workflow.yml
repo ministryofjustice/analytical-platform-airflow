@@ -1,0 +1,37 @@
+dag:
+  repository: ministryofjustice/aws-sharepoint-connector
+  tag: v0.1.2
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 4
+  retries: 1
+  retry_delay: 150
+  start_date: "2026-01-01"
+  schedule: None
+  env_vars:
+    SP_SITE_NAME: OPGDataCatalogue
+    SP_LIBRARY_NAME: Documents
+    SP_FOLDER_PATH: test
+    SP_FILE_NAME: test_file.csv
+    S3_BUCKET: mojap-land-dev
+    FILE_KEY: opg/dev/test-file.csv
+    MODE: write_to_s3
+  tasks:
+    move_file:
+      compute_profile: "general-on-demand-4vcpu-16gb"
+iam:
+  s3_read_write:
+    - mojap-land-dev/opg/dev/test-file.csv
+
+secrets:
+  - azure-client-secret
+  - azure-tenant-id
+  - azure-client-id
+
+maintainers:
+  - p-sin
+
+tags:
+  business_unit: OPG
+  owner: philip.sinfield@justice.gov.uk
