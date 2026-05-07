@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.13
+  tag: v4.0.14
   retries: 1
   retry_delay: 150
   start_date: "2025-12-22"
@@ -66,12 +66,14 @@ dag:
     xhibit_load_defendant:
       env_vars:
         TABLE: "defendant"
+        YEAR_0: true
     xhibit_load_defendant_charge:
       env_vars:
         TABLE: "defendant_charge"
     xhibit_load_defendant_history:
       env_vars:
         TABLE: "defendant_history"
+        YEAR_0: true
       compute_profile: general-spot-32vcpu-128gb
     xhibit_load_defendant_on_case:
       env_vars:
