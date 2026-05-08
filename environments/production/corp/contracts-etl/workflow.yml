@@ -22,11 +22,13 @@ iam:
 notifications:
   slack_channel: dmet-corp-notifications
   emails:
-    - Supratik.Chowdhury@justice.gov.uk
+    - Benjamin.Finucane@justice.gov.uk
+    - Shanmugapriya.Basker@justice.gov.uk
 
 maintainers:
-  - moj-supratikc
+  - benjamin-finucane
+  - priyabasker23
 
 tags:
   business_unit: Central Digital
-  owner: Supratik.Chowdhury@justice.gov.uk
+  owner: Benjamin.Finucane@justice.gov.uk

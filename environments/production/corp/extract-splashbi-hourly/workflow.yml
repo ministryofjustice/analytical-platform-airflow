@@ -204,18 +204,15 @@ secrets:
 notifications:
   slack_channel: dmet-corp-splashbi-notifications
   emails:
-    - william.orr@justice.gov.uk
-    - Supratik.Chowdhury@justice.gov.uk
+    - Benjamin.Finucane@justice.gov.uk
     - mohammed.ahad1@justice.gov.uk
     - laurence.droy@justice.gov.uk
 
 maintainers:
-  - williamorrie
-  - moj-supratikc
   - morezwan
   - ltd-pa
   - Csheldon155
 
 tags:
   business_unit: Central Digital
-  owner: supratik.chowdhury@justice.gov.uk
+  owner: Benjamin.Finucane@justice.gov.uk
