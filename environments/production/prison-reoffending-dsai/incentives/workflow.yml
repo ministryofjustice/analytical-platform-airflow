@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-digital-incentives
-  tag: v2.1.4
+  tag: v2.1.7
   env_vars:
     ENVIRONMENT: "prod"
   catchup: true
