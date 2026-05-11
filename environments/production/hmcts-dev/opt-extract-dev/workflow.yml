@@ -1,0 +1,48 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v3.0.10
+  retries: 1
+  retry_delay: 150
+  max_active_runs: 3
+  hmcts_sdp_networking: true
+  env_vars:
+    TASK: "extract"
+    LOG_LEVEL: "DEBUG"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    SDP_TABLE_PREFIX: "v3-opt"
+    PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
+    COPY_MODE: "new"
+    CHECK_MODE: "hist"
+    FILENAME_COL_NAME: "mojap_unpacked_filename"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    DATABASE_NAME: "opt_preprocessed_dev"
+    LAND_BUCKET: "s3://mojap-land-dev"
+    HIST_BUCKET: "s3://mojap-raw-hist-dev"
+    LAND_FOLDER: "hmcts/opt/"
+    HIST_FOLDER: "hmcts/opt/"
+
+  tasks:
+    opt-extract-data-tbl-mags-cie-new:
+      env_vars:
+        TABLE_NAME: "data-tbl-mags-cie-new"
+        S3_TABLE_NAME: "data_tbl_mags_cie_new"
+        FILENAME_TABLE_NAME: "data_tbl_mags_cie_new"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-dev/hmcts/opt/*
+  s3_read_only:
+    - alpha-mojap-curated-opt/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - jovita-brundziene
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: jovita.brundziene@justice.gov.uk
