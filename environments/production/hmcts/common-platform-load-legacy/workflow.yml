@@ -94,6 +94,7 @@ dag:
     load_defendant_detail:
       env_vars:
         AZ_TABLE: "defendant-detail"
+      compute_profile: general-spot-2vcpu-8gb
     load_defendant_employer:
       env_vars:
         AZ_TABLE: "defendant-employer"
@@ -372,9 +373,11 @@ dag:
     load_scan_envelope:
       env_vars:
         AZ_TABLE: "scan-envelope"
+      compute_profile: general-spot-2vcpu-8gb
     load_sjp_decision:
       env_vars:
         AZ_TABLE: "sjp-decision"
+      compute_profile: general-spot-2vcpu-8gb
     load_sjp_session:
       env_vars:
         AZ_TABLE: "sjp-session"
