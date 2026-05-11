@@ -1,9 +1,9 @@
 dag:
   repository: moj-analytical-services/sa26-dashboard-analysis
-  tag: v0-31
+  tag: v0-33
   catchup: false
   depends_on_past: false
-  schedule: "0 06 * * 1,2,5"
+  schedule: "0 06 * * *"
   max_active_runs: 1
 
 iam:
@@ -25,6 +25,8 @@ iam:
 maintainers:
   - joannagent
   - tom-allen-moj
+  - nazmin27
+  - susanlimbu2
 
 tags:
   business_unit: HQ
