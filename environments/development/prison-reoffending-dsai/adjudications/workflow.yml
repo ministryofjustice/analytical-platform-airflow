@@ -35,10 +35,12 @@ notifications:
   emails:
     - laura.auburn@justice.gov.uk
     - rob.mcnaughter@justice.gov.uk
+    - roger.brown@justice.gov.uk
 
 maintainers:
   - laura-auburn
   - rob-mcnaughter
+  - roger-brown
 
 tags:
   business_unit: HMPPS
