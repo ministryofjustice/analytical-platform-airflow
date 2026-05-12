@@ -51,7 +51,6 @@ dag:
         TABLE_NAME: "publiclaw-publiclaw-exceptionrecord"
         S3_TABLE_NAME: "publiclaw_publiclaw_exceptionrecord"
         FILENAME_TABLE_NAME: "publiclaw_publiclaw_exceptionrecord"
-    
 
 iam:
   athena: write
