@@ -28,11 +28,11 @@ iam:
     - moj-reg-prod-curated/hmpps-performance-hub/data/database_name=hub_prison/table_name=prison_metric_outturns/*
 
   s3_read_write:
-    - alpha-app-regime-dashboard/airflow/Hub_data/*
-    - alpha-app-regime-dashboard/airflow/summary_pa_data_aligned_with_measure/*
-    - alpha-app-regime-dashboard/airflow/summary_pa_data_aligned_with_measure/prisoners_level_data/*
-    - alpha-app-regime-dashboard/airflow/2425_pa_data/*
-    - alpha-prison-performance-team/purposeful_activity/regime_dashboard/*
+    - alpha-prison-performance-team/purposeful_activity/*
+    - alpha-prison-performance-team/healthcare/*
+
+  s3_write_only:
+    - mojap-hub-exports/prison_performance/*
 
 maintainers:
   - hayley-purser
