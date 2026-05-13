@@ -7,7 +7,8 @@ dag:
   max_active_runs: 1
 
 iam:
-  athena: read
+  athena: write
+  glue: true
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius/*
