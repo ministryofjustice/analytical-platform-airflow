@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/airflow-laa-data-factory
-  tag: v0.2.0
+  tag: v0.3.0
   compute_profile: "general-on-demand-1vcpu-4gb"
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-2"
