@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/aws-sharepoint-connector
-  tag: demo
+  tag: demo-2
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
