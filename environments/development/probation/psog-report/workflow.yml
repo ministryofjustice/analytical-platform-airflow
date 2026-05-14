@@ -28,6 +28,7 @@ notifications:
     - antony.scott@justice.gov.uk
     - joseph.phillips@justice.gov.uk
     - anthony.fitzroy@justice.gov.uk
+  slack_channel: de-probation-airflow-dev
 
 tags:
   business_unit: HMPPS
