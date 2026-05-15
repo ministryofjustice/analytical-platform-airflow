@@ -27,6 +27,7 @@ iam:
   glue: true
   s3_read_write:
     - mojap-derived-tables/dev/*
+    - alpha-app-opg-lpa-dashboard/dev/*
 
 tags:
   business_unit: OPG
