@@ -8,7 +8,7 @@ dag:
     DEPLOY_ENV: dev
     DBT_PROFILE_WORKGROUP: dbt-xhibit
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-mags-legacy
+    WORKFLOW_NAME: deploy-mags-legacy-dev
     DBT_SELECT_CRITERIA: tag:mags-legacy
     BRANCH: main
     MODE: build
