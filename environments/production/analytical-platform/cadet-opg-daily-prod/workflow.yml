@@ -9,7 +9,7 @@ dag:
     DEPLOY_ENV: prod
     DBT_PROFILE_WORKGROUP: dbt-opg
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-opg-daily
+    WORKFLOW_NAME: deploy-opg-daily-prod
     DBT_SELECT_CRITERIA: tag:opg_daily
     THREAD_COUNT: 8
     BRANCH: main
