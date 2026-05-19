@@ -1,13 +1,11 @@
 dag:
   repository: moj-analytical-services/airflow-magistrates-tar-preprocess
-  tag: v1.0.0-alpha.a574d2a
+  tag: v1.0.0
   retries: 0
   env_vars:
     DB_VERSION: "v3_ap_dev"
   tasks:
     tar_preprocess:
-      outlets:
-        - "s3://hmcts-dev/mags-combined-tar-preprocess-dev.json"
       env_vars:
         PYTHON_SCRIPT_NAME: "tar_raw_to_preprocessed.py"
 
