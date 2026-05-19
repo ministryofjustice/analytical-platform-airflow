@@ -1,6 +1,6 @@
 ---
 dag:
-  repository: moj-analytical-services/airflow-bold-case-info-dashboard
+  repository: moj-analytical-services/airflow-bold-case-info-dashboard-python
   tag: v0.0.1-dev
 
   env_vars:
