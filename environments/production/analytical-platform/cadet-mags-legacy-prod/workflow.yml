@@ -10,7 +10,7 @@ dag:
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-mags-legacy-prod
     DBT_SELECT_CRITERIA: tag:mags-legacy
-    BRANCH: main
+    BRANCH: mags-legacy-port
     MODE: build
     THREAD_COUNT: 10
 
