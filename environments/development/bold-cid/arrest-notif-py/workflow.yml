@@ -4,7 +4,7 @@ dag:
   tag: v0.0.3-dev
 
   env_vars:
-    AIRFLOW_TASK: probation_arrest_notification
+    AIRFLOW_TASK: probation_arrest_notif
     ENVIRONMENT: dev
 
 iam:
