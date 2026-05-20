@@ -9,7 +9,7 @@ dag:
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-oasys-question
     DBT_SELECT_CRITERIA: tag:oasys_question_only
-    BRANCH: main
+    BRANCH: update-oasys-question-naming
     MODE: build
 
 maintainers:
