@@ -100,8 +100,9 @@ notifications:
   emails:
     - lalitha.nagarur3@justice.gov.uk
     - joseph.phillips@justice.gov.uk
+    - ProbationDataEngineering@justice.gov.uk
   slack_channel: de-probation-airflow-prod
 
 tags:
   business_unit: HQ
-  owner: joseph.phillips@justice.gov.uk
+  owner: ProbationDataEngineering@justice.gov.uk
