@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-appointment-reminders
-  tag: v1.1.5-test
+  tag: v1.1.5-test2
   env_vars:
     GLUE_DATABASE: "appointment_reminders_raw_dev"
     S3_BUCKET: "alpha-govnotify-probation-messaging/appointment-reminders"
