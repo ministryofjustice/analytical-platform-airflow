@@ -19,7 +19,7 @@ These scripts import internal modules from the [`airflow/analytical_platform`](.
 ### ✅ Quick Start
 
 > [!NOTE]
-> If you use the provided development container, it automatically handles package installation and setting `PYTHONPATH`
+> If you use the provided development container, it automatically handles package installation and setting `PYTHONPATH`.
 
 1. Install project dependencies using [`uv`](https://github.com/astral-sh/uv):
 

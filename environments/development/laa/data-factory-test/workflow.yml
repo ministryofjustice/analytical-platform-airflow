@@ -1,0 +1,16 @@
+dag:
+  repository: ministryofjustice/airflow-laa-data-factory
+  tag: v0.3.0
+  compute_profile: "general-on-demand-1vcpu-4gb"
+  env_vars:
+    AWS_DEFAULT_REGION: "eu-west-2"
+
+maintainers:
+  - zerj9
+
+iam:
+  external_role: arn:aws:iam::307869868585:role/airflow
+
+tags:
+  business_unit: LAA
+  owner: LAA-Data-Engineering@justice.gov.uk

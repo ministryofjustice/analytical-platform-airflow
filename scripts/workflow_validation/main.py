@@ -9,10 +9,12 @@ print(f"Processing workflow file: {workflow_file}")
 
 file_path = Path(workflow_file).resolve()
 
+dag_bag = {}
 load_yaml_dags(
-    globals_dict=globals(),
+    globals_dict=dag_bag,
     config_filepath=file_path
 )
 
-# if we got this far without an exception the DAG is valid
-print(f"DAG loaded successfully: {file_path}")
+for dag_id, dag in dag_bag.items():
+    dag.validate()
+    print(f"DAG validated successfully: {dag_id}")

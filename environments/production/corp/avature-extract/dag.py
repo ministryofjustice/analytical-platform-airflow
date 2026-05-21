@@ -13,10 +13,9 @@ ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
 OWNER="PLACEHOLDER_OWNER"
 
 DAG_EMAIL = [
-    "Supratik.Chowdhury@justice.gov.uk",
     "Laurence.Droy@justice.gov.uk",
     "Shanmugapriya.Basker@justice.gov.uk",
-    "William.Orr@justice.gov.uk",
+    "Benjamin.Finucane@justice.gov.uk"
 ]
 
 default_args = {

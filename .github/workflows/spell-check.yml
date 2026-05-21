@@ -1,0 +1,16 @@
+---
+name: Spell Check
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  spell-check:
+    name: Spell Check
+    permissions:
+      contents: read
+    uses: ministryofjustice/data-platform-github-actions/.github/workflows/spell-check.yml@e9ce6311ccb9f0a0e6f8885a2694f5a381a38b50 # v3.4.1

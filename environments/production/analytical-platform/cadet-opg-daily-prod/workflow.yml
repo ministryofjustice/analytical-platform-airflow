@@ -1,0 +1,39 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.3.3
+  compute_profile: general-on-demand-16vcpu-64gb
+  schedule: "30 7 * * *"
+  catchup: false
+  env_vars:
+    DEPLOY_ENV: prod
+    DBT_PROFILE_WORKGROUP: dbt-opg
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-opg-daily-prod
+    DBT_SELECT_CRITERIA: tag:opg_daily
+    THREAD_COUNT: 8
+    BRANCH: main
+    MODE: build
+
+maintainers:
+  - owenrbuckley
+  - p-sin
+  - jhpyke
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/prod/*
+    - alpha-app-opg-lpa-dashboard/prod/*
+
+tags:
+  business_unit: OPG
+  owner: owen.buckley@justice.gov.uk
+
+notifications:
+  emails:
+    - owen.buckley@justice.gov.uk

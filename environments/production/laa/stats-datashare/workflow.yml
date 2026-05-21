@@ -1,0 +1,47 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-laa-data-extractor
+  tag: v0.4.3.dev
+  retries: 1
+  retry_delay: 300
+  env_vars:
+    BUCKET: "alpha-mojap-laa"
+    SERVICE: "athena"
+    ORACLE_USER: "LAASTATS_ARC"
+    DATABASE_NAME: "laa_datashare"
+  tasks:
+    extract-agfs:
+      env_vars:
+        TABLES: "DSA_AGFS_SOL_2425"
+    extract-crime-lower:
+      env_vars:
+        TABLES: "DSA_CL_2425"
+    extract-lgfs:
+      env_vars:
+        TABLES: "DSA_LGFS_2425"
+    extract-vhcc:
+      env_vars:
+        TABLES: "DSA_VHCC_SOL_2425"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-mojap-laa/*
+
+secrets:
+  - username
+  - password
+  - db-dsn
+
+notifications:
+  emails:
+    - Damilola.Oyebade@justice.gov.uk
+  slack_channel: laa-de-alerts
+
+maintainers:
+  - dami-moj
+
+tags:
+  business_unit: LAA
+  owner: Damilola.Oyebade@justice.gov.uk

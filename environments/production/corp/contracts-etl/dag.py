@@ -22,7 +22,7 @@ default_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "owner": f"{OWNER}",
-    "email": "supratik.chowdhury@justice.gov.uk",
+    "email": "Benjamin.Finucane@justice.gov.uk",
 }
 
 # --- DAG ---

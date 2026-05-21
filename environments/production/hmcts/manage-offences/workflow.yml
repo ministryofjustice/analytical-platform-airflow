@@ -1,0 +1,33 @@
+dag:
+  repository: moj-analytical-services/airflow-manage-offences-pipeline
+  tag: v2.0.0
+  retries: 0
+  retry_delay: 150
+  max_active_runs: 1
+  env_vars:
+    LOG_LEVEL: "INFO"
+  tasks:
+    manage_offences_extract_load:
+      env_vars:
+        SERVICE: "default"
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-mojap-ccde/manage_offences/*
+    - alpha-mojap-ccde/manage_offences_staging/*
+    - mojap-raw-hist/hmcts/manage_offences_test/*
+
+secrets:
+  - client-auth
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
+maintainers:
+  - Andy-Cook
+  - jovita-brundziene
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk

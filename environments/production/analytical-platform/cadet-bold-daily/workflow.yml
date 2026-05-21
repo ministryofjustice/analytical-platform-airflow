@@ -1,13 +1,13 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.6
+  tag: 1.2.10
   schedule:
     datasets:
-      - "s3://mojap-derived-tables/prod/bold-rr/"
+      - "s3://mojap-derived-tables/prod/curated-daily/"
   catchup: false
   env_vars:
-    DEPLOY_ENV: sandpit
+    DEPLOY_ENV: prod
     DBT_PROFILE_WORKGROUP: dbt-bold-daily-prod
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: bold-daily
@@ -20,13 +20,18 @@ dag:
       compute_profile: general-on-demand-8vcpu-32gb
       outlets:
         - "s3://mojap-derived-tables/prod/bold-daily"
-    bold-rr-check:
+    all_passed:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+    bold-pnc-ids-created:
       compute_profile: general-spot-2vcpu-8gb
       env_vars:
         IS_DATASET_CHECK: true
         UNIQUE_IDS: "model.mojap_derived_tables.bold_rr_pnc_ids__pnc_ids_to_send"
       outlets:
-        - "s3://mojap-derived-tables/prod/bold-rr/"
+        - "s3://mojap-derived-tables/prod/bold-pnc-ids-created/"
       dependencies: [table_deploy]
 
 maintainers:
@@ -40,7 +45,7 @@ iam:
   glue: true
   s3_read_write:
     - mojap-derived-tables/prod/*
-    - alpha-bold-data-shares/reducing-reoffending/essex-police/pnc-id-extraction/sandpit/*
+    - alpha-bold-data-shares/reducing-reoffending/essex-police/pnc-id-extraction/prod/*
 
 tags:
   business_unit: Central Digital

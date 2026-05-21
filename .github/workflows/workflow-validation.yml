@@ -4,7 +4,7 @@ name: 🛂 Workflow Validation
 on:
   pull_request:
     branches:
-      - main
+      - "main"
     paths:
       - environments/**
 
@@ -61,7 +61,7 @@ jobs:
 
       - name: Upload path-filters File
         id: upload_path_filter
-        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: workflows-path-filter
           path: .github/path-filter/workflows.yml
@@ -90,14 +90,14 @@ jobs:
 
       - name: Configure AWS Credentials
         id: configure_aws_credentials
-        uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7 # v6.0.0
+        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
         with:
           aws-region: eu-west-2
           role-to-assume: arn:aws:iam::509399598587:role/analytical-platform-github-actions
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+        uses: astral-sh/setup-uv@5a095e7a2014a4212f075830d4f7277575a9d098 # v7.3.1
         with:
           activate-environment: true
           version: "latest"
@@ -110,7 +110,7 @@ jobs:
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: workflows-path-filter
           path: .github/path-filter
@@ -299,21 +299,21 @@ jobs:
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: workflows-path-filter
           path: .github/path-filter
 
       - name: Configure AWS Credentials
         id: configure_aws_credentials
-        uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7 # v6.0.0
+        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
         with:
           aws-region: eu-west-2
           role-to-assume: arn:aws:iam::509399598587:role/ecr-access
 
       - name: Log in to Amazon ECR
         id: ecr_login
-        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2.0.1
+        uses: aws-actions/amazon-ecr-login@19d944daaa35f0fa1d3f7f8af1d3f2e5de25c5b7 # v2.1.4
 
       - name: Set Workflow Directory
         id: set_workflow_directory
@@ -509,21 +509,47 @@ jobs:
               body: `Provided image does not use the latest version (${process.env['upstream-image-version']}) of [${process.env['upstream-image-repo']}](https://github.com/${process.env['upstream-image-repo']}/releases/latest). Please ensure you are using the latest version of the base image in your Dockerfile.`
             })
 
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials_s3
+        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::509399598587:role/trivy-analytical-platform-airflow-container-scanning
+          role-session-name: trivy-scan
+
+      - name: Install Trivy from S3
+        id: install_trivy
+        shell: bash
+        run: |
+          mkdir -p "$HOME/.local/bin"
+          TRIVY_ARCHIVE="trivy_0.69.3_Linux-64bit.tar.gz"
+          TRIVY_CHECKSUM_FILE="trivy_0.69.3_checksum.txt"
+          aws s3 cp "s3://mojap-common-production-artifacts/trivy/v0.69.3/${TRIVY_ARCHIVE}" "$HOME/.local/bin/${TRIVY_ARCHIVE}"
+          aws s3 cp "s3://mojap-common-production-artifacts/trivy/v0.69.3/${TRIVY_CHECKSUM_FILE}" "$HOME/.local/bin/${TRIVY_CHECKSUM_FILE}"
+
+          (cd "$HOME/.local/bin" && grep " ${TRIVY_ARCHIVE}$" "${TRIVY_CHECKSUM_FILE}" | sha256sum --check --status)
+
+          tar -xzf "$HOME/.local/bin/${TRIVY_ARCHIVE}" -C "$HOME/.local/bin" trivy
+          chmod +x "$HOME/.local/bin/trivy"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/trivy" --version
+
       - name: Scan
         id: scan
-        uses: aquasecurity/trivy-action@c1824fd6edce30d7ab345a9989de00bbd46ef284 # v0.34.0
+        shell: bash
         env:
           TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
           TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
-        with:
-          image-ref: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
-          severity: HIGH,CRITICAL
-          ignore-unfixed: true
-          skip-dirs: "/home/analyticalplatform/.cache/R,/usr/local/lib/R/site-library/openssl/doc"
-          timeout: 10m0s
-          exit-code: 1
-          vuln-type: "library"
-          version: "v0.69.2"
+          IMAGE: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
+        run: |
+          trivy image \
+            --severity HIGH,CRITICAL \
+            --ignore-unfixed \
+            --skip-dirs /home/analyticalplatform/.cache/R,/usr/local/lib/R/site-library/openssl/doc \
+            --timeout 10m0s \
+            --exit-code 1 \
+            --vuln-type library \
+            "${IMAGE}"
 
       - name: Comment on Scan Failure
         id: comment_on_scan_failure
@@ -560,14 +586,14 @@ jobs:
 
       - name: Configure AWS Credentials
         id: configure_aws_credentials
-        uses: aws-actions/configure-aws-credentials@8df5847569e6427dd6c4fb1cf565c83acfa8afa7 # v6.0.0
+        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
         with:
           aws-region: eu-west-2
           role-to-assume: arn:aws:iam::509399598587:role/analytical-platform-github-actions
 
       - name: Set Up UV
         id: setup_uv
-        uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
+        uses: astral-sh/setup-uv@5a095e7a2014a4212f075830d4f7277575a9d098 # v7.3.1
         with:
           activate-environment: true
           version: "latest"
@@ -580,7 +606,7 @@ jobs:
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131 # v7.0.0
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: workflows-path-filter
           path: .github/path-filter

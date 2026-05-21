@@ -12,6 +12,7 @@ dag:
     DBT_SELECT_CRITERIA: tag:xhibit
     BRANCH: main
     MODE: build
+    THREAD_COUNT: 10
 
 maintainers:
   - jovita-brundziene

@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-drugs-app
-  tag: 1.1.11
+  tag: 1.1.18
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -15,6 +15,7 @@ dag:
 
 iam:
   athena: read
+  lake_formation: true
   s3_read_only:
     - alpha-app-kpi-s3-proxy/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*

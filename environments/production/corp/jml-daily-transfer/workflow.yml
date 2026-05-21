@@ -28,14 +28,15 @@ notifications:
   slack_channel: dmet-corp-notifications
 
   emails:
-    - William.Orr@justice.gov.uk
-    - Supratik.Chowdhury@justice.gov.uk
+    - Benjamin.Finucane@justice.gov.uk
     - Peter.Mackie1@justice.gov.uk
+    - Shanmugapriya.Basker@justice.gov.uk
 
 maintainers:
-  - moj-supratikc
-  - williamorrie
+  - benjamin-finucane
+  - PeterMackie1
+  - priyabasker23
 
 tags:
   business_unit: Central Digital
-  owner: William.Orr@justice.gov.uk
+  owner: Peter.Mackie1
