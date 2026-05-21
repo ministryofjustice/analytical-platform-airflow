@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.4
+  tag: 1.3.3
   catchup: false
   outlets:
     - "s3://probation-datalake-dev-20251218164046759500000001/data/dev"
