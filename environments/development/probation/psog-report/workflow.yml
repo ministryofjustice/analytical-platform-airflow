@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
-  tag: v1.1.14-test4
+  tag: v1.1.14
   schedule:
     datasets:
       - "s3://mojap-derived-tables/prod/psog_reports"
@@ -18,16 +18,12 @@ iam:
 
 maintainers:
   - lalithanagarur
-  - AntonyJScott
   - joephillipsjustice
-  - AntFMoJ
 
 notifications:
   emails:
     - lalitha.nagarur3@justice.gov.uk
-    - antony.scott@justice.gov.uk
     - joseph.phillips@justice.gov.uk
-    - anthony.fitzroy@justice.gov.uk
   slack_channel: de-probation-airflow-dev
 
 tags:
