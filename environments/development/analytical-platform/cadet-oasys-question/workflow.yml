@@ -9,12 +9,13 @@ dag:
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-oasys-question
     DBT_SELECT_CRITERIA: tag:oasys_question_only
-    BRANCH: update-oasys-question-naming
+    BRANCH: update-oasys-question-naming-batch
     MODE: build
 
 maintainers:
   - jhpyke
   - lalithanagarur
+  - joephillipsjustice
 
 secrets:
   - github-key
@@ -28,8 +29,10 @@ iam:
 notifications:
   emails:
     - lalitha.nagarur3@justice.gov.uk
+    - joseph.phillips@justice.gov.uk
+    - ProbationDataEngineering@justice.gov.uk
   slack_channel: de-probation-airflow-dev
 
 tags:
   business_unit: HQ
-  owner: lalitha.nagarur3@justice.gov.uk
+  owner: ProbationDataEngineering@justice.gov.uk
