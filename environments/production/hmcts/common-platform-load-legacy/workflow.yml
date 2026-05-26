@@ -158,6 +158,7 @@ dag:
     load_hearing_prosecution_counsel:
       env_vars:
         AZ_TABLE: "hearing-prosecution-counsel"
+      compute_profile: general-spot-2vcpu-8gb
     load_hearing_result:
       env_vars:
         AZ_TABLE: "hearing-result"
