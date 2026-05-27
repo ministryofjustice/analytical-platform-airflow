@@ -43,7 +43,7 @@ dag:
     stg_tables:
       env_vars:
         TABLES: "stg"
-    reconciliation:
+    reconciliation_tables:
       env_vars:
         TABLES: "reconciliation"
     reward_recognition_tables:
