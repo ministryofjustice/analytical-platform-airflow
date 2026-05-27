@@ -1,0 +1,26 @@
+dag:
+  repository: moj-analytical-services/airflow-magistrates-tar-preprocess
+  tag: v1.0.0
+  retries: 0
+  env_vars:
+    DB_VERSION: "v3"
+  tasks:
+    tar_preprocess:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "tar_raw_to_preprocessed.py"
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-mojap-curated-mags/*
+    - alpha-mojap-processed-tar/*
+    - mojap-land/hmcts/tar/*
+    - mojap-raw-hist/hmcts/tar*
+
+maintainers:
+  - Andy-Cook
+  - jovita-brundziene
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
