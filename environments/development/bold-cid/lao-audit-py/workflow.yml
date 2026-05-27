@@ -17,6 +17,7 @@ iam:
 
 secrets:
   - cid-notify-api-key-dev
+  - audit-key-password-dev
 
 maintainers:
   - guyvw1
