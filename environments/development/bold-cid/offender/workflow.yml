@@ -5,6 +5,7 @@ dag:
 
   env_vars:
     CASE_INFO_DASHBOARD_TESTING: "yes"
+    R_CONFIG_ACTIVE: "case_info_dashboard"
 
   tasks:
     delius:
