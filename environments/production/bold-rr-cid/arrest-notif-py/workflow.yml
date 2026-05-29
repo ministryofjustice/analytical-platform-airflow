@@ -1,22 +1,25 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-bold-case-info-dashboard-python
-  tag: v0.0.5-dev
+  tag: v1.0.1
+  schedule: "0 8 * * *"
 
   env_vars:
     AIRFLOW_TASK: probation_arrest_notif
-    ENVIRONMENT: dev
+    ENVIRONMENT: prod
 
 iam:
   athena: write
   glue: true
   s3_read_write:
+    - mojap-delius-prod/delius/*
+    - mojap-delius-prod/live/tables/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
-    - mojap-derived-tables/seeds/bold_rr_seeds_dev_dbt/dummy_probation_notification_v2/*
-    - alpha-bold-rr-case-info-dashboard-usage/audit/dev/*
+    - mojap-derived-tables/prod/models/domain_name=bold/database_name=bold_rr_essex_police_data/*
+    - alpha-bold-rr-case-info-dashboard-usage/audit/prod/*
 
 secrets:
-  - cid-notify-api-key-dev
+  - cid-notify-api-key-prod
 
 maintainers:
   - guyvw1
