@@ -1,0 +1,94 @@
+dag:
+  repository: moj-analytical-services/airflow-council-tax-address-matcher
+  tag: v1.0.0-dev1
+  retries: 0
+  retry_delay: 150
+  max_active_runs: 1
+
+  tasks:
+    # -----------------------
+    # SAMPLE S3 RUN
+    # -----------------------
+    address_matching_sample_s3_run:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        BUILD_VARIANT: sample_s3_run
+        CONFIG_PATH: config/job_defaults.yaml
+        LOG_LEVEL: INFO
+        ENABLE_SYSTEM_PROBE: "true"
+        ENABLE_MEMORY_LOGGING: "true"
+
+    # -----------------------
+    # FULL 200K RUN - NEW MATCHER
+    # -----------------------
+    address_matching_full_200k_run_v120:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        BUILD_VARIANT: full_200k_run
+        CONFIG_PATH: config/job_defaults.yaml
+        LOG_LEVEL: INFO
+        ENABLE_SYSTEM_PROBE: "true"
+        ENABLE_MEMORY_LOGGING: "true"
+
+    # -----------------------
+    # FULL 200K RUN - NEW MATCHER - 64GB PERF
+    # -----------------------
+    address_matching_full_200k_run_v120_64gb_perf:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        BUILD_VARIANT: full_200k_run
+        CONFIG_PATH: config/job_defaults.yaml
+        LOG_LEVEL: INFO
+        ENABLE_SYSTEM_PROBE: "true"
+        ENABLE_MEMORY_LOGGING: "true"
+
+    # -----------------------
+    # FULL 200K RUN - LEGACY MATCHER
+    # -----------------------
+    address_matching_full_200k_run_v112:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        BUILD_VARIANT: full_200k_run
+        UK_ADDRESS_MATCHER_VERSION: 1.1.2
+        CONFIG_PATH: config/job_defaults.yaml
+        LOG_LEVEL: INFO
+        ENABLE_SYSTEM_PROBE: "true"
+        ENABLE_MEMORY_LOGGING: "true"
+
+    # -----------------------
+    # DOWNLOAD INPUTS TO LOCAL
+    # -----------------------
+    address_matching_download_to_local:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        BUILD_VARIANT: run_download_to_local
+        CONFIG_PATH: config/job_defaults.yaml
+        LOCAL_INPUT_DIR: work/local_inputs
+        LOG_LEVEL: INFO
+        ENABLE_SYSTEM_PROBE: "true"
+        ENABLE_MEMORY_LOGGING: "true"
+
+    # -----------------------
+    # DUCKDB ON DISK RUN
+    # -----------------------
+    address_matching_duckdb_on_disk:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        BUILD_VARIANT: run_duckdb_on_disk
+        CONFIG_PATH: config/job_defaults.yaml
+        DUCKDB_DATABASE_PATH: work/duckdb/address_matching.duckdb
+        LOG_LEVEL: INFO
+        ENABLE_SYSTEM_PROBE: "true"
+        ENABLE_MEMORY_LOGGING: "true"
+
+iam:
+  athena: write
+  s3_read_only:
+    - alpha-data-linking/address_matching/*
+
+maintainers:
+  - ThomasHepworth
+
+tags:
+  business_unit: Central Digital
+  owner: thomas.hepworth@justice.gov.uk
