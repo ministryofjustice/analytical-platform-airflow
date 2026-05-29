@@ -1,3 +1,4 @@
+---
 dag:
   repository: moj-analytical-services/airflow-council-tax-address-matcher
   tag: v1.0.0-dev1
