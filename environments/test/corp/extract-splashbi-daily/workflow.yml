@@ -1,48 +1,99 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.6.0
+  tag: v1.6.7-test
+  is_paused_upon_creation: True
+  compute_profile: general-on-demand-2vcpu-8gb
   env_vars:
     REPORT_APP: "splashbi"
     REPORT_RUNTIME_ENV: "test"
     REPORT_RUN_MODE: "extract"
     DISABLE_SCHEDULING: True
   tasks:
-    cred-check-william:
+    # === Credential Validation ===
+    validate-credentials:
       env_vars:
-        REPORT_RUN_MODE: "check_credentials"
-        REPORT_SECRET_ID: "sbi-user-williamorrie"
-    # === HR iExpenses Reports ===
-    moj-iexp01:
-      dependencies: [cred-check-william]
+        REPORT_RUN_MODE: "check-credentials"
+        REPORT_SECRET_ID: "splashbi-credentials"
+
+    # === HR Staff list ===
+    moj-hr-wf-11-staff-list:
       env_vars:
-        REPORT_NAME: "moj-iexp01"
-        REPORT_SECRET_ID: "sbi-user-williamorrie"
-    laa-iexp01:
-      dependencies: [cred-check-william]
+        REPORT_NAME: "moj-hr-wf-11"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    cts-hr-wf-11-staff-list:
       env_vars:
-        REPORT_NAME: "laa-iexp01"
-        REPORT_SECRET_ID: "sbi-user-williamorrie"
+        REPORT_NAME: "cts-hr-wf-11"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    nms-hr-wf-11-staff-list:
+      env_vars:
+        REPORT_NAME: "nms-hr-wf-11"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    opg-hr-wf-11-staff-list:
+      env_vars:
+        REPORT_NAME: "opg-hr-wf-11"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    laa-hr-wf-11-staff-list:
+      env_vars:
+        REPORT_NAME: "laa-hr-wf-11"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    # === TPW Temporary Promotion Worksheet ===
+    laa-hr-wf-02-tpw:
+      env_vars:
+        REPORT_NAME: "laa-hr-wf-02-tpw"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    cts-hr-wf-02-tpw:
+      env_vars:
+        REPORT_NAME: "cts-hr-wf-02-tpw"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    opg-hr-wf-02-tpw:
+      env_vars:
+        REPORT_NAME: "opg-hr-wf-02-tpw"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    nms-hr-wf-02-tpw:
+      env_vars:
+        REPORT_NAME: "nms-hr-wf-02-tpw"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    moj-hr-wf-02-tpw:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-02-tpw"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
 
 iam:
   s3_read_write:
     - mojap-land/corporate/report_extractor_test/splashbi/*
 
 secrets:
+  - sbi-user-csheldon
+  - sbi-user-mojsupratikc
+  - sbi-user-ltdpa
+  - sbi-user-morezwan
   - sbi-user-williamorrie
+  - sbi-user-spare
 
 notifications:
-  slack_channel: dmet-corp-notifications
-
+  slack_channel: dmet-corp-splashbi-notifications
   emails:
-    - william.orr@justice.gov.uk
-    - Supratik.Chowdhury@justice.gov.uk
+    - Benjamin.Finucane@justice.gov.uk
+    - mohammed.ahad1@justice.gov.uk
+    - laurence.droy@justice.gov.uk
 
 maintainers:
-  - williamorrie
-  - moj-supratikc
+  - morezwan
   - ltd-pa
+  - Csheldon155
 
 tags:
   business_unit: Central Digital
-  owner: supratik.chowdhury@justice.gov.uk
+  owner: Benjamin.Finucane@justice.gov.uk
