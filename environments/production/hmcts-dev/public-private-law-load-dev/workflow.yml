@@ -15,16 +15,16 @@ dag:
   tasks:
     ccd_load_privatelaw_privatelaw_exceptionrecord:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_public_private_law/privatelaw_privatelaw_exceptionrecord"
+        AFFILE_PIPELINE_NAME: "public_private_law/privatelaw_privatelaw_exceptionrecord"
     ccd_load_privatelaw_prlapps:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_public_private_law/privatelaw_prlapps"
+        AFFILE_PIPELINE_NAME: "public_private_law/privatelaw_prlapps"
     ccd_load_publiclaw_care_supervision_epo:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_public_private_law/publiclaw_care_supervision_epo"
+        AFFILE_PIPELINE_NAME: "public_private_law/publiclaw_care_supervision_epo"
     ccd_load_publiclaw_publiclaw_exceptionrecord:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_public_private_law/publiclaw_publiclaw_exceptionrecord"
+        AFFILE_PIPELINE_NAME: "public_private_law/publiclaw_publiclaw_exceptionrecord"
 
 iam:
   athena: write
