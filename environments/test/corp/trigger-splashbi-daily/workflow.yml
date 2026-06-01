@@ -2,7 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-report-extractor
   tag: v1.6.7-test
-  schedule: "0 7 * * *"
+  pause_on_creation: True
   retries: 1
   retry_delay: 60
   compute_profile: general-on-demand-2vcpu-8gb
