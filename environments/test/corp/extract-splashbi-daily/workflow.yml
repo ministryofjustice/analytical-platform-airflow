@@ -43,7 +43,7 @@ dag:
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
 
-# === Temporary Promotion Worksheet ===
+# === TPW Temporary Promotion Worksheet ===
     laa-hr-wf-02-tpw:
       env_vars:
         REPORT_NAME: "laa-hr-wf-02-tpw"
