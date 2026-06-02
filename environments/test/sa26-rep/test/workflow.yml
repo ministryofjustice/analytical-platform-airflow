@@ -12,6 +12,7 @@ iam:
   glue: true
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius_dim/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=probation_derived/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/*
