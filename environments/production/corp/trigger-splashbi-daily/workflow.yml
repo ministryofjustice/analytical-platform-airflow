@@ -200,27 +200,27 @@ dag:
     # === Temporary Promotion Worksheet ===
     tpw-laa-hr-wf-02:
       env_vars:
-        REPORT_NAME: "laa-hr-wf-02-tpw"
+        REPORT_NAME: "tpw-laa-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
     tpw-cts-hr-wf-02:
       env_vars:
-        REPORT_NAME: "cts-hr-wf-02-tpw"
+        REPORT_NAME: "tpw-cts-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
     tpw-opg-hr-wf-02:
       env_vars:
-        REPORT_NAME: "opg-hr-wf-02-tpw"
+        REPORT_NAME: "tpw-opg-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
     tpw-nms-hr-wf-02:
       env_vars:
-        REPORT_NAME: "nms-hr-wf-02-tpw"
+        REPORT_NAME: "tpw-nms-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
     tpw-moj-hr-wf-02:
       env_vars:
-        REPORT_NAME: "moj-hr-wf-02-tpw"
+        REPORT_NAME: "tpw-moj-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
 
