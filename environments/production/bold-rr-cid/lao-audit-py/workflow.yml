@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-bold-case-info-dashboard-python
-  tag: v1.0.3
+  tag: v1.0.4
   schedule: "0 6 * * *"
 
   env_vars:
