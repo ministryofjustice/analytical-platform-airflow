@@ -137,27 +137,27 @@ dag:
       dependencies: [validate-credentials]
 
     # === TRA Allowance Reports ===
-    moj-hr-wf-02-tra:
+    moj-hr-wf-02:
       env_vars:
         REPORT_NAME: "moj-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-    nms-hr-wf-02-tra:
+    nms-hr-wf-02:
       env_vars:
         REPORT_NAME: "nms-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-    cts-hr-wf-02-tra:
+    cts-hr-wf-02:
       env_vars:
         REPORT_NAME: "cts-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-    opg-hr-wf-02-tra:
+    opg-hr-wf-02:
       env_vars:
         REPORT_NAME: "opg-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-    laa-hr-wf-02-tra:
+    laa-hr-wf-02:
       env_vars:
         REPORT_NAME: "laa-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
@@ -191,27 +191,27 @@ dag:
       dependencies: [validate-credentials]
 
     # === TPW Temporary Promotion Worksheet ===
-    laa-hr-wf-02-tpw:
+    tpw-laa-hr-wf-02:
       env_vars:
         REPORT_NAME: "laa-hr-wf-02-tpw"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-    cts-hr-wf-02-tpw:
+    tpw-cts-hr-wf-02:
       env_vars:
         REPORT_NAME: "cts-hr-wf-02-tpw"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-    opg-hr-wf-02-tpw:
+    tpw-opg-hr-wf-02:
       env_vars:
         REPORT_NAME: "opg-hr-wf-02-tpw"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-    nms-hr-wf-02-tpw:
+    tpw-nms-hr-wf-02:
       env_vars:
         REPORT_NAME: "nms-hr-wf-02-tpw"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-    moj-hr-wf-02-tpw:
+    tpw-moj-hr-wf-02:
       env_vars:
         REPORT_NAME: "moj-hr-wf-02-tpw"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
