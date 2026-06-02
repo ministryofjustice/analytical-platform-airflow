@@ -16,30 +16,30 @@ dag:
   tasks:
     ccd_load_divorce_divorce:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_divorce/divorce_divorce"
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_divorce"
     ccd_load_divorce_divorce_bulkaction:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_divorce/divorce_divorce_bulkaction"
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_divorce_bulkaction"
     ccd_load_divorce_financialremedycontested:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_divorce/divorce_financialremedycontested"
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_financialremedycontested"
       compute_profile: general-spot-32vcpu-128gb
     ccd_load_divorce_financialremedymvp2:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_divorce/divorce_financialremedymvp2"
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_financialremedymvp2"
     ccd_load_divorce_finrem_exceptionrecord:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_divorce/divorce_finrem_exceptionrecord"
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_finrem_exceptionrecord"
     ccd_load_divorce_nfd:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_divorce/divorce_nfd"
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_nfd"
       compute_profile: general-spot-32vcpu-128gb
     ccd_load_divorce_nfd_exceptionrecord:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_divorce/divorce_nfd_exceptionrecord"
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_nfd_exceptionrecord"
     ccd_load_divorce_no_fault_divorce_bulkaction:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ccd_divorce/divorce_no_fault_divorce_bulkaction"
+        AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_no_fault_divorce_bulkaction"
 
 iam:
   athena: write
