@@ -22,6 +22,7 @@ dag:
     ccd_load_publiclaw_care_supervision_epo:
       env_vars:
         AFFILE_PIPELINE_NAME: "public_private_law/publiclaw_care_supervision_epo"
+        "AFFILE_LOAD_LIMIT": "100"
       compute_profile: general-spot-32vcpu-128gb
     ccd_load_publiclaw_publiclaw_exceptionrecord:
       env_vars:
