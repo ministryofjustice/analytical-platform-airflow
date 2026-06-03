@@ -17,6 +17,7 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=probation_derived/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_population_history/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offenders
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offender_sent_calculations_wap/*
