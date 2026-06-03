@@ -78,7 +78,7 @@ iam:
     - mojap-land/hmcts/ccd-divorce/*
     - mojap-raw-hist/hmcts/ccd-divorce/*
   s3_read_only:
-    - alpha-mojap-ccd/divorce/*
+    - mojap-processed/domain__divorce/env__prod/ccd_divorce_v1/*
 
 secrets:
   - sdp-pass
