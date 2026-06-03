@@ -1,6 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
   tag: v3.0.12
+  start_date: "2026-06-04"
+  schedule: 0 2 * * *
   retries: 0
   hmcts_sdp_networking: True
   max_active_runs: 1
@@ -82,6 +84,9 @@ iam:
 
 secrets:
   - sdp-pass
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
 
 maintainers:
   - Andy-Cook
