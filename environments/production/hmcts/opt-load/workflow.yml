@@ -1,0 +1,38 @@
+dag:
+  repository: moj-analytical-services/airflow-create-a-pipeline
+  tag: v4.0.20
+  retries: 1
+  retry_delay: 150
+  start_date: "2026-04-30"
+  max_active_runs: 5
+  env_vars:
+    LOG_LEVEL: "INFO"
+    LAND: "s3://mojap-land-dev/hmcts/opt"
+    RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/opt"
+    BASE_LOC: "s3://alpha-mojap-curated-opt/dev/v1/"
+    BASE_DB_NAME: "opt_preprocessed_dev"
+    SERVICE: "opt"
+    CHUNK_SIZE: "1000000"
+    DAG_INTERVAL_END: "{{ data_interval_end }}"
+    PARTITION_COL: "extraction_date"
+
+  tasks:
+    opt-load-data-tbl-mags-cie-new:
+      env_vars:
+        TABLE: "data_tbl_mags_cie_new"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-dev/hmcts/opt/*
+    - mojap-raw-hist-dev/hmcts/opt/*
+    - alpha-mojap-curated-opt/dev/v1/*
+
+maintainers:
+  - jovita-brundziene
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: jovita.brundziene@justice.gov.uk
