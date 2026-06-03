@@ -1,16 +1,16 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.20
+  tag: v4.0.21
   retries: 1
   retry_delay: 150
   start_date: "2026-04-30"
   max_active_runs: 5
   env_vars:
     LOG_LEVEL: "INFO"
-    LAND: "s3://mojap-land-dev/hmcts/opt"
-    RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/opt"
-    BASE_LOC: "s3://alpha-mojap-curated-opt/dev/v1/"
-    BASE_DB_NAME: "opt_preprocessed_dev"
+    LAND: "s3://mojap-land/hmcts/opt"
+    RAW_HIST: "s3://mojap-raw-hist/hmcts/opt"
+    BASE_LOC: "s3://alpha-mojap-curated-opt/prod/v1/"
+    BASE_DB_NAME: "opt_preprocessed"
     SERVICE: "opt"
     CHUNK_SIZE: "1000000"
     DAG_INTERVAL_END: "{{ data_interval_end }}"
@@ -25,9 +25,9 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-land-dev/hmcts/opt/*
-    - mojap-raw-hist-dev/hmcts/opt/*
-    - alpha-mojap-curated-opt/dev/v1/*
+    - mojap-land/hmcts/opt/*
+    - mojap-raw-hist/hmcts/opt/*
+    - alpha-mojap-curated-opt/prod/v1/*
 
 maintainers:
   - jovita-brundziene
