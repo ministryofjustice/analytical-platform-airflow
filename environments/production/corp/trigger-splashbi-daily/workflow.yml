@@ -1,10 +1,11 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.6.8
+  tag: v1.6.9
   schedule: "0 7 * * *"
   retries: 1
   retry_delay: 60
+  pause_on_creation: true
   compute_profile: general-on-demand-2vcpu-8gb
   env_vars:
     REPORT_APP: "splashbi"
