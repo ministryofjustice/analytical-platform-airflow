@@ -2,6 +2,8 @@
 dag:
   repository: moj-analytical-services/airflow-file
   tag: v1.4.6
+  start_date: "2026-06-04"
+  schedule: 30 2 * * *
   is_paused_upon_creation: true
   env_vars:
     AFFILE_ENV: "prod"
@@ -51,6 +53,9 @@ iam:
 
   s3_read_write:
     - mojap-processed/domain__divorce/env__prod/*
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
 
 maintainers:
   - DanJ-MOJ
