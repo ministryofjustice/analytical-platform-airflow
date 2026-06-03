@@ -32,6 +32,7 @@ dag:
     ccd_load_divorce_nfd:
       env_vars:
         AFFILE_PIPELINE_NAME: "ccd_divorce_v1/divorce_nfd"
+        "AFFILE_LOAD_LIMIT": "500"
       compute_profile: general-spot-32vcpu-128gb
     ccd_load_divorce_nfd_exceptionrecord:
       env_vars:
