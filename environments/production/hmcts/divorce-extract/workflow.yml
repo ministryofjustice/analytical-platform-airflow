@@ -14,7 +14,7 @@ dag:
     CHECK_MODE: "table"
     FILENAME_COL_NAME: "meta__source_file"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
-    DATABASE_NAME: "ccd_divorce"
+    DATABASE_NAME: "ccd_divorce_v1"
     LAND_BUCKET: "s3://mojap-land"
     HIST_BUCKET: "s3://mojap-raw-hist"
     LAND_FOLDER: "hmcts/ccd-divorce"
