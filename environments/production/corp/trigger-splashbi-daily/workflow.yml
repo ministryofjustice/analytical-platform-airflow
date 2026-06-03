@@ -1,10 +1,11 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.6.6
+  tag: v1.6.9
   schedule: "0 7 * * *"
   retries: 1
   retry_delay: 60
+  is_paused_upon_creation: true
   compute_profile: general-on-demand-2vcpu-8gb
   env_vars:
     REPORT_APP: "splashbi"
@@ -144,33 +145,83 @@ dag:
       dependencies: [validate-credentials]
 
     # === TRA Allowance Reports ===
-    moj-hr-wf-02-tra:
+    moj-hr-wf-02:
       env_vars:
         REPORT_NAME: "moj-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-
-    nms-hr-wf-02-tra:
+    nms-hr-wf-02:
       env_vars:
         REPORT_NAME: "nms-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-
-    cts-hr-wf-02-tra:
+    cts-hr-wf-02:
       env_vars:
         REPORT_NAME: "cts-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-
-    opg-hr-wf-02-tra:
+    opg-hr-wf-02:
       env_vars:
         REPORT_NAME: "opg-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-
-    laa-hr-wf-02-tra:
+    laa-hr-wf-02:
       env_vars:
         REPORT_NAME: "laa-hr-wf-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    # === HR Staff list ===
+    moj-hr-wf-11-staff-list:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-11"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    cts-hr-wf-11-staff-list:
+      env_vars:
+        REPORT_NAME: "cts-hr-wf-11"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    nms-hr-wf-11-staff-list:
+      env_vars:
+        REPORT_NAME: "nms-hr-wf-11"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    opg-hr-wf-11-staff-list:
+      env_vars:
+        REPORT_NAME: "opg-hr-wf-11"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    laa-hr-wf-11-staff-list:
+      env_vars:
+        REPORT_NAME: "laa-hr-wf-11"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    # === Temporary Promotion Worksheet ===
+    tpw-laa-hr-wf-02:
+      env_vars:
+        REPORT_NAME: "tpw-laa-hr-wf-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    tpw-cts-hr-wf-02:
+      env_vars:
+        REPORT_NAME: "tpw-cts-hr-wf-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    tpw-opg-hr-wf-02:
+      env_vars:
+        REPORT_NAME: "tpw-opg-hr-wf-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    tpw-nms-hr-wf-02:
+      env_vars:
+        REPORT_NAME: "tpw-nms-hr-wf-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    tpw-moj-hr-wf-02:
+      env_vars:
+        REPORT_NAME: "tpw-moj-hr-wf-02"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
 
