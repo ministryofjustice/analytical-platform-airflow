@@ -19,7 +19,8 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_population_history/*
-    - mojap-derived-tables/prod/models/domain_name=general/database_name=lookup_offence_v2/*
+    - mojap-derived-tables/prod/models/domain_name=general/*
+    - mojap-derived-tables/prod/models/domain_name=courts/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offenders
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offender_sent_calculations_wap/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offenders_wap/*
