@@ -401,9 +401,54 @@ dag:
 
     # === Accounts Payable ===
 
-    aged_debt_analysis:
+    cts-aged_debt_analysis:
       env_vars:
-        REPORT_NAME: "aged_debt_analysis"
+        REPORT_NAME: "cts-aged_debt_analysis"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-aged_debt_analysis:
+      env_vars:
+        REPORT_NAME: "laa-aged_debt_analysis"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-aged_debt_analysis:
+      env_vars:
+        REPORT_NAME: "opg-aged_debt_analysis"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-aged_debt_analysis:
+      env_vars:
+        REPORT_NAME: "yjb-aged_debt_analysis"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-aged_debt_analysis:
+      env_vars:
+        REPORT_NAME: "ima-aged_debt_analysis"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-aged_debt_analysis:
+      env_vars:
+        REPORT_NAME: "moj-aged_debt_analysis"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-aged_debt_analysis:
+      env_vars:
+        REPORT_NAME: "pbd-aged_debt_analysis"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-aged_debt_analysis:
+      env_vars:
+        REPORT_NAME: "jac-aged_debt_analysis"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-aged_debt_analysis:
+      env_vars:
+        REPORT_NAME: "nms-aged_debt_analysis"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-aged_debt_analysis:
+      env_vars:
+        REPORT_NAME: "wls-aged_debt_analysis"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
 
