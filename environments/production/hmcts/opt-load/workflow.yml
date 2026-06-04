@@ -5,6 +5,7 @@ dag:
   retry_delay: 150
   start_date: "2026-04-30"
   max_active_runs: 5
+  schedule: 0 12 * * 0
   env_vars:
     LOG_LEVEL: "INFO"
     LAND: "s3://mojap-land/hmcts/opt"
