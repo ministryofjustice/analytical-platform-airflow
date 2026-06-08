@@ -19,7 +19,7 @@ iam:
   glue: true
   s3_read_write:
     - alpha-everyone/affile-testing/installable-load/*
-    - mojap-processed/affile-test/*
+    - mojap-processed/domain__affile_testing/*
 
 notifications:
   slack_channel: dmet-corp-notifications
