@@ -21,6 +21,7 @@ dag:
 maintainers:
   - jhpyke
   - lalithanagarur
+  - joephillipsjustice
 
 secrets:
   - github-key
