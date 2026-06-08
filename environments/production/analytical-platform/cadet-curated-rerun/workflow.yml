@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.3.2
+  tag: 1.3.3
   schedule: None
   catchup: false
   env_vars:
@@ -9,8 +9,8 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-curated-daily
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-curated-daily
-    DBT_SELECT_CRITERIA: tag:delius_external_provider
-    BRANCH: rerun-delius-external-provider
+    DBT_SELECT_CRITERIA: tag:curated-re-run-fix
+    BRANCH: re-run-curated-fix
     MODE: build
   tasks:
     table_deploy:
@@ -21,6 +21,7 @@ dag:
 maintainers:
   - jhpyke
   - lalithanagarur
+  - joephillipsjustice
 
 secrets:
   - github-key
