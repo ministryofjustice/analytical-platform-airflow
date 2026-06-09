@@ -1,0 +1,47 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: v1.4.5
+  is_paused_upon_creation: true
+  env_vars:
+    AFFILE_ENV: "dev"
+    AFFILE_SCHEMA_CONTRACT: "evolve"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-2vcpu-8gb
+  tasks:
+    ccd_load_privatelaw_privatelaw_exceptionrecord:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "public_private_law/privatelaw_privatelaw_exceptionrecord"
+    ccd_load_privatelaw_prlapps:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "public_private_law/privatelaw_prlapps"
+    ccd_load_publiclaw_care_supervision_epo:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "public_private_law/publiclaw_care_supervision_epo"
+        "AFFILE_LOAD_LIMIT": "100"
+      compute_profile: general-spot-32vcpu-128gb
+    ccd_load_publiclaw_publiclaw_exceptionrecord:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "public_private_law/publiclaw_publiclaw_exceptionrecord"
+
+iam:
+  athena: write
+  glue: true
+
+  s3_read_only:
+    - mojap-land-dev/hmcts/ccd-public-private-law/*
+
+  s3_read_write:
+    - mojap-processed/domain__hmcts/env__dev/*
+
+maintainers:
+  - DanJ-MOJ
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: daniel.johnstone@justice.gov.uk
