@@ -21,3 +21,6 @@ maintainers:
 tags:
   business_unit: Central Digital
   owner: Laurence.Droy@justice.gov.uk
+
+secrets:
+  - matrix-key
