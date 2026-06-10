@@ -27,11 +27,31 @@ dag:
         TABLE_NAME: "allocated-listings"
         S3_TABLE_NAME: "allocated_listings"
         FILENAME_TABLE_NAME: "allocated_listings"
+    cp_extract_app_order_defendant_offence:
+      env_vars:
+        TABLE_NAME: "app-order-defendant-offence"
+        S3_TABLE_NAME: "app_order_defendant_offence"
+        FILENAME_TABLE_NAME: "app_order_defendant_offence"
     cp_extract_application:
       env_vars:
         TABLE_NAME: "application"
         S3_TABLE_NAME: "application"
         FILENAME_TABLE_NAME: "application"
+    cp_extract_application_case_offence:
+      env_vars:
+        TABLE_NAME: "application-case-offence"
+        S3_TABLE_NAME: "application_case_offence"
+        FILENAME_TABLE_NAME: "application_case_offence"
+    cp_extract_application_court_order:
+      env_vars:
+        TABLE_NAME: "application-court-order"
+        S3_TABLE_NAME: "application_court_order"
+        FILENAME_TABLE_NAME: "application_court_order"
+    cp_extract_application_document:
+      env_vars:
+        TABLE_NAME: "application-document"
+        S3_TABLE_NAME: "application_document"
+        FILENAME_TABLE_NAME: "application_document"
     cp_extract_application_person:
       env_vars:
         TABLE_NAME: "application-person"
@@ -107,16 +127,16 @@ dag:
         TABLE_NAME: "defence-association"
         S3_TABLE_NAME: "defence_association"
         FILENAME_TABLE_NAME: "defence_association"
-    cp_extract_defendant_defence_association:
-      env_vars:
-        TABLE_NAME: "defendant-defence-association"
-        S3_TABLE_NAME: "defendant_defence_association"
-        FILENAME_TABLE_NAME: "defendant_defence_association"
     cp_extract_defence_idpc_access:
       env_vars:
         TABLE_NAME: "defence-idpc-access"
         S3_TABLE_NAME: "defence_idpc_access"
         FILENAME_TABLE_NAME: "defence_idpc_access"
+    cp_extract_defendant_defence_association:
+      env_vars:
+        TABLE_NAME: "defendant-defence-association"
+        S3_TABLE_NAME: "defendant_defence_association"
+        FILENAME_TABLE_NAME: "defendant_defence_association"
     cp_extract_defendant_alias:
       env_vars:
         TABLE_NAME: "defendant-alias"
@@ -177,6 +197,11 @@ dag:
         TABLE_NAME: "hearing-defence-counsel"
         S3_TABLE_NAME: "hearing_defence_counsel"
         FILENAME_TABLE_NAME: "hearing_defence_counsel"
+    cp_extract_hearing_defendant_offence:
+      env_vars:
+        TABLE_NAME: "hearing-defendant-offence"
+        S3_TABLE_NAME: "hearing_defendant_offence"
+        FILENAME_TABLE_NAME: "hearing_defendant_offence"
     cp_extract_hearing_detail:
       env_vars:
         TABLE_NAME: "hearing-detail"
@@ -212,6 +237,11 @@ dag:
         TABLE_NAME: "hearing-result"
         S3_TABLE_NAME: "hearing_result"
         FILENAME_TABLE_NAME: "hearing_result"
+    cp_extract_hearing_result_amendment:
+      env_vars:
+        TABLE_NAME: "hearing-result-amendment"
+        S3_TABLE_NAME: "hearing_result_amendment"
+        FILENAME_TABLE_NAME: "hearing_result_amendment"
     cp_extract_hearing_result_prompt:
       env_vars:
         TABLE_NAME: "hearing-result-prompt"
@@ -222,6 +252,16 @@ dag:
         TABLE_NAME: "legal-entity"
         S3_TABLE_NAME: "legal_entity"
         FILENAME_TABLE_NAME: "legal_entity"
+    cp_extract_non_std_ind_prosecutor:
+      env_vars:
+        TABLE_NAME: "non-std-ind-prosecutor"
+        S3_TABLE_NAME: "non_std_ind_prosecutor"
+        FILENAME_TABLE_NAME: "non_std_ind_prosecutor"
+    cp_extract_offence_decision:
+      env_vars:
+        TABLE_NAME: "offence-decision"
+        S3_TABLE_NAME: "offence_decision"
+        FILENAME_TABLE_NAME: "offence_decision"
     cp_extract_offence_detail:
       env_vars:
         TABLE_NAME: "offence-detail"
@@ -232,6 +272,11 @@ dag:
         TABLE_NAME: "offence-plea"
         S3_TABLE_NAME: "offence_plea"
         FILENAME_TABLE_NAME: "offence_plea"
+    cp_extract_offence_result:
+      env_vars:
+        TABLE_NAME: "offence-result"
+        S3_TABLE_NAME: "offence_result"
+        FILENAME_TABLE_NAME: "offence_result"
     cp_extract_organisation_person:
       env_vars:
         TABLE_NAME: "organisation-person"
@@ -242,6 +287,11 @@ dag:
         TABLE_NAME: "person"
         S3_TABLE_NAME: "person"
         FILENAME_TABLE_NAME: "person"
+    cp_extract_prosecution_authority_change:
+      env_vars:
+        TABLE_NAME: "prosecution-authority-change"
+        S3_TABLE_NAME: "prosecution_authority_change"
+        FILENAME_TABLE_NAME: "prosecution_authority_change"
     cp_extract_referencedata_action_plan_reason_category:
       env_vars:
         TABLE_NAME: "referencedata-action-plan-reason-category"
@@ -327,6 +377,11 @@ dag:
         TABLE_NAME: "referencedata-gender"
         S3_TABLE_NAME: "referencedata_gender"
         FILENAME_TABLE_NAME: "referencedata_gender"
+    cp_extract_referencedata_hearing_event_definition:
+      env_vars:
+        TABLE_NAME: "referencedata-hearing-event-definition"
+        S3_TABLE_NAME: "referencedata_hearing_event_definition"
+        FILENAME_TABLE_NAME: "referencedata_hearing_event_definition"
     cp_extract_referencedata_hearing_type:
       env_vars:
         TABLE_NAME: "referencedata-hearing-type"
@@ -382,6 +437,11 @@ dag:
         TABLE_NAME: "referencedata-mode-of-trial-reason"
         S3_TABLE_NAME: "referencedata_mode_of_trial_reason"
         FILENAME_TABLE_NAME: "referencedata_mode_of_trial_reason"
+    cp_extract_referencedata_non_standard_prosecutor:
+      env_vars:
+        TABLE_NAME: "referencedata-non-standard-prosecutor"
+        S3_TABLE_NAME: "referencedata_non_standard_prosecutor"
+        FILENAME_TABLE_NAME: "referencedata_non_standard_prosecutor"
     cp_extract_referencedata_now_meta_data:
       env_vars:
         TABLE_NAME: "referencedata-now-meta-data"
@@ -397,6 +457,11 @@ dag:
         TABLE_NAME: "referencedata-offence"
         S3_TABLE_NAME: "referencedata_offence"
         FILENAME_TABLE_NAME: "referencedata_offence"
+    cp_extract_referencedata_offence_by_date:
+      env_vars:
+        TABLE_NAME: "referencedata-offence-by-date"
+        S3_TABLE_NAME: "referencedata_offence_by_date"
+        FILENAME_TABLE_NAME: "referencedata_offence_by_date"
     cp_extract_referencedata_offence_category:
       env_vars:
         TABLE_NAME: "referencedata-offence-category"
@@ -417,6 +482,11 @@ dag:
         TABLE_NAME: "referencedata-offender-code"
         S3_TABLE_NAME: "referencedata_offender_code"
         FILENAME_TABLE_NAME: "referencedata_offender_code"
+    cp_extract_referencedata_organisation:
+      env_vars:
+        TABLE_NAME: "referencedata-organisation"
+        S3_TABLE_NAME: "referencedata_organisation"
+        FILENAME_TABLE_NAME: "referencedata_organisation"
     cp_extract_referencedata_organisation_unit:
       env_vars:
         TABLE_NAME: "referencedata-organisation-unit"
