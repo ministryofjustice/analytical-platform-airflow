@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v1.3.0
+  tag: v1.4.8
   schedule: "30 * * * *"
   is_paused_upon_creation: true
   env_vars:
@@ -47,6 +47,12 @@ dag:
     load-sop__all_time_wf02_tra_allowances:
       env_vars:
         AFFILE_PIPELINE_NAME: "sop__all_time_wf02_tra_allowances"
+    load-sop__all_time_wf11_staff_list:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "sop__all_time_wf11_staff_list"
+    load-sop__all_time_tpw_wf02_temporary_promotion:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "sop__all_time_tpw_wf02_temporary_promotion"
 
 iam:
   athena: write
