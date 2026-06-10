@@ -1,13 +1,14 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v9.0-rc5
+  tag: v9.0-rc6
   catchup: false
   tasks:
     classification-predict-inv:
       env_vars:
         EXEC_SCRIPT: "classification-predict-inv"
         EXEC_ARGS: "--env dev --source sql"
+      compute_profile: gpu-spot-8vcpu-32gb
 
 iam:
   athena: write
