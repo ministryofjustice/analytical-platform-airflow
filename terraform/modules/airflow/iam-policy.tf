@@ -203,10 +203,14 @@ data "aws_iam_policy_document" "iam_policy" {
         "secretsmanager:PutSecretValue",
         "secretsmanager:UpdateSecret"
       ]
-      resources = [
-        "arn:aws:secretsmanager:eu-west-2:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*",
-        "arn:aws:secretsmanager:eu-west-1:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/*"
-      ]
+      resources = concat(
+        [
+          for secret in local.secrets_configuration : "arn:aws:secretsmanager:eu-west-2:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/${secret}*"
+        ],
+        [
+          for secret in local.secrets_configuration : "arn:aws:secretsmanager:eu-west-1:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/${secret}*"
+        ]
+      )
     }
   }
 
