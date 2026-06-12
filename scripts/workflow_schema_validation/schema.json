@@ -1,0 +1,290 @@
+{
+  "dag": {
+    "type": "dict",
+    "schema": {
+      "repository": {
+        "type": "string",
+        "regex": "^(ministryofjustice|moj-analytical-services)/[a-zA-Z0-9-_]+$",
+        "required": true
+      },
+      "tag": { "type": "string", "required": true },
+      "compute_profile": {
+        "type": "string",
+        "allowed": [
+          "general-on-demand-1vcpu-4gb",
+          "general-on-demand-2vcpu-8gb",
+          "general-on-demand-4vcpu-16gb",
+          "general-on-demand-8vcpu-32gb",
+          "general-on-demand-16vcpu-64gb",
+          "general-on-demand-32vcpu-128gb",
+          "general-on-demand-64vcpu-256gb",
+          "general-on-demand-120vcpu-500gb",
+          "general-on-demand-128vcpu-512gb",
+          "general-spot-1vcpu-4gb",
+          "general-spot-2vcpu-8gb",
+          "general-spot-4vcpu-16gb",
+          "general-spot-8vcpu-32gb",
+          "general-spot-16vcpu-64gb",
+          "general-spot-32vcpu-128gb",
+          "general-spot-64vcpu-256gb",
+          "general-spot-120vcpu-500gb",
+          "general-spot-128vcpu-512gb",
+          "gpu-on-demand-1vcpu-4gb",
+          "gpu-on-demand-2vcpu-8gb",
+          "gpu-on-demand-4vcpu-16gb",
+          "gpu-on-demand-8vcpu-32gb",
+          "gpu-on-demand-16vcpu-64gb",
+          "gpu-on-demand-32vcpu-128gb",
+          "gpu-on-demand-64vcpu-256gb",
+          "gpu-on-demand-120vcpu-500gb",
+          "gpu-on-demand-128vcpu-512gb",
+          "gpu-spot-1vcpu-4gb",
+          "gpu-spot-2vcpu-8gb",
+          "gpu-spot-4vcpu-16gb",
+          "gpu-spot-8vcpu-32gb",
+          "gpu-spot-16vcpu-64gb",
+          "gpu-spot-32vcpu-128gb",
+          "gpu-spot-64vcpu-256gb",
+          "gpu-spot-120vcpu-500gb",
+          "gpu-spot-128vcpu-512gb"
+        ],
+        "required": false
+      },
+      "hmcts_sdp_networking": { "type": "boolean", "required": false },
+      "env_vars": {
+        "type": "dict",
+        "required": false
+      },
+      "catchup": { "type": "boolean", "required": false },
+      "depends_on_past": { "type": "boolean", "required": false },
+      "end_date": { "type": "string", "required": false },
+      "is_paused_upon_creation": { "type": "boolean", "required": false },
+      "max_active_runs": { "type": "integer", "required": false },
+      "retries": { "type": "integer", "required": false },
+      "retry_delay": { "type": "integer", "required": false },
+      "schedule": { "type": ["string", "dict"], "required": false },
+      "start_date": { "type": "string", "required": false },
+      "inlets": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      },
+      "outlets": {
+        "type": "list",
+        "schema": { "type": "string" },
+        "required": false
+      },
+      "tasks": {
+        "type": "dict",
+        "required": false,
+        "keysrules": { "type": "string", "regex": "^[a-zA-Z0-9-_]+$" },
+        "valueschema": {
+          "type": "dict",
+          "schema": {
+            "compute_profile": {
+              "type": "string",
+              "allowed": [
+                "general-on-demand-1vcpu-4gb",
+                "general-on-demand-2vcpu-8gb",
+                "general-on-demand-4vcpu-16gb",
+                "general-on-demand-8vcpu-32gb",
+                "general-on-demand-16vcpu-64gb",
+                "general-on-demand-32vcpu-128gb",
+                "general-on-demand-64vcpu-256gb",
+                "general-on-demand-120vcpu-500gb",
+                "general-on-demand-128vcpu-512gb",
+                "general-spot-1vcpu-4gb",
+                "general-spot-2vcpu-8gb",
+                "general-spot-4vcpu-16gb",
+                "general-spot-8vcpu-32gb",
+                "general-spot-16vcpu-64gb",
+                "general-spot-32vcpu-128gb",
+                "general-spot-64vcpu-256gb",
+                "general-spot-120vcpu-500gb",
+                "general-spot-128vcpu-512gb",
+                "gpu-on-demand-1vcpu-4gb",
+                "gpu-on-demand-2vcpu-8gb",
+                "gpu-on-demand-4vcpu-16gb",
+                "gpu-on-demand-8vcpu-32gb",
+                "gpu-on-demand-16vcpu-64gb",
+                "gpu-on-demand-32vcpu-128gb",
+                "gpu-on-demand-64vcpu-256gb",
+                "gpu-on-demand-120vcpu-500gb",
+                "gpu-on-demand-128vcpu-512gb",
+                "gpu-spot-1vcpu-4gb",
+                "gpu-spot-2vcpu-8gb",
+                "gpu-spot-4vcpu-16gb",
+                "gpu-spot-8vcpu-32gb",
+                "gpu-spot-16vcpu-64gb",
+                "gpu-spot-32vcpu-128gb",
+                "gpu-spot-64vcpu-256gb",
+                "gpu-spot-120vcpu-500gb",
+                "gpu-spot-128vcpu-512gb"
+              ],
+              "required": false
+            },
+            "hmcts_sdp_networking": { "type": "boolean", "required": false },
+            "env_vars": {
+              "type": "dict",
+              "required": false
+            },
+            "dependencies": {
+              "type": "list",
+              "schema": { "type": "string" },
+              "required": false
+            },
+            "inlets": {
+              "type": "list",
+              "schema": { "type": "string" },
+              "required": false
+            },
+            "outlets": {
+              "type": "list",
+              "schema": { "type": "string" },
+              "required": false
+            }
+          }
+        }
+      },
+      "params": {
+        "type": "dict",
+        "required": false,
+        "keysrules": { "type": "string", "regex": "^[a-zA-Z0-9_]+$" }
+      },
+      "python_dag": { "type": "boolean", "required": false }
+    },
+    "required": true
+  },
+  "iam": {
+    "type": "dict",
+    "schema": {
+      "external_role": { "type": "string", "required": false },
+      "athena": {
+        "type": "string",
+        "allowed": ["read", "write"],
+        "required": false
+      },
+      "bedrock": { "type": "boolean", "required": false },
+      "glue": { "type": "boolean", "required": false },
+      "lake_formation": { "type": "boolean", "required": false },
+      "update_secrets": { "type": "boolean", "required": false },
+      "textract": { "type": "boolean", "required": false },
+      "cloudwatch_logs_read_only": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "regex": "^arn:aws:logs.*+$"
+        },
+        "required": false
+      },
+      "kms": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "regex": "^arn:aws:kms.*+$"
+        },
+        "required": false
+      },
+      "s3_deny": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "regex": "^(?!arn:aws:s3).*+$"
+        },
+        "required": false
+      },
+      "s3_read_only": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "regex": "^(?!arn:aws:s3).*+$"
+        },
+        "required": false
+      },
+      "s3_read_write": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "regex": "^(?!arn:aws:s3).*+$"
+        },
+        "required": false
+      },
+      "s3_write_only": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "regex": "^(?!arn:aws:s3).*+$"
+        },
+        "required": false
+      }
+    },
+    "required": false
+  },
+  "secrets": {
+    "type": "list",
+    "schema": {
+      "type": "string",
+      "regex": "^[a-z-]+$"
+    },
+    "required": false
+  },
+  "maintainers": {
+    "type": "list",
+    "schema": {
+      "type": "string",
+      "regex": "^[a-zA-Z0-9-]+$"
+    },
+    "required": true
+  },
+  "notifications": {
+    "type": "dict",
+    "schema": {
+      "emails": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "regex": "^[a-zA-Z0-9_.+-]+@justice\\.gov\\.uk$"
+        },
+        "required": false
+      },
+      "slack_channel": {
+        "type": "string",
+        "required": false
+      },
+      "slack_events": {
+        "type": "list",
+        "schema": {
+          "type": "string",
+          "allowed": ["failure", "success"]
+        },
+        "required": false
+      }
+    }
+  },
+  "tags": {
+    "type": "dict",
+    "schema": {
+      "business_unit": {
+        "type": "string",
+        "allowed": [
+          "Central Digital",
+          "CICA",
+          "HMCTS",
+          "HMPPS",
+          "HQ",
+          "LAA",
+          "OPG",
+          "Platforms",
+          "Technology Services"
+        ],
+        "required": true
+      },
+      "owner": {
+        "type": "string",
+        "regex": "^[a-zA-Z0-9_.+-]+@justice\\.gov\\.uk$",
+        "required": true
+      }
+    },
+    "required": true
+  }
+}
