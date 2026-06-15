@@ -51,7 +51,7 @@ dag:
         PIPELINE_VERSION: test
 
     standardised_nodes_crown_xhibit:
-      compute_profile: general-spot-1vcpu-4gb
+      compute_profile: general-spot-2vcpu-8gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: crown_xhibit
@@ -276,7 +276,7 @@ dag:
       dependencies: [source_nodes_mags_journey]
 
     standardised_nodes_xhibit_journey:
-      compute_profile: general-spot-1vcpu-4gb
+      compute_profile: general-spot-2vcpu-8gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: xhibit-journey
@@ -284,7 +284,7 @@ dag:
       dependencies: [source_nodes_xhibit_journey]
 
     standardised_nodes_mh_cx:
-      compute_profile: general-spot-4vcpu-16gb
+      compute_profile: general-spot-8vcpu-32gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: mh-cx
@@ -303,7 +303,7 @@ dag:
       dependencies: [standardised_nodes_mh_cx]
 
     edge_generation_mh_cx:
-      compute_profile: general-spot-4vcpu-16gb
+      compute_profile: general-spot-8vcpu-32gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mh-cx
