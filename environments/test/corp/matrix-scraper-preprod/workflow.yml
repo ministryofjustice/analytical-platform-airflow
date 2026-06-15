@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-matrix-scraper
-  tag: v2.0.3-test4
+  tag: v2.0.3-test5
   python_dag: true
 
 iam:
