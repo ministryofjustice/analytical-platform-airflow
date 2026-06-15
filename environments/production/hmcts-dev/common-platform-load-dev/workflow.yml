@@ -207,173 +207,173 @@ dag:
     cp_load_rd_organisation:
       env_vars:
         TABLE: "rd_organisation"
-    cp_load_referencedata_action_plan_reason_category:
+    cp_load_rd_action_plan_reason_category:
       env_vars:
-        TABLE: "referencedata_action_plan_reason_category"
-    cp_load_referencedata_amendment_reason:
+        TABLE: "rd_action_plan_reason_category"
+    cp_load_rd_amendment_reason:
       env_vars:
-        TABLE: "referencedata_amendment_reason"
-    cp_load_referencedata_application_type_category:
+        TABLE: "rd_amendment_reason"
+    cp_load_rd_application_type_category:
       env_vars:
-        TABLE: "referencedata_application_type_category"
-    cp_load_referencedata_bail_status:
+        TABLE: "rd_application_type_category"
+    cp_load_rd_bail_status:
       env_vars:
-        TABLE: "referencedata_bail_status"
-    cp_load_referencedata_case_marker:
+        TABLE: "rd_bail_status"
+    cp_load_rd_case_marker:
       env_vars:
-        TABLE: "referencedata_case_marker"
-    cp_load_referencedata_cjs_it_system_code:
+        TABLE: "rd_case_marker"
+    cp_load_rd_cjs_it_system_code:
       env_vars:
-        TABLE: "referencedata_cjs_it_system_code"
-    cp_load_referencedata_cjs_verdict_code:
+        TABLE: "rd_cjs_it_system_code"
+    cp_load_rd_cjs_verdict_code:
       env_vars:
-        TABLE: "referencedata_cjs_verdict_code"
-    cp_load_referencedata_country_nationality:
+        TABLE: "rd_cjs_verdict_code"
+    cp_load_rd_country_nationality:
       env_vars:
-        TABLE: "referencedata_country_nationality"
-    cp_load_referencedata_court_room_session_allocation:
+        TABLE: "rd_country_nationality"
+    cp_load_rd_court_room_session_allocation:
       env_vars:
-        TABLE: "referencedata_court_room_session_allocation"
+        TABLE: "rd_court_room_session_allocation"
         compute_profile: general-spot-32vcpu-128gb
-    cp_load_referencedata_courtroom:
+    cp_load_rd_courtroom:
       env_vars:
-        TABLE: "referencedata_courtroom"
-    cp_load_referencedata_cracked_ineffective_vacated_trial_type:
+        TABLE: "rd_courtroom"
+    cp_load_rd_cracked_ineffective_vacated_trial_type:
       env_vars:
-        TABLE: "referencedata_cracked_ineffective_vacated_trial_type"
-    cp_load_referencedata_custory_suites:
+        TABLE: "rd_cracked_ineffective_vacated_trial_type"
+    cp_load_rd_custory_suites:
       env_vars:
-        TABLE: "referencedata_custody_suites"
-    cp_load_referencedata_enforcement_action:
+        TABLE: "rd_custody_suites"
+    cp_load_rd_enforcement_action:
       env_vars:
-        TABLE: "referencedata_enforcement_action"
-    cp_load_referencedata_enforcement_area:
+        TABLE: "rd_enforcement_action"
+    cp_load_rd_enforcement_area:
       env_vars:
-        TABLE: "referencedata_enforcement_area"
-    cp_load_referencedata_ethnicity:
+        TABLE: "rd_enforcement_area"
+    cp_load_rd_ethnicity:
       env_vars:
-        TABLE: "referencedata_ethnicity"
-    cp_load_referencedata_fixed_list:
+        TABLE: "rd_ethnicity"
+    cp_load_rd_fixed_list:
       env_vars:
-        TABLE: "referencedata_fixed_list"
-    cp_load_referencedata_gender:
+        TABLE: "rd_fixed_list"
+    cp_load_rd_gender:
       env_vars:
-        TABLE: "referencedata_gender"
-    cp_load_referencedata_hearing_type:
+        TABLE: "rd_gender"
+    cp_load_rd_hearing_type:
       env_vars:
-        TABLE: "referencedata_hearing_type"
-    cp_load_referencedata_initiation_type:
+        TABLE: "rd_hearing_type"
+    cp_load_rd_initiation_type:
       env_vars:
-        TABLE: "referencedata_initiation_type"
-    cp_load_referencedata_judiciary:
+        TABLE: "rd_initiation_type"
+    cp_load_rd_judiciary:
       env_vars:
-        TABLE: "referencedata_judiciary"
+        TABLE: "rd_judiciary"
         compute_profile: general-spot-32vcpu-128gb
-    cp_load_referencedata_judiciary_lja_mapping:
+    cp_load_rd_judiciary_lja_mapping:
       env_vars:
-        TABLE: "referencedata_judiciary_lja_mapping"
+        TABLE: "rd_judiciary_lja_mapping"
         compute_profile: general-spot-32vcpu-128gb
-    cp_load_referencedata_language:
+    cp_load_rd_language:
       env_vars:
-        TABLE: "referencedata_language"
-    cp_load_referencedata_legal_status:
+        TABLE: "rd_language"
+    cp_load_rd_legal_status:
       env_vars:
-        TABLE: "referencedata_legal_status"
-    cp_load_referencedata_licence_code:
+        TABLE: "rd_legal_status"
+    cp_load_rd_licence_code:
       env_vars:
-        TABLE: "referencedata_licence_code"
-    cp_load_referencedata_local_justice_area:
+        TABLE: "rd_licence_code"
+    cp_load_rd_local_justice_area:
       env_vars:
-        TABLE: "referencedata_local_justice_area"
-    cp_load_referencedata_local_justice_area_court_prosecutor_mapping:
+        TABLE: "rd_local_justice_area"
+    cp_load_rd_local_justice_area_court_prosecutor_mapping:
       env_vars:
-        TABLE: "referencedata_local_justice_area_court_prosecutor_mapping"
-    cp_load_referencedata_local_justice_area_postcodes:
+        TABLE: "rd_local_justice_area_court_prosecutor_mapping"
+    cp_load_rd_local_justice_area_postcodes:
       env_vars:
-        TABLE: "referencedata_local_justice_area_postcodes"
-    cp_load_referencedata_mode_of_trial_reason:
+        TABLE: "rd_local_justice_area_postcodes"
+    cp_load_rd_mode_of_trial_reason:
       env_vars:
-        TABLE: "referencedata_mode_of_trial_reason"
-    cp_load_referencedata_now_meta_data:
+        TABLE: "rd_mode_of_trial_reason"
+    cp_load_rd_now_meta_data:
       env_vars:
-        TABLE: "referencedata_now_meta_data"
-    cp_load_referencedata_observed_ethnicity:
+        TABLE: "rd_now_meta_data"
+    cp_load_rd_observed_ethnicity:
       env_vars:
-        TABLE: "referencedata_observed_ethnicity"
-    cp_load_referencedata_offence:
+        TABLE: "rd_observed_ethnicity"
+    cp_load_rd_offence:
       env_vars:
-        TABLE: "referencedata_offence"
+        TABLE: "rd_offence"
         compute_profile: general-spot-32vcpu-128gb
-    cp_load_referencedata_offence_category:
+    cp_load_rd_offence_category:
       env_vars:
-        TABLE: "referencedata_offence_category"
-    cp_load_referencedata_offence_date_code:
+        TABLE: "rd_offence_category"
+    cp_load_rd_offence_date_code:
       env_vars:
-        TABLE: "referencedata_offence_date_code"
-    cp_load_referencedata_offence_withdraw_request_reason:
+        TABLE: "rd_offence_date_code"
+    cp_load_rd_offence_withdraw_request_reason:
       env_vars:
-        TABLE: "referencedata_offence_withdraw_request_reason"
-    cp_load_referencedata_offender_code:
+        TABLE: "rd_offence_withdraw_request_reason"
+    cp_load_rd_offender_code:
       env_vars:
-        TABLE: "referencedata_offender_code"
-    cp_load_referencedata_organisation_unit:
+        TABLE: "rd_offender_code"
+    cp_load_rd_organisation_unit:
       env_vars:
-        TABLE: "referencedata_organisation_unit"
-    cp_load_referencedata_oucode_courtrooms:
+        TABLE: "rd_organisation_unit"
+    cp_load_rd_oucode_courtrooms:
       env_vars:
-        TABLE: "referencedata_oucode_courtrooms"
-    cp_load_referencedata_plea_status:
+        TABLE: "rd_oucode_courtrooms"
+    cp_load_rd_plea_status:
       env_vars:
-        TABLE: "referencedata_plea_status"
-    cp_load_referencedata_plea_type:
+        TABLE: "rd_plea_status"
+    cp_load_rd_plea_type:
       env_vars:
-        TABLE: "referencedata_plea_type"
-    cp_load_referencedata_police_force:
+        TABLE: "rd_plea_type"
+    cp_load_rd_police_force:
       env_vars:
-        TABLE: "referencedata_police_force"
-    cp_load_referencedata_police_rank:
+        TABLE: "rd_police_force"
+    cp_load_rd_police_rank:
       env_vars:
-        TABLE: "referencedata_police_rank"
-    cp_load_referencedata_prosecutor:
+        TABLE: "rd_police_rank"
+    cp_load_rd_prosecutor:
       env_vars:
-        TABLE: "referencedata_prosecutor"
-    cp_load_referencedata_referral_reason:
+        TABLE: "rd_prosecutor"
+    cp_load_rd_referral_reason:
       env_vars:
-        TABLE: "referencedata_referral_reason"
-    cp_load_referencedata_result:
+        TABLE: "rd_referral_reason"
+    cp_load_rd_result:
       env_vars:
-        TABLE: "referencedata_result"
-    cp_load_referencedata_result_definition:
+        TABLE: "rd_result"
+    cp_load_rd_result_definition:
       env_vars:
-        TABLE: "referencedata_result_definition"
+        TABLE: "rd_result_definition"
         compute_profile: general-spot-32vcpu-128gb
-    cp_load_referencedata_rota_business_type:
+    cp_load_rd_rota_business_type:
       env_vars:
-        TABLE: "referencedata_rota_business_type"
-    cp_load_referencedata_scottish_ni_court:
+        TABLE: "rd_rota_business_type"
+    cp_load_rd_scottish_ni_court:
       env_vars:
-        TABLE: "referencedata_scottish_ni_court"
-    cp_load_referencedata_sentencing_indication:
+        TABLE: "rd_scottish_ni_court"
+    cp_load_rd_sentencing_indication:
       env_vars:
-        TABLE: "referencedata_sentencing_indication"
-    cp_load_referencedata_summons_code:
+        TABLE: "rd_sentencing_indication"
+    cp_load_rd_summons_code:
       env_vars:
-        TABLE: "referencedata_summons_code"
-    cp_load_referencedata_vehicle_code:
+        TABLE: "rd_summons_code"
+    cp_load_rd_vehicle_code:
       env_vars:
-        TABLE: "referencedata_vehicle_code"
-    cp_load_referencedata_verdict_type:
+        TABLE: "rd_vehicle_code"
+    cp_load_rd_verdict_type:
       env_vars:
-        TABLE: "referencedata_verdict_type"
-    cp_load_referencedata_victim_surcharge:
+        TABLE: "rd_verdict_type"
+    cp_load_rd_victim_surcharge:
       env_vars:
-        TABLE: "referencedata_victim_surcharge"
-    cp_load_referencedata_youth_court:
+        TABLE: "rd_victim_surcharge"
+    cp_load_rd_youth_court:
       env_vars:
-        TABLE: "referencedata_youth_court"
-    cp_load_referencedata_youth_offending_team:
+        TABLE: "rd_youth_court"
+    cp_load_rd_youth_offending_team:
       env_vars:
-        TABLE: "referencedata_youth_offending_team"
+        TABLE: "rd_youth_offending_team"
     cp_load_scan_document:
       env_vars:
         TABLE: "scan_document"
