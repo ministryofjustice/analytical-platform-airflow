@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/coat-cur-enriched-data-pipeline
-  tag: v1.0.10
+  tag: v1.1.0
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
   retries: 2
