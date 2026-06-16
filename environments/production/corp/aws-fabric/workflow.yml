@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/replicate-athena-to-fabric
-  tag: v1.4.8
+  tag: v1.5.0
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
@@ -49,6 +49,9 @@ dag:
     reward_recognition_tables:
       env_vars:
         TABLES: "reward_recognition"
+    fte_tables:
+      env_vars:
+        TABLES: "fte"
 
 iam:
   athena: write
