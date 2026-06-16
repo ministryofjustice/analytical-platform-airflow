@@ -15,7 +15,7 @@ dag:
       env_vars:
         S3_BUCKET: "alpha-opg-etl"
         SP_SITE: "OPGDataCatalogue"
-        SP_LIBRARY: "Shared Documents"
+        SP_LIBRARY: "Documents"
 iam:
   s3_read_write:
     - alpha-opg-etl/*
