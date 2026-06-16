@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/aws-sharepoint-connector
-  tag: demo-2
+  tag: test-airflow-2
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -12,9 +12,13 @@ dag:
   tasks:
     move_file:
       compute_profile: "general-on-demand-4vcpu-16gb"
+      env_vars:
+        S3_BUCKET: "alpha-opg-etl"
+        SP_SITE: "OPGDataCatalogue"
+        SP_LIBRARY: "Shared Documents"
 iam:
   s3_read_write:
-    - mojap-land-dev/opg/dev/sharepoint/*
+    - alpha-opg-etl/*
 
 secrets:
   - azure-client-secret
