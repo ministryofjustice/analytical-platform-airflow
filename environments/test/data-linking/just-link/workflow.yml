@@ -119,7 +119,7 @@ dag:
         PIPELINE_VERSION: test
 
     standardised_nodes_prison_nomis:
-      compute_profile: ggeneral-spot-4vcpu-16gb
+      compute_profile: general-spot-4vcpu-16gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: prison_nomis
