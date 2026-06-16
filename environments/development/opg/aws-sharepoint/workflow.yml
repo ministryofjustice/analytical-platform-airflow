@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/aws-sharepoint-connector
-  tag: test-airflow-2
+  tag: test-airflow-3
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
