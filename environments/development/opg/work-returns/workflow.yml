@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.8.0-test-2
+  tag: v3.8.0-test-3
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -13,7 +13,7 @@ dag:
     DATABASE: "work_returns"
     PIPELINE_NAME: "work_returns"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.8.0-test-2"
+    GITHUB_TAG: "v3.8.0-test-3"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2026-03-16"
     AWS_DEFAULT_REGION: "eu-west-1"
