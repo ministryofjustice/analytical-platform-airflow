@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.7.12
+  tag: v3.8.0-test-6
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -10,10 +10,10 @@ dag:
   start_date: "2026-03-16"
   schedule: None
   env_vars:
-    DATABASE: "sirius"
-    PIPELINE_NAME: "sirius"
+    DATABASE: "work_returns"
+    PIPELINE_NAME: "work_returns"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.7.11-test-8"
+    GITHUB_TAG: "v3.8.0-test-3"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2026-03-16"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -23,10 +23,13 @@ dag:
     to_land:
       env_vars:
         STEP: "land"
+        SHAREPOINT_SITE: "OPGDataCatalogue"
+        SHAREPOINT_LIBRARY: "Documents"
+        S3_BUCKET: "alpha-opg-etl"
       compute_profile: "general-on-demand-4vcpu-16gb"
     land_to_raw:
       env_vars:
-        STEP: "raw"
+        STEP: "raw_hist"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [to_land]
     raw_to_curated:
@@ -49,16 +52,13 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-land-dev/opg/dev/sirius/*
-    - mojap-raw/opg/dev/sirius/*
-    - alpha-opg-etl/dev/sirius/*
-    - mojap-athena-query-dump/*airflow-development-opg-sirius-daily/*
+    - alpha-opg-etl/dev/work_returns/*
+    - mojap-athena-query-dump/*airflow-development-opg-work-returns/*
 
-  s3_read_only:
-    - mojap-land-dev/opg/sirius/*
-    - mojap-land/opg/sirius/*
-    - alpha-opg-etl/dev/nspl_reference/curated/*
-    - alpha-opg-mi-dashboard/working/*
+secrets:
+  - azure-client-secret
+  - azure-tenant-id
+  - azure-client-id
 
 maintainers:
   - p-sin
