@@ -6,7 +6,6 @@ dag:
 
 maintainers:
   - joe-dods
-  - rolakeo-mojo
 
 iam:
   athena: read
