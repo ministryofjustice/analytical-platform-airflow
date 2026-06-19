@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v1.4.5
+  tag: v1.5.0-alpha.2aa170d
   is_paused_upon_creation: true
   env_vars:
     AFFILE_ENV: "dev"
@@ -22,7 +22,6 @@ dag:
     ccd_load_publiclaw_care_supervision_epo:
       env_vars:
         AFFILE_PIPELINE_NAME: "public_private_law/publiclaw_care_supervision_epo"
-        "AFFILE_LOAD_LIMIT": "100"
       compute_profile: general-spot-32vcpu-128gb
     ccd_load_publiclaw_publiclaw_exceptionrecord:
       env_vars:
