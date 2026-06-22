@@ -1,0 +1,18 @@
+dag:
+  repository: moj-analytical-services/sscl-s3-test
+  tag: v0.0.1
+  is_paused_on_creation: true
+  env_vars:
+    S3_BUCKET_NAME: "alpha-ben-test"
+    S3_TEST_FILE_NAME: "test_file.txt"
+
+iam:
+  s3_read_write:
+    - alpha-ben-test/*
+
+tags:
+  business_unit: Central Digital
+  owner: benjamin.finucane@justice.gov.uk
+  
+maintainers:
+  - benjamin-finucane
