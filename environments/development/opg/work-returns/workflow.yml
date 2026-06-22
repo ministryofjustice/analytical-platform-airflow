@@ -41,7 +41,7 @@ dag:
       env_vars:
         STEP: "curated"
       compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [land_to_raw]
+      dependencies: [raw_hist_to_processed]
     create_curated_database:
       env_vars:
         STEP: "curated_database"
