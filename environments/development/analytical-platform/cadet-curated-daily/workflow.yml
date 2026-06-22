@@ -11,6 +11,7 @@ dag:
     DBT_SELECT_CRITERIA: tag:curated_dev
     BRANCH: run-curated-daily-dev
     MODE: build
+    THREAD_COUNT: 10
 
 maintainers:
   - lalithanagarur
