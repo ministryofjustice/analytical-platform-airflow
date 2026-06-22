@@ -1,3 +1,4 @@
+---
 dag:
   repository: moj-analytical-services/sscl-s3-test
   tag: v0.0.1
@@ -13,6 +14,6 @@ iam:
 tags:
   business_unit: Central Digital
   owner: benjamin.finucane@justice.gov.uk
-  
+
 maintainers:
   - benjamin-finucane
