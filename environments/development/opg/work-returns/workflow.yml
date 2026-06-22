@@ -13,7 +13,7 @@ dag:
     DATABASE: "work_returns"
     PIPELINE_NAME: "work_returns"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.8.0-test-3"
+    GITHUB_TAG: "v3.8.0-test-10"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2026-03-16"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -32,6 +32,11 @@ dag:
         STEP: "raw_hist"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [to_land]
+    raw_hist_to_processed:
+      env_vars:
+        STEP: "processed"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [land_to_raw_hist]
     raw_to_curated:
       env_vars:
         STEP: "curated"
@@ -42,11 +47,6 @@ dag:
         STEP: "curated_database"
       compute_profile: "general-on-demand-4vcpu-16gb"
       dependencies: [raw_to_curated]
-    create_derived:
-      env_vars:
-        STEP: "create_derived"
-      compute_profile: "general-on-demand-16vcpu-64gb"
-      dependencies: [raw_to_curated, create_curated_database]
 
 iam:
   athena: write
