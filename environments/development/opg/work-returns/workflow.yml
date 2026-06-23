@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.8.0-test-3
+  tag: v3.8.0-test-13
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -13,7 +13,7 @@ dag:
     DATABASE: "work_returns"
     PIPELINE_NAME: "work_returns"
     DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.8.0-test-3"
+    GITHUB_TAG: "v3.8.0-test-11"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2026-03-16"
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -27,26 +27,26 @@ dag:
         SHAREPOINT_LIBRARY: "Documents"
         S3_BUCKET: "alpha-opg-etl"
       compute_profile: "general-on-demand-4vcpu-16gb"
-    land_to_raw:
+    land_to_raw_hist:
       env_vars:
         STEP: "raw_hist"
-      compute_profile: "general-on-demand-4vcpu-16gb"
+      compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [to_land]
-    raw_to_curated:
+    raw_hist_to_processed:
+      env_vars:
+        STEP: "processed"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [land_to_raw_hist]
+    processed_to_curated:
       env_vars:
         STEP: "curated"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [land_to_raw]
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [raw_hist_to_processed]
     create_curated_database:
       env_vars:
         STEP: "curated_database"
-      compute_profile: "general-on-demand-4vcpu-16gb"
-      dependencies: [raw_to_curated]
-    create_derived:
-      env_vars:
-        STEP: "create_derived"
-      compute_profile: "general-on-demand-16vcpu-64gb"
-      dependencies: [raw_to_curated, create_curated_database]
+      compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [processed_to_curated]
 
 iam:
   athena: write
