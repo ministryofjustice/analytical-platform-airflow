@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-stats-forward-look-b
-  tag: v0.1.0-alpha.1
+  tag: v0.1.0-alpha.2
   schedule: "0 1 * * *"
 
 iam:
