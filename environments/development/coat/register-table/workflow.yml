@@ -1,7 +1,7 @@
 dag:
   repository: ministryofjustice/coat-cur-data-pipeline
   compute_profile: general-on-demand-2vcpu-8gb
-  tag: v1.1.8-dev
+  tag: v1.1.9-dev
   max_active_runs: 1
   retries: 2
   retry_delay: 120
