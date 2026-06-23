@@ -9,9 +9,8 @@ dag:
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-curated-dev
     DBT_SELECT_CRITERIA: tag:curated_dev
-    BRANCH: run-curated-daily-dev
+    BRANCH: main
     MODE: build
-    THREAD_COUNT: 10
 
 maintainers:
   - lalithanagarur
