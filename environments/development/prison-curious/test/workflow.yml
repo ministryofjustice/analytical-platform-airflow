@@ -14,11 +14,11 @@ dag:
     "S3_RAW_HIST_KEY_PREFIX": "hmpps/prison-curious2/raw-history"
     "S3_FAILED_BUCKET": "mojap-land-fail-preprod"
     "S3_FAILED_KEY_PREFIX": "hmpps/prison-curious2"
-    "S3_SECRETS_BUCKET": "mojap-land-preprod"
-    "S3_SECRETS_KEY": "hmpps/prison-curious2/sas_token_info.txt"
-    SECRET_NAME: >
+    "S3_MNX_BUCKET": "hmpps/prison-curious2/sas_token_info.txt"
+    "S3_MNX_KEY": "hmpps/prison-curious2/sas_token_info.txt"
+    "MNX_STORAGE_NAME": >
       /airflow/sandbox/prison-curious/test/curious-azure-credential
-    "SECRET_NAME_REGION": "eu-west-2"
+    "MNX_NAME_REGION": "eu-west-2"
 
   tasks:
     get_secret:
