@@ -17,7 +17,7 @@ dag:
     "S3_SECRETS_BUCKET": "mojap-land-preprod"
     "S3_SECRETS_KEY": "hmpps/prison-curious2/sas_token_info.txt"
     SECRET_NAME: >
-            /airflow/sandbox/prison-curious/test/curious-azure-credential
+      /airflow/sandbox/prison-curious/test/curious-azure-credential
     "SECRET_NAME_REGION": "eu-west-2"
 
   tasks:
