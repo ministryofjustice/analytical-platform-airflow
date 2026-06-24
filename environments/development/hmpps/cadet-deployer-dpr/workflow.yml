@@ -1,0 +1,32 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.3.4
+  compute_profile: general-on-demand-8vcpu-32gb
+  schedule: "0 5 * * MON-FRI"
+  start_date: "2026-06-18"
+  catchup: false
+  env_vars:
+    DEPLOY_ENV: dev
+    DBT_PROJECT: hmpps_digital_prisons_reporting_tables
+    S3_BUCKET: dpr-structured-historical-development
+    WORKFLOW_NAME: cadet-deployer-dpr
+    DBT_PROFILE_WORKGROUP: analytics-generic-athena-workgroup
+    DBT_SELECT_CRITERIA: "tag:dpr-daily,tag:model-templates"
+    MODE: build
+    AWS_DEFAULT_REGION: eu-west-2
+    DBT_PROFILE: dpr
+
+maintainers:
+  - AntFMoJ
+
+notifications:
+  emails:
+    - anthony.fitzroy@justice.gov.uk
+
+iam:
+  external_role: arn:aws:iam::771283872747:role/dpr-data-api-cross-account-role
+
+tags:
+  business_unit: HMPPS
+  owner: anthony.fitzroy@justice.gov.uk
