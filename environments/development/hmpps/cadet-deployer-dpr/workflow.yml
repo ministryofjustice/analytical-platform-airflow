@@ -16,8 +16,8 @@ dag:
     MODE: build
     AWS_DEFAULT_REGION: eu-west-2
     DBT_PROFILE: dpr
-  secrets:
-    - github-key
+secrets:
+  - github-key
 
 maintainers:
   - AntFMoJ
