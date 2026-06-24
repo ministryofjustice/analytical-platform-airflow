@@ -11,6 +11,7 @@ dag:
     DBT_SELECT_CRITERIA: tag:curated
     BRANCH: main
     MODE: build
+    THREAD_COUNT: 10
 
 maintainers:
   - lalithanagarur
