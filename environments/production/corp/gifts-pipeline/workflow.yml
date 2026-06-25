@@ -13,7 +13,7 @@ dag:
 
 maintainers:
   - benjamin-finucane
-  - priyabasker23
+  - PriyaBasker23
 
 iam:
   athena: write
