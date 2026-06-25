@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/sscl-s3-test
-  tag: v0.0.2
+  tag: v0.0.3
   is_paused_upon_creation: true
   env_vars:
     S3_BUCKET_NAME: "alpha-ben-test"
