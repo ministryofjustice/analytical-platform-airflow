@@ -27,6 +27,8 @@
     "openssf",
     "cooldown",
     "color",
-    "airflowignore"
+    "airflowignore",
+    "dagfactory",
+    "hmcts"
   ]
 }
