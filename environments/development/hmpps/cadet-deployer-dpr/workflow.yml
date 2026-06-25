@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.3.4
+  tag: 1.3.4-1
   compute_profile: general-on-demand-8vcpu-32gb
   schedule: "0 5 * * MON-FRI"
   start_date: "2026-06-18"
@@ -16,6 +16,8 @@ dag:
     MODE: build
     AWS_DEFAULT_REGION: eu-west-2
     DBT_PROFILE: dpr
+secrets:
+  - github-key
 
 maintainers:
   - AntFMoJ
