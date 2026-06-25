@@ -35,7 +35,7 @@ environment = folder.split("/")[1]
 print(f"Environment: {environment}")
 
 project = folder.split("/")[2]
-project = PROJECT_ALIASES.get(project, project)
+project = project.replace(project, PROJECT_ALIASES.get(project, project))
 print(f"Project: {project}")
 
 workflow = folder.split("/")[3]
