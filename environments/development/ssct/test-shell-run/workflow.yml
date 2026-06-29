@@ -1,0 +1,10 @@
+dag:
+  repository: mjct-moj/test_shell_run
+  tag: 0.0.1
+
+maintainers:
+  - MJCT-MOJ
+
+tags:
+  business_unit: HQ
+  owner: michael.terry@justice.gov.uk
