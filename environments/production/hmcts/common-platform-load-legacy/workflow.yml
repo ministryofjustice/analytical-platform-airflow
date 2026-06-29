@@ -278,6 +278,7 @@ dag:
     load_referencedata_local_justice_area_court_prosecutor_mapping:
       env_vars:
         AZ_TABLE: "referencedata-local-justice-area-court-prosecutor-mapping"
+      compute_profile: general-spot-2vcpu-8gb
     load_referencedata_local_justice_area_postcodes:
       env_vars:
         AZ_TABLE: "referencedata-local-justice-area-postcodes"
