@@ -30,6 +30,9 @@ iam:
     - mojap-raw-hist/hmcts/opt/*
     - alpha-mojap-curated-opt/prod/v1/*
 
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
 maintainers:
   - jovita-brundziene
   - Andy-Cook
