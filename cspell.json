@@ -3,9 +3,32 @@
   "version": "0.2",
   "language": "en-GB",
   "ignorePaths": [
+    "terraform/.terraform.lock.hcl",
     ".github/workflows/super-linter.yml",
     "environments/**",
     "requirements.txt"
   ],
-  "words": ["pleas", "ministryofjustice"]
+  "words": [
+    "pleas",
+    "ministryofjustice",
+    "dorny",
+    "PYTHONPATH",
+    "emds",
+    "elif",
+    "dags",
+    "mojap",
+    "analyticalplatform",
+    "aquasecurity",
+    "Jinja",
+    "venv",
+    "mwaa",
+    "kubeconfig",
+    "zizmor",
+    "openssf",
+    "cooldown",
+    "color",
+    "airflowignore",
+    "dagfactory",
+    "hmcts"
+  ]
 }

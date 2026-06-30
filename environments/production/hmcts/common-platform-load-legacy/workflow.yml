@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline-legacy
-  tag: v1.0.5
+  tag: v1.0.7
   retries: 0
   retry_delay: 150
   start_date: "2025-12-19"
@@ -14,6 +14,7 @@ dag:
     PREPROCESS_DB: "common_platform_dev_sdp_v3_pp"
     CURATED_DB: "common_platform_dev_sdp_v3"
     MAX_SIMULTANEOUS_FILES: "0"
+    DAG_INTERVAL_END: "{{ data_interval_end }}"
 
   tasks:
     load_allocated_listings:
@@ -94,6 +95,7 @@ dag:
     load_defendant_detail:
       env_vars:
         AZ_TABLE: "defendant-detail"
+      compute_profile: general-spot-2vcpu-8gb
     load_defendant_employer:
       env_vars:
         AZ_TABLE: "defendant-employer"
@@ -157,6 +159,7 @@ dag:
     load_hearing_prosecution_counsel:
       env_vars:
         AZ_TABLE: "hearing-prosecution-counsel"
+      compute_profile: general-spot-2vcpu-8gb
     load_hearing_result:
       env_vars:
         AZ_TABLE: "hearing-result"
@@ -275,6 +278,7 @@ dag:
     load_referencedata_local_justice_area_court_prosecutor_mapping:
       env_vars:
         AZ_TABLE: "referencedata-local-justice-area-court-prosecutor-mapping"
+      compute_profile: general-spot-2vcpu-8gb
     load_referencedata_local_justice_area_postcodes:
       env_vars:
         AZ_TABLE: "referencedata-local-justice-area-postcodes"
@@ -372,9 +376,11 @@ dag:
     load_scan_envelope:
       env_vars:
         AZ_TABLE: "scan-envelope"
+      compute_profile: general-spot-2vcpu-8gb
     load_sjp_decision:
       env_vars:
         AZ_TABLE: "sjp-decision"
+      compute_profile: general-spot-2vcpu-8gb
     load_sjp_session:
       env_vars:
         AZ_TABLE: "sjp-session"

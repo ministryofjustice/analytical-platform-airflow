@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.7
+  tag: 1.3.3
   catchup: false
   env_vars:
     DEPLOY_ENV: prod
@@ -13,7 +13,7 @@ dag:
     MODE: build
 
 maintainers:
-  - AntonyJScott
+  - joephillipsjustice
   - jhpyke
   - lalithanagarur
 
@@ -29,9 +29,10 @@ iam:
 notifications:
   emails:
     - lalitha.nagarur3@justice.gov.uk
-    - antony.scott@justice.gov.uk
+    - joseph.phillips@justice.gov.uk
+    - ProbationDataEngineering@justice.gov.uk
   slack_channel: de-probation-airflow-prod
 
 tags:
   business_unit: HQ
-  owner: antony.scott@justice.gov.uk
+  owner: ProbationDataEngineering@justice.gov.uk

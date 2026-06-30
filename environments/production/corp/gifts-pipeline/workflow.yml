@@ -12,8 +12,8 @@ dag:
         IMAGE_VERSION: tag
 
 maintainers:
-  - "pdnmoji"
-  - "moj-supratikc"
+  - benjamin-finucane
+  - PriyaBasker23
 
 iam:
   athena: write
@@ -26,4 +26,4 @@ iam:
     - alpha-app-gifts/jaggaer/*
 tags:
   business_unit: Central Digital
-  owner: philip.neale@justice.gov.uk
+  owner: Benjamin.Finucane@justice.gov.uk

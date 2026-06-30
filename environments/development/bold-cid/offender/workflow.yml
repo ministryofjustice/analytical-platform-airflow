@@ -1,10 +1,11 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-offender
-  tag: v4.1.40-dev
+  tag: v4.1.45-dev
 
   env_vars:
     CASE_INFO_DASHBOARD_TESTING: "yes"
+    R_CONFIG_ACTIVE: "case_info_dashboard"
 
   tasks:
     delius:

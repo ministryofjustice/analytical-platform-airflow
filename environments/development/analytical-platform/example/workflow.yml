@@ -17,11 +17,13 @@ notifications:
 iam:
   cloudwatch_logs_read_only:
     - arn:aws:logs:eu-west-2:593291632749:log-group:cloudtrail-athena-events:*
+  update_secrets: true
 
 maintainers:
   - jacobwoffenden
   - jhpyke
   - Gary-H9
+  - laurentb4
 
 secrets:
   - api-key

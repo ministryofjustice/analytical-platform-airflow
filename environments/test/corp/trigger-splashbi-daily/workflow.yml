@@ -1,95 +1,206 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.2.0
-  schedule: "30 6 * * 1-5"
+  tag: v1.6.8
+  is_paused_upon_creation: true
   retries: 1
   retry_delay: 60
+  compute_profile: general-on-demand-2vcpu-8gb
   env_vars:
     REPORT_APP: "splashbi"
     REPORT_RUNTIME_ENV: "test"
     REPORT_RUN_MODE: "trigger"
   tasks:
-    nms-jan-2020:
+    # === Credential Validation ===
+    validate-credentials:
+      env_vars:
+        REPORT_RUN_MODE: "check-credentials"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+
+    # === HR iExpenses Reports ===
+    moj-iexp01:
+      env_vars:
+        REPORT_NAME: "moj-iexp01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    laa-iexp01:
+      env_vars:
+        REPORT_NAME: "laa-iexp01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    opg-iexp01:
+      env_vars:
+        REPORT_NAME: "opg-iexp01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    cts-iexp01:
+      env_vars:
+        REPORT_NAME: "cts-iexp01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    nms-iexp01:
       env_vars:
         REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Jan-2020"
-        REPORT_PARAM_TO_DATE_PAID: "31-Jan-2020"
-    nms-feb-2020:
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    # === HR Non Sickness Absence Reports ===
+    cts-hr-a-01-nonsick:
       env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Feb-2020"
-        REPORT_PARAM_TO_DATE_PAID: "28-Feb-2020"
-    nms-mar-2020:
+        REPORT_NAME: "cts-hr-a-01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    laa-hr-a-01-nonsick:
       env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Mar-2020"
-        REPORT_PARAM_TO_DATE_PAID: "31-Mar-2020"
-    nms-apr-2020:
+        REPORT_NAME: "laa-hr-a-01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    nms-hr-a-01-nonsick:
       env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Apr-2020"
-        REPORT_PARAM_TO_DATE_PAID: "30-Apr-2020"
-    nms-may-2020:
+        REPORT_NAME: "nms-hr-a-01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    opg-hr-a-01-nonsick:
       env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-May-2020"
-        REPORT_PARAM_TO_DATE_PAID: "31-May-2020"
-    nms-jun-2020:
+        REPORT_NAME: "opg-hr-a-01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    moj-hr-a-01-nonsick:
       env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Jun-2020"
-        REPORT_PARAM_TO_DATE_PAID: "30-Jun-2020"
-    nms-jul-2020:
+        REPORT_NAME: "moj-hr-a-01"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    # Note - this one uses an internal schedule
+    moj-hr-a-04-nonsick:
       env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Jul-2020"
-        REPORT_PARAM_TO_DATE_PAID: "31-Jul-2020"
-    nms-aug-2020:
+        REPORT_NAME: "moj-hr-a-04-nonsick"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    # === HR Sick Absence Reports ===
+    # Note - this one uses an internal schedule
+    moj-hr-a-04-sick:
       env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Aug-2020"
-        REPORT_PARAM_TO_DATE_PAID: "31-Aug-2020"
-    nms-sep-2020:
+        REPORT_NAME: "moj-hr-a-04-sick"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    moj-hr-wf-60-sickleave:
       env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Sep-2020"
-        REPORT_PARAM_TO_DATE_PAID: "30-Sep-2020"
-    nms-oct-2020:
+        REPORT_NAME: "moj-hr-wf-60"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    # === HR Remuneration Reports ===
+    # Note - all these use an internal scheduling logic in the repo.
+    cts-hr-rew-02-remuneration:
       env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Oct-2020"
-        REPORT_PARAM_TO_DATE_PAID: "31-Oct-2020"
-    nms-nov-2020:
+        REPORT_NAME: "cts-hr-rew-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    laa-hr-rew-02-remuneration:
       env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Nov-2020"
-        REPORT_PARAM_TO_DATE_PAID: "30-Nov-2020"
-    nms-dec-2020:
+        REPORT_NAME: "laa-hr-rew-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    nms-hr-rew-02-remuneration:
       env_vars:
-        REPORT_NAME: "nms-iexp01"
-        REPORT_PARAM_FROM_DATE_PAID: "01-Dec-2020"
-        REPORT_PARAM_TO_DATE_PAID: "31-Dec-2020"
+        REPORT_NAME: "nms-hr-rew-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    opg-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "opg-hr-rew-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    moj-hr-rew-02-remuneration:
+      env_vars:
+        REPORT_NAME: "moj-hr-rew-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    # === HR Staffing Reports ===
+    moj-hr-wf-59-leavers:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-59"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    moj-hr-04-secondments:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-04"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    # Note - this one uses an internal schedule
+    moj-hr-wf-62-sip:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-62"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+    moj-hr-wf-64-starters:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-64"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    # === TRA Allowance Reports ===
+    moj-hr-wf-02-tra:
+      env_vars:
+        REPORT_NAME: "moj-hr-wf-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    nms-hr-wf-02-tra:
+      env_vars:
+        REPORT_NAME: "nms-hr-wf-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    cts-hr-wf-02-tra:
+      env_vars:
+        REPORT_NAME: "cts-hr-wf-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    opg-hr-wf-02-tra:
+      env_vars:
+        REPORT_NAME: "opg-hr-wf-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
+
+    laa-hr-wf-02-tra:
+      env_vars:
+        REPORT_NAME: "laa-hr-wf-02"
+        REPORT_SECRET_ID: "sbi-user-mojsupratikc"
+      dependencies: [validate-credentials]
 
 iam:
   s3_read_write:
     - mojap-land/corporate/report_extractor_test/splashbi/*
 
 secrets:
-  - splashbi-credentials
+  - sbi-user-csheldon
+  - sbi-user-mojsupratikc
+  - sbi-user-ltdpa
+  - sbi-user-morezwan
+  - sbi-user-williamorrie
+  - sbi-user-spare
 
 notifications:
-  slack_channel: dmet-corp-notifications
+  slack_channel: dmet-corp-splashbi-notifications
 
   emails:
-    - william.orr@justice.gov.uk
-    - Supratik.Chowdhury@justice.gov.uk
+    - laurence.droy@justice.gov.uk
+    - chris.sheldon@justice.gov.uk
+    - Benjamin.Finucane@justice.gov.uk
 
 maintainers:
   - williamorrie
   - moj-supratikc
   - ltd-pa
+  - Csheldon155
+  - benjamin-finucane
 
 tags:
   business_unit: Central Digital
-  owner: supratik.chowdhury@justice.gov.uk
+  owner: Benjamin.Finucane@justice.gov.uk
