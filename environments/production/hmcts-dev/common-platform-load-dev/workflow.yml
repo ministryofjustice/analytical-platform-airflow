@@ -157,7 +157,7 @@ dag:
     cp_load_hearing_result:
       env_vars:
         TABLE: "hearing_result"
-        compute_profile: general-spot-32vcpu-128gb
+        compute_profile: general-spot-64vcpu-256gb
     cp_load_hearing_result_amendment:
       env_vars:
         TABLE: "hearing_result_amendment"
