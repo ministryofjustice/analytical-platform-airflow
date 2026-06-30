@@ -1,5 +1,6 @@
 dag:
   repository: ministryofjustice/ssct-testrun1
+  tag: 0.0.2
 
 maintainers:
   - MJCT-MOJ
