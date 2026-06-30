@@ -1,0 +1,9 @@
+dag:
+  repository: ministryofjustice/ssct-testrun1
+
+maintainers:
+  - MJCT-MOJ
+
+tags:
+  business_unit: HQ
+  owner: michael.terry@justice.gov.uk
