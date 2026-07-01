@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.10
+  tag: 1.3.3
   schedule:
     datasets:
       - "s3://mojap-derived-tables/prod/curated-daily/"
