@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.14-alpha.0517820
+  tag: v4.0.25-alpha03cbc92
   retries: 0
   max_active_runs: 1
   env_vars:
@@ -63,14 +63,14 @@ dag:
     xhibit_load_defendant:
       env_vars:
         TABLE: "defendant"
-        LAA_PARQUET: true
+        YEAR_0: true
     xhibit_load_defendant_charge:
       env_vars:
         TABLE: "defendant_charge"
     xhibit_load_defendant_history:
       env_vars:
         TABLE: "defendant_history"
-        LAA_PARQUET: true
+        YEAR_0: true
       compute_profile: general-spot-32vcpu-128gb
     xhibit_load_defendant_on_case:
       env_vars:
