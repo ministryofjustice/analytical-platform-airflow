@@ -282,6 +282,7 @@ jobs:
       contents: read
       id-token: write
       pull-requests: write
+      security-events: write
     strategy:
       fail-fast: false
       matrix:
@@ -424,8 +425,8 @@ jobs:
               body: 'Container test has failed. Refer to the [User Guidance](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#configuration-testing) for more information.'
             })
 
-      - name: Generate Trivy Ignore
-        id: generate_trivy_ignore
+      - name: Generate .grype.yml
+        id: generate_grype_yml
         env:
           GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
@@ -452,18 +453,18 @@ jobs:
             exit 1
           fi
 
-          downloadTrivyignore=$(gh api "repos/${dagRepository}/contents/.trivyignore?ref=${dagTag}" 2>/dev/null || true)
-          export downloadTrivyignore
+          downloadGrypeYml=$(gh api "repos/${dagRepository}/contents/.grype.yml?ref=${dagTag}" 2>/dev/null || true)
+          export downloadGrypeYml
 
-          downloadTrivyignoreStatus=$(jq -r '.status' <<< "${downloadTrivyignore}")
-          export downloadTrivyignoreStatus
+          downloadGrypeYmlStatus=$(jq -r '.status' <<< "${downloadGrypeYml}")
+          export downloadGrypeYmlStatus
 
-          if [[ "${downloadTrivyignoreStatus}" == "null" ]]; then
-            jq -r '.content' <<< "${downloadTrivyignore}" | base64 --decode > .trivyignore
-          elif [[ "${downloadTrivyignoreStatus}" == "404" ]]; then
-            echo ".trivyignore not found" # It's OK if we don't find one, it means the user might not have created one yet
+          if [[ "${downloadGrypeYmlStatus}" == "null" ]]; then
+            jq -r '.content' <<< "${downloadGrypeYml}" | base64 --decode > .grype.yml
+          elif [[ "${downloadGrypeYmlStatus}" == "404" ]]; then
+            echo ".grype.yml not found" # It's OK if we don't find one, it means the user might not have created one yet
           else
-            echo "Error downloading .trivyignore"
+            echo "Error downloading .grype.yml"
             exit 1
           fi
 
@@ -488,12 +489,12 @@ jobs:
             echo "image-version-match=true" >>"${GITHUB_ENV}"
           fi
 
-          curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/heads/main/.trivyignore" --output "runtime-trivyignore"
+          curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/heads/main/.grype.yml" --output "runtime-grype.yml"
 
-          if [[ ! -f .trivyignore ]]; then
-            mv "runtime-trivyignore" .trivyignore
+          if [[ ! -f .grype.yml ]]; then
+            mv "runtime-grype.yml" .grype.yml
           else
-            cat "runtime-trivyignore" >> .trivyignore
+            cat "runtime-grype.yml" >> .grype.yml
           fi
 
       - name: Comment on Image Version Mismatch
@@ -509,47 +510,180 @@ jobs:
               body: `Provided image does not use the latest version (${process.env['upstream-image-version']}) of [${process.env['upstream-image-repo']}](https://github.com/${process.env['upstream-image-repo']}/releases/latest). Please ensure you are using the latest version of the base image in your Dockerfile.`
             })
 
-      - name: Configure AWS Credentials
-        id: configure_aws_credentials_s3
-        uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
-        with:
-          aws-region: eu-west-2
-          role-to-assume: arn:aws:iam::509399598587:role/trivy-analytical-platform-airflow-container-scanning
-          role-session-name: trivy-scan
-
-      - name: Install Trivy from S3
-        id: install_trivy
-        shell: bash
-        run: |
-          mkdir -p "$HOME/.local/bin"
-          TRIVY_ARCHIVE="trivy_0.69.3_Linux-64bit.tar.gz"
-          TRIVY_CHECKSUM_FILE="trivy_0.69.3_checksum.txt"
-          aws s3 cp "s3://mojap-common-production-artifacts/trivy/v0.69.3/${TRIVY_ARCHIVE}" "$HOME/.local/bin/${TRIVY_ARCHIVE}"
-          aws s3 cp "s3://mojap-common-production-artifacts/trivy/v0.69.3/${TRIVY_CHECKSUM_FILE}" "$HOME/.local/bin/${TRIVY_CHECKSUM_FILE}"
-
-          (cd "$HOME/.local/bin" && grep " ${TRIVY_ARCHIVE}$" "${TRIVY_CHECKSUM_FILE}" | sha256sum --check --status)
-
-          tar -xzf "$HOME/.local/bin/${TRIVY_ARCHIVE}" -C "$HOME/.local/bin" trivy
-          chmod +x "$HOME/.local/bin/trivy"
-          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
-          "$HOME/.local/bin/trivy" --version
-
       - name: Scan
         id: scan
+        uses: anchore/scan-action@e1165082ffb1fe366ebaf02d8526e7c4989ea9d2 # v7.4.0
+        with:
+          image: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
+          severity-cutoff: high
+          only-fixed: true
+          fail-build: false
+          output-format: sarif
+          output-file: result.sarif
+
+      - name: Upload SARIF
+        id: upload_sarif
+        uses: github/codeql-action/upload-sarif@8aad20d150bbac5944a9f9d289da16a4b0d87c1e # v4.36.2
+        with:
+          sarif_file: result.sarif
+
+      - name: Process Scan Result
+        id: process_scan_result
+        shell: bash
+        run: |
+          print_findings() {
+            local title=$1
+            local findings=$2
+            if [[ -n "${findings}" ]]; then
+              echo "### ${title}"
+              echo ""
+              echo "${findings}"
+              echo ""
+            fi
+          }
+
+          SARIF=$(cat result.sarif)
+
+          # The SARIF format stores rules (vulnerability definitions) separately from results (findings).
+          # Build a RULE_SEVERITIES map of ruleId -> NVD CVSS base score, then count findings by score band.
+          # The finding message text is rewritten to match the classified severity so the output is consistent.
+          RULE_SEVERITIES=$(echo "${SARIF}" | jq -c '
+            .runs[0].tool.driver.rules
+            | map({key: .id, value: (.properties["security-severity"] // "0" | tonumber)})
+            | from_entries
+          ')
+
+          CRITICAL_COUNT=$(echo "${SARIF}" | jq --argjson s "${RULE_SEVERITIES}" '
+            [.runs[0].results[] | select($s[.ruleId] >= 9.0)] | length
+          ')
+          HIGH_COUNT=$(echo "${SARIF}" | jq --argjson s "${RULE_SEVERITIES}" '
+            [.runs[0].results[] | select($s[.ruleId] >= 7.0 and $s[.ruleId] < 9.0)] | length
+          ')
+          TOTAL=$((CRITICAL_COUNT + HIGH_COUNT))
+
+          SCAN_OUTPUT=$({
+            echo "# Container Scan Summary"
+            echo ""
+
+            if [[ ${TOTAL} -eq 0 ]]; then
+              echo "✅ No fixable high or critical vulnerabilities found."
+            else
+              echo "${CRITICAL_COUNT} critical, ${HIGH_COUNT} high."
+              echo ""
+              echo "## Detailed Findings"
+              echo ""
+
+              get_findings() {
+                local min_score=$1
+                local max_score=$2
+                local severity=$3
+                echo "${SARIF}" | jq -r --argjson s "${RULE_SEVERITIES}" \
+                  --argjson min "${min_score}" --argjson max "${max_score}" \
+                  --arg severity "${severity}" '
+                  (.runs[0].tool.driver.rules
+                    | map({
+                        key: .id,
+                        value: (
+                          .help.text
+                          | split("\n")
+                          | map(select(startswith("Fix Version: ")))
+                          | if length > 0 then .[0] | ltrimstr("Fix Version: ") | split(",") | first else "" end
+                        )
+                      })
+                    | from_entries) as $fix_versions
+                  | def advisory_line:
+                      (try (.ruleId | capture("^(?<id>CVE-[0-9]+-[0-9]+|GHSA-[a-zA-Z0-9]+-[a-zA-Z0-9]+-[a-zA-Z0-9]+)") | .id) // .ruleId) as $id
+                      | (if ($id | startswith("CVE-")) then "https://nvd.nist.gov/vuln/detail/\($id)"
+                        elif ($id | startswith("GHSA-")) then "https://github.com/advisories/\($id)"
+                        else "" end) as $url
+                      | (($fix_versions[.ruleId] // "") | if . != "" then " (fixed in \(.)" else "" end) as $fix
+                      | (if (.message.text | test("^A [A-Za-z]+ vulnerability"))
+                         then (.message.text | sub("^A [A-Za-z]+ vulnerability"; "A \($severity) vulnerability"))
+                         else "A \($severity) vulnerability: \(.message.text)"
+                         end) as $text
+                      | if $url != "" then "- [\($id)](\($url)) - \($text)\($fix)"
+                        else "- \(.ruleId) - \($text)\($fix)"
+                        end;
+                  .runs[0].results[]
+                  | select($s[.ruleId] >= $min and $s[.ruleId] < $max)
+                  | advisory_line
+                '
+              }
+
+              CRITICAL_FINDINGS=$(get_findings 9.0 10.1 "critical")
+              HIGH_FINDINGS=$(get_findings 7.0 9.0 "high")
+
+              print_findings "Critical" "${CRITICAL_FINDINGS}"
+              print_findings "High" "${HIGH_FINDINGS}"
+
+              echo "## Source"
+              echo ""
+              echo "<table>"
+              echo "<tr><td><strong>Actor</strong></td><td>@${GITHUB_ACTOR}</td></tr>"
+              echo "<tr><td><strong>Commit</strong></td><td><a href=\"https://github.com/${GITHUB_REPOSITORY}/commit/${GITHUB_SHA}\"><code>${GITHUB_SHA}</code></a></td></tr>"
+              echo "<tr><td><strong>Workflow</strong></td><td><a href=\"https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}\">View run</a></td></tr>"
+              echo "</table>"
+            fi
+          })
+
+          echo "${SCAN_OUTPUT}"
+          echo "${SCAN_OUTPUT}" >>"${GITHUB_STEP_SUMMARY}"
+          {
+            echo "scan-summary<<EOF"
+            echo "${SCAN_OUTPUT}"
+            echo "EOF"
+            echo "critical-count=${CRITICAL_COUNT}"
+            echo "high-count=${HIGH_COUNT}"
+          } >>"${GITHUB_OUTPUT}"
+
+      - name: Comment on Pull Request
+        id: comment_on_pull_request
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          SCAN_SUMMARY: ${{ steps.process_scan_result.outputs.scan-summary }}
+        with:
+          script: |
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            })
+
+            const botComment = comments.find(comment => {
+              return comment.user.type === 'Bot' && comment.body.includes('Container Scan Summary')
+            })
+
+            const output = `${process.env.SCAN_SUMMARY}`;
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: output
+              })
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: output
+              })
+            }
+
+      - name: Fail Build on Findings
+        if: |
+          steps.process_scan_result.outputs.critical-count > 0 ||
+          steps.process_scan_result.outputs.high-count > 0
+        id: fail_build
         shell: bash
         env:
-          TRIVY_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-db:2
-          TRIVY_JAVA_DB_REPOSITORY: public.ecr.aws/aquasecurity/trivy-java-db:1
-          IMAGE: 509399598587.dkr.ecr.eu-west-2.amazonaws.com/${{ env.ecr-repository }}:${{ env.image-tag }}
+          CRITICAL_COUNT: ${{ steps.process_scan_result.outputs.critical-count }}
+          HIGH_COUNT: ${{ steps.process_scan_result.outputs.high-count }}
         run: |
-          trivy image \
-            --severity HIGH,CRITICAL \
-            --ignore-unfixed \
-            --skip-dirs /home/analyticalplatform/.cache/R,/usr/local/lib/R/site-library/openssl/doc \
-            --timeout 10m0s \
-            --exit-code 1 \
-            --vuln-type library \
-            "${IMAGE}"
+          echo "Build failed - found ${CRITICAL_COUNT} critical and ${HIGH_COUNT} high severity fixable vulnerabilities"
+          exit 1
 
       - name: Comment on Scan Failure
         id: comment_on_scan_failure
