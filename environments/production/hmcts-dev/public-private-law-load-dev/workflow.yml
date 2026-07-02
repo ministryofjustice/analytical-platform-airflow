@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v1.5.0-alpha.cc82cd8
+  tag: v1.5.0-alpha.ae8673e
   is_paused_upon_creation: true
   env_vars:
     AFFILE_ENV: "dev"
