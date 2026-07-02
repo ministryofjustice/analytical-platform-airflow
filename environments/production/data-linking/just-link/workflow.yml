@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev19
+  tag: v5.0.0.dev20
   retries: 0
   retry_delay: 150
   max_active_runs: 1
