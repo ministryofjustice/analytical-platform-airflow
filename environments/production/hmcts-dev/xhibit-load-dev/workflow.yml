@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.25-alpha03cbc92
+  tag: v4.0.25-alphaa27c03e
   retries: 0
   max_active_runs: 1
   env_vars:
