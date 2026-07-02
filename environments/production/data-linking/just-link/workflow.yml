@@ -59,7 +59,7 @@ dag:
       dependencies: [source_nodes_crown_xhibit]
 
     model_training_crown_xhibit:
-      compute_profile: general-spot-8vcpu-32gb
+      compute_profile: general-spot-16vcpu-64gb
       env_vars:
         PIPELINE_STAGE: model_training
         PIPELINE_DATASET: crown_xhibit
