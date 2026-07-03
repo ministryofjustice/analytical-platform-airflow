@@ -7,7 +7,7 @@
       "terraform/.terraform.lock.hcl",
       ".github/workflows/super-linter.yml",
       "environments/**",
-      "requirements.txt",
+      "requirements.txt"
     ],
   "words":
     [
@@ -39,6 +39,6 @@
       "startswith",
       "GHSA",
       "anchore",
-      "cutoff",
-    ],
+      "cutoff"
+    ]
 }
