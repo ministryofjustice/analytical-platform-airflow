@@ -598,9 +598,9 @@ jobs:
                         else "" end) as $url
                       | (($fix_versions[.ruleId] // "") | if . != "" then " (fixed in \(.)" else "" end) as $fix
                       | (if (.message.text | test("^A [A-Za-z]+ vulnerability"))
-                         then (.message.text | sub("^A [A-Za-z]+ vulnerability"; "A \($severity) vulnerability"))
-                         else "A \($severity) vulnerability: \(.message.text)"
-                         end) as $text
+                          then (.message.text | sub("^A [A-Za-z]+ vulnerability"; "A \($severity) vulnerability"))
+                        else "A \($severity) vulnerability: \(.message.text)"
+                          end) as $text
                       | if $url != "" then "- [\($id)](\($url)) - \($text)\($fix)"
                         else "- \(.ruleId) - \($text)\($fix)"
                         end;
