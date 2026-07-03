@@ -1,0 +1,38 @@
+dag:
+  repository: ministryofjustice/coat-copilot-usage-pipeline
+  tag: v0.1.0                       
+  catchup: false
+  is_paused_upon_creation: false
+  max_active_runs: 1
+  retries: 1
+  retry_delay: 150
+  start_date: "2026-07-01"
+  # schedule: "0 6 * * *"             # use None for manual-only
+  schedule: None
+  tasks:
+    extract:
+      compute_profile: "general-spot-1vcpu-4gb"
+      env_vars:
+        MODE: "dev"
+        DEV_S3_BUCKET: "your-dev-bucket"
+        # BACKFILL_RANGE: "week" 
+        # default brings prev day / "week" or "month" backfills up to prev day 
+        # REPORT_DAY: "2026-06-25"  # a specific single day (ignored if BACKFILL_RANGE set)
+
+iam:
+  s3_read_write:
+    - NEED-TO-SET-dev-bucket/*             # 
+
+secrets:
+  - enterprise-billing-token        # -> SECRET_ENTERPRISE_BILLING_TOKEN
+
+maintainers:
+  - mamonu
+  - levgorbunov1
+
+tags:
+  business_unit: Platforms
+  owner: anthony.bishop@justice.gov.uk
+
+notifications:
+  slack_channel: coat-notifications
