@@ -295,7 +295,7 @@ dag:
         - edge_generation_cjs
 
     model_training_mh_cx:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-128vcpu-512gb
       env_vars:
         PIPELINE_STAGE: model_training
         PIPELINE_DATASET: mh-cx
@@ -303,7 +303,7 @@ dag:
       dependencies: [standardised_nodes_mh_cx]
 
     edge_generation_mh_cx:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-128vcpu-512gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mh-cx
