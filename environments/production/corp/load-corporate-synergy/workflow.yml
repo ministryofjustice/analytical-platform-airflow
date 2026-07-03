@@ -58,6 +58,33 @@ dag:
     load-invoice_lines_open:
       env_vars:
         AFFILE_PIPELINE_NAME: "invoice_lines_open"
+    load-ar_payment_schedules_closed:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_payment_schedules_closed"
+    load-ar_transaction_headers_closed:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_transaction_headers_closed"
+    load-ar_transaction_lines_closed:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_transaction_lines_closed"
+    load-ar_payment_schedules_open:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_payment_schedules_open"
+    load-ar_transaction_headers_open:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_transaction_headers_open"
+    load-ar_transaction_lines_open:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_transaction_lines_open"
+    load-invoice_lines_closed:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "invoice_lines_closed"
+    load-invoice_headers_closed:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "invoice_headers_closed"
+    load-gls_code:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "gls_code"
     load-unapplied_unidentified_receipts:
       env_vars:
         AFFILE_PIPELINE_NAME: "unapplied_unidentified_receipts"
