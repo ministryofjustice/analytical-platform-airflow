@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev19
+  tag: v5.0.0.dev20
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -59,7 +59,7 @@ dag:
       dependencies: [source_nodes_crown_xhibit]
 
     model_training_crown_xhibit:
-      compute_profile: general-spot-8vcpu-32gb
+      compute_profile: general-spot-16vcpu-64gb
       env_vars:
         PIPELINE_STAGE: model_training
         PIPELINE_DATASET: crown_xhibit
