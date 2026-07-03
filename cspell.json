@@ -34,9 +34,9 @@
     "tonumber",
     "argjson",
     "ltrimstr",
-    "starstwith",
+    "startswith",
     "GHSA",
-    "anchor",
+    "anchore",
     "cutoff"
   ]
 }
