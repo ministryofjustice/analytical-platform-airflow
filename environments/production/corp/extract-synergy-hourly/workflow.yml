@@ -896,6 +896,57 @@ dag:
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
 
+    cts-ar_transaction_lines_open:
+      env_vars:
+        REPORT_NAME: "cts-ar_transaction_lines_open"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-ar_transaction_lines_open:
+      env_vars:
+        REPORT_NAME: "laa-ar_transaction_lines_open"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-ar_transaction_lines_open:
+      env_vars:
+        REPORT_NAME: "opg-ar_transaction_lines_open"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-ar_transaction_lines_open:
+      env_vars:
+        REPORT_NAME: "yjb-ar_transaction_lines_open"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-ar_transaction_lines_open:
+      env_vars:
+        REPORT_NAME: "ima-ar_transaction_lines_open"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-ar_transaction_lines_open:
+      env_vars:
+        REPORT_NAME: "moj-ar_transaction_lines_open"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-ar_transaction_lines_open:
+      env_vars:
+        REPORT_NAME: "pbd-ar_transaction_lines_open"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-ar_transaction_lines_open:
+      env_vars:
+        REPORT_NAME: "jac-ar_transaction_lines_open"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-ar_transaction_lines_open:
+      env_vars:
+        REPORT_NAME: "nms-ar_transaction_lines_open"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-ar_transaction_lines_open:
+      env_vars:
+        REPORT_NAME: "wls-ar_transaction_lines_open"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
     cts-invoice_lines_closed:
       env_vars:
         REPORT_NAME: "cts-invoice_lines_closed"
