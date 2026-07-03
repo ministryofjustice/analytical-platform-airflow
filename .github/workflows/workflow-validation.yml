@@ -674,8 +674,10 @@ jobs:
 
       - name: Fail Build on Findings
         if: |
-          steps.process_scan_result.outputs.critical-count > 0 ||
-          steps.process_scan_result.outputs.high-count > 0
+          always() &&
+          (steps.process_scan_result.outputs.critical-count > 0 ||
+          steps.process_scan_result.outputs.high-count > 0 ||
+          steps.process_scan_result.outcome == 'failure')
         id: fail_build
         shell: bash
         env:
