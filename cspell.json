@@ -29,6 +29,12 @@
     "color",
     "airflowignore",
     "dagfactory",
-    "hmcts"
+    "hmcts",
+    "sarif",
+    "tonumber",
+    "argjson",
+    "ltrimstr",
+    "startwith",
+    "GHSA"
   ]
 }
