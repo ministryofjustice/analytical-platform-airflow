@@ -7,21 +7,21 @@ dag:
   retries: 1
   retry_delay: 150
   start_date: "2026-07-01"
-  # schedule: "0 6 * * *"             # use None for manual-only
-  schedule: None
+  schedule: "0 9 * * *"             # use None for manual-only
+  # schedule: None
   tasks:
     extract:
       compute_profile: "general-spot-1vcpu-4gb"
       env_vars:
         MODE: "dev"
-        DEV_S3_BUCKET: "your-dev-bucket"
+        DEV_S3_BUCKET: "cloud-platform-c7bd5f7843c58dde69caa00cb7509154"
         # BACKFILL_RANGE: "week" 
         # default brings prev day / "week" or "month" backfills up to prev day 
         # REPORT_DAY: "2026-06-25"  # a specific single day (ignored if BACKFILL_RANGE set)
 
 iam:
   s3_read_write:
-    - NEED-TO-SET-dev-bucket/*             # 
+    - cloud-platform-c7bd5f7843c58dde69caa00cb7509154/*             # 
 
 secrets:
   - enterprise-billing-token        # -> SECRET_ENTERPRISE_BILLING_TOKEN
