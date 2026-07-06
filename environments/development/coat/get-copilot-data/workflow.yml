@@ -14,7 +14,6 @@ dag:
       compute_profile: "general-spot-1vcpu-4gb"
       env_vars:
         MODE: "dev"
-        DEV_S3_BUCKET: "cloud-platform-c7bd5f7843c58dde69caa00cb7509154"
         # BACKFILL_RANGE: "week" 
         # default brings prev day / "week" or "month" backfills up to prev day 
         # REPORT_DAY: "2026-06-25"  # a specific single day (ignored if BACKFILL_RANGE set)
