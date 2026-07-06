@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/coat-copilot-usage-pipeline
-  tag: v0.1.0                       
+  tag: v0.1.0
   catchup: false
   is_paused_upon_creation: false
   max_active_runs: 1
@@ -14,16 +14,13 @@ dag:
       compute_profile: "general-spot-1vcpu-4gb"
       env_vars:
         MODE: "dev"
-        # BACKFILL_RANGE: "week" 
-        # default brings prev day / "week" or "month" backfills up to prev day 
-        # REPORT_DAY: "2026-06-25"  # a specific single day (ignored if BACKFILL_RANGE set)
 
 iam:
   s3_read_write:
     - cloud-platform-c7bd5f7843c58dde69caa00cb7509154/*             # 
 
 secrets:
-  - enterprise-billing-token        # -> SECRET_ENTERPRISE_BILLING_TOKEN
+  - enterprise-billing-token
 
 maintainers:
   - mamonu
