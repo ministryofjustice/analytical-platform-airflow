@@ -1,0 +1,40 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-report-extractor
+  tag: v0.1.0
+  schedule: "30 7 * * 1-5"
+  env_vars:
+    SITE: "fieldglass"
+  tasks:
+    workorders_daily:
+      env_vars:
+        REPORT: "MoJ DMET Corperate Headcount v2"
+        RUN_HEADLESS: "True"
+    timesheet_lastmonth:
+      env_vars:
+        REPORT: "MOJ Master Timesheet Report - Last month"
+        RUN_HEADLESS: "True"
+
+iam:
+  s3_read_write:
+    - mojap-land-prod/corporate/report_extractor/fieldglass/*
+
+secrets:
+  - fieldglass-username
+  - fieldglass-password
+  - fieldglass-url
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - benjamin.finucane@justice.gov.uk
+    - Laurence.Droy@justice.gov.uk
+
+maintainers:
+  - benjamin-finucane
+  - ltd-pa
+
+tags:
+  business_unit: Central Digital
+  owner: benjamin.finucane@justice.gov.uk
