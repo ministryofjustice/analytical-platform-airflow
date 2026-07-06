@@ -1,5 +1,5 @@
 dag:
-  repository: moj-analytical-platform/ssct-manage-files
+  repository: moj-analytical-services/ssct-manage-files
   tag: 0.0.2
 
 maintainers:
