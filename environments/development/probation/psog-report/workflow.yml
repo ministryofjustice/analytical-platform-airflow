@@ -1,6 +1,8 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
   tag: v1.1.15-test2
+  env_vars:
+    PSOG_MONTH_OF_ANALYSIS: "May-26"
 
 iam:
   athena: write
