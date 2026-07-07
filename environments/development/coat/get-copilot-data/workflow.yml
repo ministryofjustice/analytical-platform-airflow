@@ -8,7 +8,6 @@ dag:
   retry_delay: 150
   start_date: "2026-07-01"
   schedule: "0 9 * * *"
-  # schedule: None
   tasks:
     extract:
       compute_profile: "general-spot-1vcpu-4gb"
