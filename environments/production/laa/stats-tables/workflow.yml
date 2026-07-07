@@ -8,9 +8,9 @@ dag:
     BUCKET: "alpha-mojap-laa"
     SERVICE: "athena"
     ORACLE_USER: "LAASTATS"
-    DATABASE_NAME: "laa_datashare"
+    DATABASE_NAME: "laa"
     TABLE_PREFIX: "EXP_"
-    MOJAP_DB_VER: "v1"
+    MOJAP_DB_VER: "v2"
 
 iam:
   athena: write
