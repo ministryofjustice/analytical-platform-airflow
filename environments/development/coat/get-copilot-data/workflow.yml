@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/coat-copilot-usage-pipeline
-  tag: v0.1.2
+  tag: v0.1.3
   catchup: false
   is_paused_upon_creation: false
   max_active_runs: 1
