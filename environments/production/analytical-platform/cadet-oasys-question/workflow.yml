@@ -1,7 +1,8 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.3.3
+  tag: 1.3.5
+  schedule: "0 0 * * *"
   catchup: false
   env_vars:
     DEPLOY_ENV: prod
@@ -9,7 +10,7 @@ dag:
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-oasys-question
     DBT_SELECT_CRITERIA: tag:oasys_question_only
-    BRANCH: update-oasys-question-naming
+    BRANCH: update-oasys-question-naming-batch-limited
     MODE: build
 
 maintainers:
