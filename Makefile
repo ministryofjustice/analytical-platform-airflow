@@ -1,4 +1,4 @@
-.PHONY: clean schema_validation dags workflow_validation test
+.PHONY: clean schema_validation dags workflow_validation test precommit-install precommit-run
 
 WORKERS ?= auto
 
@@ -16,3 +16,9 @@ workflow_validation: schema_validation dags
 
 test: clean
 	PYTHONPATH=airflow uv run pytest tests/ -v -x -n $(WORKERS) $(ARGS)
+
+precommit-install:
+	uvx pre-commit install --install-hooks
+
+precommit-run:
+	uvx pre-commit run --all-files
