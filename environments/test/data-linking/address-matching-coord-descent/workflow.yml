@@ -1,0 +1,106 @@
+dag:
+  repository: moj-analytical-services/ukam-weight-trainer
+  tag: v1.2.3
+  retries: 0
+  retry_delay: 150
+  max_active_runs: 1
+  # Manual trigger only (no cron). Trigger from the Airflow console and, if you
+  # want, override `max_hours` for that run.
+  schedule: null
+  start_date: "2026-01-01"
+
+  # Trigger-time parameters. Injected into the container as PARAM_<KEY>.
+  params:
+    run_id: ""
+    software_version: "v1.2.3"
+    input_s3_prefix: "s3://alpha-data-linking/address_matching/"
+    output_s3_prefix: "s3://alpha-data-linking/address_matching/training_campaign"
+    campaign_duration_days: ""
+    campaign_duration_hours: ""
+    campaign_duration_minutes: "30"
+    checkpoint_interval_iterations: "100"
+    strategy_list: "V0,V1,V2,V3,V4"
+    training_strategy: ""
+    max_parallel_strategy_tasks: "5"
+    validation_threshold_grid: "0:30:0.5"
+    operational_mw_band: "5:12"
+
+  # Shared across all tasks. All tasks read inputs from S3; the canonical +
+  # dataset splits live in datasets.s3.yaml.
+  env_vars:
+    CONFIG_PATH: config/job_defaults.yaml
+    DATASETS_PATH: config/datasets.s3.yaml
+    UKAM_DATA_MODE: s3
+    LOG_LEVEL: INFO
+    UKAM_SOFTWARE_VERSION: v1.2.3
+    # Archive finished artefacts to S3 (preflight R/W probe runs first). The
+    # benchmark node also reads the candidate + writes its report under this root.
+    UKAM__ARCHIVE__ENABLED: "true"
+    UKAM__ARCHIVE__S3_ROOT: s3://alpha-data-linking/address_matching
+
+  tasks:
+    # -----------------------
+    # FAN-OUT: one model-training strategy per task.
+    # -----------------------
+    train_v0_control:
+      compute_profile: general-spot-8vcpu-64gb
+      env_vars:
+        BUILD_VARIANT: splink-model-training
+        TRAINING_STRATEGY: control
+
+    train_v1_random_restart:
+      compute_profile: general-spot-8vcpu-64gb
+      env_vars:
+        BUILD_VARIANT: splink-model-training
+        TRAINING_STRATEGY: random_restart
+
+    train_v2_hard_case_reweighted:
+      compute_profile: general-spot-8vcpu-64gb
+      env_vars:
+        BUILD_VARIANT: splink-model-training
+        TRAINING_STRATEGY: hard_case_reweighted
+
+    train_v3_freeze_unfreeze:
+      compute_profile: general-spot-8vcpu-64gb
+      env_vars:
+        BUILD_VARIANT: splink-model-training
+        TRAINING_STRATEGY: freeze_unfreeze
+
+    train_v4_population_beam:
+      compute_profile: general-spot-8vcpu-64gb
+      env_vars:
+        BUILD_VARIANT: splink-model-training
+        TRAINING_STRATEGY: population_beam
+
+    # -----------------------
+    # JOIN: select the best gate-passing validation checkpoint and write final model.
+    # -----------------------
+    select_best_model:
+      compute_profile: general-spot-2vcpu-8gb
+      dependencies:
+        - train_v0_control
+        - train_v1_random_restart
+        - train_v2_hard_case_reweighted
+        - train_v3_freeze_unfreeze
+        - train_v4_population_beam
+      env_vars:
+        BUILD_VARIANT: select-best-trained-model
+
+iam:
+  athena: write
+  s3_read_only:
+    - alpha-data-linking/address_matching/*
+  s3_read_write:
+    # Archive outputs (models, nudges, summaries, comparison reports) live here.
+    - alpha-data-linking/address_matching/training_campaign/*
+    - alpha-data-linking/address_matching/runs/*
+    - alpha-data-linking/address_matching/smoke/*
+    - alpha-data-linking/address_matching/reports/*
+    - alpha-data-linking/ukam_weight_trainer/*
+
+maintainers:
+  - ThomasHepworth
+
+tags:
+  business_unit: Central Digital
+  owner: thomas.hepworth@justice.gov.uk
