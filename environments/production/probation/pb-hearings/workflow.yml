@@ -8,7 +8,7 @@ dag:
     TARGET_BUCKET: "moj-reg-prod"
     PROJECT_NAME: "cadet-pb-hearing-audit-prod"
     DATABASE_NAME: "pb_hearing"
-    TABLE_NAME: "hearing-audit-log"
+    TABLE_NAME: "hearing_audit_log"
     AWS_REGION: "eu-west-2"
     FILE_EXTENSION: "json"
 
