@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev20
+  tag: v5.0.0.dev23
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -253,61 +253,38 @@ dag:
     # -----------------------
     # JOURNEY LINK JOB (~?m)
     # -----------------------
-    source_nodes_mags_journey:
-      compute_profile: general-spot-1vcpu-4gb
-      env_vars:
-        PIPELINE_STAGE: source_nodes
-        PIPELINE_DATASET: mags-journey
-        PIPELINE_VERSION: prod
-
     source_nodes_xhibit_journey:
       compute_profile: general-spot-1vcpu-4gb
       env_vars:
         PIPELINE_STAGE: source_nodes
         PIPELINE_DATASET: xhibit-journey
-        PIPELINE_VERSION: prod
-
-    standardised_nodes_mags_journey:
-      compute_profile: general-spot-32vcpu-128gb
-      env_vars:
-        PIPELINE_STAGE: standardised_nodes
-        PIPELINE_DATASET: mags-journey
-        PIPELINE_VERSION: prod
-      dependencies: [source_nodes_mags_journey]
-
-    standardised_nodes_xhibit_journey:
-      compute_profile: general-spot-4vcpu-16gb
-      env_vars:
-        PIPELINE_STAGE: standardised_nodes
-        PIPELINE_DATASET: xhibit-journey
-        PIPELINE_VERSION: prod
-      dependencies: [source_nodes_xhibit_journey]
+        PIPELINE_VERSION: dev
 
     standardised_nodes_mh_cx:
       compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: mh-cx
-        PIPELINE_VERSION: prod
+        PIPELINE_VERSION: dev
       dependencies:
-        - standardised_nodes_mags_journey
-        - standardised_nodes_xhibit_journey
+        - source_nodes_xhibit_journey
+        - standardised_nodes_mags_hocas
         - edge_generation_cjs
 
     model_training_mh_cx:
-      compute_profile: general-spot-128vcpu-512gb
+      compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: model_training
         PIPELINE_DATASET: mh-cx
-        PIPELINE_VERSION: prod
+        PIPELINE_VERSION: dev
       dependencies: [standardised_nodes_mh_cx]
 
     edge_generation_mh_cx:
-      compute_profile: general-spot-128vcpu-512gb
+      compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mh-cx
-        PIPELINE_VERSION: prod
+        PIPELINE_VERSION: dev
       dependencies: [model_training_mh_cx]
 
 iam:
