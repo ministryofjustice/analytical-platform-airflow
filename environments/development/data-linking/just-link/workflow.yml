@@ -38,11 +38,6 @@ dag:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mags_hocas
         PIPELINE_VERSION: dev
-        LOG_SINK_ENABLED: true
-        LOG_SINK_DATABASE: data_linking
-        LOG_SINK_TABLE: log_outputs_dev
-        CPU_USAGE_LOG_ENABLED: true
-        CPU_USAGE_LOG_INTERVAL_SECONDS: 10.0
       dependencies: [model_training_mags_hocas]
 
     # -----------------------
