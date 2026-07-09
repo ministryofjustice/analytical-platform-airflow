@@ -16,7 +16,7 @@ dag:
 
 iam:
   s3_read_write:
-    - cloud-platform-c7bd5f7843c58dde69caa00cb7509154/*
+    - cloud-platform-41b6a454e7cc120fe1764d3f7fe3f1e2/*
 
 secrets:
   - enterprise-billing-token
