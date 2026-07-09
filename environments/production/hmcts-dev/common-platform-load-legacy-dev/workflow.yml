@@ -322,7 +322,7 @@ dag:
     load_referencedata_result_definition:
       env_vars:
         AZ_TABLE: "referencedata-result-definition"
-        compute_profile: general-spot-32vcpu-128gb
+        compute_profile: general-on-demand-64vcpu-256gb
         MAX_SIMULTANEOUS_FILES: "1"
     load_referencedata_rota_business_type:
       env_vars:
