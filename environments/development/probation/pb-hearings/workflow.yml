@@ -10,6 +10,7 @@ dag:
     DATABASE_NAME: "pb_hearing"
     TABLE_NAME: "hearing-audit-log"
     AWS_REGION: "eu-west-2"
+    FILE_EXTENSION: "json"
 
 maintainers:
   - lalithanagarur
