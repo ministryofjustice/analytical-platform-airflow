@@ -4,8 +4,6 @@ dag:
   retries: 0
   retry_delay: 150
   max_active_runs: 1
-  schedule: null
-  start_date: "2026-01-01"
 
   params:
     training_duration_days: "0"
