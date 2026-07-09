@@ -1,74 +1,96 @@
 dag:
   repository: moj-analytical-services/ukam-weight-trainer
-  tag: v1.0.0.dev1
+  tag: v1.0.0.dev2
   retries: 0
   retry_delay: 150
   max_active_runs: 1
 
-  # Keep trigger-time params minimal. Fixed runtime config lives in env_vars;
-  # only the per-run campaign duration is exposed here for manual overrides.
   params:
-    campaign_duration_days: ""
-    campaign_duration_hours: ""
-    campaign_duration_minutes: "30"
+    training_duration_days: "0"
+    training_duration_hours: "0"
+    training_duration_minutes: "30"
 
-  # Shared across all tasks. All tasks read inputs from S3; the canonical +
-  # dataset splits live in datasets.s3.yaml. Prefer UKAM_* env vars here over
-  # params so the runtime config is explicit and task-stable.
   env_vars:
     CONFIG_PATH: config/job_defaults.yaml
     DATASETS_PATH: config/datasets.s3.yaml
     UKAM_DATA_MODE: s3
     LOG_LEVEL: INFO
-    UKAM_SOFTWARE_VERSION: v1.0.0.dev1
-    UKAM_INPUT_S3_PREFIX: s3://alpha-data-linking/address_matching/
-    UKAM_OUTPUT_S3_PREFIX: s3://alpha-data-linking/address_matching/training_campaign
-    UKAM_CHECKPOINT_INTERVAL_ITERATIONS: "100"
-    UKAM_VALIDATION_THRESHOLD_GRID: "0:30:0.5"
-    UKAM_OPERATIONAL_MW_BAND: "5:12"
-    # Archive finished artefacts to S3 (preflight R/W probe runs first). The
-    # benchmark node also reads the candidate + writes its report under this root.
+    UKAM_SOFTWARE_VERSION: v1.2.3
     UKAM__ARCHIVE__ENABLED: "true"
     UKAM__ARCHIVE__S3_ROOT: s3://alpha-data-linking/address_matching
+    INPUT_S3_PREFIX: s3://alpha-data-linking/address_matching/
+    OUTPUT_S3_PREFIX: s3://alpha-data-linking/address_matching/training_campaign
+    TRAINING_DURATION_DAYS: "0"
+    TRAINING_DURATION_HOURS: "0"
+    TRAINING_DURATION_MINUTES: "30"
+    TRAINING_DATASETS: hackney,rhondda,aberdeenshire
+    TRAINING_STRATEGIES: train_v0_control,train_v1_random_restart,train_v2_hard_case_reweighted,train_v3_freeze_unfreeze,train_v4_population_beam
+    CHECKPOINT_INTERVAL_ITERATIONS: "100"
+    CHECKPOINT_INTERVAL_MINUTES: "10"
+    VALIDATION_THRESHOLD_GRID: "0:30:0.5"
+    OPERATIONAL_MW_BAND: "5:12"
 
   tasks:
-    # -----------------------
-    # FAN-OUT: one model-training strategy per task.
-    # -----------------------
-    train_v0_control:
+    prepare_training_data:
       compute_profile: general-spot-8vcpu-32gb
       env_vars:
+        BUILD_VARIANT: prepare-training-data
+
+    create_pooled_residual_duckdb:
+      compute_profile: general-spot-8vcpu-32gb
+      dependencies:
+        - prepare_training_data
+      env_vars:
+        BUILD_VARIANT: create-pooled-residual-duckdb
+
+    create_source_level_splits_and_weights:
+      compute_profile: general-spot-8vcpu-32gb
+      dependencies:
+        - create_pooled_residual_duckdb
+      env_vars:
+        BUILD_VARIANT: create-source-level-splits-and-weights
+
+    train_v0_control:
+      compute_profile: general-spot-8vcpu-32gb
+      dependencies:
+        - create_source_level_splits_and_weights
+      env_vars:
         BUILD_VARIANT: splink-model-training
-        TRAINING_STRATEGY: control
+        TRAINING_STRATEGY: train_v0_control
 
     train_v1_random_restart:
       compute_profile: general-spot-8vcpu-32gb
+      dependencies:
+        - create_source_level_splits_and_weights
       env_vars:
         BUILD_VARIANT: splink-model-training
-        TRAINING_STRATEGY: random_restart
+        TRAINING_STRATEGY: train_v1_random_restart
 
     train_v2_hard_case_reweighted:
       compute_profile: general-spot-8vcpu-32gb
+      dependencies:
+        - create_source_level_splits_and_weights
       env_vars:
         BUILD_VARIANT: splink-model-training
-        TRAINING_STRATEGY: hard_case_reweighted
+        TRAINING_STRATEGY: train_v2_hard_case_reweighted
 
     train_v3_freeze_unfreeze:
       compute_profile: general-spot-8vcpu-32gb
+      dependencies:
+        - create_source_level_splits_and_weights
       env_vars:
         BUILD_VARIANT: splink-model-training
-        TRAINING_STRATEGY: freeze_unfreeze
+        TRAINING_STRATEGY: train_v3_freeze_unfreeze
 
     train_v4_population_beam:
       compute_profile: general-spot-8vcpu-32gb
+      dependencies:
+        - create_source_level_splits_and_weights
       env_vars:
         BUILD_VARIANT: splink-model-training
-        TRAINING_STRATEGY: population_beam
+        TRAINING_STRATEGY: train_v4_population_beam
 
-    # -----------------------
-    # JOIN: select the best gate-passing validation checkpoint and write final model.
-    # -----------------------
-    select_best_model:
+    select_best_checkpoint:
       compute_profile: general-spot-2vcpu-8gb
       dependencies:
         - train_v0_control
@@ -79,12 +101,25 @@ dag:
       env_vars:
         BUILD_VARIANT: select-best-trained-model
 
+    evaluate_selected_on_holdout:
+      compute_profile: general-spot-2vcpu-8gb
+      dependencies:
+        - select_best_checkpoint
+      env_vars:
+        BUILD_VARIANT: evaluate-selected-on-holdout
+
+    publish_final_model_and_artifacts:
+      compute_profile: general-spot-2vcpu-8gb
+      dependencies:
+        - evaluate_selected_on_holdout
+      env_vars:
+        BUILD_VARIANT: publish-final-model-and-artifacts
+
 iam:
   athena: write
   s3_read_only:
     - alpha-data-linking/address_matching/*
   s3_read_write:
-    # Archive outputs (models, nudges, summaries, comparison reports) live here.
     - alpha-data-linking/address_matching/training_campaign/*
     - alpha-data-linking/address_matching/runs/*
     - alpha-data-linking/address_matching/smoke/*
