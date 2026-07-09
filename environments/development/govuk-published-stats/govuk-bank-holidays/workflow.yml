@@ -10,8 +10,8 @@ iam:
     - alpha-govuk-bank-holidays/*
 
 maintainers:
-  - swalla-moj
+  - billy-pawsey
 
 tags:
   business_unit: HMPPS
-  owner: steven.wallace1@justice.gov.uk
+  owner: billy.pawsey@justice.gov.uk
