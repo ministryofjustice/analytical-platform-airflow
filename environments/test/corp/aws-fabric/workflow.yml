@@ -63,9 +63,8 @@ secrets:
   - fabric-warehouse-endpoint
 
 maintainers:
-  - moj-supratikc
   - Csheldon155
 
 tags:
   business_unit: Central Digital
-  owner: supratik.chowdhury@justice.gov.uk
+  owner: Chris.Sheldon@justice.gov.uk
