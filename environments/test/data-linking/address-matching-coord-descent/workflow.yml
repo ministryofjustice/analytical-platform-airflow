@@ -1,37 +1,35 @@
 dag:
   repository: moj-analytical-services/ukam-weight-trainer
-  tag: v1.2.3
+  tag: v1.0.0.dev1
   retries: 0
   retry_delay: 150
   max_active_runs: 1
   # Manual trigger only (no cron). Trigger from the Airflow console and, if you
-  # want, override `max_hours` for that run.
+  # want, override the campaign duration for that run.
+  schedule: null
   start_date: "2026-01-01"
 
-  # Trigger-time parameters. Injected into the container as PARAM_<KEY>.
+  # Keep trigger-time params minimal. Fixed runtime config lives in env_vars;
+  # only the per-run campaign duration is exposed here for manual overrides.
   params:
-    run_id: ""
-    software_version: "v1.2.3"
-    input_s3_prefix: "s3://alpha-data-linking/address_matching/"
-    output_s3_prefix: "s3://alpha-data-linking/address_matching/training_campaign"
     campaign_duration_days: ""
     campaign_duration_hours: ""
     campaign_duration_minutes: "30"
-    checkpoint_interval_iterations: "100"
-    strategy_list: "V0,V1,V2,V3,V4"
-    training_strategy: ""
-    max_parallel_strategy_tasks: "5"
-    validation_threshold_grid: "0:30:0.5"
-    operational_mw_band: "5:12"
 
   # Shared across all tasks. All tasks read inputs from S3; the canonical +
-  # dataset splits live in datasets.s3.yaml.
+  # dataset splits live in datasets.s3.yaml. Prefer UKAM_* env vars here over
+  # params so the runtime config is explicit and task-stable.
   env_vars:
     CONFIG_PATH: config/job_defaults.yaml
     DATASETS_PATH: config/datasets.s3.yaml
     UKAM_DATA_MODE: s3
     LOG_LEVEL: INFO
-    UKAM_SOFTWARE_VERSION: v1.2.3
+    UKAM_SOFTWARE_VERSION: v1.0.0.dev1
+    UKAM_INPUT_S3_PREFIX: s3://alpha-data-linking/address_matching/
+    UKAM_OUTPUT_S3_PREFIX: s3://alpha-data-linking/address_matching/training_campaign
+    UKAM_CHECKPOINT_INTERVAL_ITERATIONS: "100"
+    UKAM_VALIDATION_THRESHOLD_GRID: "0:30:0.5"
+    UKAM_OPERATIONAL_MW_BAND: "5:12"
     # Archive finished artefacts to S3 (preflight R/W probe runs first). The
     # benchmark node also reads the candidate + writes its report under this root.
     UKAM__ARCHIVE__ENABLED: "true"
@@ -73,6 +71,7 @@ dag:
 
     # -----------------------
     # JOIN: select the best gate-passing validation checkpoint and write final model.
+    # -----------------------
     select_best_model:
       compute_profile: general-spot-2vcpu-8gb
       dependencies:
