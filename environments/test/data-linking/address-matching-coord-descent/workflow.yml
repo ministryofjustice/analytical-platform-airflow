@@ -4,10 +4,6 @@ dag:
   retries: 0
   retry_delay: 150
   max_active_runs: 1
-  # Manual trigger only (no cron). Trigger from the Airflow console and, if you
-  # want, override the campaign duration for that run.
-  schedule: null
-  start_date: "2026-01-01"
 
   # Keep trigger-time params minimal. Fixed runtime config lives in env_vars;
   # only the per-run campaign duration is exposed here for manual overrides.
