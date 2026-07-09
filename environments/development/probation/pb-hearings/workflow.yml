@@ -1,0 +1,30 @@
+dag:
+  repository: ministryofjustice/airflow-cadet-post-hook-copy
+  tag: v1.0.1-dev03
+  catchup: false
+  env_vars:
+    SOURCE_PATH: "post-hook/dev/domain_name=ppud/database_name=ppud_dev_dbt/table_name=audit_log_pb_hearing/extraction_timestamp=2026-07-08T13:44:16.536/20260708_134430_00223_ebmkz_574d65d5-a2d6-44c4-b27c-55d87f579e16.gz"
+    SOURCE_BUCKET: "probation-datalake-dev-20251218164046759500000001"
+    TARGET_BUCKET: "moj-reg-dev"
+    PROJECT_NAME: "cadet-pb-hearing-audit-dev"
+    DATABASE_NAME: "pb_hearing"
+    TABLE_NAME: "hearing-audit-log"
+    AWS_REGION: "eu-west-2"
+
+maintainers:
+  - lalithanagarur
+  - joephillipsjustice
+
+notifications:
+  emails:
+    - lalitha.nagarur3@justice.gov.uk
+    - joseph.phillips@justice.gov.uk
+    - ProbationDataEngineering@justice.gov.uk
+  slack_channel: de-probation-airflow-dev
+
+iam:
+  external_role: arn:aws:iam::189157455002:role/probation-cadet-dev
+
+tags:
+  business_unit: HMPPS
+  owner: ProbationDataEngineering@justice.gov.uk

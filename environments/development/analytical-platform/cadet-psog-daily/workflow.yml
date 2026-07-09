@@ -1,0 +1,45 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.3.7
+  catchup: false
+  env_vars:
+    DEPLOY_ENV: dev
+    DBT_PROFILE_WORKGROUP: dbt-curated-dev
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-curated-dev
+    DBT_SELECT_CRITERIA: tag:psog_daily
+    BRANCH: psog-tag-update
+    MODE: build
+    THREAD_COUNT: 10
+  tasks:
+    table_deploy:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        IS_DATASET_CHECK: true
+      outlets:
+        - "s3://mojap-derived-tables/dev/psog_reports"
+
+maintainers:
+  - lalithanagarur
+  - joephillipsjustice
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/dev/*
+
+notifications:
+  emails:
+    - lalitha.nagarur3@justice.gov.uk
+    - joseph.phillips@justice.gov.uk
+    - ProbationDataEngineering@justice.gov.uk
+  slack_channel: de-probation-airflow-dev
+
+tags:
+  business_unit: HQ
+  owner: ProbationDataEngineering@justice.gov.uk
