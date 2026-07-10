@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/ukam-weight-trainer
-  tag: v1.0.0.dev2
+  tag: v1.0.0.dev3
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -31,67 +31,38 @@ dag:
     OPERATIONAL_MW_BAND: "5:12"
 
   tasks:
-    prepare_training_data:
-      compute_profile: general-spot-8vcpu-32gb
-      env_vars:
-        BUILD_VARIANT: prepare-training-data
-
-    create_pooled_residual_duckdb:
-      compute_profile: general-spot-8vcpu-32gb
-      dependencies:
-        - prepare_training_data
-      env_vars:
-        BUILD_VARIANT: create-pooled-residual-duckdb
-
-    create_source_level_splits_and_weights:
-      compute_profile: general-spot-8vcpu-32gb
-      dependencies:
-        - create_pooled_residual_duckdb
-      env_vars:
-        BUILD_VARIANT: create-source-level-splits-and-weights
-
     train_v0_control:
       compute_profile: general-spot-8vcpu-32gb
-      dependencies:
-        - create_source_level_splits_and_weights
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v0_control
 
     train_v1_random_restart:
       compute_profile: general-spot-8vcpu-32gb
-      dependencies:
-        - create_source_level_splits_and_weights
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v1_random_restart
 
     train_v2_hard_case_reweighted:
       compute_profile: general-spot-8vcpu-32gb
-      dependencies:
-        - create_source_level_splits_and_weights
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v2_hard_case_reweighted
 
     train_v3_freeze_unfreeze:
       compute_profile: general-spot-8vcpu-32gb
-      dependencies:
-        - create_source_level_splits_and_weights
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v3_freeze_unfreeze
 
     train_v4_population_beam:
       compute_profile: general-spot-8vcpu-32gb
-      dependencies:
-        - create_source_level_splits_and_weights
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v4_population_beam
 
     select_best_checkpoint:
-      compute_profile: general-spot-2vcpu-8gb
+      compute_profile: general-spot-4vcpu-16gb
       dependencies:
         - train_v0_control
         - train_v1_random_restart
@@ -102,7 +73,7 @@ dag:
         BUILD_VARIANT: select-best-trained-model
 
     evaluate_selected_on_holdout:
-      compute_profile: general-spot-2vcpu-8gb
+      compute_profile: general-spot-4vcpu-16gb
       dependencies:
         - select_best_checkpoint
       env_vars:
