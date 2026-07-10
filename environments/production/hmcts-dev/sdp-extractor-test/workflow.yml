@@ -1,0 +1,46 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v4.0.0-alpha.6f65592
+  retries: 0
+  retry_delay: 150
+  max_active_runs: 3
+  hmcts_sdp_networking: true
+  env_vars:
+    MODE: "BlobStorage"
+    LOG_LEVEL: "DEBUG"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    SDP_TABLE_PREFIX: "v3-opt-"
+    WRITE_FOLDER_STRUCTURE: "replace_prefix"
+    COPY_MODE: "new"
+    FILENAME_COL_NAME: "mojap_unpacked_filename"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    DATABASE_NAME: "opt_preprocessed_dev"
+    LAND_BUCKET: "s3://mojap-land-dev"
+    LAND_FOLDER: "hmcts/opt/"
+    START_DATE: "2026-06-02"
+    FAIL_ON_NO_FILES: "True"
+    DRYRUN: "True"
+
+  tasks:
+    test-sdp-extractor:
+      env_vars:
+        AZURE_TABLE_NAME: "data-tbl-mags-cie-new"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-dev/hmcts/opt/*
+  s3_read_only:
+    - alpha-mojap-curated-opt/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - jovita-brundziene
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk
