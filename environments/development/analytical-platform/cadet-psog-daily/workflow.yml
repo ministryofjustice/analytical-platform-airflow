@@ -15,8 +15,11 @@ dag:
   tasks:
     table_deploy:
       compute_profile: general-spot-2vcpu-8gb
+    psog_report:
+      compute_profile: general-spot-2vcpu-8gb
       env_vars:
         IS_DATASET_CHECK: true
+        dependencies: [table_deploy]
       outlets:
         - "s3://mojap-derived-tables/dev/psog_reports"
 
