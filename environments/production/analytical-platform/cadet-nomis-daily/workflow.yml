@@ -50,6 +50,14 @@ dag:
       dependencies: [table_deploy]
       outlets:
         - "s3://mojap-derived-tables/prod/sdt"
+    psog_reports:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        DATASET_TARGET: parole_board.psog_reports
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/prod/psog_reports"
 
 maintainers:
   - jhpyke
