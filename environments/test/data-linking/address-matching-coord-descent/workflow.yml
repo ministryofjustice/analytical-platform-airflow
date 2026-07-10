@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/ukam-weight-trainer
-  tag: v1.0.0.dev3
+  tag: v1.0.0.dev4
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -20,9 +20,6 @@ dag:
     UKAM__ARCHIVE__S3_ROOT: s3://alpha-data-linking/address_matching
     INPUT_S3_PREFIX: s3://alpha-data-linking/address_matching/
     OUTPUT_S3_PREFIX: s3://alpha-data-linking/address_matching/training_campaign
-    TRAINING_DURATION_DAYS: "0"
-    TRAINING_DURATION_HOURS: "0"
-    TRAINING_DURATION_MINUTES: "30"
     TRAINING_DATASETS: hackney,rhondda,aberdeenshire
     TRAINING_STRATEGIES: train_v0_control,train_v1_random_restart,train_v2_hard_case_reweighted,train_v3_freeze_unfreeze,train_v4_population_beam
     CHECKPOINT_INTERVAL_ITERATIONS: "100"
