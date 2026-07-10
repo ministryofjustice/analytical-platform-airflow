@@ -14,9 +14,9 @@ dag:
     THREAD_COUNT: 10
   tasks:
     table_deploy:
-      compute_profile: general-spot-2vcpu-8gb
+      compute_profile: general-spot-1vcpu-4gb
     psog_report:
-      compute_profile: general-spot-2vcpu-8gb
+      compute_profile: general-spot-1vcpu-4gb
       env_vars:
         IS_DATASET_CHECK: true
       dependencies: [table_deploy]
