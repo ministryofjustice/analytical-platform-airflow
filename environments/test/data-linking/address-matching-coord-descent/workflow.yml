@@ -29,31 +29,31 @@ dag:
 
   tasks:
     train_v0_control:
-      compute_profile: general-spot-8vcpu-32gb
+      compute_profile: general-on-demand-8vcpu-32gb
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v0_control
 
     train_v1_random_restart:
-      compute_profile: general-spot-8vcpu-32gb
+      compute_profile: general-on-demand-8vcpu-32gb
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v1_random_restart
 
     train_v2_hard_case_reweighted:
-      compute_profile: general-spot-8vcpu-32gb
+      compute_profile: general-on-demand-8vcpu-32gb
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v2_hard_case_reweighted
 
     train_v3_freeze_unfreeze:
-      compute_profile: general-spot-8vcpu-32gb
+      compute_profile: general-on-demand-8vcpu-32gb
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v3_freeze_unfreeze
 
     train_v4_population_beam:
-      compute_profile: general-spot-8vcpu-32gb
+      compute_profile: general-on-demand-8vcpu-32gb
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v4_population_beam
