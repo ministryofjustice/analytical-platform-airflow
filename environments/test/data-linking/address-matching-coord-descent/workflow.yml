@@ -6,8 +6,6 @@ dag:
   max_active_runs: 1
 
   params:
-    ukam_software_version: "v1.2.3"
-    training_datasets: "hackney,rhondda,aberdeenshire"
     training_duration_days: "0"
     training_duration_hours: "0"
     training_duration_minutes: "10"
@@ -17,7 +15,7 @@ dag:
     DATASETS_PATH: config/datasets.s3.yaml
     UKAM_DATA_MODE: s3
     LOG_LEVEL: INFO
-    UKAM_SOFTWARE_VERSION: "{{ params.ukam_software_version }}"
+    UKAM_SOFTWARE_VERSION: "v1.2.3"
     UKAM__ARCHIVE__ENABLED: "true"
     UKAM__ARCHIVE__S3_ROOT: s3://alpha-data-linking/address_matching
     INPUT_S3_PREFIX: s3://alpha-data-linking/address_matching/
@@ -25,7 +23,7 @@ dag:
     TRAINING_DURATION_DAYS: "{{ params.training_duration_days }}"
     TRAINING_DURATION_HOURS: "{{ params.training_duration_hours }}"
     TRAINING_DURATION_MINUTES: "{{ params.training_duration_minutes }}"
-    TRAINING_DATASETS: "{{ params.training_datasets }}"
+    TRAINING_DATASETS: "hackney,rhondda,aberdeenshire"
     TRAINING_STRATEGIES: train_v0_control,train_v1_random_restart,train_v2_hard_case_reweighted,train_v3_freeze_unfreeze,train_v4_population_beam,train_v5_basin_hopping
     CHECKPOINT_INTERVAL_ITERATIONS: "100"
     CHECKPOINT_INTERVAL_MINUTES: "60"
