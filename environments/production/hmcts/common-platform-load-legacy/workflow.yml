@@ -95,7 +95,7 @@ dag:
     load_defendant_detail:
       env_vars:
         AZ_TABLE: "defendant-detail"
-      compute_profile: general-spot-2vcpu-8gb
+      compute_profile: general-spot-4vcpu-16gb
     load_defendant_employer:
       env_vars:
         AZ_TABLE: "defendant-employer"
