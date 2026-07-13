@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/ukam-weight-trainer
-  tag: v1.0.0.dev5
+  tag: v1.0.0.dev6
   retries: 2
   retry_delay: 300
   max_active_runs: 1
