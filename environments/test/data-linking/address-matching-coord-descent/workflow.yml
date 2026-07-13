@@ -81,7 +81,6 @@ dag:
     select_best_checkpoint:
       compute_profile: general-spot-4vcpu-16gb
       dependencies:
-        - train_v0_control
         - train_v1_random_restart
         - train_v2_hard_case_reweighted
         - train_v3_freeze_unfreeze
@@ -89,7 +88,6 @@ dag:
         - train_v5_basin_hopping
         - train_v5_basin_hopping_seed_23
         - train_v5_basin_hopping_seed_37
-      trigger_rule: all_done
       env_vars:
         BUILD_VARIANT: select-best-trained-model
 
@@ -97,7 +95,6 @@ dag:
       compute_profile: general-spot-4vcpu-16gb
       dependencies:
         - select_best_checkpoint
-      trigger_rule: all_done
       env_vars:
         BUILD_VARIANT: evaluate-selected-on-holdout
 
@@ -105,7 +102,6 @@ dag:
       compute_profile: general-spot-2vcpu-8gb
       dependencies:
         - evaluate_selected_on_holdout
-      trigger_rule: all_done
       env_vars:
         BUILD_VARIANT: publish-final-model-and-artifacts
 
