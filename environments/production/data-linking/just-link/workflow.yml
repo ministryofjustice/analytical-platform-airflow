@@ -5,6 +5,9 @@ dag:
   retry_delay: 150
   max_active_runs: 1
 
+  env_vars:
+    SNAPSHOT_DATE: latest
+
   tasks:
     # -----------------------
     # MAGS DEDUPE JOB (baseline ~20m)
