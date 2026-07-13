@@ -1,62 +1,82 @@
 dag:
   repository: moj-analytical-services/ukam-weight-trainer
-  tag: v1.0.0.dev4
-  retries: 0
-  retry_delay: 150
+  tag: v1.0.0.dev5
+  retries: 2
+  retry_delay: 300
   max_active_runs: 1
 
   params:
+    ukam_software_version: "v1.2.3"
+    training_datasets: "hackney,rhondda,aberdeenshire"
     training_duration_days: "0"
     training_duration_hours: "0"
-    training_duration_minutes: "30"
+    training_duration_minutes: "10"
 
   env_vars:
     CONFIG_PATH: config/job_defaults.yaml
     DATASETS_PATH: config/datasets.s3.yaml
     UKAM_DATA_MODE: s3
     LOG_LEVEL: INFO
-    UKAM_SOFTWARE_VERSION: v1.2.3
+    UKAM_SOFTWARE_VERSION: "{{ params.ukam_software_version }}"
     UKAM__ARCHIVE__ENABLED: "true"
     UKAM__ARCHIVE__S3_ROOT: s3://alpha-data-linking/address_matching
     INPUT_S3_PREFIX: s3://alpha-data-linking/address_matching/
     OUTPUT_S3_PREFIX: s3://alpha-data-linking/address_matching/training_campaign
-    TRAINING_DATASETS: hackney,rhondda,aberdeenshire
-    TRAINING_STRATEGIES: train_v0_control,train_v1_random_restart,train_v2_hard_case_reweighted,train_v3_freeze_unfreeze,train_v4_population_beam
+    TRAINING_DURATION_DAYS: "{{ params.training_duration_days }}"
+    TRAINING_DURATION_HOURS: "{{ params.training_duration_hours }}"
+    TRAINING_DURATION_MINUTES: "{{ params.training_duration_minutes }}"
+    TRAINING_DATASETS: "{{ params.training_datasets }}"
+    TRAINING_STRATEGIES: train_v0_control,train_v1_random_restart,train_v2_hard_case_reweighted,train_v3_freeze_unfreeze,train_v4_population_beam,train_v5_basin_hopping
     CHECKPOINT_INTERVAL_ITERATIONS: "100"
-    CHECKPOINT_INTERVAL_MINUTES: "10"
+    CHECKPOINT_INTERVAL_MINUTES: "60"
     VALIDATION_THRESHOLD_GRID: "0:30:0.5"
     OPERATIONAL_MW_BAND: "5:12"
 
   tasks:
-    train_v0_control:
-      compute_profile: general-on-demand-8vcpu-32gb
-      env_vars:
-        BUILD_VARIANT: splink-model-training
-        TRAINING_STRATEGY: train_v0_control
-
     train_v1_random_restart:
-      compute_profile: general-on-demand-8vcpu-32gb
+      compute_profile: general-spot-8vcpu-32gb
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v1_random_restart
 
     train_v2_hard_case_reweighted:
-      compute_profile: general-on-demand-8vcpu-32gb
+      compute_profile: general-spot-8vcpu-32gb
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v2_hard_case_reweighted
 
     train_v3_freeze_unfreeze:
-      compute_profile: general-on-demand-8vcpu-32gb
+      compute_profile: general-spot-8vcpu-32gb
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v3_freeze_unfreeze
 
     train_v4_population_beam:
-      compute_profile: general-on-demand-8vcpu-32gb
+      compute_profile: general-spot-8vcpu-32gb
       env_vars:
         BUILD_VARIANT: splink-model-training
         TRAINING_STRATEGY: train_v4_population_beam
+
+    train_v5_basin_hopping:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        BUILD_VARIANT: splink-model-training
+        TRAINING_STRATEGY: train_v5_basin_hopping
+        TRAINING_STRATEGY_SEED: "11"
+
+    train_v5_basin_hopping_seed_23:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        BUILD_VARIANT: splink-model-training
+        TRAINING_STRATEGY: train_v5_basin_hopping
+        TRAINING_STRATEGY_SEED: "23"
+
+    train_v5_basin_hopping_seed_37:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        BUILD_VARIANT: splink-model-training
+        TRAINING_STRATEGY: train_v5_basin_hopping
+        TRAINING_STRATEGY_SEED: "37"
 
     select_best_checkpoint:
       compute_profile: general-spot-4vcpu-16gb
@@ -66,6 +86,10 @@ dag:
         - train_v2_hard_case_reweighted
         - train_v3_freeze_unfreeze
         - train_v4_population_beam
+        - train_v5_basin_hopping
+        - train_v5_basin_hopping_seed_23
+        - train_v5_basin_hopping_seed_37
+      trigger_rule: all_done
       env_vars:
         BUILD_VARIANT: select-best-trained-model
 
@@ -73,6 +97,7 @@ dag:
       compute_profile: general-spot-4vcpu-16gb
       dependencies:
         - select_best_checkpoint
+      trigger_rule: all_done
       env_vars:
         BUILD_VARIANT: evaluate-selected-on-holdout
 
@@ -80,6 +105,7 @@ dag:
       compute_profile: general-spot-2vcpu-8gb
       dependencies:
         - evaluate_selected_on_holdout
+      trigger_rule: all_done
       env_vars:
         BUILD_VARIANT: publish-final-model-and-artifacts
 
