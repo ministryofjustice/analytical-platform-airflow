@@ -1,65 +1,15 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v8.5
+  tag: v10
   catchup: false
-  schedule: "0 20 * * *"
+  schedule: "0 20 9 * *"
   tasks:
-    db-prep-compare-labels:
+    classification-predict-inv:
       env_vars:
-        EXEC_SCRIPT: "run-pipeline"
-        CHECK: "db_prepared"
-        SCRIPT: "compare-labels-db"
-    db-prep-copy-db:
-      env_vars:
-        EXEC_SCRIPT: "run-pipeline"
-        CHECK: "db_prepared"
-        SCRIPT: "copy-db"
-      dependencies: [db-prep-compare-labels]
-    process-sscl-reports:
-      env_vars:
-        EXEC_SCRIPT: "run-pipeline"
-        CHECK: "process_sscl_reports"
-        SCRIPT: "src/misconduct_nlp/process_inv_cd_data/process_inv_cd_reports.py"
+        EXEC_SCRIPT: "classification-predict-inv"
+        EXEC_ARGS: "--env prod"
       compute_profile: gpu-spot-8vcpu-32gb
-      dependencies: [db-prep-copy-db]
-    merged-tables:
-      env_vars:
-        EXEC_SCRIPT: "run-pipeline"
-        CHECK: "merged_tables"
-        SCRIPT: "src/misconduct_nlp/process_inv_cd_data/create_merged_tables.py"
-      dependencies: [process-sscl-reports]
-    tag-and-review-data:
-      env_vars:
-        EXEC_SCRIPT: "run-pipeline"
-        CHECK: "tags"
-        SCRIPT: "tagging-process"
-      compute_profile: gpu-spot-8vcpu-32gb
-      dependencies: [merged-tables]
-    create-tagged-employee-data:
-      env_vars:
-        EXEC_SCRIPT: "run-pipeline"
-        CHECK: "tables_w_tags"
-        SCRIPT: "create-employee-tagged-db"
-      dependencies: [tag-and-review-data]
-    customer-reports:
-      env_vars:
-        EXEC_SCRIPT: "run-pipeline"
-        CHECK: "generate_reports"
-        SCRIPT: "src/misconduct_nlp/etl_subtasks/generate_all_reports.py"
-      dependencies: [create-tagged-employee-data]
-    model-metrics-evidently:
-      env_vars:
-        EXEC_SCRIPT: "run-pipeline"
-        CHECK: "model_metrics"
-        SCRIPT: "misconduct-evidently-ai"
-      dependencies: [create-tagged-employee-data]
-    model-metrics-scikit:
-      env_vars:
-        EXEC_SCRIPT: "run-pipeline"
-        CHECK: "model_metrics"
-        SCRIPT: "model-monitoring-metrics"
-      dependencies: [model-metrics-evidently]
 
 iam:
   athena: write
@@ -68,17 +18,20 @@ iam:
     - alpha-app-fraud-and-corruption-insights/*
     - mojap-athena-query-dump/*
     - alpha-athena-query-dump/*
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=people/database_name=counter_fraud_misconduct*
+    - mojap-derived-tables/dev/models/domain_name=people/database_name=counter_fraud_misconduct*
 
 maintainers:
   - jhenfrancis
   - sheilz81
-  - tomd-moj
+  - maxblum31
 
 notifications:
   emails:
     - jhenielle.francis@justice.gov.uk
     - sheila.ladva@justice.gov.uk
-    - thomas.dykins@justice.gov.uk
+    - max.blum@justice.gov.uk
   slack_channel: cf-misconduct-notifications
 
 tags:

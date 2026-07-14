@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v1.2.1
+  tag: v1.4.9-testing
   schedule: "0 8 1-3 * *"
   env_vars:
     AFFILE_ENV: "prod"
@@ -43,6 +43,51 @@ dag:
     load-supplier_bank_accounts:
       env_vars:
         AFFILE_PIPELINE_NAME: "supplier_bank_accounts"
+    load-aged_debt_analysis:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "aged_debt_analysis"
+    load-ap_03_invoices_hold:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ap_03_invoices_hold"
+    load-ap_invoice_holds:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ap_invoice_holds"
+    load-invoice_headers_open:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "invoice_headers_open"
+    load-invoice_lines_open:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "invoice_lines_open"
+    load-ar_payment_schedules_closed:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_payment_schedules_closed"
+    load-ar_transaction_headers_closed:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_transaction_headers_closed"
+    load-ar_transaction_lines_closed:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_transaction_lines_closed"
+    load-ar_payment_schedules_open:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_payment_schedules_open"
+    load-ar_transaction_headers_open:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_transaction_headers_open"
+    load-ar_transaction_lines_open:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "ar_transaction_lines_open"
+    load-invoice_lines_closed:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "invoice_lines_closed"
+    load-invoice_headers_closed:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "invoice_headers_closed"
+    load-gls_code:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "gls_code"
+    load-unapplied_unidentified_receipts:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "unapplied_unidentified_receipts"
 
 iam:
   athena: write
@@ -64,11 +109,9 @@ notifications:
 
   emails:
     - mohammed.ahad1@justice.gov.uk
-    - Supratik.Chowdhury@justice.gov.uk
 
 maintainers:
   - morezwan
-  - moj-supratikc
 
 tags:
   business_unit: Central Digital

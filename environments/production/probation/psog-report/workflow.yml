@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
-  tag: v1.1.13
+  tag: v1.1.15
   env_vars:
     DBT_ENV: "prod"
     ENV: "prod"
@@ -21,12 +21,12 @@ iam:
 
 maintainers:
   - lalithanagarur
-  - AntonyJScott
+  - joephillipsjustice
 
 notifications:
   emails:
     - lalitha.nagarur3@justice.gov.uk
-    - antony.scott@justice.gov.uk
+    - joseph.phillips@justice.gov.uk
 
 tags:
   business_unit: HMPPS

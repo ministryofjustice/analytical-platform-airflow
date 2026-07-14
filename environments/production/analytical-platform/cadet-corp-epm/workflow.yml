@@ -27,8 +27,7 @@ dag:
 
 maintainers:
   - ltd-pa
-  - williamorrie
-  - moj-supratikc
+  - benjamin-finucane
   - jhpyke
 
 secrets:

@@ -1,9 +1,9 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
-  tag: v1.1.14-test2
+  tag: v1.1.15-test2
   schedule:
     datasets:
-      - "s3://mojap-derived-tables/prod/psog_reports"
+      - "s3://mojap-derived-tables/dev/psog_reports"
 
 iam:
   athena: write
@@ -18,12 +18,13 @@ iam:
 
 maintainers:
   - lalithanagarur
-  - AntonyJScott
+  - joephillipsjustice
 
 notifications:
   emails:
     - lalitha.nagarur3@justice.gov.uk
-    - antony.scott@justice.gov.uk
+    - joseph.phillips@justice.gov.uk
+  slack_channel: de-probation-airflow-dev
 
 tags:
   business_unit: HMPPS

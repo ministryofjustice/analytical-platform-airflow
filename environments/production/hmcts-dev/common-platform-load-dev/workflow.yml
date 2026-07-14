@@ -1,0 +1,416 @@
+dag:
+  repository: moj-analytical-services/airflow-create-a-pipeline
+  tag: v4.0.25
+  retries: 1
+  retry_delay: 150
+  start_date: "2026-06-01"
+  max_active_runs: 5
+  env_vars:
+    LOG_LEVEL: "INFO"
+    LAND: "s3://mojap-land-dev/hmcts/common-platform/dev_sdp_v5"
+    RAW_HIST: "s3://mojap-raw-hist-dev/hmcts/common-platform/dev_sdp_v5"
+    BASE_LOC: "s3://alpha-mojap-common-platform/dev_sdp_v5"
+    BASE_DB_NAME: "common_platform_dev_sdp_v5_dev"
+    SERVICE: "common-platform"
+    CHUNK_SIZE: "1000000"
+    DAG_INTERVAL_END: "{{ data_interval_end }}"
+    PARTITION_COL: "extraction_date"
+
+  tasks:
+    cp_load_allocated_listings:
+      env_vars:
+        TABLE: "allocated_listings"
+    cp_load_app_order_defendant_offence:
+      env_vars:
+        TABLE: "app_order_defendant_offence"
+    cp_load_application:
+      env_vars:
+        TABLE: "application"
+    cp_load_application_case_offence:
+      env_vars:
+        TABLE: "application_case_offence"
+    cp_load_application_court_order:
+      env_vars:
+        TABLE: "application_court_order"
+    cp_load_application_document:
+      env_vars:
+        TABLE: "application_document"
+    cp_load_application_person:
+      env_vars:
+        TABLE: "application_person"
+    cp_load_associated_person:
+      env_vars:
+        TABLE: "associated_person"
+    cp_load_case_detail:
+      env_vars:
+        TABLE: "case_detail"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_case_link_split_merge:
+      env_vars:
+        TABLE: "case_link_split_merge"
+    cp_load_case_marker:
+      env_vars:
+        TABLE: "case_marker"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_case_person:
+      env_vars:
+        TABLE: "case_person"
+    cp_load_court_schedule:
+      env_vars:
+        TABLE: "court_schedule"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_court_schedule_judiciary:
+      env_vars:
+        TABLE: "court_schedule_judiciary"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_court_session:
+      env_vars:
+        TABLE: "court_session"
+    cp_load_court_session_detail:
+      env_vars:
+        TABLE: "court_session_detail"
+    cp_load_court_session_judiciary:
+      env_vars:
+        TABLE: "court_session_judiciary"
+    cp_load_cpp_user:
+      env_vars:
+        TABLE: "cpp_user"
+    cp_load_custody_status:
+      env_vars:
+        TABLE: "custody_status"
+    cp_load_defence_assoc_access_grant:
+      env_vars:
+        TABLE: "defence_assoc_access_grant"
+    cp_load_defence_association:
+      env_vars:
+        TABLE: "defence_association"
+    cp_load_defence_idpc_access:
+      env_vars:
+        TABLE: "defence_idpc_access"
+    cp_load_defendant_alias:
+      env_vars:
+        TABLE: "defendant_alias"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_defendant_defence_association:
+      env_vars:
+        TABLE: "defendant_defence_association"
+    cp_load_defendant_detail:
+      env_vars:
+        TABLE: "defendant_detail"
+    cp_load_defendant_employer:
+      env_vars:
+        TABLE: "defendant_employer"
+    cp_load_defendants_matched:
+      env_vars:
+        TABLE: "defendants_matched"
+    cp_load_financial_imposition:
+      env_vars:
+        TABLE: "financial_imposition"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_financial_means:
+      env_vars:
+        TABLE: "financial_means"
+    cp_load_financial_means_outgoing:
+      env_vars:
+        TABLE: "financial_means_outgoing"
+    cp_load_hearing:
+      env_vars:
+        TABLE: "hearing"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_hearing_attendance:
+      env_vars:
+        TABLE: "hearing_attendance"
+    cp_load_hearing_case_application:
+      env_vars:
+        TABLE: "hearing_case_application"
+    cp_load_hearing_date:
+      env_vars:
+        TABLE: "hearing_date"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_hearing_defence_counsel:
+      env_vars:
+        TABLE: "hearing_defence_counsel"
+    cp_load_hearing_defendant_offence:
+      env_vars:
+        TABLE: "hearing_defendant_offence"
+    cp_load_hearing_detail:
+      env_vars:
+        TABLE: "hearing_detail"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_hearing_effectiveness:
+      env_vars:
+        TABLE: "hearing_effectiveness"
+    cp_load_hearing_event_log:
+      env_vars:
+        TABLE: "hearing_event_log"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_hearing_interpreter_intermediary:
+      env_vars:
+        TABLE: "hearing_interpreter_intermediary"
+    cp_load_hearing_judiciary:
+      env_vars:
+        TABLE: "hearing_judiciary"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_hearing_prosecution_counsel:
+      env_vars:
+        TABLE: "hearing_prosecution_counsel"
+    cp_load_hearing_result:
+      env_vars:
+        TABLE: "hearing_result"
+      compute_profile: general-spot-64vcpu-256gb
+    cp_load_hearing_result_amendment:
+      env_vars:
+        TABLE: "hearing_result_amendment"
+    cp_load_hearing_result_prompt:
+      env_vars:
+        TABLE: "hearing_result_prompt"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_legal_entity:
+      env_vars:
+        TABLE: "legal_entity"
+    cp_load_non_std_ind_prosecutor:
+      env_vars:
+        TABLE: "non_std_ind_prosecutor"
+    cp_load_offence_decision:
+      env_vars:
+        TABLE: "offence_decision"
+    cp_load_offence_detail:
+      env_vars:
+        TABLE: "offence_detail"
+        YEAR_0: true
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_offence_plea:
+      env_vars:
+        TABLE: "offence_plea"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_offence_result:
+      env_vars:
+        TABLE: "offence_result"
+    cp_load_organisation_person:
+      env_vars:
+        TABLE: "organisation_person"
+    cp_load_person:
+      env_vars:
+        TABLE: "person"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_prosecution_authority_change:
+      env_vars:
+        TABLE: "prosecution_authority_change"
+    cp_load_rd_hearing_event_definition:
+      env_vars:
+        TABLE: "rd_hearing_event_definition"
+    cp_load_rd_non_standard_prosecutor:
+      env_vars:
+        TABLE: "rd_non_standard_prosecutor"
+    cp_load_rd_offence_by_date:
+      env_vars:
+        TABLE: "rd_offence_by_date"
+    cp_load_rd_organisation:
+      env_vars:
+        TABLE: "rd_organisation"
+    cp_load_rd_action_plan_reason_category:
+      env_vars:
+        TABLE: "rd_action_plan_reason_category"
+    cp_load_rd_amendment_reason:
+      env_vars:
+        TABLE: "rd_amendment_reason"
+    cp_load_rd_application_type_category:
+      env_vars:
+        TABLE: "rd_application_type_category"
+    cp_load_rd_bail_status:
+      env_vars:
+        TABLE: "rd_bail_status"
+    cp_load_rd_case_marker:
+      env_vars:
+        TABLE: "rd_case_marker"
+    cp_load_rd_cjs_it_system_code:
+      env_vars:
+        TABLE: "rd_cjs_it_system_code"
+    cp_load_rd_cjs_verdict_code:
+      env_vars:
+        TABLE: "rd_cjs_verdict_code"
+    cp_load_rd_country_nationality:
+      env_vars:
+        TABLE: "rd_country_nationality"
+    cp_load_rd_court_room_session_allocation:
+      env_vars:
+        TABLE: "rd_court_room_session_allocation"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_rd_courtroom:
+      env_vars:
+        TABLE: "rd_courtroom"
+    cp_load_rd_cracked_ineffective_vacated_trial_type:
+      env_vars:
+        TABLE: "rd_cracked_ineffective_vacated_trial_type"
+    cp_load_rd_custory_suites:
+      env_vars:
+        TABLE: "rd_custody_suites"
+    cp_load_rd_enforcement_action:
+      env_vars:
+        TABLE: "rd_enforcement_action"
+    cp_load_rd_enforcement_area:
+      env_vars:
+        TABLE: "rd_enforcement_area"
+    cp_load_rd_ethnicity:
+      env_vars:
+        TABLE: "rd_ethnicity"
+    cp_load_rd_fixed_list:
+      env_vars:
+        TABLE: "rd_fixed_list"
+    cp_load_rd_gender:
+      env_vars:
+        TABLE: "rd_gender"
+    cp_load_rd_hearing_type:
+      env_vars:
+        TABLE: "rd_hearing_type"
+    cp_load_rd_initiation_type:
+      env_vars:
+        TABLE: "rd_initiation_type"
+    cp_load_rd_judiciary:
+      env_vars:
+        TABLE: "rd_judiciary"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_rd_judiciary_lja_mapping:
+      env_vars:
+        TABLE: "rd_judiciary_lja_mapping"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_rd_language:
+      env_vars:
+        TABLE: "rd_language"
+    cp_load_rd_legal_status:
+      env_vars:
+        TABLE: "rd_legal_status"
+    cp_load_rd_licence_code:
+      env_vars:
+        TABLE: "rd_licence_code"
+    cp_load_rd_local_justice_area:
+      env_vars:
+        TABLE: "rd_local_justice_area"
+    cp_load_rd_local_justice_area_court_prosecutor_mapping:
+      env_vars:
+        TABLE: "rd_local_justice_area_court_prosecutor_mapping"
+    cp_load_rd_local_justice_area_postcodes:
+      env_vars:
+        TABLE: "rd_local_justice_area_postcodes"
+    cp_load_rd_mode_of_trial_reason:
+      env_vars:
+        TABLE: "rd_mode_of_trial_reason"
+    cp_load_rd_now_meta_data:
+      env_vars:
+        TABLE: "rd_now_meta_data"
+    cp_load_rd_observed_ethnicity:
+      env_vars:
+        TABLE: "rd_observed_ethnicity"
+    cp_load_rd_offence:
+      env_vars:
+        TABLE: "rd_offence"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_rd_offence_category:
+      env_vars:
+        TABLE: "rd_offence_category"
+    cp_load_rd_offence_date_code:
+      env_vars:
+        TABLE: "rd_offence_date_code"
+    cp_load_rd_offence_withdraw_request_reason:
+      env_vars:
+        TABLE: "rd_offence_withdraw_request_reason"
+    cp_load_rd_offender_code:
+      env_vars:
+        TABLE: "rd_offender_code"
+    cp_load_rd_organisation_unit:
+      env_vars:
+        TABLE: "rd_organisation_unit"
+    cp_load_rd_oucode_courtrooms:
+      env_vars:
+        TABLE: "rd_oucode_courtrooms"
+    cp_load_rd_plea_status:
+      env_vars:
+        TABLE: "rd_plea_status"
+    cp_load_rd_plea_type:
+      env_vars:
+        TABLE: "rd_plea_type"
+    cp_load_rd_police_force:
+      env_vars:
+        TABLE: "rd_police_force"
+    cp_load_rd_police_rank:
+      env_vars:
+        TABLE: "rd_police_rank"
+    cp_load_rd_prosecutor:
+      env_vars:
+        TABLE: "rd_prosecutor"
+    cp_load_rd_referral_reason:
+      env_vars:
+        TABLE: "rd_referral_reason"
+    cp_load_rd_result:
+      env_vars:
+        TABLE: "rd_result"
+    cp_load_rd_result_definition:
+      env_vars:
+        TABLE: "rd_result_definition"
+      compute_profile: general-spot-32vcpu-128gb
+    cp_load_rd_rota_business_type:
+      env_vars:
+        TABLE: "rd_rota_business_type"
+    cp_load_rd_scottish_ni_court:
+      env_vars:
+        TABLE: "rd_scottish_ni_court"
+    cp_load_rd_sentencing_indication:
+      env_vars:
+        TABLE: "rd_sentencing_indication"
+    cp_load_rd_summons_code:
+      env_vars:
+        TABLE: "rd_summons_code"
+    cp_load_rd_vehicle_code:
+      env_vars:
+        TABLE: "rd_vehicle_code"
+    cp_load_rd_verdict_type:
+      env_vars:
+        TABLE: "rd_verdict_type"
+    cp_load_rd_victim_surcharge:
+      env_vars:
+        TABLE: "rd_victim_surcharge"
+    cp_load_rd_youth_court:
+      env_vars:
+        TABLE: "rd_youth_court"
+    cp_load_rd_youth_offending_team:
+      env_vars:
+        TABLE: "rd_youth_offending_team"
+    cp_load_scan_document:
+      env_vars:
+        TABLE: "scan_document"
+    cp_load_scan_envelope:
+      env_vars:
+        TABLE: "scan_envelope"
+    cp_load_sjp_decision:
+      env_vars:
+        TABLE: "sjp_decision"
+    cp_load_sjp_session:
+      env_vars:
+        TABLE: "sjp_session"
+    cp_load_spi_case_error:
+      env_vars:
+        TABLE: "spi_case_error"
+    cp_load_spi_case_error_detail:
+      env_vars:
+        TABLE: "spi_case_error_detail"
+    cp_load_spi_defendant_error:
+      env_vars:
+        TABLE: "spi_defendant_error"
+    cp_load_spi_defendant_error_detail:
+      env_vars:
+        TABLE: "spi_defendant_error_detail"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/hmcts/common-platform/*
+    - mojap-raw-hist-dev/hmcts/common-platform/*
+    - alpha-mojap-common-platform/*
+
+maintainers:
+  - jovita-brundziene
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: jovita.brundziene@justice.gov.uk

@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/replicate-athena-to-fabric
-  tag: v1.2.4
+  tag: v1.4.6
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
@@ -43,12 +43,18 @@ dag:
     stg_tables:
       env_vars:
         TABLES: "stg"
+    reconciliation_tables:
+      env_vars:
+        TABLES: "reconciliation"
+    reward_recognition_tables:
+      env_vars:
+        TABLES: "reward_recognition"
 
 iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-derived-tables/dev/models/domain_name=finance/*
+    - mojap-derived-tables/prod/models/domain_name=finance/*
 
 secrets:
   - azure-client-id
@@ -57,9 +63,8 @@ secrets:
   - fabric-warehouse-endpoint
 
 maintainers:
-  - moj-supratikc
   - Csheldon155
 
 tags:
   business_unit: Central Digital
-  owner: supratik.chowdhury@justice.gov.uk
+  owner: Chris.Sheldon@justice.gov.uk

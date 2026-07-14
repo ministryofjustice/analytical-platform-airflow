@@ -1,0 +1,10 @@
+dag:
+  repository: moj-analytical-services/ssct-manage-files
+  tag: 0.0.7
+
+maintainers:
+  - MJCT-MOJ
+
+tags:
+  business_unit: HQ
+  owner: michael.terry@justice.gov.uk

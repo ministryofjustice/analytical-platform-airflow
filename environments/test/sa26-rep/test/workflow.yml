@@ -1,30 +1,41 @@
 dag:
   repository: moj-analytical-services/sa26-dashboard-analysis
-  tag: v0-31
+  tag: v0-75
   catchup: false
+  compute_profile: general-on-demand-4vcpu-16gb
   depends_on_past: false
-  schedule: "0 06 * * 1,2,5"
+  schedule: "0 06 * * *"
   max_active_runs: 1
 
 iam:
-  athena: read
+  athena: write
+  glue: true
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius_dim/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=derived_delius/*
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=probation_derived/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_population_history/*
+    - mojap-derived-tables/prod/models/domain_name=general/*
+    - mojap-derived-tables/prod/models/domain_name=courts/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offenders
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offender_imprison_statuses
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offender_bookings
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=agency_locations
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=reference_codes
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offender_sent_calculations_wap/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offenders_wap/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offender_imprison_statuses_wap/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offender_bookings_wap/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=agency_locations_wap/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=reference_codes_wap/*
   s3_read_write:
     - alpha-sa26-monitoring/*
 
 maintainers:
   - joannagent
   - tom-allen-moj
+  - nazmin27
+  - susanlimbu2
 
 tags:
   business_unit: HQ

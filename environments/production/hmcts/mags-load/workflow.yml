@@ -1,0 +1,40 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-file
+  tag: v1.4.3
+  is_paused_upon_creation: true
+  env_vars:
+    AFFILE_ENV: "prod"
+    AFFILE_ALLOW_PROD: true
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-2vcpu-8gb
+  tasks:
+    mags_hocas_load:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "magistrates_v4_preprocessed/hocas"
+    mags_tar_load:
+      env_vars:
+        AFFILE_PIPELINE_NAME: "magistrates_v4_preprocessed/tar"
+
+iam:
+  athena: write
+  glue: true
+
+  s3_read_only:
+    - alpha-mojap-processed-tar/*
+    - alpha-mojap-processed-hocas/*
+
+  s3_read_write:
+    - mojap-processed/domain__hmcts/env__prod/*
+
+maintainers:
+  - jovita-brundziene
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: jovita.brundziene@justice.gov.uk

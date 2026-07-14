@@ -12,8 +12,8 @@ dag:
         IMAGE_VERSION: tag
 
 maintainers:
-  - Benjamin.Finucane@justice.gov.uk
-  - Shanmugapriya.Basker@justice.gov.uk
+  - benjamin-finucane
+  - PriyaBasker23
 
 iam:
   athena: write
