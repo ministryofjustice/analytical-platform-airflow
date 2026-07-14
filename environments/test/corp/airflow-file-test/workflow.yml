@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-file
-  tag: v1.5.0-e2e-test
+  tag: v.1.5.0-e2e-test-v2
   env_vars:
     AFFILE_PIPELINE_NAME: "test_ons_csv"
     AFFILE_ENV: "dev"
