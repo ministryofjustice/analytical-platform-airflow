@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline-legacy
-  tag: v1.0.9
+  tag: v1.0.11
   retries: 0
   retry_delay: 150
   start_date: "2025-12-19"
@@ -95,7 +95,7 @@ dag:
     load_defendant_detail:
       env_vars:
         AZ_TABLE: "defendant-detail"
-      compute_profile: general-spot-2vcpu-8gb
+      compute_profile: general-spot-4vcpu-16gb
     load_defendant_employer:
       env_vars:
         AZ_TABLE: "defendant-employer"

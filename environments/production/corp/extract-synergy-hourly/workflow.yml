@@ -1161,13 +1161,11 @@ secrets:
 notifications:
   slack_channel: dmet-corp-splashbi-notifications
   emails:
-    - Supratik.Chowdhury@justice.gov.uk
     - mohammed.ahad1@justice.gov.uk
 
 maintainers:
-  - moj-supratikc
   - morezwan
 
 tags:
   business_unit: Central Digital
-  owner: supratik.chowdhury@justice.gov.uk
+  owner: mohammed.ahad@justice.gov.uk

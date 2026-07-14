@@ -46,9 +46,9 @@ secrets:
   - slack-token
 
 maintainers:
-  - moj-supratikc
   - dugaldhepburnmoj
+  - benjamin-finucane
 
 tags:
   business_unit: Central Digital
-  owner: Supratik.Chowdhury@justice.gov.uk
+  owner: Dugald.Hepburn@justice.gov.uk

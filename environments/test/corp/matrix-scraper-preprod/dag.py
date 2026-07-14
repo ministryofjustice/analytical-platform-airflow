@@ -15,10 +15,9 @@ OWNER = "PLACEHOLDER_OWNER"
 DATE = datetime.today().strftime("%Y-%m-%d")
 
 DAG_EMAIL = [
-    "Supratik.Chowdhury@justice.gov.uk",
+    "Benjamin.Finucane@justice.gov.uk",
     "Laurence.Droy@justice.gov.uk",
     "Shanmugapriya.Basker@justice.gov.uk",
-    "William.Orr@justice.gov.uk",
 ]
 
 default_args = {

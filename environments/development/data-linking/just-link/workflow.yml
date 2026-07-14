@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev20
+  tag: v5.0.0.dev23
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -33,16 +33,11 @@ dag:
       dependencies: [standardised_nodes_mags_hocas]
 
     edge_generation_mags_hocas:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-128vcpu-512gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mags_hocas
         PIPELINE_VERSION: dev
-        LOG_SINK_ENABLED: true
-        LOG_SINK_DATABASE: data_linking
-        LOG_SINK_TABLE: log_outputs_dev
-        CPU_USAGE_LOG_ENABLED: true
-        CPU_USAGE_LOG_INTERVAL_SECONDS: 10.0
       dependencies: [model_training_mags_hocas]
 
     # -----------------------
@@ -258,35 +253,12 @@ dag:
     # -----------------------
     # JOURNEY LINK JOB (~?m)
     # -----------------------
-    source_nodes_mags_journey:
-      compute_profile: general-spot-1vcpu-4gb
-      env_vars:
-        PIPELINE_STAGE: source_nodes
-        PIPELINE_DATASET: mags-journey
-        PIPELINE_VERSION: dev
-
     source_nodes_xhibit_journey:
       compute_profile: general-spot-1vcpu-4gb
       env_vars:
         PIPELINE_STAGE: source_nodes
         PIPELINE_DATASET: xhibit-journey
         PIPELINE_VERSION: dev
-
-    standardised_nodes_mags_journey:
-      compute_profile: general-spot-32vcpu-128gb
-      env_vars:
-        PIPELINE_STAGE: standardised_nodes
-        PIPELINE_DATASET: mags-journey
-        PIPELINE_VERSION: dev
-      dependencies: [source_nodes_mags_journey]
-
-    standardised_nodes_xhibit_journey:
-      compute_profile: general-spot-4vcpu-16gb
-      env_vars:
-        PIPELINE_STAGE: standardised_nodes
-        PIPELINE_DATASET: xhibit-journey
-        PIPELINE_VERSION: dev
-      dependencies: [source_nodes_xhibit_journey]
 
     standardised_nodes_mh_cx:
       compute_profile: general-spot-32vcpu-128gb
@@ -295,12 +267,12 @@ dag:
         PIPELINE_DATASET: mh-cx
         PIPELINE_VERSION: dev
       dependencies:
-        - standardised_nodes_mags_journey
-        - standardised_nodes_xhibit_journey
+        - source_nodes_xhibit_journey
+        - standardised_nodes_mags_hocas
         - edge_generation_cjs
 
     model_training_mh_cx:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: model_training
         PIPELINE_DATASET: mh-cx
@@ -308,7 +280,7 @@ dag:
       dependencies: [standardised_nodes_mh_cx]
 
     edge_generation_mh_cx:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mh-cx
