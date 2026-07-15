@@ -1,0 +1,24 @@
+---
+name: Super Linter
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions: {}
+
+jobs:
+  super-linter:
+    name: Super Linter
+    permissions:
+      contents: read
+      packages: read
+      statuses: write
+    uses: ./.github/workflows/super-linter.yml
+    with:
+      # JSCPD is disabled as it detects duplication of Harden Runner + Checkout, but these are curated reusable workflows, so cannot reference each other
+      super-linter-variables: |
+        {
+          "VALIDATE_JSCPD": false
+        }

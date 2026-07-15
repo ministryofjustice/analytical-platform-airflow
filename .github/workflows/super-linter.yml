@@ -1,39 +1,72 @@
 ---
-name: 🦝 Super Linter
-
 on:
-  pull_request:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      super-linter-variables:
+        type: string
+        required: false
+        default: "{}"
 
 permissions: {}
 
 jobs:
   super-linter:
     name: Super Linter
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: read
-      pull-requests: write
       statuses: write
-    uses: ministryofjustice/analytical-platform-github-actions/.github/workflows/reusable-super-linter.yml@72f9c303ec3becced97e2d4472122fee783ff4a4 # v8.0.1
-    with:
-      # VALIDATE_KUBERNETES_KUBECONFORM is set to false as it cannot process Helm charts
-      # VALIDATE_PYTHON_* are set to false as we need to revisit the Python from a linting perspective
-      super-linter-variables: |
-        {
-          "VALIDATE_SPELL_CODESPELL": false,
-          "VALIDATE_JSCPD": false,
-          "VALIDATE_KUBERNETES_KUBECONFORM": false,
-          "VALIDATE_PYTHON": false,
-          "VALIDATE_PYTHON_BLACK": false,
-          "VALIDATE_PYTHON_FLAKE8": false,
-          "VALIDATE_PYTHON_ISORT": false,
-          "VALIDATE_PYTHON_MYPY": false,
-          "VALIDATE_PYTHON_PYINK": false,
-          "VALIDATE_PYTHON_PYLINT": false,
-          "VALIDATE_PYTHON_RUFF": false,
-          "VALIDATE_PYTHON_RUFF_FORMAT": false,
-          "VALIDATE_GITHUB_ACTIONS_ZIZMOR": false,
-          "VALIDATE_TRIVY": false
-        }
+    steps:
+      - name: Harden Runner
+        if: github.event.repository.private == false
+        id: harden_runner
+        uses: step-security/harden-runner@9af89fc71515a100421586dfdb3dc9c984fbf411 # v2.19.4
+        with:
+          egress-policy: audit
+
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # v7.0.0
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Parse Super Linter Variables
+        id: parse_super_linter_variables
+        env:
+          SUPER_LINTER_VARIABLES: ${{ inputs.super-linter-variables }}
+        shell: bash
+        run: |
+          jq -r 'to_entries | .[] | "\(.key)=\(.value)"' <<< "${SUPER_LINTER_VARIABLES}" >>"${GITHUB_ENV}"
+
+      - name: Super Linter
+        id: super_linter
+        uses: super-linter/super-linter/slim@4ce20838b8ab83717e78138c5b3a1407148e0918 # v8.7.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MULTI_STATUS: false
+          # Disabling pull request summary comment until it's less noisy (tracked in super-linter issue #7458)
+          ENABLE_GITHUB_PULL_REQUEST_SUMMARY_COMMENT: false
+          # Biome is very opinionated and enforces formatting rules that may conflict with other linters
+          VALIDATE_BIOME_FORMAT: false
+          VALIDATE_BIOME_LINT: false
+          # Terrascan is archived and will be removed in a future version of Super-Linter
+          VALIDATE_TERRAFORM_TERRASCAN: false
+          # Organisation stance is to remove Trivy
+          VALIDATE_TRIVY: false
+          # airflow specific envs
+          VALIDATE_SPELL_CODESPELL: false
+          VALIDATE_JSCPD: false
+          VALIDATE_KUBERNETES_KUBECONFORM: false
+          VALIDATE_PYTHON: false
+          VALIDATE_PYTHON_BLACK: false
+          VALIDATE_PYTHON_FLAKE8: false
+          VALIDATE_PYTHON_ISORT: false
+          VALIDATE_PYTHON_MYPY: false
+          VALIDATE_PYTHON_PYINK: false
+          VALIDATE_PYTHON_PYLINT: false
+          VALIDATE_PYTHON_RUFF: false
+          VALIDATE_PYTHON_RUFF_FORMAT: false
+          VALIDATE_GITHUB_ACTIONS_ZIZMOR: false
+
