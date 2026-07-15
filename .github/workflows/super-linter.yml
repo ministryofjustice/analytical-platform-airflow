@@ -16,7 +16,6 @@ jobs:
     permissions:
       contents: read
       packages: read
-      pull-requests: write
       statuses: write
     steps:
       - name: Harden Runner
