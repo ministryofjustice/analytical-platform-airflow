@@ -17,4 +17,4 @@ jobs:
       contents: read
       id-token: write
       security-events: write
-    uses: ministryofjustice/analytical-platform-github-actions/.github/workflows/reusable-openssf-scorecard.yml@72f9c303ec3becced97e2d4472122fee783ff4a4 # v8.0.1
+    uses: ministryofjustice/data-platform-github-actions/.github/workflows/openssf-scorecard.yml@6df010e45fdb953369f12ab2bc69107d3c487f15 # v4.0.8
