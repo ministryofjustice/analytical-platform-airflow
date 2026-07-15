@@ -16,7 +16,7 @@ dag:
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
     DATABASE_NAME: "opt_preprocessed_dev"
     LAND_BUCKET: "s3://mojap-land-dev"
-    LAND_FOLDER: "hmcts/opt/"
+    LAND_PATH: "hmcts/opt/"
     START_DATE: "2026-06-02"
     FAIL_ON_NO_FILES: "True"
     DRYRUN: "True"
@@ -24,7 +24,7 @@ dag:
   tasks:
     test-sdp-extractor:
       env_vars:
-        AZURE_TABLE_NAME: "data-tbl-mags-cie-new"
+        AZURE_TABLE: "data-tbl-mags-cie-new"
 
 iam:
   athena: write
