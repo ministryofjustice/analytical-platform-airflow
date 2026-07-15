@@ -27,6 +27,9 @@ iam:
   s3_read_write:
     - mojap-derived-tables/prod/*
 
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
 tags:
   business_unit: Central Digital
-  owner: jovita.brundzienem@justice.gov.uk
+  owner: jovita.brundziene@justice.gov.uk
