@@ -57,7 +57,6 @@ jobs:
           VALIDATE_TRIVY: false
           # airflow specific envs
           VALIDATE_SPELL_CODESPELL: false
-          VALIDATE_JSCPD: false
           VALIDATE_KUBERNETES_KUBECONFORM: false
           VALIDATE_PYTHON: false
           VALIDATE_PYTHON_BLACK: false
