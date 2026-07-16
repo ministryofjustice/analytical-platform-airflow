@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.25
-  retries: 1
+  tag: v4.0.27-alphad2e23e6
+  retries: 0
   retry_delay: 150
   start_date: "2026-06-01"
   max_active_runs: 5
@@ -14,7 +14,7 @@ dag:
     SERVICE: "common-platform"
     CHUNK_SIZE: "1000000"
     DAG_INTERVAL_END: "{{ data_interval_end }}"
-    PARTITION_COL: "extraction_date"
+    PARTITION_COL: "hmcts_extraction_date"
 
   tasks:
     cp_load_allocated_listings:
