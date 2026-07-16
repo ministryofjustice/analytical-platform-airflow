@@ -1,7 +1,7 @@
 dag:
   repository: ministryofjustice/airflow-DA-nlp-identification
   tag: 0.0.1
-  compute_profile: general-spot-8vcpu-32gb
+  compute_profile: gpu-on-demand-8vcpu-32gb
 
 iam:
   bedrock: true
