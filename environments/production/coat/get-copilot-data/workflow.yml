@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/coat-copilot-usage-pipeline
-  tag: v0.1.5
+  tag: v0.1.6
   catchup: false
   is_paused_upon_creation: false
   max_active_runs: 1
@@ -13,6 +13,7 @@ dag:
       compute_profile: "general-spot-1vcpu-4gb"
       env_vars:
         MODE: "prod"
+        PROD_BUCKET: "cloud-platform-41b6a454e7cc120fe1764d3f7fe3f1e2"
 
 iam:
   s3_read_write:

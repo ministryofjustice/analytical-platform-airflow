@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/ssct-manage-files
-  tag: 0.0.7
+  tag: 0.0.8
 
 maintainers:
   - MJCT-MOJ
