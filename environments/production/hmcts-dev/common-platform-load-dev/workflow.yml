@@ -14,7 +14,7 @@ dag:
     SERVICE: "common-platform"
     CHUNK_SIZE: "1000000"
     DAG_INTERVAL_END: "{{ data_interval_end }}"
-    PARTITION_COL: "extraction_date"
+    PARTITION_COL: "hmcts_extraction_date"
 
   tasks:
     cp_load_allocated_listings:
