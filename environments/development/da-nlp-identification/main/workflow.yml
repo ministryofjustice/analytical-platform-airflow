@@ -6,9 +6,13 @@ dag:
 iam:
   bedrock: true
 
-  s3_read_write:
+  s3_read_only:
+    - alpha-segmentation-2020/OASys_FLOW_Data_Repository/OASys_DA_NLP/Training_Data/*
+    - alpha-segmentation-2020/OASys_FLOW_Data_Repository/OASys_DA_NLP/Training_Config_Files/*
     - alpha-segmentation-2020/da_nlp_project/*
-    - alpha-segmentation-2020/OASys_FLOW_Data_Repository/OASys_DA_NLP/*
+  
+  s3_read_write:
+    - alpha-segmentation-2020/OASys_FLOW_Data_Repository/OASys_DA_NLP/Models/*
 
 secrets:
   - mlflow-tracking-username
