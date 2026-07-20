@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev23
+  tag: v5.0.0.dev25
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -211,6 +211,74 @@ dag:
       dependencies: [model_training_probation_delius]
 
     # -----------------------
+    # FAMILYMAN DEDUPE JOB
+    # -----------------------
+    source_nodes_familyman:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: source_nodes
+        PIPELINE_DATASET: familyman
+        PIPELINE_VERSION: test
+
+    standardised_nodes_familyman:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        PIPELINE_STAGE: standardised_nodes
+        PIPELINE_DATASET: familyman
+        PIPELINE_VERSION: test
+      dependencies: [source_nodes_familyman]
+
+    model_training_familyman:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        PIPELINE_STAGE: model_training
+        PIPELINE_DATASET: familyman
+        PIPELINE_VERSION: test
+      dependencies: [standardised_nodes_familyman]
+
+    edge_generation_familyman:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        PIPELINE_STAGE: edge_generation
+        PIPELINE_DATASET: familyman
+        PIPELINE_VERSION: test
+      dependencies: [model_training_familyman]
+
+    # -----------------------
+    # CIVIL CASEMAN PCOL DEDUPE JOB
+    # -----------------------
+    source_nodes_civil_caseman_pcol:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: source_nodes
+        PIPELINE_DATASET: civil_caseman_pcol
+        PIPELINE_VERSION: test
+
+    standardised_nodes_civil_caseman_pcol:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        PIPELINE_STAGE: standardised_nodes
+        PIPELINE_DATASET: civil_caseman_pcol
+        PIPELINE_VERSION: test
+      dependencies: [source_nodes_civil_caseman_pcol]
+
+    model_training_civil_caseman_pcol:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        PIPELINE_STAGE: model_training
+        PIPELINE_DATASET: civil_caseman_pcol
+        PIPELINE_VERSION: test
+      dependencies: [standardised_nodes_civil_caseman_pcol]
+
+    edge_generation_civil_caseman_pcol:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        PIPELINE_STAGE: edge_generation
+        PIPELINE_DATASET: civil_caseman_pcol
+        PIPELINE_VERSION: test
+      dependencies: [model_training_civil_caseman_pcol]
+
+    # -----------------------
     # CJS LINK JOB (~30m)
     # -----------------------
     standardised_nodes_cjs:
@@ -249,6 +317,40 @@ dag:
         - edge_generation_prison_nomis
         - edge_generation_prison_oasys
         - edge_generation_probation_delius
+
+    # -----------------------
+    # XJS LINK JOB
+    # -----------------------
+    standardised_nodes_xjs:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        PIPELINE_STAGE: standardised_nodes
+        PIPELINE_DATASET: xjs
+        PIPELINE_VERSION: test
+      dependencies:
+        - standardised_nodes_cjs
+        - standardised_nodes_familyman
+        - standardised_nodes_civil_caseman_pcol
+
+    model_training_xjs:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        PIPELINE_STAGE: model_training
+        PIPELINE_DATASET: xjs
+        PIPELINE_VERSION: test
+      dependencies: [standardised_nodes_xjs]
+
+    edge_generation_xjs:
+      compute_profile: general-spot-16vcpu-64gb
+      env_vars:
+        PIPELINE_STAGE: edge_generation
+        PIPELINE_DATASET: xjs
+        PIPELINE_VERSION: test
+      dependencies:
+        - model_training_xjs
+        - edge_generation_cjs
+        - edge_generation_familyman
+        - edge_generation_civil_caseman_pcol
 
     # -----------------------
     # JOURNEY LINK JOB (~?m)
