@@ -17,7 +17,6 @@ dag:
     xhibit_load_migrate_case:
       env_vars:
         TABLE: "migrate_case"
-    
 
 iam:
   athena: write
