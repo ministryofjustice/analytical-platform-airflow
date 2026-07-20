@@ -25,7 +25,7 @@ notifications:
     - tapan.perkins@justice.gov.uk
 
 secrets:
-  - data_first_salt
+  - data-first-salt
 
 iam:
   athena: write
