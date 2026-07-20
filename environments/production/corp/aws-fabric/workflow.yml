@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/replicate-athena-to-fabric
-  tag: v1.5.0
+  tag: v1.5.2
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
@@ -66,9 +66,8 @@ secrets:
   - fabric-warehouse-endpoint
 
 maintainers:
-  - moj-supratikc
   - Csheldon155
 
 tags:
   business_unit: Central Digital
-  owner: supratik.chowdhury@justice.gov.uk
+  owner: chris.sheldon@justice.gov.uk

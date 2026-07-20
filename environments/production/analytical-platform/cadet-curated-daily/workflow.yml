@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.7
+  tag: 1.3.3
   schedule: "0 0 * * *"
   catchup: false
   env_vars:
@@ -12,6 +12,8 @@ dag:
     DBT_SELECT_CRITERIA: tag:curated
     BRANCH: main
     MODE: build
+    THREAD_COUNT: 10
+
   tasks:
     table_deploy:
       compute_profile: general-on-demand-16vcpu-64gb
@@ -29,6 +31,13 @@ iam:
   glue: true
   s3_read_write:
     - mojap-derived-tables/prod/*
+
+notifications:
+  emails:
+    - lalitha.nagarur3@justice.gov.uk
+    - joseph.phillips@justice.gov.uk
+    - ProbationDataEngineering@justice.gov.uk
+  slack_channel: de-probation-airflow-prod
 
 tags:
   business_unit: Central Digital

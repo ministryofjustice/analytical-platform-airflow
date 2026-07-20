@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline-legacy
-  tag: v1.0.7
+  tag: v1.0.12
   retries: 0
   retry_delay: 150
   start_date: "2025-12-19"
@@ -95,7 +95,7 @@ dag:
     load_defendant_detail:
       env_vars:
         AZ_TABLE: "defendant-detail"
-      compute_profile: general-spot-2vcpu-8gb
+      compute_profile: general-spot-4vcpu-16gb
     load_defendant_employer:
       env_vars:
         AZ_TABLE: "defendant-employer"
@@ -177,7 +177,7 @@ dag:
       env_vars:
         AZ_TABLE: "offence-detail"
         MAX_SIMULTANEOUS_FILES: "1"
-      compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-120vcpu-500gb
     load_offence_plea:
       env_vars:
         AZ_TABLE: "offence-plea"
@@ -278,6 +278,7 @@ dag:
     load_referencedata_local_justice_area_court_prosecutor_mapping:
       env_vars:
         AZ_TABLE: "referencedata-local-justice-area-court-prosecutor-mapping"
+      compute_profile: general-spot-2vcpu-8gb
     load_referencedata_local_justice_area_postcodes:
       env_vars:
         AZ_TABLE: "referencedata-local-justice-area-postcodes"

@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/aws-sharepoint-connector
-  tag: test-airflow-2
+  tag: v1.9.0-test-9
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -15,7 +15,7 @@ dag:
       env_vars:
         S3_BUCKET: "alpha-opg-etl"
         SP_SITE: "OPGDataCatalogue"
-        SP_LIBRARY: "Shared Documents"
+        SP_LIBRARY: "Documents"
 iam:
   s3_read_write:
     - alpha-opg-etl/*

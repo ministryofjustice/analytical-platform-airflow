@@ -49,14 +49,10 @@ notifications:
   emails:
     - chris.sheldon@justice.gov.uk
     - Laurence.Droy@justice.gov.uk
-    - William.Orr@justice.gov.uk
-    - Supratik.Chowdhury@justice.gov.uk
 
 maintainers:
   - Csheldon155
   - ltd-pa
-  - williamorrie
-  - moj-supratikc
 
 tags:
   business_unit: Central Digital

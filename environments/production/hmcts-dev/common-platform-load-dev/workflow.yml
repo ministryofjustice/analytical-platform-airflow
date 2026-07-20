@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.21
-  retries: 1
+  tag: v4.0.27-alphad2e23e6
+  retries: 0
   retry_delay: 150
   start_date: "2026-06-01"
   max_active_runs: 5
@@ -14,7 +14,7 @@ dag:
     SERVICE: "common-platform"
     CHUNK_SIZE: "1000000"
     DAG_INTERVAL_END: "{{ data_interval_end }}"
-    PARTITION_COL: "extraction_date"
+    PARTITION_COL: "hmcts_extraction_date"
 
   tasks:
     cp_load_allocated_listings:
@@ -44,25 +44,25 @@ dag:
     cp_load_case_detail:
       env_vars:
         TABLE: "case_detail"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_case_link_split_merge:
       env_vars:
         TABLE: "case_link_split_merge"
     cp_load_case_marker:
       env_vars:
         TABLE: "case_marker"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_case_person:
       env_vars:
         TABLE: "case_person"
     cp_load_court_schedule:
       env_vars:
         TABLE: "court_schedule"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_court_schedule_judiciary:
       env_vars:
         TABLE: "court_schedule_judiciary"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_court_session:
       env_vars:
         TABLE: "court_session"
@@ -90,7 +90,7 @@ dag:
     cp_load_defendant_alias:
       env_vars:
         TABLE: "defendant_alias"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_defendant_defence_association:
       env_vars:
         TABLE: "defendant_defence_association"
@@ -106,7 +106,7 @@ dag:
     cp_load_financial_imposition:
       env_vars:
         TABLE: "financial_imposition"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_financial_means:
       env_vars:
         TABLE: "financial_means"
@@ -116,7 +116,7 @@ dag:
     cp_load_hearing:
       env_vars:
         TABLE: "hearing"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_hearing_attendance:
       env_vars:
         TABLE: "hearing_attendance"
@@ -126,7 +126,7 @@ dag:
     cp_load_hearing_date:
       env_vars:
         TABLE: "hearing_date"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_hearing_defence_counsel:
       env_vars:
         TABLE: "hearing_defence_counsel"
@@ -136,35 +136,35 @@ dag:
     cp_load_hearing_detail:
       env_vars:
         TABLE: "hearing_detail"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_hearing_effectiveness:
       env_vars:
         TABLE: "hearing_effectiveness"
     cp_load_hearing_event_log:
       env_vars:
         TABLE: "hearing_event_log"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_hearing_interpreter_intermediary:
       env_vars:
         TABLE: "hearing_interpreter_intermediary"
     cp_load_hearing_judiciary:
       env_vars:
         TABLE: "hearing_judiciary"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_hearing_prosecution_counsel:
       env_vars:
         TABLE: "hearing_prosecution_counsel"
     cp_load_hearing_result:
       env_vars:
         TABLE: "hearing_result"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-64vcpu-256gb
     cp_load_hearing_result_amendment:
       env_vars:
         TABLE: "hearing_result_amendment"
     cp_load_hearing_result_prompt:
       env_vars:
         TABLE: "hearing_result_prompt"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_legal_entity:
       env_vars:
         TABLE: "legal_entity"
@@ -177,11 +177,12 @@ dag:
     cp_load_offence_detail:
       env_vars:
         TABLE: "offence_detail"
-        compute_profile: general-spot-32vcpu-128gb
+        YEAR_0: true
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_offence_plea:
       env_vars:
         TABLE: "offence_plea"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_offence_result:
       env_vars:
         TABLE: "offence_result"
@@ -191,7 +192,7 @@ dag:
     cp_load_person:
       env_vars:
         TABLE: "person"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_prosecution_authority_change:
       env_vars:
         TABLE: "prosecution_authority_change"
@@ -234,7 +235,7 @@ dag:
     cp_load_rd_court_room_session_allocation:
       env_vars:
         TABLE: "rd_court_room_session_allocation"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_rd_courtroom:
       env_vars:
         TABLE: "rd_courtroom"
@@ -268,11 +269,11 @@ dag:
     cp_load_rd_judiciary:
       env_vars:
         TABLE: "rd_judiciary"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_rd_judiciary_lja_mapping:
       env_vars:
         TABLE: "rd_judiciary_lja_mapping"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_rd_language:
       env_vars:
         TABLE: "rd_language"
@@ -303,7 +304,7 @@ dag:
     cp_load_rd_offence:
       env_vars:
         TABLE: "rd_offence"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_rd_offence_category:
       env_vars:
         TABLE: "rd_offence_category"
@@ -346,7 +347,7 @@ dag:
     cp_load_rd_result_definition:
       env_vars:
         TABLE: "rd_result_definition"
-        compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-128gb
     cp_load_rd_rota_business_type:
       env_vars:
         TABLE: "rd_rota_business_type"
