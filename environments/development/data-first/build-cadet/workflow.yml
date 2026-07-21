@@ -25,6 +25,7 @@ notifications:
     - tapan.perkins@justice.gov.uk
 
 secrets:
+  - github-key
   - data-first-salt
 
 iam:
