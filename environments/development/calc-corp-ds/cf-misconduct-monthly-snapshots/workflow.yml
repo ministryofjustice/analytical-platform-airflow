@@ -1,0 +1,33 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-cf-misconduct
+  tag: v10.01
+  catchup: false
+
+  tasks:
+    snapshot-dim-linked-cases:
+      env_vars:
+        EXEC_SCRIPT: "snapshot-dim-linked-cases"
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-cf-misconduct/snapshots/*
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=people/database_name=counter_fraud_misconduct*
+
+maintainers:
+  - jhenfrancis
+  - sheilz81
+  - maxblum31
+
+notifications:
+  emails:
+    - jhenielle.francis@justice.gov.uk
+    - sheila.ladva@justice.gov.uk
+    - max.blum@justice.gov.uk
+  slack_channel: cf-misconduct-notifications
+
+tags:
+  business_unit: HQ
+  owner: jhenielle.francis@justice.gov.uk
