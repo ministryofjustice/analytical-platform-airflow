@@ -10,7 +10,7 @@ dag:
     DEPLOY_ENV: dev
     DBT_PROJECT: hmpps_digital_prisons_reporting_tables
     S3_BUCKET: dpr-structured-historical-preproduction
-    WORKFLOW_NAME: cadet-deployer-dpr-pp
+    WORKFLOW_NAME: cadet-deployer-dpr-preprod
     DBT_PROFILE_WORKGROUP: analytics-generic-athena-workgroup
     DBT_SELECT_CRITERIA: "tag:dpr-daily,tag:model-templates"
     MODE: build
