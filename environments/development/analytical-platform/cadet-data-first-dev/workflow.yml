@@ -7,7 +7,7 @@ dag:
     DEPLOY_ENV: dev
     DBT_PROFILE_WORKGROUP: dbt-dev
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: cadet-data-first-build-dev
+    WORKFLOW_NAME: cadet-data-first-dev
     DBT_SELECT_CRITERIA: "tag:data_first_{{ params.output_name }}"
     BRANCH: main
     MODE: build
