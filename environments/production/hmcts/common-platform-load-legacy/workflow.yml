@@ -177,7 +177,7 @@ dag:
       env_vars:
         AZ_TABLE: "offence-detail"
         MAX_SIMULTANEOUS_FILES: "1"
-      compute_profile: general-spot-120vcpu-500gb
+      compute_profile: general-spot-32vcpu-128gb
     load_offence_plea:
       env_vars:
         AZ_TABLE: "offence-plea"
