@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.6.15-firefox
+  tag: v1.6.16-firefox
   schedule: "30 7 * * 1-5"
   env_vars:
     SITE: "fieldglass"
