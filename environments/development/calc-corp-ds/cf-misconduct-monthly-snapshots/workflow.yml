@@ -1,9 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v10.01
+  tag: v10.02
   catchup: false
-
   tasks:
     snapshot-dim-linked-cases:
       env_vars:
