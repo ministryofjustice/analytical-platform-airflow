@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline-legacy
-  tag: v1.0.13-rebuild
+  tag: v1.0.12
   retries: 0
   retry_delay: 150
   start_date: "2025-12-19"
@@ -177,7 +177,7 @@ dag:
       env_vars:
         AZ_TABLE: "offence-detail"
         MAX_SIMULTANEOUS_FILES: "1"
-      compute_profile: general-spot-120vcpu-500gb
+      compute_profile: general-spot-32vcpu-128gb
     load_offence_plea:
       env_vars:
         AZ_TABLE: "offence-plea"
