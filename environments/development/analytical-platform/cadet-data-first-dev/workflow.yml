@@ -26,7 +26,7 @@ notifications:
 
 secrets:
   - github-key
-  - data-first-salt
+  - df-salt
 
 iam:
   athena: write
