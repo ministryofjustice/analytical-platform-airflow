@@ -1,12 +1,13 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v10.04
+  tag: v10.10
   catchup: false
   tasks:
     snapshot-dim-linked-cases:
       env_vars:
-        EXEC_SCRIPT: "snapshot-dim-linked-cases"
+        EXEC_SCRIPT: "python"
+        EXEC_ARGS: "snapshot_dim_linked_cases.py"
 
 iam:
   athena: write
