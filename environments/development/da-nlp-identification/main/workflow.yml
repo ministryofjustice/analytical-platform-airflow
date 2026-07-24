@@ -1,0 +1,28 @@
+dag:
+  repository: ministryofjustice/airflow-DA-nlp-identification
+  tag: 0.0.1
+  compute_profile: gpu-on-demand-8vcpu-32gb
+
+iam:
+  bedrock: true
+
+  s3_read_only:
+    - alpha-segmentation-2020/OASys_FLOW_Data_Repository/OASys_DA_NLP/Training_Data/*
+    - alpha-segmentation-2020/OASys_FLOW_Data_Repository/OASys_DA_NLP/Training_Config_Files/*
+    - alpha-segmentation-2020/da_nlp_project/*
+  
+  s3_read_write:
+    - alpha-segmentation-2020/OASys_FLOW_Data_Repository/OASys_DA_NLP/Models/*
+
+secrets:
+  - mlflow-tracking-username
+  - mlflow-tracking-password
+
+maintainers:
+  - andriasarri
+  - peter-clark-moj
+  - bgburton
+
+tags:
+  business_unit: Central Digital
+  owner: brian.burton@justice.gov.uk
