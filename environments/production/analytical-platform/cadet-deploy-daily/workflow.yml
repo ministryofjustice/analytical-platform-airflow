@@ -1,12 +1,9 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.0-pre
-  compute_profile: general-on-demand-32vcpu-128gb
+  tag: 1.3.8
   schedule: "0 3 * * 1-6"
   catchup: false
-  outlets:
-    - "s3://mojap-derived-tables/prod/daily/"
   env_vars:
     DEPLOY_ENV: prod
     DBT_PROFILE_WORKGROUP: dbt-daily
@@ -15,6 +12,16 @@ dag:
     DBT_SELECT_CRITERIA: tag:daily
     BRANCH: main
     MODE: build
+  tasks:
+    table_deploy:
+      compute_profile: general-on-demand-32vcpu-128gb
+    check_run_results:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/prod/daily/"
 
 maintainers:
   - jhpyke
