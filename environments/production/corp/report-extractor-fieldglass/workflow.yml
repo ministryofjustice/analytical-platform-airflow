@@ -10,11 +10,11 @@ dag:
   tasks:
     workorders_daily:
       env_vars:
-        REPORT: "MoJ DMET Corperate Headcount v2"
+        REPORT_NAME: "MoJ DMET Corperate Headcount v2"
         RUN_HEADLESS: "True"
     timesheet_lastmonth:
       env_vars:
-        REPORT: "MOJ Master Timesheet Report - Last month"
+        REPORT_NAME: "MOJ Master Timesheet Report - Last month"
         RUN_HEADLESS: "True"
 
 iam:
