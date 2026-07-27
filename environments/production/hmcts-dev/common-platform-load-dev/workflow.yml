@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.27-alphad2e23e6
+  tag: v4.0.29-alpha31c6f06
   retries: 0
   retry_delay: 150
   start_date: "2026-06-01"
