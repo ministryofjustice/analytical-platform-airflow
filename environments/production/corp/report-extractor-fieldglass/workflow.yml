@@ -4,7 +4,9 @@ dag:
   tag: v1.6.16-test
   schedule: "30 7 * * 1-5"
   env_vars:
-    SITE: "fieldglass"
+    REPORT_APP: "fieldglass"
+    REPORT_RUNTIME_ENV: "prod"
+    REPORT_RUN_MODE: "extract"
   tasks:
     workorders_daily:
       env_vars:
