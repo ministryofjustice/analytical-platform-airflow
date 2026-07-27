@@ -17,4 +17,4 @@ notifications:
     - tapan.perkins@justice.gov.uk
 
 secrets:
-  - zip_password
+  - zip-password
