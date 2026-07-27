@@ -1,0 +1,20 @@
+dag:
+  repository: moj-analytical-services/data-first-packaging
+  tag: v0.3.1
+  params:
+    output_name: end_to_end_test
+    target_platform: ons
+
+maintainers:
+  - tmpks
+
+tags:
+  business_unit: HQ
+  owner: tapan.perkins@justice.gov.uk
+
+notifications:
+  emails:
+    - tapan.perkins@justice.gov.uk
+
+secrets:
+  - zip_password
