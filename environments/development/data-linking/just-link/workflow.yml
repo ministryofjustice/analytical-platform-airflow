@@ -93,7 +93,7 @@ dag:
       dependencies: [source_nodes_common_platform]
 
     model_training_common_platform:
-      compute_profile: general-spot-16vcpu-64gb
+      compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: model_training
         PIPELINE_DATASET: common_platform
