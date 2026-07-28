@@ -1,21 +1,21 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.8.1-test-36
+  tag: v3.8.1-test-37
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
-  max_active_runs: 4
+  max_active_runs: 1
   retries: 1
   retry_delay: 150
-  start_date: "2026-03-16"
-  schedule: None
+  start_date: "2026-07-01"
+  schedule: 0 5 * * *
   env_vars:
     DATABASE: "work_returns"
     PIPELINE_NAME: "work_returns"
-    DATABASE_VERSION: "dev"
-    GITHUB_TAG: "v3.8.0-test-11"
+    DATABASE_VERSION: "prod"
+    GITHUB_TAG: "v3.8.1-test-37"
     ATHENA_DB_PREFIX: "opg"
-    START_DATE: "2026-03-16"
+    START_DATE: "2026-07-01"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_METADATA_SERVICE_TIMEOUT: "60"
     AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
@@ -52,7 +52,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - alpha-opg-etl/dev/work_returns/*
+    - alpha-opg-etl/prod/work_returns/*
     - mojap-athena-query-dump/*airflow-development-opg-work-returns/*
 
 secrets:

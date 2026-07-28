@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev29
+  tag: v5.0.0.dev31
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -93,7 +93,7 @@ dag:
       dependencies: [source_nodes_common_platform]
 
     model_training_common_platform:
-      compute_profile: general-spot-16vcpu-64gb
+      compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: model_training
         PIPELINE_DATASET: common_platform
