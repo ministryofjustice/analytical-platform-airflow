@@ -18,3 +18,9 @@ notifications:
 
 secrets:
   - zip-password
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-data-first/data-products/development/*
