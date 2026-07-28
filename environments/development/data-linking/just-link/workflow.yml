@@ -325,7 +325,7 @@ dag:
     # XJS LINK JOB
     # -----------------------
     standardised_nodes_xjs:
-      compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-64vcpu-256gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: xjs
