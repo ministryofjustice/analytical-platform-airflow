@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data-first-packaging
-  tag: v0.3.2
+  tag: v0.4.0
   params:
     output_name: end_to_end_test
     target_platform: ons
