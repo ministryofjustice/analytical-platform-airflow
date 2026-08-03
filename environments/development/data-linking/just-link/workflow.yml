@@ -1,9 +1,12 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev31
+  tag: v5.0.0.dev36
   retries: 0
   retry_delay: 150
   max_active_runs: 1
+
+  env_vars:
+    SNAPSHOT_DATE: "latest"
 
   tasks:
     # -----------------------
@@ -93,7 +96,7 @@ dag:
       dependencies: [source_nodes_common_platform]
 
     model_training_common_platform:
-      compute_profile: general-spot-16vcpu-64gb
+      compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: model_training
         PIPELINE_DATASET: common_platform
@@ -340,8 +343,9 @@ dag:
         PIPELINE_VERSION: dev
       dependencies: [standardised_nodes_xjs]
 
+    # Larger compute only required for dev dashboards
     edge_generation_xjs:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-128vcpu-512gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: xjs
