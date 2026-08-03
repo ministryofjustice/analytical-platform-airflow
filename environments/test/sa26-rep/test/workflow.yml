@@ -28,6 +28,7 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=offender_bookings_wap/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=agency_locations_wap/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=reference_codes_wap/*
+    - mojap-derived-tables/seeds/imprisonment_statuses/*
   s3_read_write:
     - alpha-sa26-monitoring/*
 
