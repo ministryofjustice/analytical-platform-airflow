@@ -15,6 +15,7 @@ dag:
 
 maintainers:
   - tmpks
+  - vijay-justice
 
 tags:
   business_unit: HQ
@@ -23,6 +24,7 @@ tags:
 notifications:
   emails:
     - tapan.perkins@justice.gov.uk
+    - vijay.solanki@justice.gov.uk
 
 secrets:
   - github-key
