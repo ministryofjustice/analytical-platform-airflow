@@ -193,6 +193,27 @@ data "aws_iam_policy_document" "iam_policy" {
     ]
   }
 
+  /* Secrets Manager - Update Explicit Secrets */
+  dynamic "statement" {
+    for_each = local.iam_update_secrets && length(local.secrets_configuration) > 0 ? [1] : []
+    content {
+      sid    = "SecretsManagerUpdate"
+      effect = "Allow"
+      actions = [
+        "secretsmanager:PutSecretValue",
+        "secretsmanager:UpdateSecret"
+      ]
+      resources = concat(
+        [
+          for secret in local.secrets_configuration : "arn:aws:secretsmanager:eu-west-2:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/${secret}*"
+        ],
+        [
+          for secret in local.secrets_configuration : "arn:aws:secretsmanager:eu-west-1:${data.aws_caller_identity.analytical_platform_data_production.account_id}:secret:/airflow/${var.environment}/${var.project}/${var.workflow}/${secret}*"
+        ]
+      )
+    }
+  }
+
   /* Lake Formation */
   dynamic "statement" {
     for_each = local.iam_lake_formation ? [1] : []

@@ -1,0 +1,27 @@
+dag:
+  repository: moj-analytical-services/airflow-magistrates-data-engineering
+  tag: v5.0.1
+  retries: 0
+  env_vars:
+    DB_VERSION: "v3"
+  tasks:
+    hocas_preprocess:
+      env_vars:
+        PYTHON_SCRIPT_NAME: "hocas_raw_to_preprocessed.py"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-mojap-curated-mags/*
+    - alpha-mojap-processed-hocas/*
+    - mojap-land/hmcts/hocas/*
+    - mojap-raw-hist/hmcts/hocas*
+
+maintainers:
+  - Andy-Cook
+  - jovita-brundziene
+
+tags:
+  business_unit: Central Digital
+  owner: andrew.cook1@justice.gov.uk

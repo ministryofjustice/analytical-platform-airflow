@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.21
+  tag: v4.0.22
   retries: 1
   retry_delay: 150
   start_date: "2026-04-30"
@@ -29,6 +29,9 @@ iam:
     - mojap-land/hmcts/opt/*
     - mojap-raw-hist/hmcts/opt/*
     - alpha-mojap-curated-opt/prod/v1/*
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
 
 maintainers:
   - jovita-brundziene

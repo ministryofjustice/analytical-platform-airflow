@@ -11,6 +11,7 @@ from airflow.providers.cncf.kubernetes.secret import Secret
 # Also defined in tests/test_workflows.py
 PROJECT_ALIASES = {
     "electronic-monitoring-data-store": "emds",
+    "electronic-monitoring-data-store-pp": "emds-pp",
 }
 
 # Custom filter to merge dictionaries

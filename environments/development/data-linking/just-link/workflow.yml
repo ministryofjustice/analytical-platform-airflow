@@ -1,9 +1,12 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev16
+  tag: v5.0.0.dev36
   retries: 0
   retry_delay: 150
   max_active_runs: 1
+
+  env_vars:
+    SNAPSHOT_DATE: "latest"
 
   tasks:
     # -----------------------
@@ -33,7 +36,7 @@ dag:
       dependencies: [standardised_nodes_mags_hocas]
 
     edge_generation_mags_hocas:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-128vcpu-512gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mags_hocas
@@ -93,7 +96,7 @@ dag:
       dependencies: [source_nodes_common_platform]
 
     model_training_common_platform:
-      compute_profile: general-spot-16vcpu-64gb
+      compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: model_training
         PIPELINE_DATASET: common_platform
@@ -211,6 +214,74 @@ dag:
       dependencies: [model_training_probation_delius]
 
     # -----------------------
+    # FAMILYMAN DEDUPE JOB (~20m)
+    # -----------------------
+    source_nodes_familyman:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: source_nodes
+        PIPELINE_DATASET: familyman
+        PIPELINE_VERSION: dev
+
+    standardised_nodes_familyman:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: standardised_nodes
+        PIPELINE_DATASET: familyman
+        PIPELINE_VERSION: dev
+      dependencies: [source_nodes_familyman]
+
+    model_training_familyman:
+      compute_profile: general-spot-64vcpu-256gb
+      env_vars:
+        PIPELINE_STAGE: model_training
+        PIPELINE_DATASET: familyman
+        PIPELINE_VERSION: dev
+      dependencies: [standardised_nodes_familyman]
+
+    edge_generation_familyman:
+      compute_profile: general-spot-128vcpu-512gb
+      env_vars:
+        PIPELINE_STAGE: edge_generation
+        PIPELINE_DATASET: familyman
+        PIPELINE_VERSION: dev
+      dependencies: [model_training_familyman]
+
+    # -----------------------
+    # CIVIL CASEMAN PCOL DEDUPE JOB (~20m)
+    # -----------------------
+    source_nodes_civil_caseman_pcol:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: source_nodes
+        PIPELINE_DATASET: civil_caseman_pcol
+        PIPELINE_VERSION: dev
+
+    standardised_nodes_civil_caseman_pcol:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: standardised_nodes
+        PIPELINE_DATASET: civil_caseman_pcol
+        PIPELINE_VERSION: dev
+      dependencies: [source_nodes_civil_caseman_pcol]
+
+    model_training_civil_caseman_pcol:
+      compute_profile: general-spot-64vcpu-256gb
+      env_vars:
+        PIPELINE_STAGE: model_training
+        PIPELINE_DATASET: civil_caseman_pcol
+        PIPELINE_VERSION: dev
+      dependencies: [standardised_nodes_civil_caseman_pcol]
+
+    edge_generation_civil_caseman_pcol:
+      compute_profile: general-spot-128vcpu-512gb
+      env_vars:
+        PIPELINE_STAGE: edge_generation
+        PIPELINE_DATASET: civil_caseman_pcol
+        PIPELINE_VERSION: dev
+      dependencies: [model_training_civil_caseman_pcol]
+
+    # -----------------------
     # CJS LINK JOB (~30m)
     # -----------------------
     standardised_nodes_cjs:
@@ -249,6 +320,78 @@ dag:
         - edge_generation_prison_nomis
         - edge_generation_prison_oasys
         - edge_generation_probation_delius
+
+    # -----------------------
+    # XJS LINK JOB
+    # -----------------------
+    standardised_nodes_xjs:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: standardised_nodes
+        PIPELINE_DATASET: xjs
+        PIPELINE_VERSION: dev
+      dependencies:
+        - standardised_nodes_cjs
+        - standardised_nodes_familyman
+        - standardised_nodes_civil_caseman_pcol
+
+    model_training_xjs:
+      compute_profile: general-spot-64vcpu-256gb
+      env_vars:
+        PIPELINE_STAGE: model_training
+        PIPELINE_DATASET: xjs
+        PIPELINE_VERSION: dev
+      dependencies: [standardised_nodes_xjs]
+
+    # Larger compute only required for dev dashboards
+    edge_generation_xjs:
+      compute_profile: general-spot-128vcpu-512gb
+      env_vars:
+        PIPELINE_STAGE: edge_generation
+        PIPELINE_DATASET: xjs
+        PIPELINE_VERSION: dev
+      dependencies:
+        - model_training_xjs
+        - edge_generation_cjs
+        - edge_generation_familyman
+        - edge_generation_civil_caseman_pcol
+
+    # -----------------------
+    # JOURNEY LINK JOB (~?m)
+    # -----------------------
+    source_nodes_xhibit_journey:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: source_nodes
+        PIPELINE_DATASET: xhibit-journey
+        PIPELINE_VERSION: dev
+
+    standardised_nodes_mh_cx:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: standardised_nodes
+        PIPELINE_DATASET: mh-cx
+        PIPELINE_VERSION: dev
+      dependencies:
+        - source_nodes_xhibit_journey
+        - standardised_nodes_mags_hocas
+        - edge_generation_cjs
+
+    model_training_mh_cx:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: model_training
+        PIPELINE_DATASET: mh-cx
+        PIPELINE_VERSION: dev
+      dependencies: [standardised_nodes_mh_cx]
+
+    edge_generation_mh_cx:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: edge_generation
+        PIPELINE_DATASET: mh-cx
+        PIPELINE_VERSION: dev
+      dependencies: [model_training_mh_cx]
 
 iam:
   athena: write

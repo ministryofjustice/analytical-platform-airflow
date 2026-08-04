@@ -1,12 +1,11 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cjs-dashboard-data
-  tag: v18.0.0
+  tag: v19.0.0
   python_dag: true
 
 maintainers:
   - joe-dods
-  - rolakeo-mojo
 
 iam:
   athena: read
