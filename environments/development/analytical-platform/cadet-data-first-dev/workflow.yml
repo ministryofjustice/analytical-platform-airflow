@@ -5,7 +5,7 @@ dag:
     output_name: end_to_end_test
   env_vars:
     DEPLOY_ENV: dev
-    DBT_PROFILE_WORKGROUP: dbt-data-first
+    DBT_PROFILE_WORKGROUP: dbt-dev
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: cadet-data-first-dev
     DBT_SELECT_CRITERIA: "tag:data_first_{{ params.output_name }}"
@@ -15,7 +15,6 @@ dag:
 
 maintainers:
   - tmpks
-  - vijay-justice
 
 tags:
   business_unit: HQ
@@ -24,7 +23,6 @@ tags:
 notifications:
   emails:
     - tapan.perkins@justice.gov.uk
-    - vijay.solanki@justice.gov.uk
 
 secrets:
   - github-key
