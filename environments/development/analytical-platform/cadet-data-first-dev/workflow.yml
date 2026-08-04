@@ -1,11 +1,11 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.3.8
+  tag: 1.4.1
   params:
     output_name: end_to_end_test
   env_vars:
     DEPLOY_ENV: dev
-    DBT_PROFILE_WORKGROUP: dbt-dev
+    DBT_PROFILE_WORKGROUP: dbt-data-first
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: cadet-data-first-dev
     DBT_SELECT_CRITERIA: "tag:data_first_{{ params.output_name }}"
@@ -15,6 +15,7 @@ dag:
 
 maintainers:
   - tmpks
+  - vijay-justice
 
 tags:
   business_unit: HQ
@@ -23,6 +24,7 @@ tags:
 notifications:
   emails:
     - tapan.perkins@justice.gov.uk
+    - vijay.solanki@justice.gov.uk
 
 secrets:
   - github-key
