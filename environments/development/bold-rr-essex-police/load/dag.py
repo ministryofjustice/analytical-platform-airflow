@@ -31,7 +31,7 @@ CHECK_FILE_IMAGE = (
 
 # load task
 # create a pipeline image
-LOAD_IMAGE_VERSION = "v4.0.30"
+LOAD_IMAGE_VERSION = "v4.0.32"
 LOAD_IMAGE = (
     f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/moj-analytical-services/"
     f"airflow-create-a-pipeline:{LOAD_IMAGE_VERSION}"
