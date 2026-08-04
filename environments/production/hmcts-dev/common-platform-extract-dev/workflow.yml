@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v3.0.12
+  tag: v3.0.14
   retries: 1
   retry_delay: 150
   max_active_runs: 3
@@ -20,6 +20,7 @@ dag:
     HIST_BUCKET: "s3://mojap-raw-hist-dev"
     LAND_FOLDER: "hmcts/common-platform/dev_sdp_v5/"
     HIST_FOLDER: "hmcts/common-platform/dev_sdp_v5/"
+    END_DATE: "2026-08-01"
 
   tasks:
     cp_extract_allocated_listings:
