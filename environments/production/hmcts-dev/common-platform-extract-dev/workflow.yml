@@ -20,7 +20,7 @@ dag:
     HIST_BUCKET: "s3://mojap-raw-hist-dev"
     LAND_FOLDER: "hmcts/common-platform/dev_sdp_v5/"
     HIST_FOLDER: "hmcts/common-platform/dev_sdp_v5/"
-    END_DATE: "2026-07-31"
+    END_DATE: "2026-08-01"
 
   tasks:
     cp_extract_allocated_listings:
