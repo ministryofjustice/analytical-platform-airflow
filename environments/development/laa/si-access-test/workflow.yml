@@ -1,0 +1,37 @@
+dag:
+  repository: moj-analytical-services/laa-search-index-airflow-search
+  tag: v0.1.0-alpha-6e2029c
+
+  schedule: "*/15 9-17 * * 1-5"
+  max_active_runs: 1
+  catchup: false
+
+  env_vars:
+    LOG_LEVEL: "INFO"
+    AWS_REGION: "eu-west-2"
+    AWS_DEFAULT_REGION: "eu-west-2"
+    S3_RAW_PATH: "s3://alpha-laa-de-testing-sandbox/source_csv"
+    S3_VALIDATED_PATH: "s3://alpha-laa-de-testing-sandbox/validated_csv"
+    S3_RESULTS_PATH: "s3://alpha-laa-de-testing-sandbox/results_csv"
+    S3_AUDIT_PATH: "s3://alpha-laa-de-testing-sandbox/audit_csv"
+
+  tasks:
+    search:
+      env_vars:
+        MODE: "search_s3"
+
+    process:
+      env_vars:
+        MODE: "process"
+      dependencies: [search]
+
+iam:
+  s3_read_write:
+    - alpha-laa-de-testing-sandbox/*
+
+maintainers:
+  - dami-moj
+
+tags:
+  business_unit: LAA
+  owner: LAA-Data-Engineering@justice.gov.uk
