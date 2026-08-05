@@ -10,10 +10,10 @@ dag:
     LOG_LEVEL: "INFO"
     AWS_REGION: "eu-west-2"
     AWS_DEFAULT_REGION: "eu-west-2"
-    S3_RAW_PATH: "s3://alpha-laa-de-testing-sandbox/source_csv"
-    S3_VALIDATED_PATH: "s3://alpha-laa-de-testing-sandbox/validated_csv"
-    S3_RESULTS_PATH: "s3://alpha-laa-de-testing-sandbox/results_csv"
-    S3_AUDIT_PATH: "s3://alpha-laa-de-testing-sandbox/audit_csv"
+    S3_RAW_PATH: "s3://alpha-laa-searchable-index/s3-test/source_csv"
+    S3_VALIDATED_PATH: "s3://alpha-laa-searchable-index/s3-test/validated_csv"
+    S3_RESULTS_PATH: "s3://alpha-laa-searchable-index/s3-test/results_csv"
+    S3_AUDIT_PATH: "s3://alpha-laa-searchable-index/s3-test/audit_csv"
 
   tasks:
     search:
@@ -27,7 +27,7 @@ dag:
 
 iam:
   s3_read_write:
-    - alpha-laa-de-testing-sandbox/*
+    - alpha-laa-searchable-index/s3-test/*
 
 maintainers:
   - dami-moj
