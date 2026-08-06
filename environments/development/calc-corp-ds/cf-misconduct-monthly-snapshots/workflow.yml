@@ -2,6 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
   tag: v10.11
+  schedule: "0 6 28 * *"
   catchup: false
   tasks:
     snapshot-dim-linked-cases:
