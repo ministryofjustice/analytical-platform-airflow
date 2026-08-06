@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v10.11
+  tag: v10.12
   schedule: "0 6 28 * *"
   catchup: false
   tasks:
