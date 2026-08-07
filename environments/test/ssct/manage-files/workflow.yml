@@ -1,5 +1,7 @@
 dag:
   repository: moj-analytical-services/ssct-manage-files
+  schedule_interval: "15,45 8-18 * * 1-5"
+  paused_on_creation: True
   tag: 0.1.0
 
 iam:
