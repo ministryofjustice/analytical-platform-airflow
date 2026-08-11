@@ -8,7 +8,7 @@ maintainers:
 
 tags:
   business_unit: LAA
-  owner: LAA-Data-Engineering@justice.gov.u
+  owner: LAA-Data-Engineering@justice.gov.uk
 
 secrets: 
   - bucket
