@@ -1,15 +1,16 @@
+---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.0
+  tag: 0.0.0
 
 maintainers:
   - nina-knowles-justice
   - dami-moj
 
-tags:
-  business_unit: LAA
-  owner: LAA-Data-Engineering@justice.gov.uk
-
 secrets: 
   - bucket
   - key
+
+tags:
+  business_unit: LAA
+  owner: LAA-Data-Engineering@justice.gov.uk
