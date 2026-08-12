@@ -7,7 +7,7 @@ maintainers:
   - nina-knowles-justice
   - dami-moj
 
-secrets: 
+secrets:
   - bucket
   - key
 
