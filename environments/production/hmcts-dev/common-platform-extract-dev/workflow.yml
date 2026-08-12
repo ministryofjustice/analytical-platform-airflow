@@ -13,7 +13,7 @@ dag:
     DATABASE_NAME: "common_platform_dev_sdp_v5_dev"
     LAND_BUCKET: "s3://mojap-land-dev"
     LAND_PATH: "hmcts/common-platform/dev_sdp_v5/"
-    END_DATE: "2026-08-07"
+    END_DATE: "2026-08-08"
 
   tasks:
     cp_extract_allocated_listings:
