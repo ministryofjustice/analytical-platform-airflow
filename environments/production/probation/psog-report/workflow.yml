@@ -1,6 +1,7 @@
 dag:
   repository: moj-analytical-services/pb_wrangling
   tag: v1.1.15
+  compute_profile: general-on-demand-1vcpu-4gb
   env_vars:
     DBT_ENV: "prod"
     ENV: "prod"
@@ -27,6 +28,7 @@ notifications:
   emails:
     - lalitha.nagarur3@justice.gov.uk
     - joseph.phillips@justice.gov.uk
+  slack_channel: de-probation-airflow-prod
 
 tags:
   business_unit: HMPPS
