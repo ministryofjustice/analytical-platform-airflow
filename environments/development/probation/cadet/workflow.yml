@@ -18,7 +18,7 @@ dag:
     table_deploy:
       compute_profile: general-on-demand-8vcpu-32gb
       outlets:
-      - "s3://probation-datalake-dev-20251218164046759500000001/data/dev"
+        - "s3://probation-datalake-dev-20251218164046759500000001/data/dev"
 secrets:
   - github-key
 
