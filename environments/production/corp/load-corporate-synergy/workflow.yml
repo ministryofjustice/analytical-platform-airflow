@@ -109,11 +109,9 @@ notifications:
 
   emails:
     - mohammed.ahad1@justice.gov.uk
-    - Supratik.Chowdhury@justice.gov.uk
 
 maintainers:
   - morezwan
-  - moj-supratikc
 
 tags:
   business_unit: Central Digital
