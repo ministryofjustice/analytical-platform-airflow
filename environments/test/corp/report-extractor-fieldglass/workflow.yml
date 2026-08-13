@@ -28,13 +28,13 @@ notifications:
   slack_channel: dmet-corp-notifications
 
   emails:
-    - william.orr@justice.gov.uk
-    - Supratik.Chowdhury@justice.gov.uk
+    - Laurence.Droy@justice.gov.uk
+    - Benjamin.Finucane@justice.gov.uk
 
 maintainers:
-  - williamorrie
-  - moj-supratikc
+  - ltd-pa
+  - benjamin-finucane
 
 tags:
   business_unit: Central Digital
-  owner: william.orr@justice.gov.uk
+  owner: Laurence.Droy@justice.gov.uk

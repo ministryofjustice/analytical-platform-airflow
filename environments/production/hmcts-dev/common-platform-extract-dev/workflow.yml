@@ -1,627 +1,439 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v3.0.12
+  tag: v4.0.1-alpha.4c8bb27
   retries: 1
   retry_delay: 150
   max_active_runs: 3
   hmcts_sdp_networking: True
   env_vars:
-    TASK: "extract"
     LOG_LEVEL: "DEBUG"
-    ENDPOINT: "MI_PERSISTENT_PROD"
-    SDP_TABLE_PREFIX: "v3-cp"
-    PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
-    COPY_MODE: "new"
-    CHECK_MODE: "hist"
+    SDP_TABLE_PREFIX: "v3-cp-"
     FILENAME_COL_NAME: "mojap_unpacked_filename"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
     DATABASE_NAME: "common_platform_dev_sdp_v5_dev"
     LAND_BUCKET: "s3://mojap-land-dev"
-    HIST_BUCKET: "s3://mojap-raw-hist-dev"
-    LAND_FOLDER: "hmcts/common-platform/dev_sdp_v5/"
-    HIST_FOLDER: "hmcts/common-platform/dev_sdp_v5/"
+    LAND_PATH: "hmcts/common-platform/dev_sdp_v5/"
+    END_DATE: "2026-08-08"
 
   tasks:
     cp_extract_allocated_listings:
       env_vars:
-        TABLE_NAME: "allocated-listings"
-        S3_TABLE_NAME: "allocated_listings"
-        FILENAME_TABLE_NAME: "allocated_listings"
+        AZURE_TABLE: "allocated-listings"
     cp_extract_app_order_defendant_offence:
       env_vars:
-        TABLE_NAME: "app-order-defendant-offence"
-        S3_TABLE_NAME: "app_order_defendant_offence"
-        FILENAME_TABLE_NAME: "app_order_defendant_offence"
+        AZURE_TABLE: "app-order-defendant-offence"
     cp_extract_application:
       env_vars:
-        TABLE_NAME: "application"
-        S3_TABLE_NAME: "application"
-        FILENAME_TABLE_NAME: "application"
+        AZURE_TABLE: "application"
     cp_extract_application_case_offence:
       env_vars:
-        TABLE_NAME: "application-case-offence"
-        S3_TABLE_NAME: "application_case_offence"
-        FILENAME_TABLE_NAME: "application_case_offence"
+        AZURE_TABLE: "application-case-offence"
     cp_extract_application_court_order:
       env_vars:
-        TABLE_NAME: "application-court-order"
-        S3_TABLE_NAME: "application_court_order"
-        FILENAME_TABLE_NAME: "application_court_order"
+        AZURE_TABLE: "application-court-order"
     cp_extract_application_document:
       env_vars:
-        TABLE_NAME: "application-document"
-        S3_TABLE_NAME: "application_document"
-        FILENAME_TABLE_NAME: "application_document"
+        AZURE_TABLE: "application-document"
     cp_extract_application_person:
       env_vars:
-        TABLE_NAME: "application-person"
-        S3_TABLE_NAME: "application_person"
-        FILENAME_TABLE_NAME: "application_person"
+        AZURE_TABLE: "application-person"
     cp_extract_associated_person:
       env_vars:
-        TABLE_NAME: "associated-person"
-        S3_TABLE_NAME: "associated_person"
-        FILENAME_TABLE_NAME: "associated_person"
+        AZURE_TABLE: "associated-person"
     cp_extract_case_detail:
       env_vars:
-        TABLE_NAME: "case-detail"
-        S3_TABLE_NAME: "case_detail"
-        FILENAME_TABLE_NAME: "case_detail"
+        AZURE_TABLE: "case-detail"
     cp_extract_case_link_split_merge:
       env_vars:
-        TABLE_NAME: "case-link-split-merge"
-        S3_TABLE_NAME: "case_link_split_merge"
-        FILENAME_TABLE_NAME: "case_link_split_merge"
+        AZURE_TABLE: "case-link-split-merge"
     cp_extract_case_marker:
       env_vars:
-        TABLE_NAME: "case-marker"
-        S3_TABLE_NAME: "case_marker"
-        FILENAME_TABLE_NAME: "case_marker"
+        AZURE_TABLE: "case-marker"
     cp_extract_case_person:
       env_vars:
-        TABLE_NAME: "case-person"
-        S3_TABLE_NAME: "case_person"
-        FILENAME_TABLE_NAME: "case_person"
+        AZURE_TABLE: "case-person"
     cp_extract_court_schedule:
       env_vars:
-        TABLE_NAME: "court-schedule"
-        S3_TABLE_NAME: "court_schedule"
-        FILENAME_TABLE_NAME: "court_schedule"
+        AZURE_TABLE: "court-schedule"
     cp_extract_court_schedule_judiciary:
       env_vars:
-        TABLE_NAME: "court-schedule-judiciary"
-        S3_TABLE_NAME: "court_schedule_judiciary"
-        FILENAME_TABLE_NAME: "court_schedule_judiciary"
+        AZURE_TABLE: "court-schedule-judiciary"
     cp_extract_court_session:
       env_vars:
-        TABLE_NAME: "court-session"
-        S3_TABLE_NAME: "court_session"
-        FILENAME_TABLE_NAME: "court_session"
+        AZURE_TABLE: "court-session"
     cp_extract_court_session_detail:
       env_vars:
-        TABLE_NAME: "court-session-detail"
-        S3_TABLE_NAME: "court_session_detail"
-        FILENAME_TABLE_NAME: "court_session_detail"
+        AZURE_TABLE: "court-session-detail"
     cp_extract_court_session_judiciary:
       env_vars:
-        TABLE_NAME: "court-session-judiciary"
-        S3_TABLE_NAME: "court_session_judiciary"
-        FILENAME_TABLE_NAME: "court_session_judiciary"
+        AZURE_TABLE: "court-session-judiciary"
     cp_extract_cpp_user:
       env_vars:
-        TABLE_NAME: "cpp-user"
-        S3_TABLE_NAME: "cpp_user"
-        FILENAME_TABLE_NAME: "cpp_user"
+        AZURE_TABLE: "cpp-user"
     cp_extract_custody_status:
       env_vars:
-        TABLE_NAME: "custody-status"
-        S3_TABLE_NAME: "custody_status"
-        FILENAME_TABLE_NAME: "custody_status"
+        AZURE_TABLE: "custody-status"
     cp_extract_defence_assoc_access_grant:
       env_vars:
-        TABLE_NAME: "defence-assoc-access-grant"
-        S3_TABLE_NAME: "defence_assoc_access_grant"
-        FILENAME_TABLE_NAME: "defence_assoc_access_grant"
+        AZURE_TABLE: "defence-assoc-access-grant"
     cp_extract_defence_association:
       env_vars:
-        TABLE_NAME: "defence-association"
-        S3_TABLE_NAME: "defence_association"
-        FILENAME_TABLE_NAME: "defence_association"
+        AZURE_TABLE: "defence-association"
     cp_extract_defence_idpc_access:
       env_vars:
-        TABLE_NAME: "defence-idpc-access"
-        S3_TABLE_NAME: "defence_idpc_access"
-        FILENAME_TABLE_NAME: "defence_idpc_access"
+        AZURE_TABLE: "defence-idpc-access"
     cp_extract_defendant_defence_association:
       env_vars:
-        TABLE_NAME: "defendant-defence-association"
-        S3_TABLE_NAME: "defendant_defence_association"
-        FILENAME_TABLE_NAME: "defendant_defence_association"
+        AZURE_TABLE: "defendant-defence-association"
     cp_extract_defendant_alias:
       env_vars:
-        TABLE_NAME: "defendant-alias"
-        S3_TABLE_NAME: "defendant_alias"
-        FILENAME_TABLE_NAME: "defendant_alias"
+        AZURE_TABLE: "defendant-alias"
     cp_extract_defendant_detail:
       env_vars:
-        TABLE_NAME: "defendant-detail"
-        S3_TABLE_NAME: "defendant_detail"
-        FILENAME_TABLE_NAME: "defendant_detail"
+        AZURE_TABLE: "defendant-detail"
     cp_extract_defendant_employer:
       env_vars:
-        TABLE_NAME: "defendant-employer"
-        S3_TABLE_NAME: "defendant_employer"
-        FILENAME_TABLE_NAME: "defendant_employer"
+        AZURE_TABLE: "defendant-employer"
     cp_extract_defendants_matched:
       env_vars:
-        TABLE_NAME: "defendants-matched"
-        S3_TABLE_NAME: "defendants_matched"
-        FILENAME_TABLE_NAME: "defendants_matched"
+        AZURE_TABLE: "defendants-matched"
     cp_extract_financial_imposition:
       env_vars:
-        TABLE_NAME: "financial-imposition"
-        S3_TABLE_NAME: "financial_imposition"
-        FILENAME_TABLE_NAME: "financial_imposition"
+        AZURE_TABLE: "financial-imposition"
     cp_extract_financial_means:
       env_vars:
-        TABLE_NAME: "financial-means"
-        S3_TABLE_NAME: "financial_means"
-        FILENAME_TABLE_NAME: "financial_means"
+        AZURE_TABLE: "financial-means"
     cp_extract_financial_means_outgoing:
       env_vars:
-        TABLE_NAME: "financial-means-outgoing"
-        S3_TABLE_NAME: "financial_means_outgoing"
-        FILENAME_TABLE_NAME: "financial_means_outgoing"
+        AZURE_TABLE: "financial-means-outgoing"
     cp_extract_hearing:
       env_vars:
-        TABLE_NAME: "hearing"
-        S3_TABLE_NAME: "hearing"
-        FILENAME_TABLE_NAME: "hearing"
+        AZURE_TABLE: "hearing"
     cp_extract_hearing_attendance:
       env_vars:
-        TABLE_NAME: "hearing-attendance"
-        S3_TABLE_NAME: "hearing_attendance"
-        FILENAME_TABLE_NAME: "hearing_attendance"
+        AZURE_TABLE: "hearing-attendance"
     cp_extract_hearing_case_application:
       env_vars:
-        TABLE_NAME: "hearing-case-application"
-        S3_TABLE_NAME: "hearing_case_application"
-        FILENAME_TABLE_NAME: "hearing_case_application"
+        AZURE_TABLE: "hearing-case-application"
     cp_extract_hearing_date:
       env_vars:
-        TABLE_NAME: "hearing-date"
-        S3_TABLE_NAME: "hearing_date"
-        FILENAME_TABLE_NAME: "hearing_date"
+        AZURE_TABLE: "hearing-date"
     cp_extract_hearing_defence_counsel:
       env_vars:
-        TABLE_NAME: "hearing-defence-counsel"
-        S3_TABLE_NAME: "hearing_defence_counsel"
-        FILENAME_TABLE_NAME: "hearing_defence_counsel"
+        AZURE_TABLE: "hearing-defence-counsel"
     cp_extract_hearing_defendant_offence:
       env_vars:
-        TABLE_NAME: "hearing-defendant-offence"
-        S3_TABLE_NAME: "hearing_defendant_offence"
-        FILENAME_TABLE_NAME: "hearing_defendant_offence"
+        AZURE_TABLE: "hearing-defendant-offence"
     cp_extract_hearing_detail:
       env_vars:
-        TABLE_NAME: "hearing-detail"
-        S3_TABLE_NAME: "hearing_detail"
-        FILENAME_TABLE_NAME: "hearing_detail"
+        AZURE_TABLE: "hearing-detail"
     cp_extract_hearing_effectiveness:
       env_vars:
-        TABLE_NAME: "hearing-effectiveness"
-        S3_TABLE_NAME: "hearing_effectiveness"
-        FILENAME_TABLE_NAME: "hearing_effectiveness"
+        AZURE_TABLE: "hearing-effectiveness"
     cp_extract_hearing_event_log:
       env_vars:
-        TABLE_NAME: "hearing-event-log"
-        S3_TABLE_NAME: "hearing_event_log"
-        FILENAME_TABLE_NAME: "hearing_event_log"
+        AZURE_TABLE: "hearing-event-log"
     cp_extract_hearing_interpreter_intermediary:
       env_vars:
-        TABLE_NAME: "hearing-interpreter-intermediary"
-        S3_TABLE_NAME: "hearing_interpreter_intermediary"
-        FILENAME_TABLE_NAME: "hearing_interpreter_intermediary"
+        AZURE_TABLE: "hearing-interpreter-intermediary"
     cp_extract_hearing_judiciary:
       env_vars:
-        TABLE_NAME: "hearing-judiciary"
-        S3_TABLE_NAME: "hearing_judiciary"
-        FILENAME_TABLE_NAME: "hearing_judiciary"
+        AZURE_TABLE: "hearing-judiciary"
     cp_extract_hearing_prosecution_counsel:
       env_vars:
-        TABLE_NAME: "hearing-prosecution-counsel"
-        S3_TABLE_NAME: "hearing_prosecution_counsel"
-        FILENAME_TABLE_NAME: "hearing_prosecution_counsel"
+        AZURE_TABLE: "hearing-prosecution-counsel"
     cp_extract_hearing_result:
       env_vars:
-        TABLE_NAME: "hearing-result"
-        S3_TABLE_NAME: "hearing_result"
-        FILENAME_TABLE_NAME: "hearing_result"
+        AZURE_TABLE: "hearing-result"
     cp_extract_hearing_result_amendment:
       env_vars:
-        TABLE_NAME: "hearing-result-amendment"
-        S3_TABLE_NAME: "hearing_result_amendment"
-        FILENAME_TABLE_NAME: "hearing_result_amendment"
+        AZURE_TABLE: "hearing-result-amendment"
     cp_extract_hearing_result_prompt:
       env_vars:
-        TABLE_NAME: "hearing-result-prompt"
-        S3_TABLE_NAME: "hearing_result_prompt"
-        FILENAME_TABLE_NAME: "hearing_result_prompt"
+        AZURE_TABLE: "hearing-result-prompt"
     cp_extract_legal_entity:
       env_vars:
-        TABLE_NAME: "legal-entity"
-        S3_TABLE_NAME: "legal_entity"
-        FILENAME_TABLE_NAME: "legal_entity"
+        AZURE_TABLE: "legal-entity"
     cp_extract_non_std_ind_prosecutor:
       env_vars:
-        TABLE_NAME: "non-std-ind-prosecutor"
-        S3_TABLE_NAME: "non_std_ind_prosecutor"
-        FILENAME_TABLE_NAME: "non_std_ind_prosecutor"
+        AZURE_TABLE: "non-std-ind-prosecutor"
     cp_extract_offence_decision:
       env_vars:
-        TABLE_NAME: "offence-decision"
-        S3_TABLE_NAME: "offence_decision"
-        FILENAME_TABLE_NAME: "offence_decision"
+        AZURE_TABLE: "offence-decision"
     cp_extract_offence_detail:
       env_vars:
-        TABLE_NAME: "offence-detail"
-        S3_TABLE_NAME: "offence_detail"
-        FILENAME_TABLE_NAME: "offence_detail"
+        AZURE_TABLE: "offence-detail"
     cp_extract_offence_plea:
       env_vars:
-        TABLE_NAME: "offence-plea"
-        S3_TABLE_NAME: "offence_plea"
-        FILENAME_TABLE_NAME: "offence_plea"
+        AZURE_TABLE: "offence-plea"
     cp_extract_offence_result:
       env_vars:
-        TABLE_NAME: "offence-result"
-        S3_TABLE_NAME: "offence_result"
-        FILENAME_TABLE_NAME: "offence_result"
+        AZURE_TABLE: "offence-result"
     cp_extract_organisation_person:
       env_vars:
-        TABLE_NAME: "organisation-person"
-        S3_TABLE_NAME: "organisation_person"
-        FILENAME_TABLE_NAME: "organisation_person"
+        AZURE_TABLE: "organisation-person"
     cp_extract_person:
       env_vars:
-        TABLE_NAME: "person"
-        S3_TABLE_NAME: "person"
-        FILENAME_TABLE_NAME: "person"
+        AZURE_TABLE: "person"
     cp_extract_prosecution_authority_change:
       env_vars:
-        TABLE_NAME: "prosecution-authority-change"
-        S3_TABLE_NAME: "prosecution_authority_change"
-        FILENAME_TABLE_NAME: "prosecution_authority_change"
+        AZURE_TABLE: "prosecution-authority-change"
     cp_extract_referencedata_action_plan_reason_category:
       env_vars:
-        TABLE_NAME: "referencedata-action-plan-reason-category"
-        S3_TABLE_NAME: "rd_action_plan_reason_category"
-        FILENAME_TABLE_NAME: "rd_action_plan_reason_category"
+        AZURE_TABLE: "referencedata-action-plan-reason-category"
+        S3_TABLE: "rd_action_plan_reason_category"
     cp_extract_referencedata_amendment_reason:
       env_vars:
-        TABLE_NAME: "referencedata-amendment-reason"
-        S3_TABLE_NAME: "rd_amendment_reason"
-        FILENAME_TABLE_NAME: "rd_amendment_reason"
+        AZURE_TABLE: "referencedata-amendment-reason"
+        S3_TABLE: "rd_amendment_reason"
     cp_extract_referencedata_application_type_category:
       env_vars:
-        TABLE_NAME: "referencedata-application-type-category"
-        S3_TABLE_NAME: "rd_application_type_category"
-        FILENAME_TABLE_NAME: "rd_application_type_category"
+        AZURE_TABLE: "referencedata-application-type-category"
+        S3_TABLE: "rd_application_type_category"
     cp_extract_referencedata_bail_status:
       env_vars:
-        TABLE_NAME: "referencedata-bail-status"
-        S3_TABLE_NAME: "rd_bail_status"
-        FILENAME_TABLE_NAME: "rd_bail_status"
+        AZURE_TABLE: "referencedata-bail-status"
+        S3_TABLE: "rd_bail_status"
     cp_extract_referencedata_case_marker:
       env_vars:
-        TABLE_NAME: "referencedata-case-marker"
-        S3_TABLE_NAME: "rd_case_marker"
-        FILENAME_TABLE_NAME: "rd_case_marker"
+        AZURE_TABLE: "referencedata-case-marker"
+        S3_TABLE: "rd_case_marker"
     cp_extract_referencedata_cjs_it_system_code:
       env_vars:
-        TABLE_NAME: "referencedata-cjs-it-system-code"
-        S3_TABLE_NAME: "rd_cjs_it_system_code"
-        FILENAME_TABLE_NAME: "rd_cjs_it_system_code"
+        AZURE_TABLE: "referencedata-cjs-it-system-code"
+        S3_TABLE: "rd_cjs_it_system_code"
     cp_extract_referencedata_cjs_verdict_code:
       env_vars:
-        TABLE_NAME: "referencedata-cjs-verdict-code"
-        S3_TABLE_NAME: "rd_cjs_verdict_code"
-        FILENAME_TABLE_NAME: "rd_cjs_verdict_code"
+        AZURE_TABLE: "referencedata-cjs-verdict-code"
+        S3_TABLE: "rd_cjs_verdict_code"
     cp_extract_referencedata_country_nationality:
       env_vars:
-        TABLE_NAME: "referencedata-country-nationality"
-        S3_TABLE_NAME: "rd_country_nationality"
-        FILENAME_TABLE_NAME: "rd_country_nationality"
+        AZURE_TABLE: "referencedata-country-nationality"
+        S3_TABLE: "rd_country_nationality"
     cp_extract_referencedata_court_room_session_allocation:
       env_vars:
-        TABLE_NAME: "referencedata-court-room-session-allocation"
-        S3_TABLE_NAME: "rd_court_room_session_allocation"
-        FILENAME_TABLE_NAME: "rd_court_room_session_allocation"
+        AZURE_TABLE: "referencedata-court-room-session-allocation"
+        S3_TABLE: "rd_court_room_session_allocation"
     cp_extract_referencedata_courtroom:
       env_vars:
-        TABLE_NAME: "referencedata-courtroom"
-        S3_TABLE_NAME: "rd_courtroom"
-        FILENAME_TABLE_NAME: "rd_courtroom"
+        AZURE_TABLE: "referencedata-courtroom"
+        S3_TABLE: "rd_courtroom"
     cp_extract_referencedata_cracked_ineffective_vacated_trial_type:
       env_vars:
-        TABLE_NAME: "referencedata-cracked-ineffective-vacated-trial-type"
-        S3_TABLE_NAME: "rd_cracked_ineffective_vacated_trial_type"
-        FILENAME_TABLE_NAME: "rd_cracked_ineffective_vacated_trial_type"
+        AZURE_TABLE: "referencedata-cracked-ineffective-vacated-trial-type"
+        S3_TABLE: "rd_cracked_ineffective_vacated_trial_type"
     cp_extract_referencedata_custory_suites:
       env_vars:
-        TABLE_NAME: "referencedata-custody-suites"
-        S3_TABLE_NAME: "rd_custody_suites"
-        FILENAME_TABLE_NAME: "rd_custody_suites"
+        AZURE_TABLE: "referencedata-custody-suites"
+        S3_TABLE: "rd_custody_suites"
     cp_extract_referencedata_enforcement_action:
       env_vars:
-        TABLE_NAME: "referencedata-enforcement-action"
-        S3_TABLE_NAME: "rd_enforcement_action"
-        FILENAME_TABLE_NAME: "rd_enforcement_action"
+        AZURE_TABLE: "referencedata-enforcement-action"
+        S3_TABLE: "rd_enforcement_action"
     cp_extract_referencedata_enforcement_area:
       env_vars:
-        TABLE_NAME: "referencedata-enforcement-area"
-        S3_TABLE_NAME: "rd_enforcement_area"
-        FILENAME_TABLE_NAME: "rd_enforcement_area"
+        AZURE_TABLE: "referencedata-enforcement-area"
+        S3_TABLE: "rd_enforcement_area"
     cp_extract_referencedata_ethnicity:
       env_vars:
-        TABLE_NAME: "referencedata-ethnicity"
-        S3_TABLE_NAME: "rd_ethnicity"
-        FILENAME_TABLE_NAME: "rd_ethnicity"
+        AZURE_TABLE: "referencedata-ethnicity"
+        S3_TABLE: "rd_ethnicity"
     cp_extract_referencedata_fixed_list:
       env_vars:
-        TABLE_NAME: "referencedata-fixed-list"
-        S3_TABLE_NAME: "rd_fixed_list"
-        FILENAME_TABLE_NAME: "rd_fixed_list"
+        AZURE_TABLE: "referencedata-fixed-list"
+        S3_TABLE: "rd_fixed_list"
     cp_extract_referencedata_gender:
       env_vars:
-        TABLE_NAME: "referencedata-gender"
-        S3_TABLE_NAME: "rd_gender"
-        FILENAME_TABLE_NAME: "rd_gender"
+        AZURE_TABLE: "referencedata-gender"
+        S3_TABLE: "rd_gender"
     cp_extract_referencedata_hearing_event_definition:
       env_vars:
-        TABLE_NAME: "referencedata-hearing-event-definition"
-        S3_TABLE_NAME: "rd_hearing_event_definition"
-        FILENAME_TABLE_NAME: "rd_hearing_event_definition"
+        AZURE_TABLE: "referencedata-hearing-event-definition"
+        S3_TABLE: "rd_hearing_event_definition"
     cp_extract_referencedata_hearing_type:
       env_vars:
-        TABLE_NAME: "referencedata-hearing-type"
-        S3_TABLE_NAME: "rd_hearing_type"
-        FILENAME_TABLE_NAME: "rd_hearing_type"
+        AZURE_TABLE: "referencedata-hearing-type"
+        S3_TABLE: "rd_hearing_type"
     cp_extract_referencedata_initiation_type:
       env_vars:
-        TABLE_NAME: "referencedata-initiation-type"
-        S3_TABLE_NAME: "rd_initiation_type"
-        FILENAME_TABLE_NAME: "rd_initiation_type"
+        AZURE_TABLE: "referencedata-initiation-type"
+        S3_TABLE: "rd_initiation_type"
     cp_extract_referencedata_judiciary:
       env_vars:
-        TABLE_NAME: "referencedata-judiciary"
-        S3_TABLE_NAME: "rd_judiciary"
-        FILENAME_TABLE_NAME: "rd_judiciary"
+        AZURE_TABLE: "referencedata-judiciary"
+        S3_TABLE: "rd_judiciary"
     cp_extract_referencedata_judiciary_lja_mapping:
       env_vars:
-        TABLE_NAME: "referencedata-judiciary-lja-mapping"
-        S3_TABLE_NAME: "rd_judiciary_lja_mapping"
-        FILENAME_TABLE_NAME: "rd_judiciary_lja_mapping"
+        AZURE_TABLE: "referencedata-judiciary-lja-mapping"
+        S3_TABLE: "rd_judiciary_lja_mapping"
     cp_extract_referencedata_language:
       env_vars:
-        TABLE_NAME: "referencedata-language"
-        S3_TABLE_NAME: "rd_language"
-        FILENAME_TABLE_NAME: "rd_language"
+        AZURE_TABLE: "referencedata-language"
+        S3_TABLE: "rd_language"
     cp_extract_referencedata_legal_status:
       env_vars:
-        TABLE_NAME: "referencedata-legal-status"
-        S3_TABLE_NAME: "rd_legal_status"
-        FILENAME_TABLE_NAME: "rd_legal_status"
+        AZURE_TABLE: "referencedata-legal-status"
+        S3_TABLE: "rd_legal_status"
     cp_extract_referencedata_licence_code:
       env_vars:
-        TABLE_NAME: "referencedata-licence-code"
-        S3_TABLE_NAME: "rd_licence_code"
-        FILENAME_TABLE_NAME: "rd_licence_code"
+        AZURE_TABLE: "referencedata-licence-code"
+        S3_TABLE: "rd_licence_code"
     cp_extract_referencedata_local_justice_area:
       env_vars:
-        TABLE_NAME: "referencedata-local-justice-area"
-        S3_TABLE_NAME: "rd_local_justice_area"
-        FILENAME_TABLE_NAME: "rd_local_justice_area"
+        AZURE_TABLE: "referencedata-local-justice-area"
+        S3_TABLE: "rd_local_justice_area"
     cp_extract_referencedata_local_justice_area_court_prosecutor_mapping:
       env_vars:
-        TABLE_NAME: "referencedata-local-justice-area-court-prosecutor-mapping"
-        S3_TABLE_NAME: "rd_local_justice_area_court_prosecutor_mapping"
-        FILENAME_TABLE_NAME: "rd_local_justice_area_court_prosecutor_mapping"
+        AZURE_TABLE: "referencedata-local-justice-area-court-prosecutor-mapping"
+        S3_TABLE: "rd_local_justice_area_court_prosecutor_mapping"
     cp_extract_referencedata_local_justice_area_postcodes:
       env_vars:
-        TABLE_NAME: "referencedata-local-justice-area-postcodes"
-        S3_TABLE_NAME: "rd_local_justice_area_postcodes"
-        FILENAME_TABLE_NAME: "rd_local_justice_area_postcodes"
+        AZURE_TABLE: "referencedata-local-justice-area-postcodes"
+        S3_TABLE: "rd_local_justice_area_postcodes"
     cp_extract_referencedata_mode_of_trial_reason:
       env_vars:
-        TABLE_NAME: "referencedata-mode-of-trial-reason"
-        S3_TABLE_NAME: "rd_mode_of_trial_reason"
-        FILENAME_TABLE_NAME: "rd_mode_of_trial_reason"
+        AZURE_TABLE: "referencedata-mode-of-trial-reason"
+        S3_TABLE: "rd_mode_of_trial_reason"
     cp_extract_referencedata_non_standard_prosecutor:
       env_vars:
-        TABLE_NAME: "referencedata-non-standard-prosecutor"
-        S3_TABLE_NAME: "rd_non_standard_prosecutor"
-        FILENAME_TABLE_NAME: "rd_non_standard_prosecutor"
+        AZURE_TABLE: "referencedata-non-standard-prosecutor"
+        S3_TABLE: "rd_non_standard_prosecutor"
     cp_extract_referencedata_now_meta_data:
       env_vars:
-        TABLE_NAME: "referencedata-now-meta-data"
-        S3_TABLE_NAME: "rd_now_meta_data"
-        FILENAME_TABLE_NAME: "rd_now_meta_data"
+        AZURE_TABLE: "referencedata-now-meta-data"
+        S3_TABLE: "rd_now_meta_data"
     cp_extract_referencedata_observed_ethnicity:
       env_vars:
-        TABLE_NAME: "referencedata-observed-ethnicity"
-        S3_TABLE_NAME: "rd_observed_ethnicity"
-        FILENAME_TABLE_NAME: "rd_observed_ethnicity"
+        AZURE_TABLE: "referencedata-observed-ethnicity"
+        S3_TABLE: "rd_observed_ethnicity"
     cp_extract_referencedata_offence:
       env_vars:
-        TABLE_NAME: "referencedata-offence"
-        S3_TABLE_NAME: "rd_offence"
-        FILENAME_TABLE_NAME: "rd_offence"
+        AZURE_TABLE: "referencedata-offence"
+        S3_TABLE: "rd_offence"
     cp_extract_referencedata_offence_by_date:
       env_vars:
-        TABLE_NAME: "referencedata-offence-by-date"
-        S3_TABLE_NAME: "rd_offence_by_date"
-        FILENAME_TABLE_NAME: "rd_offence_by_date"
+        AZURE_TABLE: "referencedata-offence-by-date"
+        S3_TABLE: "rd_offence_by_date"
     cp_extract_referencedata_offence_category:
       env_vars:
-        TABLE_NAME: "referencedata-offence-category"
-        S3_TABLE_NAME: "rd_offence_category"
-        FILENAME_TABLE_NAME: "rd_offence_category"
+        AZURE_TABLE: "referencedata-offence-category"
+        S3_TABLE: "rd_offence_category"
     cp_extract_referencedata_offence_date_code:
       env_vars:
-        TABLE_NAME: "referencedata-offence-date-code"
-        S3_TABLE_NAME: "rd_offence_date_code"
-        FILENAME_TABLE_NAME: "rd_offence_date_code"
+        AZURE_TABLE: "referencedata-offence-date-code"
+        S3_TABLE: "rd_offence_date_code"
     cp_extract_referencedata_offence_withdraw_request_reason:
       env_vars:
-        TABLE_NAME: "referencedata-offence-withdraw-request-reason"
-        S3_TABLE_NAME: "rd_offence_withdraw_request_reason"
-        FILENAME_TABLE_NAME: "rd_offence_withdraw_request_reason"
+        AZURE_TABLE: "referencedata-offence-withdraw-request-reason"
+        S3_TABLE: "rd_offence_withdraw_request_reason"
     cp_extract_referencedata_offender_code:
       env_vars:
-        TABLE_NAME: "referencedata-offender-code"
-        S3_TABLE_NAME: "rd_offender_code"
-        FILENAME_TABLE_NAME: "rd_offender_code"
+        AZURE_TABLE: "referencedata-offender-code"
+        S3_TABLE: "rd_offender_code"
     cp_extract_referencedata_organisation:
       env_vars:
-        TABLE_NAME: "referencedata-organisation"
-        S3_TABLE_NAME: "rd_organisation"
-        FILENAME_TABLE_NAME: "rd_organisation"
+        AZURE_TABLE: "referencedata-organisation"
+        S3_TABLE: "rd_organisation"
     cp_extract_referencedata_organisation_unit:
       env_vars:
-        TABLE_NAME: "referencedata-organisation-unit"
-        S3_TABLE_NAME: "rd_organisation_unit"
-        FILENAME_TABLE_NAME: "rd_organisation_unit"
+        AZURE_TABLE: "referencedata-organisation-unit"
+        S3_TABLE: "rd_organisation_unit"
     cp_extract_referencedata_oucode_courtrooms:
       env_vars:
-        TABLE_NAME: "referencedata-oucode-courtrooms"
-        S3_TABLE_NAME: "rd_oucode_courtrooms"
-        FILENAME_TABLE_NAME: "rd_oucode_courtrooms"
+        AZURE_TABLE: "referencedata-oucode-courtrooms"
+        S3_TABLE: "rd_oucode_courtrooms"
     cp_extract_referencedata_plea_status:
       env_vars:
-        TABLE_NAME: "referencedata-plea-status"
-        S3_TABLE_NAME: "rd_plea_status"
-        FILENAME_TABLE_NAME: "rd_plea_status"
+        AZURE_TABLE: "referencedata-plea-status"
+        S3_TABLE: "rd_plea_status"
     cp_extract_referencedata_plea_type:
       env_vars:
-        TABLE_NAME: "referencedata-plea-type"
-        S3_TABLE_NAME: "rd_plea_type"
-        FILENAME_TABLE_NAME: "rd_plea_type"
+        AZURE_TABLE: "referencedata-plea-type"
+        S3_TABLE: "rd_plea_type"
     cp_extract_referencedata_police_force:
       env_vars:
-        TABLE_NAME: "referencedata-police-force"
-        S3_TABLE_NAME: "rd_police_force"
-        FILENAME_TABLE_NAME: "rd_police_force"
+        AZURE_TABLE: "referencedata-police-force"
+        S3_TABLE: "rd_police_force"
     cp_extract_referencedata_police_rank:
       env_vars:
-        TABLE_NAME: "referencedata-police-rank"
-        S3_TABLE_NAME: "rd_police_rank"
-        FILENAME_TABLE_NAME: "rd_police_rank"
+        AZURE_TABLE: "referencedata-police-rank"
+        S3_TABLE: "rd_police_rank"
     cp_extract_referencedata_prosecutor:
       env_vars:
-        TABLE_NAME: "referencedata-prosecutor"
-        S3_TABLE_NAME: "rd_prosecutor"
-        FILENAME_TABLE_NAME: "rd_prosecutor"
+        AZURE_TABLE: "referencedata-prosecutor"
+        S3_TABLE: "rd_prosecutor"
     cp_extract_referencedata_referral_reason:
       env_vars:
-        TABLE_NAME: "referencedata-referral-reason"
-        S3_TABLE_NAME: "rd_referral_reason"
-        FILENAME_TABLE_NAME: "rd_referral_reason"
+        AZURE_TABLE: "referencedata-referral-reason"
+        S3_TABLE: "rd_referral_reason"
     cp_extract_referencedata_result:
       env_vars:
-        TABLE_NAME: "referencedata-result"
-        S3_TABLE_NAME: "rd_result"
-        FILENAME_TABLE_NAME: "rd_result"
+        AZURE_TABLE: "referencedata-result"
+        S3_TABLE: "rd_result"
     cp_extract_referencedata_result_definition:
       env_vars:
-        TABLE_NAME: "referencedata-result-definition"
-        S3_TABLE_NAME: "rd_result_definition"
-        FILENAME_TABLE_NAME: "rd_result_definition"
+        AZURE_TABLE: "referencedata-result-definition"
+        S3_TABLE: "rd_result_definition"
     cp_extract_referencedata_rota_business_type:
       env_vars:
-        TABLE_NAME: "referencedata-rota-business-type"
-        S3_TABLE_NAME: "rd_rota_business_type"
-        FILENAME_TABLE_NAME: "rd_rota_business_type"
+        AZURE_TABLE: "referencedata-rota-business-type"
+        S3_TABLE: "rd_rota_business_type"
     cp_extract_referencedata_scottish_ni_court:
       env_vars:
-        TABLE_NAME: "referencedata-scottish-ni-court"
-        S3_TABLE_NAME: "rd_scottish_ni_court"
-        FILENAME_TABLE_NAME: "rd_scottish_ni_court"
+        AZURE_TABLE: "referencedata-scottish-ni-court"
+        S3_TABLE: "rd_scottish_ni_court"
     cp_extract_referencedata_sentencing_indication:
       env_vars:
-        TABLE_NAME: "referencedata-sentencing-indication"
-        S3_TABLE_NAME: "rd_sentencing_indication"
-        FILENAME_TABLE_NAME: "rd_sentencing_indication"
+        AZURE_TABLE: "referencedata-sentencing-indication"
+        S3_TABLE: "rd_sentencing_indication"
     cp_extract_referencedata_summons_code:
       env_vars:
-        TABLE_NAME: "referencedata-summons-code"
-        S3_TABLE_NAME: "rd_summons_code"
-        FILENAME_TABLE_NAME: "rd_summons_code"
+        AZURE_TABLE: "referencedata-summons-code"
+        S3_TABLE: "rd_summons_code"
     cp_extract_referencedata_vehicle_code:
       env_vars:
-        TABLE_NAME: "referencedata-vehicle-code"
-        S3_TABLE_NAME: "rd_vehicle_code"
-        FILENAME_TABLE_NAME: "rd_vehicle_code"
+        AZURE_TABLE: "referencedata-vehicle-code"
+        S3_TABLE: "rd_vehicle_code"
     cp_extract_referencedata_verdict_type:
       env_vars:
-        TABLE_NAME: "referencedata-verdict-type"
-        S3_TABLE_NAME: "rd_verdict_type"
-        FILENAME_TABLE_NAME: "rd_verdict_type"
+        AZURE_TABLE: "referencedata-verdict-type"
+        S3_TABLE: "rd_verdict_type"
     cp_extract_referencedata_victim_surcharge:
       env_vars:
-        TABLE_NAME: "referencedata-victim-surcharge"
-        S3_TABLE_NAME: "rd_victim_surcharge"
-        FILENAME_TABLE_NAME: "rd_victim_surcharge"
+        AZURE_TABLE: "referencedata-victim-surcharge"
+        S3_TABLE: "rd_victim_surcharge"
     cp_extract_referencedata_youth_court:
       env_vars:
-        TABLE_NAME: "referencedata-youth-court"
-        S3_TABLE_NAME: "rd_youth_court"
-        FILENAME_TABLE_NAME: "rd_youth_court"
+        AZURE_TABLE: "referencedata-youth-court"
+        S3_TABLE: "rd_youth_court"
     cp_extract_referencedata_youth_offending_team:
       env_vars:
-        TABLE_NAME: "referencedata-youth-offending-team"
-        S3_TABLE_NAME: "rd_youth_offending_team"
-        FILENAME_TABLE_NAME: "rd_youth_offending_team"
+        AZURE_TABLE: "referencedata-youth-offending-team"
+        S3_TABLE: "rd_youth_offending_team"
     cp_extract_scan_document:
       env_vars:
-        TABLE_NAME: "scan-document"
-        S3_TABLE_NAME: "scan_document"
-        FILENAME_TABLE_NAME: "scan_document"
+        AZURE_TABLE: "scan-document"
     cp_extract_scan_envelope:
       env_vars:
-        TABLE_NAME: "scan-envelope"
-        S3_TABLE_NAME: "scan_envelope"
-        FILENAME_TABLE_NAME: "scan_envelope"
+        AZURE_TABLE: "scan-envelope"
     cp_extract_sjp_decision:
       env_vars:
-        TABLE_NAME: "sjp-decision"
-        S3_TABLE_NAME: "sjp_decision"
-        FILENAME_TABLE_NAME: "sjp_decision"
+        AZURE_TABLE: "sjp-decision"
     cp_extract_sjp_session:
       env_vars:
-        TABLE_NAME: "sjp-session"
-        S3_TABLE_NAME: "sjp_session"
-        FILENAME_TABLE_NAME: "sjp_session"
+        AZURE_TABLE: "sjp-session"
     cp_extract_spi_case_error:
       env_vars:
-        TABLE_NAME: "spi-case-error"
-        S3_TABLE_NAME: "spi_case_error"
-        FILENAME_TABLE_NAME: "spi_case_error"
+        AZURE_TABLE: "spi-case-error"
     cp_extract_spi_case_error_detail:
       env_vars:
-        TABLE_NAME: "spi-case-error-detail"
-        S3_TABLE_NAME: "spi_case_error_detail"
-        FILENAME_TABLE_NAME: "spi_case_error_detail"
+        AZURE_TABLE: "spi-case-error-detail"
     cp_extract_spi_defendant_error:
       env_vars:
-        TABLE_NAME: "spi-defendant-error"
-        S3_TABLE_NAME: "spi_defendant_error"
-        FILENAME_TABLE_NAME: "spi_defendant_error"
+        AZURE_TABLE: "spi-defendant-error"
     cp_extract_spi_defendant_error_detail:
       env_vars:
-        TABLE_NAME: "spi-defendant-error-detail"
-        S3_TABLE_NAME: "spi_defendant_error_detail"
-        FILENAME_TABLE_NAME: "spi_defendant_error_detail"
+        AZURE_TABLE: "spi-defendant-error-detail"
 
 iam:
   athena: write

@@ -28,13 +28,12 @@ notifications:
 
   emails:
     - Laurence.Droy@justice.gov.uk
-    - William.Orr@justice.gov.uk
-    - Supratik.Chowdhury@justice.gov.uk
+    - Benjamin.Finucane@justice.gov.uk
 
 maintainers:
-  - moj-supratikc
-  - williamorrie
+  - benjamin-finucane
+  - ltd-pa
 
 tags:
   business_unit: Central Digital
-  owner: William.Orr@justice.gov.uk
+  owner: Laurence.Droy@justice.gov.uk

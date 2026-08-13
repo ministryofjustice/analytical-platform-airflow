@@ -1,0 +1,27 @@
+dag:
+  repository: moj-analytical-services/airflow-laa-search-s3-ops
+  tag: v0.1.1
+
+  max_active_runs: 1
+  retries: 0
+
+  env_vars:
+    S3_BUCKET: "laa-splink-search-s3-test"
+    KMS_KEY_ARN: "arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2"
+    AWS_REGION: "eu-west-2"
+    S3_PREFIX: "permission-test"
+    BUCKET_KEY_ENABLED: "true"
+
+iam:
+  kms:
+    - "arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2"
+
+  s3_write_only:
+    - "laa-splink-search-s3-test/permission-test/*"
+
+maintainers:
+  - dami-moj
+
+tags:
+  business_unit: LAA
+  owner: LAA-Data-Engineering@justice.gov.uk

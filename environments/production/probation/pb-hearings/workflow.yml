@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/airflow-cadet-post-hook-copy
-  tag: v1.0.1-dev03
+  tag: v1.1.0
   catchup: false
   env_vars:
     SOURCE_PATH: "post-hook/prod/domain_name=public_protection/database_name=public_protection_int/table_name=int_audit_log_hearing/extraction_timestamp=2026-07-09T11:21:41.957/20260709_112200_00133_mkrdy_ab2a798f-0ed9-449f-a14a-250057ca953a.gz"
