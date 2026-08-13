@@ -1,0 +1,455 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v4.0.1-alpha.4c8bb27
+  retries: 1
+  retry_delay: 150
+  max_active_runs: 3
+  hmcts_sdp_networking: True
+  env_vars:
+    LOG_LEVEL: "DEBUG"
+    SDP_TABLE_PREFIX: "v3-cp-"
+    FILENAME_COL_NAME: "mojap_unpacked_filename"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    DATABASE_NAME: "common_platform_dev_sdp_v5_dev"
+    LAND_BUCKET: "s3://mojap-land-dev"
+    LAND_PATH: "hmcts/common-platform/dev_sdp_v5/"
+    END_DATE: "2026-08-08"
+
+  tasks:
+    cp_extract_allocated_listings:
+      env_vars:
+        AZURE_TABLE: "allocated-listings"
+    cp_extract_app_order_defendant_offence:
+      env_vars:
+        AZURE_TABLE: "app-order-defendant-offence"
+    cp_extract_application:
+      env_vars:
+        AZURE_TABLE: "application"
+    cp_extract_application_case_offence:
+      env_vars:
+        AZURE_TABLE: "application-case-offence"
+    cp_extract_application_court_order:
+      env_vars:
+        AZURE_TABLE: "application-court-order"
+    cp_extract_application_document:
+      env_vars:
+        AZURE_TABLE: "application-document"
+    cp_extract_application_person:
+      env_vars:
+        AZURE_TABLE: "application-person"
+    cp_extract_associated_person:
+      env_vars:
+        AZURE_TABLE: "associated-person"
+    cp_extract_case_detail:
+      env_vars:
+        AZURE_TABLE: "case-detail"
+    cp_extract_case_link_split_merge:
+      env_vars:
+        AZURE_TABLE: "case-link-split-merge"
+    cp_extract_case_marker:
+      env_vars:
+        AZURE_TABLE: "case-marker"
+    cp_extract_case_person:
+      env_vars:
+        AZURE_TABLE: "case-person"
+    cp_extract_court_schedule:
+      env_vars:
+        AZURE_TABLE: "court-schedule"
+    cp_extract_court_schedule_judiciary:
+      env_vars:
+        AZURE_TABLE: "court-schedule-judiciary"
+    cp_extract_court_session:
+      env_vars:
+        AZURE_TABLE: "court-session"
+    cp_extract_court_session_detail:
+      env_vars:
+        AZURE_TABLE: "court-session-detail"
+    cp_extract_court_session_judiciary:
+      env_vars:
+        AZURE_TABLE: "court-session-judiciary"
+    cp_extract_cpp_user:
+      env_vars:
+        AZURE_TABLE: "cpp-user"
+    cp_extract_custody_status:
+      env_vars:
+        AZURE_TABLE: "custody-status"
+    cp_extract_defence_assoc_access_grant:
+      env_vars:
+        AZURE_TABLE: "defence-assoc-access-grant"
+    cp_extract_defence_association:
+      env_vars:
+        AZURE_TABLE: "defence-association"
+    cp_extract_defence_idpc_access:
+      env_vars:
+        AZURE_TABLE: "defence-idpc-access"
+    cp_extract_defendant_defence_association:
+      env_vars:
+        AZURE_TABLE: "defendant-defence-association"
+    cp_extract_defendant_alias:
+      env_vars:
+        AZURE_TABLE: "defendant-alias"
+    cp_extract_defendant_detail:
+      env_vars:
+        AZURE_TABLE: "defendant-detail"
+    cp_extract_defendant_employer:
+      env_vars:
+        AZURE_TABLE: "defendant-employer"
+    cp_extract_defendants_matched:
+      env_vars:
+        AZURE_TABLE: "defendants-matched"
+    cp_extract_financial_imposition:
+      env_vars:
+        AZURE_TABLE: "financial-imposition"
+    cp_extract_financial_means:
+      env_vars:
+        AZURE_TABLE: "financial-means"
+    cp_extract_financial_means_outgoing:
+      env_vars:
+        AZURE_TABLE: "financial-means-outgoing"
+    cp_extract_hearing:
+      env_vars:
+        AZURE_TABLE: "hearing"
+    cp_extract_hearing_attendance:
+      env_vars:
+        AZURE_TABLE: "hearing-attendance"
+    cp_extract_hearing_case_application:
+      env_vars:
+        AZURE_TABLE: "hearing-case-application"
+    cp_extract_hearing_date:
+      env_vars:
+        AZURE_TABLE: "hearing-date"
+    cp_extract_hearing_defence_counsel:
+      env_vars:
+        AZURE_TABLE: "hearing-defence-counsel"
+    cp_extract_hearing_defendant_offence:
+      env_vars:
+        AZURE_TABLE: "hearing-defendant-offence"
+    cp_extract_hearing_detail:
+      env_vars:
+        AZURE_TABLE: "hearing-detail"
+    cp_extract_hearing_effectiveness:
+      env_vars:
+        AZURE_TABLE: "hearing-effectiveness"
+    cp_extract_hearing_event_log:
+      env_vars:
+        AZURE_TABLE: "hearing-event-log"
+    cp_extract_hearing_interpreter_intermediary:
+      env_vars:
+        AZURE_TABLE: "hearing-interpreter-intermediary"
+    cp_extract_hearing_judiciary:
+      env_vars:
+        AZURE_TABLE: "hearing-judiciary"
+    cp_extract_hearing_prosecution_counsel:
+      env_vars:
+        AZURE_TABLE: "hearing-prosecution-counsel"
+    cp_extract_hearing_result:
+      env_vars:
+        AZURE_TABLE: "hearing-result"
+    cp_extract_hearing_result_amendment:
+      env_vars:
+        AZURE_TABLE: "hearing-result-amendment"
+    cp_extract_hearing_result_prompt:
+      env_vars:
+        AZURE_TABLE: "hearing-result-prompt"
+    cp_extract_legal_entity:
+      env_vars:
+        AZURE_TABLE: "legal-entity"
+    cp_extract_non_std_ind_prosecutor:
+      env_vars:
+        AZURE_TABLE: "non-std-ind-prosecutor"
+    cp_extract_offence_decision:
+      env_vars:
+        AZURE_TABLE: "offence-decision"
+    cp_extract_offence_detail:
+      env_vars:
+        AZURE_TABLE: "offence-detail"
+    cp_extract_offence_plea:
+      env_vars:
+        AZURE_TABLE: "offence-plea"
+    cp_extract_offence_result:
+      env_vars:
+        AZURE_TABLE: "offence-result"
+    cp_extract_organisation_person:
+      env_vars:
+        AZURE_TABLE: "organisation-person"
+    cp_extract_person:
+      env_vars:
+        AZURE_TABLE: "person"
+    cp_extract_prosecution_authority_change:
+      env_vars:
+        AZURE_TABLE: "prosecution-authority-change"
+    cp_extract_referencedata_action_plan_reason_category:
+      env_vars:
+        AZURE_TABLE: "referencedata-action-plan-reason-category"
+        S3_TABLE: "rd_action_plan_reason_category"
+    cp_extract_referencedata_amendment_reason:
+      env_vars:
+        AZURE_TABLE: "referencedata-amendment-reason"
+        S3_TABLE: "rd_amendment_reason"
+    cp_extract_referencedata_application_type_category:
+      env_vars:
+        AZURE_TABLE: "referencedata-application-type-category"
+        S3_TABLE: "rd_application_type_category"
+    cp_extract_referencedata_bail_status:
+      env_vars:
+        AZURE_TABLE: "referencedata-bail-status"
+        S3_TABLE: "rd_bail_status"
+    cp_extract_referencedata_case_marker:
+      env_vars:
+        AZURE_TABLE: "referencedata-case-marker"
+        S3_TABLE: "rd_case_marker"
+    cp_extract_referencedata_cjs_it_system_code:
+      env_vars:
+        AZURE_TABLE: "referencedata-cjs-it-system-code"
+        S3_TABLE: "rd_cjs_it_system_code"
+    cp_extract_referencedata_cjs_verdict_code:
+      env_vars:
+        AZURE_TABLE: "referencedata-cjs-verdict-code"
+        S3_TABLE: "rd_cjs_verdict_code"
+    cp_extract_referencedata_country_nationality:
+      env_vars:
+        AZURE_TABLE: "referencedata-country-nationality"
+        S3_TABLE: "rd_country_nationality"
+    cp_extract_referencedata_court_room_session_allocation:
+      env_vars:
+        AZURE_TABLE: "referencedata-court-room-session-allocation"
+        S3_TABLE: "rd_court_room_session_allocation"
+    cp_extract_referencedata_courtroom:
+      env_vars:
+        AZURE_TABLE: "referencedata-courtroom"
+        S3_TABLE: "rd_courtroom"
+    cp_extract_referencedata_cracked_ineffective_vacated_trial_type:
+      env_vars:
+        AZURE_TABLE: "referencedata-cracked-ineffective-vacated-trial-type"
+        S3_TABLE: "rd_cracked_ineffective_vacated_trial_type"
+    cp_extract_referencedata_custory_suites:
+      env_vars:
+        AZURE_TABLE: "referencedata-custody-suites"
+        S3_TABLE: "rd_custody_suites"
+    cp_extract_referencedata_enforcement_action:
+      env_vars:
+        AZURE_TABLE: "referencedata-enforcement-action"
+        S3_TABLE: "rd_enforcement_action"
+    cp_extract_referencedata_enforcement_area:
+      env_vars:
+        AZURE_TABLE: "referencedata-enforcement-area"
+        S3_TABLE: "rd_enforcement_area"
+    cp_extract_referencedata_ethnicity:
+      env_vars:
+        AZURE_TABLE: "referencedata-ethnicity"
+        S3_TABLE: "rd_ethnicity"
+    cp_extract_referencedata_fixed_list:
+      env_vars:
+        AZURE_TABLE: "referencedata-fixed-list"
+        S3_TABLE: "rd_fixed_list"
+    cp_extract_referencedata_gender:
+      env_vars:
+        AZURE_TABLE: "referencedata-gender"
+        S3_TABLE: "rd_gender"
+    cp_extract_referencedata_hearing_event_definition:
+      env_vars:
+        AZURE_TABLE: "referencedata-hearing-event-definition"
+        S3_TABLE: "rd_hearing_event_definition"
+    cp_extract_referencedata_hearing_type:
+      env_vars:
+        AZURE_TABLE: "referencedata-hearing-type"
+        S3_TABLE: "rd_hearing_type"
+    cp_extract_referencedata_initiation_type:
+      env_vars:
+        AZURE_TABLE: "referencedata-initiation-type"
+        S3_TABLE: "rd_initiation_type"
+    cp_extract_referencedata_judiciary:
+      env_vars:
+        AZURE_TABLE: "referencedata-judiciary"
+        S3_TABLE: "rd_judiciary"
+    cp_extract_referencedata_judiciary_lja_mapping:
+      env_vars:
+        AZURE_TABLE: "referencedata-judiciary-lja-mapping"
+        S3_TABLE: "rd_judiciary_lja_mapping"
+    cp_extract_referencedata_language:
+      env_vars:
+        AZURE_TABLE: "referencedata-language"
+        S3_TABLE: "rd_language"
+    cp_extract_referencedata_legal_status:
+      env_vars:
+        AZURE_TABLE: "referencedata-legal-status"
+        S3_TABLE: "rd_legal_status"
+    cp_extract_referencedata_licence_code:
+      env_vars:
+        AZURE_TABLE: "referencedata-licence-code"
+        S3_TABLE: "rd_licence_code"
+    cp_extract_referencedata_local_justice_area:
+      env_vars:
+        AZURE_TABLE: "referencedata-local-justice-area"
+        S3_TABLE: "rd_local_justice_area"
+    cp_extract_referencedata_local_justice_area_court_prosecutor_mapping:
+      env_vars:
+        AZURE_TABLE: "referencedata-local-justice-area-court-prosecutor-mapping"
+        S3_TABLE: "rd_local_justice_area_court_prosecutor_mapping"
+    cp_extract_referencedata_local_justice_area_postcodes:
+      env_vars:
+        AZURE_TABLE: "referencedata-local-justice-area-postcodes"
+        S3_TABLE: "rd_local_justice_area_postcodes"
+    cp_extract_referencedata_mode_of_trial_reason:
+      env_vars:
+        AZURE_TABLE: "referencedata-mode-of-trial-reason"
+        S3_TABLE: "rd_mode_of_trial_reason"
+    cp_extract_referencedata_non_standard_prosecutor:
+      env_vars:
+        AZURE_TABLE: "referencedata-non-standard-prosecutor"
+        S3_TABLE: "rd_non_standard_prosecutor"
+    cp_extract_referencedata_now_meta_data:
+      env_vars:
+        AZURE_TABLE: "referencedata-now-meta-data"
+        S3_TABLE: "rd_now_meta_data"
+    cp_extract_referencedata_observed_ethnicity:
+      env_vars:
+        AZURE_TABLE: "referencedata-observed-ethnicity"
+        S3_TABLE: "rd_observed_ethnicity"
+    cp_extract_referencedata_offence:
+      env_vars:
+        AZURE_TABLE: "referencedata-offence"
+        S3_TABLE: "rd_offence"
+    cp_extract_referencedata_offence_by_date:
+      env_vars:
+        AZURE_TABLE: "referencedata-offence-by-date"
+        S3_TABLE: "rd_offence_by_date"
+    cp_extract_referencedata_offence_category:
+      env_vars:
+        AZURE_TABLE: "referencedata-offence-category"
+        S3_TABLE: "rd_offence_category"
+    cp_extract_referencedata_offence_date_code:
+      env_vars:
+        AZURE_TABLE: "referencedata-offence-date-code"
+        S3_TABLE: "rd_offence_date_code"
+    cp_extract_referencedata_offence_withdraw_request_reason:
+      env_vars:
+        AZURE_TABLE: "referencedata-offence-withdraw-request-reason"
+        S3_TABLE: "rd_offence_withdraw_request_reason"
+    cp_extract_referencedata_offender_code:
+      env_vars:
+        AZURE_TABLE: "referencedata-offender-code"
+        S3_TABLE: "rd_offender_code"
+    cp_extract_referencedata_organisation:
+      env_vars:
+        AZURE_TABLE: "referencedata-organisation"
+        S3_TABLE: "rd_organisation"
+    cp_extract_referencedata_organisation_unit:
+      env_vars:
+        AZURE_TABLE: "referencedata-organisation-unit"
+        S3_TABLE: "rd_organisation_unit"
+    cp_extract_referencedata_oucode_courtrooms:
+      env_vars:
+        AZURE_TABLE: "referencedata-oucode-courtrooms"
+        S3_TABLE: "rd_oucode_courtrooms"
+    cp_extract_referencedata_plea_status:
+      env_vars:
+        AZURE_TABLE: "referencedata-plea-status"
+        S3_TABLE: "rd_plea_status"
+    cp_extract_referencedata_plea_type:
+      env_vars:
+        AZURE_TABLE: "referencedata-plea-type"
+        S3_TABLE: "rd_plea_type"
+    cp_extract_referencedata_police_force:
+      env_vars:
+        AZURE_TABLE: "referencedata-police-force"
+        S3_TABLE: "rd_police_force"
+    cp_extract_referencedata_police_rank:
+      env_vars:
+        AZURE_TABLE: "referencedata-police-rank"
+        S3_TABLE: "rd_police_rank"
+    cp_extract_referencedata_prosecutor:
+      env_vars:
+        AZURE_TABLE: "referencedata-prosecutor"
+        S3_TABLE: "rd_prosecutor"
+    cp_extract_referencedata_referral_reason:
+      env_vars:
+        AZURE_TABLE: "referencedata-referral-reason"
+        S3_TABLE: "rd_referral_reason"
+    cp_extract_referencedata_result:
+      env_vars:
+        AZURE_TABLE: "referencedata-result"
+        S3_TABLE: "rd_result"
+    cp_extract_referencedata_result_definition:
+      env_vars:
+        AZURE_TABLE: "referencedata-result-definition"
+        S3_TABLE: "rd_result_definition"
+    cp_extract_referencedata_rota_business_type:
+      env_vars:
+        AZURE_TABLE: "referencedata-rota-business-type"
+        S3_TABLE: "rd_rota_business_type"
+    cp_extract_referencedata_scottish_ni_court:
+      env_vars:
+        AZURE_TABLE: "referencedata-scottish-ni-court"
+        S3_TABLE: "rd_scottish_ni_court"
+    cp_extract_referencedata_sentencing_indication:
+      env_vars:
+        AZURE_TABLE: "referencedata-sentencing-indication"
+        S3_TABLE: "rd_sentencing_indication"
+    cp_extract_referencedata_summons_code:
+      env_vars:
+        AZURE_TABLE: "referencedata-summons-code"
+        S3_TABLE: "rd_summons_code"
+    cp_extract_referencedata_vehicle_code:
+      env_vars:
+        AZURE_TABLE: "referencedata-vehicle-code"
+        S3_TABLE: "rd_vehicle_code"
+    cp_extract_referencedata_verdict_type:
+      env_vars:
+        AZURE_TABLE: "referencedata-verdict-type"
+        S3_TABLE: "rd_verdict_type"
+    cp_extract_referencedata_victim_surcharge:
+      env_vars:
+        AZURE_TABLE: "referencedata-victim-surcharge"
+        S3_TABLE: "rd_victim_surcharge"
+    cp_extract_referencedata_youth_court:
+      env_vars:
+        AZURE_TABLE: "referencedata-youth-court"
+        S3_TABLE: "rd_youth_court"
+    cp_extract_referencedata_youth_offending_team:
+      env_vars:
+        AZURE_TABLE: "referencedata-youth-offending-team"
+        S3_TABLE: "rd_youth_offending_team"
+    cp_extract_scan_document:
+      env_vars:
+        AZURE_TABLE: "scan-document"
+    cp_extract_scan_envelope:
+      env_vars:
+        AZURE_TABLE: "scan-envelope"
+    cp_extract_sjp_decision:
+      env_vars:
+        AZURE_TABLE: "sjp-decision"
+    cp_extract_sjp_session:
+      env_vars:
+        AZURE_TABLE: "sjp-session"
+    cp_extract_spi_case_error:
+      env_vars:
+        AZURE_TABLE: "spi-case-error"
+    cp_extract_spi_case_error_detail:
+      env_vars:
+        AZURE_TABLE: "spi-case-error-detail"
+    cp_extract_spi_defendant_error:
+      env_vars:
+        AZURE_TABLE: "spi-defendant-error"
+    cp_extract_spi_defendant_error_detail:
+      env_vars:
+        AZURE_TABLE: "spi-defendant-error-detail"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-dev/hmcts/common-platform/*
+  s3_read_only:
+    - alpha-mojap-common-platform/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - jovita-brundziene
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: jovita.brundziene@justice.gov.uk
