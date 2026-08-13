@@ -15,6 +15,9 @@ dag:
     MODE: build
     THREAD_COUNT: 10
 
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
 maintainers:
   - DanJ-MOJ
   - Andy-Cook
