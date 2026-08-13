@@ -86,9 +86,9 @@ dag:
         REPORT_NAME: "moj-hr-a-04-sick"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
-    moj-hr-wf-60-sickleave:
+    hr-wf-60-minified:
       env_vars:
-        REPORT_NAME: "moj-hr-wf-60"
+        REPORT_NAME: "hr-wf-60-minified"
         REPORT_SECRET_ID: "sbi-user-mojsupratikc"
       dependencies: [validate-credentials]
 
