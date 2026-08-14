@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev42
+  tag: v5.0.0.dev31
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -388,33 +388,6 @@ dag:
         PIPELINE_DATASET: mh-cx
         PIPELINE_VERSION: test
       dependencies: [model_training_mh_cx]
-
-    # -----------------------
-    # PRODUCT JOBS (~?m)
-    # ----------------------- 
-    product_person_cjs:
-      compute_profile: general-spot-1vcpu-4gb
-      env_vars:
-        PIPELINE_STAGE: products
-        PIPELINE_DATASET: cjs
-        PIPELINE_VERSION: test
-      dependencies: [edge_generation_cjs]
-
-    product_person_xjs:
-      compute_profile: general-spot-1vcpu-4gb
-      env_vars:
-        PIPELINE_STAGE: products
-        PIPELINE_DATASET: xjs
-        PIPELINE_VERSION: test
-      dependencies: [edge_generation_xjs]
-
-    product_person_mh_cx:
-      compute_profile: general-spot-1vcpu-4gb
-      env_vars:
-        PIPELINE_STAGE: products
-        PIPELINE_DATASET: mh-cx
-        PIPELINE_VERSION: test
-      dependencies: [edge_generation_mh_cx]
         
 
 iam:
