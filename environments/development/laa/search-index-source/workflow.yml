@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.5
+  tag: v0.1.6
 
 maintainers:
   - nina-knowles-justice
