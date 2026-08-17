@@ -308,7 +308,7 @@ dag:
     # PRODUCT JOB
     # -----------------------
     product_cjs:
-      compute_profile: general-spot-32vcpu-4gb
+      compute_profile: general-spot-1vcpu-4gb
       env_vars:
         PIPELINE_STAGE: products
         PIPELINE_DATASET: cjs
@@ -316,7 +316,7 @@ dag:
       dependencies: [edge_generation_cjs]
 
     product_xjs:
-      compute_profile: general-spot-32vcpu-4gb
+      compute_profile: general-spot-1vcpu-4gb
       env_vars:
         PIPELINE_STAGE: products
         PIPELINE_DATASET: xjs
@@ -324,7 +324,7 @@ dag:
       dependencies: [edge_generation_xjs]
 
     product_mh_cx:
-      compute_profile: general-spot-32vcpu-4gb
+      compute_profile: general-spot-1vcpu-4gb
       env_vars:
         PIPELINE_STAGE: products
         PIPELINE_DATASET: mh-cx
