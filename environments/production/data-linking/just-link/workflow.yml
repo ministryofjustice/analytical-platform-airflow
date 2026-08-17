@@ -176,7 +176,7 @@ dag:
         PIPELINE_VERSION: prod
 
     standardised_nodes_familyman:
-      compute_profile: general-spot-32vcpu-128gb
+      compute_profile: general-spot-32vcpu-256gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: familyman
@@ -184,7 +184,7 @@ dag:
       dependencies: [source_nodes_familyman]
 
     edge_generation_familyman:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-64vcpu-512gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: familyman
@@ -283,14 +283,14 @@ dag:
       env_vars:
         PIPELINE_STAGE: source_nodes
         PIPELINE_DATASET: xhibit-journey
-        PIPELINE_VERSION: dev
+        PIPELINE_VERSION: prod
 
     standardised_nodes_mh_cx:
       compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: mh-cx
-        PIPELINE_VERSION: dev
+        PIPELINE_VERSION: prod
       dependencies:
         - source_nodes_xhibit_journey
         - standardised_nodes_mags_hocas
@@ -301,8 +301,35 @@ dag:
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mh-cx
-        PIPELINE_VERSION: dev
+        PIPELINE_VERSION: prod
       dependencies: [standardised_nodes_mh_cx]
+
+    # -----------------------
+    # PRODUCT JOB
+    # -----------------------
+    product_cjs:
+      compute_profile: general-spot-32vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: products
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: prod
+      dependencies: [edge_generation_cjs]
+
+    product_xjs:
+      compute_profile: general-spot-32vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: products
+        PIPELINE_DATASET: xjs
+        PIPELINE_VERSION: prod
+      dependencies: [edge_generation_xjs]
+
+    product_mh_cx:
+      compute_profile: general-spot-32vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: products
+        PIPELINE_DATASET: mh-cx
+        PIPELINE_VERSION: prod
+      dependencies: [edge_generation_mh_cx]      
 
 iam:
   athena: write
