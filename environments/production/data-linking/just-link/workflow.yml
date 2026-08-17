@@ -329,7 +329,7 @@ dag:
         PIPELINE_STAGE: products
         PIPELINE_DATASET: mh-cx
         PIPELINE_VERSION: prod
-      dependencies: [edge_generation_mh_cx]      
+      dependencies: [edge_generation_mh_cx]
 
 iam:
   athena: write
