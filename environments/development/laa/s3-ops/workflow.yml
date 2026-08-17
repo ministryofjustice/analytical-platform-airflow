@@ -1,7 +1,8 @@
+---
 dag:
-  repository: ministryofjustice/airflow-laa-search-s3-ops
+  repository: moj-analytical-services/airflow-laa-search-s3-ops
   tag: v0.2.0
-  
+
   retries: 1
   max_active_runs: 1
   compute_profile: general-spot-1vcpu-4gb
@@ -9,13 +10,13 @@ dag:
   env_vars:
     AWS_REGION: "eu-west-2"
     LOG_LEVEL: "INFO"
+    KMS_KEY_ARN: "arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2"
 
   tasks:
     put:
       env_vars:
         MODE: "put"
         S3_BUCKET: "laa-splink-search-s3-test"
-        KMS_KEY_ARN: "arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2"
         S3_PREFIX: "airflow-test"
         BUCKET_KEY_ENABLED: "true"
 
@@ -24,7 +25,7 @@ dag:
       env_vars:
         MODE: "exists"
         S3_PATH: "s3://alpha-laa-searchable-index/s3-test/"
-        
+
     list:
       dependencies: [exists]
       env_vars:
