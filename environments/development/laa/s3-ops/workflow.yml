@@ -1,26 +1,64 @@
 dag:
-  repository: moj-analytical-services/airflow-laa-search-s3-ops
-  tag: v0.1.1
-
+  repository: ministryofjustice/airflow-laa-search-s3-ops
+  tag: v0.2.0
+  
+  retries: 1
   max_active_runs: 1
-  retries: 0
+  compute_profile: general-spot-1vcpu-4gb
 
   env_vars:
-    S3_BUCKET: "laa-splink-search-s3-test"
-    KMS_KEY_ARN: "arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2"
     AWS_REGION: "eu-west-2"
-    S3_PREFIX: "permission-test"
-    BUCKET_KEY_ENABLED: "true"
+    LOG_LEVEL: "INFO"
+
+  tasks:
+    put:
+      env_vars:
+        MODE: "put"
+        S3_BUCKET: "laa-splink-search-s3-test"
+        KMS_KEY_ARN: "arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2"
+        S3_PREFIX: "airflow-test"
+        BUCKET_KEY_ENABLED: "true"
+
+    exists:
+      dependencies: [put]
+      env_vars:
+        MODE: "exists"
+        S3_PATH: "s3://alpha-laa-searchable-index/s3-test/"
+        
+    list:
+      dependencies: [exists]
+      env_vars:
+        MODE: "list"
+        S3_PATH: "s3://laa-splink-search-s3-test"
+
+    copy-folder:
+      dependencies: [list]
+      env_vars:
+        MODE: "copy-folder"
+        S3_SOURCE: "s3://alpha-laa-searchable-index/s3-test/"
+        S3_DESTINATION: "s3://laa-splink-search-s3-test"
+        EXCLUDE_ZERO_BYTE_FILES: "true"
+
+    delete-folder:
+      dependencies: [copy-folder]
+      env_vars:
+        MODE: "delete-folder"
+        S3_PATH: "s3://alpha-laa-searchable-index/s3-test/source_csv"
 
 iam:
   kms:
-    - "arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2"
-
-  s3_write_only:
-    - "laa-splink-search-s3-test/permission-test/*"
+    - arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2
+  s3_read_write:
+    - alpha-laa-searchable-index/s3-test/*
+    - laa-splink-search-s3-test/*
 
 maintainers:
   - dami-moj
+
+notifications:
+  emails:
+    - Damilola.Oyebade@justice.gov.uk
+  slack_channel: laa-search-index-alerts
 
 tags:
   business_unit: LAA
