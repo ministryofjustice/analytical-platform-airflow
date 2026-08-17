@@ -388,7 +388,6 @@ dag:
         PIPELINE_DATASET: mh-cx
         PIPELINE_VERSION: test
       dependencies: [model_training_mh_cx]
-        
 
 iam:
   athena: write
