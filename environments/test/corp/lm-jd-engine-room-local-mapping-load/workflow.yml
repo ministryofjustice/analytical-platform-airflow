@@ -1,0 +1,41 @@
+---
+dag:
+  repository: ministryofjustice/jd-engine-room-local-mapping-pipeline
+  tag: v1.1.0
+  catchup: false
+  compute_profile: general-on-demand-2vcpu-8gb
+  max_active_runs: 1
+  retries: 1
+  env_vars:
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+  tasks:
+    hmcts_lm:
+      env_vars:
+        BUSINESS_UNIT: "hmcts"
+    hmpps_lm:
+      env_vars:
+        BUSINESS_UNIT: "hmpps"
+
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/prod/models/domain_name=finance/*
+  s3_read:
+    - mojap-land-dev/corporate/local_mappings/hmcts_processed/*
+    - mojap-land-dev/corporate/local_mappings/hmpps_processed/*
+
+secrets:
+  - azure-client-id
+  - azure-tenant-id
+  - azure-client-secret
+
+maintainers:
+  - Csheldon155
+  - PQJustice
+
+tags:
+  business_unit: Central Digital
+  owner: Chris.Sheldon@justice.gov.uk
