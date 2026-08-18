@@ -1,6 +1,6 @@
 ---
 dag:
-  repository: moj-analytical-services/laa-search-index-airflow-source
+  repository: moj-analytical-services/laa-search-index-airflow-search
   tag: v0.1.2
 
 iam:
