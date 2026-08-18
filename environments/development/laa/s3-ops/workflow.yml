@@ -1,7 +1,7 @@
 ---
 dag:
-  repository: moj-analytical-services/airflow-laa-search-s3-ops
-  tag: v0.2.0
+  repository: moj-analytical-services/laa-search-index-airflow-s3-ops
+  tag: v0.2.1
 
   retries: 1
   max_active_runs: 1
