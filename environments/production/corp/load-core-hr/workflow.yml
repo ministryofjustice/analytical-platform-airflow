@@ -1,13 +1,13 @@
 ---
 dag:
-  repository: moj-analytical-services/airflow-file
-  tag: v1.4.9
+  repository: moj-analytical-services/moj-data-loader
+  tag: v2.0.0-p1
   schedule: "30 * * * *"
   is_paused_upon_creation: true
   env_vars:
-    AFFILE_ALLOW_PROD: "true"
-    AFFILE_ENV: "prod"
-    AFFILE_SCHEMA_CONTRACT: "freeze"
+    MODAL_ALLOW_PROD: "true"
+    MODAL_ENV: "prod"
+    MODAL_SCHEMA_CONTRACT: "freeze"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
@@ -18,41 +18,44 @@ dag:
   tasks:
     load-sop__snapshots_wf_62_sip:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__snapshots_wf62_sip"
+        MODAL_PIPELINE_NAME: "sop__snapshots_wf62_sip"
     load-sop__all_time_hra01_non_sickness_absence:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__all_time_hra01_non_sickness_absence"
-        AFFILE_SCHEMA_CONTRACT: "evolve"
+        MODAL_PIPELINE_NAME: "sop__all_time_hra01_non_sickness_absence"
+        MODAL_SCHEMA_CONTRACT: "evolve"
     load-sop__all_time_wf59_leavers:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__all_time_wf59_leavers"
+        MODAL_PIPELINE_NAME: "sop__all_time_wf59_leavers"
     load-sop__all_time_wf60_sickness:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__all_time_wf60_sickness"
+        MODAL_PIPELINE_NAME: "sop__all_time_wf60_sickness"
+    load-sop__all_time_wf60_minified:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sop__all_time_wf60_minified"
     load-sop__all_time_wf64_starters:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__all_time_wf64_starters"
+        MODAL_PIPELINE_NAME: "sop__all_time_wf64_starters"
     load-sop__snapshots_hra04_non_sickness_absence:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__snapshots_hra04_non_sickness_absence"
+        MODAL_PIPELINE_NAME: "sop__snapshots_hra04_non_sickness_absence"
     load-sop__snapshots_hra04_sickness_absence:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__snapshots_hra04_sickness_absence"
+        MODAL_PIPELINE_NAME: "sop__snapshots_hra04_sickness_absence"
     load-sop__wf04_secondments:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__wf04_secondments"
+        MODAL_PIPELINE_NAME: "sop__wf04_secondments"
     load-sop__remuneration:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__remuneration"
+        MODAL_PIPELINE_NAME: "sop__remuneration"
     load-sop__all_time_wf02_tra_allowances:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__all_time_wf02_tra_allowances"
+        MODAL_PIPELINE_NAME: "sop__all_time_wf02_tra_allowances"
     load-sop__all_time_wf11_staff_list:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__all_time_wf11_staff_list"
+        MODAL_PIPELINE_NAME: "sop__all_time_wf11_staff_list"
     load-sop__all_time_tpw_wf02_temporary_promotion:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sop__all_time_tpw_wf02_temporary_promotion"
+        MODAL_PIPELINE_NAME: "sop__all_time_tpw_wf02_temporary_promotion"
 
 iam:
   athena: write
