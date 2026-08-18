@@ -4,6 +4,7 @@ dag:
   retries: 0
   retry_delay: 150
   start_date: "2026-06-01"
+  schedule: 0 20 * * 6
   max_active_runs: 5
   env_vars:
     LOG_LEVEL: "INFO"
@@ -406,6 +407,9 @@ iam:
     - mojap-land/hmcts/common-platform/*
     - mojap-raw-hist/hmcts/common-platform/*
     - alpha-mojap-common-platform/*
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
 
 maintainers:
   - jovita-brundziene
