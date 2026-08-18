@@ -1,7 +1,7 @@
 ---
 dag:
-  repository: moj-analytical-services/airflow-laa-search-s3-ops
-  tag: v0.2.0
+  repository: moj-analytical-services/laa-search-index-airflow-s3-ops
+  tag: v0.2.1
 
   retries: 1
   max_active_runs: 1
@@ -13,44 +13,30 @@ dag:
     KMS_KEY_ARN: "arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2"
 
   tasks:
-    put:
-      env_vars:
-        MODE: "put"
-        S3_BUCKET: "laa-splink-search-s3-test"
-        S3_PREFIX: "airflow-test"
-        BUCKET_KEY_ENABLED: "true"
-
     exists:
-      dependencies: [put]
       env_vars:
         MODE: "exists"
-        S3_PATH: "s3://alpha-laa-searchable-index/s3-test/"
+        S3_PATH: "s3://alpha-search-legal-aid-test/test_realistic.parquet"
 
-    list:
+    copy:
       dependencies: [exists]
       env_vars:
-        MODE: "list"
-        S3_PATH: "s3://laa-splink-search-s3-test"
+        MODE: "copy"
+        S3_SOURCE: "s3://alpha-search-legal-aid-test/test_realistic.parquet"
+        S3_DESTINATION: "s3://laa-splink-search-s3-test/test_realistic.parquet"
 
-    copy-folder:
-      dependencies: [list]
+    verify:
+      dependencies: [copy]
       env_vars:
-        MODE: "copy-folder"
-        S3_SOURCE: "s3://alpha-laa-searchable-index/s3-test/"
-        S3_DESTINATION: "s3://laa-splink-search-s3-test"
-        EXCLUDE_ZERO_BYTE_FILES: "true"
-
-    delete-folder:
-      dependencies: [copy-folder]
-      env_vars:
-        MODE: "delete-folder"
-        S3_PATH: "s3://alpha-laa-searchable-index/s3-test/source_csv"
+        MODE: "exists"
+        S3_PATH: "s3://laa-splink-search-s3-test/test_realistic.parquet"
 
 iam:
   kms:
     - arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2
+
   s3_read_write:
-    - alpha-laa-searchable-index/s3-test/*
+    - alpha-search-legal-aid-test/*
     - laa-splink-search-s3-test/*
 
 maintainers:
