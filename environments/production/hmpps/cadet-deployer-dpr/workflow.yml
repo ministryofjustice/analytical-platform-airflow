@@ -18,6 +18,7 @@ dag:
     DBT_PROFILE: dpr
     ENFORCE_LAKE_FORMATION: true
     RUN_SOURCE_FRESHNESS: true
+    RUN_UNIT_TESTS: true
     FULL_REFRESH: false
     CHECK_DUAL_MATERIALIZATION: true
 secrets:
