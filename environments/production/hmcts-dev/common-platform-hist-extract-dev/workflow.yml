@@ -18,165 +18,219 @@ dag:
     cp_extract_allocated_listings:
       env_vars:
         AZURE_TABLE: "allocated-listings"
+        S3_TABLE: "allocated_listing"
     cp_extract_app_order_defendant_offence:
       env_vars:
         AZURE_TABLE: "app-order-defendant-offence"
+        S3_TABLE: "app_order_defendant_offence"
     cp_extract_application:
       env_vars:
         AZURE_TABLE: "application"
+        S3_TABLE: "application"
     cp_extract_application_case_offence:
       env_vars:
-        AZURE_TABLE: "application-case-offence"
+        AZURE_TABLE: "applctn-case-offence"
+        S3_TABLE: "application_case_offence"
     cp_extract_application_court_order:
       env_vars:
-        AZURE_TABLE: "application-court-order"
+        AZURE_TABLE: "applctn-court-order"
+        S3_TABLE: "application_court_order"
     cp_extract_application_document:
       env_vars:
         AZURE_TABLE: "application-document"
+        S3_TABLE: "application_document"
     cp_extract_application_person:
       env_vars:
         AZURE_TABLE: "application-person"
+        S3_TABLE: "application_person"
     cp_extract_associated_person:
       env_vars:
         AZURE_TABLE: "associated-person"
+        S3_TABLE: "associated_person"
     cp_extract_case_detail:
       env_vars:
         AZURE_TABLE: "case-detail"
+        S3_TABLE: "case_detail"
     cp_extract_case_link_split_merge:
       env_vars:
         AZURE_TABLE: "case-link-split-merge"
+        S3_TABLE: "case_link_split_merge"
     cp_extract_case_marker:
       env_vars:
         AZURE_TABLE: "case-marker"
+        S3_TABLE: "case_marker"
     cp_extract_case_person:
       env_vars:
         AZURE_TABLE: "case-person"
+        S3_TABLE: "case_person"
     cp_extract_court_schedule:
       env_vars:
-        AZURE_TABLE: "court-schedule"
+        AZURE_TABLE: "court-sched"
+        S3_TABLE: "court_schedule"
     cp_extract_court_schedule_judiciary:
       env_vars:
-        AZURE_TABLE: "court-schedule-judiciary"
+        AZURE_TABLE: "court-sched-judcry"
+        S3_TABLE: "court_schedule_judiciary"
     cp_extract_court_session:
       env_vars:
         AZURE_TABLE: "court-session"
+        S3_TABLE: "court_session"
     cp_extract_court_session_detail:
       env_vars:
         AZURE_TABLE: "court-session-detail"
+        S3_TABLE: "court_session_detail"
     cp_extract_court_session_judiciary:
       env_vars:
         AZURE_TABLE: "court-session-judiciary"
+        S3_TABLE: "court_session_judiciary"
     cp_extract_cpp_user:
       env_vars:
         AZURE_TABLE: "cpp-user"
+        S3_TABLE: "cpp_user"
     cp_extract_custody_status:
       env_vars:
         AZURE_TABLE: "custody-status"
+        S3_TABLE: "custody_status"
     cp_extract_defence_assoc_access_grant:
       env_vars:
         AZURE_TABLE: "defence-assoc-access-grant"
+        S3_TABLE: "defence_assoc_access_grant"
     cp_extract_defence_association:
       env_vars:
         AZURE_TABLE: "defence-association"
+        S3_TABLE: "defence_association"
     cp_extract_defence_idpc_access:
       env_vars:
         AZURE_TABLE: "defence-idpc-access"
+        S3_TABLE: "defence_idpc_access"
     cp_extract_defendant_defence_association:
       env_vars:
         AZURE_TABLE: "defendant-defence-association"
+        S3_TABLE: "defendant_defence_association"
     cp_extract_defendant_alias:
       env_vars:
         AZURE_TABLE: "defendant-alias"
+        S3_TABLE: "defendant_alias"
     cp_extract_defendant_detail:
       env_vars:
         AZURE_TABLE: "defendant-detail"
+        S3_TABLE: "defendant_detail"
     cp_extract_defendant_employer:
       env_vars:
         AZURE_TABLE: "defendant-employer"
+        S3_TABLE: "defendant_employer"
     cp_extract_defendants_matched:
       env_vars:
         AZURE_TABLE: "defendants-matched"
+        S3_TABLE: "defendants_matched"
     cp_extract_financial_imposition:
       env_vars:
         AZURE_TABLE: "financial-imposition"
+        S3_TABLE: "financial_imposition"
     cp_extract_financial_means:
       env_vars:
         AZURE_TABLE: "financial-means"
+        S3_TABLE: "financial_means"
     cp_extract_financial_means_outgoing:
       env_vars:
-        AZURE_TABLE: "financial-means-outgoing"
+        AZURE_TABLE: "fincl-means-outgng"
+        S3_TABLE: "financial_means_outgoing"
     cp_extract_hearing:
       env_vars:
         AZURE_TABLE: "hearing"
+        S3_TABLE: "hearing"
     cp_extract_hearing_attendance:
       env_vars:
         AZURE_TABLE: "hearing-attendance"
+        S3_TABLE: "hearing_attendance"
     cp_extract_hearing_case_application:
       env_vars:
-        AZURE_TABLE: "hearing-case-application"
+        AZURE_TABLE: "hrng-case-application"
+        S3_TABLE: "hearing_case_application"
     cp_extract_hearing_date:
       env_vars:
         AZURE_TABLE: "hearing-date"
+        S3_TABLE: "hearing_date"
     cp_extract_hearing_defence_counsel:
       env_vars:
-        AZURE_TABLE: "hearing-defence-counsel"
+        AZURE_TABLE: "hrng-defence-consl"
+        S3_TABLE: "hearing_defence_counsel"
     cp_extract_hearing_defendant_offence:
       env_vars:
-        AZURE_TABLE: "hearing-defendant-offence"
+        AZURE_TABLE: "hrng-defndnt-offnc"
+        S3_TABLE: "hearing_defendant_offence"
     cp_extract_hearing_detail:
       env_vars:
         AZURE_TABLE: "hearing-detail"
+        S3_TABLE: "hearing_detail"
     cp_extract_hearing_effectiveness:
       env_vars:
         AZURE_TABLE: "hearing-effectiveness"
+        S3_TABLE: "hearing_effectiveness"
     cp_extract_hearing_event_log:
       env_vars:
         AZURE_TABLE: "hearing-event-log"
+        S3_TABLE: "hearing_event_log"
     cp_extract_hearing_interpreter_intermediary:
       env_vars:
-        AZURE_TABLE: "hearing-interpreter-intermediary"
+        AZURE_TABLE: "hrng-intrprtr-intrmdry"
+        S3_TABLE: "hearing_interpreter_intermediary"
     cp_extract_hearing_judiciary:
       env_vars:
         AZURE_TABLE: "hearing-judiciary"
+        S3_TABLE: "hearing_judiciary"
     cp_extract_hearing_prosecution_counsel:
       env_vars:
-        AZURE_TABLE: "hearing-prosecution-counsel"
+        AZURE_TABLE: "hrng-prosctn-consl"
+        S3_TABLE: "hearing_prosecution_counsel"
     cp_extract_hearing_result:
       env_vars:
         AZURE_TABLE: "hearing-result"
+        S3_TABLE: "hearing_result"
     cp_extract_hearing_result_amendment:
       env_vars:
-        AZURE_TABLE: "hearing-result-amendment"
+        AZURE_TABLE: "hrng-result-amendment"
+        S3_TABLE: "hearing_result_amendment"
     cp_extract_hearing_result_prompt:
       env_vars:
         AZURE_TABLE: "hearing-result-prompt"
+        S3_TABLE: "hearing_result_prompt"
     cp_extract_legal_entity:
       env_vars:
         AZURE_TABLE: "legal-entity"
+        S3_TABLE: "legal_entity"
     cp_extract_non_std_ind_prosecutor:
       env_vars:
         AZURE_TABLE: "non-std-ind-prosecutor"
+        S3_TABLE: "non_std_ind_prosecutor"
     cp_extract_offence_decision:
       env_vars:
         AZURE_TABLE: "offence-decision"
+        S3_TABLE: "offence_decision"
     cp_extract_offence_detail:
       env_vars:
         AZURE_TABLE: "offence-detail"
+        S3_TABLE: "offence_detail"
     cp_extract_offence_plea:
       env_vars:
         AZURE_TABLE: "offence-plea"
+        S3_TABLE: "offence_plea"
     cp_extract_offence_result:
       env_vars:
         AZURE_TABLE: "offence-result"
+        S3_TABLE: "offence_result"
     cp_extract_organisation_person:
       env_vars:
         AZURE_TABLE: "organisation-person"
+        S3_TABLE: "organisation_person"
     cp_extract_person:
       env_vars:
         AZURE_TABLE: "person"
+        S3_TABLE: "person"
     cp_extract_prosecution_authority_change:
       env_vars:
         AZURE_TABLE: "prosecution-authority-change"
+        S3_TABLE: "prosecution_authority_change"
     cp_extract_referencedata_action_plan_reason_category:
       env_vars:
         AZURE_TABLE: "referencedata-action-plan-reason-category"
@@ -412,27 +466,35 @@ dag:
     cp_extract_scan_document:
       env_vars:
         AZURE_TABLE: "scan-document"
+        S3_TABLE: "scan_document"
     cp_extract_scan_envelope:
       env_vars:
         AZURE_TABLE: "scan-envelope"
+        S3_TABLE: "scan_envelope"
     cp_extract_sjp_decision:
       env_vars:
         AZURE_TABLE: "sjp-decision"
+        S3_TABLE: "sjp_decision"
     cp_extract_sjp_session:
       env_vars:
         AZURE_TABLE: "sjp-session"
+        S3_TABLE: "sjp_session"
     cp_extract_spi_case_error:
       env_vars:
         AZURE_TABLE: "spi-case-error"
+        S3_TABLE: "spi_case_error"
     cp_extract_spi_case_error_detail:
       env_vars:
         AZURE_TABLE: "spi-case-error-detail"
+        S3_TABLE: "spi_case_error_detl"
     cp_extract_spi_defendant_error:
       env_vars:
         AZURE_TABLE: "spi-defendant-error"
+        S3_TABLE: "spi_defendant_error"
     cp_extract_spi_defendant_error_detail:
       env_vars:
         AZURE_TABLE: "spi-defendant-error-detail"
+        S3_TABLE: "spi_defendant_error_detail"
 
 iam:
   athena: write
