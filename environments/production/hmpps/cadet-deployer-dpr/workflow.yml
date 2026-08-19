@@ -19,6 +19,7 @@ dag:
     ENFORCE_LAKE_FORMATION: true
     RUN_SOURCE_FRESHNESS: true
     FULL_REFRESH: true
+    CHECK_DUAL_MATERIALIZATION: true
 secrets:
   - github-key
 
