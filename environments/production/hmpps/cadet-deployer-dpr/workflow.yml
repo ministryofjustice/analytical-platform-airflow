@@ -18,7 +18,7 @@ dag:
     DBT_PROFILE: dpr
     ENFORCE_LAKE_FORMATION: true
     RUN_SOURCE_FRESHNESS: true
-    FULL_REFRESH: true
+    FULL_REFRESH: false
     CHECK_DUAL_MATERIALIZATION: true
 secrets:
   - github-key
