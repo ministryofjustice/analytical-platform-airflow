@@ -2,7 +2,7 @@ dag:
   repository: moj-analytical-services/ssct-bais-files
   schedule: "15,45 8-18 * * 1-5"
   is_paused_upon_creation: True
-  tag: 0.0.1
+  tag: 0.0.2
 
 iam:
   s3_read_write:
