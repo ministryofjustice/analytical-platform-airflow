@@ -24,7 +24,7 @@ dag:
       dependencies: [table_deploy]
       outlets:
         - "s3://probation-datalake-dev-20251218164046759500000001/data/dev"
-    
+
 secrets:
   - github-key
 
