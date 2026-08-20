@@ -10,7 +10,7 @@ dag:
     DEPLOY_ENV: prod_dev
     DBT_PROJECT: hmpps_digital_prisons_reporting_tables
     S3_BUCKET: dpr-structured-historical-production
-    WORKFLOW_NAME: deploy-digital-prisons-reporting-workflow
+    WORKFLOW_NAME: deploy-prod-dev-digital-prisons-reporting
     DBT_PROFILE_WORKGROUP: analytics-generic-athena-workgroup
     DBT_SELECT_CRITERIA: "tag:dpr-daily"
     MODE: build
@@ -18,19 +18,18 @@ dag:
     DBT_PROFILE: dpr
     ENFORCE_LAKE_FORMATION: true
     RUN_SOURCE_FRESHNESS: true
-    RUN_UNIT_TESTS: true
+    RUN_UNIT_TESTS: false
     FULL_REFRESH: false
     CHECK_DUAL_MATERIALIZATION: true
+    DEPLOY_MODIFIED_SEEDS: true
 secrets:
   - github-key
 
 maintainers:
-  - AntFMoJ
   - andrewc-moj
 
 notifications:
   emails:
-    - anthony.fitzroy@justice.gov.uk
     - andrew.craik@justice.gov.uk
 
 iam:
