@@ -1,0 +1,17 @@
+dag:
+  repository: moj-analytical-services/ssct-bais-files
+  schedule: "15,45 8-18 * * 1-5"
+  is_paused_upon_creation: True
+  tag: 0.0.1
+
+iam:
+  s3_read_write:
+    - mojap-data-production-ssct-gov-29148-egress/*
+    - mojap-data-production-shared-services-client-team-gov-29148/*
+
+maintainers:
+  - MJCT-MOJ tim-green1
+
+tags:
+  business_unit: HQ
+  owner: michael.terry@justice.gov.uk
