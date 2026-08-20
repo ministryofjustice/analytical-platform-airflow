@@ -10,7 +10,7 @@ iam:
     - mojap-data-production-shared-services-client-team-gov-29148/*
 
 maintainers:
-  - MJCT-MOJ TIM-GREEN1
+  - MJCT-MOJ tim-green1
 
 tags:
   business_unit: HQ
