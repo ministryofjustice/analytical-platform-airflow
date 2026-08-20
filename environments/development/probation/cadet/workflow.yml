@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.4.1
+  tag: 1.4.2-test
   catchup: false
   env_vars:
     DEPLOY_ENV: dev
@@ -17,8 +17,14 @@ dag:
   tasks:
     table_deploy:
       compute_profile: general-on-demand-8vcpu-32gb
+    check_run_results:
+      compute_profile: general-on-demand-1vcpu-4gb
+      env_vars:
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
       outlets:
         - "s3://probation-datalake-dev-20251218164046759500000001/data/dev"
+    
 secrets:
   - github-key
 
