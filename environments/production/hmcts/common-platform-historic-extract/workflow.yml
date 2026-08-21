@@ -3,12 +3,11 @@ dag:
   tag: v4.2.0
   retries: 1
   retry_delay: 150
-  schedule: 0 20 * * 6
   max_active_runs: 3
   hmcts_sdp_networking: True
   env_vars:
     LOG_LEVEL: "DEBUG"
-    SDP_TABLE_PREFIX: "v3-cp-"
+    SDP_TABLE_PREFIX: "v3-cp-historical-"
     FILENAME_COL_NAME: "mojap_unpacked_filename"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
     DATABASE_NAME: "common_platform_v5"
@@ -442,9 +441,6 @@ iam:
     - mojap-land/hmcts/common-platform/*
   s3_read_only:
     - alpha-mojap-common-platform/*
-
-notifications:
-  slack_channel: dmet-hmcts-notifications
 
 secrets:
   - sdp-pass
