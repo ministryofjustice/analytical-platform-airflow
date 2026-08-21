@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-curious-2-pipeline
 
-  tag: v1.2.3
+  tag: v1.2.5
 
   schedule: "0 5 * * *"
   catchup: false
@@ -38,16 +38,16 @@ secrets:
   - curious-azure-credential
 
 maintainers:
-  - iainborsbey-mj
+  - sanjo-thapa-moj
   - AnthonyCody
   - andrewc-moj
 
 tags:
   business_unit: HQ
-  owner: iain.borsbey@justice.gov.uk
+  owner: andrew.craik@justice.gov.uk
 
 notifications:
   emails:
     - andrew.craik@justice.gov.uk
-    - iain.borsbey@justice.gov.uk
+    - Sanjo.Thapa@justice.gov.uk
     - anthony.cody@justice.gov.uk
