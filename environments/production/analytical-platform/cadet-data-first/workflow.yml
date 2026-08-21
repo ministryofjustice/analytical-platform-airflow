@@ -1,0 +1,37 @@
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.4.1
+  params:
+    output_name: "Enter a data product or output to build"
+  env_vars:
+    DEPLOY_ENV: prod
+    DBT_PROFILE_WORKGROUP: dbt-data-first
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: cadet-data-first
+    DBT_SELECT_CRITERIA: "tag:data_first_{{ params.output_name }}"
+    BRANCH: main
+    MODE: build
+    THREAD_COUNT: 10
+
+maintainers:
+  - tmpks
+  - vijay-justice
+
+tags:
+  business_unit: HQ
+  owner: tapan.perkins@justice.gov.uk
+
+notifications:
+  emails:
+    - tapan.perkins@justice.gov.uk
+    - vijay.solanki@justice.gov.uk
+
+secrets:
+  - github-key
+  - df-salt
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/prod/*

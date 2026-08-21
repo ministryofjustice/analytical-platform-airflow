@@ -1,0 +1,20 @@
+---
+dag:
+  repository: moj-analytical-services/laa-search-index-airflow-source
+  tag: v0.1.9
+
+iam:
+  s3_read_only:
+    - alpha-search-legal-aid-test/test/*
+
+maintainers:
+  - nina-knowles-justice
+  - dami-moj
+
+secrets:
+  - bucket
+  - key
+
+tags:
+  business_unit: LAA
+  owner: LAA-Data-Engineering@justice.gov.uk

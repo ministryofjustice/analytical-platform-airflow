@@ -18,4 +18,4 @@ jobs:
       actions: read
       contents: read
       security-events: write
-    uses: ministryofjustice/data-platform-github-actions/.github/workflows/zizmor.yml@f81658c938374c2f5a69b0ad8e2c89948e29aad0 # v4.0.10
+    uses: ministryofjustice/data-platform-github-actions/.github/workflows/zizmor.yml@5d8d0f00346daa26a7dd1283ecd098bbcd2b5396 # v4.1.1
