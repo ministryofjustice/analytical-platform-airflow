@@ -29,6 +29,7 @@ dag:
 iam:
   athena: write
   glue: true
+  iam_update_secrets: true
   s3_read_write:
     - mojap-land/hmpps/prison-curious2/*
     - mojap-raw-hist/hmpps/prison-curious2/*
