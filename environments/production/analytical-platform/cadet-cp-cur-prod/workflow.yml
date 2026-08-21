@@ -2,26 +2,21 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
   tag: 1.4.1
-  schedule: "30 3 * * *"
   compute_profile: general-on-demand-16vcpu-64gb
   catchup: false
   env_vars:
     DEPLOY_ENV: prod
     DBT_PROFILE_WORKGROUP: dbt-xhibit
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-ccd-divorce-curated
-    DBT_SELECT_CRITERIA: tag:ccd_divorce
+    WORKFLOW_NAME: deploy-common-platform-curated-prod
+    DBT_SELECT_CRITERIA: tag:common_platform_curated
     BRANCH: main
     MODE: build
     THREAD_COUNT: 10
 
-notifications:
-  slack_channel: dmet-hmcts-notifications
-
 maintainers:
-  - DanJ-MOJ
+  - jovita-brundziene
   - Andy-Cook
-  - AntonyJScott
 
 secrets:
   - github-key
@@ -32,6 +27,9 @@ iam:
   s3_read_write:
     - mojap-derived-tables/prod/*
 
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
 tags:
   business_unit: Central Digital
-  owner: cft_data_engineering@justice.gov.uk
+  owner: jovita.brundziene@justice.gov.uk
