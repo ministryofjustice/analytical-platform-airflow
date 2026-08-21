@@ -31,7 +31,9 @@ maintainers:
 notifications:
   emails:
     - andrew.craik@justice.gov.uk
-
+    - anthony.fitzroy@justice.gov.uk
+    - anthony.cody@justice.gov.uk
+    
 iam:
   external_role: arn:aws:iam::004723187462:role/dpr-data-api-cross-account-role
 
