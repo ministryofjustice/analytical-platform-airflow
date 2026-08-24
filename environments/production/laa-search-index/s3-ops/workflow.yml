@@ -33,6 +33,7 @@ dag:
 
 iam:
   kms:
+    - arn:aws:kms:eu-west-2:593291632749:key/fe4674f4-52dc-4b73-a7c5-259c282742ba
     - arn:aws:kms:eu-west-2:593291632749:key/e22c7aa4-4469-4c69-a7ee-0708201c51c9
 
   s3_read_write:
