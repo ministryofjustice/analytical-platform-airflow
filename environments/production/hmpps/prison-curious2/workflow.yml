@@ -14,6 +14,10 @@ dag:
     "S3_RAW_HIST_KEY_PREFIX": "hmpps/prison-curious2/raw-history"
     "S3_FAILED_BUCKET": "mojap-land-fail"
     "S3_FAILED_KEY_PREFIX": "hmpps/prison-curious2"
+    "S3_SECRETS_BUCKET": "mojap-land"
+    "S3_SECRETS_KEY": "hmpps/prison-curious/sas_token_info.txt"
+    "SECRET_LOCATION": "/airflow/production/hmpps/prison-curious2/curious-azure-credential"
+    "SECRET_MANAGER_REGION": "eu-west-2"
 
   tasks:
     extract_and_upload:
