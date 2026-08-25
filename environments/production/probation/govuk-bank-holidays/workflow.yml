@@ -1,0 +1,24 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-govuk-bank-holidays
+  tag: v1.0.0
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-govuk-bank-holidays/*
+
+maintainers:
+  - lalithanagarur
+  - joephillipsjustice
+
+notifications:
+  emails:
+    - lalitha.nagarur3@justice.gov.uk
+    - joseph.phillips@justice.gov.uk
+  slack_channel: de-probation-airflow-prod
+
+tags:
+  business_unit: HMPPS
+  owner: lalitha.nagarur3@justice.gov.uk
