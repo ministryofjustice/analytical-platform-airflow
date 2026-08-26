@@ -1,11 +1,12 @@
 dag:
   repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
-  tag: gw-test-v1.0.1-dev
+  tag: gw-test-v1.0.2-dev
 
   env_vars:
     ENV_FOR_DYNACONF: dev
     AWS_DEFAULT_REGION: eu-west-1
     RUN_VERSION_FOR_DYNACONF: gw_test_1
+    DATASET: 2324_gw
 
   tasks:
     prepare:
