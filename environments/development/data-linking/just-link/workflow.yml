@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev41
+  tag: v5.0.0.dev52
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -417,6 +417,7 @@ iam:
 maintainers:
   - ThomasHepworth
   - samnlindsay
+  - chloepugh
 
 tags:
   business_unit: Central Digital
