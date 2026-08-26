@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.9
+  tag: v0.1.9-alpha-f6c91ad
 
 iam:
   s3_read_only:
