@@ -1,0 +1,37 @@
+dag:
+  repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
+  tag: gw-test-v1.0.0-dev
+
+  env_vars:
+    ENV_FOR_DYNACONF: dev
+    AWS_DEFAULT_REGION: eu-west-1
+  tasks:
+    prepare:
+      env_vars:
+        PROCESS_TYPE: prepare
+    bcst:
+      dependencies: [prepare]
+      env_vars:
+        PROCESS_TYPE: bcst
+    postprocess:
+      dependencies: [bcst]
+      env_vars:
+        PROCESS_TYPE: postprocess
+
+iam:
+  athena: write
+  glue: true
+  bedrock: true
+  s3_read_write:
+    - alpha-bold-pilot-rr-families/*
+
+notifications:
+  emails:
+    - guy.wheeler@justice.gov.uk
+
+maintainers:
+  - guyvw1
+
+tags:
+  business_unit: HQ
+  owner: guy.wheeler@justice.gov.uk
