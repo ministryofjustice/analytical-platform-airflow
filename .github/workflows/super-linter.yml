@@ -16,7 +16,7 @@ jobs:
       packages: read
       pull-requests: write
       statuses: write
-    uses: ministryofjustice/data-platform-github-actions/.github/workflows/super-linter.yml@5d8d0f00346daa26a7dd1283ecd098bbcd2b5396 # v4.1.1
+    uses: ministryofjustice/data-platform-github-actions/.github/workflows/super-linter.yml@f48cf9157c3eae2dcecf5173a474577aabcd37a5 # v4.1.2
     with:
       # VALIDATE_KUBERNETES_KUBECONFORM is set to false as it cannot process Helm charts
       # VALIDATE_PYTHON_* are set to false as we need to revisit the Python from a linting perspective
