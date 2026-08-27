@@ -27,6 +27,9 @@ iam:
   bedrock: true
   s3_read_write:
     - alpha-bold-pilot-rr-families/*
+  s3_read_only:
+    - mojap-derived-tables/*
+    - alpha-data-linking/*
 
 notifications:
   emails:
