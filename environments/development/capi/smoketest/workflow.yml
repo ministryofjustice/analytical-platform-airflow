@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
-  tag: gw-test-v1.0.2-dev
+  tag: gw-test-v1.0.3-dev
 
   env_vars:
     ENV_FOR_DYNACONF: dev
