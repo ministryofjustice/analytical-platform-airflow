@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev52
+  tag: v5.0.0.dev54
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -306,8 +306,9 @@ dag:
         PIPELINE_VERSION: dev
       dependencies: [standardised_nodes_cjs]
 
+    # Larger compute only required for dev dashboards
     edge_generation_cjs:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-128vcpu-512gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: cjs
