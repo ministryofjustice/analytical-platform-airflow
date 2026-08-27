@@ -1,9 +1,9 @@
 dag:
   repository: ministryofjustice/airflow-cadet-post-hook-copy
-  tag: v1.1.0
+  tag: v1.2.0
   catchup: false
   env_vars:
-    SOURCE_PATH: "post-hook/prod/domain_name=public_protection/database_name=public_protection_int/table_name=int_audit_log_hearing/extraction_timestamp=2026-07-09T11:21:41.957/20260709_112200_00133_mkrdy_ab2a798f-0ed9-449f-a14a-250057ca953a.gz"
+    SOURCE_PATH: "post-hook/prod/domain_name=public_protection/database_name=public_protection_int/table_name=int_audit_log_hearing/extraction_timestamp=2026-08-27T09:32:41.198/20260827_093310_00088_8j7x7_df061f00-b536-485e-820a-8b3bdcf94803.gz"
     SOURCE_BUCKET: "probation-datalake-prod-20260112145345979100000002"
     TARGET_BUCKET: "moj-reg-prod"
     PROJECT_NAME: "cadet-pb-hearing-audit-prod"
