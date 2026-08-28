@@ -1,11 +1,18 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.9-alpha-f6c91ad
+  tag: v0.1.10
 
 iam:
+  s3_read_write:
+    - alpha-search-legal-aid-audit/*
+
   s3_read_only:
-    - alpha-search-legal-aid-test/test/*
+    - alpha-laa-source-raw-file-storage/*
+
+  s3_write_only:
+    - alpha-laa-source-file-request/*
+    - alpha-laa-source-file-output/*
 
 maintainers:
   - nina-knowles-justice
@@ -14,6 +21,9 @@ maintainers:
 secrets:
   - bucket
   - key
+
+notifications:
+  slack_channel: laa-search-index-alerts
 
 tags:
   business_unit: LAA
