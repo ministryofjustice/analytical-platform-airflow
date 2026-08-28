@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.11
+  tag: v0.1.12
 
 iam:
   s3_read_write:
@@ -25,7 +25,7 @@ secrets:
   - source-output-bucket
   - source-file-bucket
   - audit-bucket
-  - splink-parquet-s3-bk
+  - splink-parquet
 
 notifications:
   slack_channel: laa-search-index-alerts
