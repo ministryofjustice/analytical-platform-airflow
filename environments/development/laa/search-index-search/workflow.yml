@@ -7,10 +7,10 @@ iam:
   s3_read_write:
     - alpha-laa-searchable-index/s3-test/*
     - alpha-search-legal-aid-test-output/*
+    - alpha-search-legal-aid-test-input/*
 
   s3_read_only:
     - alpha-search-legal-aid-test/*
-    - alpha-search-legal-aid-test-input/*
 
   s3_write_only:
     - alpha-search-legal-aid-audit/*
@@ -18,6 +18,9 @@ iam:
 maintainers:
   - nina-knowles-justice
   - dami-moj
+  - jh-justice-dev
+  - jfjb-justice
+  - JamesS-MoJ
 
 secrets:
   - bucket
