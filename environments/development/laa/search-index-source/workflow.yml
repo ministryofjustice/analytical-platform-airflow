@@ -17,10 +17,15 @@ iam:
 maintainers:
   - nina-knowles-justice
   - dami-moj
+  - jh-justice-dev
 
 secrets:
-  - bucket
-  - key
+  - source-request-bucket
+  - source-request-key
+  - source-output-bucket
+  - source-file-bucket
+  - audit-bucket
+  - splink-parquet-s3-bk
 
 notifications:
   slack_channel: laa-search-index-alerts
