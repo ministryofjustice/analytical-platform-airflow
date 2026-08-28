@@ -6,13 +6,11 @@ dag:
 iam:
   s3_read_write:
     - alpha-search-legal-aid-audit/*
+    - alpha-laa-source-file-request/*
+    - alpha-laa-source-file-output/*
 
   s3_read_only:
     - alpha-laa-source-raw-file-storage/*
-
-  s3_write_only:
-    - alpha-laa-source-file-request/*
-    - alpha-laa-source-file-output/*
 
 maintainers:
   - nina-knowles-justice
