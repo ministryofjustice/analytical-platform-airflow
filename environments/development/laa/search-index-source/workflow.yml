@@ -22,6 +22,9 @@ secrets:
   - bucket
   - key
 
+notifications:
+  slack_channel: laa-search-index-alerts
+
 tags:
   business_unit: LAA
   owner: LAA-Data-Engineering@justice.gov.uk
