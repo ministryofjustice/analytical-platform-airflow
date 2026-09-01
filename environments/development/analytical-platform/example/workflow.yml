@@ -20,9 +20,7 @@ iam:
   update_secrets: true
 
 maintainers:
-  - jacobwoffenden
   - jhpyke
-  - Gary-H9
 
 secrets:
   - api-key
