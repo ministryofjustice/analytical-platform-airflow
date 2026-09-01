@@ -19,8 +19,8 @@ maintainers:
 secrets:
   - github-key
   - slack-app-token
-  - slack-client-secret
-  - slack-signing-secret
+  - slack-client
+  - slack-signing
 
 iam:
   athena: write
