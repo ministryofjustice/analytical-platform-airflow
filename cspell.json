@@ -37,6 +37,7 @@
     "startswith",
     "GHSA",
     "anchore",
-    "cutoff"
+    "cutoff",
+    "charliermarsh"
   ]
 }
