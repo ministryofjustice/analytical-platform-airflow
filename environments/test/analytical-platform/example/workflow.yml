@@ -7,7 +7,6 @@ dag:
     MODE: "benchmark"
 
 maintainers:
-  - jacobwoffenden
   - julialawrence
 
 tags:
