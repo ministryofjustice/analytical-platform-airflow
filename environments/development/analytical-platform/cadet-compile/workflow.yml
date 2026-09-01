@@ -14,7 +14,6 @@ dag:
 
 maintainers:
   - jhpyke
-  - jacobwoffenden
 
 secrets:
   - github-key
