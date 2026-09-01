@@ -5,7 +5,7 @@ dag:
   env_vars:
     ENV_FOR_DYNACONF: dev
     AWS_DEFAULT_REGION: eu-west-1
-    DYNACNONF_RUN_VERSION: gw_test_1
+    DYNACONF_RUN_VERSION: gw_test_1
     DYNACONF_DATASET: 2324_gw
 
   tasks:
