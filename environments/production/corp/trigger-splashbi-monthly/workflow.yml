@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v.1.6.14
+  tag: v1.15.2
   start_date: "2025-09-29"
   schedule: "0 7 1 * *"
   retries: 2
@@ -1151,6 +1151,620 @@ dag:
     wls-unapplied_unidentified_receipts:
       env_vars:
         REPORT_NAME: "wls-unapplied_unidentified_receipts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === AR Active Customer Contacts ===
+    cts-ar_active_customer_contacts:
+      env_vars:
+        REPORT_NAME: "cts-ar_active_customer_contacts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-ar_active_customer_contacts:
+      env_vars:
+        REPORT_NAME: "laa-ar_active_customer_contacts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-ar_active_customer_contacts:
+      env_vars:
+        REPORT_NAME: "opg-ar_active_customer_contacts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-ar_active_customer_contacts:
+      env_vars:
+        REPORT_NAME: "yjb-ar_active_customer_contacts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-ar_active_customer_contacts:
+      env_vars:
+        REPORT_NAME: "ima-ar_active_customer_contacts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-ar_active_customer_contacts:
+      env_vars:
+        REPORT_NAME: "moj-ar_active_customer_contacts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-ar_active_customer_contacts:
+      env_vars:
+        REPORT_NAME: "pbd-ar_active_customer_contacts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-ar_active_customer_contacts:
+      env_vars:
+        REPORT_NAME: "jac-ar_active_customer_contacts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-ar_active_customer_contacts:
+      env_vars:
+        REPORT_NAME: "nms-ar_active_customer_contacts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-ar_active_customer_contacts:
+      env_vars:
+        REPORT_NAME: "wls-ar_active_customer_contacts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === AR Customer Profile ===
+    cts-ar_customer_profile:
+      env_vars:
+        REPORT_NAME: "cts-ar_customer_profile"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-ar_customer_profile:
+      env_vars:
+        REPORT_NAME: "laa-ar_customer_profile"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-ar_customer_profile:
+      env_vars:
+        REPORT_NAME: "opg-ar_customer_profile"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-ar_customer_profile:
+      env_vars:
+        REPORT_NAME: "yjb-ar_customer_profile"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-ar_customer_profile:
+      env_vars:
+        REPORT_NAME: "ima-ar_customer_profile"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-ar_customer_profile:
+      env_vars:
+        REPORT_NAME: "moj-ar_customer_profile"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-ar_customer_profile:
+      env_vars:
+        REPORT_NAME: "pbd-ar_customer_profile"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-ar_customer_profile:
+      env_vars:
+        REPORT_NAME: "jac-ar_customer_profile"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-ar_customer_profile:
+      env_vars:
+        REPORT_NAME: "nms-ar_customer_profile"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-ar_customer_profile:
+      env_vars:
+        REPORT_NAME: "wls-ar_customer_profile"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === AR Customer Receipts ===
+    cts-ar_customer_receipts:
+      env_vars:
+        REPORT_NAME: "cts-ar_customer_receipts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-ar_customer_receipts:
+      env_vars:
+        REPORT_NAME: "laa-ar_customer_receipts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-ar_customer_receipts:
+      env_vars:
+        REPORT_NAME: "opg-ar_customer_receipts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-ar_customer_receipts:
+      env_vars:
+        REPORT_NAME: "yjb-ar_customer_receipts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-ar_customer_receipts:
+      env_vars:
+        REPORT_NAME: "ima-ar_customer_receipts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-ar_customer_receipts:
+      env_vars:
+        REPORT_NAME: "moj-ar_customer_receipts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-ar_customer_receipts:
+      env_vars:
+        REPORT_NAME: "pbd-ar_customer_receipts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-ar_customer_receipts:
+      env_vars:
+        REPORT_NAME: "jac-ar_customer_receipts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-ar_customer_receipts:
+      env_vars:
+        REPORT_NAME: "nms-ar_customer_receipts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-ar_customer_receipts:
+      env_vars:
+        REPORT_NAME: "wls-ar_customer_receipts"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === AR Customer Site Classes ===
+    cts-ar_customer_site_classes:
+      env_vars:
+        REPORT_NAME: "cts-ar_customer_site_classes"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-ar_customer_site_classes:
+      env_vars:
+        REPORT_NAME: "laa-ar_customer_site_classes"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-ar_customer_site_classes:
+      env_vars:
+        REPORT_NAME: "opg-ar_customer_site_classes"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-ar_customer_site_classes:
+      env_vars:
+        REPORT_NAME: "yjb-ar_customer_site_classes"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-ar_customer_site_classes:
+      env_vars:
+        REPORT_NAME: "ima-ar_customer_site_classes"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-ar_customer_site_classes:
+      env_vars:
+        REPORT_NAME: "moj-ar_customer_site_classes"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-ar_customer_site_classes:
+      env_vars:
+        REPORT_NAME: "pbd-ar_customer_site_classes"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-ar_customer_site_classes:
+      env_vars:
+        REPORT_NAME: "jac-ar_customer_site_classes"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-ar_customer_site_classes:
+      env_vars:
+        REPORT_NAME: "nms-ar_customer_site_classes"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-ar_customer_site_classes:
+      env_vars:
+        REPORT_NAME: "wls-ar_customer_site_classes"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === AR Receivable Apps ===
+    cts-ar_receivable_apps:
+      env_vars:
+        REPORT_NAME: "cts-ar_receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-ar_receivable_apps:
+      env_vars:
+        REPORT_NAME: "laa-ar_receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-ar_receivable_apps:
+      env_vars:
+        REPORT_NAME: "opg-ar_receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-ar_receivable_apps:
+      env_vars:
+        REPORT_NAME: "yjb-ar_receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-ar_receivable_apps:
+      env_vars:
+        REPORT_NAME: "ima-ar_receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-ar_receivable_apps:
+      env_vars:
+        REPORT_NAME: "moj-ar_receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-ar_receivable_apps:
+      env_vars:
+        REPORT_NAME: "pbd-ar_receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-ar_receivable_apps:
+      env_vars:
+        REPORT_NAME: "jac-ar_receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-ar_receivable_apps:
+      env_vars:
+        REPORT_NAME: "nms-ar_receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-ar_receivable_apps:
+      env_vars:
+        REPORT_NAME: "wls-ar_receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === GL 14 Balances ===
+    cts-gl_14_balances_1620:
+      env_vars:
+        REPORT_NAME: "cts-gl_14_balances_1620"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-gl_14_balances_2126:
+      env_vars:
+        REPORT_NAME: "cts-gl_14_balances_2126"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-gl_14_balances_1620:
+      env_vars:
+        REPORT_NAME: "laa-gl_14_balances_1620"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-gl_14_balances_2126:
+      env_vars:
+        REPORT_NAME: "laa-gl_14_balances_2126"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-gl_14_balances_1620:
+      env_vars:
+        REPORT_NAME: "opg-gl_14_balances_1620"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-gl_14_balances_2126:
+      env_vars:
+        REPORT_NAME: "opg-gl_14_balances_2126"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-gl_14_balances_1620:
+      env_vars:
+        REPORT_NAME: "yjb-gl_14_balances_1620"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-gl_14_balances_2126:
+      env_vars:
+        REPORT_NAME: "yjb-gl_14_balances_2126"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-gl_14_balances_1620:
+      env_vars:
+        REPORT_NAME: "ima-gl_14_balances_1620"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-gl_14_balances_2126:
+      env_vars:
+        REPORT_NAME: "ima-gl_14_balances_2126"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-gl_14_balances_1620:
+      env_vars:
+        REPORT_NAME: "moj-gl_14_balances_1620"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-gl_14_balances_2126:
+      env_vars:
+        REPORT_NAME: "moj-gl_14_balances_2126"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-gl_14_balances_1620:
+      env_vars:
+        REPORT_NAME: "pbd-gl_14_balances_1620"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-gl_14_balances_2126:
+      env_vars:
+        REPORT_NAME: "pbd-gl_14_balances_2126"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-gl_14_balances_1620:
+      env_vars:
+        REPORT_NAME: "jac-gl_14_balances_1620"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-gl_14_balances_2126:
+      env_vars:
+        REPORT_NAME: "jac-gl_14_balances_2126"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-gl_14_balances_1620:
+      env_vars:
+        REPORT_NAME: "nms-gl_14_balances_1620"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-gl_14_balances_2126:
+      env_vars:
+        REPORT_NAME: "nms-gl_14_balances_2126"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-gl_14_balances_1620:
+      env_vars:
+        REPORT_NAME: "wls-gl_14_balances_1620"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-gl_14_balances_2126:
+      env_vars:
+        REPORT_NAME: "wls-gl_14_balances_2126"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === PO Details ===
+    cts-po_details:
+      env_vars:
+        REPORT_NAME: "cts-po_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-po_details:
+      env_vars:
+        REPORT_NAME: "laa-po_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-po_details:
+      env_vars:
+        REPORT_NAME: "opg-po_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-po_details:
+      env_vars:
+        REPORT_NAME: "yjb-po_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-po_details:
+      env_vars:
+        REPORT_NAME: "ima-po_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-po_details:
+      env_vars:
+        REPORT_NAME: "moj-po_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-po_details:
+      env_vars:
+        REPORT_NAME: "pbd-po_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-po_details:
+      env_vars:
+        REPORT_NAME: "jac-po_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-po_details:
+      env_vars:
+        REPORT_NAME: "nms-po_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-po_details:
+      env_vars:
+        REPORT_NAME: "wls-po_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === PO Receiving Shipments ===
+    cts-po_receiving_shipments:
+      env_vars:
+        REPORT_NAME: "cts-po_receiving_shipments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-po_receiving_shipments:
+      env_vars:
+        REPORT_NAME: "laa-po_receiving_shipments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-po_receiving_shipments:
+      env_vars:
+        REPORT_NAME: "opg-po_receiving_shipments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-po_receiving_shipments:
+      env_vars:
+        REPORT_NAME: "yjb-po_receiving_shipments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-po_receiving_shipments:
+      env_vars:
+        REPORT_NAME: "ima-po_receiving_shipments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-po_receiving_shipments:
+      env_vars:
+        REPORT_NAME: "moj-po_receiving_shipments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-po_receiving_shipments:
+      env_vars:
+        REPORT_NAME: "pbd-po_receiving_shipments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-po_receiving_shipments:
+      env_vars:
+        REPORT_NAME: "jac-po_receiving_shipments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-po_receiving_shipments:
+      env_vars:
+        REPORT_NAME: "nms-po_receiving_shipments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-po_receiving_shipments:
+      env_vars:
+        REPORT_NAME: "wls-po_receiving_shipments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === Receivable Apps (CTS split by year) ===
+    cts-receivable_apps_2017:
+      env_vars:
+        REPORT_NAME: "cts-receivable_apps_2017"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-receivable_apps_2018:
+      env_vars:
+        REPORT_NAME: "cts-receivable_apps_2018"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-receivable_apps_2019:
+      env_vars:
+        REPORT_NAME: "cts-receivable_apps_2019"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-receivable_apps_2020:
+      env_vars:
+        REPORT_NAME: "cts-receivable_apps_2020"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-receivable_apps_2021:
+      env_vars:
+        REPORT_NAME: "cts-receivable_apps_2021"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-receivable_apps_2022:
+      env_vars:
+        REPORT_NAME: "cts-receivable_apps_2022"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-receivable_apps_2023:
+      env_vars:
+        REPORT_NAME: "cts-receivable_apps_2023"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-receivable_apps_2024:
+      env_vars:
+        REPORT_NAME: "cts-receivable_apps_2024"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === Receivable Apps (All OUs Except CTS) ===
+    laa-receivable_apps:
+      env_vars:
+        REPORT_NAME: "laa-receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-receivable_apps:
+      env_vars:
+        REPORT_NAME: "opg-receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-receivable_apps:
+      env_vars:
+        REPORT_NAME: "yjb-receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-receivable_apps:
+      env_vars:
+        REPORT_NAME: "ima-receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-receivable_apps:
+      env_vars:
+        REPORT_NAME: "moj-receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-receivable_apps:
+      env_vars:
+        REPORT_NAME: "pbd-receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-receivable_apps:
+      env_vars:
+        REPORT_NAME: "jac-receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-receivable_apps:
+      env_vars:
+        REPORT_NAME: "nms-receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-receivable_apps:
+      env_vars:
+        REPORT_NAME: "wls-receivable_apps"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === CTS AR Closed ===
+    cts_ar_schedules_closed:
+      env_vars:
+        REPORT_NAME: "cts_ar_schedules_closed"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_ar_trx_headers_closed:
+      env_vars:
+        REPORT_NAME: "cts_ar_trx_headers_closed"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_ar_trx_lines_closed:
+      env_vars:
+        REPORT_NAME: "cts_ar_trx_lines_closed"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    # === HR ===
+    moj-hr-person:
+      env_vars:
+        REPORT_NAME: "moj-hr-person"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-hr-person-address:
+      env_vars:
+        REPORT_NAME: "moj-hr-person-address"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-hr-person-assignments:
+      env_vars:
+        REPORT_NAME: "moj-hr-person-assignments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-hr-person-payroll:
+      env_vars:
+        REPORT_NAME: "moj-hr-person-payroll"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-hr_extra_info:
+      env_vars:
+        REPORT_NAME: "moj-hr_extra_info"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-hr_payroll_ppm:
+      env_vars:
+        REPORT_NAME: "moj-hr_payroll_ppm"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-hr_sickness_absence:
+      env_vars:
+        REPORT_NAME: "moj-hr_sickness_absence"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-person_legislation:
+      env_vars:
+        REPORT_NAME: "moj-person_legislation"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
 
