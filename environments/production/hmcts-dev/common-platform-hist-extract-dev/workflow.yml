@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v4.2.0
+  tag: v4.2.1
   retries: 1
   retry_delay: 150
   max_active_runs: 3
@@ -17,8 +17,8 @@ dag:
   tasks:
     cp_extract_allocated_listings:
       env_vars:
-        AZURE_TABLE: "allocated-listings"
-        S3_TABLE: "allocated_listing"
+        AZURE_TABLE: "allocated-listing"
+        S3_TABLE: "allocated_listings"
     cp_extract_app_order_defendant_offence:
       env_vars:
         AZURE_TABLE: "app-order-defendant-offence"
@@ -93,7 +93,7 @@ dag:
         S3_TABLE: "custody_status"
     cp_extract_defence_assoc_access_grant:
       env_vars:
-        AZURE_TABLE: "defence-assoc-access-grant"
+        AZURE_TABLE: "defnc-assoc-accss-grnt"
         S3_TABLE: "defence_assoc_access_grant"
     cp_extract_defence_association:
       env_vars:
@@ -173,7 +173,7 @@ dag:
         S3_TABLE: "hearing_event_log"
     cp_extract_hearing_interpreter_intermediary:
       env_vars:
-        AZURE_TABLE: "hrng-intrprtr-intrmdry"
+        AZURE_TABLE: "hrng-intrpt-intrdry"
         S3_TABLE: "hearing_interpreter_intermediary"
     cp_extract_hearing_judiciary:
       env_vars:
@@ -485,7 +485,7 @@ dag:
         S3_TABLE: "spi_case_error"
     cp_extract_spi_case_error_detail:
       env_vars:
-        AZURE_TABLE: "spi-case-error-detail"
+        AZURE_TABLE: "spi-case-error-detl"
         S3_TABLE: "spi_case_error_detl"
     cp_extract_spi_defendant_error:
       env_vars:
