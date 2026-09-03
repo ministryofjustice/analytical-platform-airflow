@@ -1,7 +1,7 @@
 ---
 dag:
-  repository: moj-analytical-services/airflow-file
-  tag: v1.2.2
+  repository: moj-analytical-services/moj-data-loader
+  tag: v2.0.1
   schedule: "0 7 * * *"
   is_paused_upon_creation: true
   env_vars:
