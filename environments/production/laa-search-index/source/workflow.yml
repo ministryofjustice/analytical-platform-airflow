@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-s3-ops
-  tag: v0.2.4
+  tag: v0.2.4-alpha-4c0507a
 
 iam:
   s3_read_write:
