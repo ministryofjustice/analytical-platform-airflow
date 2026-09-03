@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-occupeye-scraper
-  tag: v2.1.0
+  tag: v2.1.1
   python_dag: true
 
 iam:
