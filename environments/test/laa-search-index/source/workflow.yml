@@ -1,0 +1,35 @@
+---
+dag:
+  repository: moj-analytical-services/laa-search-index-airflow-source
+  tag: v0.1.13-alpha-efb72fb
+
+iam:
+  s3_read_write:
+    - laa-search-audit-test/*
+    - laa-splink-source-file-input-test/*
+    - laa-splink-source-file-output-test/*
+    - laa-splink-source-zip-test/*
+
+  s3_read_only:
+    - laa-splink-source-s3-test/*
+
+maintainers:
+  - nina-knowles-justice
+  - dami-moj
+  - jh-justice-dev
+
+secrets:
+  - source-request-bucket
+  - source-request-key
+  - source-output-bucket
+  - source-output-key
+  - audit-bucket
+  - splink-bucket
+  - source-zip-bucket
+
+notifications:
+  slack_channel: laa-search-index-alerts
+
+tags:
+  business_unit: LAA
+  owner: LAA-Data-Engineering@justice.gov.uk
