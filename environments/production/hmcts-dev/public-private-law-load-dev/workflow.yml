@@ -1,6 +1,6 @@
 ---
 dag:
-  repository: moj-analytical-services/airflow-file
+  repository: moj-analytical-services/moj-data-loader
   tag: v2.1.0-alpha.e2d4c15
   is_paused_upon_creation: true
   env_vars:
