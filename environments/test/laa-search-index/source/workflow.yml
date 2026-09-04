@@ -24,7 +24,7 @@ secrets:
   - source-output-bucket
   - source-output-key
   - audit-bucket
-  - splink-bucket
+  - splink-parquet
   - source-zip-bucket
 
 notifications:
