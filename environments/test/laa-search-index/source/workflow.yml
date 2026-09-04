@@ -1,16 +1,16 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.12
+  tag: v0.1.13-alpha-efb72fb
 
 iam:
   s3_read_write:
     - laa-search-audit-test/*
     - laa-splink-source-file-input-test/*
     - laa-splink-source-file-output-test/*
+    - laa-splink-source-zip-test/*
 
   s3_read_only:
-    - laa-splink-source-zip-test/*
     - laa-splink-source-s3-test/*
 
 maintainers:
@@ -25,6 +25,7 @@ secrets:
   - source-output-key
   - audit-bucket
   - splink-bucket
+  - source-zip-bucket
 
 notifications:
   slack_channel: laa-search-index-alerts
