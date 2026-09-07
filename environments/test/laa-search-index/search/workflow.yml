@@ -12,6 +12,9 @@ iam:
   s3_write_only:
     - laa-search-audit-test/*
 
+  kms:
+    - arn:aws:kms:eu-west-2:593291632749:key/c0f20b2d-7b3e-4a60-9c04-2fb3befe6a3f
+
 maintainers:
   - nina-knowles-justice
   - dami-moj
