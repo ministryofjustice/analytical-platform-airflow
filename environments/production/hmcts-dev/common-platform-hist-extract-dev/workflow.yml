@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v4.2.1
+  tag: v4.2.2
   retries: 1
   retry_delay: 150
   max_active_runs: 3
@@ -486,7 +486,7 @@ dag:
     cp_extract_spi_case_error_detail:
       env_vars:
         AZURE_TABLE: "spi-case-error-detl"
-        S3_TABLE: "spi_case_error_detl"
+        S3_TABLE: "spi_case_error_detail"
     cp_extract_spi_defendant_error:
       env_vars:
         AZURE_TABLE: "spi-defendant-error"
