@@ -12,7 +12,7 @@ iam:
 
   s3_read_only:
     - laa-splink-source-s3-test/*
-    
+
   kms:
     - arn:aws:kms:eu-west-2:593291632749:key/c0f20b2d-7b3e-4a60-9c04-2fb3befe6a3f
 
