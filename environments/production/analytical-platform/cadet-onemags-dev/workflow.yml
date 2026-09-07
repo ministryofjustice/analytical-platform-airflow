@@ -9,7 +9,7 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-xhibit
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-onemags-dev
-    DBT_SELECT_CRITERIA: fct_case_activity
+    DBT_SELECT_CRITERIA: mags_court_int__combine_case_activity_facts
     BRANCH: OneMags/dev
     MODE: build
     THREAD_COUNT: 10
