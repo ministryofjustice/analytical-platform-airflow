@@ -14,7 +14,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - s3://mojap-land-dev/corporate/temp/*
+    - mojap-land-dev/corporate/temp/*
 
 maintainers:
   - Csheldon155
