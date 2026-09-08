@@ -59,7 +59,7 @@ def create_kubernetes_operator(task_id, run_function, dag, scrape_date=DATE):
                 secret=f"{PROJECT}-{WORKFLOW}-matrix-key",
                 key="data",
             )
-        ],        
+        ],
         env_vars={
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
