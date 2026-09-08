@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cjsm-api-data-extractor
-  tag: v2.0.0
+  tag: v2.0.7
   schedule: "0 6 * * *"
   env_vars:
     AWS_DEFAULT_REGION: "eu-west-1"
@@ -33,6 +33,9 @@ secrets:
   - cjsm-client-id
   - cjsm-client-secret
   - slack-token
+
+notifications:
+  slack_channel: dmet-corp-notifications
 
 maintainers:
   - benjamin-finucane
