@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/jd-engine-room-local-mapping-pipeline
-  tag: v1.1.4
+  tag: v1.1.5
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
@@ -13,16 +13,16 @@ dag:
     hmcts_lm:
       env_vars:
         BUSINESS_UNIT: "hmcts"
-        AIRFLOW_OVERRIDE: "true"
+        OVERRIDE_SCHEDULE: "true"
     hmpps_lm:
       env_vars:
         BUSINESS_UNIT: "hmpps"
-        AIRFLOW_OVERRIDE: "true"
+        OVERRIDE_SCHEDULE: "true"
     mojhq_lm:
       env_vars:
         BUSINESS_UNIT: "moj_hq"
-        AIRFLOW_OVERRIDE: "true"
-    
+        OVERRIDE_SCHEDULE: "true"
+
 iam:
   athena: write
   glue: true
