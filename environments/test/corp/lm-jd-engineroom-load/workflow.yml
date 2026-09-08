@@ -13,10 +13,16 @@ dag:
     hmcts_lm:
       env_vars:
         BUSINESS_UNIT: "hmcts"
+        AIRFLOW_OVERRIDE: "true"
     hmpps_lm:
       env_vars:
         BUSINESS_UNIT: "hmpps"
-
+        AIRFLOW_OVERRIDE: "true"
+    mojhq_lm:
+      env_vars:
+        BUSINESS_UNIT: "moj_hq"
+        AIRFLOW_OVERRIDE: "true"
+    
 iam:
   athena: write
   glue: true
