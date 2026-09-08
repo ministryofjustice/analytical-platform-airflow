@@ -1,7 +1,9 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.12
+  tag: v0.1.14
+  env_vars:
+    DEFAULT_DOWNLOAD_EXPIRES_IN: "43200"
 
 iam:
   s3_read_write:
