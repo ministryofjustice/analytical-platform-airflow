@@ -1,7 +1,9 @@
 from datetime import datetime, timedelta
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
-from analytical_platform.secret import Secret
+from airflow.providers.cncf.kubernetes.secret import (
+    Secret,
+)
 
 
 REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
