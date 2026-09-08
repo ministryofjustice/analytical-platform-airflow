@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/airflow-download-file-test
-  tag: v1.0.6
+  tag: v1.0.7
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
