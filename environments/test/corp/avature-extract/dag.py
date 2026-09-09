@@ -50,6 +50,7 @@ task = AnalyticalPlatformStandardOperator(
     workflow=f"{WORKFLOW}",
     env_vars={
         "action": "extract-test",
+        "ENVIRONMENT": "test",
         "WR_WORKGROUP": "airflow-prod-workgroup-corp",
     },
     secrets=[
