@@ -25,13 +25,11 @@ iam:
 maintainers:
   - jhenfrancis
   - sheilz81
-  - maxblum31
 
 notifications:
   emails:
     - jhenielle.francis@justice.gov.uk
     - sheila.ladva@justice.gov.uk
-    - max.blum@justice.gov.uk
   slack_channel: cf-misconduct-notifications
 
 tags:
