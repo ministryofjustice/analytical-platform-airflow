@@ -1,11 +1,20 @@
 ---
 dag:
-  repository: moj-analytical-services/laa-search-index-airflow-s3-ops
-  tag: v0.2.4-alpha-4c0507a
+  repository: moj-analytical-services/laa-search-index-airflow-source
+  tag: v0.1.13-alpha-efb72fb
 
 iam:
   s3_read_write:
-    - alpha-search-legal-aid-test/*
+    - laa-search-audit/*
+    - laa-splink-source-file-input/*
+    - laa-splink-source-file-output/*
+    - laa-splink-source-zip/*
+
+  s3_read_only:
+    - laa-splink-source-s3/*
+
+  kms:
+    - arn:aws:kms:eu-west-2:593291632749:key/c0f20b2d-7b3e-4a60-9c04-2fb3befe6a3f
 
 maintainers:
   - nina-knowles-justice
