@@ -33,10 +33,11 @@ dag = DAG(
     dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args=default_args,
     start_date=datetime(2025, 9, 1),
-    schedule_interval=timedelta(seconds=62),
+    schedule_interval=None,
     params=default_params,
     catchup=False,
     max_active_tasks=1,
+    is_paused_upon_creation=True,
 )
 
 task = AnalyticalPlatformStandardOperator(
@@ -50,7 +51,7 @@ task = AnalyticalPlatformStandardOperator(
     workflow=f"{WORKFLOW}",
     env_vars={
         "action": "extract-test",
-        "ENVIRONMENT": "test",
+        "ENVIRONMENT": "prod",
         "WR_WORKGROUP": "airflow-prod-workgroup-corp",
     },
     secrets=[
