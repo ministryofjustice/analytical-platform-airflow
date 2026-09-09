@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-curious-2-pipeline
 
-  tag: v1.1.0
+  tag: v1.2.9
 
   schedule: "0 5 * * *"
   catchup: false
@@ -14,6 +14,10 @@ dag:
     "S3_RAW_HIST_KEY_PREFIX": "hmpps/prison-curious2/raw-history"
     "S3_FAILED_BUCKET": "mojap-land-fail-preprod"
     "S3_FAILED_KEY_PREFIX": "hmpps/prison-curious2"
+    "S3_CREDENTIALS_BUCKET": "mojap-land"
+    "S3_CREDENTIALS_KEY": "hmpps/prison-curious//sas_token_info.txt"
+    "CREDENTIAL_LOCATION": "/airflow/development/prison-curious/test/curious-azure-credential"
+    "CREDENTIAL_MANAGER_REGION": "eu-west-2"
 
   tasks:
     extract_and_upload:
@@ -29,6 +33,7 @@ dag:
 iam:
   athena: write
   glue: true
+  update_secrets: true
   s3_read_write:
     - mojap-land-preprod/hmpps/prison-curious2/*
     - mojap-raw-hist-preprod/hmpps/prison-curious2/*
@@ -38,16 +43,16 @@ secrets:
   - curious-azure-credential
 
 maintainers:
-  - iainborsbey-mj
+  - sanjo-thapa-moj
   - AnthonyCody
   - andrewc-moj
 
 tags:
   business_unit: HQ
-  owner: iain.borsbey@justice.gov.uk
+  owner: andrew.craik@justice.gov.uk
 
 notifications:
   emails:
     - andrew.craik@justice.gov.uk
-    - iain.borsbey@justice.gov.uk
+    - Sanjo.Thapa@justice.gov.uk
     - anthony.cody@justice.gov.uk
