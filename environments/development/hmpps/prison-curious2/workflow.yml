@@ -18,7 +18,7 @@ dag:
     "S3_CREDENTIALS_KEY": "hmpps/prison-curious//sas_token_info.txt"
     "CREDENTIAL_LOCATION": "/airflow/development/prison-curious/test/curious-azure-credential"
     "CREDENTIAL_MANAGER_REGION": "eu-west-2"
-    
+
 
   tasks:
     extract_and_upload:
