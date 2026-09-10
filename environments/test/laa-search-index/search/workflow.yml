@@ -5,7 +5,7 @@ dag:
 
 iam:
   s3_read_write:
-    - laa-splink-search-s3-test/*
+    - laa-splink-source-s3-test/*
     - laa-splink-search-output-test/*
     - laa-splink-search-input-test/*
 
