@@ -25,7 +25,7 @@ dag:
       env_vars:
         PROCESS_TYPE: nomis
     postprocess:
-      dependencies: [bcst,layerthree,nomis]
+      dependencies: [bcst, layerthree, nomis]
       env_vars:
         PROCESS_TYPE: postprocess
 
