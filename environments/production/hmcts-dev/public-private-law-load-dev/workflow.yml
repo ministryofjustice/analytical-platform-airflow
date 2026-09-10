@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.1.0-alpha.ad032cc
+  tag: v2.1.0-alpha.6e5ce10
   is_paused_upon_creation: true
   env_vars:
     MODAL_ENV: "dev"
