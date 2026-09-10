@@ -1,0 +1,69 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.4.5
+  schedule: "0 4 * * *"
+  catchup: false
+  env_vars:
+    DEPLOY_ENV: dev
+    DBT_PROFILE_WORKGROUP: dbt-nomis-daily
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: nomis-daily
+    DBT_SELECT_CRITERIA: tag:nomis_daily
+    BRANCH: main
+    MODE: build
+    THREAD_COUNT: 10
+  tasks:
+    table_deploy:
+      compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://mojap-derived-tables/dev/nomis-daily/"
+    bentham:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        DATASET_TARGET: bentham.bentham_app_airflow
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/dev/bentham"
+    drugs_app:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        DATASET_TARGET: drugs_app.drugs_app_airflow
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/dev/drugs_app"
+    prison_network:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        DATASET_TARGET: prison-network.prison-network-app
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/dev/prison-network-app"
+    sdt:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        DATASET_TARGET: sdt.sdt
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/dev/sdt"
+
+maintainers:
+  - jhpyke
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  lake_formation: true
+  s3_read_write:
+    - mojap-derived-tables/dev/*
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
