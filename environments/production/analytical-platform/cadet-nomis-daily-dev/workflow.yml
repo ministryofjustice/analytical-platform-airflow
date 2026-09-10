@@ -20,7 +20,7 @@ dag:
         - "s3://mojap-derived-tables/dev/nomis-daily/"
 
 maintainers:
-  - antfmoj
+  - AntFMoJ
 
 secrets:
   - github-key
