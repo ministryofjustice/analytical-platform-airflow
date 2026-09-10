@@ -1,12 +1,13 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v4.2.0-alpha.5587f6e
+  tag: v4.3.0-alpha.28840b1
   retries: 0
   retry_delay: 150
   max_active_runs: 3
   hmcts_sdp_networking: true
   env_vars:
     MODE: "BlobStorage"
+    WRITE_LOGS: "True"
     LOG_LEVEL: "DEBUG"
     ENDPOINT: "MI_PERSISTENT_PROD"
     SDP_TABLE_PREFIX: "v3-opt-"
@@ -17,6 +18,8 @@ dag:
     DATABASE_NAME: "opt_preprocessed_dev"
     LAND_BUCKET: "s3://mojap-land-dev"
     LAND_PATH: "hmcts/opt/"
+    LOGS_BUCKET: "alpha-mojap-curated-opt"
+    LOGS_PATH: "dev/v1/database/"
     START_DATE: "2026-06-02"
     FAIL_ON_NO_FILES: "True"
     DRYRUN: "True"
@@ -25,13 +28,13 @@ dag:
     test-sdp-extractor:
       env_vars:
         AZURE_TABLE: "data-tbl-mags-cie-new"
+        TABLE: "opt-test-logs"
 
 iam:
   athena: write
   glue: true
   s3_read_write:
     - mojap-land-dev/hmcts/opt/*
-  s3_read_only:
     - alpha-mojap-curated-opt/*
 
 secrets:

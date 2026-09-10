@@ -1,24 +1,15 @@
 ---
 dag:
-  repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.14
-  env_vars:
-    DEFAULT_DOWNLOAD_EXPIRES_IN: "43200"
+  repository: moj-analytical-services/laa-search-index-airflow-s3-ops
+  tag: v0.2.4-alpha-4c0507a
 
 iam:
   s3_read_write:
-    - alpha-search-legal-aid-audit/*
-    - alpha-laa-source-file-request/*
-    - alpha-laa-source-file-output/*
-
-  s3_read_only:
-    - alpha-laa-source-raw-file-storage/*
     - alpha-search-legal-aid-test/*
 
 maintainers:
   - nina-knowles-justice
   - dami-moj
-  - jh-justice-dev
 
 secrets:
   - source-request-bucket

@@ -1,16 +1,16 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.3.3
+  tag: 1.4.5
   compute_profile: general-on-demand-16vcpu-64gb
   catchup: false
   env_vars:
-    DEPLOY_ENV: prod
+    DEPLOY_ENV: dev
     DBT_PROFILE_WORKGROUP: dbt-xhibit
     DBT_PROJECT: mojap_derived_tables
-    WORKFLOW_NAME: deploy-onemags-prod
-    DBT_SELECT_CRITERIA: tag:onemags
-    BRANCH: main
+    WORKFLOW_NAME: deploy-libra-mod-dev
+    DBT_SELECT_CRITERIA: tag:libra_model
+    BRANCH: OneMags/dev
     MODE: build
     THREAD_COUNT: 10
 
@@ -25,7 +25,7 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-derived-tables/prod/*
+    - mojap-derived-tables/dev/*
 
 tags:
   business_unit: Central Digital

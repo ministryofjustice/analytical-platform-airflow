@@ -1,13 +1,13 @@
 ---
 dag:
-  repository: moj-analytical-services/airflow-file
-  tag: v1.2.2
+  repository: moj-analytical-services/moj-data-loader
+  tag: v2.0.4
   schedule: "0 7 * * *"
   is_paused_upon_creation: true
   env_vars:
-    AFFILE_ALLOW_PROD: "true"
-    AFFILE_ENV: "prod"
-    AFFILE_SCHEMA_CONTRACT: "freeze"
+    MODAL_ALLOW_PROD: "true"
+    MODAL_ENV: "prod"
+    MODAL_SCHEMA_CONTRACT: "freeze"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
@@ -17,10 +17,10 @@ dag:
   tasks:
     load-cloudwatch_athena_logs:
       env_vars:
-        AFFILE_PIPELINE_NAME: "cloudwatch_athena_logs"
+        MODAL_PIPELINE_NAME: "cloudwatch_athena_logs"
     load-athena_queries:
       env_vars:
-        AFFILE_PIPELINE_NAME: "athena_queries"
+        MODAL_PIPELINE_NAME: "athena_queries"
 
 iam:
   athena: write
