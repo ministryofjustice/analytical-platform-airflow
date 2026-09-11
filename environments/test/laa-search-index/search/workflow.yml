@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-search
-  tag: v0.1.11-alpha-5868e7f
+  tag: v0.1.6
 
 iam:
   s3_read_write:
@@ -23,12 +23,13 @@ maintainers:
   - JamesS-MoJ
 
 secrets:
-  - source-request-bucket
-  - source-request-key
-  - source-output-bucket
-  - source-output-key
+  - bucket
+  - key
+  - input-bucket
+  - input-key
+  - output-bucket
+  - output-key
   - audit-bucket
-  - splink-bucket
 
 tags:
   business_unit: LAA
