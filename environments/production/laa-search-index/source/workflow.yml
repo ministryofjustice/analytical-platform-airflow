@@ -14,11 +14,12 @@ iam:
     - laa-splink-source-s3/*
 
   kms:
-    - arn:aws:kms:eu-west-2:593291632749:key/c0f20b2d-7b3e-4a60-9c04-2fb3befe6a3f
+    - arn:aws:kms:eu-west-2:593291632749:key/c0f20b2d-7b3e-4a60-9c04-2fb3befe6a3f #Tobeupdated
 
 maintainers:
   - nina-knowles-justice
   - dami-moj
+  - jh-justice-dev
 
 secrets:
   - source-request-bucket
