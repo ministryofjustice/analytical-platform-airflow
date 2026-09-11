@@ -1,0 +1,39 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.4.5
+  schedule: "0 0 * * *"
+  catchup: false
+  env_vars:
+    DEPLOY_ENV: dev
+    DBT_PROFILE_WORKGROUP: dbt-curated-daily
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-curated-daily
+    DBT_SELECT_CRITERIA: tag:curated
+    BRANCH: main
+    MODE: build
+    THREAD_COUNT: 10
+
+  tasks:
+    table_deploy:
+      compute_profile: general-on-demand-16vcpu-64gb
+
+maintainers:
+  - AntFMoJ
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/dev/*
+
+notifications:
+  emails:
+    - anthony.fitzroy@justice.gov.uk
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
