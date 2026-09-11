@@ -13,6 +13,7 @@ dag:
     BRANCH: main
     MODE: build
     THREAD_COUNT: 10
+    RUN_SOURCE_FRESHNESS: true
   tasks:
     table_deploy:
       compute_profile: general-on-demand-16vcpu-64gb
