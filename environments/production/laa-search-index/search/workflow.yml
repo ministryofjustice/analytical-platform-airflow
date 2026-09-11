@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-search
-  tag: v0.1.11-alpha-5868e7f
+  tag: v0.1.6
 
 iam:
   s3_read_write:
@@ -20,7 +20,6 @@ maintainers:
   - dami-moj
   - jh-justice-dev
   - jfjb-justice
-  - JamesS-MoJ
 
 secrets:
   - source-request-bucket
