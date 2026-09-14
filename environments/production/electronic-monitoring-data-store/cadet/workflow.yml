@@ -1,0 +1,37 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.3.4
+  compute_profile: general-on-demand-8vcpu-32gb
+  schedule: "0 6 * * *"
+  env_vars:
+    DEPLOY_ENV: prod
+    DBT_PROFILE: emd
+    AWS_DEFAULT_REGION: eu-west-2
+    DBT_PROJECT: hmpps_electronic_monitoring_data_tables
+    WORKFLOW_NAME: cadet-em-prod
+    DBT_SELECT_CRITERIA: tag:emd_live
+    BRANCH: main
+    MODE: build
+    DBT_PROFILE_WORKGROUP: dummy_value
+    EM_REMOVE_HISTORIC: true
+
+maintainers:
+  - matt-heery
+  - lucy-astley-jones
+  - kraihanmoj
+
+notifications:
+  emails:
+    - EMDataEngineering@justice.gov.uk
+  slack_channel: em-engineers-moj-madetech
+
+secrets:
+  - github-key
+
+iam:
+  external_role: arn:aws:iam::976799291502:role/prod-data-api-cross-account-role
+
+tags:
+  business_unit: HMPPS
+  owner: EMDataEngineering@justice.gov.uk

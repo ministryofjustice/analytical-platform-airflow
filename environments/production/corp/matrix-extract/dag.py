@@ -1,6 +1,9 @@
 from datetime import datetime, timedelta
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
+from airflow.providers.cncf.kubernetes.secret import (
+    Secret,
+)
 
 
 REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
@@ -49,6 +52,14 @@ def create_kubernetes_operator(task_id, run_function, dag, scrape_date=DATE):
         environment=f"{ENVIRONMENT}",
         project=f"{PROJECT}",
         workflow=f"{WORKFLOW}",
+        secrets=[
+            Secret(
+                deploy_type="env",
+                deploy_target='SECRET_MATRIX_KEY',
+                secret=f"{PROJECT}-{WORKFLOW}-matrix-key",
+                key="data",
+            )
+        ],
         env_vars={
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",

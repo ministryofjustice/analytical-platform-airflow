@@ -18,12 +18,10 @@ notifications:
 
   emails:
     - chris.sheldon@justice.gov.uk
-    - Supratik.Chowdhury@justice.gov.uk
 
 maintainers:
-  - csheldon15
-  - moj-supratikc
+  - Csheldon155
 
 tags:
   business_unit: Central Digital
-  owner: supratik.chowdhury@justice.gov.uk
+  owner: chris.sheldon@justice.gov.uk

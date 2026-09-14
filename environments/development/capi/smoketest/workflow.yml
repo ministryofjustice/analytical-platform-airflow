@@ -1,0 +1,51 @@
+dag:
+  repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
+  tag: gw-test-v1.0.13-dev
+
+  env_vars:
+    ENV_FOR_DYNACONF: dev
+    AWS_DEFAULT_REGION: eu-west-1
+    DYNACONF_RUN_VERSION: gw_test_1
+    DYNACONF_DATASET: 2324_gw
+
+  tasks:
+    prepare:
+      env_vars:
+        PROCESS_TYPE: prepare
+    bcst:
+      dependencies: [prepare]
+      env_vars:
+        PROCESS_TYPE: bcst
+    layerthree:
+      dependencies: [prepare]
+      env_vars:
+        PROCESS_TYPE: layerthree
+    nomis:
+      dependencies: [prepare]
+      env_vars:
+        PROCESS_TYPE: nomis
+    postprocess:
+      dependencies: [bcst, layerthree, nomis]
+      env_vars:
+        PROCESS_TYPE: postprocess
+
+iam:
+  athena: write
+  glue: true
+  bedrock: true
+  s3_read_write:
+    - alpha-bold-pilot-rr-families/*
+  s3_read_only:
+    - mojap-derived-tables/*
+    - alpha-data-linking/*
+
+notifications:
+  emails:
+    - guy.wheeler@justice.gov.uk
+
+maintainers:
+  - guyvw1
+
+tags:
+  business_unit: HQ
+  owner: guy.wheeler@justice.gov.uk

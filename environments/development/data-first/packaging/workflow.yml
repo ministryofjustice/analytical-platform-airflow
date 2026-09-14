@@ -1,0 +1,28 @@
+dag:
+  repository: moj-analytical-services/data-first-packaging
+  tag: v0.4.0
+  params:
+    output_name: end_to_end_test
+    target_platform: ons
+
+maintainers:
+  - tmpks
+
+tags:
+  business_unit: HQ
+  owner: tapan.perkins@justice.gov.uk
+
+notifications:
+  emails:
+    - tapan.perkins@justice.gov.uk
+
+secrets:
+  - zip-password
+
+iam:
+  athena: write
+  glue: true
+  s3_read_only:
+    - mojap-derived-tables/dev/models/domain_name=data_first/*
+  s3_read_write:
+    - alpha-data-first/data-products/development/*

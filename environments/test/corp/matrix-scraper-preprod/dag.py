@@ -1,5 +1,8 @@
 from datetime import datetime
 from airflow.models import DAG
+from airflow.providers.cncf.kubernetes.secret import (
+    Secret,
+)
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
 
 
@@ -12,10 +15,9 @@ OWNER = "PLACEHOLDER_OWNER"
 DATE = datetime.today().strftime("%Y-%m-%d")
 
 DAG_EMAIL = [
-    "Supratik.Chowdhury@justice.gov.uk",
+    "Benjamin.Finucane@justice.gov.uk",
     "Laurence.Droy@justice.gov.uk",
     "Shanmugapriya.Basker@justice.gov.uk",
-    "William.Orr@justice.gov.uk",
 ]
 
 default_args = {
@@ -49,6 +51,14 @@ def create_kubernetes_operator(task_id, run_function, dag, scrape_date=DATE):
         environment=f"{ENVIRONMENT}",
         project=f"{PROJECT}",
         workflow=f"{WORKFLOW}",
+        secrets=[
+            Secret(
+                deploy_type="env",
+                deploy_target='SECRET_MATRIX_KEY',
+                secret=f"{PROJECT}-{WORKFLOW}-matrix-key",
+                key="data",
+            )
+        ],
         env_vars={
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",

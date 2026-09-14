@@ -27,6 +27,17 @@
     "openssf",
     "cooldown",
     "color",
-    "airflowignore"
+    "airflowignore",
+    "dagfactory",
+    "hmcts",
+    "sarif",
+    "tonumber",
+    "argjson",
+    "ltrimstr",
+    "startswith",
+    "GHSA",
+    "anchore",
+    "cutoff",
+    "charliermarsh"
   ]
 }

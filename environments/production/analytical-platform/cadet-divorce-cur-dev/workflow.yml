@@ -1,0 +1,33 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.3.5
+  compute_profile: general-on-demand-16vcpu-64gb
+  catchup: false
+  env_vars:
+    DEPLOY_ENV: dev
+    DBT_PROFILE_WORKGROUP: dbt-curated-dev
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-ccd-divorce-curated-dev
+    DBT_SELECT_CRITERIA: tag:ccd_divorce
+    BRANCH: ccd_divorce_config
+    MODE: build
+    THREAD_COUNT: 10
+
+maintainers:
+  - DanJ-MOJ
+  - Andy-Cook
+  - AntonyJScott
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/dev/*
+
+tags:
+  business_unit: Central Digital
+  owner: Antony.Scott@justice.gov.uk

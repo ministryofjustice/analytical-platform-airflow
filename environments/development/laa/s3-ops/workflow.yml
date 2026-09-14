@@ -1,0 +1,52 @@
+---
+dag:
+  repository: moj-analytical-services/laa-search-index-airflow-s3-ops
+  tag: v0.2.2
+
+  retries: 1
+  max_active_runs: 1
+  compute_profile: general-spot-1vcpu-4gb
+
+  env_vars:
+    AWS_REGION: "eu-west-2"
+    LOG_LEVEL: "INFO"
+    KMS_KEY_ARN: "arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2"
+
+  tasks:
+    exists:
+      env_vars:
+        MODE: "exists"
+        S3_PATH: "s3://alpha-search-legal-aid-test/test_realistic.parquet"
+
+    copy:
+      dependencies: [exists]
+      env_vars:
+        MODE: "copy"
+        S3_SOURCE: "s3://alpha-search-legal-aid-test/test_realistic.parquet"
+        S3_DESTINATION: "s3://laa-splink-search-s3-test/test_realistic.parquet"
+
+    verify:
+      dependencies: [copy]
+      env_vars:
+        MODE: "exists"
+        S3_PATH: "s3://laa-splink-search-s3-test/test_realistic.parquet"
+
+iam:
+  kms:
+    - arn:aws:kms:eu-west-2:593291632749:key/9ab6c1c5-4617-4f95-9fe7-2f2d7c1b53a2
+
+  s3_read_write:
+    - alpha-search-legal-aid-test/*
+    - laa-splink-search-s3-test/*
+
+maintainers:
+  - dami-moj
+
+notifications:
+  emails:
+    - Damilola.Oyebade@justice.gov.uk
+  slack_channel: laa-search-index-alerts
+
+tags:
+  business_unit: LAA
+  owner: LAA-Data-Engineering@justice.gov.uk

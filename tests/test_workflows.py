@@ -15,6 +15,7 @@ WORKSPACE_ROOT = Path(__file__).parent.parent
 # Also defined in scripts/workflow_generator/main.py
 PROJECT_ALIASES = {
     "electronic-monitoring-data-store": "emds",
+    "electronic-monitoring-data-store-pp": "emds-pp",
 }
 
 ENVIRONMENTS_DIR = WORKSPACE_ROOT / "environments"

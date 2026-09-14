@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.7.6
+  tag: v3.8.1-test-59
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -8,12 +8,12 @@ dag:
   retries: 1
   retry_delay: 150
   start_date: "2025-08-28"
-  schedule: None
+  schedule: 0 5 * * *
   env_vars:
     DATABASE: "ocr"
     PIPELINE_NAME: "ocr"
     DATABASE_VERSION: "prod"
-    GITHUB_TAG: "v3.7.6"
+    GITHUB_TAG: "v3.8.1"
     ATHENA_DB_PREFIX: "opg"
     START_DATE: "2025-08-28"
     AWS_DEFAULT_REGION: "eu-west-1"

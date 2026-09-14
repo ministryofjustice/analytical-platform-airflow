@@ -1,0 +1,97 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v3.0.12
+  start_date: "2026-06-04"
+  schedule: 0 2 * * *
+  retries: 0
+  hmcts_sdp_networking: True
+  max_active_runs: 1
+  env_vars:
+    TASK: "extract"
+    LOG_LEVEL: "INFO"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    SDP_TABLE_PREFIX: "v3-ccd"
+    PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
+    COPY_MODE: "new"
+    CHECK_MODE: "table"
+    FILENAME_COL_NAME: "meta__source_file"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    DATABASE_NAME: "ccd_divorce_v1"
+    LAND_BUCKET: "s3://mojap-land"
+    HIST_BUCKET: "s3://mojap-raw-hist"
+    LAND_FOLDER: "hmcts/ccd-divorce"
+    HIST_FOLDER: "hmcts/ccd-divorce"
+    CUT_OFF: "2023-01-01"
+  tasks:
+    ccd_extract_divorce_divorce:
+      env_vars:
+        TABLE_NAME: "divorce-divorce"
+        S3_TABLE_NAME: "divorce_divorce"
+        FILENAME_TABLE_NAME: "divorce_divorce"
+    ccd_extract_divorce_divorce_bulkaction:
+      env_vars:
+        TABLE_NAME: "divorce-divorce-bulkaction"
+        S3_TABLE_NAME: "divorce_divorce_bulkaction"
+        FILENAME_TABLE_NAME: "divorce_divorce_bulkaction"
+    ccd_extract_divorce_divorce_exceptionrecord:
+      env_vars:
+        TABLE_NAME: "divorce-divorce-exceptionrecord"
+        S3_TABLE_NAME: "divorce_divorce_exceptionrecord"
+        FILENAME_TABLE_NAME: "divorce_divorce_exceptionrecord"
+    ccd_extract_divorce_divorce_notice_of_acting:
+      env_vars:
+        TABLE_NAME: "divorce-divorce-notice-of-acting"
+        S3_TABLE_NAME: "divorce_divorce_notice_of_acting"
+        FILENAME_TABLE_NAME: "divorce_divorce_notice_of_acting"
+    ccd_extract_divorce_financialremedycontested:
+      env_vars:
+        TABLE_NAME: "divorce-financialremedycontested"
+        S3_TABLE_NAME: "divorce_financialremedycontested"
+        FILENAME_TABLE_NAME: "divorce_financialremedycontested"
+    ccd_extract_divorce_financialremedymvp2:
+      env_vars:
+        TABLE_NAME: "divorce-financialremedymvp2"
+        S3_TABLE_NAME: "divorce_financialremedymvp2"
+        FILENAME_TABLE_NAME: "divorce_financialremedymvp2"
+    ccd_extract_divorce_finrem_exceptionrecord:
+      env_vars:
+        TABLE_NAME: "divorce-finrem-exceptionrecord"
+        S3_TABLE_NAME: "divorce_finrem_exceptionrecord"
+        FILENAME_TABLE_NAME: "divorce_finrem_exceptionrecord"
+    ccd_extract_divorce_nfd:
+      env_vars:
+        TABLE_NAME: "divorce-nfd"
+        S3_TABLE_NAME: "divorce_nfd"
+        FILENAME_TABLE_NAME: "divorce_nfd"
+    ccd_extract_divorce_nfd_exceptionrecord:
+      env_vars:
+        TABLE_NAME: "divorce-nfd-exceptionrecord"
+        S3_TABLE_NAME: "divorce_nfd_exceptionrecord"
+        FILENAME_TABLE_NAME: "divorce_nfd_exceptionrecord"
+    ccd_extract_divorce_no_fault_divorce_bulkaction:
+      env_vars:
+        TABLE_NAME: "divorce-no-fault-divorce-bulkaction"
+        S3_TABLE_NAME: "divorce_no_fault_divorce_bulkaction"
+        FILENAME_TABLE_NAME: "divorce_no_fault_divorce_bulkaction"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land/hmcts/ccd-divorce/*
+    - mojap-raw-hist/hmcts/ccd-divorce/*
+  s3_read_only:
+    - mojap-processed/domain__divorce/env__prod/ccd_divorce_v1/*
+
+secrets:
+  - sdp-pass
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
+maintainers:
+  - Andy-Cook
+  - DanJ-MOJ
+
+tags:
+  business_unit: Central Digital
+  owner: daniel.johnstone@justice.gov.uk

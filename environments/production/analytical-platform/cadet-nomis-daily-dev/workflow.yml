@@ -1,0 +1,38 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.4.6-pre3
+  schedule: "0 4 * * *"
+  catchup: false
+  env_vars:
+    DEPLOY_ENV: dev
+    DBT_PROFILE_WORKGROUP: dbt-nomis-daily
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: nomis-daily
+    DBT_SELECT_CRITERIA: tag:nomis_daily
+    BRANCH: main
+    MODE: build
+    THREAD_COUNT: 10
+    RUN_SOURCE_FRESHNESS: true
+  tasks:
+    table_deploy:
+      compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://mojap-derived-tables/dev/nomis-daily/"
+
+maintainers:
+  - AntFMoJ
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  lake_formation: true
+  s3_read_write:
+    - mojap-derived-tables/dev/*
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk

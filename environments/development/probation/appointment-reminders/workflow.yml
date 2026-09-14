@@ -90,19 +90,16 @@ iam:
     - alpha-govnotify-probation-messaging/appointment-reminders/*
 
 maintainers:
-  - AntonyJScott
   - lalithanagarur
   - joephillipsjustice
-  - AntFMoJ
 
 notifications:
   emails:
     - lalitha.nagarur3@justice.gov.uk
-    - antony.scott@justice.gov.uk
     - joseph.phillips@justice.gov.uk
-    - anthony.fitzroy@justice.gov.uk
+    - ProbationDataEngineering@justice.gov.uk
   slack_channel: de-probation-airflow-dev
 
 tags:
   business_unit: HQ
-  owner: antony.scott@justice.gov.uk
+  owner: ProbationDataEngineering@justice.gov.uk
