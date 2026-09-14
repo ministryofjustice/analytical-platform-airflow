@@ -6,7 +6,7 @@ dag:
   max_active_runs: 1
   retries: 1
   retry_delay: 150
-  start_date: "2026-07-01"
+  start_date: "2026-09-11"
   schedule: "0 9 * * *"
   tasks:
     extract:
