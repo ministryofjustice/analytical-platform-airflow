@@ -16,7 +16,7 @@ dag:
     "S3_FAILED_KEY_PREFIX": "hmpps/prison-curious2"
     "S3_CREDENTIALS_BUCKET": "mojap-land"
     "S3_CREDENTIALS_KEY": "hmpps/prison-curious//sas_token_info.txt"
-    "CREDENTIAL_LOCATION": "/airflow/development/prison-curious/test/curious-azure-credential"
+    "CREDENTIAL_LOCATION": "/airflow/development/hmpps/prison-curious2/curious-azure-credential"
     "CREDENTIAL_MANAGER_REGION": "eu-west-2"
 
   tasks:
