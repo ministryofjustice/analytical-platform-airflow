@@ -1,11 +1,11 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.2.9
-  schedule: "0 9-11 * * *"
+  tag: 1.4.5
+  schedule: "0 2-4 * * *"
   catchup: false
   env_vars:
-    DEPLOY_ENV: sandpit
+    DEPLOY_ENV: prod
     DBT_PROFILE_WORKGROUP: dbt-cica
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: cica-daily
