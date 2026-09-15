@@ -26,6 +26,10 @@ dag:
       env_vars:
         TASK: "extract"
         DATASET: "offences"
+    extract-balances:
+      env_vars:
+        TASK: "extract"
+        DATASET: "balances"
     full-schema:
       env_vars:
         TASK: "full-schema"
