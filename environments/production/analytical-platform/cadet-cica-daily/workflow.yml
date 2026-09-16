@@ -25,6 +25,7 @@ dag:
 
 maintainers:
   - jhpyke
+  - AntonyJScott
 
 secrets:
   - github-key
