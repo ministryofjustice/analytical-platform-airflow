@@ -11,6 +11,7 @@ iam:
     - alpha-search-legal-aid-audit/*
     - alpha-laa-source-file-request/*
     - alpha-laa-source-file-output/*
+    - alpha-source-laa-test-zip/*
 
   s3_read_only:
     - alpha-laa-source-raw-file-storage/*
