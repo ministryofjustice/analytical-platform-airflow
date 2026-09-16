@@ -1,7 +1,10 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.13-alpha-efb72fb
+  tag: v0.1.17
+  env_vars:
+    AWS_REGION: eu-west-1
+    DEV_MODE: True
 
 iam:
   s3_read_write:
@@ -25,10 +28,13 @@ secrets:
   - source-request-bucket
   - source-request-key
   - source-output-bucket
-  - source-output-key
-  - audit-bucket
-  - splink-parquet
+  - source-file-bucket
   - source-zip-bucket
+  - audit-bucket
+  - splink-bucket
+  - splink-key
+  - sse-kms-keyid
+  - output-key
 
 notifications:
   slack_channel: laa-search-index-alerts
