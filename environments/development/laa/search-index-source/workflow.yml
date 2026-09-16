@@ -6,8 +6,6 @@ dag:
     AWS_REGION: eu-west-1
     DEV_MODE: true 
 
-
-
 iam:
   s3_read_write:
     - alpha-search-legal-aid-audit/*
