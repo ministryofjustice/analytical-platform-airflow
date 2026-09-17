@@ -3,8 +3,8 @@ dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
   tag: v0.1.17
   env_vars:
-    AWS_REGION: eu-west-1
-    DEV_MODE: True
+    AWS_REGION: eu-west-2
+    DEV_MODE: False
 
 iam:
   s3_read_write:
@@ -15,6 +15,7 @@ iam:
 
   s3_read_only:
     - laa-splink-source-s3-test/*
+    - laa-splink-search-s3-test/*
 
   kms:
     - arn:aws:kms:eu-west-2:593291632749:key/c0f20b2d-7b3e-4a60-9c04-2fb3befe6a3f
@@ -28,6 +29,7 @@ secrets:
   - source-request-bucket
   - source-request-key
   - source-output-bucket
+  - source-output-key
   - source-file-bucket
   - source-zip-bucket
   - audit-bucket
