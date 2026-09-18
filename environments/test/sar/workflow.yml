@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/sar-export-pipeline
 
-  tag: 
+  tag: v0.1.0
   catchup: false
 
 iam:
