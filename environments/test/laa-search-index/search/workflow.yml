@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-search
-  tag: v0.1.13
+  tag: v0.1.14-rc
   env_vars:
     DEV_MODE: False
 
