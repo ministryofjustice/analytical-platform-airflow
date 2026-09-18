@@ -1,0 +1,19 @@
+dag:
+  repository: moj-analytical-services/sar-export-pipeline
+
+  tag: 
+  catchup: false
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-sar-export-test/export-history/*
+    - alpha-sar-export-test/exports/*
+
+maintainers:
+  - sanjo-thapa-moj
+
+tags:
+  business_unit: HQ
+  owner: sanjo.thapa@justice.gov.uk
