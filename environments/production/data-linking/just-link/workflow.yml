@@ -6,7 +6,6 @@ dag:
   max_active_runs: 1
   schedule: "0 20 * * 7"
   start_date: "2026-09-20"
-  catchup
 
   env_vars:
     SNAPSHOT_DATE: "latest"
