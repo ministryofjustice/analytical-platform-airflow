@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.19-rc
+  tag: v0.1.19-alpha-146bacb
   env_vars:
     AWS_REGION: eu-west-2
     DEV_MODE: False
