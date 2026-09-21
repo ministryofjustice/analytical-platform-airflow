@@ -1,9 +1,12 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev53
-  retries: 0
+  tag: v5.0.0.dev56
+  retries: 1
   retry_delay: 150
   max_active_runs: 1
+  schedule: "0 20 * * 7"
+  start_date: "2026-09-20"
+  catchup
 
   env_vars:
     SNAPSHOT_DATE: "latest"
