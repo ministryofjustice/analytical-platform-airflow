@@ -1,0 +1,30 @@
+dag:
+  repository: moj-analytical-services/bold_prevention_families_operationalising_datashare
+  tag: datashare-v0.1.0-dev
+  compute_profile: general-on-demand-4vcpu-16gb
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+
+  env_vars:
+    AWS_DEFAULT_REGION: eu-west-1
+    OUTPUT_S3_PREFIX: s3://alpha-bold-pilot-rr-families/operational_datashare/airflow-dev
+
+iam:
+  athena: write
+  glue: true
+
+  s3_read_only:
+    - alpha-bold-pilot-rr-families/*
+    - mojap-derived-tables/*
+    - alpha-data-linking/*
+
+  s3_read_write:
+    - alpha-bold-pilot-rr-families/operational_datashare/airflow-dev/*
+
+maintainers:
+  - jedholm-moj
+
+tags:
+  business_unit: HQ
+  owner: REPLACE_WITH_YOUR_JUSTICE_EMAIL
