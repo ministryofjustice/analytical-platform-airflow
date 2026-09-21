@@ -1,0 +1,19 @@
+dag:
+  repository: moj-analytical-services/airflow-hmpps-socn-dashboard
+  tag: v0.1.1
+
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+
+  max_active_runs: 1
+
+  retries: 1
+  retry_delay: 300
+
+maintainers:
+  - DavePassey
+
+tags:
+  business_unit: HMPPS
+  owner: david.passey1@justice.gov.uk
