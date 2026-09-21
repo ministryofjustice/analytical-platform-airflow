@@ -27,6 +27,7 @@ secrets:
 
 maintainers:
   - andrewc-moj
+  - AntFMoJ
 
 notifications:
   emails:
