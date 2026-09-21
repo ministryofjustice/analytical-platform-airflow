@@ -1,5 +1,5 @@
 dag:
-  repository: moj-analytical-services/airflow-hmpps-socn-dashboards
+  repository: moj-analytical-services/airflow-hmpps-socn-dashboard
   tag: v0.1.1
 
   catchup: false
