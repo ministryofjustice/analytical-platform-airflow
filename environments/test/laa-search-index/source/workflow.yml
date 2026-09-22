@@ -2,6 +2,11 @@
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
   tag: v0.1.20
+
+  schedule: "*/15 9-16 * * 1-5"
+  max_active_runs: 1
+  catchup: false
+
   env_vars:
     AWS_REGION: eu-west-2
     DEV_MODE: False
