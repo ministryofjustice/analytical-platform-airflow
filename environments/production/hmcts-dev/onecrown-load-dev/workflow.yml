@@ -1,7 +1,8 @@
 ---
 dag:
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.0.4
+  tag: v2.0.5-alpha.cdbdbc1
+  start_date: "2026-09-21"
   is_paused_upon_creation: true
   env_vars:
     AFFILE_ENV: "dev"
@@ -414,9 +415,11 @@ dag:
     common_platform_stg__case_detail_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__case_detail"
+      compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__case_marker_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__case_marker"
+      compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__case_person_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__case_person"
@@ -426,30 +429,37 @@ dag:
     common_platform_stg__defendant_detail_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__defendant_detail"
+      compute_profile: general-spot-4vcpu-16gb
     common_platform_stg__hearing_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__hearing"
+      compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__hearing_attendance_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__hearing_attendance"
+      compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__hearing_case_application_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__hearing_case_application"
     common_platform_stg__hearing_date_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__hearing_date"
+      compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__hearing_effectiveness_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__hearing_effectiveness"
     common_platform_stg__hearing_event_log_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__hearing_event_log"
+      compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__hearing_result_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__hearing_result"
+      compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__hearing_result_prompt_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__hearing_result_prompt"
+      compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__legal_entity_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__legal_entity"
@@ -465,12 +475,15 @@ dag:
     common_platform_stg__offence_detail_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__offence_detail"
+      compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__offence_plea_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__offence_plea"
+      compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__person_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__person"
+      compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__rd_case_marker_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_common_platform_stg__rd_case_marker"
@@ -1059,9 +1072,11 @@ dag:
     xhibit_stg__bw_history_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__bw_history"
+      compute_profile: general-spot-4vcpu-16gb
     xhibit_stg__case_diary_fixture_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__case_diary_fixture"
+      compute_profile: general-spot-32vcpu-128gb
     xhibit_stg__case_listing_entry_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__case_listing_entry"
@@ -1071,6 +1086,7 @@ dag:
     xhibit_stg__cases_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__cases"
+      compute_profile: general-spot-32vcpu-128gb
     xhibit_stg__charge_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__charge"
@@ -1083,6 +1099,7 @@ dag:
     xhibit_stg__def_hearing_record_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__def_hearing_record"
+      compute_profile: general-spot-32vcpu-128gb
     xhibit_stg__defendant_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__defendant"
@@ -1092,18 +1109,23 @@ dag:
     xhibit_stg__defendant_on_case_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__defendant_on_case"
+      compute_profile: general-spot-32vcpu-128gb
     xhibit_stg__defendant_on_offence_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__defendant_on_offence"
+      compute_profile: general-spot-32vcpu-128gb
     xhibit_stg__disposal2_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__disposal2"
+      compute_profile: general-spot-32vcpu-128gb
     xhibit_stg__disposal_line_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__disposal_line"
+      compute_profile: general-spot-32vcpu-128gb
     xhibit_stg__hearing_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__hearing"
+      compute_profile: general-spot-32vcpu-128gb
     xhibit_stg__list_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__list"
@@ -1119,12 +1141,15 @@ dag:
     xhibit_stg__mis_event_log_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__mis_event_log"
+      compute_profile: general-spot-32vcpu-128gb
     xhibit_stg__offence_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__offence"
+      compute_profile: general-spot-32vcpu-128gb
     xhibit_stg__plea_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__plea"
+      compute_profile: general-spot-32vcpu-128gb
     xhibit_stg__ref_app_result_load:
       env_vars:
         AFFILE_PIPELINE_NAME: "sdp_xhibit_stg__ref_app_result"
