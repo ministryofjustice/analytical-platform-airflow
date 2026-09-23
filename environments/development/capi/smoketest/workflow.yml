@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
-  tag: gw-test-v1.0.20-dev
+  tag: gw-test-v1.0.22-dev
 
   env_vars:
     ENV_FOR_DYNACONF: dev
@@ -24,8 +24,12 @@ dag:
       dependencies: [prepare]
       env_vars:
         PROCESS_TYPE: nomis
+    delius_batch:
+      dependencies: [prepare]
+      env_vars:
+        PROCESS_TYPE: delius_batch
     postprocess:
-      dependencies: [bcst, layerthree, nomis]
+      dependencies: [bcst, layerthree, nomis, delius_batch]
       env_vars:
         PROCESS_TYPE: postprocess
 
