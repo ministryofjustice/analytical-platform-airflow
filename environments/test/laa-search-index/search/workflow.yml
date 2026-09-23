@@ -2,6 +2,10 @@
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-search
   tag: v0.1.16-alpha-ab9bb01
+  schedule: "*/15 9-16 * * 1-5"
+  max_active_runs: 1
+  catchup: false
+
   env_vars:
     DEV_MODE: False
 
@@ -35,6 +39,9 @@ secrets:
   - output-key
   - audit-bucket
   - sse-kms-keyid
+
+notifications:
+  slack_channel: laa-search-index-alerts
 
 tags:
   business_unit: LAA
