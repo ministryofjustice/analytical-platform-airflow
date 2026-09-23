@@ -1,6 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow-hmpps-socn-dashboards
-  tag: v0.1.2
+  tag: v1.0.0-rc1
+
+  compute_profile: general-on-demand-4vcpu-16gb
 
   catchup: false
   depends_on_past: false
@@ -17,3 +19,9 @@ maintainers:
 tags:
   business_unit: HMPPS
   owner: david.passey1@justice.gov.uk
+
+iam:
+  athena: read
+
+  s3_read_write:
+    - alpha-hmpps-soccc/*
