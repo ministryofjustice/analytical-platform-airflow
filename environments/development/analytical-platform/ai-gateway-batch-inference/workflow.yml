@@ -1,0 +1,26 @@
+---
+dag:
+  repository: ministryofjustice/data-platform-airflow-ai-gateway-example
+  tag: 0.1.0
+
+  env_vars:
+    AI_GATEWAY_URL: https://development.ai-gateway.justice.gov.uk
+    AI_GATEWAY_INPUT_KEY: batch-inference-sample.jsonl
+    AI_GATEWAY_OUTPUT_PREFIX: output
+
+secrets:
+  - ai-gateway-api-key
+  - ai-gateway-model
+  - ai-gateway-input-bucket
+  - ai-gateway-output-bucket
+
+notifications:
+  emails:
+    - gary.henderson1@justice.gov.uk
+
+maintainers:
+  - data-platform-engineering
+
+tags:
+  business_unit: Platforms
+  owner: gary.henderson1@justice.gov.uk
