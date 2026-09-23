@@ -14,7 +14,6 @@ dag:
   retry_delay: 300
 
   tasks:
-
     step_01_extract_parquet:
       env_vars:
         STEP: "01_extract_parquet"
