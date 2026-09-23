@@ -1,0 +1,20 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-justice-redact
+  tag: 0.1.0
+  env_vars:
+    TARGET_BUCKET: "cloud-platform-e8943f6dadc19b2596e1a0c8c52192ca"
+    TARGET_PREFIX: "airflow/justice-redact/smoke-test"
+
+iam:
+  athena: write
+  s3_read_write:
+    - cloud-platform-e8943f6dadc19b2596e1a0c8c52192ca/*
+
+maintainers:
+  - adityadsgit
+  - dugaldhepburnmoj
+
+tags:
+  business_unit: OCTO
+  owner: JusticeRedactTeam@justice.gov.uk
