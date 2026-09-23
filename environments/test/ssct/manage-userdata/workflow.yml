@@ -2,7 +2,7 @@ dag:
   repository: moj-analytical-services/ssct-manage-userdata
   schedule: "10,40 8-18 * * 1-5"
   is_paused_upon_creation: true
-  tag: 0.0.2
+  tag: 0.0.4
 
 iam:
   s3_read_write:
