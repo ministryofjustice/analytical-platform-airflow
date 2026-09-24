@@ -5,9 +5,11 @@ dag:
   tag: 0.0.8
 
 iam:
-  s3_read_write:
-    - mojap-data-production-ssct-gov-29148-egress/*
-    - mojap-data-production-shared-services-client-team-gov-29148/*
+    kms:
+        - arn:aws:kms:eu-west-2:123456789012:key/mrk-12345678909876543212345678909876
+    s3_read_write:
+        - mojap-data-production-ssct-gov-29148-egress/*
+        - mojap-data-production-shared-services-client-team-gov-29148/*
 
 maintainers:
   - MJCT-MOJ
