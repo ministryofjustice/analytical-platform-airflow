@@ -45,7 +45,7 @@ dag:
 
 notifications:
   emails:
-    - saimon.khan@justice.gov.uk
+    - parminder.thindal@justice.gov.uk
   slack_channel: xcjs-de-alerts
 
 iam:
@@ -53,17 +53,18 @@ iam:
   s3_read_write:
     - mojap-land-dev/cps/testing/*
     - mojap-raw-hist-dev/crown_prosecution_service/testing/*
-    - mojap-processed/crown_prosecution_service/x-cjs-data/test/*
+    - alpha-cjs-dataset-sensitive-dip/testing/*
     - alpha-criminal-courts-data-staging/crown_prosecution_service/*
 
 secrets:
   - decryption-token
 
 maintainers:
-  - Saimon-Khan
+  - parminder-thindal-moj
   - ThomasHepworth
+  - Andy-Cook
   - george-w-jenkins
 
 tags:
   business_unit: HMCTS
-  owner: saimon.khan@justice.gov.uk
+  owner: parminder.thindal@justice.gov.uk
