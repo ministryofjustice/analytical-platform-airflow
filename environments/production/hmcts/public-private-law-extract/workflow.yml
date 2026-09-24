@@ -22,15 +22,9 @@ dag:
     ccd_extract_privatelaw_prlapps:
       env_vars:
         AZURE_TABLE: "privatelaw-prlapps"
-    ccd_extract_privatelaw_prlapps_all_cols:
-      env_vars:
-        AZURE_TABLE: "privatelaw-prlapps-all-cols"
     ccd_extract_publiclaw_care_supervision_epo:
       env_vars:
         AZURE_TABLE: "publiclaw-care-supervision-epo"
-    ccd_extract_publiclaw_care_supervision_epo_all_cols:
-      env_vars:
-        AZURE_TABLE: "publiclaw-care-supervision-epo-all-cols"
     ccd_extract_publiclaw_publiclaw_exceptionrecord:
       env_vars:
         AZURE_TABLE: "publiclaw-publiclaw-exceptionrecord"
