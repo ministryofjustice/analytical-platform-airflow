@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-hmpps-socn-dashboards
-  tag: v1.0.0-rc3
+  tag: v1.0.0-rc6
 
   compute_profile: general-on-demand-4vcpu-16gb
 
@@ -128,6 +128,25 @@ iam:
 
   s3_read_write:
     - alpha-hmpps-soccc/*
+
+  s3_read_only:
+    # JustLink
+    - alpha-data-linking/v5/products/internal/*
+
+    # Delius / Probation
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=probation_derived/*
+
+    # Prison
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/*
+
+    # Manage Offences
+    - alpha-mojap-ccde/manage_offences/*
 
 maintainers:
   - DavePassey
