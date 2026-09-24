@@ -13,7 +13,7 @@ dag:
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
     DATABASE_NAME: "ccd_public_private_law"
     LAND_BUCKET: "mojap-land"
-    LAND_FOLDER: "hmcts/ccd-public-private-law"
+    LAND_PATH: "hmcts/ccd-public-private-law"
     CUT_OFF: "2023-01-01"
   tasks:
     ccd_extract_privatelaw_privatelaw_exceptionrecord:
