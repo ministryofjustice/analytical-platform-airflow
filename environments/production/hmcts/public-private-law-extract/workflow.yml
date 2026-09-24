@@ -1,0 +1,59 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v4.3.0
+  start_date: "2026-09-23"
+  schedule: 30 2 * * *
+  retries: 0
+  hmcts_sdp_networking: True
+  max_active_runs: 1
+  env_vars:
+    LOG_LEVEL: "INFO"
+    SDP_TABLE_PREFIX: "v3-ccd-"
+    FILENAME_COL_NAME: "meta__source_file"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    DATABASE_NAME: "ccd_public_private_law"
+    LAND_BUCKET: "mojap-land"
+    LAND_PATH: "hmcts/ccd-public-private-law"
+    CUT_OFF: "2023-01-01"
+  tasks:
+    ccd_extract_privatelaw_privatelaw_exceptionrecord:
+      env_vars:
+        AZURE_TABLE: "privatelaw-privatelaw-exceptionrecord"
+    ccd_extract_privatelaw_prlapps:
+      env_vars:
+        AZURE_TABLE: "privatelaw-prlapps"
+    ccd_extract_privatelaw_prlapps_all_cols:
+      env_vars:
+        AZURE_TABLE: "privatelaw-prlapps-all-cols"
+    ccd_extract_publiclaw_care_supervision_epo:
+      env_vars:
+        AZURE_TABLE: "publiclaw-care-supervision-epo"
+    ccd_extract_publiclaw_care_supervision_epo_all_cols:
+      env_vars:
+        AZURE_TABLE: "publiclaw-care-supervision-epo-all-cols"
+    ccd_extract_publiclaw_publiclaw_exceptionrecord:
+      env_vars:
+        AZURE_TABLE: "publiclaw-publiclaw-exceptionrecord"
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land/hmcts/ccd-public-private-law/*
+    - mojap-raw-hist/hmcts/ccd-public-private-law/*
+  s3_read_only:
+    - alpha-mojap-ccd/public-private-law/*
+
+secrets:
+  - sdp-pass
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
+maintainers:
+  - Andy-Cook
+  - DanJ-MOJ
+  - AntonyJScott
+
+tags:
+  business_unit: Central Digital
+  owner: cft_data_engineering@justice.gov.uk
