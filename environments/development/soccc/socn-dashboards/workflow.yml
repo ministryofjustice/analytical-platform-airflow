@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-hmpps-socn-dashboards
-  tag: v1.0.0-rc3
+  tag: v1.0.0-rc5
 
   compute_profile: general-on-demand-4vcpu-16gb
 
