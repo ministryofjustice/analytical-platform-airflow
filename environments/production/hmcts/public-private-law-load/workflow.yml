@@ -7,6 +7,7 @@ dag:
   is_paused_upon_creation: true
   env_vars:
     MODAL_ENV: "prod"
+    MODAL_ALLOW_PROD: "true"
     MODAL_SCHEMA_CONTRACT: "evolve"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
