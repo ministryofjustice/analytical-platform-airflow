@@ -14,6 +14,7 @@ dag:
     AWS_DEFAULT_REGION: eu-west-2
     DBT_PROFILE: dpr
     BRANCH: change-probation-to-dpr
+    ENFORCE_LAKE_FORMATION: true
 
   tasks:
     table_deploy:
