@@ -7,6 +7,7 @@ dag:
   is_paused_upon_creation: true
   env_vars:
     MODAL_ENV: "prod"
+    MODAL_ALLOW_PROD: "true"
     MODAL_SCHEMA_CONTRACT: "evolve"
     MODAL_LOAD_LIMIT: "100"
     AWS_DEFAULT_REGION: "eu-west-1"
