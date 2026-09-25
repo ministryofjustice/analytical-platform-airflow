@@ -425,7 +425,7 @@ jobs:
               body: 'Container test has failed. Refer to the [User Guidance](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#configuration-testing) for more information.'
             })
 
-      - name: Generate .grype.yml
+      - name: Generate .grype.yaml
         id: generate_grype_yml
         env:
           GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
@@ -460,7 +460,7 @@ jobs:
           export downloadGrypeYmlStatus
 
           if [[ "${downloadGrypeYmlStatus}" == "null" ]]; then
-            jq -r '.content' <<< "${downloadGrypeYml}" | base64 --decode > .grype.yml
+            jq -r '.content' <<< "${downloadGrypeYml}" | base64 --decode > .grype.yaml
           elif [[ "${downloadGrypeYmlStatus}" == "404" ]]; then
             echo ".grype.yml not found" # It's OK if we don't find one, it means the user might not have created one yet
           else
@@ -491,10 +491,15 @@ jobs:
 
           curl --silent --show-error --location "https://raw.githubusercontent.com/${imageRepo}/refs/heads/main/.grype.yml" --output "runtime-grype.yml"
 
-          if [[ ! -f .grype.yml ]]; then
-            mv "runtime-grype.yml" .grype.yml
+          if [[ ! -f .grype.yaml ]]; then
+            mv "runtime-grype.yml" .grype.yaml
           else
-            cat "runtime-grype.yml" >> .grype.yml
+            yq eval-all '
+              select(fileIndex == 0) as $local |
+              select(fileIndex == 1) as $runtime |
+              $local * {"ignore": (($local.ignore // []) + ($runtime.ignore // []))}
+            ' .grype.yaml runtime-grype.yml > .grype.yaml.merged
+            mv .grype.yaml.merged .grype.yaml
           fi
 
       - name: Comment on Image Version Mismatch
