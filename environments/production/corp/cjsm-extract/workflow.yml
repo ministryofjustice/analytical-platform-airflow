@@ -28,6 +28,9 @@ iam:
     - mojap-land/corporate/cjsm/*
     - mojap-athena-query-dump/*
 
+notifications:
+  slack_channel: dmet-corp-notifications
+
 secrets:
   - cjsm-scope
   - cjsm-client-id
