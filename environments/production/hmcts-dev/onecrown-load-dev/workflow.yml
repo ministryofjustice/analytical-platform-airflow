@@ -1,0 +1,1200 @@
+---
+dag:
+  repository: moj-analytical-services/moj-data-loader
+  tag: v2.0.5-alpha.cdbdbc1
+  start_date: "2026-09-21"
+  is_paused_upon_creation: true
+  env_vars:
+    MODAL_ENV: "dev"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-2vcpu-8gb
+  tasks:
+    common_platform_dim__brg_case_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__brg_case_defendants"
+    common_platform_dim__brg_case_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__brg_case_hearings"
+    common_platform_dim__brg_case_markers_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__brg_case_markers"
+    common_platform_dim__brg_defendant_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__brg_defendant_hearings"
+    common_platform_dim__brg_trial_hearing_cases_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__brg_trial_hearing_cases"
+    common_platform_dim__dim_case_markers_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_case_markers"
+    common_platform_dim__dim_case_statuses_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_case_statuses"
+    common_platform_dim__dim_case_trial_statuses_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_case_trial_statuses"
+    common_platform_dim__dim_cases_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_cases"
+    common_platform_dim__dim_courts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_courts"
+    common_platform_dim__dim_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_defendants"
+    common_platform_dim__dim_defendants_on_case_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_defendants_on_case"
+    common_platform_dim__dim_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_hearings"
+    common_platform_dim__dim_offences_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_offences"
+    common_platform_dim__dim_results_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_results"
+    common_platform_dim__dim_sjp_decision_types_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_sjp_decision_types"
+    common_platform_dim__dim_sub_cases_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_sub_cases"
+    common_platform_dim__dim_trial_effectiveness_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__dim_trial_effectiveness"
+    common_platform_dim__fct_case_activity_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_case_activity"
+    common_platform_dim__fct_cases_at_court_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_cases_at_court"
+    common_platform_dim__fct_crown_court_defendant_bench_warrants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_defendant_bench_warrants"
+    common_platform_dim__fct_crown_court_disposals_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_disposals"
+    common_platform_dim__fct_crown_court_open_case_count_monthly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_open_case_count_monthly"
+    common_platform_dim__fct_crown_court_open_case_count_weekly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_open_case_count_weekly"
+    common_platform_dim__fct_crown_court_open_cases_monthly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_open_cases_monthly"
+    common_platform_dim__fct_crown_court_open_cases_weekly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_open_cases_weekly"
+    common_platform_dim__fct_crown_court_outstanding_cases_monthly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_outstanding_cases_monthly"
+    common_platform_dim__fct_crown_court_receipts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_receipts"
+    common_platform_dim__fct_defendant_bench_warrants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_defendant_bench_warrants"
+    common_platform_dim__fct_defendant_on_case_activity_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_defendant_on_case_activity"
+    common_platform_dim__fct_hearing_durations_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_hearing_durations"
+    common_platform_dim__fct_hearing_results_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_hearing_results"
+    common_platform_dim__fct_offence_activity_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_offence_activity"
+    common_platform_dim__fct_sentencing_outcomes_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_sentencing_outcomes"
+    common_platform_dim__fct_sjp_decisions_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_sjp_decisions"
+    common_platform_dim__fct_trial_effectiveness_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_trial_effectiveness"
+    common_platform_dim__fct_valid_timeliness_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_valid_timeliness_defendants"
+    common_platform_int__aggregate_defendant_trial_status_on_sub_case_id_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__aggregate_defendant_trial_status_on_sub_case_id"
+    common_platform_int__apply_court_lookup_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__apply_court_lookup"
+    common_platform_int__apply_offence_lookups_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__apply_offence_lookups"
+    common_platform_int__bench_warrants_attended_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__bench_warrants_attended_hearings"
+    common_platform_int__bench_warrants_executed_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__bench_warrants_executed"
+    common_platform_int__bench_warrants_issued_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__bench_warrants_issued"
+    common_platform_int__bench_warrants_withdrawn_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__bench_warrants_withdrawn"
+    common_platform_int__calculate_active_hearing_duration_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__calculate_active_hearing_duration"
+    common_platform_int__calculate_custodial_period_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__calculate_custodial_period"
+    common_platform_int__calculate_disqualification_period_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__calculate_disqualification_period"
+    common_platform_int__calculate_financial_amount_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__calculate_financial_amount"
+    common_platform_int__calculate_penalty_points_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__calculate_penalty_points"
+    common_platform_int__calculate_result_rank_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__calculate_result_rank"
+    common_platform_int__case_bench_warrants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_bench_warrants"
+    common_platform_int__case_disposal_dates_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_disposal_dates"
+    common_platform_int__case_first_bench_warrant_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_first_bench_warrant"
+    common_platform_int__case_first_listed_crown_court_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_first_listed_crown_court"
+    common_platform_int__case_grounds_for_sending_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_grounds_for_sending"
+    common_platform_int__case_max_remand_on_committal_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_max_remand_on_committal"
+    common_platform_int__case_max_remand_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_max_remand_status"
+    common_platform_int__case_max_remand_status_pre_main_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_max_remand_status_pre_main_hearing"
+    common_platform_int__case_plea_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_plea"
+    common_platform_int__case_receipt_and_remittal_dates_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_receipt_and_remittal_dates"
+    common_platform_int__case_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_status"
+    common_platform_int__case_total_hearing_time_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_total_hearing_time"
+    common_platform_int__case_total_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_total_hearings"
+    common_platform_int__case_trial_verdict_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_trial_verdict_type"
+    common_platform_int__case_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__case_type"
+    common_platform_int__combine_defendant_trial_statuses_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__combine_defendant_trial_statuses"
+    common_platform_int__crown_court_hearings_before_plea_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__crown_court_hearings_before_plea"
+    common_platform_int__crown_cracked_trial_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__crown_cracked_trial"
+    common_platform_int__crown_disposal_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__crown_disposal_type"
+    common_platform_int__deduplicate_court_dimension_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__deduplicate_court_dimension"
+    common_platform_int__defendant_bench_warrants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_bench_warrants"
+    common_platform_int__defendant_bench_warrants_crown_only_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_bench_warrants_crown_only"
+    common_platform_int__defendant_case_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_case_type"
+    common_platform_int__defendant_disposal_dates_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_disposal_dates"
+    common_platform_int__defendant_disposal_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_disposal_type"
+    common_platform_int__defendant_first_bench_warrant_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_first_bench_warrant"
+    common_platform_int__defendant_first_hearing_court_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_first_hearing_court"
+    common_platform_int__defendant_first_hearing_date_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_first_hearing_date"
+    common_platform_int__defendant_first_main_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_first_main_hearing"
+    common_platform_int__defendant_first_sentence_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_first_sentence_hearing"
+    common_platform_int__defendant_first_trial_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_first_trial_hearing"
+    common_platform_int__defendant_grounds_for_sending_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_grounds_for_sending"
+    common_platform_int__defendant_has_had_effective_trial_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_has_had_effective_trial"
+    common_platform_int__defendant_has_had_ineffective_trial_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_has_had_ineffective_trial"
+    common_platform_int__defendant_hearing_attendance_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_hearing_attendance"
+    common_platform_int__defendant_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_hearings"
+    common_platform_int__defendant_longest_offence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_longest_offence"
+    common_platform_int__defendant_max_remand_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_max_remand_status"
+    common_platform_int__defendant_max_remand_status_pre_main_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_max_remand_status_pre_main_hearing"
+    common_platform_int__defendant_plea_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_plea"
+    common_platform_int__defendant_receipt_and_remittal_dates_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_receipt_and_remittal_dates"
+    common_platform_int__defendant_remand_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_remand_status"
+    common_platform_int__defendant_remand_status_spells_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_remand_status_spells"
+    common_platform_int__defendant_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_status"
+    common_platform_int__defendant_total_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_total_hearings"
+    common_platform_int__defendant_trial_verdict_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__defendant_trial_verdict_type"
+    common_platform_int__derive_defendant_demographics_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__derive_defendant_demographics"
+    common_platform_int__derive_defendant_offence_demographics_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__derive_defendant_offence_demographics"
+    common_platform_int__derive_remand_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__derive_remand_status"
+    common_platform_int__derived_crown_trials_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__derived_crown_trials"
+    common_platform_int__driving_disqualifications_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__driving_disqualifications"
+    common_platform_int__hearing_dates_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__hearing_dates"
+    common_platform_int__hearing_effectiveness_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__hearing_effectiveness"
+    common_platform_int__hearing_to_hearing_remand_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__hearing_to_hearing_remand_status"
+    common_platform_int__hearing_types_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__hearing_types"
+    common_platform_int__join_case_marker_details_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__join_case_marker_details"
+    common_platform_int__join_crown_offence_plea_verdict_disposal_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__join_crown_offence_plea_verdict_disposal"
+    common_platform_int__join_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__join_defendants"
+    common_platform_int__join_hearing_details_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__join_hearing_details"
+    common_platform_int__join_hearing_result_definitions_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__join_hearing_result_definitions"
+    common_platform_int__join_offence_details_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__join_offence_details"
+    common_platform_int__join_sentence_amounts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__join_sentence_amounts"
+    common_platform_int__mode_of_trial_reasons_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__mode_of_trial_reasons"
+    common_platform_int__most_serious_disposal_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__most_serious_disposal"
+    common_platform_int__most_serious_offence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__most_serious_offence"
+    common_platform_int__offence_case_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offence_case_type"
+    common_platform_int__offence_committed_for_sentence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offence_committed_for_sentence"
+    common_platform_int__offence_disposed_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offence_disposed"
+    common_platform_int__offence_entered_in_error_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offence_entered_in_error"
+    common_platform_int__offence_plea_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offence_plea"
+    common_platform_int__offence_plea_mapped_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offence_plea_mapped"
+    common_platform_int__offence_referred_from_sjp_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offence_referred_from_sjp"
+    common_platform_int__offence_remitted_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offence_remitted"
+    common_platform_int__offence_sent_for_trial_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offence_sent_for_trial"
+    common_platform_int__offence_transferred_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offence_transferred"
+    common_platform_int__offence_verdict_mapped_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offence_verdict_mapped"
+    common_platform_int__offences_at_crown_court_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__offences_at_crown_court"
+    common_platform_int__plea_verdict_mapped_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__plea_verdict_mapped"
+    common_platform_int__receipt_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__receipt_type"
+    common_platform_int__remand_on_committal_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__remand_on_committal"
+    common_platform_int__timeliness_all_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__timeliness_all_defendants"
+    common_platform_int__timeliness_validation_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_int__timeliness_validation"
+    common_platform_stg__application_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__application"
+    common_platform_stg__case_detail_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__case_detail"
+      compute_profile: general-spot-32vcpu-128gb
+    common_platform_stg__case_marker_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__case_marker"
+      compute_profile: general-spot-32vcpu-128gb
+    common_platform_stg__case_person_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__case_person"
+    common_platform_stg__custody_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__custody_status"
+    common_platform_stg__defendant_detail_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__defendant_detail"
+      compute_profile: general-spot-4vcpu-16gb
+    common_platform_stg__hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__hearing"
+      compute_profile: general-spot-32vcpu-128gb
+    common_platform_stg__hearing_attendance_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__hearing_attendance"
+      compute_profile: general-spot-32vcpu-128gb
+    common_platform_stg__hearing_case_application_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__hearing_case_application"
+    common_platform_stg__hearing_date_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__hearing_date"
+      compute_profile: general-spot-32vcpu-128gb
+    common_platform_stg__hearing_effectiveness_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__hearing_effectiveness"
+    common_platform_stg__hearing_event_log_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__hearing_event_log"
+      compute_profile: general-spot-32vcpu-128gb
+    common_platform_stg__hearing_result_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__hearing_result"
+      compute_profile: general-spot-32vcpu-128gb
+    common_platform_stg__hearing_result_prompt_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__hearing_result_prompt"
+      compute_profile: general-spot-32vcpu-128gb
+    common_platform_stg__legal_entity_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__legal_entity"
+    common_platform_stg__lookup_case_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__lookup_case_status"
+    common_platform_stg__lookup_common_platform_results_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__lookup_common_platform_results"
+    common_platform_stg__lookup_criminal_courts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__lookup_criminal_courts"
+    common_platform_stg__offence_detail_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__offence_detail"
+      compute_profile: general-spot-32vcpu-128gb
+    common_platform_stg__offence_plea_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__offence_plea"
+      compute_profile: general-spot-32vcpu-128gb
+    common_platform_stg__person_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__person"
+      compute_profile: general-spot-32vcpu-128gb
+    common_platform_stg__rd_case_marker_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__rd_case_marker"
+    common_platform_stg__rd_cracked_ineffective_trial_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__rd_cracked_ineffective_trial_type"
+    common_platform_stg__rd_hearing_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__rd_hearing_type"
+    common_platform_stg__rd_offence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__rd_offence"
+    common_platform_stg__rd_organisation_unit_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__rd_organisation_unit"
+    common_platform_stg__rd_plea_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__rd_plea_type"
+    common_platform_stg__rd_result_definition_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__rd_result_definition"
+    common_platform_stg__rd_verdict_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__rd_verdict_type"
+    common_platform_stg__sjp_decision_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__sjp_decision"
+    common_platform_stg__sjp_session_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_common_platform_stg__sjp_session"
+    crown_court_datamarts__case_activity_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_datamarts__case_activity"
+    crown_court_datamarts__defendant_activity_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_datamarts__defendant_activity"
+    crown_court_datamarts__open_cases_monthly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_datamarts__open_cases_monthly"
+    crown_court_datamarts__open_cases_weekly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_datamarts__open_cases_weekly"
+    crown_court_datamarts__trial_effectiveness_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_datamarts__trial_effectiveness"
+    crown_court_dim__brg_case_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__brg_case_defendants"
+    crown_court_dim__brg_case_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__brg_case_hearings"
+    crown_court_dim__brg_case_markers_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__brg_case_markers"
+    crown_court_dim__brg_defendant_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__brg_defendant_hearings"
+    crown_court_dim__brg_trial_cases_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__brg_trial_cases"
+    crown_court_dim__dim_active_case_trial_statuses_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__dim_active_case_trial_statuses"
+    crown_court_dim__dim_appeals_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__dim_appeals"
+    crown_court_dim__dim_case_markers_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__dim_case_markers"
+    crown_court_dim__dim_case_statuses_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__dim_case_statuses"
+    crown_court_dim__dim_cases_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__dim_cases"
+    crown_court_dim__dim_crown_courts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__dim_crown_courts"
+    crown_court_dim__dim_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__dim_defendants"
+    crown_court_dim__dim_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__dim_hearings"
+    crown_court_dim__dim_offences_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__dim_offences"
+    crown_court_dim__dim_results_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__dim_results"
+    crown_court_dim__dim_trials_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__dim_trials"
+    crown_court_dim__fct_case_activity_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__fct_case_activity"
+    crown_court_dim__fct_defendant_activity_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__fct_defendant_activity"
+    crown_court_dim__fct_defendant_bench_warrant_activity_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__fct_defendant_bench_warrant_activity"
+    crown_court_dim__fct_defendant_timeliness_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__fct_defendant_timeliness"
+    crown_court_dim__fct_hearing_durations_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__fct_hearing_durations"
+    crown_court_dim__fct_open_cases_monthly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__fct_open_cases_monthly"
+    crown_court_dim__fct_open_cases_weekly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__fct_open_cases_weekly"
+    crown_court_dim__fct_receipt_disposal_open_case_counts_monthly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__fct_receipt_disposal_open_case_counts_monthly"
+    crown_court_dim__fct_sentencing_outcomes_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__fct_sentencing_outcomes"
+    crown_court_dim__fct_trial_effectiveness_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_dim__fct_trial_effectiveness"
+    crown_court_int__combine_appeal_dimensions_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_appeal_dimensions"
+    crown_court_int__combine_case_activity_facts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_case_activity_facts"
+    crown_court_int__combine_case_defendant_bridges_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_case_defendant_bridges"
+    crown_court_int__combine_case_dimensions_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_case_dimensions"
+    crown_court_int__combine_case_hearing_bridges_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_case_hearing_bridges"
+    crown_court_int__combine_case_trial_statuses_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_case_trial_statuses"
+    crown_court_int__combine_court_dimensions_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_court_dimensions"
+    crown_court_int__combine_defendant_activity_facts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_defendant_activity_facts"
+    crown_court_int__combine_defendant_bench_warrant_facts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_defendant_bench_warrant_facts"
+    crown_court_int__combine_defendant_dimensions_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_defendant_dimensions"
+    crown_court_int__combine_defendant_hearing_bridges_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_defendant_hearing_bridges"
+    crown_court_int__combine_hearing_dimensions_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_hearing_dimensions"
+    crown_court_int__combine_hearing_duration_facts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_hearing_duration_facts"
+    crown_court_int__combine_offence_dimensions_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_offence_dimensions"
+    crown_court_int__combine_open_cases_monthly_facts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_open_cases_monthly_facts"
+    crown_court_int__combine_open_cases_weekly_facts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_open_cases_weekly_facts"
+    crown_court_int__combine_result_dimensions_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_result_dimensions"
+    crown_court_int__combine_sentencing_outcome_facts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_sentencing_outcome_facts"
+    crown_court_int__combine_timeliness_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_timeliness_defendants"
+    crown_court_int__combine_trial_case_bridges_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_trial_case_bridges"
+    crown_court_int__combine_trial_dimensions_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_trial_dimensions"
+    crown_court_int__combine_trial_effectiveness_facts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__combine_trial_effectiveness_facts"
+    crown_court_int__common_platform_case_markers_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_crown_court_int__common_platform_case_markers"
+    xhibit_dim__brg_case_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__brg_case_defendants"
+    xhibit_dim__brg_case_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__brg_case_hearings"
+    xhibit_dim__brg_defendant_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__brg_defendant_hearings"
+    xhibit_dim__brg_trial_listing_cases_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__brg_trial_listing_cases"
+    xhibit_dim__dim_appeals_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__dim_appeals"
+    xhibit_dim__dim_case_trial_statuses_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__dim_case_trial_statuses"
+    xhibit_dim__dim_cases_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__dim_cases"
+    xhibit_dim__dim_courts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__dim_courts"
+    xhibit_dim__dim_defendants_on_case_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__dim_defendants_on_case"
+    xhibit_dim__dim_disposals_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__dim_disposals"
+    xhibit_dim__dim_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__dim_hearings"
+    xhibit_dim__dim_offences_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__dim_offences"
+    xhibit_dim__dim_trial_listings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__dim_trial_listings"
+    xhibit_dim__fct_case_activity_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_case_activity"
+    xhibit_dim__fct_crown_court_disposals_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_crown_court_disposals"
+    xhibit_dim__fct_crown_court_open_case_count_monthly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_crown_court_open_case_count_monthly"
+    xhibit_dim__fct_crown_court_open_case_count_weekly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_crown_court_open_case_count_weekly"
+    xhibit_dim__fct_crown_court_open_cases_monthly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_crown_court_open_cases_monthly"
+    xhibit_dim__fct_crown_court_open_cases_weekly_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_crown_court_open_cases_weekly"
+    xhibit_dim__fct_crown_court_receipts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_crown_court_receipts"
+    xhibit_dim__fct_defendant_bench_warrants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_defendant_bench_warrants"
+    xhibit_dim__fct_defendant_on_case_activity_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_defendant_on_case_activity"
+    xhibit_dim__fct_defendant_sentencing_outcomes_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_defendant_sentencing_outcomes"
+    xhibit_dim__fct_hearing_durations_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_hearing_durations"
+    xhibit_dim__fct_offence_sentencing_outcomes_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_offence_sentencing_outcomes"
+    xhibit_dim__fct_sentencing_outcomes_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_sentencing_outcomes"
+    xhibit_dim__fct_trial_effectiveness_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_trial_effectiveness"
+    xhibit_dim__fct_valid_timeliness_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_valid_timeliness_defendants"
+    xhibit_int__appeal_result_date_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__appeal_result_date"
+    xhibit_int__appeal_type_results_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__appeal_type_results"
+    xhibit_int__bw_history_cleansed_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__bw_history_cleansed"
+    xhibit_int__bw_imputed_end_dates_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__bw_imputed_end_dates"
+    xhibit_int__case_bench_warrants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_bench_warrants"
+    xhibit_int__case_dates_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_dates"
+    xhibit_int__case_disposal_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_disposal_type"
+    xhibit_int__case_first_bench_warrant_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_first_bench_warrant"
+    xhibit_int__case_grounds_for_sending_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_grounds_for_sending"
+    xhibit_int__case_has_had_effective_trial_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_has_had_effective_trial"
+    xhibit_int__case_has_had_ineffective_trial_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_has_had_ineffective_trial"
+    xhibit_int__case_info_disposed_case_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_info_disposed_case"
+    xhibit_int__case_max_remand_on_committal_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_max_remand_on_committal"
+    xhibit_int__case_max_remand_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_max_remand_status"
+    xhibit_int__case_max_remand_status_pre_main_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_max_remand_status_pre_main_hearing"
+    xhibit_int__case_plea_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_plea"
+    xhibit_int__case_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_status"
+    xhibit_int__case_total_hearing_time_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_total_hearing_time"
+    xhibit_int__case_total_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_total_hearings"
+    xhibit_int__case_trial_verdict_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_trial_verdict_type"
+    xhibit_int__charge_info_defendant_on_case_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__charge_info_defendant_on_case"
+    xhibit_int__combine_case_trial_statuses_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__combine_case_trial_statuses"
+    xhibit_int__combine_trial_listings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__combine_trial_listings"
+    xhibit_int__combine_vacated_trials_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__combine_vacated_trials"
+    xhibit_int__court_id_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__court_id"
+    xhibit_int__cracked_trial_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__cracked_trial"
+    xhibit_int__defendant_disposal_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_disposal_type"
+    xhibit_int__defendant_first_appeal_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_first_appeal_hearing"
+    xhibit_int__defendant_first_bench_warrant_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_first_bench_warrant"
+    xhibit_int__defendant_first_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_first_hearing"
+    xhibit_int__defendant_first_main_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_first_main_hearing"
+    xhibit_int__defendant_first_plea_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_first_plea_hearing"
+    xhibit_int__defendant_first_sentence_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_first_sentence_hearing"
+    xhibit_int__defendant_first_trial_listing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_first_trial_listing"
+    xhibit_int__defendant_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_hearings"
+    xhibit_int__defendant_longest_offence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_longest_offence"
+    xhibit_int__defendant_max_remand_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_max_remand_status"
+    xhibit_int__defendant_max_remand_status_pre_main_hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_max_remand_status_pre_main_hearing"
+    xhibit_int__defendant_offence_demographics_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_offence_demographics"
+    xhibit_int__defendant_plea_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_plea"
+    xhibit_int__defendant_plea_verdict_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_plea_verdict"
+    xhibit_int__defendant_principal_offence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_principal_offence"
+    xhibit_int__defendant_remand_status_spells_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_remand_status_spells"
+    xhibit_int__defendant_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_status"
+    xhibit_int__defendant_total_hearings_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_total_hearings"
+    xhibit_int__defendant_trial_verdict_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__defendant_trial_verdict_type"
+    xhibit_int__derive_defendant_on_case_attributes_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__derive_defendant_on_case_attributes"
+    xhibit_int__derive_disposal_attributes_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__derive_disposal_attributes"
+    xhibit_int__derive_remand_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__derive_remand_status"
+    xhibit_int__disposal_all_results_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_all_results"
+    xhibit_int__disposal_defendant_all_offence_disposal_date_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_defendant_all_offence_disposal_date"
+    xhibit_int__disposal_defendant_disposal_date_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_defendant_disposal_date"
+    xhibit_int__disposal_demographics_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_demographics"
+    xhibit_int__disposal_durations_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_durations"
+    xhibit_int__disposal_durations_derived_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_durations_derived"
+    xhibit_int__disposal_offence_disposal_date_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_offence_disposal_date"
+    xhibit_int__disposal_on_offence_rank_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_on_offence_rank"
+    xhibit_int__disposal_outcome_date_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_outcome_date"
+    xhibit_int__disposal_removed_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_removed"
+    xhibit_int__disposal_results_filtered_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_results_filtered"
+    xhibit_int__disposal_results_filtered_derived_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_results_filtered_derived"
+    xhibit_int__disposal_verdicts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disposal_verdicts"
+    xhibit_int__disqualified_for_life_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__disqualified_for_life"
+    xhibit_int__effective_sentence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__effective_sentence"
+    xhibit_int__effective_trial_reasons_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__effective_trial_reasons"
+    xhibit_int__first_offence_date_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__first_offence_date"
+    xhibit_int__hearing_to_hearing_remand_status_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__hearing_to_hearing_remand_status"
+    xhibit_int__hearings_before_plea_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__hearings_before_plea"
+    xhibit_int__hocas_xhibit_journey_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__hocas_xhibit_journey"
+    xhibit_int__is_driving_test_required_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__is_driving_test_required"
+    xhibit_int__join_cases_def_on_case_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__join_cases_def_on_case"
+    xhibit_int__join_cases_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__join_cases_defendants"
+    xhibit_int__join_crest_trial_effectiveness_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__join_crest_trial_effectiveness"
+    xhibit_int__join_crest_vacated_trials_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__join_crest_vacated_trials"
+    xhibit_int__join_crown_offence_plea_verdict_disposal_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__join_crown_offence_plea_verdict_disposal"
+    xhibit_int__join_def_on_offence_offence_info_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__join_def_on_offence_offence_info"
+    xhibit_int__join_fixture_details_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__join_fixture_details"
+    xhibit_int__join_listing_details_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__join_listing_details"
+    xhibit_int__join_manage_offences_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__join_manage_offences"
+    xhibit_int__join_offence_code_lookup_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__join_offence_code_lookup"
+    xhibit_int__lookup_court_id_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__lookup_court_id"
+    xhibit_int__monetary_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__monetary"
+    xhibit_int__most_serious_disposal_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__most_serious_disposal"
+    xhibit_int__most_serious_disposal_on_offence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__most_serious_disposal_on_offence"
+    xhibit_int__most_serious_offence_case_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__most_serious_offence_case"
+    xhibit_int__most_serious_offence_defendant_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__most_serious_offence_defendant"
+    xhibit_int__offence_info_disposed_case_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__offence_info_disposed_case"
+    xhibit_int__offence_plea_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__offence_plea"
+    xhibit_int__offence_plea_mapped_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__offence_plea_mapped"
+    xhibit_int__offence_verdict_mapped_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__offence_verdict_mapped"
+    xhibit_int__plea_verdict_mapped_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__plea_verdict_mapped"
+    xhibit_int__points_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__points"
+    xhibit_int__receipt_demographics_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__receipt_demographics"
+    xhibit_int__receipt_types_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__receipt_types"
+    xhibit_int__ref_disposal_line_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__ref_disposal_line"
+    xhibit_int__ref_disposal_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__ref_disposal_type"
+    xhibit_int__splink_hocas_xhibit_defendant_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__splink_hocas_xhibit_defendant"
+    xhibit_int__splink_tar_xhibit_defendant_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__splink_tar_xhibit_defendant"
+    xhibit_int__timeliness_all_defendants_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__timeliness_all_defendants"
+    xhibit_int__timeliness_validation_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__timeliness_validation"
+    xhibit_int__trial_effectiveness_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__trial_effectiveness"
+    xhibit_int__vacated_trials_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__vacated_trials"
+    xhibit_int__valid_cases_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_int__valid_cases"
+    xhibit_stg__bw_history_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__bw_history"
+      compute_profile: general-spot-4vcpu-16gb
+    xhibit_stg__case_diary_fixture_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__case_diary_fixture"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_stg__case_listing_entry_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__case_listing_entry"
+    xhibit_stg__case_on_list_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__case_on_list"
+    xhibit_stg__cases_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__cases"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_stg__charge_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__charge"
+    xhibit_stg__court_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__court"
+    xhibit_stg__cp_rd_offence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__cp_rd_offence"
+    xhibit_stg__def_hearing_record_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__def_hearing_record"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_stg__defendant_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__defendant"
+    xhibit_stg__defendant_charge_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__defendant_charge"
+    xhibit_stg__defendant_on_case_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__defendant_on_case"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_stg__defendant_on_offence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__defendant_on_offence"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_stg__disposal2_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__disposal2"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_stg__disposal_line_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__disposal_line"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_stg__hearing_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__hearing"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_stg__list_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__list"
+    xhibit_stg__lookup_criminal_courts_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__lookup_criminal_courts"
+    xhibit_stg__lookup_disposals_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__lookup_disposals"
+    xhibit_stg__lookup_moj_disposal_codes_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__lookup_moj_disposal_codes"
+    xhibit_stg__mis_event_log_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__mis_event_log"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_stg__offence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__offence"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_stg__plea_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__plea"
+      compute_profile: general-spot-32vcpu-128gb
+    xhibit_stg__ref_app_result_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__ref_app_result"
+    xhibit_stg__ref_cracked_effective_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__ref_cracked_effective"
+    xhibit_stg__ref_disposal_line_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__ref_disposal_line"
+    xhibit_stg__ref_disposal_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__ref_disposal_type"
+    xhibit_stg__ref_event_description_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__ref_event_description"
+    xhibit_stg__ref_hearing_type_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__ref_hearing_type"
+    xhibit_stg__ref_listing_data_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__ref_listing_data"
+    xhibit_stg__ref_offence_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__ref_offence"
+    xhibit_stg__ref_system_code_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__ref_system_code"
+    xhibit_stg__verdict_load:
+      env_vars:
+        MODAL_PIPELINE_NAME: "sdp_xhibit_stg__verdict"
+
+iam:
+  athena: write
+  glue: true
+
+  s3_read_only:
+    - mojap-land-dev/hmcts/onecrown/*
+
+  s3_read_write:
+    - mojap-processed/domain__hmcts/env__dev/*
+
+maintainers:
+  - jovita-brundziene
+  - Andy-Cook
+
+tags:
+  business_unit: Central Digital
+  owner: jovita.brundziene@justice.gov.uk

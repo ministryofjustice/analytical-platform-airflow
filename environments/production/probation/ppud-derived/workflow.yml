@@ -1,0 +1,49 @@
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.5.1
+  start_date: "2026-09-24"
+  catchup: false
+  env_vars:
+    DEPLOY_ENV: prod
+    DBT_PROJECT: hmpps_probation_data_tables
+    S3_BUCKET: dpr-structured-historical-production
+    WORKFLOW_NAME: deploy-derived-probation-data-tables
+    DBT_PROFILE_WORKGROUP: primary
+    DBT_SELECT_CRITERIA: tag:ppud_derived
+    MODE: build
+    AWS_DEFAULT_REGION: eu-west-2
+    DBT_PROFILE: dpr
+    BRANCH: change-probation-to-dpr
+    ENFORCE_LAKE_FORMATION: true
+
+  tasks:
+    table_deploy:
+      compute_profile: general-on-demand-8vcpu-32gb
+    check_run_results:
+      compute_profile: general-on-demand-1vcpu-4gb
+      env_vars:
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://dpr-structured-historical-production/data/prod"
+
+secrets:
+  - github-key
+
+maintainers:
+  - lalithanagarur
+  - joephillipsjustice
+
+notifications:
+  emails:
+    - lalitha.nagarur3@justice.gov.uk
+    - joseph.phillips@justice.gov.uk
+    - ProbationDataEngineering@justice.gov.uk
+  slack_channel: de-probation-airflow-prod
+
+iam:
+  external_role: arn:aws:iam::004723187462:role/dpr-data-api-cross-account-role
+
+tags:
+  business_unit: HMPPS
+  owner: ProbationDataEngineering@justice.gov.uk
