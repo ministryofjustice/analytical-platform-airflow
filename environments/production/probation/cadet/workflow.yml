@@ -1,7 +1,6 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.4.3
-  schedule: "0 3 * * *"
+  tag: 1.5.2
   start_date: "2026-02-23"
   catchup: false
   env_vars:
@@ -14,6 +13,7 @@ dag:
     MODE: build
     AWS_DEFAULT_REGION: eu-west-2
     DBT_PROFILE: probation
+    BRANCH: main-copy-ppud
 
   tasks:
     table_deploy:
