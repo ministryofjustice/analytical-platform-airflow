@@ -1,0 +1,89 @@
+---
+# https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html
+dag:
+  repository: moj-analytical-services/airflow-cross-cjs-data
+  tag: v1.1.0-beta2
+  catchup: false
+  compute_profile: "general-spot-8vcpu-32gb"
+  depends_on_past: false
+  retries: 0
+  retry_delay: 150
+  schedule: None
+
+  env_vars:
+    LOG_LEVEL: "DEBUG"
+    ENV: "dev"
+    FULL_REFRESH: "false"
+    S3_LAND_DELETION_FLAG: "true"
+    SCRIPT_ENTRYPOINT: src/pipeline.py
+
+  tasks:
+    extraction:
+      env_vars:
+        SERVICE: "extract"
+        SCRIPT_ENTRYPOINT: src/extraction.py
+
+    load_postcharge:
+      env_vars:
+        SERVICE: "load_postcharge"
+      dependencies: [extraction]
+
+    redact_postcharge:
+      env_vars:
+        SERVICE: "redaction_postcharge"
+      dependencies: [extraction, load_postcharge]
+
+    load_postcharge_cfs:
+      env_vars:
+        SERVICE: "load_postcharge_cfs"
+      dependencies: [extraction]
+
+    redact_postcharge_cfs:
+      env_vars:
+        SERVICE: "redaction_postcharge_cfs"
+      dependencies: [extraction, load_postcharge_cfs]
+
+    load_precharge:
+      env_vars:
+        SERVICE: "load_precharge"
+      dependencies: [extraction]
+
+    redact_precharge:
+      env_vars:
+        SERVICE: "redaction_precharge"
+      dependencies: [extraction, load_precharge]
+
+    load_victim_witnesses:
+      env_vars:
+        SERVICE: "load_victim_witnesses"
+      dependencies: [extraction]
+
+    redact_victim_witnesses:
+      env_vars:
+        SERVICE: "redaction_victim_witnesses"
+      dependencies: [extraction, load_victim_witnesses]
+
+notifications:
+  emails:
+    - saimon.khan@justice.gov.uk
+  slack_channel: xcjs-de-alerts
+
+iam:
+  athena: write
+  s3_read_write:
+    - mojap-land-dev/cps/*
+    - mojap-raw-hist-dev/crown_prosecution_service/*
+    - mojap-processed/crown_prosecution_service/x-cjs-data/dev/*
+    - alpha-criminal-courts-data-staging/crown_prosecution_service/*
+
+secrets:
+  - decryption-token
+
+maintainers:
+  - Saimon-Khan
+  - ThomasHepworth
+  - george-w-jenkins
+
+tags:
+  business_unit: HMCTS
+  owner: saimon.khan@justice.gov.uk
