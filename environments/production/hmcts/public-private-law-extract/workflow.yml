@@ -35,7 +35,7 @@ iam:
     - mojap-land/hmcts/ccd-public-private-law/*
     - mojap-raw-hist/hmcts/ccd-public-private-law/*
   s3_read_only:
-    - alpha-mojap-ccd/public-private-law/*
+    - mojap-processed/domain__hmcts/env__prod/public_private_law/*
 
 secrets:
   - sdp-pass
