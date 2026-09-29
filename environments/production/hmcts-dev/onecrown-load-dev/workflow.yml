@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.0.5-alpha.cdbdbc1
+  tag: v2.1.3
   start_date: "2026-09-21"
   is_paused_upon_creation: true
   env_vars:
@@ -70,9 +70,6 @@ dag:
     common_platform_dim__fct_case_activity_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_case_activity"
-    common_platform_dim__fct_cases_at_court_load:
-      env_vars:
-        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_cases_at_court"
     common_platform_dim__fct_crown_court_defendant_bench_warrants_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_defendant_bench_warrants"
@@ -91,9 +88,6 @@ dag:
     common_platform_dim__fct_crown_court_open_cases_weekly_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_open_cases_weekly"
-    common_platform_dim__fct_crown_court_outstanding_cases_monthly_load:
-      env_vars:
-        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_outstanding_cases_monthly"
     common_platform_dim__fct_crown_court_receipts_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_crown_court_receipts"
@@ -106,9 +100,6 @@ dag:
     common_platform_dim__fct_hearing_durations_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_hearing_durations"
-    common_platform_dim__fct_hearing_results_load:
-      env_vars:
-        MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_hearing_results"
     common_platform_dim__fct_offence_activity_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_common_platform_dim__fct_offence_activity"
@@ -523,9 +514,11 @@ dag:
     crown_court_datamarts__open_cases_monthly_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_crown_court_datamarts__open_cases_monthly"
+      compute_profile: general-spot-4vcpu-16gb
     crown_court_datamarts__open_cases_weekly_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_crown_court_datamarts__open_cases_weekly"
+      compute_profile: general-spot-4vcpu-16gb
     crown_court_datamarts__trial_effectiveness_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_crown_court_datamarts__trial_effectiveness"
@@ -733,6 +726,7 @@ dag:
     xhibit_dim__fct_crown_court_open_cases_weekly_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_crown_court_open_cases_weekly"
+      compute_profile: general-spot-4vcpu-16gb
     xhibit_dim__fct_crown_court_receipts_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_crown_court_receipts"
@@ -742,15 +736,9 @@ dag:
     xhibit_dim__fct_defendant_on_case_activity_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_defendant_on_case_activity"
-    xhibit_dim__fct_defendant_sentencing_outcomes_load:
-      env_vars:
-        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_defendant_sentencing_outcomes"
     xhibit_dim__fct_hearing_durations_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_hearing_durations"
-    xhibit_dim__fct_offence_sentencing_outcomes_load:
-      env_vars:
-        MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_offence_sentencing_outcomes"
     xhibit_dim__fct_sentencing_outcomes_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_xhibit_dim__fct_sentencing_outcomes"
@@ -811,6 +799,7 @@ dag:
     xhibit_int__case_status_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_status"
+      compute_profile: general-spot-4vcpu-16gb
     xhibit_int__case_total_hearing_time_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_xhibit_int__case_total_hearing_time"
