@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow_racial_disparity_prison_performance_measures
-  tag: v1.0.0
+  tag: v1.0.1
   retries: 3
   retry_delay: 150
   schedule: "0 14 16 * *"
