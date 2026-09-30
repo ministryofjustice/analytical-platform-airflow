@@ -2,6 +2,11 @@
 dag:
   repository: moj-analytical-services/moj-data-loader
   tag: v2.1.3-lm-jd-testing
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-2vcpu-8gb
+
   env_vars:
     MODAL_ENV: "dev"
     MODAL_SCHEMA_CONTRACT: "freeze"
@@ -52,22 +57,18 @@ dag:
       env_vars:
         MODAL_PIPELINE_NAME: "local_mojcore_estates"
 
-  catchup: false
-  max_active_runs: 1
-  retries: 0
-  compute_profile: general-on-demand-2vcpu-8gb
-
 iam:
-athena: write
-glue: true
-s3_read_only:
-- mojap-land-dev/corporate/local_mappings/hmcts_processed/*
-s3_read_write:
-- mojap-processed/domain__finance/*
+  athena: write
+  glue: true
+  s3_read_only:
+    - mojap-land-dev/corporate/local_mappings/hmcts_processed/*
+    - mojap-land-dev/corporate/local_mappings/hmpps_processed/*
+    - mojap-land-dev/corporate/local_mappings/moj_hq_processed/*
+  s3_read_write:
+    - mojap-processed/domain__finance/*
 
 notifications:
-
-  emails:0
+  emails:
     - Chris.Sheldon@justice.gov.uk
     - Pearse.Quinn@justice.gov.uk
 
