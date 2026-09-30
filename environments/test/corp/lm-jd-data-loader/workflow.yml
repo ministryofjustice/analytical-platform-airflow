@@ -1,0 +1,80 @@
+---
+dag:
+  repository: moj-analytical-services/moj-data-loader
+  tag: v2.1.3-lm-jd-testing
+  env_vars:
+    MODAL_ENV: "dev"
+    MODAL_SCHEMA_CONTRACT: "freeze"
+    MODAL_FULL_REFRESH: "false"
+    DATA_WRITER__ARROW_CONCAT_PROMOTE_OPTIONS: "default"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+
+  tasks:
+    central_hyperion_hmcts_cm_mapping:
+      env_vars:
+        MODAL_PIPELINE_NAME: "central_hyperion_hmcts_cm_mapping"
+
+    central_hyperion_hmcts_dts_mapping:
+      env_vars:
+        MODAL_PIPELINE_NAME: "central_hyperion_hmcts_dts_mapping"
+
+    central_hyperion_hmcts_hq_mapping:
+      env_vars:
+        MODAL_PIPELINE_NAME: "central_hyperion_hmcts_hq_mapping"
+
+    central_hyperion_hmcts_property_accountcode_mapping:
+      env_vars:
+        MODAL_PIPELINE_NAME: "central_hyperion_hmcts_property_accountcode_mapping"
+
+    central_hyperion_hmcts_property_costcentre_mapping:
+      env_vars:
+        MODAL_PIPELINE_NAME: "central_hyperion_hmcts_property_costcentre_mapping"
+
+    central_hyperion_hmcts_reform_mapping:
+      env_vars:
+        MODAL_PIPELINE_NAME: "central_hyperion_hmcts_reform_mapping"
+
+    central_hyperion_hmcts_strategic_mapping:
+      env_vars:
+        MODAL_PIPELINE_NAME: "central_hyperion_hmcts_strategic_mapping"
+
+    local_hmpps_account_codes:
+      env_vars:
+        MODAL_PIPELINE_NAME: "local_hmpps_account_codes"
+
+    local_hmpps_cost_centres:
+      env_vars:
+        MODAL_PIPELINE_NAME: "local_hmpps_cost_centres"
+
+    local_mojcore_estates:
+      env_vars:
+        MODAL_PIPELINE_NAME: "local_mojcore_estates"
+
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-2vcpu-8gb
+
+iam:
+athena: write
+glue: true
+s3_read_only:
+- mojap-land-dev/corporate/local_mappings/hmcts_processed/*
+s3_read_write:
+- mojap-processed/domain__finance/*
+
+notifications:
+
+  emails:0
+    - Chris.Sheldon@justice.gov.uk
+    - Pearse.Quinn@justice.gov.uk
+
+maintainers:
+  - Csheldon155
+  - PQjustice
+
+tags:
+  business_unit: Central Digital
+  owner: Chris.Sheldon@justice.gov.uk
