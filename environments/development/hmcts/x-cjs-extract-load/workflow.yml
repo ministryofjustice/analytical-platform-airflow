@@ -30,6 +30,7 @@ dag:
 
     redact_postcharge:
       env_vars:
+        SCRIPT_ENTRYPOINT: "src/redaction.py"
         SERVICE: "redaction_postcharge"
       dependencies: [extraction, load_postcharge]
 
@@ -40,6 +41,7 @@ dag:
 
     redact_postcharge_cfs:
       env_vars:
+        SCRIPT_ENTRYPOINT: "src/redaction.py"
         SERVICE: "redaction_postcharge_cfs"
       dependencies: [extraction, load_postcharge_cfs]
 
@@ -50,6 +52,7 @@ dag:
 
     redact_precharge:
       env_vars:
+        SCRIPT_ENTRYPOINT: "src/redaction.py"
         SERVICE: "redaction_precharge"
       dependencies: [extraction, load_precharge]
 
@@ -60,7 +63,8 @@ dag:
 
     redact_victim_witnesses:
       env_vars:
-        SERVICE: "redaction_victim_witnesses"
+        SCRIPT_ENTRYPOINT: "src/redaction.py"
+        SERVICE: "redaction_victim_witness"
       dependencies: [extraction, load_victim_witnesses]
 
 notifications:
