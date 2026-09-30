@@ -43,6 +43,8 @@ iam:
     - mojap-land-preprod/hmpps/prison-curious2/*
     - mojap-raw-hist-preprod/hmpps/prison-curious2/*
     - mojap-land-fail-preprod/hmpps/prison-curious2/*
+  s3_read_only:
+    - mojap-land/hmpps/prison-curious//*
 
 secrets:
   - curious-azure-credential
