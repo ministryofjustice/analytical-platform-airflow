@@ -9,6 +9,7 @@ iam:
   s3_read_write:
     - alpha-sar-export-test/export-history/*
     - alpha-sar-export-test/exports/*
+    - moj-reg-prod-curated/data-eng-uploader-prod/data/database_name=sar_export_test_data/*
 
 maintainers:
   - sanjo-thapa-moj
