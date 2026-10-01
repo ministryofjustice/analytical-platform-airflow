@@ -1,0 +1,162 @@
+dag:
+  repository: moj-analytical-services/airflow-hmpps-socn-dashboards
+  tag: v1.0.0-rc7
+
+  compute_profile: general-on-demand-4vcpu-16gb
+
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+
+  max_active_runs: 1
+
+  retries: 1
+  retry_delay: 300
+
+  tasks:
+    step_01_extract_parquet:
+      env_vars:
+        STEP: "01_extract_parquet"
+
+    step_02_qa_checks:
+      env_vars:
+        STEP: "02_qa_checks"
+      dependencies: [step_01_extract_parquet]
+
+    step_03_identity_matching_analysis:
+      env_vars:
+        STEP: "03_identity_matching_analysis"
+      dependencies: [step_02_qa_checks]
+
+    step_04_enrich_probation_teams_and_prisons:
+      env_vars:
+        STEP: "04_enrich_probation_teams_and_prisons"
+      dependencies: [step_03_identity_matching_analysis]
+
+    step_05_build_offender_identity_and_location_tables:
+      env_vars:
+        STEP: "05_build_offender_identity_and_location_tables"
+      dependencies: [step_04_enrich_probation_teams_and_prisons]
+
+    step_06_build_offender_identity_cro_enrichment:
+      env_vars:
+        STEP: "06_build_offender_identity_cro_enrichment"
+      dependencies: [step_05_build_offender_identity_and_location_tables]
+
+    step_07_enrich_hmpps_tables_with_offender_key:
+      env_vars:
+        STEP: "07_enrich_hmpps_tables_with_offender_key"
+      dependencies: [step_06_build_offender_identity_cro_enrichment]
+
+    step_08_model_relationship_validation:
+      env_vars:
+        STEP: "08_model_relationship_validation"
+      dependencies: [step_07_enrich_hmpps_tables_with_offender_key]
+
+    step_09_external_datasets_ancillary_orders_enriched:
+      env_vars:
+        STEP: "09_external_datasets_ancillary_orders_enriched"
+      dependencies: [step_08_model_relationship_validation]
+
+    step_10_external_datasets_confiscation_orders:
+      env_vars:
+        STEP: "10_external_datasets_confiscation_orders"
+      dependencies: [step_09_external_datasets_ancillary_orders_enriched]
+
+    step_11_external_datasets_nca_subjects:
+      env_vars:
+        STEP: "11_external_datasets_nca_subjects"
+      dependencies: [step_10_external_datasets_confiscation_orders]
+
+    step_12_external_datasets_venetic:
+      env_vars:
+        STEP: "12_external_datasets_venetic"
+      dependencies: [step_11_external_datasets_nca_subjects]
+
+    step_13_external_notification_forms:
+      env_vars:
+        STEP: "13_external_notification_forms"
+      dependencies: [step_12_external_datasets_venetic]
+
+    step_14_external_county_lines:
+      env_vars:
+        STEP: "14_external_county_lines"
+      dependencies: [step_13_external_notification_forms]
+
+    step_15_build_sca_offences:
+      env_vars:
+        STEP: "15_build_sca_offences"
+      dependencies: [step_14_external_county_lines]
+
+    step_16_build_dim_offence_classification_bridge:
+      env_vars:
+        STEP: "16_build_dim_offence_classification_bridge"
+      dependencies: [step_15_build_sca_offences]
+
+    step_17_build_offender_priority_offence_bridge:
+      env_vars:
+        STEP: "17_build_offender_priority_offence_bridge"
+      dependencies: [step_16_build_dim_offence_classification_bridge]
+
+    step_18_build_soc_criteria_flags_manual_criteria:
+      env_vars:
+        STEP: "18_build_soc_criteria_flags_manual_criteria"
+      dependencies: [step_17_build_offender_priority_offence_bridge]
+
+    step_19_shadow_report_population:
+      env_vars:
+        STEP: "19_shadow_report_population"
+      dependencies: [step_18_build_soc_criteria_flags_manual_criteria]
+
+    step_20_progression_model_enrichment:
+      env_vars:
+        STEP: "20_progression_model_enrichment"
+      dependencies: [step_19_shadow_report_population]
+
+    step_21_crime_ops_cohort:
+      env_vars:
+        STEP: "21_crime_ops_cohort"
+      dependencies: [step_20_progression_model_enrichment]
+
+    step_22_fno_enrichment:
+      env_vars:
+        STEP: "22_fno_enrichment"
+      dependencies: [step_21_crime_ops_cohort]
+
+iam:
+  athena: read
+
+  s3_read_write:
+    - alpha-hmpps-soccc/*
+
+  s3_read_only:
+    # JustLink
+    - alpha-data-linking/v5/products/internal/*
+
+    # Probation Datamarts
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=probation_datamarts/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
+    - mojap-derived-tables/prod/models/domain_name=probation/database_name=probation_derived/*
+
+    # Prison Datamarts
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_datamarts/*
+
+    # NOMIS
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
+    - mojap-derived-tables/seeds/nomis_dn/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/*
+
+    # Prison Derived
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/*
+
+    # Manage Offences
+    - alpha-mojap-ccde/manage_offences/*
+
+maintainers:
+  - DavePassey
+
+tags:
+  business_unit: HMPPS
+  owner: david.passey1@justice.gov.uk
