@@ -8,43 +8,60 @@ dag:
   max_active_runs: 1
 
   env_vars:
+    TASK: "extract"
     LOG_LEVEL: "INFO"
     ENDPOINT: "MI_PERSISTENT_PROD"
+    PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
+    COPY_MODE: "new"
+    CHECK_MODE: "table"
     FILENAME_COL_NAME: "meta__source_file"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
-    LAND_BUCKET: "mojap-land"
+    LAND_BUCKET: "s3://mojap-land"
+    HIST_BUCKET: "s3://mojap-raw-hist"
 
   tasks:
     et_extract_et_englandwales:
       env_vars:
-        AZURE_TABLE: "et-englandwales"
+        TABLE_NAME: "et-englandwales"
+        S3_TABLE_NAME: "et_englandwales"
+        FILENAME_TABLE_NAME: "et_englandwales"
         SDP_TABLE_PREFIX: "v3-et-employment-"
         DATABASE_NAME: "employment_tribunals_v1"
-        LAND_PATH: "hmcts/employment-tribunals/"
+        LAND_FOLDER: "hmcts/employment-tribunals"
+        HIST_FOLDER: "hmcts/employment-tribunals"
       compute_profile: general-on-demand-16vcpu-64gb
 
     et_extract_et_englandwales_listings:
       env_vars:
-        AZURE_TABLE: "et-englandwales-listings"
+        TABLE_NAME: "et-englandwales-listings"
+        S3_TABLE_NAME: "et_englandwales_listings"
+        FILENAME_TABLE_NAME: "et_englandwales_listings"
         SDP_TABLE_PREFIX: "v3-et-employment-"
         DATABASE_NAME: "employment_tribunals_v1"
-        LAND_PATH: "hmcts/employment-tribunals/"
+        LAND_FOLDER: "hmcts/employment-tribunals"
+        HIST_FOLDER: "hmcts/employment-tribunals"
       compute_profile: general-on-demand-16vcpu-64gb
 
     et_extract_et_englandwales_multiple:
       env_vars:
-        AZURE_TABLE: "et-englandwales-multiple"
+        TABLE_NAME: "et-englandwales-multiple"
+        S3_TABLE_NAME: "et_englandwales_multiple"
+        FILENAME_TABLE_NAME: "et_englandwales_multiple"
         SDP_TABLE_PREFIX: "v3-et-employment-"
         DATABASE_NAME: "employment_tribunals_v1"
-        LAND_PATH: "hmcts/employment-tribunals/"
+        LAND_FOLDER: "hmcts/employment-tribunals"
+        HIST_FOLDER: "hmcts/employment-tribunals"
       compute_profile: general-on-demand-16vcpu-64gb
 
     ccd_extract_sscs_benefit:
       env_vars:
-        AZURE_TABLE: "benefit"
+        TABLE_NAME: "benefit"
+        S3_TABLE_NAME: "benefit"
+        FILENAME_TABLE_NAME: "benefit"
         SDP_TABLE_PREFIX: "v3-ccd-sscs-"
         DATABASE_NAME: "ccd_sscs_v1"
-        LAND_PATH: "hmcts/ccd-sscs"
+        LAND_FOLDER: "hmcts/ccd-sscs"
+        HIST_FOLDER: "hmcts/ccd-sscs"
       compute_profile: general-on-demand-16vcpu-64gb
 
 iam:
