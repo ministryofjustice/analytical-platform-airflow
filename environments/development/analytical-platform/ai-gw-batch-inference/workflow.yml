@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/data-platform-airflow-ai-gateway-example
-  tag: 0.0.3
+  tag: 0.0.4
 
   env_vars:
     AI_GATEWAY_URL: https://development.ai-gateway.justice.gov.uk
