@@ -45,6 +45,8 @@ secrets:
 
 notifications:
   slack_channel: laa-search-index-alerts
+  slack_events:
+    - failure
 
 tags:
   business_unit: LAA
