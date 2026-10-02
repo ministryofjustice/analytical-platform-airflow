@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v10
+  tag: v11
   catchup: false
   schedule: "0 20 9 * *"
   tasks:
@@ -25,13 +25,11 @@ iam:
 maintainers:
   - jhenfrancis
   - sheilz81
-  - maxblum31
 
 notifications:
   emails:
     - jhenielle.francis@justice.gov.uk
     - sheila.ladva@justice.gov.uk
-    - max.blum@justice.gov.uk
   slack_channel: cf-misconduct-notifications
 
 tags:
