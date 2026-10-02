@@ -1,0 +1,43 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v4.3.1
+  start_date: "2026-10-01"
+  schedule: 30 2 * * *
+  retries: 0
+  hmcts_sdp_networking: True
+  max_active_runs: 1
+  env_vars:
+    LOG_LEVEL: "INFO"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    SDP_TABLE_PREFIX: "v3-ccd-sscs-"
+    FILENAME_COL_NAME: "meta__source_file"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    DATABASE_NAME: "ccd_sscs_v1"
+    LAND_BUCKET: "mojap-land"
+    LAND_PATH: "hmcts/ccd-sscs"
+  tasks:
+    ccd_extract_sscs_benefit:
+      env_vars:
+        AZURE_TABLE: "benefit"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land/hmcts/ccd-sscs/*
+    - mojap-raw-hist/hmcts/ccd-sscs/*
+
+secrets:
+  - sdp-pass
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
+maintainers:
+  - Andy-Cook
+  - DanJ-MOJ
+  - AntonyJScott
+
+tags:
+  business_unit: Central Digital
+  owner: cft_data_engineering@justice.gov.uk
