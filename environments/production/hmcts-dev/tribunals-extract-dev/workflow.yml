@@ -1,0 +1,84 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v4.3.2
+  retries: 0
+  hmcts_sdp_networking: True
+  max_active_runs: 1
+
+  env_vars:
+    TASK: "extract"
+    LOG_LEVEL: "INFO"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
+    COPY_MODE: "new"
+    CHECK_MODE: "table"
+    FILENAME_COL_NAME: "meta__source_file"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    LAND_BUCKET: "s3://mojap-land-dev"
+    HIST_BUCKET: "s3://mojap-raw-hist-dev"
+
+  tasks:
+    et_extract_et_englandwales:
+      env_vars:
+        TABLE_NAME: "et-englandwales"
+        S3_TABLE_NAME: "et_englandwales"
+        FILENAME_TABLE_NAME: "et_englandwales"
+        SDP_TABLE_PREFIX: "v3-et-employment-"
+        DATABASE_NAME: "employment_tribunals_v1"
+        LAND_FOLDER: "hmcts/employment-tribunals"
+        HIST_FOLDER: "hmcts/employment-tribunals"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_extract_et_englandwales_listings:
+      env_vars:
+        TABLE_NAME: "et-englandwales-listings"
+        S3_TABLE_NAME: "et_englandwales_listings"
+        FILENAME_TABLE_NAME: "et_englandwales_listings"
+        SDP_TABLE_PREFIX: "v3-et-employment-"
+        DATABASE_NAME: "employment_tribunals_v1"
+        LAND_FOLDER: "hmcts/employment-tribunals"
+        HIST_FOLDER: "hmcts/employment-tribunals"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_extract_et_englandwales_multiple:
+      env_vars:
+        TABLE_NAME: "et-englandwales-multiple"
+        S3_TABLE_NAME: "et_englandwales_multiple"
+        FILENAME_TABLE_NAME: "et_englandwales_multiple"
+        SDP_TABLE_PREFIX: "v3-et-employment-"
+        DATABASE_NAME: "employment_tribunals_v1"
+        LAND_FOLDER: "hmcts/employment-tribunals"
+        HIST_FOLDER: "hmcts/employment-tribunals"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    ccd_extract_sscs_benefit:
+      env_vars:
+        TABLE_NAME: "benefit"
+        S3_TABLE_NAME: "benefit"
+        FILENAME_TABLE_NAME: "benefit"
+        SDP_TABLE_PREFIX: "v3-ccd-sscs-"
+        DATABASE_NAME: "ccd_sscs_v1"
+        LAND_FOLDER: "hmcts/ccd-sscs"
+        HIST_FOLDER: "hmcts/ccd-sscs"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-dev/hmcts/employment-tribunals/*
+    - mojap-raw-hist-dev/hmcts/employment-tribunals/*
+    - mojap-land-dev/hmcts/ccd-sscs/*
+    - mojap-raw-hist-dev/hmcts/ccd-sscs/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - Andy-Cook
+  - DanJ-MOJ
+  - AntonyJScott
+
+tags:
+  business_unit: Central Digital
+  owner: cft_data_engineering@justice.gov.uk
