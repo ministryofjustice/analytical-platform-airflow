@@ -494,7 +494,12 @@ jobs:
           if [[ ! -f .grype.yml ]]; then
             mv "runtime-grype.yml" .grype.yml
           else
-            cat "runtime-grype.yml" >> .grype.yml
+            yq eval-all '
+              select(fileIndex == 0) as $local |
+              select(fileIndex == 1) as $runtime |
+              $local * {"ignore": (($local.ignore // []) + ($runtime.ignore // []))}
+            ' .grype.yml runtime-grype.yml > .grype.yml.merged
+            mv .grype.yml.merged .grype.yml
           fi
 
       - name: Comment on Image Version Mismatch
@@ -520,6 +525,7 @@ jobs:
           fail-build: false
           output-format: sarif
           output-file: result.sarif
+          config: .grype.yml
 
       - name: Upload SARIF
         id: upload_sarif
