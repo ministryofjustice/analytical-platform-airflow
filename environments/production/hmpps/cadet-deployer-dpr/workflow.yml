@@ -16,7 +16,7 @@ dag:
     MODE: build
     AWS_DEFAULT_REGION: eu-west-2
     DBT_PROFILE: dpr
-    ENFORCE_LAKE_FORMATION: true
+    ENFORCE_LAKE_FORMATION: false
     RUN_SOURCE_FRESHNESS: true
     RUN_UNIT_TESTS: false
     FULL_REFRESH: false
