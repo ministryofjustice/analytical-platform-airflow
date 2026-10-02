@@ -1,19 +1,20 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.5.2
-  start_date: "2026-02-23"
+  tag: 1.5.1
+  start_date: "2026-09-24"
   catchup: false
   env_vars:
     DEPLOY_ENV: prod
     DBT_PROJECT: hmpps_probation_data_tables
-    S3_BUCKET: probation-datalake-prod-20260112145345979100000002
-    WORKFLOW_NAME: deploy-probation-data-tables
-    DBT_PROFILE_WORKGROUP: dbt-probation-prod
-    DBT_SELECT_CRITERIA: tag:ppud tag:ppud_derived
+    S3_BUCKET: dpr-structured-historical-production
+    WORKFLOW_NAME: deploy-derived-probation-data-tables
+    DBT_PROFILE_WORKGROUP: primary
+    DBT_SELECT_CRITERIA: tag:ppud_derived
     MODE: build
     AWS_DEFAULT_REGION: eu-west-2
-    DBT_PROFILE: probation
-    BRANCH: main-copy-ppud
+    DBT_PROFILE: dpr
+    BRANCH: change-probation-to-dpr
+    ENFORCE_LAKE_FORMATION: true
 
   tasks:
     table_deploy:
@@ -24,7 +25,7 @@ dag:
         IS_DATASET_CHECK: true
       dependencies: [table_deploy]
       outlets:
-        - "s3://probation-datalake-prod-20260112145345979100000002/data/prod"
+        - "s3://dpr-structured-historical-production/data/prod"
 
 secrets:
   - github-key
@@ -41,7 +42,7 @@ notifications:
   slack_channel: de-probation-airflow-prod
 
 iam:
-  external_role: arn:aws:iam::189157455002:role/probation-cadet-prod
+  external_role: arn:aws:iam::004723187462:role/dpr-data-api-cross-account-role
 
 tags:
   business_unit: HMPPS
