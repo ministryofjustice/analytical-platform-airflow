@@ -17,7 +17,7 @@ dag:
       env_vars:
         AZURE_TABLE: "et-englandwales"
         SDP_TABLE_PREFIX: "v3-et-employment-"
-        DATABASE_NAME: "employment_tribunals_v1"
+        DATABASE_NAME: "employment_tribunals_v1_dev"
         LAND_PATH: "hmcts/employment-tribunals/"
       compute_profile: general-on-demand-16vcpu-64gb
 
@@ -25,7 +25,7 @@ dag:
       env_vars:
         AZURE_TABLE: "et-englandwales-listings"
         SDP_TABLE_PREFIX: "v3-et-employment-"
-        DATABASE_NAME: "employment_tribunals_v1"
+        DATABASE_NAME: "employment_tribunals_v1_dev"
         LAND_PATH: "hmcts/employment-tribunals/"
       compute_profile: general-on-demand-16vcpu-64gb
 
@@ -33,7 +33,7 @@ dag:
       env_vars:
         AZURE_TABLE: "et-englandwales-multiple"
         SDP_TABLE_PREFIX: "v3-et-employment-"
-        DATABASE_NAME: "employment_tribunals_v1"
+        DATABASE_NAME: "employment_tribunals_v1_dev"
         LAND_PATH: "hmcts/employment-tribunals/"
       compute_profile: general-on-demand-16vcpu-64gb
 
@@ -41,7 +41,7 @@ dag:
       env_vars:
         AZURE_TABLE: "benefit"
         SDP_TABLE_PREFIX: "v3-ccd-sscs-"
-        DATABASE_NAME: "ccd_sscs_v1"
+        DATABASE_NAME: "ccd_sscs_v1_dev"
         LAND_PATH: "hmcts/ccd-sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
 
