@@ -1,23 +1,25 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
   tag: v4.3.2
-  retries: 0
+  retries: 2
+  retry_delay: 150
+  schedule: 0 20 * * *
+  max_active_runs: 3
   hmcts_sdp_networking: True
-  max_active_runs: 1
 
   env_vars:
     LOG_LEVEL: "INFO"
     ENDPOINT: "MI_PERSISTENT_PROD"
     FILENAME_COL_NAME: "meta__source_file"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
-    LAND_BUCKET: "mojap-land-dev"
+    LAND_BUCKET: "mojap-land"
 
   tasks:
     et_extract_et_englandwales:
       env_vars:
         AZURE_TABLE: "et-englandwales"
         SDP_TABLE_PREFIX: "v3-et-employment-"
-        DATABASE_NAME: "employment_tribunals_v1_dev"
+        DATABASE_NAME: "employment_tribunals_v1"
         LAND_PATH: "hmcts/employment-tribunals/"
       compute_profile: general-on-demand-16vcpu-64gb
 
@@ -25,7 +27,7 @@ dag:
       env_vars:
         AZURE_TABLE: "et-englandwales-listings"
         SDP_TABLE_PREFIX: "v3-et-employment-"
-        DATABASE_NAME: "employment_tribunals_v1_dev"
+        DATABASE_NAME: "employment_tribunals_v1"
         LAND_PATH: "hmcts/employment-tribunals/"
       compute_profile: general-on-demand-16vcpu-64gb
 
@@ -33,7 +35,7 @@ dag:
       env_vars:
         AZURE_TABLE: "et-englandwales-multiple"
         SDP_TABLE_PREFIX: "v3-et-employment-"
-        DATABASE_NAME: "employment_tribunals_v1_dev"
+        DATABASE_NAME: "employment_tribunals_v1"
         LAND_PATH: "hmcts/employment-tribunals/"
       compute_profile: general-on-demand-16vcpu-64gb
 
@@ -41,7 +43,7 @@ dag:
       env_vars:
         AZURE_TABLE: "benefit"
         SDP_TABLE_PREFIX: "v3-ccd-sscs-"
-        DATABASE_NAME: "ccd_sscs_v1_dev"
+        DATABASE_NAME: "ccd_sscs_v1"
         LAND_PATH: "hmcts/ccd-sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
 
@@ -49,10 +51,10 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-land-dev/hmcts/employment-tribunals/*
-    - mojap-raw-hist-dev/hmcts/employment-tribunals/*
-    - mojap-land-dev/hmcts/ccd-sscs/*
-    - mojap-raw-hist-dev/hmcts/ccd-sscs/*
+    - mojap-land/hmcts/employment-tribunals/*
+    - mojap-raw-hist/hmcts/employment-tribunals/*
+    - mojap-land/hmcts/ccd-sscs/*
+    - mojap-raw-hist/hmcts/ccd-sscs/*
 
 secrets:
   - sdp-pass
