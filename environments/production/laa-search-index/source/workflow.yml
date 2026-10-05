@@ -20,6 +20,8 @@ maintainers:
   - nina-knowles-justice
   - dami-moj
   - jh-justice-dev
+  - jfjb-justice
+  - sathyareddy-justice
 
 secrets:
   - source-request-bucket
