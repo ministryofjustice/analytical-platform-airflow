@@ -4,7 +4,7 @@ dag:
   tag: v2.1.4
   start_date: "2026-10-02"
   schedule: 30 3 * * *
-  is_paused_upon_creation: true
+  is_paused_upon_creation: false
 
   env_vars:
     MODAL_ENV: "prod"
