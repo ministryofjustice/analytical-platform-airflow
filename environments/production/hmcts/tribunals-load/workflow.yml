@@ -1,0 +1,59 @@
+---
+dag:
+  repository: moj-analytical-services/moj-data-loader
+  tag: v2.1.4
+  start_date: "2026-10-02"
+  schedule: 30 3 * * *
+  is_paused_upon_creation: false
+
+  env_vars:
+    MODAL_ENV: "prod"
+    MODAL_ALLOW_PROD: "true"
+    MODAL_SCHEMA_CONTRACT: "evolve"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-2vcpu-8gb
+
+  tasks:
+    et_load_et_englandwales:
+      env_vars:
+        MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_englandwales"
+
+    et_load_et_englandwales_listings:
+      env_vars:
+        MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_englandwales_listings"
+
+    et_load_et_englandwales_multiple:
+      env_vars:
+        MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_englandwales_multiple"
+
+    ccd_load_sscs_benefit:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ccd_sscs_v1/benefit"
+
+iam:
+  athena: write
+  glue: true
+
+  s3_read_only:
+    - mojap-land/hmcts/employment-tribunals/*
+    - mojap-land/hmcts/ccd-sscs/*
+
+  s3_read_write:
+    - mojap-processed/domain__hmcts/env__prod/*
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
+
+maintainers:
+  - DanJ-MOJ
+  - Andy-Cook
+  - AntonyJScott
+
+tags:
+  business_unit: Central Digital
+  owner: cft_data_engineering@justice.gov.uk

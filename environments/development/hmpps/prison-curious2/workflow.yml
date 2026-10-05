@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-curious-2-pipeline
 
-  tag: v1.2.9
+  tag: v1.2.11
 
   schedule: "0 5 * * *"
   catchup: false
@@ -24,11 +24,16 @@ dag:
       env_vars:
         STEP: "extract_and_upload"
       compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [get_secret]
     validate_raw_data:
       env_vars:
         STEP: "validate_raw_data"
       compute_profile: "general-on-demand-1vcpu-4gb"
       dependencies: [extract_and_upload]
+    get_secret:
+      env_vars:
+        STEP: "get_secret"
+      compute_profile: "general-on-demand-1vcpu-4gb"
 
 iam:
   athena: write
@@ -38,6 +43,8 @@ iam:
     - mojap-land-preprod/hmpps/prison-curious2/*
     - mojap-raw-hist-preprod/hmpps/prison-curious2/*
     - mojap-land-fail-preprod/hmpps/prison-curious2/*
+  s3_read_only:
+    - mojap-land/hmpps/prison-curious//*
 
 secrets:
   - curious-azure-credential
