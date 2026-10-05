@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.1.4
+  tag: v2.1.5
   start_date: "2026-10-02"
   schedule: 30 3 * * *
   is_paused_upon_creation: false
@@ -35,8 +35,6 @@ dag:
     ccd_load_sscs_benefit:
       env_vars:
         MODAL_PIPELINE_NAME: "ccd_sscs_v1/benefit"
-        enable_batching: true
-        batch_memory_limit: 4
 
 iam:
   athena: write
