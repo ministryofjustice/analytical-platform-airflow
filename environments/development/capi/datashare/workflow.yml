@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/bold_prevention_families_operationalising_datashare
-  tag: v1.0.4-dev
+  tag: v1.0.5-dev
   schedule: "@weekly"
   compute_profile: general-on-demand-4vcpu-16gb
   catchup: false
