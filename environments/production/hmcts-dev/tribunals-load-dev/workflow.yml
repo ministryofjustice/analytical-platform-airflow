@@ -4,7 +4,7 @@ dag:
   tag: v2.1.4
   start_date: "2026-10-02"
   schedule: 30 3 * * *
-  is_paused_upon_creation: true
+  is_paused_upon_creation: false
 
   env_vars:
     MODAL_ENV: "dev"
@@ -20,6 +20,7 @@ dag:
 
   tasks:
     et_load_et_englandwales:
+      compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
         MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_englandwales"
 
@@ -34,6 +35,8 @@ dag:
     ccd_load_sscs_benefit:
       env_vars:
         MODAL_PIPELINE_NAME: "ccd_sscs_v1/benefit"
+        enable_batching: true
+        batch_memory_limit: 4
 
 iam:
   athena: write
