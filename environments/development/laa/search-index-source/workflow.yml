@@ -21,6 +21,7 @@ maintainers:
   - nina-knowles-justice
   - dami-moj
   - jh-justice-dev
+  - sathyareddy-justice
 
 secrets:
   - source-request-bucket
