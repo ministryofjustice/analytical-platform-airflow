@@ -29,6 +29,7 @@ maintainers:
   - jh-justice-dev
   - jfjb-justice
   - JamesS-MoJ
+  - sathyareddy-justice
 
 secrets:
   - splink-bucket
