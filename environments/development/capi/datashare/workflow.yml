@@ -19,6 +19,7 @@ iam:
     - alpha-bold-pilot-rr-families/*
     - mojap-derived-tables/*
     - alpha-data-linking/*
+    - moj-reg-prod-curated/data-eng-uploader-prod/data/database_name=bold_families_children_data/*
 
   s3_read_write:
     - alpha-bold-pilot-rr-families/operational_datashare/airflow-dev/*
