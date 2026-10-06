@@ -33,6 +33,7 @@ dag:
         MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_englandwales_multiple"
 
     ccd_load_sscs_benefit:
+      compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
         MODAL_PIPELINE_NAME: "ccd_sscs_v1/benefit"
 
