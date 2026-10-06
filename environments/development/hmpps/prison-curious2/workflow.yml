@@ -39,6 +39,9 @@ iam:
   athena: write
   glue: true
   update_secrets: true
+  kms:
+    - arn:aws:kms:eu-west-1:593291632749:key/mrk-15afdf54bde745d3b583a6818ee6c154
+    - arn:aws:kms:eu-west-2:593291632749:key/mrk-15afdf54bde745d3b583a6818ee6c154
   s3_read_write:
     - mojap-land-preprod/hmpps/prison-curious2/*
     - mojap-raw-hist-preprod/hmpps/prison-curious2/*
