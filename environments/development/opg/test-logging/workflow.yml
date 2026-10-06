@@ -1,0 +1,40 @@
+dag:
+  repository: moj-analytical-services/airflow-opg-etl
+  tag: test-logging-v4
+  catchup: false
+  depends_on_past: false
+  is_paused_upon_creation: false
+  max_active_runs: 1
+  retries: 0
+  retry_delay: 150
+  start_date: "2026-07-05"
+  schedule: None
+  env_vars:
+    DATABASE: "test-logging"
+    DATABASE_VERSION: "dev"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_METADATA_SERVICE_TIMEOUT: "60"
+    AWS_METADATA_SERVICE_NUM_ATTEMPTS: "5"
+  tasks:
+    test_logging:
+      env_vars:
+        CURATED_LOG_PATH: "s3://alpha-opg-etl/dev/test-logging-curated/"
+      compute_profile: "general-on-demand-1vcpu-4gb"
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - alpha-opg-etl/dev/test-logging-curated/*
+    - alpha-opg-etl/dev/test_logging/*
+
+maintainers:
+  - p-sin
+
+tags:
+  business_unit: OPG
+  owner: philip.sinfield@justice.gov.uk
+
+notifications:
+  emails:
+    - philip.sinfield@justice.gov.uk
+  slack_channel: opg-deds
