@@ -38,6 +38,15 @@
     "GHSA",
     "anchore",
     "cutoff",
-    "charliermarsh"
+    "charliermarsh",
+    "endraw",
+    "endfor",
+    "timedelta",
+    "vcpu",
+    "vars",
+    "keysrules",
+    "valueschema",
+    "CICA",
+    "HMPPS"
   ]
 }
