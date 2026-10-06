@@ -175,8 +175,9 @@ notifications:
   slack_channel: dmet-hmcts-notifications
 
 maintainers:
-  - murad-ali-moj
+  - AntonyJScott
+  - DanJ-MOJ
 
 tags:
   business_unit: HMCTS
-  owner: Murad.Ali@justice.gov.uk
+  owner: cft_data_engineering@justice.gov.uk
