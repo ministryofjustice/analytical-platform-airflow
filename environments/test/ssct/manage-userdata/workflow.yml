@@ -13,9 +13,9 @@ iam:
     - mojap-data-production-shared-services-client-team-gov-29148/*
 
 secrets:
-  - AZURE_TENANT_ID
-  - AZURE_CLIENT_ID
-  - AZURE_CLIENT_SECRET
+  - azure-tenant-id
+  - azure-client-id
+  - azure-client-secret
 
 maintainers:
   - MJCT-MOJ
