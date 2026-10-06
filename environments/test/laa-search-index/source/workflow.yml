@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.20
+  tag: v0.1.21
 
   schedule: "*/15 9-16 * * 1-5"
   max_active_runs: 1
