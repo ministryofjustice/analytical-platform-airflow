@@ -340,6 +340,7 @@ jobs:
           dagTag=$(yq -e ".dag.tag" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagTag
 
+          echo "dag-repository=${dagRepository}" >>"${GITHUB_ENV}"
           echo "ecr-repository=${ecrRepository}" >>"${GITHUB_ENV}"
           echo "image-tag=${dagTag}" >>"${GITHUB_ENV}"
 
@@ -425,10 +426,44 @@ jobs:
               body: 'Container test has failed. Refer to the [User Guidance](https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html#configuration-testing) for more information.'
             })
 
+      - name: Get DAG Repository Token (Octo STS)
+        id: octo_sts
+        uses: octo-sts/action@f603d3be9d8dd9871a265776e625a27b00effe05 # v1.1.1
+        with:
+          scope: ${{ env.dag-repository }}
+          identity: analytical-platform-airflow
+
+      # TESTing
+      - name: Verify Octo STS Token Scope
+        id: verify_octo_sts_token_scope
+        env:
+          GH_TOKEN: ${{ steps.octo_sts.outputs.token }}
+          DAG_REPOSITORY: ${{ env.dag-repository }}
+          OTHER_PRIVATE_REPOSITORY: moj-analytical-services/airflow-anvil-access-tool
+        run: |
+          echo "1. Token can read ${DAG_REPOSITORY}"
+          gh api "repos/${DAG_REPOSITORY}" --jq '"   OK: " + .full_name + " (private=" + (.private|tostring) + ")"'
+
+          echo "2. Token can NOT read ${OTHER_PRIVATE_REPOSITORY}"
+          if gh api "repos/${OTHER_PRIVATE_REPOSITORY}" >/dev/null 2>&1; then
+            echo "   FAIL: token can read another repository"
+            exit 1
+          fi
+          echo "   OK: access denied"
+
+          echo "3. Token can NOT write to ${DAG_REPOSITORY}"
+          if gh api --method POST "repos/${DAG_REPOSITORY}/git/refs" -f ref="refs/heads/octo-sts-write-test" -f sha="0000000000000000000000000000000000000000" 2>&1 | grep -q "Resource not accessible by integration"; then
+            echo "   OK: write denied"
+          else
+            echo "   FAIL: expected write to be denied"
+            exit 1
+          fi
+
       - name: Generate .grype.yml
         id: generate_grype_yml
         env:
-          GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          DAG_REPOSITORY_TOKEN: ${{ steps.octo_sts.outputs.token }}
+          GH_TOKEN: ${{ github.token }}
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
           dagRepository=$(yq -e ".dag.repository" "${WORKFLOW_DIRECTORY}/workflow.yml")
@@ -437,7 +472,7 @@ jobs:
           dagTag=$(yq -e ".dag.tag" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagTag
 
-          downloadDockerfile=$(gh api "repos/${dagRepository}/contents/Dockerfile?ref=${dagTag}" 2>/dev/null || true)
+          downloadDockerfile=$(GH_TOKEN="${DAG_REPOSITORY_TOKEN}" gh api "repos/${dagRepository}/contents/Dockerfile?ref=${dagTag}" 2>/dev/null || true)
           export downloadDockerfile
 
           downloadDockerfileStatus=$(jq -r '.status' <<< "${downloadDockerfile}")
@@ -453,7 +488,7 @@ jobs:
             exit 1
           fi
 
-          downloadGrypeYml=$(gh api "repos/${dagRepository}/contents/.grype.yml?ref=${dagTag}" 2>/dev/null || true)
+          downloadGrypeYml=$(GH_TOKEN="${DAG_REPOSITORY_TOKEN}" gh api "repos/${dagRepository}/contents/.grype.yml?ref=${dagTag}" 2>/dev/null || true)
           export downloadGrypeYml
 
           downloadGrypeYmlStatus=$(jq -r '.status' <<< "${downloadGrypeYml}")
