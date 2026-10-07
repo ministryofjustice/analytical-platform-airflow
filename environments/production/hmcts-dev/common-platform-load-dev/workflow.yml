@@ -214,6 +214,9 @@ dag:
     cp_load_rd_amendment_reason:
       env_vars:
         TABLE: "rd_amendment_reason"
+    cp_load_rd_application_type:
+      env_vars:
+        TABLE: "rd_application_type"
     cp_load_rd_application_type_category:
       env_vars:
         TABLE: "rd_application_type_category"
