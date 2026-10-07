@@ -48,8 +48,8 @@ iam:
   s3_read_write:
     - mojap-processed/domain__hmcts/env__prod/*
 
-notifications:
-  slack_channel: dmet-hmcts-notifications
+# notifications:
+#  slack_channel: dmet-hmcts-notifications
 
 maintainers:
   - DanJ-MOJ
