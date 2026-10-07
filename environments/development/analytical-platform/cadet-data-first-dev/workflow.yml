@@ -3,13 +3,14 @@ dag:
   tag: 1.4.1
   params:
     output_name: end_to_end_test
+    branch: main
   env_vars:
     DEPLOY_ENV: dev
     DBT_PROFILE_WORKGROUP: dbt-data-first
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: cadet-data-first-dev
     DBT_SELECT_CRITERIA: "tag:data_first_{{ params.output_name }}"
-    BRANCH: main
+    BRANCH: "{{ params.branch }}"
     MODE: build
     THREAD_COUNT: 10
 
