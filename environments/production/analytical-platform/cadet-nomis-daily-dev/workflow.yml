@@ -1,8 +1,10 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.5.0
-  schedule: "0 4 * * *"
+  tag: 1.5.4
+  schedule:
+    datasets:
+      - "s3://hmpps_digital_prisons_reporting_tables/dev/dpr-daily/"
   catchup: false
   env_vars:
     DEPLOY_ENV: dev
@@ -16,6 +18,8 @@ dag:
   tasks:
     table_deploy:
       compute_profile: general-on-demand-16vcpu-64gb
+      inlets:
+        - "s3://hmpps_digital_prisons_reporting_tables/dev/dpr-daily/"
       outlets:
         - "s3://mojap-derived-tables/dev/nomis-daily/"
 
