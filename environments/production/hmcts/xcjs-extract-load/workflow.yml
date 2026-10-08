@@ -2,7 +2,7 @@
 # https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html
 dag:
   repository: moj-analytical-services/airflow-cross-cjs-data
-  tag: v1.0.6
+  tag: v1.1.0
   catchup: false
   compute_profile: "general-spot-8vcpu-32gb"
   depends_on_past: false
@@ -28,20 +28,44 @@ dag:
         SERVICE: "load_postcharge"
       dependencies: [extraction]
 
+    redact_postcharge:
+      env_vars:
+        SCRIPT_ENTRYPOINT: "src/redaction.py"
+        SERVICE: "redaction_postcharge"
+      dependencies: [extraction, load_postcharge]
+
     load_postcharge_cfs:
       env_vars:
         SERVICE: "load_postcharge_cfs"
       dependencies: [extraction]
+
+    redact_postcharge_cfs:
+      env_vars:
+        SCRIPT_ENTRYPOINT: "src/redaction.py"
+        SERVICE: "redaction_postcharge_cfs"
+      dependencies: [extraction, load_postcharge_cfs]
 
     load_precharge:
       env_vars:
         SERVICE: "load_precharge"
       dependencies: [extraction]
 
+    redact_precharge:
+      env_vars:
+        SCRIPT_ENTRYPOINT: "src/redaction.py"
+        SERVICE: "redaction_precharge"
+      dependencies: [extraction, load_precharge]
+
     load_victim_witnesses:
       env_vars:
         SERVICE: "load_victim_witnesses"
       dependencies: [extraction]
+
+    redact_victim_witnesses:
+      env_vars:
+        SCRIPT_ENTRYPOINT: "src/redaction.py"
+        SERVICE: "redaction_victim_witness"
+      dependencies: [extraction, load_victim_witnesses]
 
 notifications:
   emails:
@@ -54,16 +78,15 @@ iam:
     - mojap-land/cps/*
     - mojap-raw-hist/crown_prosecution_service/*
     - mojap-processed/crown_prosecution_service/*
-    - alpha-criminal-courts-data-staging/crown_prosecution_service/*
+    - aws-athena-query-results-593291632749-eu-west-1/*
 
 secrets:
   - decryption-token
 
 maintainers:
   - ThomasHepworth
-  - Andy-Cook
-  - george-w-jenkins
   - Saimon-Khan
+  - neil-wilkins
 
 tags:
   business_unit: HMCTS
