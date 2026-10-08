@@ -760,7 +760,7 @@ jobs:
       - name: Automatic Approval Check
         id: automatic_approval_check
         env:
-          GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.AIRFLOW_AUTO_APPROVAL_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
@@ -853,7 +853,7 @@ jobs:
         id: automatic_approval
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
-          github-token: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          github-token: ${{ secrets.AIRFLOW_AUTO_APPROVAL_TOKEN }}
           script: |
             github.rest.pulls.createReview({
               owner: context.repo.owner,
