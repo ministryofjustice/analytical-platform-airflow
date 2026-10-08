@@ -10,7 +10,7 @@ notifications:
   slack_channel: analytical-platform-airflow-testing
 
 maintainers:
-  - jacobwoffenden
+  - jhpyke
   - raghavvidya
 
 tags:
