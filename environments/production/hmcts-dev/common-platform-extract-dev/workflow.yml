@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v4.0.1-alpha.4c8bb27
+  tag: v4.3.2
   retries: 1
   retry_delay: 150
   max_active_runs: 3
@@ -13,7 +13,6 @@ dag:
     DATABASE_NAME: "common_platform_dev_sdp_v5_dev"
     LAND_BUCKET: "s3://mojap-land-dev"
     LAND_PATH: "hmcts/common-platform/dev_sdp_v5/"
-    END_DATE: "2026-08-08"
 
   tasks:
     cp_extract_allocated_listings:
@@ -186,6 +185,10 @@ dag:
       env_vars:
         AZURE_TABLE: "referencedata-amendment-reason"
         S3_TABLE: "rd_amendment_reason"
+    cp_extract_referencedata_application_type:
+      env_vars:
+        AZURE_TABLE: "referencedata-application-type"
+        S3_TABLE: "rd_application_type"
     cp_extract_referencedata_application_type_category:
       env_vars:
         AZURE_TABLE: "referencedata-application-type-category"
