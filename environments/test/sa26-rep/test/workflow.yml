@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/sa26-dashboard-analysis
-  tag: v0-108
+  tag: v0-109
   catchup: false
   compute_profile: general-on-demand-4vcpu-16gb
   depends_on_past: false
