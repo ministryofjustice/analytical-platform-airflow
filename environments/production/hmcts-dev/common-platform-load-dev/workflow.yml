@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.36beta-bdbaa58
+  tag: v4.0.37-beta.bcb6d00
   retries: 0
   retry_delay: 150
   start_date: "2026-06-01"
@@ -214,6 +214,9 @@ dag:
     cp_load_rd_amendment_reason:
       env_vars:
         TABLE: "rd_amendment_reason"
+    cp_load_rd_application_type:
+      env_vars:
+        TABLE: "rd_application_type"
     cp_load_rd_application_type_category:
       env_vars:
         TABLE: "rd_application_type_category"
