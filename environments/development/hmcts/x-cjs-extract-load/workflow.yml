@@ -2,7 +2,7 @@
 # https://user-guidance.analytical-platform.service.justice.gov.uk/services/airflow/index.html
 dag:
   repository: moj-analytical-services/airflow-cross-cjs-data
-  tag: v1.1.0-beta4
+  tag: v1.1.0-beta5
   catchup: false
   compute_profile: "general-spot-8vcpu-32gb"
   depends_on_past: false
@@ -77,7 +77,7 @@ iam:
     - mojap-land-dev/cps/*
     - mojap-raw-hist-dev/crown_prosecution_service/*
     - mojap-processed/crown_prosecution_service/x-cjs-data/dev/*
-    - alpha-criminal-courts-data-staging/crown_prosecution_service/*
+    - aws-athena-query-results-593291632749-eu-west-1/*
 
 secrets:
   - decryption-token
