@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.0.4
+  tag: v2.1.8
   schedule: None
   is_paused_upon_creation: true
   env_vars:
