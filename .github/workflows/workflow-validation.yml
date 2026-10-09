@@ -810,10 +810,10 @@ jobs:
             fi
           done
 
-          # Check if any files outside environments/(development|test|production) have changed
+          # Check if any files outside environments/(development|test|production|data-platform-*) have changed
           for file in ${changed_files}; do
-            if [[ ! "${file}" =~ ^environments/(development|test|production)/.*$ ]]; then
-              echo "File (${file}) has changed outside the specified path (environments/(development|test|production)), not eligible for automatic approval"
+            if [[ ! "${file}" =~ ^environments/(development|test|production|data-platform-[a-z]+)/.*$ ]]; then
+              echo "File (${file}) has changed outside the specified path (environments/(development|test|production|data-platform-*)), not eligible for automatic approval"
               exit 0
             fi
           done
