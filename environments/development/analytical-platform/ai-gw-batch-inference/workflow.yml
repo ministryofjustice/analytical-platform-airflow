@@ -8,6 +8,10 @@ dag:
     AI_GATEWAY_INPUT_KEY: batch-inference-sample.jsonl
     AI_GATEWAY_OUTPUT_PREFIX: output
 
+iam:
+  s3_read_write:
+    - mojdp-development-ai-gateway-batch-inference/*
+
 secrets:
   - api-key
   - model
