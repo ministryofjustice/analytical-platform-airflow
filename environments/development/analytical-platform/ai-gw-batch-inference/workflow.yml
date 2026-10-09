@@ -10,7 +10,8 @@ dag:
 
 iam:
   s3_read_write:
-    - mojdp-development-ai-gateway-batch-inference/*
+    - alpha-airflow-aigw-example-input/*
+    - alpha-airflow-aigw-example-output/*
 
 secrets:
   - api-key
