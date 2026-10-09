@@ -17,6 +17,4 @@ module "airflow" {
   configuration = yamldecode(file("../environments/${terraform.workspace}/${each.key}/workflow.yml"))
   eks_oidc_url  = local.eks_oidc_url
   label_domain  = local.label_domain
-
-  depends_on = [aws_iam_openid_connect_provider.data_platform]
 }
