@@ -7,7 +7,10 @@ locals {
   # EKS cluster name used to get a token
   eks_cluster_name = local.is_data_platform ? "${terraform.workspace}-airflow" : "analytical-platform-compute-${terraform.workspace}"
 
-  cluster_data = jsondecode(data.aws_secretsmanager_secret_version.analytical_platform_compute_cluster_data.secret_string)
+  # Cluster data secret (in analytical-platform-common-production)
+  cluster_data_secret_id = local.is_data_platform ? "data-platform/cluster-data" : "analytical-platform-compute/cluster-data"
+
+  cluster_data = jsondecode(data.aws_secretsmanager_secret_version.cluster_data.secret_string)
 
   eks_cluster_endpoint       = local.cluster_data["${local.cluster_data_key_prefix}-api-endpoint"]
   eks_cluster_ca_certificate = base64decode(local.cluster_data["${local.cluster_data_key_prefix}-certificate"])
