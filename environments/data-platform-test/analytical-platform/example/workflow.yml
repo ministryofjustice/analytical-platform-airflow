@@ -1,0 +1,13 @@
+---
+# Smoke-test workflow for the Data Platform test MWAA environment.
+dag:
+  repository: moj-analytical-services/analytical-platform-airflow-python-example
+  tag: 2.18.2
+  compute_profile: general-spot-1vcpu-4gb
+
+maintainers:
+  - raghavvidya
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk

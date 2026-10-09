@@ -4,6 +4,7 @@ account_ids = {
   analytical-platform-compute-production  = "992382429243"
   analytical-platform-compute-test        = "767397661611"
   analytical-platform-data-production     = "593291632749"
+  data-platform-test                      = "259787491607"
 }
 
 tags = {
