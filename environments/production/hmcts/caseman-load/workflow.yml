@@ -98,7 +98,8 @@ notifications:
 maintainers:
   - Andy-Cook
   - DanJ-MOJ
+  - AntonyJScott
 
 tags:
   business_unit: Central Digital
-  owner: andrew.cook1@justice.gov.uk
+  owner: cft_data_engineering@justice.gov.uk
