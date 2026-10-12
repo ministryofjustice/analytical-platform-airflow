@@ -1,0 +1,50 @@
+---
+dag:
+  repository: moj-analytical-services/moj-data-loader
+  tag: v2.1.8
+  schedule: None
+  is_paused_upon_creation: true
+  env_vars:
+    MODAL_FULL_REFRESH: "true"
+    MODAL_ALLOW_PROD: "true"
+    MODAL_ENV: "prod"
+    MODAL_SCHEMA_CONTRACT: "freeze"
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+  catchup: false
+  max_active_runs: 1
+  compute_profile: general-on-demand-16vcpu-64gb
+  tasks:
+    load-athena_queries:
+      env_vars:
+        MODAL_PIPELINE_NAME: "athena_queries"
+
+iam:
+  athena: write
+  glue: true
+
+  s3_read_only:
+    - mojap-land/athena_query_executions/prod/cloudwatch_athena_logs/*
+    - mojap-land/athena_query_executions/prod/athena_queries/*
+    - aws-athena-query-results-593291632749-eu-west-1/*
+
+  s3_read_write:
+    - mojap-processed/domain__value_engineering/env__prod/cloudwatch_athena_query_logs_staging/*
+    - mojap-processed/domain__value_engineering/env__prod/cloudwatch_athena_query_logs/*
+    - mojap-processed/domain__value_engineering/env__prod/athena_query_dump/*
+
+notifications:
+  slack_channel: dmet-corp-notifications
+
+  emails:
+    - benjamin.finucane@justice.gov.uk
+    - Alex.Pavlopoulos@justice.gov.uk
+
+maintainers:
+  - benjamin-finucane
+  - alex-pavlopoulos
+
+tags:
+  business_unit: Central Digital
+  owner: benjamin.finucane@justice.gov.uk
