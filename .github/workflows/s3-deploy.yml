@@ -17,7 +17,72 @@ concurrency:
 
 jobs:
   s3-deploy:
-    name: S3 Deploy (${{ matrix.environment }})
+    name: S3 Deploy
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [development, test, production]
+        include:
+          - environment: development
+            account: 381491960855
+          - environment: test
+            account: 767397661611
+          - environment: production
+            account: 992382429243
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Configure AWS Credentials
+        id: configure_aws_credentials
+        uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
+        with:
+          aws-region: eu-west-2
+          role-to-assume: arn:aws:iam::${{ matrix.account }}:role/github-actions-ministryofjustice-analytical-platform-airflow
+
+      - name: Set Up UV
+        id: setup_uv
+        uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          activate-environment: true
+          version: "latest"
+          python-version: "3.11"
+
+      - name: Install Requirements
+        id: install_requirements
+        shell: bash
+        run: |
+          uv pip install --requirements requirements.txt
+
+      - name: Generate Workflows
+        id: generate_workflows
+        shell: bash
+        run: |
+          bash scripts/generate-workflows/main.sh ${{ matrix.environment }}
+
+      - name: Deploy DAGs
+        id: deploy_dags
+        shell: bash
+        run: |
+          aws s3 sync dist/dags/${{ matrix.environment }} s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/${{ matrix.environment }} --delete
+
+      - name: Deploy Airflow Artefacts
+        id: deploy_airflow_artefacts
+        shell: bash
+        run: |
+          aws s3 sync airflow/analytical_platform s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/analytical_platform --delete
+          aws s3 cp airflow/.airflowignore s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/.airflowignore
+          aws s3 cp airflow/dag_factory.py s3://mojap-compute-${{ matrix.environment }}-mwaa/dags/dag_factory.py
+
+  s3-deploy-data-platform:
+    name: S3 Deploy Data Platform (${{ matrix.environment }})
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -26,42 +91,18 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - environment: development
-            account: "381491960855"
-          - environment: test
-            account: "767397661611"
-          - environment: production
-            account: "992382429243"
           - environment: data-platform-test
             account: "259787491607"
+            bucket: mojdp-test-mwaa
     env:
       ENVIRONMENT: ${{ matrix.environment }}
+      BUCKET: ${{ matrix.bucket }}
     steps:
       - name: Checkout
         id: checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-
-      - name: Resolve Platform Settings
-        id: resolve_platform_settings
-        shell: bash
-        run: |
-          case "${ENVIRONMENT}" in
-            data-platform-*)
-              BUCKET="mojdp-${ENVIRONMENT#data-platform-}-mwaa"
-              AIRFLOW_PACKAGE="data_platform"
-              ;;
-            *)
-              BUCKET="mojap-compute-${ENVIRONMENT}-mwaa"
-              AIRFLOW_PACKAGE="analytical_platform"
-              ;;
-          esac
-          echo "Deploying environments/${ENVIRONMENT} and airflow/${AIRFLOW_PACKAGE} to s3://${BUCKET}"
-          {
-            echo "BUCKET=${BUCKET}"
-            echo "AIRFLOW_PACKAGE=${AIRFLOW_PACKAGE}"
-          } >>"${GITHUB_ENV}"
 
       - name: Configure AWS Credentials
         id: configure_aws_credentials
@@ -100,6 +141,6 @@ jobs:
         id: deploy_airflow_artefacts
         shell: bash
         run: |
-          aws s3 sync "airflow/${AIRFLOW_PACKAGE}" "s3://${BUCKET}/dags/${AIRFLOW_PACKAGE}" --delete
+          aws s3 sync airflow/data_platform "s3://${BUCKET}/dags/data_platform" --delete
           aws s3 cp airflow/.airflowignore "s3://${BUCKET}/dags/.airflowignore"
           aws s3 cp airflow/dag_factory.py "s3://${BUCKET}/dags/dag_factory.py"
