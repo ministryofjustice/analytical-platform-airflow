@@ -13,7 +13,7 @@ module "airflow" {
 
   project       = replace(format("%s", split("/", each.key)[0]), "electronic-monitoring-data-store", "emds")
   workflow      = format("%s", split("/", each.key)[1])
-  environment   = terraform.workspace
+  environment   = local.environment_name
   configuration = yamldecode(file("../environments/${terraform.workspace}/${each.key}/workflow.yml"))
   eks_oidc_url  = local.eks_oidc_url
   label_domain  = local.label_domain

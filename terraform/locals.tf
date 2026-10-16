@@ -2,6 +2,11 @@ locals {
   is_data_platform = startswith(terraform.workspace, "data-platform-")
 
 
+  environment_aliases = {
+    "data-platform-test" = "dp-test"
+  }
+  environment_name = lookup(local.environment_aliases, terraform.workspace, terraform.workspace)
+
   cluster_data_key_prefix = local.is_data_platform ? terraform.workspace : "analytical-platform-compute-${terraform.workspace}"
 
   # EKS cluster name used to get a token
