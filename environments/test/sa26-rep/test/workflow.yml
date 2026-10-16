@@ -9,6 +9,7 @@ dag:
 
 iam:
   athena: write
+  lake_formation: true
   glue: true
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
