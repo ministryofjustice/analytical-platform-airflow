@@ -23,3 +23,9 @@ variable "label_domain" {
   description = "Domain used for Kubernetes labels on the service account"
   default     = "compute.analytical-platform.service.justice.gov.uk"
 }
+
+variable "iam_environment" {
+  type        = string
+  description = "Short environment name used in IAM role and policy names (64 character limit). Defaults to environment."
+  default     = null
+}
