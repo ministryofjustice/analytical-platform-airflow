@@ -13,14 +13,10 @@ iam:
   lake_formation: true
 
   s3_read_only:
-    - mojap-athena-query-dump/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/*
 
   s3_read_write:
     - mojap-incentives/*
-    - alpha-athena-dump/*
-    - alpha-athena-query-dump/*
-    - mojap-athena-query-dump/*
 
 notifications:
   emails:
