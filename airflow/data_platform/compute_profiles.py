@@ -1,5 +1,10 @@
 from kubernetes.client import models as k8s_models
 
+# Data Platform Karpenter node pools are labelled and tainted with
+# compute.data-platform.service.justice.gov.uk/node-pool=<pool>-<arch>
+NODE_POOL_KEY = "compute.data-platform.service.justice.gov.uk/node-pool"
+NODE_POOL_ARCH = "amd64"
+
 
 def get_compute_profile(compute_profile="general-spot-1vcpu-4gb"):
     if compute_profile.startswith("general-on-demand"):
@@ -8,12 +13,10 @@ def get_compute_profile(compute_profile="general-spot-1vcpu-4gb"):
     elif compute_profile.startswith("general-spot"):
         karpenter_node_pool = "general-spot"
         gpu_enabled = False
-    elif compute_profile.startswith("gpu-on-demand"):
-        karpenter_node_pool = "gpu-on-demand"
-        gpu_enabled = True
-    elif compute_profile.startswith("gpu-spot"):
-        karpenter_node_pool = "gpu-spot"
-        gpu_enabled = True
+    elif compute_profile.startswith(("gpu-on-demand", "gpu-spot")):
+        raise ValueError(
+            f"GPU compute profiles are not available on Data Platform: {compute_profile}"
+        )
     else:
         raise ValueError(f"Unknown compute_profile: {compute_profile}")
 
@@ -85,6 +88,8 @@ def get_compute_profile(compute_profile="general-spot-1vcpu-4gb"):
     else:
         raise ValueError(f"Unknown compute_profile: {compute_profile}")
 
+    node_pool = f"{karpenter_node_pool}-{NODE_POOL_ARCH}"
+
     affinity = k8s_models.V1Affinity(
         node_affinity=k8s_models.V1NodeAffinity(
             required_during_scheduling_ignored_during_execution=k8s_models.V1NodeSelector(
@@ -92,9 +97,9 @@ def get_compute_profile(compute_profile="general-spot-1vcpu-4gb"):
                     k8s_models.V1NodeSelectorTerm(
                         match_expressions=[
                             k8s_models.V1NodeSelectorRequirement(
-                                key="compute.data-platform.service.justice.gov.uk/karpenter-node-pool",
+                                key=NODE_POOL_KEY,
                                 operator="In",
-                                values=[karpenter_node_pool],
+                                values=[node_pool],
                             )
                         ]
                     )
@@ -118,9 +123,9 @@ def get_compute_profile(compute_profile="general-spot-1vcpu-4gb"):
 
     tolerations = [
         k8s_models.V1Toleration(
-            key="compute.data-platform.service.justice.gov.uk/karpenter-node-pool",
+            key=NODE_POOL_KEY,
             operator="Equal",
-            value=karpenter_node_pool,
+            value=node_pool,
             effect="NoSchedule",
         )
     ]
