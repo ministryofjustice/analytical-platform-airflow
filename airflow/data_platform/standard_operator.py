@@ -168,6 +168,7 @@ class DataPlatformStandardOperator(KubernetesPodOperator):
                 "airflow.compute.data-platform.service.justice.gov.uk/environment": environment,
                 "airflow.compute.data-platform.service.justice.gov.uk/project": project,
                 "airflow.compute.data-platform.service.justice.gov.uk/workflow": workflow,
+                "data-platform.service.justice.gov.uk/team": project,
             },
             env_vars=env_vars,
             host_aliases=hmcts_sdp_networking_host_aliases,
