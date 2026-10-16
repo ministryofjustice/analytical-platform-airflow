@@ -169,6 +169,11 @@ jobs:
             echo "No external IAM role defined in workflow.yml"
 
             getEnvironment=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f2)
+
+            # Keep in sync with environment_aliases in terraform/locals.tf
+            case "${getEnvironment}" in
+              data-platform-test) getEnvironment="dp-test" ;;
+            esac
             export getEnvironment
 
             getProject=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f3)
