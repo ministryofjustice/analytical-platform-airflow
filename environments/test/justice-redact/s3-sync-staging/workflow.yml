@@ -9,7 +9,7 @@ dag:
 iam:
   athena: write
   s3_read_write:
-    - cloud-platform-e8943f6dadc19b2596e1a0c8c52192ca/*
+    - cloud-platform-92bb1800eb01aa9300d2febcc49b929a/*
 
 maintainers:
   - adityadsgit
