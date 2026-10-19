@@ -128,9 +128,9 @@ class DataPlatformStandardOperator(KubernetesPodOperator):
             env_vars = {}
 
         std_envs = {
-            "AWS_DEFAULT_REGION": "eu-west-1",
-            "AWS_ATHENA_QUERY_EXTRACT_REGION": "eu-west-1",
-            "AWS_DEFAULT_EXTRACT_REGION": "eu-west-1",
+            "AWS_DEFAULT_REGION": "eu-west-2",
+            "AWS_ATHENA_QUERY_EXTRACT_REGION": "eu-west-2",
+            "AWS_DEFAULT_EXTRACT_REGION": "eu-west-2",
             "AWS_METADATA_SERVICE_TIMEOUT": "60",
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
             "AIRFLOW_ENVIRONMENT": environment.upper(),
