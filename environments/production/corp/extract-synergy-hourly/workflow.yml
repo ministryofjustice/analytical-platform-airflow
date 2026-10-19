@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.15.2
+  tag: v1.6.1-test1
   schedule: "0 7-18 * * 1-5"
   compute_profile: general-on-demand-2vcpu-8gb
   env_vars:
@@ -657,139 +657,139 @@ dag:
     # === AR Closed (All OUs Except CTS) ===
     laa-ar_payment_schedules_closed:
       env_vars:
-        REPORT_NAME: "laa-ar_payment_schedules_closed"
+        REPORT_NAME: "laa-ar_payment_schedules"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     opg-ar_payment_schedules_closed:
       env_vars:
-        REPORT_NAME: "opg-ar_payment_schedules_closed"
+        REPORT_NAME: "opg-ar_payment_schedules"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     yjb-ar_payment_schedules_closed:
       env_vars:
-        REPORT_NAME: "yjb-ar_payment_schedules_closed"
+        REPORT_NAME: "yjb-ar_payment_schedules"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     ima-ar_payment_schedules_closed:
       env_vars:
-        REPORT_NAME: "ima-ar_payment_schedules_closed"
+        REPORT_NAME: "ima-ar_payment_schedules"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     moj-ar_payment_schedules_closed:
       env_vars:
-        REPORT_NAME: "moj-ar_payment_schedules_closed"
+        REPORT_NAME: "moj-ar_payment_schedules"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     pbd-ar_payment_schedules_closed:
       env_vars:
-        REPORT_NAME: "pbd-ar_payment_schedules_closed"
+        REPORT_NAME: "pbd-ar_payment_schedules"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     jac-ar_payment_schedules_closed:
       env_vars:
-        REPORT_NAME: "jac-ar_payment_schedules_closed"
+        REPORT_NAME: "jac-ar_payment_schedules"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     nms-ar_payment_schedules_closed:
       env_vars:
-        REPORT_NAME: "nms-ar_payment_schedules_closed"
+        REPORT_NAME: "nms-ar_payment_schedules"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     wls-ar_payment_schedules_closed:
       env_vars:
-        REPORT_NAME: "wls-ar_payment_schedules_closed"
+        REPORT_NAME: "wls-ar_payment_schedules"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
 
     laa-ar_transaction_headers_closed:
       env_vars:
-        REPORT_NAME: "laa-ar_transaction_headers_closed"
+        REPORT_NAME: "laa-ar_transaction_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     opg-ar_transaction_headers_closed:
       env_vars:
-        REPORT_NAME: "opg-ar_transaction_headers_closed"
+        REPORT_NAME: "opg-ar_transaction_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     yjb-ar_transaction_headers_closed:
       env_vars:
-        REPORT_NAME: "yjb-ar_transaction_headers_closed"
+        REPORT_NAME: "yjb-ar_transaction_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     ima-ar_transaction_headers_closed:
       env_vars:
-        REPORT_NAME: "ima-ar_transaction_headers_closed"
+        REPORT_NAME: "ima-ar_transaction_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     moj-ar_transaction_headers_closed:
       env_vars:
-        REPORT_NAME: "moj-ar_transaction_headers_closed"
+        REPORT_NAME: "moj-ar_transaction_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     pbd-ar_transaction_headers_closed:
       env_vars:
-        REPORT_NAME: "pbd-ar_transaction_headers_closed"
+        REPORT_NAME: "pbd-ar_transaction_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     jac-ar_transaction_headers_closed:
       env_vars:
-        REPORT_NAME: "jac-ar_transaction_headers_closed"
+        REPORT_NAME: "jac-ar_transaction_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     nms-ar_transaction_headers_closed:
       env_vars:
-        REPORT_NAME: "nms-ar_transaction_headers_closed"
+        REPORT_NAME: "nms-ar_transaction_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     wls-ar_transaction_headers_closed:
       env_vars:
-        REPORT_NAME: "wls-ar_transaction_headers_closed"
+        REPORT_NAME: "wls-ar_transaction_headers"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
 
     laa-ar_transaction_lines_closed:
       env_vars:
-        REPORT_NAME: "laa-ar_transaction_lines_closed"
+        REPORT_NAME: "laa-ar_transaction_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     opg-ar_transaction_lines_closed:
       env_vars:
-        REPORT_NAME: "opg-ar_transaction_lines_closed"
+        REPORT_NAME: "opg-ar_transaction_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     yjb-ar_transaction_lines_closed:
       env_vars:
-        REPORT_NAME: "yjb-ar_transaction_lines_closed"
+        REPORT_NAME: "yjb-ar_transaction_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     ima-ar_transaction_lines_closed:
       env_vars:
-        REPORT_NAME: "ima-ar_transaction_lines_closed"
+        REPORT_NAME: "ima-ar_transaction_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     moj-ar_transaction_lines_closed:
       env_vars:
-        REPORT_NAME: "moj-ar_transaction_lines_closed"
+        REPORT_NAME: "moj-ar_transaction_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     pbd-ar_transaction_lines_closed:
       env_vars:
-        REPORT_NAME: "pbd-ar_transaction_lines_closed"
+        REPORT_NAME: "pbd-ar_transaction_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     jac-ar_transaction_lines_closed:
       env_vars:
-        REPORT_NAME: "jac-ar_transaction_lines_closed"
+        REPORT_NAME: "jac-ar_transaction_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     nms-ar_transaction_lines_closed:
       env_vars:
-        REPORT_NAME: "nms-ar_transaction_lines_closed"
+        REPORT_NAME: "nms-ar_transaction_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
     wls-ar_transaction_lines_closed:
       env_vars:
-        REPORT_NAME: "wls-ar_transaction_lines_closed"
+        REPORT_NAME: "wls-ar_transaction_lines"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
 
@@ -1762,6 +1762,369 @@ dag:
     moj-person_legislation:
       env_vars:
         REPORT_NAME: "moj-person_legislation"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    cts-ar_receipt_attachments:
+      env_vars:
+        REPORT_NAME: "cts-ar_receipt_attachments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-ar_receipt_attachments:
+      env_vars:
+        REPORT_NAME: "ima-ar_receipt_attachments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-ar_receipt_attachments:
+      env_vars:
+        REPORT_NAME: "jac-ar_receipt_attachments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-ar_receipt_attachments:
+      env_vars:
+        REPORT_NAME: "laa-ar_receipt_attachments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-ar_receipt_attachments:
+      env_vars:
+        REPORT_NAME: "moj-ar_receipt_attachments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-ar_receipt_attachments:
+      env_vars:
+        REPORT_NAME: "nms-ar_receipt_attachments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-ar_receipt_attachments:
+      env_vars:
+        REPORT_NAME: "opg-ar_receipt_attachments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-ar_receipt_attachments:
+      env_vars:
+        REPORT_NAME: "pbd-ar_receipt_attachments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-ar_receipt_attachments:
+      env_vars:
+        REPORT_NAME: "wls-ar_receipt_attachments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-ar_receipt_attachments:
+      env_vars:
+        REPORT_NAME: "yjb-ar_receipt_attachments"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    cts-ar_transaction_adj:
+      env_vars:
+        REPORT_NAME: "cts-ar_transaction_adj"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-ar_transaction_adj:
+      env_vars:
+        REPORT_NAME: "ima-ar_transaction_adj"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-ar_transaction_adj:
+      env_vars:
+        REPORT_NAME: "jac-ar_transaction_adj"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-ar_transaction_adj:
+      env_vars:
+        REPORT_NAME: "laa-ar_transaction_adj"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-ar_transaction_adj:
+      env_vars:
+        REPORT_NAME: "moj-ar_transaction_adj"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-ar_transaction_adj:
+      env_vars:
+        REPORT_NAME: "nms-ar_transaction_adj"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-ar_transaction_adj:
+      env_vars:
+        REPORT_NAME: "opg-ar_transaction_adj"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-ar_transaction_adj:
+      env_vars:
+        REPORT_NAME: "pbd-ar_transaction_adj"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-ar_transaction_adj:
+      env_vars:
+        REPORT_NAME: "wls-ar_transaction_adj"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-ar_transaction_adj:
+      env_vars:
+        REPORT_NAME: "yjb-ar_transaction_adj"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    cts-ar_transaction_distr:
+      env_vars:
+        REPORT_NAME: "cts-ar_transaction_distr"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-ar_transaction_distr:
+      env_vars:
+        REPORT_NAME: "ima-ar_transaction_distr"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-ar_transaction_distr:
+      env_vars:
+        REPORT_NAME: "jac-ar_transaction_distr"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-ar_transaction_distr:
+      env_vars:
+        REPORT_NAME: "laa-ar_transaction_distr"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-ar_transaction_distr:
+      env_vars:
+        REPORT_NAME: "moj-ar_transaction_distr"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-ar_transaction_distr:
+      env_vars:
+        REPORT_NAME: "nms-ar_transaction_distr"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-ar_transaction_distr:
+      env_vars:
+        REPORT_NAME: "opg-ar_transaction_distr"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-ar_transaction_distr:
+      env_vars:
+        REPORT_NAME: "pbd-ar_transaction_distr"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-ar_transaction_distr:
+      env_vars:
+        REPORT_NAME: "wls-ar_transaction_distr"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-ar_transaction_distr:
+      env_vars:
+        REPORT_NAME: "yjb-ar_transaction_distr"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    cts-po_shipment_details:
+      env_vars:
+        REPORT_NAME: "cts-po_shipment_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    ima-po_shipment_details:
+      env_vars:
+        REPORT_NAME: "ima-po_shipment_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    jac-po_shipment_details:
+      env_vars:
+        REPORT_NAME: "jac-po_shipment_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-po_shipment_details:
+      env_vars:
+        REPORT_NAME: "laa-po_shipment_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    moj-po_shipment_details:
+      env_vars:
+        REPORT_NAME: "moj-po_shipment_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-po_shipment_details:
+      env_vars:
+        REPORT_NAME: "nms-po_shipment_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    opg-po_shipment_details:
+      env_vars:
+        REPORT_NAME: "opg-po_shipment_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    pbd-po_shipment_details:
+      env_vars:
+        REPORT_NAME: "pbd-po_shipment_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    wls-po_shipment_details:
+      env_vars:
+        REPORT_NAME: "wls-po_shipment_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    yjb-po_shipment_details:
+      env_vars:
+        REPORT_NAME: "yjb-po_shipment_details"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    cts_trx_schedules_2017:
+      env_vars:
+        REPORT_NAME: "cts_trx_schedules_2017"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_schedules_2019:
+      env_vars:
+        REPORT_NAME: "cts_trx_schedules_2019"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_schedules_2021:
+      env_vars:
+        REPORT_NAME: "cts_trx_schedules_2021"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_schedules_2023:
+      env_vars:
+        REPORT_NAME: "cts_trx_schedules_2023"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_schedules_2025:
+      env_vars:
+        REPORT_NAME: "cts_trx_schedules_2025"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    cts_trx_headers_2017:
+      env_vars:
+        REPORT_NAME: "cts_trx_headers_2017"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_headers_2019:
+      env_vars:
+        REPORT_NAME: "cts_trx_headers_2019"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_headers_2021:
+      env_vars:
+        REPORT_NAME: "cts_trx_headers_2021"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_headers_2023:
+      env_vars:
+        REPORT_NAME: "cts_trx_headers_2023"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_headers_2025:
+      env_vars:
+        REPORT_NAME: "cts_trx_headers_2025"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    cts_trx_lines_2017:
+      env_vars:
+        REPORT_NAME: "cts_trx_lines_2017"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_lines_2019:
+      env_vars:
+        REPORT_NAME: "cts_trx_lines_2019"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_lines_2021:
+      env_vars:
+        REPORT_NAME: "cts_trx_lines_2021"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_lines_2023:
+      env_vars:
+        REPORT_NAME: "cts_trx_lines_2023"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts_trx_lines_2025:
+      env_vars:
+        REPORT_NAME: "cts_trx_lines_2025"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+
+    cts-invoice_lines_closed_2017:
+      env_vars:
+        REPORT_NAME: "cts-invoice_lines_closed_2017"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-invoice_lines_closed_2019:
+      env_vars:
+        REPORT_NAME: "cts-invoice_lines_closed_2019"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-invoice_lines_closed_2021:
+      env_vars:
+        REPORT_NAME: "cts-invoice_lines_closed_2021"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-invoice_lines_closed_2023_1:
+      env_vars:
+        REPORT_NAME: "cts-invoice_lines_closed_2023_1"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-invoice_lines_closed_2023_2:
+      env_vars:
+        REPORT_NAME: "cts-invoice_lines_closed_2023_2"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    cts-invoice_lines_closed_2025:
+      env_vars:
+        REPORT_NAME: "cts-invoice_lines_closed_2025"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-invoice_lines_closed_2017:
+      env_vars:
+        REPORT_NAME: "laa-invoice_lines_closed_2017"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-invoice_lines_closed_2019:
+      env_vars:
+        REPORT_NAME: "laa-invoice_lines_closed_2019"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-invoice_lines_closed_2021:
+      env_vars:
+        REPORT_NAME: "laa-invoice_lines_closed_2021"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-invoice_lines_closed_2023:
+      env_vars:
+        REPORT_NAME: "laa-invoice_lines_closed_2023"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    laa-invoice_lines_closed_2025:
+      env_vars:
+        REPORT_NAME: "laa-invoice_lines_closed_2025"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-invoice_lines_closed_2017:
+      env_vars:
+        REPORT_NAME: "nms-invoice_lines_closed_2017"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-invoice_lines_closed_2019:
+      env_vars:
+        REPORT_NAME: "nms-invoice_lines_closed_2019"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-invoice_lines_closed_2021:
+      env_vars:
+        REPORT_NAME: "nms-invoice_lines_closed_2021"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-invoice_lines_closed_2023:
+      env_vars:
+        REPORT_NAME: "nms-invoice_lines_closed_2023"
+        REPORT_SECRET_ID: "splashbi-credentials"
+      dependencies: [validate-credentials]
+    nms-invoice_lines_closed_2025:
+      env_vars:
+        REPORT_NAME: "nms-invoice_lines_closed_2025"
         REPORT_SECRET_ID: "splashbi-credentials"
       dependencies: [validate-credentials]
 
