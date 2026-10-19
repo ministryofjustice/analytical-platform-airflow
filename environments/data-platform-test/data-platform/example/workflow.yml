@@ -8,6 +8,9 @@ dag:
 maintainers:
   - raghavvidya
 
+secrets:
+  - example-secret
+
 tags:
   business_unit: Central Digital
   owner: analytical-platform@justice.gov.uk
