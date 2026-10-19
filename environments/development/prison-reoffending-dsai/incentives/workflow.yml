@@ -14,6 +14,7 @@ iam:
 
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_ao/*
+    - mojap-derived-tables/prod/models/domain_name=prison/database_name=prison_derived/table_name=rpt_ao_*
 
   s3_read_write:
     - mojap-incentives/*
