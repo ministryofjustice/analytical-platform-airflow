@@ -339,10 +339,11 @@ jobs:
 
           dagTag=$(yq -e ".dag.tag" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagTag
-
-          echo "dag-repository=${dagRepository}" >>"${GITHUB_ENV}"
-          echo "ecr-repository=${ecrRepository}" >>"${GITHUB_ENV}"
-          echo "image-tag=${dagTag}" >>"${GITHUB_ENV}"
+          {
+            echo "dag-repository=${dagRepository}"
+            echo "ecr-repository=${ecrRepository}"
+            echo "image-tag=${dagTag}"
+          }  >>"${GITHUB_ENV}"
 
       - name: Check Image Exists
         id: check_image_exists
