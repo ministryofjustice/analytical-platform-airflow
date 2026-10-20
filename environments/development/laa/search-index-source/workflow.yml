@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.17
+  tag: v0.1.21
   env_vars:
     AWS_REGION: eu-west-1
     DEV_MODE: True
@@ -21,6 +21,7 @@ maintainers:
   - nina-knowles-justice
   - dami-moj
   - jh-justice-dev
+  - sathyareddy-justice
 
 secrets:
   - source-request-bucket

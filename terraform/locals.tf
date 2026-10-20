@@ -1,0 +1,26 @@
+locals {
+  is_data_platform = startswith(terraform.workspace, "data-platform-")
+
+
+  environment_aliases = {
+    "data-platform-test" = "dp-test"
+  }
+  environment_name = lookup(local.environment_aliases, terraform.workspace, terraform.workspace)
+
+  cluster_data_key_prefix = local.is_data_platform ? terraform.workspace : "analytical-platform-compute-${terraform.workspace}"
+
+  # EKS cluster name used to get a token
+  eks_cluster_name = local.is_data_platform ? "${terraform.workspace}-airflow" : "analytical-platform-compute-${terraform.workspace}"
+
+  # Cluster data secret (in analytical-platform-common-production)
+  cluster_data_secret_id = local.is_data_platform ? "data-platform/cluster-data" : "analytical-platform-compute/cluster-data"
+
+  cluster_data = jsondecode(data.aws_secretsmanager_secret_version.cluster_data.secret_string)
+
+  eks_cluster_endpoint       = local.cluster_data["${local.cluster_data_key_prefix}-api-endpoint"]
+  eks_cluster_ca_certificate = base64decode(local.cluster_data["${local.cluster_data_key_prefix}-certificate"])
+  eks_oidc_url               = local.cluster_data["${local.cluster_data_key_prefix}-oidc-endpoint"]
+
+  # Domain used for Kubernetes labels (matches airflow/<package>/standard_operator.py)
+  label_domain = local.is_data_platform ? "compute.data-platform.service.justice.gov.uk" : "compute.analytical-platform.service.justice.gov.uk"
+}

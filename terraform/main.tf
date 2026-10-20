@@ -11,9 +11,11 @@ module "airflow" {
     aws.analytical-platform-data-production-eu-west-2 = aws.analytical-platform-data-production-eu-west-2
   }
 
-  project       = replace(format("%s", split("/", each.key)[0]), "electronic-monitoring-data-store", "emds")
-  workflow      = format("%s", split("/", each.key)[1])
-  environment   = terraform.workspace
-  configuration = yamldecode(file("../environments/${terraform.workspace}/${each.key}/workflow.yml"))
-  eks_oidc_url  = jsondecode(data.aws_secretsmanager_secret_version.analytical_platform_compute_cluster_data.secret_string)["analytical-platform-compute-${terraform.workspace}-oidc-endpoint"]
+  project         = replace(format("%s", split("/", each.key)[0]), "electronic-monitoring-data-store", "emds")
+  workflow        = format("%s", split("/", each.key)[1])
+  environment     = terraform.workspace
+  iam_environment = local.environment_name
+  configuration   = yamldecode(file("../environments/${terraform.workspace}/${each.key}/workflow.yml"))
+  eks_oidc_url    = local.eks_oidc_url
+  label_domain    = local.label_domain
 }

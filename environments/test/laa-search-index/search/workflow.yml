@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-search
-  tag: v0.1.16-alpha-ab9bb01
+  tag: v0.1.18
   schedule: "*/15 9-16 * * 1-5"
   max_active_runs: 1
   catchup: false
@@ -29,6 +29,7 @@ maintainers:
   - jh-justice-dev
   - jfjb-justice
   - JamesS-MoJ
+  - sathyareddy-justice
 
 secrets:
   - splink-bucket
