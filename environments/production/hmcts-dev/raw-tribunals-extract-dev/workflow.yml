@@ -21,22 +21,6 @@ dag:
         LAND_PATH: "hmcts/employment-tribunals/"
       compute_profile: general-on-demand-16vcpu-64gb
 
-    et_extract_et_englandwales_listings:
-      env_vars:
-        AZURE_TABLE: "et-englandwales-listings"
-        SDP_TABLE_PREFIX: "v3-et-employment-"
-        DATABASE_NAME: "employment_tribunals_v1_dev"
-        LAND_PATH: "hmcts/employment-tribunals/"
-      compute_profile: general-on-demand-16vcpu-64gb
-
-    et_extract_et_englandwales_multiple:
-      env_vars:
-        AZURE_TABLE: "et-englandwales-multiple"
-        SDP_TABLE_PREFIX: "v3-et-employment-"
-        DATABASE_NAME: "employment_tribunals_v1_dev"
-        LAND_PATH: "hmcts/employment-tribunals/"
-      compute_profile: general-on-demand-16vcpu-64gb
-
     ccd_extract_sscs_benefit:
       env_vars:
         AZURE_TABLE: "benefit"
