@@ -48,7 +48,7 @@ iam:
     - mojap-land-fail/hmpps/prison-curious2/*
   s3_read_only:
     - mojap-land/hmpps/prison-curious//*
-    
+
 secrets:
   - curious-azure-credential
 
