@@ -24,6 +24,7 @@ dag:
       env_vars:
         STEP: "extract_and_upload"
       compute_profile: "general-on-demand-1vcpu-4gb"
+      dependencies: [get_secret]
     validate_raw_data:
       env_vars:
         STEP: "validate_raw_data"
@@ -45,7 +46,9 @@ iam:
     - mojap-land/hmpps/prison-curious2/*
     - mojap-raw-hist/hmpps/prison-curious2/*
     - mojap-land-fail/hmpps/prison-curious2/*
-
+  s3_read_only:
+    - mojap-land/hmpps/prison-curious//*
+    
 secrets:
   - curious-azure-credential
 
