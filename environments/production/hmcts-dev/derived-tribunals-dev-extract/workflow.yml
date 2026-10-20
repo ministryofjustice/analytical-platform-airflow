@@ -13,7 +13,7 @@ dag:
     LAND_BUCKET: "mojap-land-dev"
     COPY_MODE: "all"
     WRITE_FOLDER_STRUCTURE: "file_only"
-    EXCLUDED_FILES_REGEXPR: '(?i)^(?!.*\.parquet$)'
+    EXCLUDED_FILES_REGEXPR: '(?i)^(?!.*[.]parquet$)'
 
   tasks:
     # Employment Tribunals - 26 tables
