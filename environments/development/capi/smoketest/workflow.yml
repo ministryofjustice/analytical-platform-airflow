@@ -1,12 +1,15 @@
 dag:
   repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
-  tag: gw-test-v1.0.24-dev
+  tag: je-test-v1.0.4
 
   env_vars:
     ENV_FOR_DYNACONF: dev
     AWS_DEFAULT_REGION: eu-west-1
-    DYNACONF_RUN_VERSION: gw_test_1
-    DYNACONF_DATASET: 2324_gw
+    DYNACONF_RUN_VERSION: je_libpypostal_100_20261020
+    DYNACONF_DATASET: 2324_je_libpypostal_100_20261020
+    DYNACONF_SAMPLE_FROM_COHORT: "true"
+    DYNACONF_LIMIT_ROWS: "true"
+    DYNACONF_LIMIT: "100"
 
   tasks:
     prepare:
