@@ -1,0 +1,385 @@
+
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v4.3.3
+  retries: 0
+  hmcts_sdp_networking: true
+  max_active_runs: 1
+
+  env_vars:
+    LOG_LEVEL: "INFO"
+    ENDPOINT: "DATA_LAKE_PROD"
+    AZURE_TABLE: "workspace"
+    FILENAME_COL_NAME: "meta__source_file"
+    LAND_BUCKET: "mojap-land-dev"
+    COPY_MODE: "all"
+    WRITE_FOLDER_STRUCTURE: "file_only"
+    EXCLUDED_FILES_REGEXPR: '(?i)^(?!.*\.parquet$)'
+
+  tasks:
+    # Employment Tribunals - 26 tables
+
+    et_bridgeclaimjurisdiction:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/bridgeclaimjurisdiction/"
+        S3_TABLE: "bridgeclaimjurisdiction"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_bridgerejectedclaimsrejectedreason:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/bridgerejectedclaimsrejectedreason/"
+        S3_TABLE: "bridgerejectedclaimsrejectedreason"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_datadictionary:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/datadictionary/"
+        S3_TABLE: "datadictionary"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimclaim:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimclaim/"
+        S3_TABLE: "dimclaim"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimdate:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimdate/"
+        S3_TABLE: "dimdate"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimdisposaltype:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimdisposaltype/"
+        S3_TABLE: "dimdisposaltype"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimhearing:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimhearing/"
+        S3_TABLE: "dimhearing"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimhearingstatus:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimhearingstatus/"
+        S3_TABLE: "dimhearingstatus"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimjudicialpaymentregion:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimjudicialpaymentregion/"
+        S3_TABLE: "dimjudicialpaymentregion"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimjurisdiction:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimjurisdiction/"
+        S3_TABLE: "dimjurisdiction"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimjurisdictionoutcome:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimjurisdictionoutcome/"
+        S3_TABLE: "dimjurisdictionoutcome"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimmanagingoffice:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimmanagingoffice/"
+        S3_TABLE: "dimmanagingoffice"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimrejectedreason:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimrejectedreason/"
+        S3_TABLE: "dimrejectedreason"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimrole:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimrole/"
+        S3_TABLE: "dimrole"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_dimsource:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/dimsource/"
+        S3_TABLE: "dimsource"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_factacceptedclaims:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/factacceptedclaims/"
+        S3_TABLE: "factacceptedclaims"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_factdisposedclaims:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/factdisposedclaims/"
+        S3_TABLE: "factdisposedclaims"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_factdisposedjurisdictions:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/factdisposedjurisdictions/"
+        S3_TABLE: "factdisposedjurisdictions"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_facthearingdays:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/facthearingdays/"
+        S3_TABLE: "facthearingdays"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_factmemberdays:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/factmemberdays/"
+        S3_TABLE: "factmemberdays"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_factopenclaims:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/factopenclaims/"
+        S3_TABLE: "factopenclaims"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_factpostponedhearings:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/factpostponedhearings/"
+        S3_TABLE: "factpostponedhearings"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_factrejectedclaims:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/factrejectedclaims/"
+        S3_TABLE: "factrejectedclaims"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_factservedclaims:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/factservedclaims/"
+        S3_TABLE: "factservedclaims"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_factsittingdays:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/factsittingdays/"
+        S3_TABLE: "factsittingdays"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_factsubmittedclaims:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/employment_tribunal_amalgamated.db/factsubmittedclaims/"
+        S3_TABLE: "factsubmittedclaims"
+        DATABASE_NAME: "employment_tribunal_amalgamated_dev"
+        LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    # SSCS - 17 tables
+
+    sscs_dimcase:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/dimcase/"
+        S3_TABLE: "dimcase"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_dimconstituent:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/dimconstituent/"
+        S3_TABLE: "dimconstituent"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_dimconstituentbridge:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/dimconstituentbridge/"
+        S3_TABLE: "dimconstituentbridge"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_dimconstituentgroup:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/dimconstituentgroup/"
+        S3_TABLE: "dimconstituentgroup"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_dimdate:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/dimdate/"
+        S3_TABLE: "dimdate"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_dimhearing:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/dimhearing/"
+        S3_TABLE: "dimhearing"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_dimoutcome:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/dimoutcome/"
+        S3_TABLE: "dimoutcome"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_dimsession:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/dimsession/"
+        S3_TABLE: "dimsession"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_dimstate:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/dimstate/"
+        S3_TABLE: "dimstate"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_dimvenue:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/dimvenue/"
+        S3_TABLE: "dimvenue"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_factcaseoutcomeevents:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/factcaseoutcomeevents/"
+        S3_TABLE: "factcaseoutcomeevents"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_factcaseoutcomes:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/factcaseoutcomes/"
+        S3_TABLE: "factcaseoutcomes"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_factcasestates:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/factcasestates/"
+        S3_TABLE: "factcasestates"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_factdisposals:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/factdisposals/"
+        S3_TABLE: "factdisposals"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_facthearings:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/facthearings/"
+        S3_TABLE: "facthearings"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_factprehearingpostponements:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/factprehearingpostponements/"
+        S3_TABLE: "factprehearingpostponements"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    sscs_factsessions:
+      env_vars:
+        BLOB_PREFIX: "synapse/workspaces/mi-synapse-prod/warehouse/sscs.db/factsessions/"
+        S3_TABLE: "factsessions"
+        DATABASE_NAME: "sscs_dev"
+        LAND_PATH: "hmcts/derived-tribunals/sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land-dev/hmcts/derived-tribunals/*
+    - mojap-raw-hist-dev/hmcts/derived-tribunals/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - Andy-Cook
+  - DanJ-MOJ
+  - AntonyJScott
+
+tags:
+  business_unit: Central Digital
+  owner: cft_data_engineering@justice.gov.uk
