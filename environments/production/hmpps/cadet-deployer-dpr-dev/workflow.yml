@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.5.4
+  tag: 1.5.6-pre2
   compute_profile: general-on-demand-8vcpu-32gb
   schedule: "0 5 * * MON-FRI"
   start_date: "2026-06-18"
@@ -16,6 +16,7 @@ dag:
     MODE: build
     AWS_DEFAULT_REGION: eu-west-2
     DBT_PROFILE: dpr
+    BRANCH: airflow-dag-trigger-db
     ENFORCE_LAKE_FORMATION: true
     RUN_SOURCE_FRESHNESS: true
     FULL_REFRESH: true
@@ -26,6 +27,7 @@ dag:
       compute_profile: general-on-demand-1vcpu-4gb
       env_vars:
         IS_DATASET_CHECK: true
+        DATASET_TARGET: prison.curated_prisons_history
       dependencies: [table_deploy]
       outlets:
         - "s3://hmpps_digital_prisons_reporting_tables/dev/dpr-daily/"
