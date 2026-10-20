@@ -14,7 +14,7 @@ terraform {
   required_providers {
     aws = {
       source  = "hashicorp/aws"
-      version = "6.64.0"
+      version = "6.67.0"
     }
     helm = {
       source  = "hashicorp/helm"
@@ -22,7 +22,7 @@ terraform {
     }
     kubernetes = {
       source  = "hashicorp/kubernetes"
-      version = "3.2.1"
+      version = "3.3.0"
     }
   }
   required_version = "~> 1.10"
@@ -68,23 +68,23 @@ provider "aws" {
 }
 
 provider "kubernetes" {
-  host                   = jsondecode(data.aws_secretsmanager_secret_version.analytical_platform_compute_cluster_data.secret_string)["analytical-platform-compute-${terraform.workspace}-api-endpoint"]
-  cluster_ca_certificate = base64decode(jsondecode(data.aws_secretsmanager_secret_version.analytical_platform_compute_cluster_data.secret_string)["analytical-platform-compute-${terraform.workspace}-certificate"])
+  host                   = local.eks_cluster_endpoint
+  cluster_ca_certificate = local.eks_cluster_ca_certificate
   exec {
     api_version = "client.authentication.k8s.io/v1"
     command     = "bash"
-    args        = ["scripts/eks-authentication.sh", "analytical-platform-compute-${terraform.workspace}"]
+    args        = ["scripts/eks-authentication.sh", local.eks_cluster_name]
   }
 }
 
 provider "helm" {
   kubernetes = {
-    host                   = jsondecode(data.aws_secretsmanager_secret_version.analytical_platform_compute_cluster_data.secret_string)["analytical-platform-compute-${terraform.workspace}-api-endpoint"]
-    cluster_ca_certificate = base64decode(jsondecode(data.aws_secretsmanager_secret_version.analytical_platform_compute_cluster_data.secret_string)["analytical-platform-compute-${terraform.workspace}-certificate"])
+    host                   = local.eks_cluster_endpoint
+    cluster_ca_certificate = local.eks_cluster_ca_certificate
     exec = {
       api_version = "client.authentication.k8s.io/v1"
       command     = "bash"
-      args        = ["scripts/eks-authentication.sh", "analytical-platform-compute-${terraform.workspace}"]
+      args        = ["scripts/eks-authentication.sh", local.eks_cluster_name]
     }
   }
 }

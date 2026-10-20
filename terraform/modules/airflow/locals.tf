@@ -13,6 +13,7 @@ locals {
   iam_lake_formation            = try(local.iam_configuration.lake_formation, false)
   iam_update_secrets            = try(local.iam_configuration.update_secrets, false)
   iam_textract                  = try(local.iam_configuration.textract, false)
+  iam_environment               = coalesce(var.iam_environment, var.environment)
 
   secrets_configuration = try(var.configuration.secrets, [])
 

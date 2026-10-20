@@ -61,7 +61,7 @@ jobs:
 
       - name: Upload path-filters File
         id: upload_path_filter
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: workflows-path-filter
           path: .github/path-filter/workflows.yml
@@ -110,7 +110,7 @@ jobs:
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: workflows-path-filter
           path: .github/path-filter
@@ -169,6 +169,11 @@ jobs:
             echo "No external IAM role defined in workflow.yml"
 
             getEnvironment=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f2)
+
+            # Keep in sync with environment_aliases in terraform/locals.tf
+            case "${getEnvironment}" in
+              data-platform-test) getEnvironment="dp-test" ;;
+            esac
             export getEnvironment
 
             getProject=$(echo "${WORKFLOW_DIRECTORY}" | cut -d'/' -f3)
@@ -300,7 +305,7 @@ jobs:
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: workflows-path-filter
           path: .github/path-filter
@@ -440,6 +445,10 @@ jobs:
           DAG_REPOSITORY_TOKEN: ${{ steps.octo_sts.outputs.token }}
           GH_TOKEN: ${{ github.token }}
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
+          GRYPE_MERGE_EXPRESSION: |
+            select(fileIndex == 1) as $runtime |
+            select(fileIndex == 0) |
+            .ignore = ((.ignore // []) + ($runtime.ignore // []))
         run: |
           dagRepository=$(yq -e ".dag.repository" "${WORKFLOW_DIRECTORY}/workflow.yml")
           export dagRepository
@@ -504,7 +513,8 @@ jobs:
           if [[ ! -f .grype.yml ]]; then
             mv "runtime-grype.yml" .grype.yml
           else
-            cat "runtime-grype.yml" >> .grype.yml
+            yq eval-all "${GRYPE_MERGE_EXPRESSION}" .grype.yml runtime-grype.yml > .grype.yml.merged
+            mv .grype.yml.merged .grype.yml
           fi
 
       - name: Comment on Image Version Mismatch
@@ -530,10 +540,11 @@ jobs:
           fail-build: false
           output-format: sarif
           output-file: result.sarif
+          config: .grype.yml
 
       - name: Upload SARIF
         id: upload_sarif
-        uses: github/codeql-action/upload-sarif@1c5b675653bb5c22dbe9b12b556ec555138e09fd # v4.38.1
+        uses: github/codeql-action/upload-sarif@2892aa5e19bbd11bc0cff5427e3b750a04d9e3c2 # v4.38.2
         with:
           sarif_file: result.sarif
 
@@ -752,7 +763,7 @@ jobs:
 
       - name: Download path-filters File
         id: download_path_filters
-        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           name: workflows-path-filter
           path: .github/path-filter
@@ -770,7 +781,7 @@ jobs:
       - name: Automatic Approval Check
         id: automatic_approval_check
         env:
-          GH_TOKEN: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          GH_TOKEN: ${{ secrets.AIRFLOW_AUTO_APPROVAL_TOKEN }}
           GITHUB_ACTOR: ${{ github.actor }}
           WORKFLOW_DIRECTORY: ${{ env.workflow-directory }}
         run: |
@@ -814,10 +825,10 @@ jobs:
             fi
           done
 
-          # Check if any files outside environments/(development|test|production) have changed
+          # Check if any files outside environments/(development|test|production|data-platform-*) have changed
           for file in ${changed_files}; do
-            if [[ ! "${file}" =~ ^environments/(development|test|production)/.*$ ]]; then
-              echo "File (${file}) has changed outside the specified path (environments/(development|test|production)), not eligible for automatic approval"
+            if [[ ! "${file}" =~ ^environments/(development|test|production|data-platform-[a-z]+)/.*$ ]]; then
+              echo "File (${file}) has changed outside the specified path (environments/(development|test|production|data-platform-*)), not eligible for automatic approval"
               exit 0
             fi
           done
@@ -863,7 +874,7 @@ jobs:
         id: automatic_approval
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         with:
-          github-token: ${{ secrets.DATA_PLATFORM_ROBOT_TOKEN }}
+          github-token: ${{ secrets.AIRFLOW_AUTO_APPROVAL_TOKEN }}
           script: |
             github.rest.pulls.createReview({
               owner: context.repo.owner,

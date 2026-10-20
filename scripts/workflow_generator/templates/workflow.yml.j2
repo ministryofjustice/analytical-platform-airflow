@@ -74,7 +74,7 @@
     {%- if dag.tasks %}
     {%- for task_name, task in dag.tasks.items() %}
     {{ task_name }}:
-      operator: analytical_platform.standard_operator.AnalyticalPlatformStandardOperator
+      operator: {{ meta.operator }}
       name: {{ meta.project }}-{{ meta.workflow }}-{{ task_name }}
       task_id: {{ meta.project }}-{{ meta.workflow }}-{{ task_name }}
       compute_profile: {{ task.compute_profile or dag.compute_profile or "general-spot-1vcpu-4gb" }}
@@ -113,7 +113,7 @@
     {%- endfor %}
     {%- else %}
     main:
-      operator: analytical_platform.standard_operator.AnalyticalPlatformStandardOperator
+      operator: {{ meta.operator }}
       name: {{ meta.project }}.{{ meta.workflow }}
       task_id: {{ meta.project }}-{{ meta.workflow }}
       compute_profile: {{ dag.compute_profile|default("general-spot-1vcpu-4gb") }}
