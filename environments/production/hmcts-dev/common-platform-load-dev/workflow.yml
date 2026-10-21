@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.38-beta.4941dda
+  tag: v4.1.0-alpha.0ceb713
   retries: 0
   retry_delay: 150
   start_date: "2026-06-01"
@@ -15,6 +15,7 @@ dag:
     CHUNK_SIZE: "1000000"
     DAG_INTERVAL_END: "{{ data_interval_end }}"
     PARTITION_COL: "hmcts_extraction_date"
+    COERCE_ERRORS: "False"
 
   tasks:
     cp_load_allocated_listings:
