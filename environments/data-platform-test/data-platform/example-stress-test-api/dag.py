@@ -14,7 +14,7 @@ WORKFLOW = "PLACEHOLDER_WORKFLOW"
 ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
 OWNER = "PLACEHOLDER_OWNER"
 
-API_ASSET = Asset(name="s3://test-dummy/api-asset")
+API_ASSET = Asset("s3://test-dummy/api-asset")
 
 dag_id = f"{PROJECT}.{WORKFLOW}"
 with DAG(
