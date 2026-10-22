@@ -1,15 +1,17 @@
 dag:
   repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
-  tag: je-test-v1.0.10
+  tag: je-test-v1.0.11-dev
 
   env_vars:
     ENV_FOR_DYNACONF: dev
     AWS_DEFAULT_REGION: eu-west-1
-    DYNACONF_RUN_VERSION: je_libpypostal_100_20261020
-    DYNACONF_DATASET: 2324_je_libpypostal_100_20261020
+    DYNACONF_DATASET: 2324_spacy_100_20261022
+    DYNACONF_RUN_VERSION: spacy_full_20261022_01
     DYNACONF_SAMPLE_FROM_COHORT: "true"
     DYNACONF_LIMIT_ROWS: "true"
     DYNACONF_LIMIT: "100"
+    DYNACONF_ADDRESS_AUDIT_ENABLED: "true"
+    DYNACONF_ADDRESS_AUDIT_TABLE: address_detection_audit_spacy_full_20261022_01
 
   tasks:
     prepare:
