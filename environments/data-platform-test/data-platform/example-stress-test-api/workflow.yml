@@ -2,11 +2,7 @@
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
   tag: 2.18.7
-  compute_profile: general-spot-1vcpu-4gb
-  schedule:
-    datasets:
-      - "s3://test-dummy/api-asset"
-  is_paused_upon_creation: true
+  python_dag: true
 
 maintainers:
   - raghavvidya
