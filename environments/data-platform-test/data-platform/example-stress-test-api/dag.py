@@ -1,6 +1,10 @@
 from datetime import datetime
 
-from airflow.sdk import DAG, Asset
+try:
+    from airflow.sdk import DAG, Asset
+except ImportError:  # CI validation runs Airflow 2
+    from airflow.datasets import Dataset as Asset
+    from airflow.models import DAG
 from data_platform.standard_operator import DataPlatformStandardOperator
 
 REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
