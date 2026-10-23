@@ -35,6 +35,15 @@ print(f"Folder: {folder}")
 environment = folder.split("/")[1]
 print(f"Environment: {environment}")
 
+# Environments named data-platform-<env> run on the Data Platform cluster and
+# use the operator from airflow/data_platform (different node pool keys and
+# pod labels). Everything else uses airflow/analytical_platform.
+if environment.startswith("data-platform-"):
+    operator = "data_platform.standard_operator.DataPlatformStandardOperator"
+else:
+    operator = "analytical_platform.standard_operator.AnalyticalPlatformStandardOperator"
+print(f"Operator: {operator}")
+
 project = folder.split("/")[2]
 project = PROJECT_ALIASES.get(project, project)
 print(f"Project: {project}")
@@ -85,6 +94,7 @@ else:
                 "environment": environment,
                 "project": project,
                 "workflow": workflow,
+                "operator": operator,
             }
         }
     )

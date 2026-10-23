@@ -142,6 +142,11 @@
               "type": "list",
               "schema": { "type": "string" },
               "required": false
+            },
+            "skip_on_exit_code": {
+              "type": "list",
+              "schema": { "type": "integer" },
+              "required": false
             }
           }
         }
@@ -255,8 +260,12 @@
         "type": "list",
         "schema": {
           "type": "string",
-          "allowed": ["failure", "success"]
+          "allowed": ["failure", "success", "skipped"]
         },
+        "required": false
+      },
+      "slack_skipped_text": {
+        "type": "string",
         "required": false
       }
     }

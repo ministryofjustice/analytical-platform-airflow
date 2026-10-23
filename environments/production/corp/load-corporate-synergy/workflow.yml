@@ -1,15 +1,15 @@
 ---
 dag:
-  repository: moj-analytical-services/airflow-file
-  tag: v1.4.9-testing
+  repository: moj-analytical-services/moj-data-loader
+  tag: v2.1.8-test
   schedule: "0 8 1-3 * *"
   env_vars:
-    AFFILE_ENV: "prod"
-    AFFILE_SCHEMA_CONTRACT: "evolve"
+    MODAL_ENV: "prod"
+    MODAL_SCHEMA_CONTRACT: "evolve"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
-    AFFILE_ALLOW_PROD: true
+    MODAL_ALLOW_PROD: "true"
 
   catchup: false
   max_active_runs: 1
@@ -18,76 +18,148 @@ dag:
   tasks:
     load-po_sscl_details:
       env_vars:
-        AFFILE_PIPELINE_NAME: "po_sscl_details"
+        MODAL_PIPELINE_NAME: "po_sscl_details"
     load-supplier_headers:
       env_vars:
-        AFFILE_PIPELINE_NAME: "supplier_headers"
+        MODAL_PIPELINE_NAME: "supplier_headers"
     load-supplier_sites:
       env_vars:
-        AFFILE_PIPELINE_NAME: "supplier_sites"
+        MODAL_PIPELINE_NAME: "supplier_sites"
     load-customer_sites:
       env_vars:
-        AFFILE_PIPELINE_NAME: "customer_sites"
+        MODAL_PIPELINE_NAME: "customer_sites"
     load-customer_headers:
       env_vars:
-        AFFILE_PIPELINE_NAME: "customer_headers"
+        MODAL_PIPELINE_NAME: "customer_headers"
     load-sba_mo_locations:
       env_vars:
-        AFFILE_PIPELINE_NAME: "sba_mo_locations"
+        MODAL_PIPELINE_NAME: "sba_mo_locations"
     load-po_lines:
       env_vars:
-        AFFILE_PIPELINE_NAME: "po_lines"
+        MODAL_PIPELINE_NAME: "po_lines"
     load-po_headers:
       env_vars:
-        AFFILE_PIPELINE_NAME: "po_headers"
+        MODAL_PIPELINE_NAME: "po_headers"
     load-supplier_bank_accounts:
       env_vars:
-        AFFILE_PIPELINE_NAME: "supplier_bank_accounts"
+        MODAL_PIPELINE_NAME: "supplier_bank_accounts"
     load-aged_debt_analysis:
       env_vars:
-        AFFILE_PIPELINE_NAME: "aged_debt_analysis"
+        MODAL_PIPELINE_NAME: "aged_debt_analysis"
     load-ap_03_invoices_hold:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ap_03_invoices_hold"
+        MODAL_PIPELINE_NAME: "ap_03_invoices_hold"
     load-ap_invoice_holds:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ap_invoice_holds"
+        MODAL_PIPELINE_NAME: "ap_invoice_holds"
     load-invoice_headers_open:
       env_vars:
-        AFFILE_PIPELINE_NAME: "invoice_headers_open"
+        MODAL_PIPELINE_NAME: "invoice_headers_open"
     load-invoice_lines_open:
       env_vars:
-        AFFILE_PIPELINE_NAME: "invoice_lines_open"
+        MODAL_PIPELINE_NAME: "invoice_lines_open"
     load-ar_payment_schedules_closed:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ar_payment_schedules_closed"
+        MODAL_PIPELINE_NAME: "ar_payment_schedules_closed"
     load-ar_transaction_headers_closed:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ar_transaction_headers_closed"
+        MODAL_PIPELINE_NAME: "ar_transaction_headers_closed"
     load-ar_transaction_lines_closed:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ar_transaction_lines_closed"
+        MODAL_PIPELINE_NAME: "ar_transaction_lines_closed"
     load-ar_payment_schedules_open:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ar_payment_schedules_open"
+        MODAL_PIPELINE_NAME: "ar_payment_schedules_open"
     load-ar_transaction_headers_open:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ar_transaction_headers_open"
+        MODAL_PIPELINE_NAME: "ar_transaction_headers_open"
     load-ar_transaction_lines_open:
       env_vars:
-        AFFILE_PIPELINE_NAME: "ar_transaction_lines_open"
+        MODAL_PIPELINE_NAME: "ar_transaction_lines_open"
     load-invoice_lines_closed:
       env_vars:
-        AFFILE_PIPELINE_NAME: "invoice_lines_closed"
+        MODAL_PIPELINE_NAME: "invoice_lines_closed"
     load-invoice_headers_closed:
       env_vars:
-        AFFILE_PIPELINE_NAME: "invoice_headers_closed"
+        MODAL_PIPELINE_NAME: "invoice_headers_closed"
     load-gls_code:
       env_vars:
-        AFFILE_PIPELINE_NAME: "gls_code"
+        MODAL_PIPELINE_NAME: "gls_code"
     load-unapplied_unidentified_receipts:
       env_vars:
-        AFFILE_PIPELINE_NAME: "unapplied_unidentified_receipts"
+        MODAL_PIPELINE_NAME: "unapplied_unidentified_receipts"
+    load-ar_active_customer_contacts:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ar_active_customer_contacts"
+    load-ar_customer_profiles:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ar_customer_profiles"
+    load-ar_customer_receipts:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ar_customer_receipts"
+    load-ar_customer_site_classes:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ar_customer_site_classes"
+    load-ar_payment_schedules_closed_cts:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ar_payment_schedules_closed_cts"
+    load-ar_receipt_attachments:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ar_receipt_attachments"
+    load-ar_receivable_apps:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ar_receivable_apps"
+    load-ar_transaction_adj:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ar_transaction_adj"
+    load-ar_transaction_distr:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ar_transaction_distr"
+    load-ar_transaction_headers_closed_cts:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ar_transaction_headers_closed_cts"
+    load-ar_transaction_lines_closed_cts:
+      env_vars:
+        MODAL_PIPELINE_NAME: "ar_transaction_lines_closed_cts"
+    load-gl_14_balances:
+      env_vars:
+        MODAL_PIPELINE_NAME: "gl_14_balances"
+    load-po_details:
+      env_vars:
+        MODAL_PIPELINE_NAME: "po_details"
+    load-po_receiving_shipments:
+      env_vars:
+        MODAL_PIPELINE_NAME: "po_receiving_shipments"
+    load-po_shipment_details:
+      env_vars:
+        MODAL_PIPELINE_NAME: "po_shipment_details"
+    load-hr_extra_info:
+      env_vars:
+        MODAL_PIPELINE_NAME: "hr_extra_info"
+    load-hr_payroll_ppm:
+      env_vars:
+        MODAL_PIPELINE_NAME: "hr_payroll_ppm"
+    load-hr_person:
+      env_vars:
+        MODAL_PIPELINE_NAME: "hr_person"
+    load-hr_person_address:
+      env_vars:
+        MODAL_PIPELINE_NAME: "hr_person_address"
+    load-hr_person_assignments:
+      env_vars:
+        MODAL_PIPELINE_NAME: "hr_person_assignments"
+    load-hr_person_payroll:
+      env_vars:
+        MODAL_PIPELINE_NAME: "hr_person_payroll"
+    load-hr_sba_mo_locations:
+      env_vars:
+        MODAL_PIPELINE_NAME: "hr_sba_mo_locations"
+    load-hr_sickness_absence:
+      env_vars:
+        MODAL_PIPELINE_NAME: "hr_sickness_absence"
+    load-person_legislation:
+      env_vars:
+        MODAL_PIPELINE_NAME: "person_legislation"
 
 iam:
   athena: write

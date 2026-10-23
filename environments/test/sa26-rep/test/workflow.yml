@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/sa26-dashboard-analysis
-  tag: v0-103
+  tag: v0-113
   catchup: false
   compute_profile: general-on-demand-4vcpu-16gb
   depends_on_past: false
@@ -9,6 +9,7 @@ dag:
 
 iam:
   athena: write
+  lake_formation: true
   glue: true
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=probation/database_name=delius/*
@@ -35,7 +36,6 @@ iam:
 maintainers:
   - joannagent
   - tom-allen-moj
-  - nazmin27
   - susanlimbu2
 
 tags:
