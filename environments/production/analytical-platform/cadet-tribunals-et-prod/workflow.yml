@@ -11,7 +11,7 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-xhibit
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-tribunals-et-prod
-    BRANCH: tribs-curation3
+    BRANCH: main
     MODE: run
     THREAD_COUNT: 1
   tasks:
