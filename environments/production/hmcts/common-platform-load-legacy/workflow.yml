@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline-legacy
-  tag: v1.0.13
+  tag: v1.0.15
   retries: 0
   retry_delay: 150
   start_date: "2025-12-19"
@@ -374,6 +374,7 @@ dag:
     load_scan_document:
       env_vars:
         AZ_TABLE: "scan-document"
+      compute_profile: general-spot-2vcpu-8gb
     load_scan_envelope:
       env_vars:
         AZ_TABLE: "scan-envelope"
