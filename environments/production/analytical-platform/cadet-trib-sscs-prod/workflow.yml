@@ -26,38 +26,38 @@ dag:
         MODE: test
         DBT_SELECT_CRITERIA: raw_sscs__benefit_wap
       dependencies:
-      - build_wap
+        - build_wap
     publish_raw:
       compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
         MODE: run
         DBT_SELECT_CRITERIA: raw_sscs__benefit
       dependencies:
-      - validate_wap
+        - validate_wap
     build_expanded:
       compute_profile: general-on-demand-16vcpu-64gb
       env_vars:
         MODE: run
         DBT_SELECT_CRITERIA: expanded_tribunals_raw__sscs_benefit expanded_tribunals_raw__sscs_benefit_iceberg
       dependencies:
-      - publish_raw
+        - publish_raw
     validate_expanded:
       compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
         MODE: test
         DBT_SELECT_CRITERIA: expanded_tribunals_raw__sscs_benefit expanded_tribunals_raw__sscs_benefit_iceberg
       dependencies:
-      - build_expanded
+        - build_expanded
   schedule: 30 5 * * *
 maintainers:
-- AntonyJScott
+  - AntonyJScott
 secrets:
-- github-key
+  - github-key
 iam:
   athena: write
   glue: true
   s3_read_write:
-  - mojap-derived-tables/prod/*
+    - mojap-derived-tables/prod/*
 tags:
   business_unit: Central Digital
   owner: Antony.Scott@justice.gov.uk
