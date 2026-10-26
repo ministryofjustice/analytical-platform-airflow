@@ -374,6 +374,7 @@ dag:
     load_scan_document:
       env_vars:
         AZ_TABLE: "scan-document"
+      compute_profile: general-spot-2vcpu-8gb
     load_scan_envelope:
       env_vars:
         AZ_TABLE: "scan-envelope"
