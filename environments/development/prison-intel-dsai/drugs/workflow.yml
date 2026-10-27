@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-drugs-app
-  tag: 1.2.1
+  tag: 1.2.2
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
   catchup: false
