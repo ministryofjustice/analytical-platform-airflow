@@ -7,7 +7,9 @@ dag:
 iam:
   s3_read_write:
     - mojdp-test-mwaa/durability-test/*
-
+  kms:
+    - arn:aws:kms:eu-west-2:259787491607:key/5cb1aa06-7d28-4e11-8cd7-06a9378ea656
+   
 maintainers:
   - raghavvidya
   - jhpyke
