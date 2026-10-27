@@ -13,7 +13,7 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-curated-dev
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-tribunals-sscs-dev
-    BRANCH: tribs-curation3
+    BRANCH: feature/tribunals-sscs-chunk-airflow-test
     MODE: run
     THREAD_COUNT: 1
 
@@ -30,27 +30,6 @@ dag:
         MODE: test
         DBT_SELECT_CRITERIA: raw_sscs__benefit_wap
       dependencies: [build_wap]
-
-    publish_raw:
-      compute_profile: general-on-demand-4vcpu-16gb
-      env_vars:
-        MODE: run
-        DBT_SELECT_CRITERIA: raw_sscs__benefit
-      dependencies: [validate_wap]
-
-    build_expanded:
-      compute_profile: general-on-demand-16vcpu-64gb
-      env_vars:
-        MODE: run
-        DBT_SELECT_CRITERIA: "expanded_tribunals_raw__sscs_benefit expanded_tribunals_raw__sscs_benefit_iceberg"
-      dependencies: [publish_raw]
-
-    validate_expanded:
-      compute_profile: general-on-demand-4vcpu-16gb
-      env_vars:
-        MODE: test
-        DBT_SELECT_CRITERIA: "expanded_tribunals_raw__sscs_benefit expanded_tribunals_raw__sscs_benefit_iceberg"
-      dependencies: [build_expanded]
 
 maintainers:
   - AntonyJScott
