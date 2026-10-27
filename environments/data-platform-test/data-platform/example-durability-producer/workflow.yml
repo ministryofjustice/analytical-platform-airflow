@@ -1,0 +1,17 @@
+---
+dag:
+  repository: moj-analytical-services/analytical-platform-airflow-durability-test
+  tag: 0.0.1
+  python_dag: true
+
+iam:
+  s3_read_write:
+    - mojdp-test-mwaa/durability-test/*
+
+maintainers:
+  - raghavvidya
+  - jhpyke
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
