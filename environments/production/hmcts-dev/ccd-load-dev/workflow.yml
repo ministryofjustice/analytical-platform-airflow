@@ -42,9 +42,8 @@ iam:
     - alpha-mojap-ccd/dev_v2/*
 
 maintainers:
-  - Andy-Cook
+  - AntonyJScott
   - DanJ-MOJ
-
 tags:
   business_unit: Central Digital
-  owner: andrew.cook1@justice.gov.uk
+  owner: cft_data_engineering@justice.gov.uk
