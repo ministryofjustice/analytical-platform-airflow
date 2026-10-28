@@ -58,10 +58,8 @@ secrets:
   - sdp-pass
 
 maintainers:
-  - Andy-Cook
-  - DanJ-MOJ
   - AntonyJScott
-
+  - DanJ-MOJ
 tags:
   business_unit: Central Digital
   owner: cft_data_engineering@justice.gov.uk
