@@ -1,0 +1,48 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.5.7
+  schedule: "00 03 * * *"
+  catchup: false
+  is_paused_upon_creation: true
+  env_vars:
+    DEPLOY_ENV: prod
+    DBT_PROFILE_WORKGROUP: dbt-daily
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-cf-misconduct
+    DBT_SELECT_CRITERIA: tag:cf-misconduct
+    THREAD_COUNT: 10
+    BRANCH: main
+    MODE: build
+  tasks:
+    table_deploy:
+      compute_profile: general-on-demand-8vcpu-32gb
+    all_passed:
+      compute_profile: general-spot-2vcpu-8gb
+      env_vars:
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
+      outlets:
+        - "s3://mojap-derived-tables/prod/deploy-cf-misconduct/"
+
+maintainers:
+  - jhenfrancis
+  - sheilz81
+  - adityadsgit
+  - jhpyke
+
+secrets:
+  - github-key
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/prod/*
+
+notifications:
+  slack_channel: cf-misconduct-notifications
+
+tags:
+  business_unit: HQ
+  owner: sheila.ladva@Justice.gov.uk
