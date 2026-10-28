@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.5.6
+  tag: 1.5.7
   compute_profile: general-on-demand-16vcpu-64gb
   catchup: false
   is_paused_upon_creation: true
@@ -13,44 +13,16 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-curated-dev
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-tribunals-et-dev
-    BRANCH: tribs-curation3
+    BRANCH: feature/tribunals-dynamic-dev-generation
     MODE: run
     THREAD_COUNT: 1
 
   tasks:
-    build_wap:
-      compute_profile: general-on-demand-16vcpu-64gb
-      env_vars:
-        MODE: run
-        DBT_SELECT_CRITERIA: "+raw_et__et_englandwales_wap"
-
-    validate_wap:
+    compile_et:
       compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
-        MODE: test
+        MODE: compile
         DBT_SELECT_CRITERIA: raw_et__et_englandwales_wap
-      dependencies: [build_wap]
-
-    publish_raw:
-      compute_profile: general-on-demand-4vcpu-16gb
-      env_vars:
-        MODE: run
-        DBT_SELECT_CRITERIA: raw_et__et_englandwales
-      dependencies: [validate_wap]
-
-    build_expanded:
-      compute_profile: general-on-demand-16vcpu-64gb
-      env_vars:
-        MODE: run
-        DBT_SELECT_CRITERIA: "expanded_tribunals_raw__et_englandwales expanded_tribunals_raw__et_englandwales_iceberg"
-      dependencies: [publish_raw]
-
-    validate_expanded:
-      compute_profile: general-on-demand-4vcpu-16gb
-      env_vars:
-        MODE: test
-        DBT_SELECT_CRITERIA: "expanded_tribunals_raw__et_englandwales expanded_tribunals_raw__et_englandwales_iceberg"
-      dependencies: [build_expanded]
 
 maintainers:
   - AntonyJScott
