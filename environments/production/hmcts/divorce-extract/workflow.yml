@@ -89,9 +89,8 @@ notifications:
   slack_channel: dmet-hmcts-notifications
 
 maintainers:
-  - Andy-Cook
+  - AntonyJScott
   - DanJ-MOJ
-
 tags:
   business_unit: Central Digital
-  owner: daniel.johnstone@justice.gov.uk
+  owner: cft_data_engineering@justice.gov.uk
