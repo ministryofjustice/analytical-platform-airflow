@@ -1,0 +1,31 @@
+---
+# Automatic approval policy for workflow.yml changes.
+
+default:
+  allowed:
+    - dag\.tag=.* # image version
+    # env var that holds the NAME of a secret, e.g. REPORT_SECRET_ID=my-secret
+    - (dag|dag\.tasks\.[^.=]+)\.env_vars\.[A-Za-z0-9_]*SECRET_(ID|NAME|ARN)=[A-Za-z0-9/_+=.@:-]*
+
+non_prod:
+  environments: [development, test, data-platform-test]
+  allowed:
+    - dag\.schedule(\.[^=]+)?=.* # any schedule
+    # compute: general pools up to 16 vCPU, or removed (falls back to the default)
+    - (dag|dag\.tasks\.[^.=]+)\.compute_profile=(None|general-(spot|on-demand)-(1vcpu-4gb|2vcpu-8gb|4vcpu-16gb|8vcpu-32gb|16vcpu-64gb))
+
+
+prod:
+  environments: [production]
+  allowed:
+    # cron with a numeric minute (no */5 or * * * * *), presets, or None
+    - dag\.schedule=(None|@(hourly|daily|weekly|monthly|yearly)|[0-9][0-9,]* \S+ \S+ \S+ \S+)
+
+
+
+overrides:
+  - match: environments/development/analytical-platform/.* # GPU allowed for the platform team in dev
+    allowed:
+      - (dag|dag\.tasks\.[^.=]+)\.compute_profile=gpu-(spot|on-demand)-(1vcpu-4gb|2vcpu-8gb|4vcpu-16gb|8vcpu-32gb|16vcpu-64gb)
+  # - match: environments/production/hmcts/.*                 # example: always review this project
+  #   manual: true

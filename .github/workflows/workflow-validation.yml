@@ -801,6 +801,9 @@ jobs:
 
             if [[ $(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml") == "Only dag.tag has changed" ]]; then
               echo "Only dag.tag has changed, eligible for automatic approval"
++             # Additional check: not a tag-only change, so re-check against the automatic approval policy
++           elif python scripts/automatic_approval/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml"; then
++             echo "Changes allowed by scripts/automatic_approval/policy.yml, eligible for automatic approval"
             else
               echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, not eligible for automatic approval"
               exit 0
