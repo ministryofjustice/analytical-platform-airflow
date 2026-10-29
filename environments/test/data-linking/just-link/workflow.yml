@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev31
+  tag: v5.0.1.dev1
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -318,6 +318,14 @@ dag:
         - edge_generation_prison_oasys
         - edge_generation_probation_delius
 
+    products_person:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: products
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: test
+      dependencies: [edge_generation_cjs]
+
     # -----------------------
     # XJS LINK JOB
     # -----------------------
@@ -351,6 +359,14 @@ dag:
         - edge_generation_cjs
         - edge_generation_familyman
         - edge_generation_civil_caseman_pcol
+
+    products_person_xjs:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: products
+        PIPELINE_DATASET: xjs
+        PIPELINE_VERSION: test
+      dependencies: [edge_generation_xjs]
 
     # -----------------------
     # JOURNEY LINK JOB (~?m)
@@ -388,6 +404,14 @@ dag:
         PIPELINE_DATASET: mh-cx
         PIPELINE_VERSION: test
       dependencies: [model_training_mh_cx]
+
+    products_journey:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: products
+        PIPELINE_DATASET: mh-cx
+        PIPELINE_VERSION: test
+      dependencies: [edge_generation_mh_cx]
 
 iam:
   athena: write
