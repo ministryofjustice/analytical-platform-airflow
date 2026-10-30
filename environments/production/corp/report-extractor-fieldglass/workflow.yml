@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-report-extractor
-  tag: v1.17.0
+  tag: v1.17.3
   schedule: "30 7 * * 1-5"
   env_vars:
     REPORT_APP: "fieldglass"
@@ -9,10 +9,10 @@ dag:
   tasks:
     workorders_daily:
       env_vars:
-        REPORT: "MoJ DMET Corperate Headcount v2"
+        REPORT_NAME: "headcount-v2"
     timesheet_lastmonth:
       env_vars:
-        REPORT: "MOJ Master Timesheet Report - Last month"
+        REPORT_NAME: "master-timesheet"
 
 iam:
   s3_read_write:

@@ -1,17 +1,21 @@
 dag:
   repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
-  tag: je-test-v1.0.12-dev
+  tag: gw-test-v1.0.27-dev
 
   env_vars:
     ENV_FOR_DYNACONF: dev
     AWS_DEFAULT_REGION: eu-west-1
-    DYNACONF_DATASET: 2324_spacy_100_20261022
-    DYNACONF_RUN_VERSION: spacy_full_20261022_01
+    DYNACONF_DATASET: 2324_gw
+    DYNACONF_RUN_VERSION: gw_test_1
     DYNACONF_SAMPLE_FROM_COHORT: "true"
     DYNACONF_LIMIT_ROWS: "true"
-    DYNACONF_LIMIT: "100"
+    DYNACONF_LIMIT: "20"
     DYNACONF_ADDRESS_AUDIT_ENABLED: "true"
-    DYNACONF_ADDRESS_AUDIT_TABLE: address_detection_audit_spacy_full_20261022_01
+    DYNACONF_ADDRESS_AUDIT_TABLE: address_detection_audit_spacy_full_20261027_01_gw
+    AIRFLOW_CTX_DAG_ID: "{{ dag.dag_id }}"
+    AIRFLOW_CTX_TASK_ID: "{{ ti.task_id }}"
+    AIRFLOW_CTX_TRY_NUMBER: "{{ ti.try_number }}"
+    AIRFLOW_CTX_MAP_INDEX: "{{ ti.map_index }}"
 
   tasks:
     prepare:

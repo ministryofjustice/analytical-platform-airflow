@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.21
+  tag: v0.1.22
 
   schedule: "*/15 9-16 * * 1-5"
   max_active_runs: 1
@@ -47,6 +47,8 @@ secrets:
 
 notifications:
   slack_channel: laa-search-index-alerts
+  slack_events:
+    - failure
 
 tags:
   business_unit: LAA

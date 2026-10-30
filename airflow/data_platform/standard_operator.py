@@ -135,9 +135,11 @@ class DataPlatformStandardOperator(KubernetesPodOperator):
             "AWS_METADATA_SERVICE_NUM_ATTEMPTS": "5",
             "AIRFLOW_ENVIRONMENT": environment.upper(),
             "AIRFLOW_RUN_ID": "{{ run_id }}",
-            "AIRFLOW_TIMESTAMP": "{{ ts }}",
-            "AIRFLOW_TIMESTAMP_NO_DASH": "{{ ts_nodash }}",
-            "AIRFLOW_TIMESTAMP_NO_DASH_WITH_TZ": "{{ ts_nodash_with_tz }}",
+            # Asset-triggered runs in Airflow 3 have no logical_date, so ts/ts_nodash
+            # are not in the template context. Fall back to run_after (always set).
+            "AIRFLOW_TIMESTAMP": "{{ (dag_run.logical_date or dag_run.run_after).isoformat() }}",
+            "AIRFLOW_TIMESTAMP_NO_DASH": "{{ (dag_run.logical_date or dag_run.run_after).strftime('%Y%m%dT%H%M%S') }}",
+            "AIRFLOW_TIMESTAMP_NO_DASH_WITH_TZ": "{{ (dag_run.logical_date or dag_run.run_after).isoformat() | replace('-', '') | replace(':', '') }}",
         }
 
         # merge dicts into env_vars
