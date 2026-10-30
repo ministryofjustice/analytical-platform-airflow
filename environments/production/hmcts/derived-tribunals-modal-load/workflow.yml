@@ -7,7 +7,7 @@ dag:
   compute_profile: general-on-demand-2vcpu-8gb
   env_vars:
     MODAL_ENV: prod
-    MODAL_ALLOW_PROD: 'true'
+    MODAL_ALLOW_PROD: "true"
     MODAL_SCHEMA_CONTRACT: freeze
     AWS_DEFAULT_REGION: eu-west-1
     AWS_ATHENA_QUERY_EXTRACT_REGION: eu-west-1
@@ -189,15 +189,15 @@ iam:
   athena: write
   glue: true
   s3_read_only:
-  - mojap-land/hmcts/derived-tribunals/*
+    - mojap-land/hmcts/derived-tribunals/*
   s3_read_write:
-  - mojap-processed/domain__hmcts/env__prod/*
+    - mojap-processed/domain__hmcts/env__prod/*
 notifications:
   slack_channel: dmet-hmcts-notifications
 maintainers:
-- DanJ-MOJ
-- Andy-Cook
-- AntonyJScott
+  - DanJ-MOJ
+  - Andy-Cook
+  - AntonyJScott
 tags:
   business_unit: Central Digital
   owner: cft_data_engineering@justice.gov.uk
