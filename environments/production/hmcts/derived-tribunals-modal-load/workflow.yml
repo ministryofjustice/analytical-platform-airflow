@@ -2,7 +2,6 @@
 dag:
   repository: moj-analytical-services/moj-data-loader
   tag: v2.1.11
-  is_paused_upon_creation: true
   max_active_runs: 1
   retries: 0
   compute_profile: general-on-demand-2vcpu-8gb
