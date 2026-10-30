@@ -51,9 +51,8 @@ iam:
     - mojap-processed/domain__divorce/env__dev/*
 
 maintainers:
+  - AntonyJScott
   - DanJ-MOJ
-  - Andy-Cook
-
 tags:
   business_unit: Central Digital
-  owner: daniel.johnstone@justice.gov.uk
+  owner: cft_data_engineering@justice.gov.uk
