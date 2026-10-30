@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v4.3.5
+  tag: v4.3.6
   retries: 0
   hmcts_sdp_networking: true
   max_active_runs: 1
