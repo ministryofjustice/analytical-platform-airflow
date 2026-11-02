@@ -1,16 +1,15 @@
-from datetime import datetime, timedelta
-from airflow.models import DAG
-from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
-from airflow.providers.cncf.kubernetes.secret import (
-    Secret,
-)
+from datetime import datetime
 
-REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
-REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
-PROJECT="PLACEHOLDER_PROJECT"
-WORKFLOW="PLACEHOLDER_WORKFLOW"
-ENVIRONMENT="PLACEHOLDER_ENVIRONMENT"
-OWNER="PLACEHOLDER_OWNER"
+from airflow.models import DAG
+from airflow.providers.cncf.kubernetes.secret import Secret
+from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
+
+REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
+REPOSITORY_TAG = "PLACEHOLDER_REPOSITORY_TAG"
+PROJECT = "PLACEHOLDER_PROJECT"
+WORKFLOW = "PLACEHOLDER_WORKFLOW"
+ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
+OWNER = "PLACEHOLDER_OWNER"
 
 DAG_EMAIL = [
     "Benjamin.Finucane@justice.gov.uk",
@@ -22,7 +21,7 @@ default_args = {
     "depends_on_past": False,
     "email_on_failure": True,
     "owner": f"{OWNER}",
-    "email": DAG_EMAIL
+    "email": DAG_EMAIL,
 }
 
 default_params = {
@@ -36,7 +35,7 @@ dag = DAG(
     schedule_interval="0 3 * * *",
     params=default_params,
     catchup=False,
-    max_active_tasks=1
+    max_active_tasks=1,
 )
 
 surveys_to_s3 = AnalyticalPlatformStandardOperator(
@@ -51,17 +50,17 @@ surveys_to_s3 = AnalyticalPlatformStandardOperator(
     secrets=[
         Secret(
             deploy_type="env",
-            deploy_target='SECRET_OCCUPEYE_USERNAME',
+            deploy_target="SECRET_OCCUPEYE_USERNAME",
             secret=f"{PROJECT}-{WORKFLOW}-occupeye-username",
             key="data",
         ),
         Secret(
             deploy_type="env",
-            deploy_target='SECRET_OCCUPEYE_PASSWORD',
+            deploy_target="SECRET_OCCUPEYE_PASSWORD",
             secret=f"{PROJECT}-{WORKFLOW}-occupeye-password",
             key="data",
-        )
-        ],  
+        ),
+    ],
     env_vars={
         "AWS_DEFAULT_REGION": "eu-west-1",
         "AWS_METADATA_SERVICE_TIMEOUT": "60",
@@ -74,5 +73,5 @@ surveys_to_s3 = AnalyticalPlatformStandardOperator(
         "--scrape_type=daily "
         "--scrape_datetime='{{ts}}' "
         "--next_execution_date='{{next_execution_date}}'"
-    ]
+    ],
 )
