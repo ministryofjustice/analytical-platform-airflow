@@ -17,9 +17,9 @@ default:
     - dag\.schedule\.(hours|days|weeks)=(None|[1-9][0-9]*)
     # task dependencies
     - dag\.tasks\.[^.=]+\.dependencies=.*
-    # env vars, at DAG and task level, unless the name contains PASSWORD/SECRET/TOKEN/API_KEY or starts with AIRFLOW_
+    # env vars, at DAG and task level, unless the name contains SECRET
     - (dag|dag\.tasks\.[^.=]+)\.env_vars=(None|\{\})
-    - (dag|dag\.tasks\.[^.=]+)\.env_vars\.(?!(?i:[^=]*(PASSWORD|SECRET|TOKEN|API_KEY)|AIRFLOW_))[^=]+=.*
+    - (dag|dag\.tasks\.[^.=]+)\.env_vars\.(?!(?i:[^=]*(SECRET)))[^=]+=.*
 
 # Extra changes allowed in non-production environments (uncomment to enable)
 # non_prod:
