@@ -13,6 +13,8 @@ def flatten(data, prefix=""):
         return {prefix[:-1]: data}
     fields = {}
     for key, value in data.items():
+        if prefix == "dag.tasks.":
+            fields[f"{prefix}{key}"] = "task"
         fields.update(flatten(value, f"{prefix}{key}."))
     return fields
 
@@ -31,19 +33,24 @@ def get_rules(policy, workflow):
     return rules
 
 
-if __name__ == "__main__":
-    policy = yaml.safe_load(open("scripts/automatic_approval/policy.yml"))
-    old = flatten(yaml.safe_load(open(sys.argv[1])))
-    new = flatten(yaml.safe_load(open(sys.argv[2])))
-    workflow = sys.argv[2].rsplit("/", 1)[0]
+def check(policy, workflow, old_workflow, new_workflow):
+    """Return (changed fields, fields that need a human) for a change to one workflow."""
+    old, new = flatten(old_workflow), flatten(new_workflow)
     rules = get_rules(policy, workflow)
-
-    changed = [field for field in sorted(set(old) | set(new)) if old.get(field) != new.get(field)]
+    changed = [field for field in sorted(set(old) | set(new))
+               if field not in old or field not in new or yaml.safe_dump(old[field]) != yaml.safe_dump(new[field])]
     blocked = []
     for field in changed:
         change = f"{field}={new.get(field)}"
         if rules is None or not any(re.fullmatch(rule, change, re.DOTALL) for rule in rules):
             blocked.append(field)
+    return changed, blocked
+
+
+if __name__ == "__main__":
+    policy = yaml.safe_load(open("scripts/automatic_approval/policy.yml"))
+    workflow = sys.argv[2].rsplit("/", 1)[0]
+    changed, blocked = check(policy, workflow, yaml.safe_load(open(sys.argv[1])), yaml.safe_load(open(sys.argv[2])))
 
     print(f"Workflow: {workflow}")
     print(f"Changed: {', '.join(changed) or 'none'}")

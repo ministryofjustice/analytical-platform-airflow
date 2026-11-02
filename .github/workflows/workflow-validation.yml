@@ -799,9 +799,10 @@ jobs:
             echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, eligible for automatic approval depending on changes"
             gh api "repos/${GITHUB_REPOSITORY}/contents/${WORKFLOW_DIRECTORY}/workflow.yml?ref=main" --jq '.content' | base64 --decode > "${WORKFLOW_DIRECTORY}/workflow-main.yml"
 
-            if [[ $(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml") == "Only dag.tag has changed" ]]; then
+            if [[ $(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml") == "Only dag.tag has changed" ]] &&
+              python scripts/automatic_approval/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml" >automatic-approval-decision.txt; then
+              cat automatic-approval-decision.txt
               echo "Only dag.tag has changed, eligible for automatic approval"
-              echo "Only dag.tag has changed (existing check)" >automatic-approval-decision.txt
             # Additional check: not a tag-only change, so re-check against the automatic approval policy
             elif python scripts/automatic_approval/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml" >automatic-approval-decision.txt; then
               cat automatic-approval-decision.txt
@@ -894,3 +895,4 @@ jobs:
               ].join('\n'),
               event: 'APPROVE'
             })
+

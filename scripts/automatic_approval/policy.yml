@@ -6,7 +6,8 @@ default:
     # image tag
     - dag\.tag=.*
     # compute: general pools up to 16 vCPU
-    - (dag|dag\.tasks\.[^.=]+)\.compute_profile=(None|general-(spot|on-demand)-(1vcpu-4gb|2vcpu-8gb|4vcpu-16gb|8vcpu-32gb|16vcpu-64gb))
+    - dag\.compute_profile=(None|general-(spot|on-demand)-(1vcpu-4gb|2vcpu-8gb|4vcpu-16gb|8vcpu-32gb|16vcpu-64gb))
+    - dag\.tasks\.[^.=]+\.compute_profile=general-(spot|on-demand)-(1vcpu-4gb|2vcpu-8gb|4vcpu-16gb|8vcpu-32gb|16vcpu-64gb)
     # Slack channel for alerts
     - notifications\.slack_channel=.*
     # outlets, at DAG and task level
@@ -33,7 +34,7 @@ default:
 #     - dag\.max_active_runs=(None|[1-9]|10)
 #     - dag\.params(\.[^=]+)?=.*
 #     - dag\.inlets=.*
-#     - dag\.tasks\.[^.=]+=(None|\{\}) # empty task added, or task removed
+#     - dag\.tasks\.[^.=]+=(task|None) # task added or removed
 #     - dag\.tasks\.[^.=]+\.(inlets|skip_on_exit_code)=.*
 #     - notifications(\.[^=]+)?=.* # emails, slack_events, slack_skipped_text
 
