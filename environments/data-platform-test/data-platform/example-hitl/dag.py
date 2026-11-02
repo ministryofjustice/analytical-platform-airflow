@@ -90,81 +90,81 @@ if not HITL_AVAILABLE:
     print(f"HITL operators unavailable in this Airflow version; skipping build of {dag_id}")
 else:
     with DAG(
-    dag_id=dag_id,
-    default_args={"owner": OWNER},
-    start_date=datetime.datetime(2025, 1, 1),
-    schedule=None,
-    catchup=False,
-    is_paused_upon_creation=False,
-    tags=["example", "HITL"],
-) as dag:
-    wait_for_input = HITLEntryOperator(
-        task_id="wait_for_input",
-        subject="Please provide required information: ",
-        params={"information": Param("", type="string")},
-        notifiers=[hitl_request_callback],
-        on_success_callback=hitl_success_callback,
-        on_failure_callback=hitl_failure_callback,
-    )
-    wait_for_option = HITLOperator(
-        task_id="wait_for_option",
-        subject="Please choose one option to proceed: ",
-        options=["option 1", "option 2", "option 3"],
-        notifiers=[hitl_request_callback],
-        on_success_callback=hitl_success_callback,
-        on_failure_callback=hitl_failure_callback,
-    )
-    wait_for_multiple_options = HITLOperator(
-        task_id="wait_for_multiple_options",
-        subject="Please choose option to proceed: ",
-        options=["option 4", "option 5", "option 6"],
-        multiple=True,
-        notifiers=[hitl_request_callback],
-        on_success_callback=hitl_success_callback,
-        on_failure_callback=hitl_failure_callback,
-    )
-    wait_for_default_option = HITLOperator(
-        task_id="wait_for_default_option",
-        subject="Please choose option to proceed: ",
-        options=["option 7", "option 8", "option 9"],
-        defaults=["option 7"],
-        response_timeout=datetime.timedelta(seconds=1),
-        notifiers=[hitl_request_callback],
-        on_success_callback=hitl_success_callback,
-        on_failure_callback=hitl_failure_callback,
-    )
-    valid_input_and_options = ApprovalOperator(
-        task_id="valid_input_and_options",
-        subject="Are the following input and options valid?",
-        body="""
-        Input: {{ ti.xcom_pull(task_ids='wait_for_input')["params_input"]["information"] }}
-        Option: {{ ti.xcom_pull(task_ids='wait_for_option')["chosen_options"] }}
-        Multiple Options: {{ ti.xcom_pull(task_ids='wait_for_multiple_options')["chosen_options"] }}
-        Timeout Option: {{ ti.xcom_pull(task_ids='wait_for_default_option')["chosen_options"] }}
-        """,
-        defaults="Reject",
-        response_timeout=datetime.timedelta(minutes=5),
-        notifiers=[hitl_request_callback],
-        on_success_callback=hitl_success_callback,
-        on_failure_callback=hitl_failure_callback,
-    )
-    choose_a_branch_to_run = HITLBranchOperator(
-        task_id="choose_a_branch_to_run",
-        subject="You're now allowed to proceed. Please choose one task to run: ",
-        options=["task_1", "task_2", "task_3"],
-        notifiers=[hitl_request_callback],
-        on_success_callback=hitl_success_callback,
-        on_failure_callback=hitl_failure_callback,
-    )
+        dag_id=dag_id,
+        default_args={"owner": OWNER},
+        start_date=datetime.datetime(2025, 1, 1),
+        schedule=None,
+        catchup=False,
+        is_paused_upon_creation=False,
+        tags=["example", "HITL"],
+    ) as dag:
+        wait_for_input = HITLEntryOperator(
+            task_id="wait_for_input",
+            subject="Please provide required information: ",
+            params={"information": Param("", type="string")},
+            notifiers=[hitl_request_callback],
+            on_success_callback=hitl_success_callback,
+            on_failure_callback=hitl_failure_callback,
+        )
+        wait_for_option = HITLOperator(
+            task_id="wait_for_option",
+            subject="Please choose one option to proceed: ",
+            options=["option 1", "option 2", "option 3"],
+            notifiers=[hitl_request_callback],
+            on_success_callback=hitl_success_callback,
+            on_failure_callback=hitl_failure_callback,
+        )
+        wait_for_multiple_options = HITLOperator(
+            task_id="wait_for_multiple_options",
+            subject="Please choose option to proceed: ",
+            options=["option 4", "option 5", "option 6"],
+            multiple=True,
+            notifiers=[hitl_request_callback],
+            on_success_callback=hitl_success_callback,
+            on_failure_callback=hitl_failure_callback,
+        )
+        wait_for_default_option = HITLOperator(
+            task_id="wait_for_default_option",
+            subject="Please choose option to proceed: ",
+            options=["option 7", "option 8", "option 9"],
+            defaults=["option 7"],
+            response_timeout=datetime.timedelta(seconds=1),
+            notifiers=[hitl_request_callback],
+            on_success_callback=hitl_success_callback,
+            on_failure_callback=hitl_failure_callback,
+        )
+        valid_input_and_options = ApprovalOperator(
+            task_id="valid_input_and_options",
+            subject="Are the following input and options valid?",
+            body="""
+            Input: {{ ti.xcom_pull(task_ids='wait_for_input')["params_input"]["information"] }}
+            Option: {{ ti.xcom_pull(task_ids='wait_for_option')["chosen_options"] }}
+            Multiple Options: {{ ti.xcom_pull(task_ids='wait_for_multiple_options')["chosen_options"] }}
+            Timeout Option: {{ ti.xcom_pull(task_ids='wait_for_default_option')["chosen_options"] }}
+            """,
+            defaults="Reject",
+            response_timeout=datetime.timedelta(minutes=5),
+            notifiers=[hitl_request_callback],
+            on_success_callback=hitl_success_callback,
+            on_failure_callback=hitl_failure_callback,
+        )
+        choose_a_branch_to_run = HITLBranchOperator(
+            task_id="choose_a_branch_to_run",
+            subject="You're now allowed to proceed. Please choose one task to run: ",
+            options=["task_1", "task_2", "task_3"],
+            notifiers=[hitl_request_callback],
+            on_success_callback=hitl_success_callback,
+            on_failure_callback=hitl_failure_callback,
+        )
 
-    task_1 = pod("task_1", "task_1")
-    task_2 = pod("task_2", "task_2")
-    task_3 = pod("task_3", "task_3")
+        task_1 = pod("task_1", "task_1")
+        task_2 = pod("task_2", "task_2")
+        task_3 = pod("task_3", "task_3")
 
-    (
-        [wait_for_input, wait_for_option, wait_for_default_option, wait_for_multiple_options]
-        >> valid_input_and_options
-        >> choose_a_branch_to_run
-        >> [task_1, task_2, task_3]
-    )
-globals()[dag_id] = dag
+        (
+            [wait_for_input, wait_for_option, wait_for_default_option, wait_for_multiple_options]
+            >> valid_input_and_options
+            >> choose_a_branch_to_run
+            >> [task_1, task_2, task_3]
+        )
+    globals()[dag_id] = dag
