@@ -829,9 +829,6 @@ jobs:
           # Check if pull request author is maintainer of the workflow
           if [[ "$(yq --output-format=json "${WORKFLOW_DIRECTORY}/workflow.yml" | jq --arg GITHUB_ACTOR "${GITHUB_ACTOR}" '.maintainers | any(. == $GITHUB_ACTOR)')" == "true" ]]; then
             echo "${GITHUB_ACTOR} is a maintainer, eligible for automatic approval"
-          # Not a maintainer: still eligible if every change is allowed by the automatic approval policy
-          elif python scripts/automatic_approval/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml"; then
-            echo "${GITHUB_ACTOR} is not a maintainer, but all changes are allowed by scripts/automatic_approval/policy.yml"
           else
             echo "${GITHUB_ACTOR} is not a maintainer, not eligible for automatic approval"
             exit 0
