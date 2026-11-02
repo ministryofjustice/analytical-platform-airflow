@@ -801,10 +801,13 @@ jobs:
 
             if [[ $(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml") == "Only dag.tag has changed" ]]; then
               echo "Only dag.tag has changed, eligible for automatic approval"
+              echo "Only dag.tag has changed (existing check)" >automatic-approval-decision.txt
             # Additional check: not a tag-only change, so re-check against the automatic approval policy
-            elif python scripts/automatic_approval/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml"; then
+            elif python scripts/automatic_approval/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml" >automatic-approval-decision.txt; then
+              cat automatic-approval-decision.txt
               echo "Changes allowed by scripts/automatic_approval/policy.yml, eligible for automatic approval"
             else
+              cat automatic-approval-decision.txt
               echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, not eligible for automatic approval"
               exit 0
             fi
@@ -869,10 +872,25 @@ jobs:
         with:
           github-token: ${{ secrets.AIRFLOW_AUTO_APPROVAL_TOKEN }}
           script: |
+            // Record why this PR was approved, so the decision is kept on the PR
+            const fs = require('fs');
+            const decision = fs.existsSync('automatic-approval-decision.txt')
+              ? fs.readFileSync('automatic-approval-decision.txt', 'utf8').trim()
+              : 'No workflow.yml changes';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             github.rest.pulls.createReview({
               owner: context.repo.owner,
               repo: context.repo.repo,
               pull_number: context.payload.pull_request.number,
-              body: 'Automatic approval requirements satisfied.',
+              body: [
+                'Automatic approval requirements satisfied.',
+                '',
+                '```',
+                decision,
+                '```',
+                `Approved by: ${context.actor} is a maintainer of the workflow`,
+                `Policy: [scripts/automatic_approval/policy.yml](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/blob/${context.sha}/scripts/automatic_approval/policy.yml)`,
+                `Workflow run: ${runUrl}`,
+              ].join('\n'),
               event: 'APPROVE'
             })
