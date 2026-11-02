@@ -3,40 +3,43 @@
 
 default:
   allowed:
-    # image tag
-    - dag\.tag=.*
-    # compute: general pools up to 16 vCPU
+    # image tag (Docker tag characters only)
+    - dag\.tag=[A-Za-z0-9_][A-Za-z0-9._-]{0,127}
+    # compute: general pools up to 16 vCPU.
     - dag\.compute_profile=(None|general-(spot|on-demand)-(1vcpu-4gb|2vcpu-8gb|4vcpu-16gb|8vcpu-32gb|16vcpu-64gb))
     - dag\.tasks\.[^.=]+\.compute_profile=general-(spot|on-demand)-(1vcpu-4gb|2vcpu-8gb|4vcpu-16gb|8vcpu-32gb|16vcpu-64gb)
-    # Slack channel for alerts
-    - notifications\.slack_channel=.*
+    # Slack channel name (letters, numbers, - and _ only), or removed
+    - notifications\.slack_channel=(None|[A-Za-z0-9][A-Za-z0-9_-]{0,79})
     # outlets, at DAG and task level
     - (dag|dag\.tasks\.[^.=]+)\.outlets=.*
     # schedule: cron with a numeric minute (no */5 or * * * * *), presets, None, datasets, or intervals of 1 hour+
-    - dag\.schedule=(None|@(hourly|daily|weekly|monthly|yearly)|[0-9][0-9,]* \S+ \S+ \S+ \S+)
+    - dag\.schedule=(None|@(hourly|daily|weekly|monthly|yearly)|[0-9][0-9,]*( [^\s"'\\]+){4})
     - dag\.schedule\.datasets=.*
     - dag\.schedule\.(hours|days|weeks)=(None|[1-9][0-9]*)
     # task dependencies
     - dag\.tasks\.[^.=]+\.dependencies=.*
-    # env vars, at DAG and task level, unless the name contains SECRET
+    # env vars, at DAG and task level: name is letters, numbers and _ and does not contain SECRET;
+    # value has no quotes, backslashes or newlines
     - (dag|dag\.tasks\.[^.=]+)\.env_vars=(None|\{\})
-    - (dag|dag\.tasks\.[^.=]+)\.env_vars\.(?!(?i:[^=]*(SECRET)))[^=]+=.*
+    - (dag|dag\.tasks\.[^.=]+)\.env_vars\.(?!(?i:[^=]*SECRET))[A-Za-z_][A-Za-z0-9_]*=[^"\\\r\n]*
 
 # Extra changes allowed in non-production environments (uncomment to enable)
 # non_prod:
 #   environments: [development, test, data-platform-test]
 #   allowed:
-#     - dag\.schedule(\.[^=]+)?=.* # any schedule, including */5
+#     - dag\.schedule=[^"\\\r\n]* # any cron schedule, including */5
+#     - dag\.schedule\.[^=]+=.*
 #     - dag\.(start_date|end_date)=(None|[0-9]{4}-[0-9]{2}-[0-9]{2})
 #     - dag\.(catchup|is_paused_upon_creation)=(True|False|None)
 #     - dag\.retries=(None|[0-5])
 #     - dag\.retry_delay=(None|[0-9]+)
 #     - dag\.max_active_runs=(None|[1-9]|10)
-#     - dag\.params(\.[^=]+)?=.*
+#     - dag\.params\.[A-Za-z_][A-Za-z0-9_]*=[^"\\\r\n]*
 #     - dag\.inlets=.*
 #     - dag\.tasks\.[^.=]+=(task|None) # task added or removed
 #     - dag\.tasks\.[^.=]+\.(inlets|skip_on_exit_code)=.*
-#     - notifications(\.[^=]+)?=.* # emails, slack_events, slack_skipped_text
+#     - notifications\.(emails|slack_events)=.*
+#     - notifications\.slack_skipped_text=(None|[^\r\n]*)
 
 # Extra changes allowed in production (uncomment to enable)
 # prod:
@@ -46,7 +49,7 @@ default:
 #     - dag\.retry_delay=(None|[0-9]+)
 #     - dag\.max_active_runs=(None|[1-5])
 #     - dag\.is_paused_upon_creation=(True|False|None)
-#     - dag\.params(\.[^=]+)?=.*
+#     - dag\.params\.[A-Za-z_][A-Za-z0-9_]*=[^"\\\r\n]*
 
 # Exceptions for a specific project or workflow (uncomment to enable)
 # `match` is the workflow folder path: environments/<env>/<project>/<workflow>

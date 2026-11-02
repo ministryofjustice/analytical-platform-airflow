@@ -9,7 +9,7 @@ import yaml
 
 def flatten(data, prefix=""):
     """Turn nested YAML into dotted fields: {"dag": {"tag": "1"}} -> {"dag.tag": "1"}."""
-    if not isinstance(data, dict) or not data:
+    if not isinstance(data, dict) or not data or any("." in str(key) or "=" in str(key) for key in data):
         return {prefix[:-1]: data}
     fields = {}
     for key, value in data.items():
