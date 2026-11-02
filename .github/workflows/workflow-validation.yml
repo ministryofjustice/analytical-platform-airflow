@@ -534,7 +534,7 @@ jobs:
 
       - name: Upload SARIF
         id: upload_sarif
-        uses: github/codeql-action/upload-sarif@6f2ac81f5cd81fe351a197ba0b00d91d03cd2aee # v4.39.0
+        uses: github/codeql-action/upload-sarif@24c54180a607b1449ed407dd24f251e4e9147c8d # v4.38.3
         with:
           sarif_file: result.sarif
 
@@ -801,6 +801,9 @@ jobs:
 
             if [[ $(python scripts/yaml_diff/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml") == "Only dag.tag has changed" ]]; then
               echo "Only dag.tag has changed, eligible for automatic approval"
+            # Additional check: not a tag-only change, so re-check against the automatic approval policy
+            elif python scripts/automatic_approval/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml"; then
+              echo "Changes allowed by scripts/automatic_approval/policy.yml, eligible for automatic approval"
             else
               echo "Workflow file ${WORKFLOW_DIRECTORY}/workflow.yml has been modified, not eligible for automatic approval"
               exit 0
@@ -826,6 +829,9 @@ jobs:
           # Check if pull request author is maintainer of the workflow
           if [[ "$(yq --output-format=json "${WORKFLOW_DIRECTORY}/workflow.yml" | jq --arg GITHUB_ACTOR "${GITHUB_ACTOR}" '.maintainers | any(. == $GITHUB_ACTOR)')" == "true" ]]; then
             echo "${GITHUB_ACTOR} is a maintainer, eligible for automatic approval"
+          # Not a maintainer: still eligible if every change is allowed by the automatic approval policy
+          elif python scripts/automatic_approval/main.py "${WORKFLOW_DIRECTORY}/workflow-main.yml" "${WORKFLOW_DIRECTORY}/workflow.yml"; then
+            echo "${GITHUB_ACTOR} is not a maintainer, but all changes are allowed by scripts/automatic_approval/policy.yml"
           else
             echo "${GITHUB_ACTOR} is not a maintainer, not eligible for automatic approval"
             exit 0
