@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-occupeye-scraper
-  tag: v2.1.8
+  tag: v2.2.0
   python_dag: true
 
 iam:
@@ -19,3 +19,7 @@ maintainers:
 tags:
   business_unit: Central Digital
   owner: Laurence.Droy@justice.gov.uk
+
+secrets:
+  - occupeye-username
+  - occupeye-password
