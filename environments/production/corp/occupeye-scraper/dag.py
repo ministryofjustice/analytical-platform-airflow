@@ -1,6 +1,9 @@
 from datetime import datetime, timedelta
 from airflow.models import DAG
 from analytical_platform.standard_operator import AnalyticalPlatformStandardOperator
+from airflow.providers.cncf.kubernetes.secret import (
+    Secret,
+)
 
 REPOSITORY_NAME="PLACEHOLDER_REPOSITORY_NAME"
 REPOSITORY_TAG="PLACEHOLDER_REPOSITORY_TAG"
@@ -45,6 +48,20 @@ surveys_to_s3 = AnalyticalPlatformStandardOperator(
     environment=f"{ENVIRONMENT}",
     project=f"{PROJECT}",
     workflow=f"{WORKFLOW}",
+    secrets=[
+        Secret(
+            deploy_type="env",
+            deploy_target='SECRET_OCCUPEYE_USERNAME',
+            secret=f"{PROJECT}-{WORKFLOW}-occupeye-username",
+            key="data",
+        ),
+        Secret(
+            deploy_type="env",
+            deploy_target='SECRET_OCCUPEYE_PASSWORD',
+            secret=f"{PROJECT}-{WORKFLOW}-occupeye-password",
+            key="data",
+        )
+        ],  
     env_vars={
         "AWS_DEFAULT_REGION": "eu-west-1",
         "AWS_METADATA_SERVICE_TIMEOUT": "60",
