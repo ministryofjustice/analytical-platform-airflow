@@ -407,6 +407,7 @@ dag:
     common_platform_stg__case_detail_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_common_platform_stg__case_detail"
+        MODAL_FULL_REFRESH: "true"
       compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__case_marker_load:
       env_vars:
