@@ -14,13 +14,20 @@ try:
 except ImportError:
     from airflow.notifications.basenotifier import BaseNotifier
 
-from airflow.sdk import Param
-from airflow.providers.standard.operators.hitl import (
-    ApprovalOperator,
-    HITLBranchOperator,
-    HITLEntryOperator,
-    HITLOperator,
-)
+# HITL operators require Airflow 3.1+; this repo's CI test venv is pinned to
+# an older Airflow, so skip building the DAG there rather than crash.
+try:
+    from airflow.sdk import Param
+    from airflow.providers.standard.operators.hitl import (
+        ApprovalOperator,
+        HITLBranchOperator,
+        HITLEntryOperator,
+        HITLOperator,
+    )
+    HITL_AVAILABLE = True
+except ImportError:
+    HITL_AVAILABLE = False
+
 from data_platform.standard_operator import DataPlatformStandardOperator
 
 REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
@@ -79,7 +86,10 @@ hitl_success_callback = LocalLogNotifier(
 hitl_failure_callback = LocalLogNotifier(message="Request to response to '{{ task.subject }}' failed")
 
 dag_id = f"{PROJECT}.{WORKFLOW}"
-with DAG(
+if not HITL_AVAILABLE:
+    print(f"HITL operators unavailable in this Airflow version; skipping build of {dag_id}")
+else:
+    with DAG(
     dag_id=dag_id,
     default_args={"owner": OWNER},
     start_date=datetime.datetime(2025, 1, 1),
