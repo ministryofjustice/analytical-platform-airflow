@@ -1,0 +1,69 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v4.3.2
+  retries: 2
+  retry_delay: 150
+  schedule: 0 20 * * *
+  max_active_runs: 3
+  hmcts_sdp_networking: True
+
+  env_vars:
+    LOG_LEVEL: "INFO"
+    ENDPOINT: "MI_PERSISTENT_PROD"
+    FILENAME_COL_NAME: "meta__source_file"
+    EXCLUDED_FILES_REGEXPR: "_metadata.json$"
+    LAND_BUCKET: "mojap-land"
+
+  tasks:
+    et_extract_et_englandwales:
+      env_vars:
+        AZURE_TABLE: "et-englandwales"
+        SDP_TABLE_PREFIX: "v3-et-employment-"
+        DATABASE_NAME: "employment_tribunals_v1"
+        LAND_PATH: "hmcts/employment-tribunals/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_extract_et_englandwales_listings:
+      env_vars:
+        AZURE_TABLE: "et-englandwales-listings"
+        SDP_TABLE_PREFIX: "v3-et-employment-"
+        DATABASE_NAME: "employment_tribunals_v1"
+        LAND_PATH: "hmcts/employment-tribunals/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    et_extract_et_englandwales_multiple:
+      env_vars:
+        AZURE_TABLE: "et-englandwales-multiple"
+        SDP_TABLE_PREFIX: "v3-et-employment-"
+        DATABASE_NAME: "employment_tribunals_v1"
+        LAND_PATH: "hmcts/employment-tribunals/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+    ccd_extract_sscs_benefit:
+      env_vars:
+        AZURE_TABLE: "benefit"
+        SDP_TABLE_PREFIX: "v3-ccd-sscs-"
+        DATABASE_NAME: "ccd_sscs_v1"
+        LAND_PATH: "hmcts/ccd-sscs/"
+      compute_profile: general-on-demand-16vcpu-64gb
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-land/hmcts/employment-tribunals/*
+    - mojap-raw-hist/hmcts/employment-tribunals/*
+    - mojap-land/hmcts/ccd-sscs/*
+    - mojap-raw-hist/hmcts/ccd-sscs/*
+
+secrets:
+  - sdp-pass
+
+maintainers:
+  - Andy-Cook
+  - DanJ-MOJ
+  - AntonyJScott
+
+tags:
+  business_unit: Central Digital
+  owner: cft_data_engineering@justice.gov.uk
