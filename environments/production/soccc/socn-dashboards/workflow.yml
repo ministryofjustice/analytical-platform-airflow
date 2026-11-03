@@ -13,7 +13,7 @@ dag:
   retries: 3
   retry_delay: 300
   schedule: "0 7 * * *"
-  
+
   tasks:
     step_01_extract_parquet:
       env_vars:
