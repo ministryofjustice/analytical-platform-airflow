@@ -425,7 +425,10 @@ dag:
         PIPELINE_STAGE: clerical_label_qa
         PIPELINE_DATASET: cjs
         PIPELINE_VERSION: test
-      dependencies: [edge_generation_cjs]
+      dependencies:
+        - products_person
+        - products_person_xjs
+        - products_journey
 
 iam:
   athena: write
