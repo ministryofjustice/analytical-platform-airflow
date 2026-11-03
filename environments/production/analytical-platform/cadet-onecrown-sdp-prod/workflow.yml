@@ -1,0 +1,36 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.5.8
+  compute_profile: general-on-demand-16vcpu-64gb
+  catchup: false
+  hmcts_sdp_networking: true
+  env_vars:
+    DEPLOY_ENV: prod
+    DBT_PROFILE_WORKGROUP: dbt-xhibit
+    DBT_PROJECT: sdp_tables
+    DBT_PROJECT: sdp_tables
+    WORKFLOW_NAME: deploy-one-crown-sdp-prod
+    DBT_SELECT_CRITERIA: tag:xhibit
+    BRANCH: feature/sdp-dev-pool
+    MODE: build
+
+maintainers:
+  - jovita-brundziene
+  - Andy-Cook
+
+secrets:
+  - github-key
+  - sdp-id-prd
+  - sdp-sc-prd
+  - sdp-ten-id
+
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/prod/*
+
+tags:
+  business_unit: Central Digital
+  owner: jovita.brundzienem@justice.gov.uk
