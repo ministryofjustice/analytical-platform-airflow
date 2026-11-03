@@ -11,3 +11,7 @@ maintainers:
 tags:
   business_unit: Central Digital
   owner: analytical-platform@justice.gov.uk
+
+notifications:
+  emails:
+    - raghavendrakamath.kantavar@justice.gov.uk
