@@ -7,13 +7,14 @@ dag:
   hmcts_sdp_networking: true
   env_vars:
     DEPLOY_ENV: prod
+    DBT_PROFILE: sdp_synapse
     DBT_PROFILE_WORKGROUP: dbt-xhibit
-    DBT_PROJECT: sdp_tables
     DBT_PROJECT: sdp_tables
     WORKFLOW_NAME: deploy-one-crown-sdp-prod
     DBT_SELECT_CRITERIA: tag:xhibit
     BRANCH: feature/sdp-dev-pool
     MODE: build
+    THREAD_COUNT: 10
 
 maintainers:
   - jovita-brundziene
