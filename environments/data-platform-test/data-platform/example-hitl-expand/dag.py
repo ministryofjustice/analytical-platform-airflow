@@ -124,4 +124,4 @@ else:
         )
 
         approve_retrain >> promote_to_staging
-globals()[dag_id] = dag
+    globals()[dag_id] = dag
