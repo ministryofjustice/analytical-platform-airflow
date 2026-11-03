@@ -1,8 +1,8 @@
 dag:
   repository: moj-analytical-services/airflow-hmpps-socn-dashboards
-  tag: v1.0.0-rc7
+  tag: v1.0.0
 
-  compute_profile: general-on-demand-4vcpu-16gb
+  compute_profile: general-on-demand-8vcpu-32gb
 
   catchup: false
   depends_on_past: false
@@ -124,6 +124,7 @@ dag:
       dependencies: [step_21_crime_ops_cohort]
 
 iam:
+  lake_formation: true
   athena: read
 
   s3_read_write:
