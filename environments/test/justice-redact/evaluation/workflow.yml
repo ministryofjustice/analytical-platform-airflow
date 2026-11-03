@@ -1,0 +1,33 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-justice-redact
+  tag: 0.2.0
+  compute_profile: general-on-demand-1vcpu-4gb
+  catchup: false
+  is_paused_upon_creation: true
+  max_active_runs: 1
+  retries: 0
+  env_vars:
+    AIRFLOW_TASK: evaluation
+  params:
+    bucket: alpha-offender-sar
+    case_folder: dps_case_notes/case_1
+    # Escaped quotes keep the JSON valid inside the generator's double-quoted value.
+    spans_file_names: '[\"dps_case_notes/case_1/outputs/presidio_tagged/spans_en_core_web_sm_pages_2026-08-05.json\"]'
+
+iam:
+  s3_read_only:
+    - alpha-offender-sar/dps_case_notes/*/outputs/presidio_tagged/*
+    - alpha-offender-sar/nomis_case_notes/*/outputs/presidio_tagged/*
+
+secrets:
+  - mlflow-tracking-username
+  - mlflow-tracking-password
+
+maintainers:
+  - adityadsgit
+  - dugaldhepburnmoj
+
+tags:
+  business_unit: HQ
+  owner: JusticeRedactTeam@justice.gov.uk
