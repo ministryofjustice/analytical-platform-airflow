@@ -1,0 +1,16 @@
+---
+# HITL (human-in-the-loop) example with a dynamic number of approval prompts,
+# one per weak metric flagged by a simulated training task.
+dag:
+  repository: moj-analytical-services/airflow-3-feature-test-hitl
+  tag: 0.0.1
+  python_dag: true
+
+maintainers:
+  - raghavvidya
+  - jhpyke
+  - tamsinforbes
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
