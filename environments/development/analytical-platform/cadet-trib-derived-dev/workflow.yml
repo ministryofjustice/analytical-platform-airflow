@@ -1,0 +1,40 @@
+---
+dag:
+  repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
+  tag: 1.5.7
+  compute_profile: general-on-demand-16vcpu-64gb
+  catchup: false
+  is_paused_upon_creation: true
+  max_active_runs: 1
+  retries: 0
+  env_vars:
+    DEPLOY_ENV: dev
+    DBT_PROFILE_WORKGROUP: dbt-curated-dev
+    DBT_PROJECT: mojap_derived_tables
+    WORKFLOW_NAME: deploy-derived-tribunals-dev
+    BRANCH: feature/derived-tribunals-cadet-templates
+    MODE: compile
+    THREAD_COUNT: 1
+  tasks:
+    compile_et:
+      compute_profile: general-on-demand-4vcpu-16gb
+      env_vars:
+        MODE: compile
+        DBT_SELECT_CRITERIA: path:models/tribunals/et_derived
+    compile_sscs:
+      compute_profile: general-on-demand-4vcpu-16gb
+      env_vars:
+        MODE: compile
+        DBT_SELECT_CRITERIA: path:models/tribunals/sscs_derived
+maintainers:
+  - AntonyJScott
+tags:
+  business_unit: Central Digital
+  owner: Antony.Scott@justice.gov.uk
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+    - mojap-derived-tables/dev/*
+secrets:
+  - github-key
