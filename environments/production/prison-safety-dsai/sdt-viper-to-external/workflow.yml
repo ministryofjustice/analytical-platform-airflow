@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-viper-to-external-ds
-  tag: v1.1.3
+  tag: v1.1.5
   env_vars:
     AIRFLOW_ENVIRONMENT: "PRODUCTION"
     INTERNAL_BUCKET: "alpha-viper"
@@ -31,4 +31,4 @@ maintainers:
 
 tags:
   business_unit: HMPPS
-  owner: william.miller1@justice.gov.uk
+  owner: laura.tracey@justice.gov.uk
