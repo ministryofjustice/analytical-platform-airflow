@@ -2,7 +2,7 @@
 dag:
   repository: moj-analytical-services/airflow-report-extractor
   tag: v1.17.3-test
-  schedule: "30 7 * * 1-5"
+  schedule: "30 9 * * 1-5"
   env_vars:
     REPORT_APP: "fieldglass"
     REPORT_RUNTIME_ENV: "prod"
