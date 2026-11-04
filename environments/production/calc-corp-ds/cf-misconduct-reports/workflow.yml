@@ -1,0 +1,44 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-cf-misconduct
+  tag: v12
+  catchup: false
+  schedule: "0 8 6-12 * *"
+  tasks:
+    closed-resignations-dismissals:
+      env_vars:
+        EXEC_SCRIPT: "python"
+        EXEC_ARGS: "scripts/generate_report_closed_resignations_dismissals.py --env prod"
+      compute_profile: general-on-demand-1vcpu-4gb
+    ccu-monthly-report:
+      env_vars:
+        EXEC_SCRIPT: "python"
+        EXEC_ARGS: "scripts/generate_report_ccu.py --env prod"
+      compute_profile: general-on-demand-1vcpu-4gb
+
+iam:
+  athena: write
+  s3_read_write:
+    - alpha-cf-misconduct/*
+    - alpha-app-fraud-and-corruption-insights/*
+    - mojap-athena-query-dump/*
+    - alpha-athena-query-dump/*
+  s3_read_only:
+    - mojap-derived-tables/prod/models/domain_name=people/database_name=counter_fraud_misconduct*
+    - mojap-derived-tables/dev/models/domain_name=people/database_name=counter_fraud_misconduct*
+
+maintainers:
+  - jhenfrancis
+  - sheilz81
+  - adityadsgit
+
+notifications:
+  emails:
+    - jhenielle.francis@justice.gov.uk
+    - sheila.ladva@justice.gov.uk
+    - aditya.upmanyu@justice.gov.uk
+  slack_channel: cf-misconduct-notifications
+
+tags:
+  business_unit: HQ
+  owner: sheila.ladva@justice.gov.uk
