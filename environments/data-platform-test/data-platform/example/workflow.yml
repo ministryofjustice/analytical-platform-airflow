@@ -18,7 +18,3 @@ tags:
 notifications:
   emails:
     - raghavendrakamath.kantavar@justice.gov.uk
-  slack_channel: analytical-platform-low-priority-notifications
-  slack_events:
-    - failure
-    - success
