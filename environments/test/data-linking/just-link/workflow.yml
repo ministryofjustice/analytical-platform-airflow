@@ -416,6 +416,20 @@ dag:
         PIPELINE_VERSION: test
       dependencies: [edge_generation_mh_cx]
 
+    # -----------------------
+    # QA Stages
+    # -----------------------
+    clerical_label_qa_cjs:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: clerical_label_qa
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: test
+      dependencies:
+        - products_person
+        - products_person_xjs
+        - products_journey
+
 iam:
   athena: write
   s3_read_only:
