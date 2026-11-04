@@ -10,7 +10,7 @@ dag:
     DBT_PROFILE: sdp_synapse
     DBT_PROFILE_WORKGROUP: dbt-xhibit
     DBT_PROJECT: sdp_tables
-    WORKFLOW_NAME: deploy-one-crown-sdp-prod
+    WORKFLOW_NAME: deploy-onecrown-sdp-prod
     DBT_SELECT_CRITERIA: tag:xhibit
     BRANCH: feature/sdp-dev-pool
     MODE: build
