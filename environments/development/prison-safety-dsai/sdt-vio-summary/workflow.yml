@@ -1,10 +1,13 @@
 dag:
   repository: moj-analytical-services/airflow-vio-summary
-  tag: v1.2.3
+  tag: v1.3.1
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
   outlets:
     - "s3://alpha-app-safety-diagnostic-tool/vio-summary/summary_dev.csv"
+
+secrets:
+  - ai-gateway-api-key
 
 iam:
   athena: write
