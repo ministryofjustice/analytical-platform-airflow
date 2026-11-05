@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.28-alpha.784e8f0
+  tag: v4.0.40-beta.40e2c21
   retries: 0
   max_active_runs: 1
   env_vars:
@@ -17,6 +17,10 @@ dag:
     xhibit_load_migrate_case:
       env_vars:
         TABLE: "migrate_case"
+    xhibit_load_defendant_on_case:
+      env_vars:
+        TABLE: "defendant_on_case"
+      compute_profile: general-spot-32vcpu-128gb
 
 iam:
   athena: write
