@@ -6,7 +6,7 @@ dag:
   depends_on_past: false
   schedule: "0 06 * * *"
   max_active_runs: 1
-
+  
 notifications:
   slack_channel: sa26-monitoring-qa
   
