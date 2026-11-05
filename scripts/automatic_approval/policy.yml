@@ -8,7 +8,7 @@
 # WHAT: each changed field is checked as "field=new_value" (a removed field is None). A maintainer's pull request
 #       is auto-approved only if EVERY changed field matches at least one rule below. Anything not listed needs a
 #       human review.
-# Use this for checking the regix - https://pythex.org/
+# Use this for checking the regex - https://pythex.org/
 
 
 # TEST LOCALLY: edit a workflow.yml, then from the repo root compare it with the version on main:
