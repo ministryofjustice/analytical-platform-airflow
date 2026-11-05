@@ -12,6 +12,8 @@ dag:
     SERVICE: "xhibit"
     CHUNK_SIZE: "1000000"
     DAG_INTERVAL_END: "{{ data_interval_end }}"
+    COERCE_ERRORS: "False"
+    MOVE_FAILED: "False"
 
   tasks:
     xhibit_load_migrate_case:
