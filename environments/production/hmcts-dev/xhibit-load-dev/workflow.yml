@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-create-a-pipeline
-  tag: v4.0.40-beta.40e2c21
+  tag: v4.1.0-beta.b4b9241
   retries: 0
   max_active_runs: 1
   env_vars:
@@ -12,6 +12,8 @@ dag:
     SERVICE: "xhibit"
     CHUNK_SIZE: "1000000"
     DAG_INTERVAL_END: "{{ data_interval_end }}"
+    COERCE_ERRORS: "False"
+    MOVE_FAILED: "False"
 
   tasks:
     xhibit_load_migrate_case:
