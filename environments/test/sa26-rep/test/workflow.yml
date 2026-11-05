@@ -1,11 +1,14 @@
 dag:
   repository: moj-analytical-services/sa26-dashboard-analysis
-  tag: v0-117
+  tag: v0-118
   catchup: false
   compute_profile: general-on-demand-4vcpu-16gb
   depends_on_past: false
   schedule: "0 06 * * *"
   max_active_runs: 1
+
+notifications:
+  slack_channel: sa26-monitoring-qa
 
 iam:
   athena: write
