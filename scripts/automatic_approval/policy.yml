@@ -1,5 +1,12 @@
 ---
 # Automatic approval policy for workflow.yml changes.
+# WHO: this policy only applies to MAINTAINERS of the workflow being changed (the `maintainers` list in its
+#      workflow.yml). A pull request from anyone else always needs a human review, even if every change below
+#      is allowed. The maintainer check is done by the Automatic Approval Gate in workflow-validation.yml.
+#
+# WHAT: each changed field is checked as "field=new_value" (a removed field is None). A maintainer's pull request
+#       is auto-approved only if EVERY changed field matches at least one rule below. Anything not listed needs a
+#       human review.
 
 default:
   allowed:
