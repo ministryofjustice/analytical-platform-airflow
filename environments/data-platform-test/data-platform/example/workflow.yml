@@ -2,7 +2,7 @@
 # Smoke-test workflow for the Data Platform test MWAA environment.
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
-  tag: 2.18.7
+  tag: 2.18.8
   compute_profile: general-spot-2vcpu-8gb
 
 maintainers:
