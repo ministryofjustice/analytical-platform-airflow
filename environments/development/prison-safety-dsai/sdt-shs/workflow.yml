@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-shs-qual
   tag: v1.6.1
-  compute_profile: "general-spot-2vcpu-8gb"
+  compute_profile: "general-spot-4vcpu-16gb"
   schedule:
     datasets:
       - "s3://alpha-safety-mi/prisons_ds/dev_selfharm_proc/"
