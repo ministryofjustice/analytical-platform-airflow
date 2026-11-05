@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.1.dev2
+  tag: v5.0.1.dev4
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -415,6 +415,20 @@ dag:
         PIPELINE_DATASET: mh-cx
         PIPELINE_VERSION: test
       dependencies: [edge_generation_mh_cx]
+
+    # -----------------------
+    # QA Stages
+    # -----------------------
+    clerical_label_qa_cjs:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: clerical_label_qa
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: test
+      dependencies:
+        - products_person
+        - products_person_xjs
+        - products_journey
 
 iam:
   athena: write

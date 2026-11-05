@@ -1,12 +1,11 @@
 ---
 dag:
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.1.14-alpha.0dc826c
+  tag: v2.1.19
   start_date: "2026-09-21"
   is_paused_upon_creation: true
   env_vars:
     MODAL_ENV: "dev"
-    MODAL_SCHEMA_CONTRACT: "evolve"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
@@ -407,7 +406,6 @@ dag:
     common_platform_stg__case_detail_load:
       env_vars:
         MODAL_PIPELINE_NAME: "sdp_common_platform_stg__case_detail"
-        MODAL_FULL_REFRESH: "true"
       compute_profile: general-spot-32vcpu-128gb
     common_platform_stg__case_marker_load:
       env_vars:
