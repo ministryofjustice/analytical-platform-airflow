@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.1.21
+  tag: v2.1.22
   schedule: "0 8 2-10 * ? *"
   env_vars:
     MODALENV: prod
