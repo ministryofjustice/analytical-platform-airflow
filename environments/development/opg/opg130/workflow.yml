@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.8.5-test-2
+  tag: v3.8.5-test-5
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -55,7 +55,7 @@ iam:
     - mojap-athena-query-dump/*airflow-development-opg-opg130/*
 
   s3_read_only:
-    - s3://mojap-land-dev/opg/dev/opg130/*
+    - mojap-land-dev/opg/dev/opg130/*
 
 maintainers:
   - p-sin
