@@ -1,20 +1,16 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v8.3
+  tag: testing-v2
   catchup: false
   tasks:
-    test-1:
+    notify-pass:
       env_vars:
-        EXEC_SCRIPT: "run-pipeline"
-        CHECK: "pipeline_checks_testing_false"
-        SCRIPT: "src/misconduct_nlp/main.py"
-    test-2:
+        EXEC_ARGS: "pass"
+    notify-fail:
       env_vars:
-        EXEC_SCRIPT: "run-pipeline"
-        CHECK: "pipeline_checks_testing_true"
-        SCRIPT: "run-main"
-      dependencies: [test-1]
+        EXEC_ARGS: "fail"
+      dependencies: [notify-pass]
 
 iam:
   athena: write
@@ -27,13 +23,12 @@ iam:
 maintainers:
   - jhenfrancis
   - sheilz81
-  - tomd-moj
 
 notifications:
   emails:
     - jhenielle.francis@justice.gov.uk
     - sheila.ladva@justice.gov.uk
-    - thomas.dykins@justice.gov.uk
+  slack_channel: cf-misconduct-notifications
 
 tags:
   business_unit: HQ

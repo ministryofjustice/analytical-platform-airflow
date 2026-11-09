@@ -1,9 +1,9 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.0.dev57
+  tag: v5.0.1.dev2
   retries: 0
   retry_delay: 150
-  max_active_runs: 1
+  max_active_runs: 3
 
   env_vars:
     SNAPSHOT_DATE: "latest"
@@ -214,7 +214,7 @@ dag:
       dependencies: [model_training_probation_delius]
 
     # -----------------------
-    # FAMILYMAN DEDUPE JOB (~20m)
+    # FAMILYMAN DEDUPE JOB
     # -----------------------
     source_nodes_familyman:
       compute_profile: general-spot-1vcpu-4gb
@@ -248,7 +248,7 @@ dag:
       dependencies: [model_training_familyman]
 
     # -----------------------
-    # CIVIL CASEMAN PCOL DEDUPE JOB (~20m)
+    # CIVIL CASEMAN PCOL DEDUPE JOB
     # -----------------------
     source_nodes_civil_caseman_pcol:
       compute_profile: general-spot-1vcpu-4gb
@@ -322,10 +322,10 @@ dag:
         - edge_generation_prison_oasys
         - edge_generation_probation_delius
 
-    product_monitoring_cjs:
-      compute_profile: general-spot-32vcpu-128gb
+    products_person:
+      compute_profile: general-spot-1vcpu-4gb
       env_vars:
-        PIPELINE_STAGE: product_monitoring
+        PIPELINE_STAGE: products
         PIPELINE_DATASET: cjs
         PIPELINE_VERSION: dev
       dependencies: [edge_generation_cjs]
@@ -365,10 +365,10 @@ dag:
         - edge_generation_familyman
         - edge_generation_civil_caseman_pcol
 
-    product_monitoring_xjs:
-      compute_profile: general-spot-32vcpu-128gb
+    products_person_xjs:
+      compute_profile: general-spot-1vcpu-4gb
       env_vars:
-        PIPELINE_STAGE: product_monitoring
+        PIPELINE_STAGE: products
         PIPELINE_DATASET: xjs
         PIPELINE_VERSION: dev
       dependencies: [edge_generation_xjs]
@@ -410,6 +410,26 @@ dag:
         PIPELINE_VERSION: dev
       dependencies: [model_training_mh_cx]
 
+    products_journey:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: products
+        PIPELINE_DATASET: mh-cx
+        PIPELINE_VERSION: dev
+      dependencies: [edge_generation_mh_cx]
+
+    # QA Stages
+    clerical_label_qa_cjs:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: clerical_label_qa
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: dev
+      dependencies:
+        - products_person
+        - products_person_xjs
+        - products_journey
+
 iam:
   athena: write
   s3_read_only:
@@ -434,7 +454,6 @@ iam:
 maintainers:
   - ThomasHepworth
   - samnlindsay
-  - chloepugh
 
 tags:
   business_unit: Central Digital

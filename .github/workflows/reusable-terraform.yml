@@ -15,7 +15,7 @@ concurrency:
 jobs:
   terraform:
     name: Terraform
-    runs-on: ubuntu-latest
+    runs-on: octo-production
     permissions:
       contents: read
       id-token: write

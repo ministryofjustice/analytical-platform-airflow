@@ -1,7 +1,15 @@
 ---
 dag:
   repository: moj-analytical-services/laa-search-index-airflow-source
-  tag: v0.1.21
+  tag: v0.1.23
+
+  schedule: "*/15 9-16 * * 1-5"
+  max_active_runs: 1
+  catchup: false
+
+  env_vars:
+    AWS_REGION: eu-west-2
+    DEV_MODE: False
 
 iam:
   s3_read_write:
@@ -12,27 +20,34 @@ iam:
 
   s3_read_only:
     - laa-splink-source-s3/*
+    - laa-splink-search-s3/*
 
   kms:
-    - arn:aws:kms:eu-west-2:593291632749:key/c0f20b2d-7b3e-4a60-9c04-2fb3befe6a3f #Tobeupdated
+    - arn:aws:kms:eu-west-2:593291632749:key/e22c7aa4-4469-4c69-a7ee-0708201c51c9
 
 maintainers:
   - nina-knowles-justice
-  - dami-moj
   - jh-justice-dev
   - jfjb-justice
-  - sathyareddy-justice
+  - dami-moj
 
 secrets:
   - source-request-bucket
   - source-request-key
   - source-output-bucket
+  - source-output-key
   - source-file-bucket
+  - source-zip-bucket
   - audit-bucket
-  - splink-parquet
+  - splink-bucket
+  - splink-key
+  - sse-kms-keyid
+  - output-key
 
 notifications:
   slack_channel: laa-search-index-alerts
+  slack_events:
+    - failure
 
 tags:
   business_unit: LAA

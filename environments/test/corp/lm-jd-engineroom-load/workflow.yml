@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/jd-engine-room-local-mapping-pipeline
-  tag: v1.1.10
+  tag: v1.2.1
   catchup: false
   compute_profile: general-on-demand-2vcpu-8gb
   max_active_runs: 1
@@ -14,14 +14,26 @@ dag:
       env_vars:
         BUSINESS_UNIT: "hmcts"
         OVERRIDE_SCHEDULE: "true"
+        ENVIRONMENT: "dev"
+        EVOLVE_SCHEMA: "true"
+        FORCE_FY: "{{ dag_run.conf.get('force_fy', '') }}"
+        FORCE_PERIOD: "{{ dag_run.conf.get('force_period', '') }}"
     hmpps_lm:
       env_vars:
         BUSINESS_UNIT: "hmpps"
         OVERRIDE_SCHEDULE: "true"
+        ENVIRONMENT: "dev"
+        EVOLVE_SCHEMA: "true"
+        FORCE_FY: "{{ dag_run.conf.get('force_fy', '') }}"
+        FORCE_PERIOD: "{{ dag_run.conf.get('force_period', '') }}"
     mojhq_lm:
       env_vars:
         BUSINESS_UNIT: "moj_hq"
         OVERRIDE_SCHEDULE: "true"
+        ENVIRONMENT: "dev"
+        EVOLVE_SCHEMA: "true"
+        FORCE_FY: "{{ dag_run.conf.get('force_fy', '') }}"
+        FORCE_PERIOD: "{{ dag_run.conf.get('force_period', '') }}"
 
 iam:
   athena: write

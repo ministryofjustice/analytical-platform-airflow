@@ -1,15 +1,15 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-justice-redact
-  tag: 0.1.1
+  tag: 0.1.4
   env_vars:
-    TARGET_BUCKET: "cloud-platform-e8943f6dadc19b2596e1a0c8c52192ca"
+    TARGET_BUCKET: "cloud-platform-92bb1800eb01aa9300d2febcc49b929a"
     TARGET_PREFIX: "airflow/justice-redact/smoke-test"
 
 iam:
   athena: write
   s3_read_write:
-    - cloud-platform-e8943f6dadc19b2596e1a0c8c52192ca/*
+    - cloud-platform-92bb1800eb01aa9300d2febcc49b929a/*
 
 maintainers:
   - adityadsgit
