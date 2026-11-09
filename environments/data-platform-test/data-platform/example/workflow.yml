@@ -10,7 +10,7 @@ maintainers:
 
 secrets:
   - example-secret
-  - example-secret-2
+  - example-newsecret
 
 tags:
   business_unit: Central Digital
