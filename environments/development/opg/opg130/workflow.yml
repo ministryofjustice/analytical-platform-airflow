@@ -53,8 +53,6 @@ iam:
     - mojap-processed/opg/dev/opg130/*
     - alpha-opg-etl/dev/opg130/*
     - mojap-athena-query-dump/*airflow-development-opg-opg130/*
-
-  s3_read_only:
     - mojap-land-dev/opg/dev/opg130/*
 
 maintainers:
