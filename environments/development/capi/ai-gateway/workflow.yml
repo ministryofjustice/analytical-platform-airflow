@@ -1,0 +1,79 @@
+dag:
+  repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
+  tag: gw-test-v1.0.29-dev
+
+  env_vars:
+    ENV_FOR_DYNACONF: dev
+    AWS_DEFAULT_REGION: eu-west-1
+    DYNACONF_DATASET: 2324_gw
+    DYNACONF_RUN_VERSION: gw_test_1
+    DYNACONF_SAMPLE_FROM_COHORT: "true"
+    DYNACONF_LIMIT_ROWS: "true"
+    DYNACONF_LIMIT: "20"
+    DYNACONF_ADDRESS_AUDIT_ENABLED: "true"
+    DYNACONF_ADDRESS_AUDIT_TABLE: address_detection_audit_spacy_full_20261027_01_gw
+    AI_GATEWAY_URL: https://ai-gateway.justice.gov.uk
+
+    # These must refer to the same underlying model.
+    DYNACONF_BATCH_INFERENCE_MODEL: qwen3_32b
+
+    # Limit the smoke test to 20 people.
+    DYNACONF_SAMPLE_FROM_COHORT: "true"
+    DYNACONF_LIMIT_ROWS: "true"
+    DYNACONF_LIMIT: "20"
+    DYNACONF_ADDRESS_AUDIT_ENABLED: "false"
+
+  tasks:
+    prepare:
+      env_vars:
+        PROCESS_TYPE: prepare
+
+    bcst:
+      dependencies: [prepare]
+      env_vars:
+        PROCESS_TYPE: bcst
+
+    layerthree:
+      dependencies: [prepare]
+      env_vars:
+        PROCESS_TYPE: layerthree
+
+    nomis:
+      dependencies: [prepare]
+      env_vars:
+        PROCESS_TYPE: nomis
+
+    delius_batch:
+      dependencies: [prepare]
+      env_vars:
+        PROCESS_TYPE: delius_batch
+
+    postprocess:
+      dependencies: [bcst, layerthree, nomis, delius_batch]
+      env_vars:
+        PROCESS_TYPE: postprocess
+
+iam:
+  athena: write
+  glue: true
+  bedrock: true
+  s3_read_write:
+    - alpha-bold-pilot-rr-families/*
+  s3_read_only:
+    - mojap-derived-tables/*
+    - alpha-data-linking/*
+
+secrets:
+  - api-key
+  - model
+
+notifications:
+  emails:
+    - guy.wheeler@justice.gov.uk
+
+maintainers:
+  - guyvw1
+
+tags:
+  business_unit: HQ
+  owner: guy.wheeler@justice.gov.uk
