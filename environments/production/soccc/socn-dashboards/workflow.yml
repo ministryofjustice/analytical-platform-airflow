@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-hmpps-socn-dashboards
-  tag: v1.0.6
+  tag: v1.0.7
 
   compute_profile: general-on-demand-8vcpu-32gb
 
@@ -123,6 +123,9 @@ dag:
       env_vars:
         STEP: "22_fno_enrichment"
       dependencies: [step_21_crime_ops_cohort]
+
+notifications:
+  slack_channel: niu-soc-dashboards
 
 iam:
   lake_formation: true
