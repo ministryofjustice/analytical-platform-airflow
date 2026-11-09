@@ -16,6 +16,7 @@ dag:
     DYNACONF_LIMIT_ROWS: "true"
     DYNACONF_LIMIT: "20"
     DYNACONF_ADDRESS_AUDIT_ENABLED: "true"
+    DYNACONF_ADDRESS_DETECTION_ENABLED: "true"
 
     # Give this test its own baseline master rather than deleting the shared one.
     DYNACONF_ADDRESS_BASELINE_MASTER_TABLE: address_baseline_master_je_20261109_01
