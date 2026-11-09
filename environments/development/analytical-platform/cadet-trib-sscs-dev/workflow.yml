@@ -1,13 +1,12 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.5.6
+  tag: 1.5.10
   compute_profile: general-on-demand-16vcpu-64gb
   catchup: false
   is_paused_upon_creation: true
   max_active_runs: 1
   retries: 0
-
   env_vars:
     DEPLOY_ENV: dev
     DBT_PROFILE_WORKGROUP: dbt-curated-dev
@@ -16,33 +15,35 @@ dag:
     BRANCH: feature/tribunals-sscs-chunk-airflow-test
     MODE: run
     THREAD_COUNT: 1
-
   tasks:
     build_wap:
       compute_profile: general-on-demand-16vcpu-64gb
       env_vars:
         MODE: run
-        DBT_SELECT_CRITERIA: "+raw_sscs__benefit_wap"
-
+        DBT_SELECT_CRITERIA: +raw_sscs__benefit_wap
     validate_wap:
       compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
         MODE: test
         DBT_SELECT_CRITERIA: raw_sscs__benefit_wap
-      dependencies: [build_wap]
-
+      dependencies:
+        - build_wap
+    publish_raw:
+      compute_profile: general-on-demand-4vcpu-16gb
+      env_vars:
+        MODE: run
+        DBT_SELECT_CRITERIA: raw_sscs__benefit
+      dependencies:
+        - validate_wap
 maintainers:
   - AntonyJScott
-
 secrets:
   - github-key
-
 iam:
   athena: write
   glue: true
   s3_read_write:
     - mojap-derived-tables/dev/*
-
 tags:
   business_unit: Central Digital
   owner: Antony.Scott@justice.gov.uk
