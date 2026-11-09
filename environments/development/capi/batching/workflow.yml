@@ -27,25 +27,25 @@ dag:
       env_vars:
         PROCESS_TYPE: bcst
 
-    layerthree:
-      dependencies: [prepare]
-      env_vars:
-        PROCESS_TYPE: layerthree
+    # layerthree:
+    #   dependencies: [prepare]
+    #   env_vars:
+    #     PROCESS_TYPE: layerthree
 
-    nomis:
-      dependencies: [prepare]
-      env_vars:
-        PROCESS_TYPE: nomis
+    # nomis:
+    #   dependencies: [prepare]
+    #   env_vars:
+    #     PROCESS_TYPE: nomis
 
-    delius_batch:
-      dependencies: [prepare]
-      env_vars:
-        PROCESS_TYPE: delius_batch
+    # delius_batch:
+    #   dependencies: [prepare]
+    #   env_vars:
+    #     PROCESS_TYPE: delius_batch
 
-    postprocess:
-      dependencies: [bcst, layerthree, nomis, delius_batch]
-      env_vars:
-        PROCESS_TYPE: postprocess
+    # postprocess:
+    #   dependencies: [bcst, layerthree, nomis, delius_batch]
+    #   env_vars:
+    #     PROCESS_TYPE: postprocess
 
 iam:
   athena: write
