@@ -2,7 +2,6 @@ dag:
   repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
   tag: je-test-v1.0.14-dev
   env_vars:
-    env_vars:
     # Keep the existing development environment and AWS region.
     ENV_FOR_DYNACONF: dev
     AWS_DEFAULT_REGION: eu-west-1
@@ -20,7 +19,7 @@ dag:
 
     # Give this test its own baseline master rather than deleting the shared one.
     DYNACONF_ADDRESS_BASELINE_MASTER_TABLE: address_baseline_master_je_20261109_01
-    
+
     AIRFLOW_CTX_DAG_ID: "{{ dag.dag_id }}"
     AIRFLOW_CTX_TASK_ID: "{{ ti.task_id }}"
     AIRFLOW_CTX_TRY_NUMBER: "{{ ti.try_number }}"
