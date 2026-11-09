@@ -1,9 +1,9 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.1.dev2
-  retries: 0
+  tag: v5.0.1.dev7
+  retries: 1
   retry_delay: 150
-  max_active_runs: 3
+  max_active_runs: 1
 
   env_vars:
     SNAPSHOT_DATE: "latest"
@@ -430,6 +430,22 @@ dag:
         - products_person_xjs
         - products_journey
 
+    product_monitoring_cjs:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: product_monitoring
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: dev
+      dependencies: [edge_generation_cjs]
+
+    product_monitoring_xjs:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: product_monitoring
+        PIPELINE_DATASET: xjs
+        PIPELINE_VERSION: dev
+      dependencies: [edge_generation_xjs]
+
 iam:
   athena: write
   s3_read_only:
@@ -454,6 +470,7 @@ iam:
 maintainers:
   - ThomasHepworth
   - samnlindsay
+  - chloepugh
 
 tags:
   business_unit: Central Digital
