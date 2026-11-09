@@ -1,15 +1,10 @@
 ---
-image:
+dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
   tag: 1.5.7
-
-dag:
-  default_args:
-    retries: 0
   catchup: false
   is_paused_upon_creation: true
   max_active_runs: 1
-
   env_vars:
     DEPLOY_ENV: dev
     DBT_PROFILE_WORKGROUP: dbt-curated-dev
@@ -18,41 +13,30 @@ dag:
     BRANCH: feature/tribunals-expanded-models
     MODE: run
     THREAD_COUNT: 1
-
   tasks:
     build_expanded:
       compute_profile: general-on-demand-16vcpu-64gb
       env_vars:
         MODE: run
-        DBT_SELECT_CRITERIA: >-
-          expanded_tribunals_raw__et_englandwales
-          expanded_tribunals_raw__et_englandwales_iceberg
-          expanded_tribunals_raw__sscs_benefit
-          expanded_tribunals_raw__sscs_benefit_iceberg
-
+        DBT_SELECT_CRITERIA: expanded_tribunals_raw__et_englandwales expanded_tribunals_raw__et_englandwales_iceberg
+          expanded_tribunals_raw__sscs_benefit expanded_tribunals_raw__sscs_benefit_iceberg
     validate_expanded:
       compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
         MODE: test
-        DBT_SELECT_CRITERIA: >-
-          expanded_tribunals_raw__et_englandwales
-          expanded_tribunals_raw__et_englandwales_iceberg
-          expanded_tribunals_raw__sscs_benefit
-          expanded_tribunals_raw__sscs_benefit_iceberg
-      dependencies: [build_expanded]
-
+        DBT_SELECT_CRITERIA: expanded_tribunals_raw__et_englandwales expanded_tribunals_raw__et_englandwales_iceberg
+          expanded_tribunals_raw__sscs_benefit expanded_tribunals_raw__sscs_benefit_iceberg
+      dependencies:
+      - build_expanded
 maintainers:
-  - AntonyJScott
-
+- AntonyJScott
 tags:
   business_unit: Central Digital
   owner: Antony.Scott@justice.gov.uk
-
 iam:
   athena: write
   glue: true
   s3_read_write:
-    - mojap-derived-tables/dev/*
-
+  - mojap-derived-tables/dev/*
 secrets:
-  - github-key
+- github-key
