@@ -14,6 +14,7 @@ dag:
 
 iam:
   athena: write
+  lake_formation: true
 
   s3_read_only:
     - alpha-nomis/nomis_dn/*
