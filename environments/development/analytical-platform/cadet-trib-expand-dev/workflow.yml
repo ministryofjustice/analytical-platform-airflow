@@ -18,18 +18,24 @@ dag:
       compute_profile: general-on-demand-16vcpu-64gb
       env_vars:
         MODE: run
-        DBT_SELECT_CRITERIA: expanded_tribunals_raw__et_englandwales expanded_tribunals_raw__et_englandwales_iceberg
-          expanded_tribunals_raw__sscs_benefit expanded_tribunals_raw__sscs_benefit_iceberg
+        DBT_SELECT_CRITERIA: >-
+          expanded_tribunals_raw__et_englandwales
+          expanded_tribunals_raw__et_englandwales_iceberg
+          expanded_tribunals_raw__sscs_benefit
+          expanded_tribunals_raw__sscs_benefit_iceberg
     validate_expanded:
       compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
         MODE: test
-        DBT_SELECT_CRITERIA: expanded_tribunals_raw__et_englandwales expanded_tribunals_raw__et_englandwales_iceberg
-          expanded_tribunals_raw__sscs_benefit expanded_tribunals_raw__sscs_benefit_iceberg
+        DBT_SELECT_CRITERIA: >-
+          expanded_tribunals_raw__et_englandwales
+          expanded_tribunals_raw__et_englandwales_iceberg
+          expanded_tribunals_raw__sscs_benefit
+          expanded_tribunals_raw__sscs_benefit_iceberg
       dependencies:
-      - build_expanded
+        - build_expanded
 maintainers:
-- AntonyJScott
+  - AntonyJScott
 tags:
   business_unit: Central Digital
   owner: Antony.Scott@justice.gov.uk
@@ -37,6 +43,6 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-  - mojap-derived-tables/dev/*
+    - mojap-derived-tables/dev/*
 secrets:
-- github-key
+  - github-key
