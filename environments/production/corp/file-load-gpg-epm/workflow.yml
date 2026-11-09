@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.1.21
+  tag: v2.1.22
   schedule: "0 8 2-10 * ? *"
   env_vars:
     MODALENV: prod
@@ -94,6 +94,7 @@ iam:
     - mojap-processed/domain__hr/env__prod/corporate_epm/*
     - mojap-processed/domain__hr/env__prod/corporate_epm_staging/*
     - mojap-processed/domain__hr/env__prod/athena_query_dump/*
+    - mojap-processed/domain__hr/env__test/corporate_epm_test/*
 
 secrets:
   - pgp-privatekey-base
