@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.5.7
+  tag: 1.5.10
   start_date: "2026-09-29"
   schedule: "0 4 * * *"
   catchup: false
@@ -8,7 +8,6 @@ dag:
     DEPLOY_ENV: prod
     DBT_PROJECT: hmpps_probation_data_tables
     S3_BUCKET: dpr-structured-historical-production
-    WORKFLOW_NAME: deploy-derived-probation-data-tables
     DBT_PROFILE_WORKGROUP: primary
     MODE: build
     AWS_DEFAULT_REGION: eu-west-2
@@ -19,11 +18,13 @@ dag:
       compute_profile: general-on-demand-8vcpu-32gb
       env_vars:
         DBT_SELECT_CRITERIA: tag:ppud
+        WORKFLOW_NAME: deploy-curated-probation-data-tables
 
     curated_check_run_results:
       compute_profile: general-on-demand-1vcpu-4gb
       env_vars:
         IS_DATASET_CHECK: true
+        WORKFLOW_NAME: deploy-curated-probation-data-tables
       dependencies: [curated_table_deploy]
       outlets:
         - "s3://dpr-structured-historical-production/data/prod/curated"
@@ -33,12 +34,14 @@ dag:
       env_vars:
         DBT_SELECT_CRITERIA: tag:ppud_derived
         ENFORCE_LAKE_FORMATION: true
+        WORKFLOW_NAME: deploy-derived-probation-data-tables
       dependencies: [curated_check_run_results]
 
     derived_check_run_results:
       compute_profile: general-on-demand-1vcpu-4gb
       env_vars:
         IS_DATASET_CHECK: true
+        WORKFLOW_NAME: deploy-derived-probation-data-tables
       dependencies: [derived_table_deploy]
       outlets:
         - "s3://dpr-structured-historical-production/data/prod/derived"

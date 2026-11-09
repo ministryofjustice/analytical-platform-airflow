@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.1.dev4
+  tag: v5.0.1.dev7
   retries: 0
   retry_delay: 150
   max_active_runs: 1
@@ -419,6 +419,22 @@ dag:
     # -----------------------
     # QA Stages
     # -----------------------
+    product_monitoring_cjs:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        PIPELINE_STAGE: product_monitoring
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: test
+      dependencies: [edge_generation_cjs]
+
+    product_monitoring_xjs:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        PIPELINE_STAGE: product_monitoring
+        PIPELINE_DATASET: xjs
+        PIPELINE_VERSION: test
+      dependencies: [edge_generation_xjs]
+
     clerical_label_qa_cjs:
       compute_profile: general-spot-1vcpu-4gb
       env_vars:
