@@ -16,9 +16,10 @@ PROJECT = "PLACEHOLDER_PROJECT"
 WORKFLOW = "PLACEHOLDER_WORKFLOW"
 ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
 OWNER = "PLACEHOLDER_OWNER"
+WAIT_SECONDS = 60
 
 IMAGE = f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}"
-DAG_VERSION_LABEL = "my-v2"
+DAG_VERSION_LABEL = "my-v4"
 
 
 def pod(task_id, command):
@@ -39,15 +40,16 @@ with DAG(
     dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args={"owner": OWNER},
     start_date=datetime.datetime(2025, 1, 1),
-    schedule=None,
+    schedule="0 */4 * * *",
     catchup=False,
+    max_active_runs=3,
     is_paused_upon_creation=False,
     tags=["example", "versioning"],
     doc_md=f"DAG versioning demo, label {DAG_VERSION_LABEL}",
 ) as dag:
     extract = pod("extract", f"echo 'DAG {DAG_VERSION_LABEL}: extract'")
     validate = pod("validate", f"echo 'DAG {DAG_VERSION_LABEL}: validate'")
-    wait = pod("wait", f"echo 'DAG {DAG_VERSION_LABEL}: waiting'; sleep 300")
+    wait = pod("wait", f"echo 'DAG {DAG_VERSION_LABEL}: waiting'; sleep {WAIT_SECONDS}")
     transform = pod("transform", f"echo 'DAG {DAG_VERSION_LABEL}: transform'")
     publish = pod("publish", f"echo 'DAG {DAG_VERSION_LABEL}: publish'")
 
