@@ -5,6 +5,10 @@ dag:
   catchup: false
   is_paused_upon_creation: true
   max_active_runs: 1
+  schedule:
+    datasets:
+      - "s3://mojap-derived-tables/dev/tribunals/et-raw-published"
+      - "s3://mojap-derived-tables/dev/tribunals/sscs-raw-published"
   env_vars:
     DEPLOY_ENV: dev
     DBT_PROFILE_WORKGROUP: dbt-curated-dev
