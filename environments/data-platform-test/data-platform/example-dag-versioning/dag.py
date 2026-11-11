@@ -18,7 +18,7 @@ ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
 OWNER = "PLACEHOLDER_OWNER"
 
 IMAGE = f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}"
-DAG_VERSION_LABEL = "v1"
+DAG_VERSION_LABEL = "my-v2"
 
 
 def pod(task_id, command):
@@ -46,7 +46,9 @@ with DAG(
     doc_md=f"DAG versioning demo, label {DAG_VERSION_LABEL}",
 ) as dag:
     extract = pod("extract", f"echo 'DAG {DAG_VERSION_LABEL}: extract'")
+    validate = pod("validate", f"echo 'DAG {DAG_VERSION_LABEL}: validate'")
     wait = pod("wait", f"echo 'DAG {DAG_VERSION_LABEL}: waiting'; sleep 300")
-    load = pod("load", f"echo 'DAG {DAG_VERSION_LABEL}: load'")
+    transform = pod("transform", f"echo 'DAG {DAG_VERSION_LABEL}: transform'")
+    publish = pod("publish", f"echo 'DAG {DAG_VERSION_LABEL}: publish'")
 
-    extract >> wait >> load
+    extract >> validate >> wait >> transform >> publish
