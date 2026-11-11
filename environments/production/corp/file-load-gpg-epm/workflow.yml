@@ -96,6 +96,7 @@ iam:
     - mojap-processed/domain__hr/env__prod/athena_query_dump/*
     - mojap-processed/domain__hr/env__test/corporate_epm_test/*
     - mojap-processed/domain__hr/env__test/athena_query_dump/*
+    - mojap-processed/domain__hr/env__test/corporate_epm_test_staging/*
 
 secrets:
   - pgp-privatekey-base
