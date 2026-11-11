@@ -1,0 +1,11 @@
+---
+# Octo STS trust policy
+# Allows the Workflow Validation job in ministryofjustice/analytical-platform-airflow
+# to obtain a short-lived, read-only token for THIS repository, so it can fetch
+# the Dockerfile and .grype.yml used for the Grype vulnerability scan.
+issuer: https://token.actions.githubusercontent.com
+subject: repo:ministryofjustice/analytical-platform-airflow:pull_request
+claim_pattern:
+  job_workflow_ref: ministryofjustice/analytical-platform-airflow/\.github/workflows/workflow-validation\.yml@.*
+permissions:
+  contents: read
