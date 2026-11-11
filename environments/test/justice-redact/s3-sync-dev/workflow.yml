@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-justice-redact
-  tag: 0.1.5
+  tag: 0.1.6
   env_vars:
     READ_BUCKET: "alpha-app-justice-redact-dev"
     WRITE_BUCKET: "alpha-offender-sar"
