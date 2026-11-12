@@ -30,7 +30,7 @@ dag:
       dependencies: [source_nodes_mags_hocas]
 
     edge_generation_mags_hocas:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-128vcpu-512gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: mags_hocas
@@ -178,7 +178,7 @@ dag:
         PIPELINE_VERSION: prod
 
     standardised_nodes_familyman:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-32vcpu-128gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: familyman
@@ -251,9 +251,7 @@ dag:
         - edge_generation_prison_oasys
         - edge_generation_probation_delius
 
-    # -----------------------
     # XJS LINK JOB
-    # -----------------------
     standardised_nodes_xjs:
       compute_profile: general-spot-32vcpu-128gb
       env_vars:
@@ -277,9 +275,7 @@ dag:
         - edge_generation_familyman
         - edge_generation_civil_caseman_pcol
 
-    # -----------------------
     # JOURNEY LINK JOB (~?m)
-    # -----------------------
     source_nodes_xhibit_journey:
       compute_profile: general-spot-1vcpu-4gb
       env_vars:
@@ -306,10 +302,8 @@ dag:
         PIPELINE_VERSION: prod
       dependencies: [standardised_nodes_mh_cx]
 
-    # -----------------------
-    # PRODUCT JOB
-    # -----------------------
-    product_cjs:
+    # PRODUCT JOBS
+    products_person:
       compute_profile: general-spot-1vcpu-4gb
       env_vars:
         PIPELINE_STAGE: products
@@ -317,7 +311,7 @@ dag:
         PIPELINE_VERSION: prod
       dependencies: [edge_generation_cjs]
 
-    product_xjs:
+    products_person_xjs:
       compute_profile: general-spot-1vcpu-4gb
       env_vars:
         PIPELINE_STAGE: products
@@ -325,13 +319,41 @@ dag:
         PIPELINE_VERSION: prod
       dependencies: [edge_generation_xjs]
 
-    product_mh_cx:
+    products_journey:
       compute_profile: general-spot-1vcpu-4gb
       env_vars:
         PIPELINE_STAGE: products
         PIPELINE_DATASET: mh-cx
         PIPELINE_VERSION: prod
       dependencies: [edge_generation_mh_cx]
+
+    # QA STAGES
+    clerical_label_qa_cjs:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: clerical_label_qa
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: prod
+      dependencies:
+        - products_person
+        - products_person_xjs
+        - products_journey
+
+    product_monitoring_cjs:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: product_monitoring
+        PIPELINE_DATASET: cjs
+        PIPELINE_VERSION: prod
+      dependencies: [edge_generation_cjs]
+
+    product_monitoring_xjs:
+      compute_profile: general-spot-32vcpu-128gb
+      env_vars:
+        PIPELINE_STAGE: product_monitoring
+        PIPELINE_DATASET: xjs
+        PIPELINE_VERSION: prod
+      dependencies: [edge_generation_xjs]
 
 iam:
   athena: write
@@ -357,6 +379,7 @@ iam:
 maintainers:
   - ThomasHepworth
   - samnlindsay
+  - chloepugh
 
 tags:
   business_unit: Central Digital
