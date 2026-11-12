@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/data_linking
-  tag: v5.0.1.dev10
+  tag: v5.0.1.dev11
   retries: 1
   retry_delay: 150
   max_active_runs: 1
@@ -237,7 +237,7 @@ dag:
         - standardised_nodes_probation_delius
 
     edge_generation_cjs:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-128vcpu-512gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: cjs
@@ -266,7 +266,7 @@ dag:
         - standardised_nodes_civil_caseman_pcol
 
     edge_generation_xjs:
-      compute_profile: general-spot-64vcpu-256gb
+      compute_profile: general-spot-128vcpu-512gb
       env_vars:
         PIPELINE_STAGE: edge_generation
         PIPELINE_DATASET: xjs
