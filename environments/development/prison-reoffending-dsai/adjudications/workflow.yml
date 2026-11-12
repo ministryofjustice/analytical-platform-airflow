@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-adjudications-insights
-  tag: v2.3.0
+  tag: v2.3.1
   env_vars:
     DEV_PROD: "dev"
   catchup: true
