@@ -10,7 +10,7 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-curated-dev
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-tribunals-expanded-dev
-    BRANCH: feature/tribunals-expanded-models
+    BRANCH: main
     MODE: run
     THREAD_COUNT: 1
   tasks:
