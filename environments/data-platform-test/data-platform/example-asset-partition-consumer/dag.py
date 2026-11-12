@@ -1,12 +1,14 @@
-"""Partitioned asset consumer: runs once per partition of demo_partitioned."""
+"""Partitioned asset consumer: runs per hour once both producers have contributed."""
 
 import datetime
 
 try:
     from airflow.sdk import DAG, Asset, PartitionedAssetTimetable, StartOfHourMapper
 
+    ASSET_A = Asset(name="demo_partitioned", uri="s3://demo/demo_partitioned")
+    ASSET_B = Asset(name="demo_partitioned_b", uri="s3://demo/demo_partitioned_b")
     ASSET_SCHEDULE = PartitionedAssetTimetable(
-        assets=Asset(name="demo_partitioned", uri="s3://demo/demo_partitioned"),
+        assets=ASSET_A & ASSET_B,
         default_partition_mapper=StartOfHourMapper(),
     )
 except ImportError:
@@ -43,5 +45,5 @@ with DAG(
         project=PROJECT,
         workflow=WORKFLOW,
         cmds=["/bin/bash", "-c"],
-        arguments=["echo 'consuming demo_partitioned'"],
+        arguments=["echo 'consuming demo_partitioned and demo_partitioned_b'"],
     )
