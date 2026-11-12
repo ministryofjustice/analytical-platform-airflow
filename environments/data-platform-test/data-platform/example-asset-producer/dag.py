@@ -42,5 +42,5 @@ with DAG(
         workflow=WORKFLOW,
         cmds=["/bin/bash", "-c"],
         arguments=["echo 'producing demo_asset'"],
-        outlets=[ASSET_OUTLETS],
+        outlets=ASSET_OUTLETS,
     )
