@@ -1,4 +1,4 @@
-"""Partitioned asset producer: emits a partitioned asset event every 10 minutes."""
+"""Partitioned asset producer A: emits a partitioned asset event every 10 minutes."""
 
 import datetime
 

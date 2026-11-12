@@ -1,5 +1,5 @@
 ---
-# Asset partitioning example (producer)
+# Asset partitioning alignment example (producer A)
 dag:
   repository: moj-analytical-services/airflow-3-feature-test-hitl
   tag: 0.0.2
