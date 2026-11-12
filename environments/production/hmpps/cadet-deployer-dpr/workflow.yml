@@ -35,8 +35,7 @@ notifications:
     - anthony.fitzroy@justice.gov.uk
     - anthony.cody@justice.gov.uk
 
-  slack_channel:
-    slack_channel: hmpps-data-notifications
+  slack_channel: hmpps-data-notifications
 
 iam:
   external_role: arn:aws:iam::004723187462:role/dpr-data-api-cross-account-role
