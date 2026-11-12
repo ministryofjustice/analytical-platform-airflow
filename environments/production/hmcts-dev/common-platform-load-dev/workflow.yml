@@ -5,7 +5,6 @@ dag:
   retry_delay: 150
   start_date: "2026-06-01"
   max_active_runs: 5
-  max_active_tasks: 10
   env_vars:
     LOG_LEVEL: "INFO"
     LAND: "s3://mojap-land-dev/hmcts/common-platform/dev_sdp_v5"
