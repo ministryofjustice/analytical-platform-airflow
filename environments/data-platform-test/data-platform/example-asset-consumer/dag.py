@@ -4,9 +4,15 @@ import datetime
 
 try:
     from airflow.sdk import DAG, Asset
+
+    DEMO_ASSET = Asset(name="demo_asset", uri="s3://mojdp-test-mwaa/demo/demo_asset")
+    ASSET_SCHEDULE = [DEMO_ASSET]
+    ASSET_OUTLETS = [DEMO_ASSET]
 except ImportError:
     from airflow.models import DAG
-    from airflow.sdk import Asset
+
+    ASSET_SCHEDULE = None
+    ASSET_OUTLETS = []
 
 from data_platform.standard_operator import DataPlatformStandardOperator
 
