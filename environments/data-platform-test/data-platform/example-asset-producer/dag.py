@@ -25,8 +25,6 @@ OWNER = "PLACEHOLDER_OWNER"
 
 IMAGE = f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}"
 
-DEMO_ASSET = Asset(name="demo_asset", uri="s3://mojdp-test-mwaa/demo/demo_asset")
-
 with DAG(
     dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args={"owner": OWNER},
