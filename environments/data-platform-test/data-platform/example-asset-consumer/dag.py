@@ -5,14 +5,11 @@ import datetime
 try:
     from airflow.sdk import DAG, Asset
 
-    DEMO_ASSET = Asset(name="demo_asset", uri="s3://mojdp-test-mwaa/demo/demo_asset")
-    ASSET_SCHEDULE = [DEMO_ASSET]
-    ASSET_OUTLETS = [DEMO_ASSET]
+    ASSET_SCHEDULE = [Asset(name="demo_asset", uri="s3://mojdp-test-mwaa/demo/demo_asset")]
 except ImportError:
     from airflow.models import DAG
 
     ASSET_SCHEDULE = None
-    ASSET_OUTLETS = []
 
 from data_platform.standard_operator import DataPlatformStandardOperator
 
@@ -29,7 +26,7 @@ with DAG(
     dag_id=f"{PROJECT}.{WORKFLOW}",
     default_args={"owner": OWNER},
     start_date=datetime.datetime(2025, 1, 1),
-    schedule=[DEMO_ASSET],
+    schedule=ASSET_SCHEDULE,
     catchup=False,
     is_paused_upon_creation=False,
     tags=["example", "asset"],
