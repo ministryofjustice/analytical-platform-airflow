@@ -6,12 +6,10 @@ try:
     from airflow.sdk import DAG, Asset
 
     DEMO_ASSET = Asset(name="demo_asset", uri="s3://mojdp-test-mwaa/demo/demo_asset")
-    ASSET_SCHEDULE = [DEMO_ASSET]
     ASSET_OUTLETS = [DEMO_ASSET]
 except ImportError:
     from airflow.models import DAG
 
-    ASSET_SCHEDULE = None
     ASSET_OUTLETS = []
 
 from data_platform.standard_operator import DataPlatformStandardOperator
@@ -44,5 +42,5 @@ with DAG(
         workflow=WORKFLOW,
         cmds=["/bin/bash", "-c"],
         arguments=["echo 'producing demo_asset'"],
-        outlets=[DEMO_ASSET],
+        outlets=[ASSET_OUTLETS],
     )
