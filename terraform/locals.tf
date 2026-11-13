@@ -10,7 +10,7 @@ locals {
   cluster_data_key_prefix = local.is_data_platform ? terraform.workspace : "analytical-platform-compute-${terraform.workspace}"
 
   # EKS cluster name used to get a token
-  eks_cluster_name = local.is_data_platform ? "${terraform.workspace}" : "analytical-platform-compute-${terraform.workspace}"
+  eks_cluster_name = local.is_data_platform ? terraform.workspace : "analytical-platform-compute-${terraform.workspace}"
 
   # Cluster data secret (in analytical-platform-common-production)
   cluster_data_secret_id = local.is_data_platform ? "data-platform/cluster-data" : "analytical-platform-compute/cluster-data"
