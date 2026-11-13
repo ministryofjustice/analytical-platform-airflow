@@ -8,7 +8,7 @@ dag:
 secrets:
   - github-token
   - gov-notify-token
-  
+
 iam:
   athena: write
 
