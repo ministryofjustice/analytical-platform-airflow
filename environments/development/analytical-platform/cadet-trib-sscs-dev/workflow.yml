@@ -35,6 +35,8 @@ dag:
         DBT_SELECT_CRITERIA: raw_sscs__benefit
       dependencies:
         - validate_wap
+      outlets:
+        - "s3://mojap-derived-tables/dev/tribunals/sscs-raw-published"
 maintainers:
   - AntonyJScott
 secrets:
