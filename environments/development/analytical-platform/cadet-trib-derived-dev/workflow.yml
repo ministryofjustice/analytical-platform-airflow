@@ -12,19 +12,19 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-curated-dev
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-derived-tribunals-dev
-    BRANCH: feature/derived-tribunals-cadet-templates
-    MODE: compile
-    THREAD_COUNT: 1
+    BRANCH: main
+    MODE: build
+    THREAD_COUNT: 10
   tasks:
     compile_et:
       compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
-        MODE: compile
+        MODE: build
         DBT_SELECT_CRITERIA: path:models/tribunals/et_derived
     compile_sscs:
       compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
-        MODE: compile
+        MODE: build
         DBT_SELECT_CRITERIA: path:models/tribunals/sscs_derived
 maintainers:
   - AntonyJScott
