@@ -4,6 +4,9 @@ dag:
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
 
+secrets:
+  - github-token
+
 iam:
   athena: write
 
