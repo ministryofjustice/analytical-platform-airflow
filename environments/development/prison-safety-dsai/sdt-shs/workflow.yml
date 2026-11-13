@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-shs-qual
-  tag: v1.6.2
+  tag: v1.6.3
   compute_profile: "general-spot-4vcpu-16gb"
   schedule:
     datasets:
