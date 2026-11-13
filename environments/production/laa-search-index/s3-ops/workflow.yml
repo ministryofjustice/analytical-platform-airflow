@@ -10,26 +10,188 @@ dag:
   env_vars:
     AWS_REGION: "eu-west-2"
     LOG_LEVEL: "INFO"
+    MODE: "copy-folder-force"
+
     KMS_KEY_ARN: "arn:aws:kms:eu-west-2:593291632749:key/e22c7aa4-4469-4c69-a7ee-0708201c51c9"
 
   tasks:
-    exists:
+    exists-splink:
       env_vars:
         MODE: "exists"
-        S3_PATH: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/splink-with-collections/final_splink_collections_30_06_26.parquet"
+        S3_PATH: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/splink-with-collections/final_splink_collections_25_09_26.parquet"
 
-    copy:
-      dependencies: [exists]
+    copy-splink:
+      dependencies: [exists-splink]
       env_vars:
         MODE: "copy"
-        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/splink-with-collections/final_splink_collections_30_06_26.parquet"
-        S3_DESTINATION: "s3://laa-splink-search-s3/final_splink_collections_30_06_26.parquet"
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/splink-with-collections/final_splink_collections_25_09_26.parquet"
+        S3_DESTINATION: "s3://laa-splink-search-s3/final_splink_collections_25_09_26.parquet"
 
-    verify:
-      dependencies: [copy]
+    verify-splink:
+      dependencies: [copy-splink]
       env_vars:
         MODE: "exists"
         S3_PATH: "s3://laa-splink-search-s3/"
+
+    copy-maatdb-outbound-xerox-test:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-maatdb-outbound-xerox-test-production/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-maatdb-outbound-xerox-test-production/"
+
+    copy-cloudfront-logging:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-cloudfront-logging-production/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-cloudfront-logging-production/"
+
+    copy-waf-logs-cwa:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/aws-waf-logs-cwa/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/aws-waf-logs-cwa/"
+
+    copy-bacway-production:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/bacway-production-eu-west-2-842522700642/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/bacway-production-eu-west-2-842522700642/"
+
+    copy-ccms-inbound:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-ccms-inbound-production/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-ccms-inbound-production/"
+
+    copy-forms-connector-lb-logs:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/forms-connector-lb-logs-poc/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/forms-connector-lb-logs-poc/"
+
+    copy-waf-logs-portal:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/aws-waf-logs-portal-production/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/aws-waf-logs-portal-production/"
+
+    copy-athena-query-results:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/aws-athena-query-results-842522700642-eu-west-2/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/aws-athena-query-results-842522700642-eu-west-2/"
+
+    copy-karol-test-lambda:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/karol-test-lambda/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/karol-test-lambda/"
+
+    copy-ccms-outbound:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-ccms-outbound-production/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-ccms-outbound-production/"
+
+    copy-ccms-outbound-xerox-test:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-ccms-outbound-xerox-test-production/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-ccms-outbound-xerox-test-production/"
+
+    copy-cf-templates-eu-west-2:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/cf-templates-o0533spdqnul-eu-west-2/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/cf-templates-o0533spdqnul-eu-west-2/"
+
+    copy-portal-archive:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-portal-production-archive/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-portal-production-archive/"
+
+    copy-ccms-pui:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/ccms-pui-production/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/ccms-pui-production/"
+
+    copy-bacway-dbrestore:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/bacway-dbrestore-production-eu-west-2-842522700642/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/bacway-dbrestore-production-eu-west-2-842522700642/"
+
+    copy-nct-inbound:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-nct-inbound-production/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-nct-inbound-production/"
+
+    copy-maatdb-ftpbucket:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-maatdb-production-appinfrastructure-ftpbucket-cc9uzmt9glhs/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-maatdb-production-appinfrastructure-ftpbucket-cc9uzmt9glhs/"
+
+    copy-lambda-backup:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-lambda-backup-production/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-lambda-backup-production/"
+
+    copy-cf-templates-eu-west-1:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/cf-templates-o0533spdqnul-eu-west-1/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/cf-templates-o0533spdqnul-eu-west-1/"
+
+    copy-ses-reputation-events:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-ses-reputation-events/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-ses-reputation-events/"
+
+    copy-hub-ftpoutbound:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-hub-production-appinfrastru-ftpoutboundbucket-xh5oo69o5te6/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-hub-production-appinfrastru-ftpoutboundbucket-xh5oo69o5te6/"
+
+    copy-hub-ftpbucket:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/laa-hub-production-appinfrastructuretem-ftpbucket-1qbjubqvbs0na/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/laa-hub-production-appinfrastructuretem-ftpbucket-1qbjubqvbs0na/"
+
+    copy-gh-delius-pdm-uplift:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/github_source_files/delius-pdm-uplift-scripts/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/analysis_outputs/github_source_files/delius-pdm-uplift-scripts/"
+
+    copy-gh-hmpps-delius-core-app:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/github_source_files/hmpps-delius-core-app-scripts/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/analysis_outputs/github_source_files/hmpps-delius-core-app-scripts/"
+
+    copy-gh-laa-repos-billing-v23:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/github_source_files/LAA Repos Billing-v23 - Interview initialiser - means v23 - merits/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/analysis_outputs/github_source_files/LAA Repos Billing-v23 - Interview initialiser - means v23 - merits/"
+
+    copy-gh-ccms-capgemini-oracle:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/github_source_files/laa_ccms_capgemini_oracle/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/analysis_outputs/github_source_files/laa_ccms_capgemini_oracle/"
+
+    copy-gh-cis-repo:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/github_source_files/laa_cis_repo/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/analysis_outputs/github_source_files/laa_cis_repo/"
+
+    copy-gh-ccms-archaeology:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/github_source_files/laa-ccms-archaeology/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/analysis_outputs/github_source_files/laa-ccms-archaeology/"
+
+    copy-gh-maat-application:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/github_source_files/laa-maat-application/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/analysis_outputs/github_source_files/laa-maat-application/"
+
+    copy-gh-submit-crime-forms:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/github_source_files/laa-submit-crime-forms/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/analysis_outputs/github_source_files/laa-submit-crime-forms/"
+
+    copy-gh-snmpexporter:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/github_source_files/staff-infrastructure-monitoring-snmpexporter/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/analysis_outputs/github_source_files/staff-infrastructure-monitoring-snmpexporter/"
+
+    copy-bucket-11-oracle-index:
+      env_vars:
+        S3_SOURCE: "s3://mojap-data-production-datasync-laa-ingress-production/analysis_outputs/bucket_11_oracle_index/"
+        S3_DESTINATION: "s3://laa-splink-source-s3/analysis_outputs/bucket_11_oracle_index/"
 
 iam:
   kms:
@@ -37,8 +199,9 @@ iam:
     - arn:aws:kms:eu-west-2:593291632749:key/e22c7aa4-4469-4c69-a7ee-0708201c51c9
 
   s3_read_write:
-    - mojap-data-production-datasync-laa-ingress-production/analysis_outputs/*
+    - mojap-data-production-datasync-laa-ingress-production/*
     - laa-splink-search-s3/*
+    - laa-splink-source-s3/*
 
 maintainers:
   - dami-moj
