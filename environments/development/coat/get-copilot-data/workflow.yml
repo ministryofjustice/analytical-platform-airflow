@@ -1,6 +1,6 @@
 dag:
   repository: ministryofjustice/coat-copilot-usage-pipeline
-  tag: v1.0.4
+  tag: v1.0.8
   catchup: false
   is_paused_upon_creation: false
   max_active_runs: 1
@@ -34,8 +34,8 @@ tags:
 
 notifications:
   slack_channel: coat-notifications
+  # No success: Airflow 2.10 also fires on_success_callback when a task is skipped.
   slack_events:
     - failure
-    - success
     - skipped
   slack_skipped_text: "GitHub Copilot users-1-day report was not ready yet (upstream processing delay). The next scheduled run will retry."

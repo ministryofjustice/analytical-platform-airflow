@@ -1,0 +1,15 @@
+---
+# Asset partitioning alignment example (producer A)
+dag:
+  repository: moj-analytical-services/airflow-3-feature-test-hitl
+  tag: 0.0.2
+  python_dag: true
+
+maintainers:
+  - raghavvidya
+  - jhpyke
+  - tamsinforbes
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
