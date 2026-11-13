@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
-  tag: gw-test-v1.0.30-dev
+  tag: gw-test-v1.0.34-dev
 
   env_vars:
     ENV_FOR_DYNACONF: dev
@@ -16,6 +16,7 @@ dag:
 
     # These must refer to the same underlying model.
     DYNACONF_BATCH_INFERENCE_MODEL: qwen3_32b
+    DYNACONF_BATCH_INFERENCE_WAIT_TIME: "1"
 
   tasks:
     prepare:

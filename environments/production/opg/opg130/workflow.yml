@@ -8,7 +8,7 @@ dag:
   retries: 0
   retry_delay: 150
   start_date: "2026-10-20"
-  schedule: None
+  schedule: 0 5 * * *
   env_vars:
     DATABASE: "opg130"
     PIPELINE_NAME: "opg130"
