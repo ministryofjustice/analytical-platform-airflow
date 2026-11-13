@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-opg-etl
-  tag: v3.8.5-test-6
+  tag: v3.8.5-test-7
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -8,7 +8,7 @@ dag:
   retries: 0
   retry_delay: 150
   start_date: "2026-10-20"
-  schedule: None
+  schedule: 0 5 * * *
   env_vars:
     DATABASE: "opg130"
     PIPELINE_NAME: "opg130"
