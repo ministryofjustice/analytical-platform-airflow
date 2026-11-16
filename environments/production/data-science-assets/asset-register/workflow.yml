@@ -1,9 +1,13 @@
 dag:
   repository: moj-analytical-services/data-science-assets
-  tag: v0.4.5
+  tag: v0.5.0
   env_vars:
     AIRFLOW_ENVIRONMENT: "PRODUCTION"
   schedule: "0 8 * * *"
+
+secrets:
+  - github-token
+  - gov-notify-token
 
 iam:
   athena: write
