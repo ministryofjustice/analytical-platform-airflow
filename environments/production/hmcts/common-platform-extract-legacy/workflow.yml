@@ -1,10 +1,9 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction-legacy
-  tag: v1.0.1-alpha.cc8cba0
+  tag: v1.0.4
   retries: 1
   retry_delay: 150
   start_date: "2025-12-19"
-  schedule: 0 18 * * 6
   hmcts_sdp_networking: True
   max_active_runs: 3
   env_vars:
