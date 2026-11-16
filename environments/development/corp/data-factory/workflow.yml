@@ -1,0 +1,22 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-corp-data-factory
+  tag: v0.0.1
+  is_paused_upon_creation: true
+
+maintainers:
+  - benjamin-finucane
+
+notifications:
+  emails:
+    - benjamin.finucane@justice.gov.uk
+
+secrets:
+  - app-config
+
+iam:
+  external_role: arn:aws:iam::446677926185:role/airflow-dev-data-ingestion
+
+tags:
+  business_unit: Central Digital
+  owner: benjamin.finucane@justice.gov.uk
