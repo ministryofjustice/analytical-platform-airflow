@@ -17,16 +17,16 @@ dag:
   tasks:
     xhibit_extract_address:
       env_vars:
-        AZURE_TABLE:: "address"
+        AZURE_TABLE: "address"
     xhibit_extract_breach:
       env_vars:
-        AZURE_TABLE:: "breach"
+        AZURE_TABLE: "breach"
     xhibit_extract_bw_history:
       env_vars:
-        AZURE_TABLE:: "bw-history"
+        AZURE_TABLE: "bw-history"
     xhibit_extract_case_diary_fixture:
       env_vars:
-        AZURE_TABLE:: "case-diary-fixture"
+        AZURE_TABLE: "case-diary-fixture"
     xhibit_extract_case_listing_entry:
       env_vars:
         AZURE_TABLE: "case-listing-entry"
