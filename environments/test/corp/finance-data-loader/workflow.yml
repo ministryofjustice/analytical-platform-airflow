@@ -1,1 +1,47 @@
-test
+---
+dag:
+  repository: ministryofjustice/finance_moj_loader
+  tag: v1.0.0
+  catchup: false
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-2vcpu-8gb
+
+  env_vars:
+    MODAL_ENV: "test"
+    MODAL_SCHEMA_CONTRACT: "evolve"
+    MODAL_FULL_REFRESH: "true"
+    MODAL_LOAD_LIMIT: "50"
+    MODAL_CONFIG_DIR: "pipelines"
+    MODAL_DLT_DATA_DIR: "data_dir/"
+    MODAL_DLT_PROJECT_DIR: "project_dir/"
+
+    AWS_DEFAULT_REGION: "eu-west-1"
+    AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
+    AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
+
+  tasks:
+    local_moj_core_estates:
+      env_vars:
+        MODAL_YAML_PATH: "finance/local_mappings/local_mojcore_estates"
+
+iam:
+  athena: write
+  glue: true
+  s3_read_only:
+    - mojap-land-dev/corporate/local_mappings/*
+  s3_read_write:
+    - mojap-processed/domain__finance/*
+
+notifications:
+  emails:
+    - Chris.Sheldon@justice.gov.uk
+    - Pearse.Quinn@justice.gov.uk
+
+maintainers:
+  - Csheldon155
+  - PQjustice
+
+tags:
+  business_unit: Central Digital
+  owner: Chris.Sheldon@justice.gov.uk
