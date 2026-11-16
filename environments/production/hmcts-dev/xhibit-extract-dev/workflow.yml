@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v4.3.6
+  tag: v4.3.7
   retries: 1
   retry_delay: 150
   hmcts_sdp_networking: True
