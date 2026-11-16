@@ -12,6 +12,7 @@ dag:
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
     AWS_DEFAULT_EXTRACT_REGION: "eu-west-1"
     MODAL_ALLOW_PROD: "true"
+    DATA_WRITER__ARROW_CONCAT_PROMOTE_OPTIONS: "default"
   catchup: false
   max_active_runs: 1
   retries: 0
