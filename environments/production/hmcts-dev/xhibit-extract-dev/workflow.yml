@@ -1,32 +1,180 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v3.0.13
+  tag: v4.3.6
   retries: 1
   retry_delay: 150
   hmcts_sdp_networking: True
-  max_active_runs: 3
+  max_active_runs: 1
   env_vars:
-    TASK: "extract"
     LOG_LEVEL: "DEBUG"
-    ENDPOINT: "MI_PERSISTENT_PROD"
-    SDP_TABLE_PREFIX: "v3-cgi-vde-xhibit-xhb"
-    PRESERVE_SDP_FOLDER_STRUCT: "replace_prefix"
-    COPY_MODE: "new"
-    CHECK_MODE: "hist"
+    SDP_TABLE_PREFIX: "v3-cgi-vde-xhibit-xhb-"
     FILENAME_COL_NAME: "mojap_unpacked_filename"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
     DATABASE_NAME: "xhibit_preprocessed_dev"
     LAND_BUCKET: "s3://mojap-land-dev"
-    HIST_BUCKET: "s3://mojap-raw-hist-dev"
     LAND_FOLDER: "hmcts/xhibit/"
-    HIST_FOLDER: "hmcts/xhibit/"
-    CUT_OFF: "2024-06-01"
+    START_DATE: "2026-01-01"
   tasks:
+    xhibit_extract_address:
+      env_vars:
+        AZURE_TABLE:: "address"
+    xhibit_extract_breach:
+      env_vars:
+        AZURE_TABLE:: "breach"
+    xhibit_extract_bw_history:
+      env_vars:
+        AZURE_TABLE:: "bw-history"
+    xhibit_extract_case_diary_fixture:
+      env_vars:
+        AZURE_TABLE:: "case-diary-fixture"
+    xhibit_extract_case_listing_entry:
+      env_vars:
+        AZURE_TABLE: "case-listing-entry"
+    xhibit_extract_case_on_list:
+      env_vars:
+        AZURE_TABLE: "case-on-list"
+    xhibit_extract_case_prosecutor_agency:
+      env_vars:
+        AZURE_TABLE: "case-prosecutor-agency"
+    xhibit_extract_cases:
+      env_vars:
+        AZURE_TABLE: "case"
+        S3_TABLE: "cases"
+    xhibit_extract_charge:
+      env_vars:
+        AZURE_TABLE: "charge"
+    xhibit_extract_court:
+      env_vars:
+        AZURE_TABLE: "court"
+    xhibit_extract_court_room_usage:
+      env_vars:
+        AZURE_TABLE: "court-room-usage"
+    xhibit_extract_def_hearing_record:
+      env_vars:
+        AZURE_TABLE: "def-hearing-record"
+    xhibit_extract_def_on_case_ref_sol_firm:
+      env_vars:
+        AZURE_TABLE: "def-on-case-ref-sol-firm"
+    xhibit_extract_defendant:
+      env_vars:
+        AZURE_TABLE: "defendant"
+    xhibit_extract_defendant_charge:
+      env_vars:
+        AZURE_TABLE: "defendant-charge"
+    xhibit_extract_defendant_history:
+      env_vars:
+        AZURE_TABLE: "defendant-history"
+    xhibit_extract_defendant_on_case:
+      env_vars:
+        AZURE_TABLE: "defendant-on-case"
+    xhibit_extract_defendant_on_case_history:
+      env_vars:
+        AZURE_TABLE: "defendant-on-case-history"
+    xhibit_extract_defendant_on_offence:
+      env_vars:
+        AZURE_TABLE: "defendant-on-offence"
+    xhibit_extract_defendant_reference:
+      env_vars:
+        AZURE_TABLE: "defendant-reference"
+    xhibit_extract_disposal2:
+      env_vars:
+        AZURE_TABLE: "disposal2"
+    xhibit_extract_disposal_line:
+      env_vars:
+        AZURE_TABLE: "disposal-line"
+    xhibit_extract_hearing:
+      env_vars:
+        AZURE_TABLE: "hearing"
+    xhibit_extract_hearing_leg_rep:
+      env_vars:
+        AZURE_TABLE: "hearing-leg-rep"
+    xhibit_extract_hearing_list:
+      env_vars:
+        AZURE_TABLE: "hearing-list"
+    xhibit_extract_indictment_log:
+      env_vars:
+        AZURE_TABLE: "indictment-log"
+    xhibit_extract_legal_aid_order:
+      env_vars:
+        AZURE_TABLE: "legal-aid-order"
+    xhibit_extract_list:
+      env_vars:
+        AZURE_TABLE: "list"
     xhibit_extract_migrate_case:
       env_vars:
-        TABLE_NAME: "migrate-case"
-        S3_TABLE_NAME: "migrate_case"
-        FILENAME_TABLE_NAME: "migrate_case"
+        AZURE_TABLE: "migrate-case"
+    xhibit_extract_mis_event_log:
+      env_vars:
+        AZURE_TABLE: "mis-event-log"
+    xhibit_extract_monetary_order_tracking:
+      env_vars:
+        AZURE_TABLE: "monetary-order-tracking"
+    xhibit_extract_offence:
+      env_vars:
+        AZURE_TABLE: "offence"
+    xhibit_extract_plea:
+      env_vars:
+        AZURE_TABLE: "plea"
+    xhibit_extract_ref_advocate:
+      env_vars:
+        AZURE_TABLE: "ref-advocate"
+    xhibit_extract_ref_app_result:
+      env_vars:
+        AZURE_TABLE: "ref-app-result"
+    xhibit_extract_ref_court:
+      env_vars:
+        AZURE_TABLE: "ref-court"
+    xhibit_extract_ref_cracked_effective:
+      env_vars:
+        AZURE_TABLE: "ref-cracked-effective"
+    xhibit_extract_ref_disposal_line:
+      env_vars:
+        AZURE_TABLE: "ref-disposal-line"
+    xhibit_extract_ref_disposal_type:
+      env_vars:
+        AZURE_TABLE: "ref-disposal-type"
+    xhibit_extract_ref_event_description:
+      env_vars:
+        AZURE_TABLE: "ref-event-description"
+    xhibit_extract_ref_hearing_type:
+      env_vars:
+        AZURE_TABLE: "ref-hearing-type"
+    xhibit_extract_ref_judge:
+      env_vars:
+        AZURE_TABLE: "ref-judge"
+    xhibit_extract_ref_legal_representative:
+      env_vars:
+        AZURE_TABLE: "ref-legal-representative"
+    xhibit_extract_ref_listing_data:
+      env_vars:
+        AZURE_TABLE: "ref-listing-data"
+    xhibit_extract_ref_offence:
+      env_vars:
+        AZURE_TABLE: "ref-offence"
+    xhibit_extract_ref_solicitor_firm:
+      env_vars:
+        AZURE_TABLE: "ref-solicitor-firm"
+    xhibit_extract_ref_system_code:
+      env_vars:
+        AZURE_TABLE: "ref-system-code"
+    xhibit_extract_sched_hearing_defendant:
+      env_vars:
+        AZURE_TABLE: "sched-hearing-defendant"
+    xhibit_extract_scheduled_hearing:
+      env_vars:
+        AZURE_TABLE: "scheduled-hearing"
+    xhibit_extract_sh_leg_rep:
+      env_vars:
+        AZURE_TABLE: "sh-leg-rep"
+    xhibit_extract_sitting:
+      env_vars:
+        AZURE_TABLE: "sitting"
+    xhibit_extract_terminal:
+      env_vars:
+        AZURE_TABLE: "terminal"
+    xhibit_extract_verdict:
+      env_vars:
+        AZURE_TABLE: "verdict"
 
 iam:
   athena: write
