@@ -11,7 +11,7 @@ dag:
     FILENAME_COL_NAME: "mojap_unpacked_filename"
     EXCLUDED_FILES_REGEXPR: "_metadata.json$"
     DATABASE_NAME: "xhibit_preprocessed_dev"
-    LAND_BUCKET: "s3://mojap-land-dev"
+    LAND_PATH: "s3://mojap-land-dev"
     LAND_FOLDER: "hmcts/xhibit/"
     START_DATE: "2026-01-01"
   tasks:
