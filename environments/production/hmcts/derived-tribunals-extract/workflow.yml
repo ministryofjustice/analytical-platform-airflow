@@ -1,8 +1,6 @@
 dag:
   schedule: "0 1 * * *"
   catchup: false
-  outlets:
-    - "s3://hmcts/datasets/derived-tribunals-extract-complete.json"
   repository: moj-analytical-services/airflow-sdp-extraction
   tag: v4.3.7
   retries: 0
@@ -29,6 +27,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_bridgeclaimjurisdiction"
 
     et_bridgerejectedclaimsrejectedreason:
       env_vars:
@@ -37,6 +37,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_bridgerejectedclaimsrejectedreason"
 
     et_datadictionary:
       env_vars:
@@ -45,6 +47,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_datadictionary"
 
     et_dimclaim:
       env_vars:
@@ -53,6 +57,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimclaim"
 
     et_dimdate:
       env_vars:
@@ -61,6 +67,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimdate"
 
     et_dimdisposaltype:
       env_vars:
@@ -69,6 +77,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimdisposaltype"
 
     et_dimhearing:
       env_vars:
@@ -77,6 +87,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimhearing"
 
     et_dimhearingstatus:
       env_vars:
@@ -85,6 +97,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimhearingstatus"
 
     et_dimjudicialpaymentregion:
       env_vars:
@@ -93,6 +107,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimjudicialpaymentregion"
 
     et_dimjurisdiction:
       env_vars:
@@ -101,6 +117,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimjurisdiction"
 
     et_dimjurisdictionoutcome:
       env_vars:
@@ -109,6 +127,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimjurisdictionoutcome"
 
     et_dimmanagingoffice:
       env_vars:
@@ -117,6 +137,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimmanagingoffice"
 
     et_dimrejectedreason:
       env_vars:
@@ -125,6 +147,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimrejectedreason"
 
     et_dimrole:
       env_vars:
@@ -133,6 +157,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimrole"
 
     et_dimsource:
       env_vars:
@@ -141,6 +167,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_dimsource"
 
     et_factacceptedclaims:
       env_vars:
@@ -149,6 +177,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_factacceptedclaims"
 
     et_factdisposedclaims:
       env_vars:
@@ -157,6 +187,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_factdisposedclaims"
 
     et_factdisposedjurisdictions:
       env_vars:
@@ -165,6 +197,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_factdisposedjurisdictions"
 
     et_facthearingdays:
       env_vars:
@@ -173,6 +207,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_facthearingdays"
 
     et_factmemberdays:
       env_vars:
@@ -181,6 +217,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_factmemberdays"
 
     et_factopenclaims:
       env_vars:
@@ -189,6 +227,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_factopenclaims"
 
     et_factpostponedhearings:
       env_vars:
@@ -197,6 +237,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_factpostponedhearings"
 
     et_factrejectedclaims:
       env_vars:
@@ -205,6 +247,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_factrejectedclaims"
 
     et_factservedclaims:
       env_vars:
@@ -213,6 +257,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_factservedclaims"
 
     et_factsittingdays:
       env_vars:
@@ -221,6 +267,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_factsittingdays"
 
     et_factsubmittedclaims:
       env_vars:
@@ -229,6 +277,8 @@ dag:
         DATABASE_NAME: "employment_tribunal_amalgamated"
         LAND_PATH: "hmcts/derived-tribunals/employment_tribunal_amalgamated/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/et_factsubmittedclaims"
 
     # SSCS - 17 tables
 
@@ -239,6 +289,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_dimcase"
 
     sscs_dimconstituent:
       env_vars:
@@ -247,6 +299,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_dimconstituent"
 
     sscs_dimconstituentbridge:
       env_vars:
@@ -255,6 +309,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_dimconstituentbridge"
 
     sscs_dimconstituentgroup:
       env_vars:
@@ -263,6 +319,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_dimconstituentgroup"
 
     sscs_dimdate:
       env_vars:
@@ -271,6 +329,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_dimdate"
 
     sscs_dimhearing:
       env_vars:
@@ -279,6 +339,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_dimhearing"
 
     sscs_dimoutcome:
       env_vars:
@@ -287,6 +349,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_dimoutcome"
 
     sscs_dimsession:
       env_vars:
@@ -295,6 +359,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_dimsession"
 
     sscs_dimstate:
       env_vars:
@@ -303,6 +369,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_dimstate"
 
     sscs_dimvenue:
       env_vars:
@@ -311,6 +379,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_dimvenue"
 
     sscs_factcaseoutcomeevents:
       env_vars:
@@ -319,6 +389,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_factcaseoutcomeevents"
 
     sscs_factcaseoutcomes:
       env_vars:
@@ -327,6 +399,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_factcaseoutcomes"
 
     sscs_factcasestates:
       env_vars:
@@ -335,6 +409,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_factcasestates"
 
     sscs_factdisposals:
       env_vars:
@@ -343,6 +419,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_factdisposals"
 
     sscs_facthearings:
       env_vars:
@@ -351,6 +429,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_facthearings"
 
     sscs_factprehearingpostponements:
       env_vars:
@@ -359,6 +439,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_factprehearingpostponements"
 
     sscs_factsessions:
       env_vars:
@@ -367,6 +449,8 @@ dag:
         DATABASE_NAME: "sscs"
         LAND_PATH: "hmcts/derived-tribunals/sscs/"
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/derived-tribunals/extract/sscs_factsessions"
 
 iam:
   athena: write
