@@ -1,5 +1,8 @@
 ---
 dag:
+  schedule:
+    datasets:
+      - "s3://hmcts/datasets/derived-tribunals-modal-load-complete.json"
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
   tag: 1.5.12
   compute_profile: general-on-demand-16vcpu-64gb
