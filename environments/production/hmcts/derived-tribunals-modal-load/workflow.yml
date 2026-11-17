@@ -1,7 +1,13 @@
 ---
 dag:
+  catchup: false
+  schedule:
+    datasets:
+      - "s3://hmcts/datasets/derived-tribunals-extract-complete.json"
+  outlets:
+    - "s3://hmcts/datasets/derived-tribunals-modal-load-complete.json"
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.1.18
+  tag: v2.1.24
   max_active_runs: 1
   retries: 0
   compute_profile: general-on-demand-2vcpu-8gb
