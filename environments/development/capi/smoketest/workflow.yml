@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
-  tag: je-test-v1.0.21-dev
+  tag: je-test-v1.0.23-dev
   env_vars:
     # Keep the existing development environment and AWS region.
     ENV_FOR_DYNACONF: dev
@@ -68,6 +68,7 @@ notifications:
 
 maintainers:
   - guyvw1
+  - jedholm-moj
 
 tags:
   business_unit: HQ
