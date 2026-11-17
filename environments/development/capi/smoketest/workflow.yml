@@ -18,6 +18,8 @@ dag:
 
     DYNACONF_ADDRESS_BASELINE_MASTER_TABLE: address_baseline_master_je_20261109_01
 
+    DYNACONF_MAX_TOKENS: "8192"
+
     AIRFLOW_CTX_DAG_ID: "{{ dag.dag_id }}"
     AIRFLOW_CTX_TASK_ID: "{{ ti.task_id }}"
     AIRFLOW_CTX_TRY_NUMBER: "{{ ti.try_number }}"
