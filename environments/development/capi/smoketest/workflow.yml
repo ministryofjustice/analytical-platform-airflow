@@ -68,6 +68,7 @@ notifications:
 
 maintainers:
   - guyvw1
+  - jedholm-moj
 
 tags:
   business_unit: HQ
