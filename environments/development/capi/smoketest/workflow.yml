@@ -55,6 +55,7 @@ iam:
   athena: write
   glue: true
   bedrock: true
+  lake_formation: true
   s3_read_write:
     - alpha-bold-pilot-rr-families/*
   s3_read_only:
