@@ -1,0 +1,16 @@
+---
+# HITL (human-in-the-loop) example workflow, based on:
+# https://airflow.apache.org/docs/apache-airflow/stable/tutorial/hitl.html
+dag:
+  repository: moj-analytical-services/airflow-3-feature-test-hitl
+  tag: 0.0.1
+  python_dag: true
+
+maintainers:
+  - raghavvidya
+  - jhpyke
+  - tamsinforbes
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk

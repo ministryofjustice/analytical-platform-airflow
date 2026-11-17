@@ -1,0 +1,202 @@
+---
+dag:
+  repository: moj-analytical-services/moj-data-loader
+  tag: v2.1.15-dev
+  max_active_runs: 1
+  retries: 0
+  compute_profile: general-on-demand-2vcpu-8gb
+  env_vars:
+    MODAL_ENV: dev
+    MODAL_ALLOW_PROD: "false"
+    MODAL_SCHEMA_CONTRACT: freeze
+    AWS_DEFAULT_REGION: eu-west-1
+    AWS_ATHENA_QUERY_EXTRACT_REGION: eu-west-1
+    AWS_DEFAULT_EXTRACT_REGION: eu-west-1
+  tasks:
+    load_et_bridgeclaimjurisdiction:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/bridgeclaimjurisdiction
+    load_et_bridgerejectedclaimsrejectedreason:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/bridgerejectedclaimsrejectedreason
+    load_et_datadictionary:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/datadictionary
+    load_et_dimclaim:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimclaim
+    load_et_dimdate:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimdate
+    load_et_dimdisposaltype:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimdisposaltype
+    load_et_dimhearing:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimhearing
+    load_et_dimhearingstatus:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimhearingstatus
+    load_et_dimjudicialpaymentregion:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimjudicialpaymentregion
+    load_et_dimjurisdiction:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimjurisdiction
+    load_et_dimjurisdictionoutcome:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimjurisdictionoutcome
+    load_et_dimmanagingoffice:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimmanagingoffice
+    load_et_dimrejectedreason:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimrejectedreason
+    load_et_dimrole:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimrole
+    load_et_dimsource:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimsource
+    load_et_factacceptedclaims:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factacceptedclaims
+    load_et_factdisposedclaims:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factdisposedclaims
+    load_et_factdisposedjurisdictions:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factdisposedjurisdictions
+    load_et_facthearingdays:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/facthearingdays
+    load_et_factmemberdays:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factmemberdays
+    load_et_factopenclaims:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factopenclaims
+    load_et_factpostponedhearings:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factpostponedhearings
+    load_et_factrejectedclaims:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factrejectedclaims
+    load_et_factservedclaims:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factservedclaims
+    load_et_factsittingdays:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factsittingdays
+    load_et_factsubmittedclaims:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factsubmittedclaims
+    load_sscs_dimcase:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/dimcase
+    load_sscs_dimconstituent:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/dimconstituent
+    load_sscs_dimconstituentbridge:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/dimconstituentbridge
+    load_sscs_dimconstituentgroup:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/dimconstituentgroup
+    load_sscs_dimdate:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/dimdate
+    load_sscs_dimhearing:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/dimhearing
+    load_sscs_dimoutcome:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/dimoutcome
+    load_sscs_dimsession:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/dimsession
+    load_sscs_dimstate:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/dimstate
+    load_sscs_dimvenue:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/dimvenue
+    load_sscs_factcaseoutcomeevents:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/factcaseoutcomeevents
+    load_sscs_factcaseoutcomes:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/factcaseoutcomes
+    load_sscs_factcasestates:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/factcasestates
+    load_sscs_factdisposals:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/factdisposals
+    load_sscs_facthearings:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/facthearings
+    load_sscs_factprehearingpostponements:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/factprehearingpostponements
+    load_sscs_factsessions:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODAL_PIPELINE_NAME: sscs_dev/factsessions
+  is_paused_upon_creation: true
+iam:
+  athena: write
+  glue: true
+  s3_read_only:
+    - mojap-land-dev/hmcts/derived-tribunals/*
+  s3_read_write:
+    - mojap-processed/domain__hmcts/env__dev/*
+maintainers:
+  - DanJ-MOJ
+  - Andy-Cook
+  - AntonyJScott
+tags:
+  business_unit: Central Digital
+  owner: cft_data_engineering@justice.gov.uk

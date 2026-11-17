@@ -11,7 +11,7 @@ module "iam_role" {
     aws = aws.analytical-platform-data-production-eu-west-2
   }
 
-  role_name = "airflow-${var.environment}-${var.project}-${var.workflow}"
+  role_name = "airflow-${local.iam_environment}-${var.project}-${var.workflow}"
 
   max_session_duration = 43200
 

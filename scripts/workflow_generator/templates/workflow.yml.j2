@@ -32,6 +32,16 @@
         *Task*: {% raw %}{{ ti.task_id }}{% endraw %}
         *Logs*: {% raw %}{{ ti.log_url }}{% endraw %}
     {%- endif %}
+    {%- if "skipped" in slack_events %}
+    on_skipped_callback:
+      callback: airflow.providers.slack.notifications.slack.send_slack_notification
+      channel: {{ notifications.slack_channel }}
+      text: |
+        :airflow: *Airflow {{ meta.environment|capitalize }}*
+        :warning: {{ meta.project }}.{{ meta.workflow }} was skipped.{% if notifications.slack_skipped_text %} {{ notifications.slack_skipped_text }}{% endif %}
+        *Task*: {% raw %}{{ ti.task_id }}{% endraw %}
+        *Logs*: {% raw %}{{ ti.log_url }}{% endraw %}
+    {%- endif %}
     {%- endif %}
     {%- if notifications is defined and notifications.emails %}
     email: {{ notifications.emails }}
@@ -64,7 +74,7 @@
     {%- if dag.tasks %}
     {%- for task_name, task in dag.tasks.items() %}
     {{ task_name }}:
-      operator: analytical_platform.standard_operator.AnalyticalPlatformStandardOperator
+      operator: {{ meta.operator }}
       name: {{ meta.project }}-{{ meta.workflow }}-{{ task_name }}
       task_id: {{ meta.project }}-{{ meta.workflow }}-{{ task_name }}
       compute_profile: {{ task.compute_profile or dag.compute_profile or "general-spot-1vcpu-4gb" }}
@@ -88,6 +98,9 @@
       environment: {{ meta.environment }}
       project: {{ meta.project }}
       workflow: {{ meta.workflow }}
+      {%- if task.skip_on_exit_code %}
+      skip_on_exit_code: {{ task.skip_on_exit_code }}
+      {%- endif %}
       {%- if task.dependencies %}
       dependencies: {{ task.dependencies }}
       {%- endif %}
@@ -100,7 +113,7 @@
     {%- endfor %}
     {%- else %}
     main:
-      operator: analytical_platform.standard_operator.AnalyticalPlatformStandardOperator
+      operator: {{ meta.operator }}
       name: {{ meta.project }}.{{ meta.workflow }}
       task_id: {{ meta.project }}-{{ meta.workflow }}
       compute_profile: {{ dag.compute_profile|default("general-spot-1vcpu-4gb") }}

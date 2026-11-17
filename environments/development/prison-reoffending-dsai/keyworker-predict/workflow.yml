@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-keyworker-casenotes-prediction
-  tag: v4.0.9
+  tag: v4.1.1
   env_vars:
     ENVIRONMENT: "dev"
   catchup: true
@@ -12,21 +12,13 @@ dag:
 
 iam:
   athena: write
+  lake_formation: true
 
   s3_read_only:
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
-    - moj-reg-prod-curated/data-eng-uploader-prod/data/database_name=kw_ratings/*
-    - alpha-nomis/nomis_dn/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
-    - mojap-derived-tables/seeds/nomis_dn/*
     - alpha-kw-case-notes/KW_Quality/*
 
   s3_read_write:
     - alpha-keyworker-casenotes/*
-    - alpha-athena-dump/*
-    - alpha-athena-query-dump/*
-    - mojap-athena-query-dump/*
 
 notifications:
   emails:

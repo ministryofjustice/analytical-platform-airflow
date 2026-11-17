@@ -1,13 +1,17 @@
 dag:
   repository: moj-analytical-services/airflow-vio-summary
-  tag: v1.2.1
+  tag: v1.3.3
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
   outlets:
     - "s3://alpha-app-safety-diagnostic-tool/vio-summary/summary_dev.csv"
 
+secrets:
+  - ai-gateway-api-key
+
 iam:
   athena: write
+  lake_formation: true
 
   s3_read_only:
     - alpha-safety-mi/prisons_ds/*
@@ -32,4 +36,4 @@ maintainers:
 
 tags:
   business_unit: HMPPS
-  owner: william.miller1@justice.gov.uk
+  owner: laura.tracey@justice.gov.uk

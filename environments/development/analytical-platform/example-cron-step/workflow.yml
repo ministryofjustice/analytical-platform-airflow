@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/analytical-platform-airflow-python-example
-  tag: 2.18.0
+  tag: 2.18.2
   retries: 3
   retry_delay: 150
   schedule: "*/5 * * * *" # is valid https://crontab.guru/#*/5_*_*_*_*
@@ -10,7 +10,8 @@ notifications:
   slack_channel: analytical-platform-airflow-testing
 
 maintainers:
-  - jacobwoffenden
+  - jhpyke
+  - raghavvidya
 
 tags:
   business_unit: Central Digital

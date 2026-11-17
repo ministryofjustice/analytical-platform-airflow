@@ -1,0 +1,7 @@
+---
+self-hosted-runner:
+  # Custom runner labels used in this repository.
+  # octo-production: OCTO GitHub-hosted compute with a fixed egress IP,
+  # required to reach the allowlisted EKS public API endpoints.
+  labels:
+    - octo-production
