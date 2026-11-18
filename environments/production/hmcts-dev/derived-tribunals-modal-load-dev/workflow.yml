@@ -1,7 +1,52 @@
 ---
 dag:
+  schedule:
+    datasets:
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_bridgeclaimjurisdiction"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_bridgerejectedclaimsrejectedreason"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_datadictionary"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimclaim"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimdate"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimdisposaltype"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimhearing"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimhearingstatus"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimjudicialpaymentregion"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimjurisdiction"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimjurisdictionoutcome"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimmanagingoffice"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimrejectedreason"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimrole"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_dimsource"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_factacceptedclaims"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_factdisposedclaims"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_factdisposedjurisdictions"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_facthearingdays"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_factmemberdays"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_factopenclaims"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_factpostponedhearings"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_factrejectedclaims"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_factservedclaims"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_factsittingdays"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/et_factsubmittedclaims"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_dimcase"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_dimconstituent"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_dimconstituentbridge"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_dimconstituentgroup"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_dimdate"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_dimhearing"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_dimoutcome"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_dimsession"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_dimstate"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_dimvenue"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_factcaseoutcomeevents"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_factcaseoutcomes"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_factcasestates"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_factdisposals"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_facthearings"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_factprehearingpostponements"
+      - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_factsessions"
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.1.15-dev
+  tag: v2.1.24
   max_active_runs: 1
   retries: 0
   compute_profile: general-on-demand-2vcpu-8gb
@@ -15,182 +60,268 @@ dag:
   tasks:
     load_et_bridgeclaimjurisdiction:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_bridgeclaimjurisdiction"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/bridgeclaimjurisdiction
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/bridgeclaimjurisdiction
     load_et_bridgerejectedclaimsrejectedreason:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_bridgerejectedclaimsrejectedreason"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/bridgerejectedclaimsrejectedreason
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/bridgerejectedclaimsrejectedreason
     load_et_datadictionary:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_datadictionary"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/datadictionary
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/datadictionary
     load_et_dimclaim:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimclaim"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimclaim
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimclaim
     load_et_dimdate:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimdate"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimdate
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimdate
     load_et_dimdisposaltype:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimdisposaltype"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimdisposaltype
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimdisposaltype
     load_et_dimhearing:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimhearing"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimhearing
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimhearing
     load_et_dimhearingstatus:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimhearingstatus"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimhearingstatus
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimhearingstatus
     load_et_dimjudicialpaymentregion:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimjudicialpaymentregion"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimjudicialpaymentregion
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimjudicialpaymentregion
     load_et_dimjurisdiction:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimjurisdiction"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimjurisdiction
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimjurisdiction
     load_et_dimjurisdictionoutcome:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimjurisdictionoutcome"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimjurisdictionoutcome
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimjurisdictionoutcome
     load_et_dimmanagingoffice:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimmanagingoffice"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimmanagingoffice
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimmanagingoffice
     load_et_dimrejectedreason:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimrejectedreason"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimrejectedreason
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimrejectedreason
     load_et_dimrole:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimrole"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimrole
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimrole
     load_et_dimsource:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimsource"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/dimsource
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/dimsource
     load_et_factacceptedclaims:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factacceptedclaims"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factacceptedclaims
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/factacceptedclaims
     load_et_factdisposedclaims:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factdisposedclaims"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factdisposedclaims
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/factdisposedclaims
     load_et_factdisposedjurisdictions:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factdisposedjurisdictions"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factdisposedjurisdictions
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/factdisposedjurisdictions
     load_et_facthearingdays:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_facthearingdays"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/facthearingdays
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/facthearingdays
     load_et_factmemberdays:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factmemberdays"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factmemberdays
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/factmemberdays
     load_et_factopenclaims:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factopenclaims"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factopenclaims
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/factopenclaims
     load_et_factpostponedhearings:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factpostponedhearings"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factpostponedhearings
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/factpostponedhearings
     load_et_factrejectedclaims:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factrejectedclaims"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factrejectedclaims
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/factrejectedclaims
     load_et_factservedclaims:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factservedclaims"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factservedclaims
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/factservedclaims
     load_et_factsittingdays:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factsittingdays"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factsittingdays
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/factsittingdays
     load_et_factsubmittedclaims:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factsubmittedclaims"
       env_vars:
-        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated_dev/factsubmittedclaims
+        MODAL_PIPELINE_NAME: employment_tribunal_amalgamated/factsubmittedclaims
     load_sscs_dimcase:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimcase"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/dimcase
+        MODAL_PIPELINE_NAME: sscs/dimcase
     load_sscs_dimconstituent:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimconstituent"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/dimconstituent
+        MODAL_PIPELINE_NAME: sscs/dimconstituent
     load_sscs_dimconstituentbridge:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimconstituentbridge"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/dimconstituentbridge
+        MODAL_PIPELINE_NAME: sscs/dimconstituentbridge
     load_sscs_dimconstituentgroup:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimconstituentgroup"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/dimconstituentgroup
+        MODAL_PIPELINE_NAME: sscs/dimconstituentgroup
     load_sscs_dimdate:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimdate"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/dimdate
+        MODAL_PIPELINE_NAME: sscs/dimdate
     load_sscs_dimhearing:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimhearing"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/dimhearing
+        MODAL_PIPELINE_NAME: sscs/dimhearing
     load_sscs_dimoutcome:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimoutcome"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/dimoutcome
+        MODAL_PIPELINE_NAME: sscs/dimoutcome
     load_sscs_dimsession:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimsession"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/dimsession
+        MODAL_PIPELINE_NAME: sscs/dimsession
     load_sscs_dimstate:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimstate"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/dimstate
+        MODAL_PIPELINE_NAME: sscs/dimstate
     load_sscs_dimvenue:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimvenue"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/dimvenue
+        MODAL_PIPELINE_NAME: sscs/dimvenue
     load_sscs_factcaseoutcomeevents:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factcaseoutcomeevents"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/factcaseoutcomeevents
+        MODAL_PIPELINE_NAME: sscs/factcaseoutcomeevents
     load_sscs_factcaseoutcomes:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factcaseoutcomes"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/factcaseoutcomes
+        MODAL_PIPELINE_NAME: sscs/factcaseoutcomes
     load_sscs_factcasestates:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factcasestates"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/factcasestates
+        MODAL_PIPELINE_NAME: sscs/factcasestates
     load_sscs_factdisposals:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factdisposals"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/factdisposals
+        MODAL_PIPELINE_NAME: sscs/factdisposals
     load_sscs_facthearings:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_facthearings"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/facthearings
+        MODAL_PIPELINE_NAME: sscs/facthearings
     load_sscs_factprehearingpostponements:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factprehearingpostponements"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/factprehearingpostponements
+        MODAL_PIPELINE_NAME: sscs/factprehearingpostponements
     load_sscs_factsessions:
       compute_profile: general-on-demand-16vcpu-64gb
+      outlets:
+        - "s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factsessions"
       env_vars:
-        MODAL_PIPELINE_NAME: sscs_dev/factsessions
+        MODAL_PIPELINE_NAME: sscs/factsessions
   is_paused_upon_creation: true
 iam:
   athena: write
   glue: true
   s3_read_only:
-    - mojap-land-dev/hmcts/derived-tribunals/*
+    - mojap-land/hmcts/derived-tribunals/*
   s3_read_write:
     - mojap-processed/domain__hmcts/env__dev/*
 maintainers:
