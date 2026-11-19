@@ -7,6 +7,7 @@ dag:
   hmcts_sdp_networking: true
   env_vars:
     DEPLOY_ENV: dev
+    FULL_REFRESH: "True"
     DBT_PROFILE_WORKGROUP: dbt-xhibit
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-onecrown-sdp-cur-dev
