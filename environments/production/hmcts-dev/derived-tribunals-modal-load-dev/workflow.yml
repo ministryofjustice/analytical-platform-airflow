@@ -46,7 +46,7 @@ dag:
       - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_factprehearingpostponements"
       - "s3://hmcts/datasets/dev/derived-tribunals/extract/sscs_factsessions"
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.1.24
+  tag: v2.2.1
   max_active_runs: 1
   retries: 0
   compute_profile: general-on-demand-2vcpu-8gb
