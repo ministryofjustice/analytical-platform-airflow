@@ -1,8 +1,8 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.5.11
-  compute_profile: general-on-demand-16vcpu-64gb
+  tag: 1.5.13
+  compute_profile: general-on-demand-4vcpu-16gb
   catchup: false
   hmcts_sdp_networking: true
   env_vars:
@@ -10,10 +10,43 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-xhibit
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-onecrown-sdp-cur-dev
-    DBT_SELECT_CRITERIA: tag:onecrown_sdp_dev
     BRANCH: feature/onecrown-sdp-curation
     MODE: build
     THREAD_COUNT: 10
+
+  tasks:
+    common_platform_stg_sdp:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        DBT_SELECT_CRITERIA: tag:cp_stg_sdp_cur
+    common_platform_int_sdp:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        DBT_SELECT_CRITERIA: tag:cp_int_sdp_cur
+    common_platform_dim_sdp:
+      env_vars:
+        DBT_SELECT_CRITERIA: tag:cp_dim_sdp_cur
+    xhibit_stg_sdp:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        DBT_SELECT_CRITERIA: tag:xhibit_stg_sdp_cur
+    xhibit_int_sdp:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        DBT_SELECT_CRITERIA: tag:xhibit_int_sdp_cur
+    xhibit_dim_sdp:
+      env_vars:
+          DBT_SELECT_CRITERIA: tag:xhibit_dim_sdp_cur
+    crown_court_int_sdp:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        DBT_SELECT_CRITERIA: tag:crown_court_int_sdp_cur
+    crown_court_dim_sdp:
+      env_vars:
+        DBT_SELECT_CRITERIA: tag:crown_court_dim_sdp_cur
+    crown_court_datamarts_sdp:
+      env_vars:
+        DBT_SELECT_CRITERIA: tag:crown_court_datamarts_sdp_cur
 
 maintainers:
   - jovita-brundziene
