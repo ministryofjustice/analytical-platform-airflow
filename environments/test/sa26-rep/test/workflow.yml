@@ -33,6 +33,7 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=agency_locations_wap/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=reference_codes_wap/*
     - mojap-derived-tables/seeds/imprisonment_statuses/*
+    - mojap-derived-tables/seeds/lookup_court_disposals_v2/moj_disposal_codes/*
     - alpha-sentencing-pub/*
     - alpha-pris-shared/*
 
