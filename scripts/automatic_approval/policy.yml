@@ -71,3 +71,9 @@ default:
 #       - (dag|dag\.tasks\.[^.=]+)\.compute_profile=gpu-(spot|on-demand)-(1vcpu-4gb|2vcpu-8gb|4vcpu-16gb|8vcpu-32gb|16vcpu-64gb)
 #   - match: environments/production/hmcts/.* # always review this project
 #     manual: true
+overrides:
+  # LAA search workflows always need a manual review, whatever the change
+  - match: environments/production/laa-search-index/.*
+    manual: true
+  - match: environments/.*/laa-search-legal-aid-data(/.*)? # as a project or a workflow, any environment
+    manual: true
