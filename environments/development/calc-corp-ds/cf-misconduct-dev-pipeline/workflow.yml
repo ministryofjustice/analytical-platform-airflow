@@ -1,14 +1,27 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v10
+  tag: v14
   catchup: false
+  max_active_runs: 1
   tasks:
-    classification-predict-inv:
+    check-for-new-extract:
+      env_vars:
+        EXEC_SCRIPT: "python"
+        EXEC_ARGS: "scripts/check_new_extract.py --env dev"
+      skip_on_exit_code:
+        - 99
+    classify:
+      dependencies: [check-for-new-extract]
       env_vars:
         EXEC_SCRIPT: "classification-predict-inv"
         EXEC_ARGS: "--env dev --source sql"
       compute_profile: gpu-spot-8vcpu-32gb
+    athena-to-webapp:
+      dependencies: [classify]
+      env_vars:
+        EXEC_SCRIPT: "python"
+        EXEC_ARGS: "scripts/athena_to_webapp.py --env dev"
 
 iam:
   athena: write
@@ -24,14 +37,14 @@ iam:
 maintainers:
   - jhenfrancis
   - sheilz81
-  - maxblum31
+  - adityadsgit
 
 notifications:
   emails:
     - jhenielle.francis@justice.gov.uk
     - sheila.ladva@justice.gov.uk
-    - max.blum@justice.gov.uk
-  slack_channel: cf-misconduct-notifications
+    - aditya.upmanyu@justice.gov.uk
+  slack_channel: cf-misconduct-notifications-dev
 
 tags:
   business_unit: HQ
