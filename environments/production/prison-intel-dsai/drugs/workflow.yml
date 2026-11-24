@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-drugs-app
-  tag: 1.2.2
+  tag: 1.2.3
   env_vars:
     AIRFLOW_ENVIRONMENT: "PRODUCTION"
   catchup: false
@@ -22,11 +22,6 @@ iam:
   lake_formation: true
   s3_read_only:
     - alpha-app-kpi-s3-proxy/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
-    - mojap-derived-tables/seeds/nomis_dn/*
-    - alpha-nomis/nomis_dn/*
   s3_read_write:
     - alpha-app-drugs-app/
     - alpha-app-drug-conveyancing/*
