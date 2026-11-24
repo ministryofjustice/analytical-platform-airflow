@@ -14,25 +14,25 @@ dag:
     hmcts_lm:
       env_vars:
         BUSINESS_UNIT: "hmcts"
-        OVERRIDE_SCHEDULE: "true"
+        OVERRIDE_SCHEDULE: "false"
         ENVIRONMENT: "dev"
-        EVOLVE_SCHEMA: "true"
+        EVOLVE_SCHEMA: "false"
         FORCE_FY: "{{ dag_run.conf.get('force_fy', '') }}"
         FORCE_PERIOD: "{{ dag_run.conf.get('force_period', '') }}"
     hmpps_lm:
       env_vars:
         BUSINESS_UNIT: "hmpps"
-        OVERRIDE_SCHEDULE: "true"
+        OVERRIDE_SCHEDULE: "false"
         ENVIRONMENT: "dev"
-        EVOLVE_SCHEMA: "true"
+        EVOLVE_SCHEMA: "false"
         FORCE_FY: "{{ dag_run.conf.get('force_fy', '') }}"
         FORCE_PERIOD: "{{ dag_run.conf.get('force_period', '') }}"
     mojhq_lm:
       env_vars:
         BUSINESS_UNIT: "moj_hq"
-        OVERRIDE_SCHEDULE: "true"
+        OVERRIDE_SCHEDULE: "false"
         ENVIRONMENT: "dev"
-        EVOLVE_SCHEMA: "true"
+        EVOLVE_SCHEMA: "false"
         FORCE_FY: "{{ dag_run.conf.get('force_fy', '') }}"
         FORCE_PERIOD: "{{ dag_run.conf.get('force_period', '') }}"
 
