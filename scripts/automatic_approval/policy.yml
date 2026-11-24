@@ -72,8 +72,9 @@ default:
 #   - match: environments/production/hmcts/.* # always review this project
 #     manual: true
 overrides:
-  # LAA search workflows always need a manual review, whatever the change
-  - match: environments/production/laa-search-index/.*
+  # LAA search workflows always need a manual review, whatever the change, in every environment
+  - match: environments/.*/laa-search-index(/.*)? # as a project or a workflow
     manual: true
-  - match: environments/.*/laa-search-legal-aid-data(/.*)? # as a project or a workflow, any environment
+  - match: environments/.*/laa-search-legal-aid-data(/.*)? # as a project or a workflow
     manual: true
+
