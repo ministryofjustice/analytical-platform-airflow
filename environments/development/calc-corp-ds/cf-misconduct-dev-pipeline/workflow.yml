@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: v14
+  tag: dev-1
   catchup: false
   max_active_runs: 1
   tasks:
@@ -40,12 +40,8 @@ maintainers:
   - adityadsgit
 
 notifications:
-  emails:
-    - jhenielle.francis@justice.gov.uk
-    - sheila.ladva@justice.gov.uk
-    - aditya.upmanyu@justice.gov.uk
   slack_channel: cf-misconduct-notifications-dev
 
 tags:
   business_unit: HQ
-  owner: jhenielle.francis@justice.gov.uk
+  owner: sheila.ladva@justice.gov.uk
