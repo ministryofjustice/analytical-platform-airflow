@@ -77,4 +77,3 @@ overrides:
     manual: true
   - match: environments/.*/laa-search-legal-aid-data(/.*)? # as a project or a workflow
     manual: true
-
