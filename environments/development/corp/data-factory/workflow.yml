@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-corp-data-factory
-  tag: v0.0.2
+  tag: v0.0.3
   is_paused_upon_creation: true
 
 maintainers:
