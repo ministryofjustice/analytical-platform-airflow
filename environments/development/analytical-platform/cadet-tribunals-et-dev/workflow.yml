@@ -38,6 +38,7 @@ dag:
       outlets:
         - "s3://mojap-derived-tables/dev/tribunals/et-raw-published"
 maintainers:
+  - DanJ-MOJ
   - AntonyJScott
 secrets:
   - github-key
