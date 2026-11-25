@@ -12,5 +12,5 @@ tags:
   owner: jonah.blain@justice.gov.uk
 
 secrets:
-  - matrix_username
-  - matrix_password
+  - matrix-username
+  - matrix-password
