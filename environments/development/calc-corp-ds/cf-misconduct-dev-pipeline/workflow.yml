@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-cf-misconduct
-  tag: dev-1
+  tag: dev-3
   catchup: false
   max_active_runs: 1
   tasks:
