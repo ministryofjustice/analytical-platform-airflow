@@ -328,7 +328,6 @@ notifications:
   slack_channel: dmet-hmcts-notifications
 maintainers:
   - DanJ-MOJ
-  - Andy-Cook
   - AntonyJScott
 tags:
   business_unit: Central Digital
