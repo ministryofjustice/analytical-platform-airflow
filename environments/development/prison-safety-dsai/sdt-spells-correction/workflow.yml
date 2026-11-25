@@ -18,6 +18,9 @@ iam:
     - alpha-safety-mi/prisons_ds/offender_location_fix/*
     - alpha-safety-mi/prisons_ds/offender_location_nomis/*
     - alpha-safety-mi/prisons_ds/offender_location_extract/*
+    - alpha-safety-mi/prisons_ds/dev_offender_location_fix/*
+    - alpha-safety-mi/prisons_ds/dev_offender_location_nomis/*
+    - alpha-safety-mi/prisons_ds/dev_offender_location_extract/*
     - alpha-safety-mi/viper/*
 
 notifications:
