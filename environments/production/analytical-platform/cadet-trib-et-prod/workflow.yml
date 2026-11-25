@@ -38,6 +38,7 @@ dag:
         - "s3://mojap-derived-tables/prod/tribunals/et-raw-published"
   schedule: 0 5 * * *
 maintainers:
+  - DanJ-MOJ
   - AntonyJScott
 secrets:
   - github-key
@@ -49,3 +50,6 @@ iam:
 tags:
   business_unit: Central Digital
   owner: Antony.Scott@justice.gov.uk
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
