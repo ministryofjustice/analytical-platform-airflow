@@ -1,0 +1,16 @@
+dag:
+  repository: ministryofjustice/matrix-booking-airflow
+  tag: v1.0.0
+
+  schedule: "0 0 * * *"
+
+maintainers:
+  - jonahblain
+
+tags:
+  business_unit: Justice System Modelling
+  owner: jonah.blain@justice.gov.uk
+
+secrets:
+  - matrix_username
+  - matrix_password
