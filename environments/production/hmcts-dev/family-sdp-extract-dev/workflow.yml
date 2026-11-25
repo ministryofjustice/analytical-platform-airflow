@@ -1,0 +1,37 @@
+dag:
+  repository: moj-analytical-services/airflow-sdp-extraction
+  tag: v4.3.7
+  retries: 0
+  hmcts_sdp_networking: true
+  is_paused_upon_creation: true
+  max_active_runs: 1
+  env_vars:
+    LOG_LEVEL: INFO
+    ENDPOINT: DATA_LAKE_PROD
+    AZURE_TABLE: workspace
+    COPY_MODE: all
+    DRYRUN: 'False'
+    WRITE_FOLDER_STRUCTURE: file_only
+    EXCLUDED_FILES_REGEXPR: (^|/)_delta_log/|(?i:^(?!.*[.]parquet$))
+    LAND_BUCKET: mojap-land-dev
+  tasks:
+    rdm_dimdate:
+      env_vars:
+        BLOB_PREFIX: synapse/workspaces/mi-synapse-prod/warehouse/rdm.db/dimdate/
+        S3_TABLE: dimdate
+        DATABASE_NAME: family_sdp_rdm_dev
+        LAND_PATH: hmcts/family-sdp/poc/rdm/
+      compute_profile: general-spot-1vcpu-4gb
+  schedule: null
+iam:
+  athena: write
+  glue: true
+  s3_read_write:
+  - mojap-land-dev/hmcts/family-sdp/*
+secrets:
+- sdp-pass
+maintainers:
+- AntonyJScott
+tags:
+  business_unit: Central Digital
+  owner: cft_data_engineering@justice.gov.uk
