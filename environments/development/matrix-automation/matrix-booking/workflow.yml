@@ -1,8 +1,12 @@
 dag:
   repository: moj-analytical-services/matrix-booking-airflow
-  tag: v1.0.1
-
+  tag: v1.0.3
   schedule: "0 0 * * *"
+  catchup: false
+  max_active_runs: 1
+  retries: 2
+  retry_delay: 30
+  compute_profile: general-on-demand-1vcpu-4gb
 
 maintainers:
   - jonahblain
@@ -14,3 +18,7 @@ tags:
 secrets:
   - matrix-username
   - matrix-password
+
+notifications:
+  emails:
+    - jonah.blain@justice.gov.uk
