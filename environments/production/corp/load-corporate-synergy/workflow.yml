@@ -175,6 +175,9 @@ iam:
     - mojap-processed/domain__commercial/env__prod/synergy_sop/*
     - mojap-processed/domain__commercial/env__prod/synergy_sop_staging/*
     - mojap-processed/domain__commercial/env__prod/athena_query_dump/*
+    - mojap-processed/domain__hr/env__prod/synergy_sop_hr/*
+    - mojap-processed/domain__hr/env__prod/synergy_sop_hr_staging/*
+    - mojap-processed/domain__hr/env__prod/athena_query_dump/*
 
 notifications:
   slack_channel: dmet-corp-splashbi-notifications
