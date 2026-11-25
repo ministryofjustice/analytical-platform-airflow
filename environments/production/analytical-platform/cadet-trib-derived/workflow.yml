@@ -76,6 +76,7 @@ dag:
         DBT_SELECT_CRITERIA: "path:models/tribunals/sscs_derived"
 
 maintainers:
+  - DanJ-MOJ
   - AntonyJScott
 
 tags:
@@ -90,3 +91,6 @@ iam:
   glue: true
   s3_read_write:
     - mojap-derived-tables/prod/*
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
