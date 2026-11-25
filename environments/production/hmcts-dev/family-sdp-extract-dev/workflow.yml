@@ -1,3 +1,4 @@
+---
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
   tag: v4.3.7
@@ -10,7 +11,7 @@ dag:
     ENDPOINT: DATA_LAKE_PROD
     AZURE_TABLE: workspace
     COPY_MODE: all
-    DRYRUN: 'False'
+    DRYRUN: "False"
     WRITE_FOLDER_STRUCTURE: file_only
     EXCLUDED_FILES_REGEXPR: (^|/)_delta_log/|(?i:^(?!.*[.]parquet$))
     LAND_BUCKET: mojap-land-dev
@@ -26,11 +27,11 @@ iam:
   athena: write
   glue: true
   s3_read_write:
-  - mojap-land-dev/hmcts/family-sdp/*
+    - mojap-land-dev/hmcts/family-sdp/*
 secrets:
-- sdp-pass
+  - sdp-pass
 maintainers:
-- AntonyJScott
+  - AntonyJScott
 tags:
   business_unit: Central Digital
   owner: cft_data_engineering@justice.gov.uk
