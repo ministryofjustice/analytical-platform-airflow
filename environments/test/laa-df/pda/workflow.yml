@@ -1,6 +1,6 @@
 ---
 dag:
-  repository: moj-analytical-services/laa_cwa_providers
+  repository: moj-analytical-services/laa-provider-details-etl
   tag: 2.0.1-athena
   retries: 2
   retry_delay: 150
@@ -24,7 +24,7 @@ dag:
     API_MAX_RETRIES: "2"
     DEPENDENCY_BATCH_SIZE: "100"
     API_BASE_URL: >-
-      https://laa-provider-details-api-prod.apps.live.cloud-platform.service.justice.gov.uk/
+      https://laa-provider-details-api-uat.apps.live.cloud-platform.service.justice.gov.uk/
     PIPELINE_DIR: "providers_staging_dev/"
     DATABASE_NAME: "pda_airflow"
 
