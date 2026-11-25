@@ -26,7 +26,7 @@ dag:
     table_deploy:
       compute_profile: general-on-demand-8vcpu-32gb
       outlets:
-        - "s3://hmpps_digital_prisons_reporting_tables/prod/dpr-daily/"
+        - "s3://hmpps-digital-prisons-reporting-tables/prod/dpr-daily/"
     check_run_results:
       compute_profile: general-on-demand-1vcpu-4gb
       env_vars:
