@@ -75,6 +75,7 @@ dag:
       outlets:
         - s3://hmcts/datasets/dev/derived-tribunals/cadet/curated-sscs
 maintainers:
+  - DanJ-MOJ
   - AntonyJScott
 tags:
   business_unit: Central Digital

@@ -39,6 +39,7 @@ dag:
       dependencies:
         - build_expanded
 maintainers:
+  - DanJ-MOJ
   - AntonyJScott
 tags:
   business_unit: Central Digital
@@ -50,3 +51,6 @@ iam:
     - mojap-derived-tables/prod/*
 secrets:
   - github-key
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
