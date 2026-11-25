@@ -1,8 +1,9 @@
 dag:
   repository: moj-analytical-services/airflow-spells-correction
-  tag: v1.1.8
+  tag: v1.1.10
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
+  compute_profile: "general-spot-4vcpu-16gb"
 
 iam:
   athena: write
@@ -18,6 +19,9 @@ iam:
     - alpha-safety-mi/prisons_ds/offender_location_fix/*
     - alpha-safety-mi/prisons_ds/offender_location_nomis/*
     - alpha-safety-mi/prisons_ds/offender_location_extract/*
+    - alpha-safety-mi/prisons_ds/dev_offender_location_fix/*
+    - alpha-safety-mi/prisons_ds/dev_offender_location_nomis/*
+    - alpha-safety-mi/prisons_ds/dev_offender_location_extract/*
     - alpha-safety-mi/viper/*
 
 notifications:
