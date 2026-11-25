@@ -1,9 +1,9 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.5.9
+  tag: 1.5.12
   compute_profile: general-on-demand-8vcpu-32gb
-  schedule: "0 5 * * *"
+  schedule: "0 2 * * *"
   start_date: "2026-08-17"
   catchup: false
   env_vars:
@@ -22,6 +22,16 @@ dag:
     FULL_REFRESH: false
     CHECK_DUAL_MATERIALIZATION: true
     DEPLOY_MODIFIED_SEEDS: true
+  tasks:
+    table_deploy:
+      compute_profile: general-on-demand-8vcpu-32gb
+      outlets:
+        - "s3://hmpps_digital_prisons_reporting_tables/prod/dpr-daily/"
+    check_run_results:
+      compute_profile: general-on-demand-1vcpu-4gb
+      env_vars:
+        IS_DATASET_CHECK: true
+      dependencies: [table_deploy]
 secrets:
   - github-key
 
@@ -34,6 +44,7 @@ notifications:
     - andrew.craik@justice.gov.uk
     - anthony.fitzroy@justice.gov.uk
     - anthony.cody@justice.gov.uk
+  slack_channel: dmet-hmpps-team
 
 iam:
   external_role: arn:aws:iam::004723187462:role/dpr-data-api-cross-account-role
