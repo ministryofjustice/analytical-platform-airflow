@@ -39,6 +39,7 @@ dag:
       dependencies:
         - build_expanded
 maintainers:
+  - DanJ-MOJ
   - AntonyJScott
 tags:
   business_unit: Central Digital

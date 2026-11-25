@@ -326,7 +326,6 @@ iam:
     - mojap-processed/domain__hmcts/env__dev/*
 maintainers:
   - DanJ-MOJ
-  - Andy-Cook
   - AntonyJScott
 tags:
   business_unit: Central Digital
