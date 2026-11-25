@@ -22,7 +22,6 @@ dag:
         DATABASE_NAME: family_sdp_rdm_dev
         LAND_PATH: hmcts/family-sdp/poc/rdm/
       compute_profile: general-spot-1vcpu-4gb
-  schedule: null
 iam:
   athena: write
   glue: true
