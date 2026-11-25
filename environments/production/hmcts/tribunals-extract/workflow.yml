@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v4.3.2
+  tag: v4.3.7
   retries: 2
   retry_delay: 150
   schedule: 0 20 * * *
@@ -60,10 +60,12 @@ secrets:
   - sdp-pass
 
 maintainers:
-  - Andy-Cook
   - DanJ-MOJ
   - AntonyJScott
 
 tags:
   business_unit: Central Digital
   owner: cft_data_engineering@justice.gov.uk
+
+notifications:
+  slack_channel: dmet-hmcts-notifications
