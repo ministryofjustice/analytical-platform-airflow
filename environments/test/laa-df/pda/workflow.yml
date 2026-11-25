@@ -1,0 +1,67 @@
+---
+dag:
+  repository: moj-analytical-services/laa-provider-details-etl
+  tag: 2.0.1-athena
+  retries: 2
+  retry_delay: 150
+  compute_profile: general-on-demand-8vcpu-32gb
+  env_vars:
+    ENVIRONMENT: "dev"
+    LOG_LEVEL: "INFO"
+    BUCKET_URL: >-
+      s3://poc-fake-data-df/pda_manual_test/raw
+    CACHE_DIRECTORY: >-
+      s3://poc-fake-data-df/pda_manual_test/cache
+    ERROR_SUMMARY_DIR: >-
+      s3://poc-fake-data-df/pda_manual_test/error_summaries
+    QUERY_RESULT_BUCKET: >-
+      s3://poc-fake-data-df/athena-results/
+    ATHENA_WORK_GROUP: "primary"
+    CACHE_ENABLED: "true"
+    DISABLE_COMPRESSION: "true"
+    DLTHUB_TELEMETRY: "false"
+    API_REQUEST_TIMEOUT: "30"
+    API_MAX_RETRIES: "2"
+    DEPENDENCY_BATCH_SIZE: "100"
+    API_BASE_URL: >-
+      https://laa-provider-details-api-uat.apps.live.cloud-platform.service.justice.gov.uk/
+    PIPELINE_DIR: "providers_staging_dev/"
+    DATABASE_NAME: "pda_airflow"
+
+  tasks:
+    # Athena-only: office codes are read from the source table.
+    # Loads into submissions_provider_offices.
+    extract-submissions-provider-office:
+      env_vars:
+        PIPELINE_NAME: "providers_prod_submissions_office_details"
+        API_ENDPOINTS: "provider_office_details"
+        DEPENDENCY_MODE: "athena"
+        ATHENA_SOURCE_DATABASE: "laa_df_dummy"
+        ATHENA_SOURCE_TABLE: "submissions"
+        ATHENA_SOURCE_COLUMNS: "officeCode=office_account_number"
+        ATHENA_SOURCE_WORKGROUP: "primary"
+
+iam:
+  external_role: arn:aws:iam::307869868585:role/cadet
+  athena: write
+  glue: true
+  s3_read_only:
+    - poc-fake-data-df/tables/*
+  s3_read_write:
+    - poc-fake-data-df/pda_manual_test/*
+    - poc-fake-data-df/athena-results/*
+
+secrets:
+  - api-token
+
+notifications:
+  emails:
+    - Damilola.Oyebade@justice.gov.uk
+  slack_channel: laa-de-alerts
+
+maintainers:
+  - dami-moj
+
+tags:
+  business_unit: LAA
+  owner: Damilola.Oyebade@justice.gov.uk
