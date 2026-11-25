@@ -44,7 +44,9 @@ notifications:
     - andrew.craik@justice.gov.uk
     - anthony.fitzroy@justice.gov.uk
     - anthony.cody@justice.gov.uk
-  slack_channel: dmet-hmpps-team
+  slack_channel: hmpps-data-notifications
+  slack_events:
+    - failure
 
 iam:
   external_role: arn:aws:iam::004723187462:role/dpr-data-api-cross-account-role
