@@ -36,6 +36,5 @@ notifications:
   slack_channel: coat-notifications
   slack_events:
     - failure
-    - success
     - skipped
   slack_skipped_text: "GitHub Copilot users-1-day report was not ready yet (upstream processing delay). The next scheduled run will retry."

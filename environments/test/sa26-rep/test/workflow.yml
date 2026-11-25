@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/sa26-dashboard-analysis
-  tag: v0-118
+  tag: v0-123
   catchup: false
   compute_profile: general-on-demand-4vcpu-16gb
   depends_on_past: false
@@ -33,7 +33,10 @@ iam:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=agency_locations_wap/*
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/table_name=reference_codes_wap/*
     - mojap-derived-tables/seeds/imprisonment_statuses/*
+    - mojap-derived-tables/seeds/lookup_court_disposals_v2/moj_disposal_codes/*
     - alpha-sentencing-pub/*
+    - alpha-pris-shared/*
+
   s3_read_write:
     - alpha-sa26-monitoring/*
 

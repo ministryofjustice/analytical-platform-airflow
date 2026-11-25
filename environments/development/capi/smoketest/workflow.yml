@@ -1,25 +1,24 @@
 dag:
   repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
-  tag: je-test-v1.0.16-dev
+  tag: je-test-v1.1.2-dev
   env_vars:
     # Keep the existing development environment and AWS region.
     ENV_FOR_DYNACONF: dev
     AWS_DEFAULT_REGION: eu-west-1
 
-    # Use distinct names for this test's outputs.
     DYNACONF_DATASET: 2324_je_20261109_01
     DYNACONF_RUN_VERSION: je_test_20261109_01
     DYNACONF_ADDRESS_AUDIT_TABLE: address_detection_audit_2324_je_20261109_01
 
-    # Keep the smoke test limited to 20 people.
     DYNACONF_SAMPLE_FROM_COHORT: "true"
     DYNACONF_LIMIT_ROWS: "true"
     DYNACONF_LIMIT: "20"
     DYNACONF_ADDRESS_AUDIT_ENABLED: "true"
     DYNACONF_ADDRESS_DETECTION_ENABLED: "true"
 
-    # Give this test its own baseline master rather than deleting the shared one.
     DYNACONF_ADDRESS_BASELINE_MASTER_TABLE: address_baseline_master_je_20261109_01
+
+    DYNACONF_MAX_TOKENS: "8192"
 
     AIRFLOW_CTX_DAG_ID: "{{ dag.dag_id }}"
     AIRFLOW_CTX_TASK_ID: "{{ ti.task_id }}"
@@ -55,6 +54,7 @@ iam:
   athena: write
   glue: true
   bedrock: true
+  lake_formation: true
   s3_read_write:
     - alpha-bold-pilot-rr-families/*
   s3_read_only:
@@ -67,6 +67,7 @@ notifications:
 
 maintainers:
   - guyvw1
+  - jedholm-moj
 
 tags:
   business_unit: HQ

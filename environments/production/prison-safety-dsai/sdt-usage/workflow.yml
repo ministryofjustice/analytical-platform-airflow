@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdt-usage
-  tag: v1.0.2
+  tag: v1.1.0
   schedule: "0 19 1 * *"
 
 iam:
@@ -21,4 +21,4 @@ maintainers:
 
 tags:
   business_unit: HMPPS
-  owner: william.miller1@justice.gov.uk
+  owner: laura.tracey@justice.gov.uk

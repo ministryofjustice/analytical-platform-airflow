@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/airflow-shs-qual
-  tag: v1.6.1
-  compute_profile: "general-spot-2vcpu-8gb"
+  tag: v1.6.6
+  compute_profile: "general-spot-4vcpu-16gb"
   schedule:
     datasets:
       - "s3://alpha-safety-mi/prisons_ds/dev_selfharm_proc/"
@@ -14,14 +14,10 @@ dag:
 
 iam:
   athena: write
+  lake_formation: true
 
   s3_read_only:
-    - alpha-nomis/nomis_dn/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
     - alpha-safety-mi/prisons_ds/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
-    - mojap-derived-tables/seeds/nomis_dn/*
 
   s3_read_write:
     - alpha-app-safety-diagnostic-tool/*
@@ -36,4 +32,4 @@ maintainers:
 
 tags:
   business_unit: HMPPS
-  owner: william.miller1@justice.gov.uk
+  owner: laura.tracey@justice.gov.uk

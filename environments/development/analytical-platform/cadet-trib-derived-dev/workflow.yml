@@ -1,7 +1,51 @@
----
 dag:
+  schedule:
+    datasets:
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_bridgeclaimjurisdiction
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_bridgerejectedclaimsrejectedreason
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_datadictionary
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimclaim
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimdate
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimdisposaltype
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimhearing
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimhearingstatus
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimjudicialpaymentregion
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimjurisdiction
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimjurisdictionoutcome
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimmanagingoffice
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimrejectedreason
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimrole
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_dimsource
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factacceptedclaims
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factdisposedclaims
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factdisposedjurisdictions
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_facthearingdays
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factmemberdays
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factopenclaims
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factpostponedhearings
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factrejectedclaims
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factservedclaims
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factsittingdays
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_et_factsubmittedclaims
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimcase
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimconstituent
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimconstituentbridge
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimconstituentgroup
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimdate
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimhearing
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimoutcome
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimsession
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimstate
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_dimvenue
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factcaseoutcomeevents
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factcaseoutcomes
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factcasestates
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factdisposals
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_facthearings
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factprehearingpostponements
+      - s3://hmcts/datasets/dev/derived-tribunals/modal-load/load_sscs_factsessions
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.5.7
+  tag: 1.5.12
   compute_profile: general-on-demand-16vcpu-64gb
   catchup: false
   is_paused_upon_creation: true
@@ -12,21 +56,26 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-curated-dev
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-derived-tribunals-dev
-    BRANCH: feature/derived-tribunals-cadet-templates
-    MODE: compile
-    THREAD_COUNT: 1
+    BRANCH: main
+    MODE: build
+    THREAD_COUNT: 10
   tasks:
-    compile_et:
+    build_et:
       compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
-        MODE: compile
+        MODE: build
         DBT_SELECT_CRITERIA: path:models/tribunals/et_derived
-    compile_sscs:
+      outlets:
+        - s3://hmcts/datasets/dev/derived-tribunals/cadet/curated-et
+    build_sscs:
       compute_profile: general-on-demand-4vcpu-16gb
       env_vars:
-        MODE: compile
+        MODE: build
         DBT_SELECT_CRITERIA: path:models/tribunals/sscs_derived
+      outlets:
+        - s3://hmcts/datasets/dev/derived-tribunals/cadet/curated-sscs
 maintainers:
+  - DanJ-MOJ
   - AntonyJScott
 tags:
   business_unit: Central Digital
