@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-assault-reasons-locations
-  tag: v0.6.1
+  tag: v0.6.2
   env_vars:
     AIRFLOW_ENVIRONMENT: "DEVELOPMENT"
   outlets:
