@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-3-feature-test-hitl
-  tag: 0.0.3
+  tag: 0.0.5
   python_dag: true
 
 iam:
