@@ -1,4 +1,4 @@
-"""Daily roll-up: runs when all 24 hourly summaries for a day exist."""
+"""Daily: runs on each hourly summary and rolls the hours up into a day for the prison."""
 
 import datetime
 
@@ -6,23 +6,20 @@ try:
     from airflow.sdk import (
         DAG,
         Asset,
-        DayWindow,
+        IdentityMapper,
         PartitionedAssetTimetable,
-        RollupMapper,
-        StartOfHourMapper,
-        WaitForAll,
+        ProductMapper,
+        StartOfDayMapper,
     )
 
-    HOURLY_SUMMARY = Asset(
-        name="prison_hourly_summary",
-        uri="s3://mojdp-test-mwaa/asset-partition-demo/summaries/hourly",
-    )
+    BASE_URI = "s3://mojdp-test-mwaa/asset-partition-demo"
+    HOURLY_SUMMARY = Asset(name="prison_hourly_summary", uri=f"{BASE_URI}/summaries/hourly")
+
     ASSET_SCHEDULE = PartitionedAssetTimetable(
         assets=HOURLY_SUMMARY,
-        default_partition_mapper=RollupMapper(
-            upstream_mapper=StartOfHourMapper(input_format="%Y-%m-%dT%H"),
-            window=DayWindow(),
-            wait_policy=WaitForAll(),
+        default_partition_mapper=ProductMapper(
+            IdentityMapper(),
+            StartOfDayMapper(input_format="%Y-%m-%dT%H"),
         ),
     )
 except ImportError:
@@ -32,12 +29,12 @@ except ImportError:
 
 from data_platform.standard_operator import DataPlatformStandardOperator
 
-REPOSITORY_NAME = "PLACEHOLDER_REPOSITORY_NAME"
-REPOSITORY_TAG = "PLACEHOLDER_REPOSITORY_TAG"
-PROJECT = "PLACEHOLDER_PROJECT"
-WORKFLOW = "PLACEHOLDER_WORKFLOW"
-ENVIRONMENT = "PLACEHOLDER_ENVIRONMENT"
-OWNER = "PLACEHOLDER_OWNER"
+REPOSITORY_NAME = "moj-analytical-services/airflow-3-feature-test-hitl"
+REPOSITORY_TAG = "0.0.5"
+PROJECT = "data-platform"
+WORKFLOW = "example-partition-daily"
+ENVIRONMENT = "data-platform-test"
+OWNER = "analytical-platform@justice.gov.uk"
 
 IMAGE = f"509399598587.dkr.ecr.eu-west-2.amazonaws.com/{REPOSITORY_NAME}:{REPOSITORY_TAG}"
 
@@ -63,7 +60,6 @@ with DAG(
         env_vars={
             "BUCKET": "mojdp-test-mwaa",
             "BASE": "asset-partition-demo",
-            "PRISON": "alpha",
             "PARTITION_KEY": "{{ dag_run.partition_key }}",
         },
     )
