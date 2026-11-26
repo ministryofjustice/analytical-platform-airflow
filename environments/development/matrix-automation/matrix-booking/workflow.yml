@@ -1,7 +1,7 @@
 dag:
   repository: moj-analytical-services/matrix-booking-airflow
   tag: v1.0.3
-  schedule: "0 0 * * *"
+  schedule: "0 1 * * *"
   catchup: false
   max_active_runs: 1
   retries: 2
