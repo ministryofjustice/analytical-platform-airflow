@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/laa-provider-details-etl
-  tag: 2.0.1-athena
+  tag: 2.0.1-athena-beta
   retries: 1
   retry_delay: 150
   env_vars:
