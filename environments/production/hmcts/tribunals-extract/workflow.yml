@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v4.3.7
+  tag: v4.3.8
   retries: 2
   retry_delay: 150
   schedule: 0 20 * * *
