@@ -1,0 +1,20 @@
+---
+dag:
+  repository: moj-analytical-services/airflow-3-feature-test-hitl
+  tag: 0.0.3
+  python_dag: true
+
+iam:
+  s3_read_only:
+    - mojdp-test-mwaa/asset-partition-demo/*
+  kms:
+    - arn:aws:kms:eu-west-2:259787491607:key/5cb1aa06-7d28-4e11-8cd7-06a9378ea656
+
+maintainers:
+  - raghavvidya
+  - jhpyke
+  - tamsinforbes
+
+tags:
+  business_unit: Central Digital
+  owner: analytical-platform@justice.gov.uk
