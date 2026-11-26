@@ -2,9 +2,8 @@
 dag:
   repository: moj-analytical-services/laa-provider-details-etl
   tag: 2.0.1-athena
-  retries: 2
+  retries: 1
   retry_delay: 150
-  compute_profile: general-on-demand-8vcpu-32gb
   env_vars:
     ENVIRONMENT: "dev"
     LOG_LEVEL: "INFO"
@@ -21,7 +20,7 @@ dag:
     DISABLE_COMPRESSION: "true"
     DLTHUB_TELEMETRY: "false"
     API_REQUEST_TIMEOUT: "30"
-    API_MAX_RETRIES: "2"
+    API_MAX_RETRIES: "1"
     DEPENDENCY_BATCH_SIZE: "100"
     API_BASE_URL: >-
       https://laa-provider-details-api-uat.apps.live.cloud-platform.service.justice.gov.uk/
@@ -64,4 +63,4 @@ maintainers:
 
 tags:
   business_unit: LAA
-  owner: Damilola.Oyebade@justice.gov.uk
+  owner: LAA-Data-Engineering@justice.gov.uk
