@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/airflow-sdp-extraction
-  tag: v4.3.7
+  tag: v4.3.8
   retries: 0
   hmcts_sdp_networking: true
   is_paused_upon_creation: true
@@ -13,15 +13,16 @@ dag:
     COPY_MODE: all
     DRYRUN: "False"
     WRITE_FOLDER_STRUCTURE: file_only
-    EXCLUDED_FILES_REGEXPR: (^|/)_delta_log/|(?i:^(?!.*[.]parquet$))
     LAND_BUCKET: mojap-land-dev
+    EXCLUDE_FILES_REGEXPR: (^|/)_delta_log/|(?i:^(?!.*[.]parquet$))
   tasks:
     rdm_dimdate:
       env_vars:
-        BLOB_PREFIX: synapse/workspaces/mi-synapse-prod/warehouse/rdm.db/dimdate/
+        BLOB_PREFIX: >-
+          synapse/workspaces/mi-synapse-prod/warehouse/rdm.db/dimdate/
         S3_TABLE: dimdate
         DATABASE_NAME: family_sdp_rdm_dev
-        LAND_PATH: hmcts/family-sdp/poc/rdm/
+        LAND_PATH: hmcts/family-sdp/poc-v2/rdm/
       compute_profile: general-spot-1vcpu-4gb
 iam:
   athena: write
