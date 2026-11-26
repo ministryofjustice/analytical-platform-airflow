@@ -28,13 +28,11 @@ iam:
     - mojap-derived-tables/dev/models/domain_name=people/database_name=counter_fraud_misconduct*
 
 maintainers:
-  - jhenfrancis
   - sheilz81
   - adityadsgit
 
 notifications:
   emails:
-    - jhenielle.francis@justice.gov.uk
     - sheila.ladva@justice.gov.uk
     - aditya.upmanyu@justice.gov.uk
   slack_channel: cf-misconduct-notifications
