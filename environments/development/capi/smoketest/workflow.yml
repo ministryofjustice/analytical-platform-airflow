@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/bold_rr_pilot_families_llm_info_extraction
-  tag: je-test-v1.1.6-dev
+  tag: je-test-v1.1.7-dev
   env_vars:
     # Keep the existing development environment and AWS region.
     ENV_FOR_DYNACONF: dev
@@ -15,6 +15,7 @@ dag:
     DYNACONF_LIMIT: "20"
     DYNACONF_ADDRESS_AUDIT_ENABLED: "true"
     DYNACONF_ADDRESS_DETECTION_ENABLED: "true"
+    DYNACONF_BATCH_INFERENCE_MAX_TRIES: "5"
 
     DYNACONF_ADDRESS_BASELINE_MASTER_TABLE: address_baseline_master_je_20261109_01
 
