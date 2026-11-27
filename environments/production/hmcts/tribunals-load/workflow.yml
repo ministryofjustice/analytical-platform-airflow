@@ -1,7 +1,7 @@
 ---
 dag:
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.2.1
+  tag: v2.2.2
   start_date: "2026-10-02"
   schedule: 30 3 * * *
   is_paused_upon_creation: false
@@ -24,13 +24,10 @@ dag:
       env_vars:
         MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_englandwales"
 
-    et_load_et_englandwales_listings:
+    et_load_et_scotland:
+      compute_profile: general-on-demand-16vcpu-64gb
       env_vars:
-        MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_englandwales_listings"
-
-    et_load_et_englandwales_multiple:
-      env_vars:
-        MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_englandwales_multiple"
+        MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_scotland"
 
     ccd_load_sscs_benefit:
       compute_profile: general-on-demand-32vcpu-128gb
