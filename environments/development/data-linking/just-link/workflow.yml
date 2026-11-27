@@ -214,6 +214,40 @@ dag:
       dependencies: [model_training_probation_delius]
 
     # -----------------------
+    # FINES DEDUPE JOB
+    # -----------------------
+    source_nodes_fines_gob:
+      compute_profile: general-spot-1vcpu-4gb
+      env_vars:
+        PIPELINE_STAGE: source_nodes
+        PIPELINE_DATASET: fines_gob
+        PIPELINE_VERSION: dev
+
+    standardised_nodes_fines_gob:
+      compute_profile: general-spot-4vcpu-16gb
+      env_vars:
+        PIPELINE_STAGE: standardised_nodes
+        PIPELINE_DATASET: fines_gob
+        PIPELINE_VERSION: dev
+      dependencies: [source_nodes_fines_gob]
+
+    model_training_fines_gob:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        PIPELINE_STAGE: model_training
+        PIPELINE_DATASET: fines_gob
+        PIPELINE_VERSION: dev
+      dependencies: [standardised_nodes_fines_gob]
+
+    edge_generation_fines_gob:
+      compute_profile: general-spot-8vcpu-32gb
+      env_vars:
+        PIPELINE_STAGE: edge_generation
+        PIPELINE_DATASET: fines_gob
+        PIPELINE_VERSION: dev
+      dependencies: [model_training_fines_gob]
+
+    # -----------------------
     # FAMILYMAN DEDUPE JOB
     # -----------------------
     source_nodes_familyman:
@@ -297,6 +331,7 @@ dag:
         - standardised_nodes_prison_nomis
         - standardised_nodes_prison_oasys
         - standardised_nodes_probation_delius
+        - standardised_nodes_fines_gob
 
     model_training_cjs:
       compute_profile: general-spot-64vcpu-256gb
@@ -321,6 +356,7 @@ dag:
         - edge_generation_prison_nomis
         - edge_generation_prison_oasys
         - edge_generation_probation_delius
+        - edge_generation_fines_gob
 
     products_person:
       compute_profile: general-spot-1vcpu-4gb
