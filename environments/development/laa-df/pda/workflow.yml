@@ -1,54 +1,50 @@
 ---
 dag:
   repository: moj-analytical-services/laa-provider-details-etl
-  tag: 2.0.1-athena-beta
+  tag: 3.0.0-alpha
   retries: 1
   retry_delay: 150
   env_vars:
     ENVIRONMENT: "dev"
     LOG_LEVEL: "INFO"
-    BUCKET_URL: >-
-      s3://poc-fake-data-df/pda_manual_test/raw
-    CACHE_DIRECTORY: >-
-      s3://poc-fake-data-df/pda_manual_test/cache
-    ERROR_SUMMARY_DIR: >-
-      s3://poc-fake-data-df/pda_manual_test/error_summaries
-    QUERY_RESULT_BUCKET: >-
-      s3://poc-fake-data-df/athena-results/
+    LOAD_MODE: "athena_iceberg"
+    PIPELINE_AWS_REGION: "eu-west-2"
     ATHENA_WORK_GROUP: "primary"
-    CACHE_ENABLED: "true"
+    DATABASE_NAME: "pda-raw"
+    CACHE_ENABLED: "false"
+    CACHE_BACKEND: "none"
+    ERROR_SUMMARY_BACKEND: "log"
     DISABLE_COMPRESSION: "true"
     DLTHUB_TELEMETRY: "false"
     API_REQUEST_TIMEOUT: "30"
-    API_MAX_RETRIES: "1"
+    API_MAX_RETRIES: "2"
     DEPENDENCY_BATCH_SIZE: "100"
     API_BASE_URL: >-
       https://laa-provider-details-api-uat.apps.live.cloud-platform.service.justice.gov.uk/
-    PIPELINE_DIR: "providers_staging_dev/"
-    DATABASE_NAME: "pda_airflow"
 
   tasks:
-    # Athena-only: office codes are read from the source table.
-    # Loads into submissions_provider_offices.
-    extract-submissions-provider-office:
+    extract-procurement-areas:
       env_vars:
-        PIPELINE_NAME: "providers_prod_submissions_office_details"
+        PIPELINE_NAME: "pda_raw_athena_iceberg"
+        API_ENDPOINTS: "procurement_areas"
+
+    extract-access-points:
+      env_vars:
+        PIPELINE_NAME: "pda_raw_athena_iceberg"
+        API_ENDPOINTS: "access_points"
+
+    extract-provider-office-details:
+      env_vars:
+        PIPELINE_NAME: "pda_raw_athena_iceberg"
         API_ENDPOINTS: "provider_office_details"
         DEPENDENCY_MODE: "athena"
-        ATHENA_SOURCE_DATABASE: "laa_df_dummy"
-        ATHENA_SOURCE_TABLE: "submissions"
-        ATHENA_SOURCE_COLUMNS: "officeCode=office_account_number"
         ATHENA_SOURCE_WORKGROUP: "primary"
+        ATHENA_SOURCE_DATABASE: "data-claims"
+        ATHENA_SOURCE_TABLE: "submission"
+        ATHENA_SOURCE_COLUMNS: "officeCode=office_account_number"
 
 iam:
-  external_role: arn:aws:iam::307869868585:role/cadet
-  athena: write
-  glue: true
-  s3_read_only:
-    - poc-fake-data-df/tables/*
-  s3_read_write:
-    - poc-fake-data-df/pda_manual_test/*
-    - poc-fake-data-df/athena-results/*
+  external_role: arn:aws:iam::766696030771:role/airflow_pda
 
 secrets:
   - api-token
