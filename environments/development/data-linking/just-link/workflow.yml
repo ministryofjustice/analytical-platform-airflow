@@ -224,7 +224,7 @@ dag:
         PIPELINE_VERSION: dev
 
     standardised_nodes_fines_gob:
-      compute_profile: general-spot-4vcpu-16gb
+      compute_profile: general-spot-8vcpu-32gb
       env_vars:
         PIPELINE_STAGE: standardised_nodes
         PIPELINE_DATASET: fines_gob
