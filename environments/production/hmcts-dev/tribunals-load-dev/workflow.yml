@@ -1,13 +1,13 @@
 ---
 dag:
   repository: moj-analytical-services/moj-data-loader
-  tag: v2.2.1
+  tag: v2.2.2
   start_date: "2026-10-02"
   is_paused_upon_creation: false
 
   env_vars:
     MODAL_ENV: "dev"
-    MODAL_ALLOW_PROD: "true"
+    MODAL_ALLOW_PROD: "false"
     MODAL_SCHEMA_CONTRACT: "evolve"
     AWS_DEFAULT_REGION: "eu-west-1"
     AWS_ATHENA_QUERY_EXTRACT_REGION: "eu-west-1"
@@ -23,13 +23,10 @@ dag:
       env_vars:
         MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_englandwales"
 
-    et_load_et_englandwales_listings:
+    et_load_et_scotland:
+      compute_profile: general-on-demand-16vcpu-64gb
       env_vars:
-        MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_englandwales_listings"
-
-    et_load_et_englandwales_multiple:
-      env_vars:
-        MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_englandwales_multiple"
+        MODAL_PIPELINE_NAME: "employment_tribunals_v1/et_scotland"
 
     ccd_load_sscs_benefit:
       compute_profile: general-on-demand-32vcpu-128gb
@@ -41,6 +38,7 @@ iam:
   glue: true
 
   s3_read_only:
+    - mojap-land/hmcts/employment-tribunals/*
     - mojap-land-dev/hmcts/employment-tribunals/*
     - mojap-land-dev/hmcts/ccd-sscs/*
 
