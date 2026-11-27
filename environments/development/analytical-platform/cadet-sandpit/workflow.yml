@@ -8,7 +8,7 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-sandpit
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: cadet-sandpit-airflow
-    DBT_SELECT_CRITERIA: models/general/addressbase_stg
+    DBT_SELECT_CRITERIA: models/general/common_lookup
     BRANCH: main
     MODE: build
 
