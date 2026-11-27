@@ -1,7 +1,7 @@
 ---
 dag:
   repository: ministryofjustice/analytical-platform-airflow-cadet-deployer
-  tag: 1.5.12
+  tag: 1.5.14
   catchup: false
   is_paused_upon_creation: true
   max_active_runs: 1
@@ -14,7 +14,7 @@ dag:
     DBT_PROFILE_WORKGROUP: dbt-curated-dev
     DBT_PROJECT: mojap_derived_tables
     WORKFLOW_NAME: deploy-tribunals-expanded-dev
-    BRANCH: main
+    BRANCH: feature/tribunals-scotland-expanded-pass-through
     MODE: run
     THREAD_COUNT: 1
   tasks:
@@ -38,6 +38,24 @@ dag:
           expanded_tribunals_raw__sscs_benefit_iceberg
       dependencies:
         - build_expanded
+    build_scotland_expanded:
+      compute_profile: general-on-demand-16vcpu-64gb
+      env_vars:
+        MODE: run
+        DBT_SELECT_CRITERIA: >-
+          expanded_tribunals_raw__et_scotland
+          expanded_tribunals_raw__et_scotland_iceberg
+
+    validate_scotland_expanded:
+      compute_profile: general-on-demand-4vcpu-16gb
+      env_vars:
+        MODE: test
+        DBT_SELECT_CRITERIA: >-
+          expanded_tribunals_raw__et_scotland
+          expanded_tribunals_raw__et_scotland_iceberg
+      dependencies:
+        - build_scotland_expanded
+
 maintainers:
   - DanJ-MOJ
   - AntonyJScott
