@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-prison-network-app
-  tag: 1.8.30
+  tag: 1.8.31
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -18,8 +18,6 @@ iam:
   lake_formation: true
 
   s3_read_only:
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
     - alpha-app-bentham-app/*
     - alpha-app-hmpps-ct-tool/*
     - mojap-land/hmpps/prisoner-money/*
@@ -29,8 +27,6 @@ iam:
     - alpha-mojap-curated-xhibit/v2/xhibit_der/*
     - moj-reg-prod-curated/data-eng-uploader-prod/data/database_name=prison_video_calls/*
     - alpha-data-linking/v5/products/internal/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
-    - mojap-derived-tables/seeds/nomis_dn/*
     - mojap-derived-tables/prod/models/domain_name=courts/*
 
   s3_read_write:
