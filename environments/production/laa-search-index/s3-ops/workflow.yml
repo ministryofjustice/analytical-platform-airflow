@@ -1,0 +1,58 @@
+---
+dag:
+  repository: moj-analytical-services/laa-search-index-airflow-s3-ops
+  tag: v0.2.5
+  retries: 1
+  max_active_runs: 1
+  catchup: false
+
+  env_vars:
+    AWS_REGION: "eu-west-2"
+    LOG_LEVEL: "INFO"
+
+  tasks:
+    exists-splink:
+      env_vars:
+        MODE: "exists"
+        S3_PATH_FROM: "source"
+
+    copy-splink:
+      dependencies: [exists-splink]
+      env_vars:
+        MODE: "copy"
+
+    verify-splink:
+      dependencies: [copy-splink]
+      env_vars:
+        MODE: "exists"
+        S3_PATH_FROM: "destination"
+
+iam:
+  s3_read_only:
+    - mojap-data-production-datasync-laa-ingress-production/*
+
+  s3_read_write:
+    - laa-splink-search-s3/*
+
+  kms:
+    - arn:aws:kms:eu-west-2:593291632749:key/fe4674f4-52dc-4b73-a7c5-259c282742ba
+    - arn:aws:kms:eu-west-2:593291632749:key/e22c7aa4-4469-4c69-a7ee-0708201c51c9
+
+maintainers:
+  - dami-moj
+
+secrets:
+  - source-bucket
+  - source-key
+  - destination-bucket
+  - destination-key
+  - sse-kms-keyid
+
+notifications:
+  slack_channel: laa-search-index-alerts
+  slack_events:
+    - failure
+
+tags:
+  business_unit: LAA
+  owner: LAA-Data-Engineering@justice.gov.uk
