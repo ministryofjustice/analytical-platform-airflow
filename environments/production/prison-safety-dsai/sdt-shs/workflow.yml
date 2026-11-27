@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-shs-qual
-  tag: v1.6.0
+  tag: v2.0.0
   schedule:
     datasets:
       - "s3://alpha-safety-mi/prisons_ds/selfharm_proc/"
@@ -13,6 +13,7 @@ dag:
 
 iam:
   athena: write
+  lake_formation: true
 
   s3_read_only:
     - alpha-nomis/nomis_dn/*
@@ -35,4 +36,4 @@ maintainers:
 
 tags:
   business_unit: HMPPS
-  owner: william.miller1@justice.gov.uk
+  owner: laura.tracey@justice.gov.uk

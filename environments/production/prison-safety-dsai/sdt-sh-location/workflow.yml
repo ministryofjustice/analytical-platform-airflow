@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-sh-location
-  tag: v4.4.12
+  tag: v6.0.0
   env_vars:
     AIRFLOW_ENVIRONMENT: "PRODUCTION"
   tasks:
@@ -16,6 +16,7 @@ dag:
 
 iam:
   athena: write
+  lake_formation: true
 
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/table_name=selfharm/*
@@ -46,4 +47,4 @@ maintainers:
 
 tags:
   business_unit: HMPPS
-  owner: william.miller1@justice.gov.uk
+  owner: laura.tracey@justice.gov.uk

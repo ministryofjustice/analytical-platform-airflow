@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-assault-reasons-locations
-  tag: v0.5.9
+  tag: v1.0.0
   env_vars:
     AIRFLOW_ENVIRONMENT: "PRODUCTION"
   outlets:
@@ -13,6 +13,7 @@ dag:
 
 iam:
   athena: write
+  lake_formation: true
 
   s3_read_only:
     - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
@@ -35,4 +36,4 @@ maintainers:
 
 tags:
   business_unit: HMPPS
-  owner: william.miller1@justice.gov.uk
+  owner: laura.tracey@justice.gov.uk
