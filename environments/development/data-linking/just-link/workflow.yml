@@ -497,7 +497,7 @@ iam:
     - alpha-mojap-derived-family/*
     - alpha-mojap-civil/*
     - alpha-geography/prod/*/curated/*
-    - alpha-enforcement-data-engineering/db_v2/live/*
+    - alpha-enforcement-data-engineering/db_v2/*
 
   s3_read_write:
     - alpha-data-linking/*
