@@ -1,6 +1,6 @@
 dag:
   repository: moj-analytical-services/airflow-bentham-app
-  tag: 1.5.0
+  tag: 1.5.18
   catchup: false
   depends_on_past: false
   is_paused_upon_creation: false
@@ -15,16 +15,10 @@ dag:
 
 iam:
   athena: write
-
+  lake_formation: true
   s3_read_only:
     - alpha-app-kpi-s3-proxy/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dbt/*
-    - alpha-nomis/nomis_dn/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_sensitive/*
     - alpha-app-anvil-access-tool/*
-    - mojap-derived-tables/prod/models/domain_name=prison/database_name=nomis_dn/*
-    - mojap-derived-tables/seeds/nomis_dn/*
-
   s3_read_write:
     - alpha-app-bentham-app/*
     - alpha-athena-dump/*
